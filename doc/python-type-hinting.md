@@ -1,4 +1,4 @@
-# Python Type Hinting
+# Python Type Hinting test
 
 As a team we have committed to adding type hints throughout the Python code. This document defines our approach to type hinting, to ensure consistency in the
 codebase and avoid repeating discussions about how we apply typing.
