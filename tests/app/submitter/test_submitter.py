@@ -51,9 +51,10 @@ class TestRabbitMQSubmitter(TestCase):
 
     def test_when_first_connection_fails_then_secondary_succeeds(self):
         # Given
-        with patch("app.submitter.submitter.BlockingConnection") as connection, patch(
-            "app.submitter.submitter.URLParameters"
-        ) as url_parameters:
+        with (
+            patch("app.submitter.submitter.BlockingConnection") as connection,
+            patch("app.submitter.submitter.URLParameters") as url_parameters,
+        ):
             secondary_connection = Mock()
             connection.side_effect = [AMQPError(), secondary_connection]
 
@@ -78,9 +79,10 @@ class TestRabbitMQSubmitter(TestCase):
 
     def test_url_generation_with_credentials(self):
         # Given
-        with patch("app.submitter.submitter.BlockingConnection") as connection, patch(
-            "app.submitter.submitter.URLParameters"
-        ) as url_parameters:
+        with (
+            patch("app.submitter.submitter.BlockingConnection") as connection,
+            patch("app.submitter.submitter.URLParameters") as url_parameters,
+        ):
             secondary_connection = Mock()
             connection.side_effect = [AMQPError(), secondary_connection]
 
@@ -129,9 +131,12 @@ class TestRabbitMQSubmitter(TestCase):
         error = AMQPError()
         connection.close.side_effect = [error]
 
-        with patch(
-            "app.submitter.submitter.BlockingConnection", return_value=connection
-        ), patch("app.submitter.submitter.logger") as logger:
+        with (
+            patch(
+                "app.submitter.submitter.BlockingConnection", return_value=connection
+            ),
+            patch("app.submitter.submitter.logger") as logger,
+        ):
             # When
             published = self.submitter.send_message(
                 message={},

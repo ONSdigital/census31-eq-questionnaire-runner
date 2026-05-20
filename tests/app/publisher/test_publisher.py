@@ -26,7 +26,9 @@ class TestPubSub(TestCase):
         assert future is sentinel.future
 
         # Check the client call uses topic path and bytes payload.
-        self.publisher._client.publish.assert_called_once_with(self.topic_path, b"test-message")
+        self.publisher._client.publish.assert_called_once_with(
+            self.topic_path, b"test-message"
+        )
 
     def test_resolving_message_raises_exception_on_error(self):
         failing_future = Mock()

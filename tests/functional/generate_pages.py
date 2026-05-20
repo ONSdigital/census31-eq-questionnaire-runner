@@ -50,8 +50,7 @@ SPEC_PAGE_IMPORT = Template(
 """
 )
 
-SPEC_EXAMPLE_TEST = Template(
-    r"""
+SPEC_EXAMPLE_TEST = Template(r"""
 describe("Example Test", () => {
   beforeEach("Load the survey", () => {
     browser.openQuestionnaire(schema);
@@ -62,20 +61,15 @@ describe("Example Test", () => {
   });
 });
 
-"""
-)
+""")
 
-HEADER = Template(
-    r"""// >>> WARNING THIS PAGE WAS AUTO-GENERATED - DO NOT EDIT!!! <<<
+HEADER = Template(r"""// >>> WARNING THIS PAGE WAS AUTO-GENERATED - DO NOT EDIT!!! <<<
 import $basePage from "$relativeRequirePath/$basePageFile";
 
-"""
-)
+""")
 
-CLASS_NAME = Template(
-    r"""class ${pageName}Page extends $basePage {
-"""
-)
+CLASS_NAME = Template(r"""class ${pageName}Page extends $basePage {
+""")
 
 SECTION_SUMMARY_PAGE_URL = r"""  url() { return `/questionnaire/sections/${this.pageName}`; }
 
@@ -105,53 +99,41 @@ QUESTION_ERROR_PANEL = Template(
 """
 )
 
-ANSWER_LABEL_GETTER = Template(
-    r"""  ${answerName}Label() {
+ANSWER_LABEL_GETTER = Template(r"""  ${answerName}Label() {
     return `[for=${answerId}]`;
   }
 
-"""
-)
+""")
 
-ANSWER_ERROR_GETTER = Template(
-    r"""  ${answerName}ErrorItem() {
+ANSWER_ERROR_GETTER = Template(r"""  ${answerName}ErrorItem() {
     return `[data-qa=error-body] div.panel__body > ol`;
   }
 
-"""
-)
+""")
 
-ANSWER_LABEL_DESCRIPTION_GETTER = Template(
-    r"""  ${answerName}LabelDescription() {
+ANSWER_LABEL_DESCRIPTION_GETTER = Template(r"""  ${answerName}LabelDescription() {
     return `#${answerId}-label-description-hint`;
   }
 
-"""
-)
+""")
 
-ANSWER_GETTER = Template(
-    r"""  ${answerName}() {
+ANSWER_GETTER = Template(r"""  ${answerName}() {
     return `#${answerId}`;
   }
 
-"""
-)
+""")
 
-BLOCK_DESCRIPTION = Template(
-    r"""  ${block_name}Description() {
+BLOCK_DESCRIPTION = Template(r"""  ${block_name}Description() {
     return `div.block__description`;
   }
 
-"""
-)
+""")
 
-ANSWER_UNIT_TYPE_GETTER = Template(
-    r"""  ${answerName}Unit() {
+ANSWER_UNIT_TYPE_GETTER = Template(r"""  ${answerName}Unit() {
     return `#${answerId}-type`;
   }
 
-"""
-)
+""")
 
 SECTION_SUMMARY_ANSWER_GETTER = Template(
     r"""  ${answerName}() { return `[data-qa="${answerId}"]`; }
@@ -254,20 +236,16 @@ CLEAR_SELECTION_BUTTON_GETTER = r"""  clearSelectionButton() { return `.js-clear
 
 """
 
-CONSTRUCTOR = Template(
-    r"""  constructor() {
+CONSTRUCTOR = Template(r"""  constructor() {
     super(`${page_id}`);
   }
 
-"""
-)
+""")
 
-FOOTER = Template(
-    r"""}
+FOOTER = Template(r"""}
 
 export default new ${pageName}Page();
-"""
-)
+""")
 
 
 def generate_pascal_case_from_id(id_str):

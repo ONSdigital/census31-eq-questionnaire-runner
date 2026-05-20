@@ -19,4 +19,3 @@ export async function waitForText(selector, expectedText) {
     timeoutMsg: `Expected text '${expectedText}' for selector ${selector}`,
   });
 }
-

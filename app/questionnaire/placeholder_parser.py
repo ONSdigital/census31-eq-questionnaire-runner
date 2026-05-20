@@ -36,9 +36,9 @@ class PlaceholderParser:
         placeholder_list = QuestionnaireSchema.get_mutable_deepcopy(placeholder_list)
         for placeholder in placeholder_list:
             if placeholder["placeholder"] not in self._placeholder_map:
-                self._placeholder_map[
-                    placeholder["placeholder"]
-                ] = self._parse_placeholder(placeholder)
+                self._placeholder_map[placeholder["placeholder"]] = (
+                    self._parse_placeholder(placeholder)
+                )
         return self._placeholder_map
 
     def _resolve_value_source(self, value_source):

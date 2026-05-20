@@ -41,7 +41,7 @@ class AnswerStore:
 
     @staticmethod
     def _build_map(answers: List[Dict]):
-        """ Builds the answer_store's data structure from a list of answer dictionaries"""
+        """Builds the answer_store's data structure from a list of answer dictionaries"""
         return {
             (answer["answer_id"], answer.get("list_item_id")): Answer.from_dict(answer)
             for answer in answers
@@ -141,9 +141,11 @@ class AnswerStore:
         if answer := self.get_answer(answer_id, list_item_id):
             if isinstance(answer.value, list):
                 return [
-                    escape(list_item)
-                    if list_item and isinstance(list_item, str)
-                    else list_item
+                    (
+                        escape(list_item)
+                        if list_item and isinstance(list_item, str)
+                        else list_item
+                    )
                     for list_item in answer.value
                 ]
 

@@ -55,10 +55,10 @@ class RelationshipCollector(RelationshipQuestion):
         page_title_vars = super()._resolve_custom_page_title_vars()
 
         if to_list_item_position := self.current_location.to_list_item_id:
-            page_title_vars[
-                "to_list_item_position"
-            ] = self._questionnaire_store.list_store.list_item_position(
-                self.current_location.list_name, to_list_item_position
+            page_title_vars["to_list_item_position"] = (
+                self._questionnaire_store.list_store.list_item_position(
+                    self.current_location.list_name, to_list_item_position
+                )
             )
 
         return page_title_vars

@@ -45,9 +45,9 @@ class SubmissionHandler:
         payload = convert_answers(
             self._schema, self._questionnaire_store, self._full_routing_path
         )
-        payload[
-            "submission_language_code"
-        ] = self._session_store.session_data.language_code
+        payload["submission_language_code"] = (
+            self._session_store.session_data.language_code
+        )
         return payload
 
     def _store_submitted_time_and_display_address_in_session(self):
