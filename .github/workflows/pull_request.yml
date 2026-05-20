@@ -3,8 +3,8 @@ name: PR
 on:
   pull_request:
     branches:
+      - "main"
       - "v3-census"
-      - "branch-v*"
 
 jobs:
   python-dependencies:
