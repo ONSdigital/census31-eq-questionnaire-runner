@@ -6,7 +6,7 @@ build-backend = "poetry.core.masonry.api"
 name = "eq-questionnaire-runner"
 version = "0.1.0"
 description = "EQ Census 2021 questionnaire runner"
-authors = ["ONS"]
+authors = ["ONSDigital"]
 package-mode = false
 
 [tool.poetry.dependencies]
