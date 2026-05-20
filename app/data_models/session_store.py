@@ -59,9 +59,7 @@ class SessionStore:
         save session
         """
         if self._eq_session:
-            self._eq_session.session_data = StorageEncryption(
-                self.user_id, self.user_ik, self.pepper
-            ).encrypt_data(vars(self.session_data))
+            self._eq_session.session_data = StorageEncryption(self.user_id, self.user_ik, self.pepper).encrypt_data(vars(self.session_data))
 
             current_app.eq["storage"].put(self._eq_session, overwrite=True)
 
@@ -80,9 +78,7 @@ class SessionStore:
             self.session_data = None
 
     def _load(self):
-        logger.debug(
-            "finding eq_session_id in database", eq_session_id=self.eq_session_id
-        )
+        logger.debug("finding eq_session_id in database", eq_session_id=self.eq_session_id)
 
         self._eq_session = current_app.eq["storage"].get(EQSession, self.eq_session_id)
 
@@ -92,9 +88,7 @@ class SessionStore:
 
             if self._eq_session.session_data:
                 encrypted_session_data = self._eq_session.session_data
-                session_data = StorageEncryption(
-                    self.user_id, self.user_ik, self.pepper
-                ).decrypt_data(encrypted_session_data)
+                session_data = StorageEncryption(self.user_id, self.user_ik, self.pepper).decrypt_data(encrypted_session_data)
 
                 session_data = session_data.decode()
                 # for backwards compatibility
@@ -104,9 +98,7 @@ class SessionStore:
                 except ValueError:
                     pass
 
-                self.session_data = json.loads(
-                    session_data, object_hook=lambda d: SessionData(**d)
-                )
+                self.session_data = json.loads(session_data, object_hook=lambda d: SessionData(**d))
 
             logger.debug(
                 "found matching eq_session for eq_session_id in database",
@@ -114,8 +106,6 @@ class SessionStore:
                 user_id=self._eq_session.user_id,
             )
         else:
-            logger.debug(
-                "eq_session_id not found in database", eq_session_id=self.eq_session_id
-            )
+            logger.debug("eq_session_id not found in database", eq_session_id=self.eq_session_id)
 
         return self._eq_session

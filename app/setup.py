@@ -150,12 +150,8 @@ def create_app(  # noqa: C901  pylint: disable=too-complex, too-many-statements
 
     application.eq["id_generator"] = UserIDGenerator(
         application.config["EQ_SERVER_SIDE_STORAGE_USER_ID_ITERATIONS"],
-        application.eq["secret_store"].get_secret_by_name(
-            "EQ_SERVER_SIDE_STORAGE_USER_ID_SALT"
-        ),
-        application.eq["secret_store"].get_secret_by_name(
-            "EQ_SERVER_SIDE_STORAGE_USER_IK_SALT"
-        ),
+        application.eq["secret_store"].get_secret_by_name("EQ_SERVER_SIDE_STORAGE_USER_ID_SALT"),
+        application.eq["secret_store"].get_secret_by_name("EQ_SERVER_SIDE_STORAGE_USER_IK_SALT"),
     )
 
     cache_questionnaire_schemas()
@@ -195,10 +191,7 @@ def create_app(  # noqa: C901  pylint: disable=too-complex, too-many-statements
         """
         minify html response to decrease site traffic
         """
-        if (
-            application.config["EQ_ENABLE_HTML_MINIFY"]
-            and response.content_type == "text/html; charset=utf-8"
-        ):
+        if application.config["EQ_ENABLE_HTML_MINIFY"] and response.content_type == "text/html; charset=utf-8":
             response.set_data(
                 minify(
                     response.get_data(as_text=True),
@@ -334,12 +327,8 @@ def setup_submitter(application):
             secondary_host=secondary_host,
             port=application.config["EQ_RABBITMQ_PORT"],
             queue=application.config["EQ_RABBITMQ_QUEUE_NAME"],
-            username=application.eq["secret_store"].get_secret_by_name(
-                "EQ_RABBITMQ_USERNAME"
-            ),
-            password=application.eq["secret_store"].get_secret_by_name(
-                "EQ_RABBITMQ_PASSWORD"
-            ),
+            username=application.eq["secret_store"].get_secret_by_name("EQ_RABBITMQ_USERNAME"),
+            password=application.eq["secret_store"].get_secret_by_name("EQ_RABBITMQ_PASSWORD"),
         )
 
     elif application.config["EQ_SUBMISSION_BACKEND"] == "log":
@@ -376,9 +365,7 @@ def setup_feedback(application):
         if not bucket_id:
             raise Exception("Setting EQ_GCS_FEEDBACK_BUCKET_ID Missing")
 
-        application.eq["feedback_submitter"] = GCSFeedbackSubmitter(
-            bucket_name=bucket_id
-        )
+        application.eq["feedback_submitter"] = GCSFeedbackSubmitter(bucket_name=bucket_id)
 
     elif application.config["EQ_FEEDBACK_BACKEND"] == "log":
         application.eq["feedback_submitter"] = LogFeedbackSubmitter()
@@ -439,9 +426,7 @@ def add_blueprints(application):
 
 
 def setup_secure_cookies(application):
-    application.secret_key = application.eq["secret_store"].get_secret_by_name(
-        "EQ_SECRET_KEY"
-    )
+    application.secret_key = application.eq["secret_store"].get_secret_by_name("EQ_SECRET_KEY")
     application.session_interface = SHA256SecureCookieSessionInterface()
 
 

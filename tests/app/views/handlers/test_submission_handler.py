@@ -31,9 +31,7 @@ class TestSubmissionPayload(AppContextTestCase):
         self.expires_at = datetime.now(tzutc()) + timedelta(seconds=5)
 
     def test_submission_language_code_in_payload(self):
-        session_store = self.session_store.create(
-            "eq_session_id", "user_id", self.session_data, self.expires_at
-        )
+        session_store = self.session_store.create("eq_session_id", "user_id", self.session_data, self.expires_at)
         storage = Mock()
         storage.get_user_data = Mock(return_value=("{}", 1))
 
@@ -41,12 +39,6 @@ class TestSubmissionPayload(AppContextTestCase):
             "app.views.handlers.submission.get_session_store",
             return_value=session_store,
         ):
-            with patch(
-                "app.views.handlers.submission.convert_answers", return_value={}
-            ):
-                submission_handler = SubmissionHandler(
-                    QuestionnaireSchema({}), QuestionnaireStore(storage), {}
-                )
-                assert (
-                    submission_handler.get_payload()["submission_language_code"] == "cy"
-                )
+            with patch("app.views.handlers.submission.convert_answers", return_value={}):
+                submission_handler = SubmissionHandler(QuestionnaireSchema({}), QuestionnaireStore(storage), {})
+                assert submission_handler.get_payload()["submission_language_code"] == "cy"

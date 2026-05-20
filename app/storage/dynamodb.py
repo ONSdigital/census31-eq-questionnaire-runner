@@ -12,14 +12,10 @@ class Dynamodb(StorageHandler):
 
         put_kwargs = {"Item": storage_model.serialize(model)}
         if not overwrite:
-            put_kwargs["ConditionExpression"] = (
-                f"attribute_not_exists({storage_model.key_field})"
-            )
+            put_kwargs["ConditionExpression"] = f"attribute_not_exists({storage_model.key_field})"
 
         try:
-            response = table.put_item(**put_kwargs)["ResponseMetadata"][
-                "HTTPStatusCode"
-            ]
+            response = table.put_item(**put_kwargs)["ResponseMetadata"]["HTTPStatusCode"]
             return response == 200
         except ClientError as e:
             if e.response["Error"]["Code"] == "ConditionalCheckFailedException":

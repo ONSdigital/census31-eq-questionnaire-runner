@@ -20,9 +20,7 @@ class Block:
         self.title = block_schema.get("title")
         self.number = block_schema.get("number")
         self.link = self._build_link(block_schema["id"], return_to)
-        self.question = self.get_question(
-            block_schema, answer_store, list_store, metadata, schema, location
-        )
+        self.question = self.get_question(block_schema, answer_store, list_store, metadata, schema, location)
 
     def _build_link(self, block_id, return_to):
         return url_for(
@@ -34,9 +32,7 @@ class Block:
         )
 
     @staticmethod
-    def get_question(
-        block_schema, answer_store, list_store, metadata, schema, location
-    ):
+    def get_question(block_schema, answer_store, list_store, metadata, schema, location):
         """Taking question variants into account, return the question which was displayed to the user"""
         list_item_id = location.list_item_id
         for variant in block_schema.get("question_variants", []):
@@ -49,13 +45,9 @@ class Block:
                 location,
             )
             if display_variant:
-                return Question(
-                    variant["question"], answer_store, schema, list_item_id
-                ).serialize()
+                return Question(variant["question"], answer_store, schema, list_item_id).serialize()
 
-        return Question(
-            block_schema["question"], answer_store, schema, list_item_id
-        ).serialize()
+        return Question(block_schema["question"], answer_store, schema, list_item_id).serialize()
 
     def serialize(self):
         return {

@@ -29,9 +29,7 @@ class TestDurationForm(AppContextTestCase):
         )
 
     def test_zero(self):
-        form_class = get_duration_form(
-            {"mandatory": False, "units": ["years", "months"]}, error_messages
-        )
+        form_class = get_duration_form({"mandatory": False, "units": ["years", "months"]}, error_messages)
         form = form_class()
         form.years.raw_data = ["0"]
         form.years.data = 0
@@ -64,9 +62,7 @@ class TestDurationForm(AppContextTestCase):
         self._test_validation(True, "5", None, True)
         self._test_validation(False, "", None, True)
         self._test_validation(True, "", None, False, error="Enter a duration")
-        self._test_validation(
-            False, "word", None, False, error="Enter a valid duration"
-        )
+        self._test_validation(False, "word", None, False, error="Enter a valid duration")
         self._test_validation(True, "word", None, False, error="Enter a valid duration")
         self._test_validation(False, "-1", None, False, error="Enter a valid duration")
         self._test_validation(True, "-1", None, False, error="Enter a valid duration")
@@ -76,9 +72,7 @@ class TestDurationForm(AppContextTestCase):
         self._test_validation(True, None, "5", True)
         self._test_validation(False, None, "", True)
         self._test_validation(True, None, "", False, error="Enter a duration")
-        self._test_validation(
-            False, None, "word", False, error="Enter a valid duration"
-        )
+        self._test_validation(False, None, "word", False, error="Enter a valid duration")
         self._test_validation(True, None, "word", False, error="Enter a valid duration")
         self._test_validation(False, None, "-1", False, error="Enter a valid duration")
         self._test_validation(True, None, "-1", False, error="Enter a valid duration")
@@ -92,9 +86,7 @@ class TestDurationForm(AppContextTestCase):
         if months is not None:
             units.append("months")
 
-        form_class = get_duration_form(
-            {"mandatory": mandatory, "units": units}, error_messages
-        )
+        form_class = get_duration_form({"mandatory": mandatory, "units": units}, error_messages)
 
         form = form_class()
         if years is not None:

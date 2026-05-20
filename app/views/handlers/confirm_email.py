@@ -124,9 +124,7 @@ class ConfirmEmail:
             self._session_store.save()
 
     def _publish_fulfilment_request(self):
-        fulfilment_request = ConfirmationEmailFulfilmentRequest(
-            self._email, self._session_store.session_data, self._schema
-        )
+        fulfilment_request = ConfirmationEmailFulfilmentRequest(self._email, self._session_store.session_data, self._schema)
 
         try:
             return current_app.eq["cloud_tasks"].create_task(

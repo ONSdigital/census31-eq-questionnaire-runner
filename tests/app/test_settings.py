@@ -28,9 +28,7 @@ class TestSettings(unittest.TestCase):
         with self.assertRaises(Exception) as exception:
             settings.get_env_or_fail("MISSING_ENVIRONMENT_VARIABLE")
 
-        self.assertEqual(
-            "Setting 'MISSING_ENVIRONMENT_VARIABLE' Missing", str(exception.exception)
-        )
+        self.assertEqual("Setting 'MISSING_ENVIRONMENT_VARIABLE' Missing", str(exception.exception))
 
     def test_utcoffset_or_fail_raises_exception(self):
         datetime_without_offset = datetime.fromisoformat("2021-04-28T14:00:00")
@@ -38,9 +36,7 @@ class TestSettings(unittest.TestCase):
         with self.assertRaises(Exception) as exception:
             settings.utcoffset_or_fail(datetime_without_offset, "DATETIME_VAR")
 
-        self.assertEqual(
-            "'DATETIME_VAR' datetime offset missing", str(exception.exception)
-        )
+        self.assertEqual("'DATETIME_VAR' datetime offset missing", str(exception.exception))
 
 
 if __name__ == "__main__":

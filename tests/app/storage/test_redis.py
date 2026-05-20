@@ -173,9 +173,7 @@ class TestRedisConnectionErrors(AppContextTestCase):
         expires_at = used_at + timedelta(seconds=60)
         jti = UsedJtiClaim(str(uuid.uuid4()), expires_at)
 
-        self.redis.client.set = mock.Mock(
-            side_effect=[RedisConnectionError, RedisConnectionError]
-        )
+        self.redis.client.set = mock.Mock(side_effect=[RedisConnectionError, RedisConnectionError])
 
         # When
         with self.assertRaises(RedisConnectionError):
@@ -186,9 +184,7 @@ class TestRedisConnectionErrors(AppContextTestCase):
 
     def test_get_handles_connection_error_once(self):
         # Given
-        self.redis.client.get = mock.Mock(
-            side_effect=[RedisConnectionError, RedisConnectionError]
-        )
+        self.redis.client.get = mock.Mock(side_effect=[RedisConnectionError, RedisConnectionError])
 
         # When
         with self.assertRaises(RedisConnectionError):
@@ -203,9 +199,7 @@ class TestRedisConnectionErrors(AppContextTestCase):
         expires_at = used_at + timedelta(seconds=60)
         jti = UsedJtiClaim(str(uuid.uuid4()), expires_at)
 
-        self.redis.client.delete = mock.Mock(
-            side_effect=[RedisConnectionError, RedisConnectionError]
-        )
+        self.redis.client.delete = mock.Mock(side_effect=[RedisConnectionError, RedisConnectionError])
 
         # When
         with self.assertRaises(RedisConnectionError):

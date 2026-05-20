@@ -41,9 +41,7 @@ class TestUnitSingleCheckboxOverride(IntegrationTestCase):
 
     def test_invalid_exclusive_answers(self):
         # When
-        self.post(
-            {"unit-answer": "123", "unit-exclusive-answer": ["I prefer not to say"]}
-        )
+        self.post({"unit-answer": "123", "unit-exclusive-answer": ["I prefer not to say"]})
 
         # Then
         self.assertInBody("Remove an answer")

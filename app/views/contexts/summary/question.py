@@ -11,9 +11,7 @@ class Question:
         self.schema = schema
         self.answer_schemas = iter(question_schema["answers"])
         self.summary = question_schema.get("summary")
-        self.title = (
-            question_schema.get("title") or question_schema["answers"][0]["label"]
-        )
+        self.title = question_schema.get("title") or question_schema["answers"][0]["label"]
         self.number = question_schema.get("number", None)
         self.answers = self._build_answers(answer_store, question_schema)
 
@@ -26,18 +24,14 @@ class Question:
             return [
                 {
                     "id": f"{self.id}-concatenated-answer",
-                    "value": self._concatenate_answers(
-                        answer_store, self.summary["concatenation_type"]
-                    ),
+                    "value": self._concatenate_answers(answer_store, self.summary["concatenation_type"]),
                 }
             ]
 
         summary_answers = []
         for answer_schema in self.answer_schemas:
             answer_value = self._get_answer(answer_store, answer_schema["id"])
-            answer = self._build_answer(
-                answer_store, question_schema, answer_schema, answer_value
-            )
+            answer = self._build_answer(answer_store, question_schema, answer_schema, answer_value)
 
             summary_answer = Answer(answer_schema, answer).serialize()
             summary_answers.append(summary_answer)
@@ -54,25 +48,18 @@ class Question:
         answer_separators = {"Newline": "<br>", "Space": " "}
         answer_separator = answer_separators.get(concatenation_type, " ")
 
-        answer_values = [
-            self._get_answer(answer_store, answer_schema["id"])
-            for answer_schema in self.answer_schemas
-        ]
+        answer_values = [self._get_answer(answer_store, answer_schema["id"]) for answer_schema in self.answer_schemas]
 
         values_to_concatenate = []
         for answer_value in answer_values:
             if not answer_value:
                 continue
 
-            values_to_concatenate.extend(
-                answer_value if isinstance(answer_value, list) else [answer_value]
-            )
+            values_to_concatenate.extend(answer_value if isinstance(answer_value, list) else [answer_value])
 
         return answer_separator.join(str(value) for value in values_to_concatenate)
 
-    def _build_answer(
-        self, answer_store, question_schema, answer_schema, answer_value=None
-    ):
+    def _build_answer(self, answer_store, question_schema, answer_schema, answer_value=None):
         if answer_value is None:
             return None
 
@@ -88,9 +75,7 @@ class Question:
         }
 
         if answer_schema["type"] in answer_builder.keys():
-            return answer_builder[answer_schema["type"]](
-                answer_value, answer_schema, answer_store
-            )
+            return answer_builder[answer_schema["type"]](answer_value, answer_schema, answer_store)
 
         return answer_value
 
@@ -98,9 +83,7 @@ class Question:
         multiple_answers = []
         for option in answer_schema["options"]:
             if escape(option["value"]) in answer:
-                detail_answer_value = self._get_detail_answer_value(
-                    option, answer_store
-                )
+                detail_answer_value = self._get_detail_answer_value(option, answer_store)
 
                 multiple_answers.append(
                     {
@@ -119,9 +102,7 @@ class Question:
     def _build_radio_answer(self, answer, answer_schema, answer_store):
         for option in answer_schema["options"]:
             if answer == escape(option["value"]):
-                detail_answer_value = self._get_detail_answer_value(
-                    option, answer_store
-                )
+                detail_answer_value = self._get_detail_answer_value(option, answer_store)
                 return {
                     "label": option["label"],
                     "detail_answer_value": detail_answer_value,

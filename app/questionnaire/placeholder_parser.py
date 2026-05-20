@@ -36,9 +36,7 @@ class PlaceholderParser:
         placeholder_list = QuestionnaireSchema.get_mutable_deepcopy(placeholder_list)
         for placeholder in placeholder_list:
             if placeholder["placeholder"] not in self._placeholder_map:
-                self._placeholder_map[placeholder["placeholder"]] = (
-                    self._parse_placeholder(placeholder)
-                )
+                self._placeholder_map[placeholder["placeholder"]] = self._parse_placeholder(placeholder)
         return self._placeholder_map
 
     def _resolve_value_source(self, value_source):
@@ -54,36 +52,20 @@ class PlaceholderParser:
                 return getattr(list_model, id_selector)
 
             return len(list_model)
-        if (
-            value_source["source"] == "location"
-            and value_source["identifier"] == "list_item_id"
-        ):
+        if value_source["source"] == "location" and value_source["identifier"] == "list_item_id":
             return self._list_item_id
 
     def _resolve_answer_value(self, value_source):
         list_item_id = self._get_list_item_id_from_value_source(value_source)
 
         if isinstance(value_source["identifier"], (list, tuple)):
-            return [
-                self._answer_store.get_escaped_answer_value(
-                    each_identifier, list_item_id
-                )
-                for each_identifier in value_source["identifier"]
-            ]
-        answer = self._answer_store.get_escaped_answer_value(
-            value_source["identifier"], list_item_id
-        )
-        return (
-            answer.get(value_source["selector"])
-            if "selector" in value_source
-            else answer
-        )
+            return [self._answer_store.get_escaped_answer_value(each_identifier, list_item_id) for each_identifier in value_source["identifier"]]
+        answer = self._answer_store.get_escaped_answer_value(value_source["identifier"], list_item_id)
+        return answer.get(value_source["selector"]) if "selector" in value_source else answer
 
     def _resolve_metadata_value(self, identifier):
         if isinstance(identifier, (list, tuple)):
-            return [
-                self._metadata.get(each_identifier) for each_identifier in identifier
-            ]
+            return [self._metadata.get(each_identifier) for each_identifier in identifier]
         return self._metadata.get(identifier)
 
     def _parse_placeholder(self, placeholder: Mapping) -> Mapping:
@@ -107,9 +89,7 @@ class PlaceholderParser:
                 else:
                     transform_args[arg_key] = self._resolve_value_source(arg_value)
 
-            transformed_value = getattr(self._transformer, transform["transform"])(
-                **transform_args
-            )
+            transformed_value = getattr(self._transformer, transform["transform"])(**transform_args)
 
         return transformed_value
 

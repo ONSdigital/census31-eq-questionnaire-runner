@@ -25,15 +25,7 @@ class DateHandler(FieldHandler):
         validate_with = [OptionalForm()]
 
         if self.answer_schema["mandatory"] is True:
-            validate_with = [
-                DateRequired(
-                    message=self.get_validation_message(
-                        format_message_with_title(
-                            self.MANDATORY_MESSAGE_KEY, self.question_title
-                        )
-                    )
-                )
-            ]
+            validate_with = [DateRequired(message=self.get_validation_message(format_message_with_title(self.MANDATORY_MESSAGE_KEY, self.question_title)))]
 
         error_message = self.get_validation_message("INVALID_DATE")
 
@@ -117,19 +109,13 @@ class MonthYearDateHandler(DateHandler):
     DISPLAY_FORMAT = "MMMM yyyy"
 
     def get_field(self) -> MonthYearDateField:
-        return MonthYearDateField(
-            self.validators, label=self.label, description=self.guidance
-        )
+        return MonthYearDateField(self.validators, label=self.label, description=self.guidance)
 
     def get_min_max_validator(self, minimum_date, maximum_date):
         messages = self.answer_schema.get("validation", {}).get("messages")
 
-        minimum_date = (
-            minimum_date.replace(day=1) if minimum_date else None
-        )  # First day of Month
-        maximum_date = (
-            maximum_date + relativedelta(day=31) if maximum_date else None
-        )  # Last day of month
+        minimum_date = minimum_date.replace(day=1) if minimum_date else None  # First day of Month
+        maximum_date = maximum_date + relativedelta(day=31) if maximum_date else None  # Last day of month
 
         return SingleDatePeriodCheck(
             messages=messages,
@@ -144,19 +130,13 @@ class YearDateHandler(DateHandler):
     DISPLAY_FORMAT = "yyyy"
 
     def get_field(self) -> YearDateField:
-        return YearDateField(
-            self.validators, label=self.label, description=self.guidance
-        )
+        return YearDateField(self.validators, label=self.label, description=self.guidance)
 
     def get_min_max_validator(self, minimum_date, maximum_date):
         messages = self.answer_schema.get("validation", {}).get("messages")
 
-        minimum_date = (
-            minimum_date.replace(month=1, day=1) if minimum_date else None
-        )  # January 1st
-        maximum_date = (
-            maximum_date.replace(month=12, day=31) if maximum_date else None
-        )  # Last day of december
+        minimum_date = minimum_date.replace(month=1, day=1) if minimum_date else None  # January 1st
+        maximum_date = maximum_date.replace(month=12, day=31) if maximum_date else None  # Last day of december
 
         return SingleDatePeriodCheck(
             messages=messages,

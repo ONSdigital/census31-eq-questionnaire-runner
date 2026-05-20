@@ -20,9 +20,7 @@ DUMMY_MOBILE_NUMBER = "07700900258"
 @freeze_time(datetime.utcnow().isoformat())
 def test_sms_fulfilment_request_payload():
     metadata = {"region_code": "GB-ENG", "case_id": str(uuid4())}
-    fulfilment_request = IndividualResponseFulfilmentRequest(
-        metadata, DUMMY_MOBILE_NUMBER
-    )
+    fulfilment_request = IndividualResponseFulfilmentRequest(metadata, DUMMY_MOBILE_NUMBER)
 
     sms_json_message = json.loads(fulfilment_request.message)
     payload = sms_json_message["payload"]
@@ -91,14 +89,9 @@ def test_individual_case_id_not_present_when_case_type_ce():
 )
 def test_fulfilment_code_for_sms(region_code, expected_fulfilment_code):
     metadata = {"region_code": region_code, "case_id": str(uuid4()), "case_type": "SPG"}
-    fulfilment_request = IndividualResponseFulfilmentRequest(
-        metadata, DUMMY_MOBILE_NUMBER
-    )
+    fulfilment_request = IndividualResponseFulfilmentRequest(metadata, DUMMY_MOBILE_NUMBER)
     json_message = json.loads(fulfilment_request.message)
-    assert (
-        json_message["payload"]["fulfilmentRequest"]["fulfilmentCode"]
-        == expected_fulfilment_code
-    )
+    assert json_message["payload"]["fulfilmentRequest"]["fulfilmentCode"] == expected_fulfilment_code
 
 
 @pytest.mark.parametrize(
@@ -114,7 +107,4 @@ def test_fulfilment_code_for_postal(region_code, expected_fulfilment_code):
     fulfilment_request = IndividualResponseFulfilmentRequest(metadata)
     json_message = json.loads(fulfilment_request.message)
 
-    assert (
-        json_message["payload"]["fulfilmentRequest"]["fulfilmentCode"]
-        == expected_fulfilment_code
-    )
+    assert json_message["payload"]["fulfilmentRequest"]["fulfilmentCode"] == expected_fulfilment_code

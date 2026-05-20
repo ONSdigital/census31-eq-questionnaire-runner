@@ -30,9 +30,7 @@ class FieldHandler(ABC):
         self.location = location
         self.disable_validation = disable_validation
         self.question_title = str(question_title)
-        self.validation_messages = self.answer_schema.get("validation", {}).get(
-            "messages", {}
-        )
+        self.validation_messages = self.answer_schema.get("validation", {}).get("messages", {})
 
     @cached_property
     def validators(self):
@@ -49,19 +47,13 @@ class FieldHandler(ABC):
         return self.answer_schema.get("guidance", "")
 
     def get_validation_message(self, message_key):
-        return self.validation_messages.get(message_key) or self.error_messages.get(
-            message_key
-        )
+        return self.validation_messages.get(message_key) or self.error_messages.get(message_key)
 
     def get_mandatory_validator(self):
         if self.answer_schema["mandatory"] is True:
             mandatory_message = self.get_validation_message(self.MANDATORY_MESSAGE_KEY)
 
-            return ResponseRequired(
-                message=format_message_with_title(
-                    mandatory_message, self.question_title
-                )
-            )
+            return ResponseRequired(message=format_message_with_title(mandatory_message, self.question_title))
 
         return validators.Optional()
 
@@ -75,9 +67,7 @@ class FieldHandler(ABC):
                 answer_id = schema_element["value"].get("identifier")
                 list_item_id = self.location.list_item_id if self.location else None
 
-                return get_answer_value(
-                    answer_id, self.answer_store, schema, list_item_id=list_item_id
-                )
+                return get_answer_value(answer_id, self.answer_store, schema, list_item_id=list_item_id)
         return schema_element["value"]
 
     @abstractmethod

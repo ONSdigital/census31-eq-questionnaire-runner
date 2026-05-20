@@ -36,10 +36,7 @@ class TestCreateApp(unittest.TestCase):  # pylint: disable=too-many-public-metho
         settings.
 
         Returns a list of contexts."""
-        patches = [
-            patch("app.setup.settings.{}".format(k), v)
-            for k, v in self._setting_overrides.items()
-        ]
+        patches = [patch("app.setup.settings.{}".format(k), v) for k, v in self._setting_overrides.items()]
         for p in patches:
             p.start()
         yield patches
@@ -50,9 +47,7 @@ class TestCreateApp(unittest.TestCase):  # pylint: disable=too-many-public-metho
         self.assertIsInstance(create_app(self._setting_overrides), Flask)
 
     def test_sets_content_length(self):
-        self.assertGreater(
-            create_app(self._setting_overrides).config["MAX_CONTENT_LENGTH"], 0
-        )
+        self.assertGreater(create_app(self._setting_overrides).config["MAX_CONTENT_LENGTH"], 0)
 
     def test_enforces_secure_session(self):
         application = create_app(self._setting_overrides)
@@ -84,9 +79,7 @@ class TestCreateApp(unittest.TestCase):  # pylint: disable=too-many-public-metho
             self._setting_overrides.update({"EQ_APPLICATION_VERSION": False})
             application = create_app(self._setting_overrides)
 
-            x_cloud_headers = {
-                "X-Cloud-Trace-Context": "0123456789/0123456789012345678901;o=1"
-            }
+            x_cloud_headers = {"X-Cloud-Trace-Context": "0123456789/0123456789012345678901;o=1"}
             application.test_client().get("/", headers=x_cloud_headers)
 
             self.assertEqual(1, logger.bind.call_count)
@@ -100,14 +93,10 @@ class TestCreateApp(unittest.TestCase):  # pylint: disable=too-many-public-metho
         with create_app(self._setting_overrides).test_client() as client:
             headers = client.get(
                 "/",
-                headers={
-                    "X-Forwarded-Proto": "https"
-                },  # set protocal so that talisman sets HSTS headers
+                headers={"X-Forwarded-Proto": "https"},  # set protocal so that talisman sets HSTS headers
             ).headers
 
-            self.assertEqual(
-                "no-cache, no-store, must-revalidate", headers["Cache-Control"]
-            )
+            self.assertEqual("no-cache, no-store, must-revalidate", headers["Cache-Control"])
             self.assertEqual("no-cache", headers["Pragma"])
             self.assertEqual(
                 "max-age=31536000; includeSubDomains",
@@ -129,9 +118,7 @@ class TestCreateApp(unittest.TestCase):  # pylint: disable=too-many-public-metho
         with create_app(self._setting_overrides).test_client() as client:
             headers = client.get(
                 "/",
-                headers={
-                    "X-Forwarded-Proto": "https"
-                },  # set protocal so that talisman sets HSTS headers
+                headers={"X-Forwarded-Proto": "https"},  # set protocal so that talisman sets HSTS headers
             ).headers
 
             csp_policy_parts = headers["Content-Security-Policy"].split("; ")
@@ -152,9 +139,7 @@ class TestCreateApp(unittest.TestCase):  # pylint: disable=too-many-public-metho
                 f"font-src 'self' data: https://fonts.gstatic.com {cdn_url}",
                 csp_policy_parts,
             )
-            self.assertIn(
-                "frame-src https://www.googletagmanager.com", csp_policy_parts
-            )
+            self.assertIn("frame-src https://www.googletagmanager.com", csp_policy_parts)
             self.assertIn(
                 f"connect-src 'self' https://www.google-analytics.com {cdn_url} {address_lookup_api_url}",
                 csp_policy_parts,
@@ -287,9 +272,7 @@ class TestCreateApp(unittest.TestCase):  # pylint: disable=too-many-public-metho
 
     def test_adds_cloud_task_publisher_to_the_application(self):
         self._setting_overrides["EQ_SUBMISSION_CONFIRMATION_BACKEND"] = "cloud-tasks"
-        self._setting_overrides["EQ_SUBMISSION_CONFIRMATION_CLOUD_FUNCTION_NAME"] = (
-            "test"
-        )
+        self._setting_overrides["EQ_SUBMISSION_CONFIRMATION_CLOUD_FUNCTION_NAME"] = "test"
 
         # When
         with patch(
@@ -304,9 +287,7 @@ class TestCreateApp(unittest.TestCase):  # pylint: disable=too-many-public-metho
     def test_submission_backend_not_set_raises_exception(self):
         # Given
         self._setting_overrides["EQ_SUBMISSION_CONFIRMATION_BACKEND"] = ""
-        self._setting_overrides["EQ_SUBMISSION_CONFIRMATION_CLOUD_FUNCTION_NAME"] = (
-            "test"
-        )
+        self._setting_overrides["EQ_SUBMISSION_CONFIRMATION_CLOUD_FUNCTION_NAME"] = "test"
 
         # When
         with patch(
@@ -385,6 +366,4 @@ class TestCreateApp(unittest.TestCase):  # pylint: disable=too-many-public-metho
         self._setting_overrides["ADDRESS_LOOKUP_API_AUTH_ENABLED"] = True
         with self.assertRaises(Exception) as ex:
             create_app(self._setting_overrides)
-        assert "Missing Secret [ADDRESS_LOOKUP_API_AUTH_TOKEN_SECRET]" in str(
-            ex.exception
-        )
+        assert "Missing Secret [ADDRESS_LOOKUP_API_AUTH_TOKEN_SECRET]" in str(ex.exception)

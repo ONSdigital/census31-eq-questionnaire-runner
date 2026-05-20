@@ -45,11 +45,7 @@ class TestPlaceholderRenderer(AppContextTestCase):
                                                 "transform": "concatenate_list",
                                             },
                                             {
-                                                "arguments": {
-                                                    "string_to_format": {
-                                                        "source": "previous_transform"
-                                                    }
-                                                },
+                                                "arguments": {"string_to_format": {"source": "previous_transform"}},
                                                 "transform": "format_possessive",
                                             },
                                         ],
@@ -83,9 +79,7 @@ class TestPlaceholderRenderer(AppContextTestCase):
             ],
         }
 
-        self.pointers = list(
-            find_pointers_containing(self.question_json, "placeholders")
-        )
+        self.pointers = list(find_pointers_containing(self.question_json, "placeholders"))
 
     def test_correct_pointers(self):
         assert self.pointers[0] == "/answers/0/options/0/label"
@@ -103,9 +97,7 @@ class TestPlaceholderRenderer(AppContextTestCase):
         }
 
         json_to_render = self.question_json.copy()
-        json_to_render["answers"][0]["options"][0]["label"]["placeholders"][1][
-            "transforms"
-        ][0] = mock_transform
+        json_to_render["answers"][0]["options"][0]["label"]["placeholders"][1]["transforms"][0] = mock_transform
 
         renderer = PlaceholderRenderer(
             language="en",
@@ -119,9 +111,7 @@ class TestPlaceholderRenderer(AppContextTestCase):
             ),
         )
 
-        rendered = renderer.render_pointer(
-            self.question_json, "/answers/0/options/0/label", list_item_id=None
-        )
+        rendered = renderer.render_pointer(self.question_json, "/answers/0/options/0/label", list_item_id=None)
 
         assert rendered == "Hal Abelson’s age is 28 years. Is this correct?"
 
@@ -137,9 +127,7 @@ class TestPlaceholderRenderer(AppContextTestCase):
             },
         }
         json_to_render = self.question_json.copy()
-        json_to_render["answers"][0]["options"][0]["label"]["placeholders"][1][
-            "transforms"
-        ][0] = mock_transform
+        json_to_render["answers"][0]["options"][0]["label"]["placeholders"][1]["transforms"][0] = mock_transform
 
         renderer = PlaceholderRenderer(
             language="en",
@@ -170,9 +158,7 @@ class TestPlaceholderRenderer(AppContextTestCase):
             },
         }
         json_to_render = self.question_json.copy()
-        json_to_render["answers"][0]["options"][0]["label"]["placeholders"][1][
-            "transforms"
-        ][0] = mock_transform
+        json_to_render["answers"][0]["options"][0]["label"]["placeholders"][1]["transforms"][0] = mock_transform
 
         renderer = PlaceholderRenderer(
             language="cy",
@@ -207,9 +193,7 @@ class TestPlaceholderRenderer(AppContextTestCase):
 
 def test_renders_text_plural_from_answers():
     answer_store = AnswerStore([{"answer_id": "number-of-people", "value": 1}])
-    renderer = PlaceholderRenderer(
-        language="en", answer_store=answer_store, schema=Mock()
-    )
+    renderer = PlaceholderRenderer(language="en", answer_store=answer_store, schema=Mock())
 
     rendered_text = renderer.render_placeholder(
         {

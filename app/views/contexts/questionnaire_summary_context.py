@@ -12,15 +12,9 @@ class QuestionnaireSummaryContext(Context):
 
         submission_schema = self._schema.get_submission()
 
-        title = submission_schema.get("title") or lazy_gettext(
-            "Check your answers and submit"
-        )
-        submit_button = submission_schema.get("button") or lazy_gettext(
-            "Submit answers"
-        )
-        guidance = submission_schema.get("guidance") or lazy_gettext(
-            "Please submit this survey to complete it"
-        )
+        title = submission_schema.get("title") or lazy_gettext("Check your answers and submit")
+        submit_button = submission_schema.get("button") or lazy_gettext("Submit answers")
+        guidance = submission_schema.get("guidance") or lazy_gettext("Please submit this survey to complete it")
 
         warning = submission_schema.get("warning") or None
 

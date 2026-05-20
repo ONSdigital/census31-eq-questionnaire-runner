@@ -62,16 +62,12 @@ def _submit_data(user):
         router = Router(schema, answer_store, list_store, progress_store, metadata)
         full_routing_path = router.full_routing_path()
 
-        payload = convert_answers(
-            schema, questionnaire_store, full_routing_path, flushed=True
-        )
+        payload = convert_answers(schema, questionnaire_store, full_routing_path, flushed=True)
         payload["submission_language_code"] = "-9"
 
         message = json.dumps(payload, for_json=True)
 
-        encrypted_message = encrypt(
-            message, current_app.eq["key_store"], KEY_PURPOSE_SUBMISSION
-        )
+        encrypted_message = encrypt(message, current_app.eq["key_store"], KEY_PURPOSE_SUBMISSION)
 
         sent = current_app.eq["submitter"].send_message(
             encrypted_message,

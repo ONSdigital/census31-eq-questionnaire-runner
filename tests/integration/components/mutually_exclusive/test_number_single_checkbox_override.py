@@ -25,9 +25,7 @@ class TestNumberSingleCheckboxOverride(IntegrationTestCase):
 
     def test_exclusive_answer(self):
         # When
-        self.post(
-            {"number-answer": "", "number-exclusive-answer": ["I prefer not to say"]}
-        )
+        self.post({"number-answer": "", "number-exclusive-answer": ["I prefer not to say"]})
 
         # Then
         self.assertInUrl("/sections/mutually-exclusive-number-section/")

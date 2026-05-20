@@ -38,16 +38,12 @@ class TestJtiClaimStorage(AppContextTestCase):
 
         # When
         with self.assertRaises(JtiTokenUsed) as err:
-            with patch(
-                "app.storage.redis.Redis.put", side_effect=[ItemAlreadyExistsError()]
-            ):
+            with patch("app.storage.redis.Redis.put", side_effect=[ItemAlreadyExistsError()]):
                 use_jti_claim(jti_token, expires_at)
 
         # Then
         self.assertEqual(err.exception.jti_claim, jti_token)
-        self.assertEqual(
-            str(err.exception), "jti claim '{}' has already been used".format(jti_token)
-        )
+        self.assertEqual(str(err.exception), "jti claim '{}' has already been used".format(jti_token))
 
     def test_should_raise_type_error_invalid_uuid(self):
         jti_token = "jti_token"

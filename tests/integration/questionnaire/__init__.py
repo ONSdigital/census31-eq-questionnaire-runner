@@ -15,12 +15,7 @@ class QuestionnaireTestCase(IntegrationTestCase):
         return len(self.get_list_item_ids())
 
     def get_list_item_ids(self):
-        return [
-            list_item.attrs["data-list-item-id"]
-            for list_item in self.getHtmlSoup().find_all(
-                attrs={"data-list-item-id": True}
-            )
-        ]
+        return [list_item.attrs["data-list-item-id"] for list_item in self.getHtmlSoup().find_all(attrs={"data-list-item-id": True})]
 
     def get_link(self, action, position):
         selector = f"[data-qa='list-item-{action}-{position}-link']"

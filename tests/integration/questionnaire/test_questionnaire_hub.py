@@ -130,9 +130,7 @@ class TestQuestionnaireHub(IntegrationTestCase):
         self.assertInSelector("Anna Doe", table_title_selector)
         self.assertInSelector("Joe Public", table_title_selector)
 
-        section_urls = self.getHtmlSoup().find_all(
-            "a", class_="summary__button", href=True
-        )
+        section_urls = self.getHtmlSoup().find_all("a", class_="summary__button", href=True)
 
         # Go to first section
         first_repeating_section_url = section_urls[1].attrs["href"]

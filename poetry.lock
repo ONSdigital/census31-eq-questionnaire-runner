@@ -1234,18 +1234,6 @@ flake8 = ">=3.0"
 pycodestyle = "*"
 
 [[package]]
-name = "flake8-mock"
-version = "0.4"
-description = "Provides checking for non-existent mock methods"
-optional = false
-python-versions = "*"
-groups = ["dev"]
-files = [
-    {file = "flake8-mock-0.4.tar.gz", hash = "sha256:4a05bac5f66e77661994880dd050705132d19000f17d928a894dfd92d55d4867"},
-    {file = "flake8_mock-0.4-py3-none-any.whl", hash = "sha256:a67c3d22b2e7873c72d3f01d3eb5d06405cd09dc1abea74a0bf6fcf29095e8e6"},
-]
-
-[[package]]
 name = "flake8-print"
 version = "5.0.0"
 description = "print statement checker plugin for flake8"
@@ -1260,22 +1248,6 @@ files = [
 [package.dependencies]
 flake8 = ">=3.0"
 pycodestyle = "*"
-
-[[package]]
-name = "flake8-tuple"
-version = "0.4.1"
-description = "Check code for 1 element tuple."
-optional = false
-python-versions = "*"
-groups = ["dev"]
-files = [
-    {file = "flake8_tuple-0.4.1-py2.py3-none-any.whl", hash = "sha256:d828cc8e461c50cacca116e9abb0c9e3be565e8451d3f5c00578c63670aae680"},
-    {file = "flake8_tuple-0.4.1.tar.gz", hash = "sha256:8a1b42aab134ef4c3fef13c6a8f383363f158b19fbc165bd91aed9c51851a61d"},
-]
-
-[package.dependencies]
-flake8 = "*"
-six = "*"
 
 [[package]]
 name = "flask"
@@ -3774,4 +3746,4 @@ testing = ["coverage[toml]", "zope.event", "zope.testing"]
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.13,<3.14"
-content-hash = "1e7dacac19914522130c98057064ed258248dd6a1f856644e4e86796c012d924"
+content-hash = "af60764726fcb69c6d37d85ad0152ebda2c9cda94ebac6b960cb48c054218449"

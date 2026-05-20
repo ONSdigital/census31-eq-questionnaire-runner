@@ -73,9 +73,7 @@ class TestQuestionnaireStore(TestCase):
         expected_completed_block_ids = expected["PROGRESS"][0]["block_ids"][0]
 
         self.assertEqual(
-            len(
-                store.progress_store.get_completed_block_ids("a-test-section", "abc123")
-            ),
+            len(store.progress_store.get_completed_block_ids("a-test-section", "abc123")),
             1,
         )
         self.assertEqual(
@@ -86,9 +84,7 @@ class TestQuestionnaireStore(TestCase):
     def test_questionnaire_store_ignores_extra_json(self):
         # Given
         expected = get_basic_input()
-        expected["NOT_A_LEGAL_TOP_LEVEL_KEY"] = (
-            "woop_woop_thats_the_sound_of_the_police"
-        )
+        expected["NOT_A_LEGAL_TOP_LEVEL_KEY"] = "woop_woop_thats_the_sound_of_the_police"
         self.input_data = json.dumps(expected)
         # When
         store = QuestionnaireStore(self.storage)
@@ -100,9 +96,7 @@ class TestQuestionnaireStore(TestCase):
         expected_completed_block_ids = expected["PROGRESS"][0]["block_ids"][0]
 
         self.assertEqual(
-            len(
-                store.progress_store.get_completed_block_ids("a-test-section", "abc123")
-            ),
+            len(store.progress_store.get_completed_block_ids("a-test-section", "abc123")),
             1,
         )
         self.assertEqual(

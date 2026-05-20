@@ -25,21 +25,15 @@ def test_empty_strings_are_not_valid(fake_metadata_runner):
         validate_runner_claims(fake_metadata_runner)
 
 
-def test_validation_does_not_change_metadata(
-    fake_metadata_full, fake_questionnaire_metadata_requirements_full
-):
+def test_validation_does_not_change_metadata(fake_metadata_full, fake_questionnaire_metadata_requirements_full):
     fake_metadata_copy = deepcopy(fake_metadata_full)
-    validate_questionnaire_claims(
-        fake_metadata_full, fake_questionnaire_metadata_requirements_full
-    )
+    validate_questionnaire_claims(fake_metadata_full, fake_questionnaire_metadata_requirements_full)
 
     assert fake_metadata_full == fake_metadata_copy
 
 
 def test_validation_no_error_when_optional_field_not_passed(fake_metadata_runner):
-    field_specification = [
-        {"name": "optional_field", "type": "string", "optional": True}
-    ]
+    field_specification = [{"name": "optional_field", "type": "string", "optional": True}]
 
     validate_questionnaire_claims(fake_metadata_runner, field_specification)
 
@@ -78,9 +72,7 @@ def test_maximum_length(fake_metadata_runner):
 
 
 def test_min_and_max_length(fake_metadata_runner):
-    field_specification = [
-        {"name": "some_field", "type": "string", "min_length": 4, "max_length": 5}
-    ]
+    field_specification = [{"name": "some_field", "type": "string", "min_length": 4, "max_length": 5}]
 
     fake_metadata_runner["some_field"] = "1234"
 

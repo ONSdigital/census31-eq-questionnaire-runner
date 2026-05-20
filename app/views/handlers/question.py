@@ -60,14 +60,10 @@ class Question(BlockHandler):
             self._questionnaire_store.list_store,
             self._current_location,
         )
-        page_title = transformed_block.get("page_title") or self._get_safe_page_title(
-            transformed_block["question"]["title"]
-        )
+        page_title = transformed_block.get("page_title") or self._get_safe_page_title(transformed_block["question"]["title"])
 
         self._set_page_title(page_title)
-        rendered_question = self.placeholder_renderer.render(
-            transformed_block["question"], self._current_location.list_item_id
-        )
+        rendered_question = self.placeholder_renderer.render(transformed_block["question"], self._current_location.list_item_id)
         return {
             **transformed_block,
             **{"question": rendered_question},
@@ -92,15 +88,11 @@ class Question(BlockHandler):
             if location_url:
                 return location_url
 
-        return self.router.get_next_location_url(
-            self._current_location, self._routing_path, self._return_to
-        )
+        return self.router.get_next_location_url(self._current_location, self._routing_path, self._return_to)
 
     def _get_answers_for_question(self, question_json):
         answer_ids = self._schema.get_answer_ids_for_question(question_json)
-        answers = self._questionnaire_store.answer_store.get_answers_by_answer_id(
-            answer_ids=answer_ids, list_item_id=self._current_location.list_item_id
-        )
+        answers = self._questionnaire_store.answer_store.get_answers_by_answer_id(answer_ids=answer_ids, list_item_id=self._current_location.list_item_id)
         return {answer.answer_id: answer.value for answer in answers if answer}
 
     def _get_list_add_question_url(self, params):
@@ -110,16 +102,10 @@ class Question(BlockHandler):
         section_id = self._schema.get_section_id_for_block_id(block_id)
 
         if self._is_list_just_primary(list_items, list_name) or not list_items:
-            return Location(
-                section_id=section_id, block_id=block_id, list_name=list_name
-            ).url(previous=self.current_location.block_id)
+            return Location(section_id=section_id, block_id=block_id, list_name=list_name).url(previous=self.current_location.block_id)
 
     def _is_list_just_primary(self, list_items, list_name):
-        return (
-            len(list_items) == 1
-            and list_items[0]
-            == self._questionnaire_store.list_store[list_name].primary_person
-        )
+        return len(list_items) == 1 and list_items[0] == self._questionnaire_store.list_store[list_name].primary_person
 
     def _get_answer_action(self):
         answers = self.rendered_block["question"]["answers"]
@@ -130,39 +116,28 @@ class Question(BlockHandler):
             for option in answer.get("options", {}):
                 action = option.get("action")
 
-                if action and (
-                    option["value"] == submitted_answer
-                    or option["value"] in submitted_answer
-                ):
+                if action and (option["value"] == submitted_answer or option["value"] in submitted_answer):
                     return action
 
     def get_context(self):
         context = build_question_context(self.rendered_block, self.form)
         context["return_to_hub_url"] = self.get_return_to_hub_url()
-        context["last_viewed_question_guidance"] = (
-            self.get_last_viewed_question_guidance_context()
-        )
+        context["last_viewed_question_guidance"] = self.get_last_viewed_question_guidance_context()
 
         if "list_summary" in self.rendered_block:
             context.update(self.get_list_summary_context())
 
         if self.form.errors or self.form.question_errors:
-            self.page_title = gettext("Error: {page_title}").format(
-                page_title=self.page_title
-            )
+            self.page_title = gettext("Error: {page_title}").format(page_title=self.page_title)
 
-        if self._schema.has_address_lookup_answer(self.rendered_block["question"]) and (
-            address_lookup_api_auth_token := get_address_lookup_api_auth_token()
-        ):
+        if self._schema.has_address_lookup_answer(self.rendered_block["question"]) and (address_lookup_api_auth_token := get_address_lookup_api_auth_token()):
             context["address_lookup_api_auth_token"] = address_lookup_api_auth_token
 
         return context
 
     def get_last_viewed_question_guidance_context(self):
         if self.resume:
-            first_location_in_section_url = self.router.get_first_location_in_section(
-                self._routing_path
-            ).url()
+            first_location_in_section_url = self.router.get_first_location_in_section(self._routing_path).url()
             return {"first_location_in_section_url": first_location_in_section_url}
 
     def get_list_summary_context(self):
@@ -181,20 +156,13 @@ class Question(BlockHandler):
         super().handle_post()
 
     def get_return_to_hub_url(self):
-        if (
-            self.rendered_block["type"] in ["Question", "ConfirmationQuestion"]
-            and self.router.can_access_hub()
-        ):
+        if self.rendered_block["type"] in ["Question", "ConfirmationQuestion"] and self.router.can_access_hub():
             return url_for(".get_questionnaire")
 
     def evaluate_and_update_section_status_on_list_change(self, list_name):
         section_ids = self._schema.get_section_ids_dependent_on_list(list_name)
 
-        section_keys_to_evaluate = (
-            self.questionnaire_store_updater.started_section_keys(
-                section_ids=section_ids
-            )
-        )
+        section_keys_to_evaluate = self.questionnaire_store_updater.started_section_keys(section_ids=section_ids)
 
         for section_id, list_item_id in section_keys_to_evaluate:
             path = self.router.routing_path(section_id, list_item_id)
@@ -211,7 +179,5 @@ class Question(BlockHandler):
                 answer_ids_to_remove.append(answer["id"])
 
         if answer_ids_to_remove:
-            self.questionnaire_store_updater.remove_answers(
-                answer_ids_to_remove, self.current_location.list_item_id
-            )
+            self.questionnaire_store_updater.remove_answers(answer_ids_to_remove, self.current_location.list_item_id)
             self.questionnaire_store_updater.save()

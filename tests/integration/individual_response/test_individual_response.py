@@ -12,9 +12,7 @@ from tests.integration.integration_test_case import IntegrationTestCase
 class IndividualResponseTestCase(IntegrationTestCase):
     def setUp(self):
         settings.EQ_INDIVIDUAL_RESPONSE_LIMIT = 2
-        settings.EQ_INDIVIDUAL_RESPONSE_POSTAL_DEADLINE = datetime.fromisoformat(
-            "2020-11-25T12:00:00+00:00"
-        )
+        settings.EQ_INDIVIDUAL_RESPONSE_POSTAL_DEADLINE = datetime.fromisoformat("2020-11-25T12:00:00+00:00")
         # Dummy mobile number from the range published by Ofcom
         # https://www.ofcom.org.uk/phones-telecoms-and-internet/information-for-industry/numbering/numbers-for-drama
         self.DUMMY_MOBILE_NUMBER = "07700900258"
@@ -24,15 +22,11 @@ class IndividualResponseTestCase(IntegrationTestCase):
 
     @property
     def individual_section_link(self):
-        return self.getHtmlSoup().find(
-            "a", {"data-qa": "hub-row-individual-section-1-link"}
-        )["href"]
+        return self.getHtmlSoup().find("a", {"data-qa": "hub-row-individual-section-1-link"})["href"]
 
     @property
     def individual_response_link(self):
-        response_paragraph = self.getHtmlSoup().find(
-            "p", {"data-qa": "individual-response-url"}
-        )
+        response_paragraph = self.getHtmlSoup().find("p", {"data-qa": "individual-response-url"})
 
         if response_paragraph:
             return response_paragraph.find_next()["href"]
@@ -48,16 +42,8 @@ class IndividualResponseTestCase(IntegrationTestCase):
         return selected[0].get("href")
 
     def get_who_choice(self, index):
-        label = (
-            self.getHtmlSoup()
-            .select(f"#individual-response-who-answer-{index}-label")[0]
-            .text.strip()
-        )
-        list_item_id = (
-            self.getHtmlSoup()
-            .select(f"#individual-response-who-answer-{index}")[0]
-            .attrs["value"]
-        )
+        label = self.getHtmlSoup().select(f"#individual-response-who-answer-{index}-label")[0].text.strip()
+        list_item_id = self.getHtmlSoup().select(f"#individual-response-who-answer-{index}")[0].attrs["value"]
         return {
             "label": label,
             "list_item_id": list_item_id,
@@ -129,11 +115,7 @@ class IndividualResponseTestCase(IntegrationTestCase):
         self.get(self.individual_response_link)
         self.get(self.individual_response_start_link)
         self.post({"individual-response-how-answer": "Post"})
-        self.post(
-            {
-                "individual-response-post-confirm-answer": "Yes, send the access code by post"
-            }
-        )
+        self.post({"individual-response-post-confirm-answer": "Yes, send the access code by post"})
 
     def _request_individual_response_by_text(self):
         self._add_household_no_primary()
@@ -152,9 +134,7 @@ class IndividualResponseTestCase(IntegrationTestCase):
 class TestIndividualResponseOnHubDisabled(IndividualResponseTestCase):
     def setUp(self):
         super().setUp()
-        self.launchSurvey(
-            "test_individual_response_on_hub_disabled", region_code="GB-ENG"
-        )
+        self.launchSurvey("test_individual_response_on_hub_disabled", region_code="GB-ENG")
 
     def test_show_on_hub_false(self):
         self._add_household_no_primary()
@@ -175,9 +155,7 @@ class TestIndividualResponseErrorStatus(IndividualResponseTestCase):
 
         # When I try to view the confirm number page with an incorrect mobile number hash
         person_id = self.last_url.split("/")[2]
-        self.get(
-            f"individual-response/{person_id}/text/confirm-number?journey=hub&mobile_number=bad-signature"
-        )
+        self.get(f"individual-response/{person_id}/text/confirm-number?journey=hub&mobile_number=bad-signature")
         # Then a BadRequest error is returned
         self.assertBadRequest()
         self.assertEqualPageTitle("An error has occurred - Census 2021")
@@ -210,9 +188,7 @@ class TestIndividualResponseErrorStatus(IndividualResponseTestCase):
         self.post({"individual-response-text-confirm-answer": "Yes, send the text"})
 
         # When I try to view the confirmation page with an incorrect mobile number hash
-        self.get(
-            f"individual-response/text/confirmation?journey=hub&mobile_number=bad-signature"
-        )
+        self.get(f"individual-response/text/confirmation?journey=hub&mobile_number=bad-signature")
 
         # Then a BadRequest error is returned
         self.assertBadRequest()
@@ -374,9 +350,7 @@ class TestIndividualResponseErrorStatus(IndividualResponseTestCase):
 
         # Then I should see a 429 page
         self.assertStatusCode(429)
-        self.assertInBody(
-            "You have reached the maximum number of individual access codes"
-        )
+        self.assertInBody("You have reached the maximum number of individual access codes")
 
     def test_500_publish_failed_text(self):
         publisher = self._application.eq["publisher"]
@@ -385,9 +359,7 @@ class TestIndividualResponseErrorStatus(IndividualResponseTestCase):
         # Given I add a household member
         self._request_individual_response_by_text()
         self.assertStatusCode(500)
-        self.assertEqualPageTitle(
-            "Sorry, there was a problem sending the access code - Census 2021"
-        )
+        self.assertEqualPageTitle("Sorry, there was a problem sending the access code - Census 2021")
         self.assertInSelector(self.last_url, "p[data-qa=retry]")
 
     def test_500_publish_failed_post(self):
@@ -396,9 +368,7 @@ class TestIndividualResponseErrorStatus(IndividualResponseTestCase):
 
         # Given I add a household member
         self._request_individual_response_by_post()
-        self.assertEqualPageTitle(
-            "Sorry, there was a problem sending the access code - Census 2021"
-        )
+        self.assertEqualPageTitle("Sorry, there was a problem sending the access code - Census 2021")
         self.assertInSelector(self.last_url, "p[data-qa=retry]")
 
 
@@ -412,9 +382,7 @@ class TestIndividualResponseIndividualSection(IndividualResponseTestCase):
         self.get(self.individual_response_link)
 
         # I should see the correct page title
-        self.assertEqualPageTitle(
-            "Cannot answer questions for others in your household: Person 1 - Census 2021"
-        )
+        self.assertEqualPageTitle("Cannot answer questions for others in your household: Person 1 - Census 2021")
 
     def test_ir_guidance_not_displayed_when_primary(self):
         # Given I add a primary person
@@ -802,9 +770,7 @@ class TestIndividualResponseTextHandler(IndividualResponseTestCase):
         self.post({"individual-response-enter-number-answer": self.DUMMY_MOBILE_NUMBER})
 
         # When I post "No"
-        self.post(
-            {"individual-response-text-confirm-answer": "No, I need to change it"}
-        )
+        self.post({"individual-response-text-confirm-answer": "No, I need to change it"})
 
         # Then I should see the enter number page, populated with the phone number
         self.assertInUrl("text/enter-number")
@@ -864,11 +830,7 @@ class TestIndividualResponseConfirmationPage(IndividualResponseTestCase):
         self.post({"individual-response-how-answer": "Post"})
 
         # When I post "Yes, send the access code by post"
-        self.post(
-            {
-                "individual-response-post-confirm-answer": "Yes, send the access code by post"
-            }
-        )
+        self.post({"individual-response-post-confirm-answer": "Yes, send the access code by post"})
 
         # Then I should see the address
         self.assertInUrl("/confirmation")
@@ -898,9 +860,7 @@ class TestIndividualResponseConfirmationPage(IndividualResponseTestCase):
         self.post({"individual-response-how-answer": "Post"})
 
         # When I choose to send the individual response code another way
-        self.post(
-            {"individual-response-post-confirm-answer": "No, send it another way"}
-        )
+        self.post({"individual-response-post-confirm-answer": "No, send it another way"})
 
         # Then I should be redirected to the how page
         self.assertInUrl("/how")
@@ -969,9 +929,7 @@ class TestIndividualResponseChange(IndividualResponseTestCase):
         self.get(self.individual_section_link)
 
         # Then the "I would like to request a separate census" option is preselected
-        checked_radio_input = self.getHtmlSoup().select(
-            "#individual-response-change-answer-0[checked]"
-        )
+        checked_radio_input = self.getHtmlSoup().select("#individual-response-change-answer-0[checked]")
         self.assertIsNotNone(checked_radio_input)
 
     def test_request_separate_census_option_goes_to_how_page(self):
@@ -981,11 +939,7 @@ class TestIndividualResponseChange(IndividualResponseTestCase):
         self.get(self.individual_section_link)
 
         # When I choose the "I would like to request a separate census" option
-        self.post(
-            {
-                "individual-response-change-answer": "I would like to request a separate census for them to complete"
-            }
-        )
+        self.post({"individual-response-change-answer": "I would like to request a separate census for them to complete"})
 
         # Then I should be taken to the how page
         self.assertInUrl("/how")
@@ -1001,11 +955,7 @@ class TestIndividualResponseChange(IndividualResponseTestCase):
         self.get(self.individual_section_link)
 
         # When I choose the "I will ask them to answer" option
-        self.post(
-            {
-                "individual-response-change-answer": "I will ask them to answer their own questions"
-            }
-        )
+        self.post({"individual-response-change-answer": "I will ask them to answer their own questions"})
 
         # Then I should be taken to the hub
         self.assertInUrl("/questionnaire")
@@ -1017,11 +967,7 @@ class TestIndividualResponseChange(IndividualResponseTestCase):
         self.get(self.individual_section_link)
 
         # When I choose the "I will ask them to answer" option
-        self.post(
-            {
-                "individual-response-change-answer": "I will ask them to answer their own questions"
-            }
-        )
+        self.post({"individual-response-change-answer": "I will ask them to answer their own questions"})
 
         # Then the section status should be updated
         self.assertNotInBody("Change or resend")
@@ -1039,21 +985,13 @@ class TestIndividualResponseChange(IndividualResponseTestCase):
         self.get(self.individual_response_link)
         self.get(self.individual_response_start_link)
         self.post({"individual-response-how-answer": "Post"})
-        self.post(
-            {
-                "individual-response-post-confirm-answer": "Yes, send the access code by post"
-            }
-        )
+        self.post({"individual-response-post-confirm-answer": "Yes, send the access code by post"})
         self.post()
 
         # When I navigate to the individual response change page and choose the "I will ask them to answer" option
         self.get("/questionnaire")
         self.get(self.individual_section_link)
-        self.post(
-            {
-                "individual-response-change-answer": "I will ask them to answer their own questions"
-            }
-        )
+        self.post({"individual-response-change-answer": "I will ask them to answer their own questions"})
 
         # Then the section status should be updated
         self.assertNotInBody("Change or resend")
@@ -1067,9 +1005,7 @@ class TestIndividualResponseChange(IndividualResponseTestCase):
         self.get(self.individual_section_link)
 
         # When I choose the "I will answer" option
-        self.post(
-            {"individual-response-change-answer": "I will answer for {person_name}"}
-        )
+        self.post({"individual-response-change-answer": "I will answer for {person_name}"})
 
         # Then I should be taken to the individual section introduction page
         self.assertInBody("You will need to know personal details such as")
@@ -1083,11 +1019,7 @@ class TestIndividualResponseChange(IndividualResponseTestCase):
         self._request_individual_response_by_post()
         self.get("/questionnaire")
         self.get(self.individual_section_link)
-        self.post(
-            {
-                "individual-response-change-answer": "I would like to request a separate census for them to complete"
-            }
-        )
+        self.post({"individual-response-change-answer": "I would like to request a separate census for them to complete"})
 
         # When I click the previous link
         self.previous()
@@ -1100,11 +1032,7 @@ class TestIndividualResponseChange(IndividualResponseTestCase):
         self._request_individual_response_by_post()
         self.get("/questionnaire")
         self.get(self.individual_section_link)
-        self.post(
-            {
-                "individual-response-change-answer": "I would like to request a separate census for them to complete"
-            }
-        )
+        self.post({"individual-response-change-answer": "I would like to request a separate census for them to complete"})
         self.post({"individual-response-how-answer": "Post"})
 
         # When I click the previous link twice
@@ -1238,9 +1166,7 @@ class TestIndividualResponseHow(IndividualResponseTestCase):
 
         # Then one of my radio box options should be 'Post'
         self.assertInBody("Post")
-        self.assertInBody(
-            "We can only send this to an unnamed resident at the registered household address"
-        )
+        self.assertInBody("We can only send this to an unnamed resident at the registered household address")
         self.assertInBody("Select how to send access code")
 
     @freeze_time("2020-11-25T12:01:00")
@@ -1255,9 +1181,7 @@ class TestIndividualResponseHow(IndividualResponseTestCase):
 
         # Then 'Post' should not be one of my radio box options, and I should have a message telling me it's no longer possible
         self.assertNotInBody("Post")
-        self.assertNotInBody(
-            "We can only send this to an unnamed resident at the registered household address"
-        )
+        self.assertNotInBody("We can only send this to an unnamed resident at the registered household address")
         self.assertNotInBody("Select how to send access code")
         self.assertInBody("It is no longer possible to receive an access code by post")
 

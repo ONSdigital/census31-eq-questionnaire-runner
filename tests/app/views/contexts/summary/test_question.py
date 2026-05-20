@@ -81,15 +81,9 @@ class TestQuestion(AppContextTestCase):  # pylint: disable=too-many-public-metho
             ):
 
                 # Given
-                self.answer_store.add_or_update(
-                    Answer(answer_id="address-line-1", value="Cardiff Rd")
-                )
-                self.answer_store.add_or_update(
-                    Answer(answer_id="town-city", value="Newport")
-                )
-                self.answer_store.add_or_update(
-                    Answer(answer_id="postcode", value="NP10 8XG")
-                )
+                self.answer_store.add_or_update(Answer(answer_id="address-line-1", value="Cardiff Rd"))
+                self.answer_store.add_or_update(Answer(answer_id="town-city", value="Newport"))
+                self.answer_store.add_or_update(Answer(answer_id="postcode", value="NP10 8XG"))
 
                 address_line_1 = {
                     "id": "address-line-1",
@@ -137,9 +131,7 @@ class TestQuestion(AppContextTestCase):  # pylint: disable=too-many-public-metho
                 }
 
                 # When
-                question = Question(
-                    question_schema, self.answer_store, self.schema, None
-                )
+                question = Question(question_schema, self.answer_store, self.schema, None)
 
                 # Then
                 self.assertEqual(
@@ -158,9 +150,7 @@ class TestQuestion(AppContextTestCase):  # pylint: disable=too-many-public-metho
             ):
                 # Given
                 self.answer_store.add_or_update(Answer(answer_id="age", value=7))
-                self.answer_store.add_or_update(
-                    Answer(answer_id="estimate", value=["This age is an estimate"])
-                )
+                self.answer_store.add_or_update(Answer(answer_id="estimate", value=["This age is an estimate"]))
 
                 age_answer_schema = {
                     "id": "age",
@@ -189,9 +179,7 @@ class TestQuestion(AppContextTestCase):  # pylint: disable=too-many-public-metho
                 }
 
                 # When
-                question = Question(
-                    question_schema, self.answer_store, self.schema, None
-                )
+                question = Question(question_schema, self.answer_store, self.schema, None)
 
                 # Then
                 self.assertEqual(
@@ -223,12 +211,8 @@ class TestQuestion(AppContextTestCase):  # pylint: disable=too-many-public-metho
 
     def test_merge_date_range_answers(self):
         # Given
-        self.answer_store.add_or_update(
-            Answer(answer_id="answer_1", value="13/02/2016")
-        )
-        self.answer_store.add_or_update(
-            Answer(answer_id="answer_2", value="13/09/2016")
-        )
+        self.answer_store.add_or_update(Answer(answer_id="answer_1", value="13/02/2016"))
+        self.answer_store.add_or_update(Answer(answer_id="answer_2", value="13/09/2016"))
         first_date_answer_schema = {"id": "answer_1", "label": "From", "type": "date"}
         second_date_answer_schema = {"id": "answer_2", "label": "To", "type": "date"}
         question_schema = {
@@ -248,18 +232,10 @@ class TestQuestion(AppContextTestCase):  # pylint: disable=too-many-public-metho
 
     def test_merge_multiple_date_range_answers(self):
         # Given
-        self.answer_store.add_or_update(
-            Answer(answer_id="answer_1", value="13/02/2016")
-        )
-        self.answer_store.add_or_update(
-            Answer(answer_id="answer_2", value="13/09/2016")
-        )
-        self.answer_store.add_or_update(
-            Answer(answer_id="answer_3", value="13/03/2016")
-        )
-        self.answer_store.add_or_update(
-            Answer(answer_id="answer_4", value="13/10/2016")
-        )
+        self.answer_store.add_or_update(Answer(answer_id="answer_1", value="13/02/2016"))
+        self.answer_store.add_or_update(Answer(answer_id="answer_2", value="13/09/2016"))
+        self.answer_store.add_or_update(Answer(answer_id="answer_3", value="13/03/2016"))
+        self.answer_store.add_or_update(Answer(answer_id="answer_4", value="13/10/2016"))
 
         first_date_answer_schema = {"id": "answer_1", "label": "From", "type": "date"}
         second_date_answer_schema = {"id": "answer_2", "label": "To", "type": "date"}
@@ -297,9 +273,7 @@ class TestQuestion(AppContextTestCase):  # pylint: disable=too-many-public-metho
 
     def test_checkbox_button_options(self):
         # Given
-        self.answer_store.add_or_update(
-            Answer(answer_id="answer_1", value=["Light Side", "Dark Side"])
-        )
+        self.answer_store.add_or_update(Answer(answer_id="answer_1", value=["Light Side", "Dark Side"]))
 
         options = [
             {"label": "Light Side label", "value": "Light Side"},
@@ -328,9 +302,7 @@ class TestQuestion(AppContextTestCase):  # pylint: disable=too-many-public-metho
 
     def test_checkbox_button_detail_answer_empty(self):
         # Given
-        self.answer_store.add_or_update(
-            Answer(answer_id="answer_1", value=["other", ""])
-        )
+        self.answer_store.add_or_update(Answer(answer_id="answer_1", value=["other", ""]))
 
         options = [
             {"label": "Light Side", "value": "Light Side"},
@@ -363,9 +335,7 @@ class TestQuestion(AppContextTestCase):  # pylint: disable=too-many-public-metho
 
     def test_checkbox_answer_with_detail_answer_returns_the_value(self):
         # Given
-        self.answer_store.add_or_update(
-            Answer(answer_id="answer_1", value=["Light Side", "Other"])
-        )
+        self.answer_store.add_or_update(Answer(answer_id="answer_1", value=["Light Side", "Other"]))
         self.answer_store.add_or_update(Answer(answer_id="child_answer", value="Test"))
 
         options = [
@@ -400,9 +370,7 @@ class TestQuestion(AppContextTestCase):  # pylint: disable=too-many-public-metho
 
     def test_checkbox_answer_with_numeric_detail_answer_returns_number(self):
         # Given
-        self.answer_store.add_or_update(
-            Answer(answer_id="answer_1", value=["1", "Other"])
-        )
+        self.answer_store.add_or_update(Answer(answer_id="answer_1", value=["1", "Other"]))
         self.answer_store.add_or_update(Answer(answer_id="child_answer", value=2))
 
         options = [
@@ -437,12 +405,8 @@ class TestQuestion(AppContextTestCase):  # pylint: disable=too-many-public-metho
 
     def test_checkbox_button_other_option_text(self):
         # Given
-        self.answer_store.add_or_update(
-            Answer(answer_id="answer_1", value=["Light Side", "other"])
-        )
-        self.answer_store.add_or_update(
-            Answer(answer_id="child_answer", value="Neither")
-        )
+        self.answer_store.add_or_update(Answer(answer_id="answer_1", value=["Light Side", "other"]))
+        self.answer_store.add_or_update(Answer(answer_id="child_answer", value="Neither"))
         options = [
             {"label": "Light Side", "value": "Light Side"},
             {
@@ -470,9 +434,7 @@ class TestQuestion(AppContextTestCase):  # pylint: disable=too-many-public-metho
         # Then
         self.assertEqual(len(question.answers[0]["value"]), 2)
         self.assertEqual(question.answers[0]["value"][0]["label"], "Light Side")
-        self.assertEqual(
-            question.answers[0]["value"][1]["detail_answer_value"], "Neither"
-        )
+        self.assertEqual(question.answers[0]["value"][1]["detail_answer_value"], "Neither")
 
     def test_checkbox_button_none_selected_should_be_none(self):
         # Given

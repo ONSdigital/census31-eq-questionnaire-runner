@@ -68,9 +68,7 @@ class ListModel:
         try:
             return self.items[0]
         except IndexError:
-            raise IndexError(
-                f"unable to access first item in list, list '{self.name}' is empty"
-            )
+            raise IndexError(f"unable to access first item in list, list '{self.name}' is empty")
 
 
 class ListStore:
@@ -135,9 +133,7 @@ class ListStore:
     @staticmethod
     def _build_map(list_models: List[Mapping]):
         """Builds the list_store data structure from a list of dictionaries"""
-        return {
-            list_model["name"]: ListModel(**list_model) for list_model in list_models
-        }
+        return {list_model["name"]: ListModel(**list_model) for list_model in list_models}
 
     def get(self, item: str):
         return self.__getitem__(item)

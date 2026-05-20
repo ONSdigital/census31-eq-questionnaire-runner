@@ -19,14 +19,10 @@ def find_pointers_containing(input_data, search_key, pointer=None):
             if (isinstance(v, dict)) and search_key in v:
                 yield pointer + "/" + k if pointer else "/" + k
             else:
-                yield from find_pointers_containing(
-                    v, search_key, pointer + "/" + k if pointer else "/" + k
-                )
+                yield from find_pointers_containing(v, search_key, pointer + "/" + k if pointer else "/" + k)
     elif isinstance(input_data, (list, tuple)):
         for index, item in enumerate(input_data):
-            yield from find_pointers_containing(
-                item, search_key, "{}/{}".format(pointer, index)
-            )
+            yield from find_pointers_containing(item, search_key, "{}/{}".format(pointer, index))
 
 
 def _choose_variant(
@@ -55,9 +51,7 @@ def _choose_variant(
             return variant[single_key]
 
 
-def choose_question_to_display(
-    block, schema, metadata, answer_store, list_store, current_location
-):
+def choose_question_to_display(block, schema, metadata, answer_store, list_store, current_location):
     return _choose_variant(
         block,
         schema,
@@ -70,9 +64,7 @@ def choose_question_to_display(
     )
 
 
-def choose_content_to_display(
-    block, schema, metadata, answer_store, list_store, current_location
-):
+def choose_content_to_display(block, schema, metadata, answer_store, list_store, current_location):
     return _choose_variant(
         block,
         schema,
@@ -85,24 +77,18 @@ def choose_content_to_display(
     )
 
 
-def transform_variants(
-    block, schema, metadata, answer_store, list_store, current_location
-):
+def transform_variants(block, schema, metadata, answer_store, list_store, current_location):
     output_block = dict(block)
 
     if "question_variants" in block:
-        question = choose_question_to_display(
-            block, schema, metadata, answer_store, list_store, current_location
-        )
+        question = choose_question_to_display(block, schema, metadata, answer_store, list_store, current_location)
         output_block.pop("question_variants", None)
         output_block.pop("question", None)
 
         output_block["question"] = question
 
     if "content_variants" in block:
-        content = choose_content_to_display(
-            block, schema, metadata, answer_store, list_store, current_location
-        )
+        content = choose_content_to_display(block, schema, metadata, answer_store, list_store, current_location)
         output_block.pop("content_variants", None)
         output_block.pop("content", None)
 

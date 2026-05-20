@@ -46,9 +46,7 @@ def schema():
 @freeze_time(time_to_freeze)
 def test_confirmation_email_fulfilment_request_message(session_data, schema):
     email_address = "name@example.com"
-    fulfilment_request = ConfirmationEmailFulfilmentRequest(
-        email_address, session_data, schema
-    )
+    fulfilment_request = ConfirmationEmailFulfilmentRequest(email_address, session_data, schema)
 
     confirmation_email_json_message = json.loads(fulfilment_request.message)
 
@@ -62,7 +60,4 @@ def test_confirmation_email_fulfilment_request_message(session_data, schema):
         "tx_id": session_data.tx_id,
     }
 
-    assert (
-        confirmation_email_json_message["payload"]["fulfilmentRequest"]
-        == expected_payload
-    )
+    assert confirmation_email_json_message["payload"]["fulfilmentRequest"] == expected_payload

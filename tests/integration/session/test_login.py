@@ -109,9 +109,7 @@ class TestLoginWithGetRequest(IntegrationTestCase):
         survey_url = "http://eq-survey-register.url/my-test-schema"
 
         # Given
-        token = self.token_generator.create_token_with_survey_url(
-            "test_textarea", survey_url
-        )
+        token = self.token_generator.create_token_with_survey_url("test_textarea", survey_url)
 
         # When
         with HTTMock(self.survey_url_mock):
@@ -125,9 +123,7 @@ class TestLoginWithGetRequest(IntegrationTestCase):
         survey_url = "http://eq-survey-register.url/my-test-schema-not-found"
 
         # Given
-        token = self.token_generator.create_token_with_survey_url(
-            "test_textarea", survey_url
-        )
+        token = self.token_generator.create_token_with_survey_url("test_textarea", survey_url)
 
         # When
         with HTTMock(self.survey_url_mock_404):
@@ -146,9 +142,7 @@ class TestLoginWithGetRequest(IntegrationTestCase):
 
     def test_login_without_questionnaire_id_in_token_is_unauthorised(self):
         # Given
-        token = self.token_generator.create_token_without_questionnaire_id(
-            "textfield_test"
-        )
+        token = self.token_generator.create_token_without_questionnaire_id("textfield_test")
         self.get(url=f"/session?token={token}")
 
         # Then
@@ -258,9 +252,7 @@ class TestLoginWithPostRequest(IntegrationTestCase):
         survey_url = "http://eq-survey-register.url/my-test-schema"
 
         # Given
-        token = self.token_generator.create_token_with_survey_url(
-            "test_textarea", survey_url
-        )
+        token = self.token_generator.create_token_with_survey_url("test_textarea", survey_url)
 
         # When
         with HTTMock(self.survey_url_mock):
@@ -274,9 +266,7 @@ class TestLoginWithPostRequest(IntegrationTestCase):
         survey_url = "http://eq-survey-register.url/my-test-schema-not-found"
 
         # Given
-        token = self.token_generator.create_token_with_survey_url(
-            "test_textarea", survey_url
-        )
+        token = self.token_generator.create_token_with_survey_url("test_textarea", survey_url)
 
         # When
         with HTTMock(self.survey_url_mock_404):
@@ -295,9 +285,7 @@ class TestLoginWithPostRequest(IntegrationTestCase):
 
     def test_login_without_questionnaire_id_in_token_is_unauthorised(self):
         # Given
-        token = self.token_generator.create_token_without_questionnaire_id(
-            "textfield_test"
-        )
+        token = self.token_generator.create_token_without_questionnaire_id("textfield_test")
         self.post(url=f"/session?token={token}")
 
         # Then

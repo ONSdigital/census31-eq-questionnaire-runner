@@ -111,15 +111,9 @@ def test_transform_variants_list_collector(list_collector_variant_schema):
         Location(section_id=section_id, block_id=block["id"]),
     )
 
-    compare_transformed_block(
-        block["add_block"], transformed_block["add_block"], "Add, No"
-    )
-    compare_transformed_block(
-        block["remove_block"], transformed_block["remove_block"], "Remove, No"
-    )
-    compare_transformed_block(
-        block["edit_block"], transformed_block["edit_block"], "Edit, No"
-    )
+    compare_transformed_block(block["add_block"], transformed_block["add_block"], "Add, No")
+    compare_transformed_block(block["remove_block"], transformed_block["remove_block"], "Remove, No")
+    compare_transformed_block(block["edit_block"], transformed_block["edit_block"], "Edit, No")
 
     answer_store.add_or_update(Answer(answer_id="when-answer", value="yes"))
 
@@ -132,15 +126,9 @@ def test_transform_variants_list_collector(list_collector_variant_schema):
         Location(section_id=section_id, block_id=block["id"]),
     )
 
-    compare_transformed_block(
-        block["add_block"], transformed_block["add_block"], "Add, Yes"
-    )
-    compare_transformed_block(
-        block["remove_block"], transformed_block["remove_block"], "Remove, Yes"
-    )
-    compare_transformed_block(
-        block["edit_block"], transformed_block["edit_block"], "Edit, Yes"
-    )
+    compare_transformed_block(block["add_block"], transformed_block["add_block"], "Add, Yes")
+    compare_transformed_block(block["remove_block"], transformed_block["remove_block"], "Remove, Yes")
+    compare_transformed_block(block["edit_block"], transformed_block["edit_block"], "Edit, Yes")
 
 
 def test_choose_content_to_display(content_variant_schema):
@@ -222,7 +210,5 @@ def test_get_values_for_key_ignores_multiple_keys():
         "question_variants": [{"when": "test"}],
         "content_variants": [{"when": "test"}],
     }
-    result = list(
-        get_values_for_key(block, "when", {"question_variants", "content_variants"})
-    )
+    result = list(get_values_for_key(block, "when", {"question_variants", "content_variants"}))
     assert result == []

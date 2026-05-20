@@ -28,9 +28,7 @@ class PathFinder:
         self.progress_store = progress_store
         self.list_store = list_store
 
-    def routing_path(
-        self, section_id: str, list_item_id: Optional[str] = None
-    ) -> RoutingPath:
+    def routing_path(self, section_id: str, list_item_id: Optional[str] = None) -> RoutingPath:
         """
         Visits all the blocks in a section and returns a path given a list of answers.
         """
@@ -38,9 +36,7 @@ class PathFinder:
         routing_path_block_ids = []
         current_location = Location(section_id=section_id, list_item_id=list_item_id)
         section = self.schema.get_section(section_id)
-        list_name = self.schema.get_repeating_list_for_section(
-            current_location.section_id
-        )
+        list_name = self.schema.get_repeating_list_for_section(current_location.section_id)
 
         for group in section["groups"]:
             if "skip_conditions" in group:
@@ -57,9 +53,7 @@ class PathFinder:
             blocks.extend(group["blocks"])
 
         if blocks:
-            routing_path_block_ids = self._build_routing_path_block_ids(
-                blocks, current_location
-            )
+            routing_path_block_ids = self._build_routing_path_block_ids(blocks, current_location)
 
         return RoutingPath(routing_path_block_ids, section_id, list_item_id, list_name)
 
@@ -74,9 +68,7 @@ class PathFinder:
         # Keep going unless we've hit the last block
         routing_path_block_ids = []
         block_index = 0
-        repeating_list = self.schema.get_repeating_list_for_section(
-            current_location.section_id
-        )
+        repeating_list = self.schema.get_repeating_list_for_section(current_location.section_id)
 
         while block_index < len(blocks):
             block = blocks[block_index]
@@ -101,9 +93,7 @@ class PathFinder:
                         list_item_id=current_location.list_item_id,
                     )
                 else:
-                    this_location = Location(
-                        section_id=current_location.section_id, block_id=block_id
-                    )
+                    this_location = Location(section_id=current_location.section_id, block_id=block_id)
 
                 if block_id not in routing_path_block_ids:
                     routing_path_block_ids.append(block_id)
@@ -130,9 +120,7 @@ class PathFinder:
             # No routing rules, so step forward a block
             block_index = block_index + 1
 
-    def _evaluate_routing_rules(
-        self, this_location, blocks, routing_rules, block_index, routing_path_block_ids
-    ):
+    def _evaluate_routing_rules(self, this_location, blocks, routing_rules, block_index, routing_path_block_ids):
         for rule in filter(is_goto_rule, routing_rules):
             should_goto = evaluate_goto(
                 rule["goto"],
@@ -149,12 +137,8 @@ class PathFinder:
                     return None
 
                 next_block_id = self._get_next_block_id(rule)
-                next_block_index = PathFinder._block_index_for_block_id(
-                    blocks, next_block_id
-                )
-                next_precedes_current = (
-                    next_block_index is not None and next_block_index < block_index
-                )
+                next_block_index = PathFinder._block_index_for_block_id(blocks, next_block_id)
+                next_precedes_current = next_block_index is not None and next_block_index < block_index
 
                 if next_precedes_current:
                     self._remove_rule_answers(rule["goto"], this_location)

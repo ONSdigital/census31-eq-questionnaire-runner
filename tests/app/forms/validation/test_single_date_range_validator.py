@@ -23,8 +23,7 @@ class TestDateRangeValidator(AppContextTestCase):
                 validator(mock_form, mock_field)
 
             self.assertEqual(
-                error_messages["SINGLE_DATE_PERIOD_TOO_EARLY"]
-                % {"min": "30 March 2016"},
+                error_messages["SINGLE_DATE_PERIOD_TOO_EARLY"] % {"min": "30 March 2016"},
                 str(ite.exception),
             )
 
@@ -66,9 +65,7 @@ class TestDateRangeValidator(AppContextTestCase):
 def test_valid_single_date_period():
     minimum_date = convert_to_datetime("2016-03-20")
     maximum_date = convert_to_datetime("2016-03-31")
-    validator = SingleDatePeriodCheck(
-        minimum_date=minimum_date, maximum_date=maximum_date
-    )
+    validator = SingleDatePeriodCheck(minimum_date=minimum_date, maximum_date=maximum_date)
 
     mock_form = Mock()
     mock_form.data = "2016-03-26"

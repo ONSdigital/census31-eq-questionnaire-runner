@@ -17,13 +17,9 @@ class Content(BlockHandler):
             self._current_location,
         )
 
-        content_page_title = transformed_block.get(
-            "page_title"
-        ) or self._get_content_title(transformed_block)
+        content_page_title = transformed_block.get("page_title") or self._get_content_title(transformed_block)
         self._set_page_title(content_page_title)
-        return self.placeholder_renderer.render(
-            transformed_block, self._current_location.list_item_id
-        )
+        return self.placeholder_renderer.render(transformed_block, self._current_location.list_item_id)
 
     def get_context(self):
         return {
@@ -46,10 +42,5 @@ class Content(BlockHandler):
             return self._get_safe_page_title(content["title"])
 
     def _is_block_first_block_in_individual_response(self):
-        individual_section_id = (
-            self._schema.get_individual_response_individual_section_id()
-        )
-        return (
-            self._current_location.section_id == individual_section_id
-            and self._current_location.block_id == self._routing_path[0]
-        )
+        individual_section_id = self._schema.get_individual_response_individual_section_id()
+        return self._current_location.section_id == individual_section_id and self._current_location.block_id == self._routing_path[0]

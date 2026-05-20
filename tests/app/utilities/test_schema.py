@@ -23,18 +23,9 @@ TEST_SCHEMA_URL = "http://test.domain/schema.json"
 
 
 def test_valid_schema_names_from_census_params():
-    assert (
-        get_schema_name_from_census_params("census", "I", "GB-WLS")
-        == "census_individual_gb_wls"
-    )
-    assert (
-        get_schema_name_from_census_params("census", "H", "GB-WLS")
-        == "census_household_gb_wls"
-    )
-    assert (
-        get_schema_name_from_census_params("census", "C", "GB-WLS")
-        == "census_communal_establishment_gb_wls"
-    )
+    assert get_schema_name_from_census_params("census", "I", "GB-WLS") == "census_individual_gb_wls"
+    assert get_schema_name_from_census_params("census", "H", "GB-WLS") == "census_household_gb_wls"
+    assert get_schema_name_from_census_params("census", "C", "GB-WLS") == "census_communal_establishment_gb_wls"
 
 
 def test_get_schema_name_from_census_params_invalid_form_type():
@@ -62,20 +53,13 @@ def test_get_allowed_languages(schema_name, launch_language, expected):
 def test_get_schema_path_map():
     schema_path_map = get_schema_path_map(include_test_schemas=True)
 
-    assert all(
-        language_code in schema_path_map.keys() for language_code in ["en", "cy"]
-    )
+    assert all(language_code in schema_path_map.keys() for language_code in ["en", "cy"])
     assert all(os.path.exists(path) for path in schema_path_map["en"].values())
-    assert all(
-        os.path.basename(path).replace(".json", "") == schema_name
-        for schema_name, path in schema_path_map["en"].items()
-    )
+    assert all(os.path.basename(path).replace(".json", "") == schema_name for schema_name, path in schema_path_map["en"].items())
 
 
 def test_get_schema_list():
-    assert get_schema_list() == list(
-        get_schema_path_map(include_test_schemas=True)["en"].keys()
-    )
+    assert get_schema_list() == list(get_schema_path_map(include_test_schemas=True)["en"].keys())
 
 
 def test_schema_cache_on_function_call():
@@ -125,10 +109,7 @@ def test_schema_cache_on_app_start_up():
     # create app and load schemas into cache
     create_app()
 
-    total_schemas = sum(
-        len(schemas)
-        for schemas in get_schema_path_map(include_test_schemas=True).values()
-    )
+    total_schemas = sum(len(schemas) for schemas in get_schema_path_map(include_test_schemas=True).values())
     cache_info = _load_schema_from_name.cache_info()
     assert cache_info.currsize > 0 and cache_info.currsize == total_schemas
     assert cache_info.hits == 0

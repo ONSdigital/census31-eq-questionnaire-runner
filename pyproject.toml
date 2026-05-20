@@ -69,9 +69,7 @@ httmock = "*"
 flake8 = "*"
 flake8-blind-except = "*"
 flake8-debugger = "*"
-flake8-mock = "*"
 flake8-print = "*"
-flake8-tuple = "*"
 moto = "*"
 freezegun = "*"
 pytest-xdist = "*"
@@ -85,3 +83,4 @@ responses = "0.12.0"
 
 [tool.black]
 target_version = ["py313"]
+line-length = 160

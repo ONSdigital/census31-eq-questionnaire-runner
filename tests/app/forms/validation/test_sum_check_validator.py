@@ -26,8 +26,7 @@ class TestSumCheckValidator(unittest.TestCase):
             validator(mock_form, conditions, calculation_total, target_total)
 
         self.assertEqual(
-            error_messages["TOTAL_SUM_NOT_EQUALS"]
-            % {"total": format_playback_value(target_total)},
+            error_messages["TOTAL_SUM_NOT_EQUALS"] % {"total": format_playback_value(target_total)},
             str(ite.exception),
         )
 
@@ -44,8 +43,7 @@ class TestSumCheckValidator(unittest.TestCase):
             validator(mock_form, conditions, calculation_total, target_total)
 
         self.assertEqual(
-            error_messages["TOTAL_SUM_NOT_LESS_THAN_OR_EQUALS"]
-            % {"total": format_playback_value(target_total)},
+            error_messages["TOTAL_SUM_NOT_LESS_THAN_OR_EQUALS"] % {"total": format_playback_value(target_total)},
             str(ite.exception),
         )
 
@@ -62,8 +60,7 @@ class TestSumCheckValidator(unittest.TestCase):
             validator(mock_form, conditions, calculation_total, target_total)
 
         self.assertEqual(
-            error_messages["TOTAL_SUM_NOT_LESS_THAN"]
-            % {"total": format_playback_value(target_total)},
+            error_messages["TOTAL_SUM_NOT_LESS_THAN"] % {"total": format_playback_value(target_total)},
             str(ite.exception),
         )
 
@@ -80,8 +77,7 @@ class TestSumCheckValidator(unittest.TestCase):
             validator(mock_form, conditions, calculation_total, target_total)
 
         self.assertEqual(
-            error_messages["TOTAL_SUM_NOT_GREATER_THAN"]
-            % {"total": format_playback_value(target_total)},
+            error_messages["TOTAL_SUM_NOT_GREATER_THAN"] % {"total": format_playback_value(target_total)},
             str(ite.exception),
         )
 
@@ -98,8 +94,7 @@ class TestSumCheckValidator(unittest.TestCase):
             validator(mock_form, conditions, calculation_total, target_total)
 
         self.assertEqual(
-            error_messages["TOTAL_SUM_NOT_GREATER_THAN_OR_EQUALS"]
-            % {"total": format_playback_value(target_total)},
+            error_messages["TOTAL_SUM_NOT_GREATER_THAN_OR_EQUALS"] % {"total": format_playback_value(target_total)},
             str(ite.exception),
         )
 
@@ -116,8 +111,7 @@ class TestSumCheckValidator(unittest.TestCase):
             validator(mock_form, conditions, calculation_total, target_total)
 
         self.assertEqual(
-            error_messages["TOTAL_SUM_NOT_EQUALS"]
-            % {"total": format_playback_value(target_total, currency="EUR")},
+            error_messages["TOTAL_SUM_NOT_EQUALS"] % {"total": format_playback_value(target_total, currency="EUR")},
             str(ite.exception),
         )
 
@@ -149,8 +143,7 @@ class TestSumCheckValidator(unittest.TestCase):
             validator(mock_form, conditions, calculation_total, target_total)
 
         self.assertEqual(
-            error_messages["TOTAL_SUM_NOT_LESS_THAN_OR_EQUALS"]
-            % {"total": format_playback_value(target_total)},
+            error_messages["TOTAL_SUM_NOT_LESS_THAN_OR_EQUALS"] % {"total": format_playback_value(target_total)},
             str(ite.exception),
         )
 

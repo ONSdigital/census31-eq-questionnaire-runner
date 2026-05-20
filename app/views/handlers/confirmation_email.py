@@ -68,10 +68,7 @@ class ConfirmationEmail:
 
     @staticmethod
     def is_limit_reached(session_data: SessionData) -> bool:
-        return (
-            session_data.confirmation_email_count
-            >= current_app.config["CONFIRMATION_EMAIL_LIMIT"]
-        )
+        return session_data.confirmation_email_count >= current_app.config["CONFIRMATION_EMAIL_LIMIT"]
 
     @staticmethod
     def is_enabled(schema: QuestionnaireSchema):

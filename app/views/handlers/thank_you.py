@@ -29,11 +29,7 @@ class ThankYou:
             "census",
             "census-nisra",
         ]
-        self.template = (
-            self.CENSUS_THANK_YOU_TEMPLATE
-            if self._is_census_theme
-            else self.DEFAULT_THANK_YOU_TEMPLATE
-        )
+        self.template = self.CENSUS_THANK_YOU_TEMPLATE if self._is_census_theme else self.DEFAULT_THANK_YOU_TEMPLATE
 
     @cached_property
     def confirmation_email(self):
@@ -46,9 +42,7 @@ class ThankYou:
         if not self._is_census_theme:
             return build_default_thank_you_context(self._session_store.session_data)
 
-        confirmation_email_form = (
-            self.confirmation_email.form if self.confirmation_email else None
-        )
+        confirmation_email_form = self.confirmation_email.form if self.confirmation_email else None
 
         return build_census_thank_you_context(
             self._session_store.session_data,

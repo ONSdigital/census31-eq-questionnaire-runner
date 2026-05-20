@@ -20,10 +20,7 @@ class TestQuestionnairePiping(IntegrationTestCase):
         self.assertStatusOK()
         # Using raw response data rather than assertInSelectorCSS as otherwise the
         # content will be unescaped by BeautifulSoup
-        assert (
-            "Does <em>Joe Bloggs &#34;Junior&#34;</em> live at <em>44 hill side</em>"
-            in self.getResponseData()
-        )
+        assert "Does <em>Joe Bloggs &#34;Junior&#34;</em> live at <em>44 hill side</em>" in self.getResponseData()
 
     def test_given_html_in_answer_when_piped_into_page_then_html_escaped_on_page(self):
         # Given
@@ -41,10 +38,7 @@ class TestQuestionnairePiping(IntegrationTestCase):
         self.assertStatusOK()
         # Using raw response data rather than assertInSelectorCSS as otherwise the
         # content will be unescaped by BeautifulSoup
-        assert (
-            "Does <em>Joe Bloggs &lt;b&gt;Junior&lt;/b&gt;</em> live at <em>44 hill side</em>"
-            in self.getResponseData()
-        )
+        assert "Does <em>Joe Bloggs &lt;b&gt;Junior&lt;/b&gt;</em> live at <em>44 hill side</em>" in self.getResponseData()
 
     def test_given_backslash_in_answer_when_piped_into_page_then_backslash_on_page(
         self,
@@ -78,9 +72,7 @@ class TestQuestionnairePiping(IntegrationTestCase):
         # Then
         self.get(self.last_url)
         self.assertStatusOK()
-        self.assertInSelectorCSS(
-            "44 hill side, newport", "label", {"for": "multiple-piping-answer-0"}
-        )
+        self.assertInSelectorCSS("44 hill side, newport", "label", {"for": "multiple-piping-answer-0"})
 
     def test_answer_piped_into_option_on_validation_error(self):
         """Regression test to assert that the previous answer is still piped into
@@ -99,6 +91,4 @@ class TestQuestionnairePiping(IntegrationTestCase):
 
         # Then
         self.assertStatusOK()
-        self.assertInSelectorCSS(
-            "44 hill side, newport", "label", {"for": "multiple-piping-answer-0"}
-        )
+        self.assertInSelectorCSS("44 hill side, newport", "label", {"for": "multiple-piping-answer-0"})

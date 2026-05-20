@@ -26,15 +26,11 @@ class TestPubSub(TestCase):
         assert future is sentinel.future
 
         # Check the client call uses topic path and bytes payload.
-        self.publisher._client.publish.assert_called_once_with(
-            self.topic_path, b"test-message"
-        )
+        self.publisher._client.publish.assert_called_once_with(self.topic_path, b"test-message")
 
     def test_resolving_message_raises_exception_on_error(self):
         failing_future = Mock()
-        failing_future.result.side_effect = Exception(
-            "403 The request is missing a valid API key."
-        )
+        failing_future.result.side_effect = Exception("403 The request is missing a valid API key.")
         self.publisher._publish = Mock(return_value=failing_future)
 
         with self.assertRaises(PublicationFailed) as ex:

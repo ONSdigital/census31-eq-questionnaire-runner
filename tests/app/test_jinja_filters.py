@@ -70,9 +70,7 @@ class TestJinjaFilters(AppContextTestCase):  # pylint: disable=too-many-public-m
             format_value = format_datetime(self.autoescape_context, date_time)
 
         # Then
-        self.assertEqual(
-            format_value, "<span class='date'>29 March 2018 at 12:59</span>"
-        )
+        self.assertEqual(format_value, "<span class='date'>29 March 2018 at 12:59</span>")
 
     def test_format_date_time_in_gmt(self):
         # Given
@@ -83,9 +81,7 @@ class TestJinjaFilters(AppContextTestCase):  # pylint: disable=too-many-public-m
             format_value = format_datetime(self.autoescape_context, date_time)
 
         # Then
-        self.assertEqual(
-            format_value, "<span class='date'>28 October 2018 at 11:59</span>"
-        )
+        self.assertEqual(format_value, "<span class='date'>28 October 2018 at 11:59</span>")
 
     def test_format_percentage(self):
         self.assertEqual(format_percentage("100"), "100%")
@@ -151,14 +147,10 @@ class TestJinjaFilters(AppContextTestCase):  # pylint: disable=too-many-public-m
 
     def test_format_year_month_duration(self):
         with self.app_request_context("/"):
-            self.assertEqual(
-                format_duration({"years": 5, "months": 4}), "5 years 4 months"
-            )
+            self.assertEqual(format_duration({"years": 5, "months": 4}), "5 years 4 months")
             self.assertEqual(format_duration({"years": 5, "months": 0}), "5 years")
             self.assertEqual(format_duration({"years": 0, "months": 4}), "4 months")
-            self.assertEqual(
-                format_duration({"years": 1, "months": 1}), "1 year 1 month"
-            )
+            self.assertEqual(format_duration({"years": 1, "months": 1}), "1 year 1 month")
             self.assertEqual(format_duration({"years": 0, "months": 0}), "0 months")
 
     def test_format_year_duration(self):
@@ -368,9 +360,7 @@ def test_format_address_fields():
         "postcode": "CF63 4JG",
     }
 
-    assert (
-        get_formatted_address(address_fields) == "7 Evelyn Street<br>Barry<br>CF63 4JG"
-    )
+    assert get_formatted_address(address_fields) == "7 Evelyn Street<br>Barry<br>CF63 4JG"
 
 
 def test_format_address_fields_with_uprn():
@@ -381,9 +371,7 @@ def test_format_address_fields_with_uprn():
         "uprn": "64037876",
     }
 
-    assert (
-        get_formatted_address(address_fields) == "7 Evelyn Street<br>Barry<br>CF63 4JG"
-    )
+    assert get_formatted_address(address_fields) == "7 Evelyn Street<br>Barry<br>CF63 4JG"
 
 
 @pytest.mark.parametrize(
@@ -394,9 +382,7 @@ def test_format_address_fields_with_uprn():
         (123123123123, 20),
     ],
 )
-def test_other_config_numeric_input_class(
-    answer_schema_number, max_value, expected_width
-):
+def test_other_config_numeric_input_class(answer_schema_number, max_value, expected_width):
     if max_value:
         answer_schema_number["maximum"] = {"value": max_value}
 
@@ -434,9 +420,7 @@ def test_other_config_non_dropdown_has_value_attribute(answer_schema_textfield):
         (None, False),
     ],
 )
-def test_other_config_visibility(
-    answer_schema_textfield, is_visible, expected_visibility
-):
+def test_other_config_visibility(answer_schema_textfield, is_visible, expected_visibility):
     if is_visible is not None:
         answer_schema_textfield["visible"] = is_visible
 

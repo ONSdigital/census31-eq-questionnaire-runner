@@ -28,9 +28,7 @@ def location():
 
 @pytest.fixture
 def parser(answer_store, location):
-    return PlaceholderParser(
-        language="en", answer_store=answer_store, location=location
-    )
+    return PlaceholderParser(language="en", answer_store=answer_store, location=location)
 
 
 @pytest.fixture
@@ -168,9 +166,7 @@ def list_collector_variant_schema():
                                                 {
                                                     "id": "answer1",
                                                     "label": "Collector Answer 1 Variant Yes",
-                                                    "action": {
-                                                        "type": "RedirectToListAddBlock"
-                                                    },
+                                                    "action": {"type": "RedirectToListAddBlock"},
                                                 }
                                             ],
                                         },
@@ -308,9 +304,7 @@ def list_collector_variant_schema():
                                                     {
                                                         "id": "answer1",
                                                         "label": "Answer 1 Variant Yes",
-                                                        "action": {
-                                                            "type": "RemoveListItemAndAnswers"
-                                                        },
+                                                        "action": {"type": "RemoveListItemAndAnswers"},
                                                     }
                                                 ],
                                             },
@@ -496,9 +490,7 @@ def content_variant_schema():
                                     },
                                     {
                                         "content": [{"title": "You are ageless"}],
-                                        "when": [
-                                            {"id": "age-answer", "condition": "not set"}
-                                        ],
+                                        "when": [{"id": "age-answer", "condition": "not set"}],
                                     },
                                 ],
                             }

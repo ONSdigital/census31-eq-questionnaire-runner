@@ -76,9 +76,7 @@ class TestQuestionnairePageTitles(IntegrationTestCase):
 
     def test_should_not_use_names_in_question_page_titles(self):
         # Given
-        self.launchSurvey(
-            "test_placeholder_full", display_address="68 Abingdon Road, Goathill"
-        )
+        self.launchSurvey("test_placeholder_full", display_address="68 Abingdon Road, Goathill")
         # When
         self.post({"first-name": "Kevin", "last-name": "Bacon"})
         # Then
@@ -99,6 +97,4 @@ class TestQuestionnairePageTitles(IntegrationTestCase):
         # When
         self.post()
         # Then
-        self.assertEqualPageTitle(
-            "Error: Which pizza toppings would you like? - Census 2021"
-        )
+        self.assertEqualPageTitle("Error: Which pizza toppings would you like? - Census 2021")

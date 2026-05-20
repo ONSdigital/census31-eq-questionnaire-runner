@@ -47,13 +47,9 @@ def test_previous_answer_transform_placeholder():
 
     retail_turnover = "1000"
 
-    answer_store = AnswerStore(
-        [{"answer_id": "total-retail-turnover-answer", "value": retail_turnover}]
-    )
+    answer_store = AnswerStore([{"answer_id": "total-retail-turnover-answer", "value": retail_turnover}])
 
-    parser = PlaceholderParser(
-        language="en", schema=QuestionnaireSchema({}), answer_store=answer_store
-    )
+    parser = PlaceholderParser(language="en", schema=QuestionnaireSchema({}), answer_store=answer_store)
     placeholders = parser(placeholder_list)
 
     assert placeholders["total_turnover"] == "£1,000.00"
@@ -78,9 +74,7 @@ def test_metadata_transform_placeholder():
         }
     ]
 
-    parser = PlaceholderParser(
-        language="en", metadata={"ref_p_start_date": "2019-02-11"}
-    )
+    parser = PlaceholderParser(language="en", metadata={"ref_p_start_date": "2019-02-11"})
     placeholders = parser(placeholder_list)
 
     assert placeholders["start_date"] == "Monday 11 February 2019"
@@ -140,9 +134,7 @@ def test_format_list_answer_transform_placeholder():
 
     parser = PlaceholderParser(
         language="en",
-        answer_store=AnswerStore(
-            [{"answer_id": "checkbox-answer", "value": ["Ham", "Cheese"]}]
-        ),
+        answer_store=AnswerStore([{"answer_id": "checkbox-answer", "value": ["Ham", "Cheese"]}]),
     )
 
     placeholders = parser(placeholder_list)
@@ -182,10 +174,7 @@ def test_placeholder_parser_escapes_answers():
 
     placeholders = parser(placeholder_list)
 
-    assert (
-        placeholders["crisps"]
-        == "<ul><li>Cheese &amp; Onion</li><li>Salt &amp; Vinegar</li><li>&gt;&lt;&#39;</li></ul>"
-    )
+    assert placeholders["crisps"] == "<ul><li>Cheese &amp; Onion</li><li>Salt &amp; Vinegar</li><li>&gt;&lt;&#39;</li></ul>"
 
 
 def test_multiple_metadata_transform_placeholder():
@@ -214,9 +203,7 @@ def test_multiple_metadata_transform_placeholder():
         }
     ]
 
-    parser = PlaceholderParser(
-        language="en", metadata={"ref_p_start_date": "2019-02-11"}
-    )
+    parser = PlaceholderParser(language="en", metadata={"ref_p_start_date": "2019-02-11"})
 
     placeholders = parser(placeholder_list)
 
@@ -275,9 +262,7 @@ def test_mixed_transform_placeholder():
 
     parser = PlaceholderParser(
         language="en",
-        answer_store=AnswerStore(
-            [{"answer_id": "date-of-birth-answer", "value": "1999-01-01"}]
-        ),
+        answer_store=AnswerStore([{"answer_id": "date-of-birth-answer", "value": "1999-01-01"}]),
         metadata={"second-date": "2019-02-02"},
     )
     placeholders = parser(placeholder_list)
@@ -306,9 +291,7 @@ def test_mixed_transform_placeholder_value():
 
     parser = PlaceholderParser(
         language="en",
-        answer_store=AnswerStore(
-            [{"answer_id": "date-of-birth-answer", "value": "1999-01-01"}]
-        ),
+        answer_store=AnswerStore([{"answer_id": "date-of-birth-answer", "value": "1999-01-01"}]),
     )
     placeholders = parser(placeholder_list)
 
@@ -423,9 +406,7 @@ def test_placeholder_resolves_answer_value_based_on_first_item_in_list():
         ]
     )
 
-    parser = PlaceholderParser(
-        language="en", list_store=list_store, answer_store=answer_store
-    )
+    parser = PlaceholderParser(language="en", list_store=list_store, answer_store=answer_store)
 
     placeholders = parser(placeholder_list)
     assert str(placeholders["answer"]) == "Coffee"
@@ -445,9 +426,7 @@ def test_placeholder_resolves_list_item_value_based_on_first_item_in_list():
 
     list_store = ListStore([{"items": ["item-1", "item-2"], "name": "people"}])
 
-    parser = PlaceholderParser(
-        language="en", list_store=list_store, answer_store=AnswerStore()
-    )
+    parser = PlaceholderParser(language="en", list_store=list_store, answer_store=AnswerStore())
 
     placeholders = parser(placeholder_list)
 
