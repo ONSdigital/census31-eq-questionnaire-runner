@@ -87,6 +87,7 @@ types-PyYAML = "*"
 types-python-dateutil = "*"
 types-cachetools = "*"
 types-pytz = "*"
+djlint = "^1.34.2"
 
 [tool.mypy]
 implicit_optional = true
@@ -95,3 +96,12 @@ implicit_optional = true
 target_version = ["py313"]
 line-length = 160
 extend-exclude = '''/\.venv/'''
+
+[tool.djlint]
+blank_line_after_tag="load,extends,import,from"
+blank_line_before_tag="load,extends,block"
+max_line_length=120
+# _base.html excluded due to the bad </script> nesting after format
+exclude=".templates/layouts/_base.html"
+# when using double quote escape sequence in strings we get "H025 Tag seems to be an orphan" false positives
+ignore="H025"

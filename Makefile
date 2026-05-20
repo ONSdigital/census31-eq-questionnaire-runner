@@ -24,6 +24,9 @@ lint: lint-python
 lint-python:
 	poetry run ./scripts/run_lint_python.sh
 
+lint-html:
+	poetry run djlint ./templates --profile=jinja
+
 format: format-python
 	yarn format
 
@@ -54,6 +57,9 @@ lint-js:
 
 format-js:
 	npm run format
+
+lint-html:
+	poetry run djlint templates --check || true
 
 validate-test-schemas:
 	poetry run ./scripts/validate_test_schemas.sh
