@@ -3,7 +3,7 @@ name: PR
 on:
   pull_request:
     branches:
-      - "nonexistent"
+      - "v3-census"
 
 concurrency:
   group: '${{ github.head_ref }}'

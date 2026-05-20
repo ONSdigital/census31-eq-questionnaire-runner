@@ -2,9 +2,9 @@ name: "CodeQL Advanced"
 
 on:
   push:
-    branches: [ "nonexistent" ]
+    branches: [ "v3-census" ]
   pull_request:
-    branches: [ "nonexistent" ]
+    branches: [ "v3-census" ]
   schedule:
     - cron: '0 15 * * 3'
 

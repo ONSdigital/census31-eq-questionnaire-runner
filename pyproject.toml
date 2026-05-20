@@ -21,7 +21,6 @@ gevent = { version = "*", markers = "platform_python_implementation == 'CPython'
 google-cloud-datastore = "2.20.2"
 grpcio = "*"
 gunicorn = "20.0.4"
-newrelic = "*"
 pika = "*"
 pyyaml = "*"
 requests = "*"
