@@ -1,42 +1,42 @@
 # Translations template for PROJECT.
-# Copyright (C) 2021 ORGANIZATION
+# Copyright (C) 2026 ORGANIZATION
 # This file is distributed under the same license as the PROJECT project.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2021-03-16 12:13+0000\n"
+"POT-Creation-Date: 2026-05-20 15:32+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.9.0\n"
+"Generated-By: Babel 2.18.0\n"
 
-#: app/forms/validators.py:341 app/jinja_filters.py:94
+#: app/forms/validators.py:342 app/jinja_filters.py:94
 #, python-format
 msgid "%(num)s year"
 msgid_plural "%(num)s years"
 msgstr[0] ""
 msgstr[1] ""
 
-#: app/forms/validators.py:345 app/jinja_filters.py:102
+#: app/forms/validators.py:346 app/jinja_filters.py:102
 #, python-format
 msgid "%(num)s month"
 msgid_plural "%(num)s months"
 msgstr[0] ""
 msgstr[1] ""
 
-#: app/jinja_filters.py:145
+#: app/jinja_filters.py:146
 #, python-format
 msgid "%(date)s at %(time)s"
 msgstr ""
 
-#: app/jinja_filters.py:156
+#: app/jinja_filters.py:154
 #, python-format
 msgid "%(from_date)s to %(to_date)s"
 msgstr ""
@@ -46,7 +46,7 @@ msgstr ""
 msgid "Enter an answer"
 msgstr ""
 
-#: app/forms/error_messages.py:15
+#: app/forms/error_messages.py:16
 #, python-format
 msgid "Select an answer <span class=\"u-vh\">to ‘%(question_title)s’</span>"
 msgstr ""
@@ -56,7 +56,7 @@ msgstr ""
 msgid "Select an answer"
 msgstr ""
 
-#: app/forms/error_messages.py:19
+#: app/forms/error_messages.py:20
 #, python-format
 msgid ""
 "Select at least one answer <span class=\"u-vh\">to "
@@ -108,27 +108,27 @@ msgstr ""
 msgid "Enter answers that add up to %(total)s"
 msgstr ""
 
-#: app/forms/error_messages.py:32
+#: app/forms/error_messages.py:33
 #, python-format
 msgid "Enter answers that add up to or are less than %(total)s"
 msgstr ""
 
-#: app/forms/error_messages.py:35
+#: app/forms/error_messages.py:36
 #, python-format
 msgid "Enter answers that add up to less than %(total)s"
 msgstr ""
 
-#: app/forms/error_messages.py:38
+#: app/forms/error_messages.py:39
 #, python-format
 msgid "Enter answers that add up to greater than %(total)s"
 msgstr ""
 
-#: app/forms/error_messages.py:41
+#: app/forms/error_messages.py:42
 #, python-format
 msgid "Enter answers that add up to or are greater than %(total)s"
 msgstr ""
 
-#: app/forms/error_messages.py:44
+#: app/forms/error_messages.py:45
 msgid "Enter an email address in a valid format, for example name@example.com"
 msgstr ""
 
@@ -145,7 +145,7 @@ msgstr ""
 msgid "Enter a number rounded to %(max)d decimal places"
 msgstr ""
 
-#: app/forms/error_messages.py:50
+#: app/forms/error_messages.py:51
 #, python-format
 msgid "You have entered too many characters. Enter up to %(max)d characters"
 msgstr ""
@@ -154,7 +154,7 @@ msgstr ""
 msgid "Enter a valid date"
 msgstr ""
 
-#: app/forms/error_messages.py:54
+#: app/forms/error_messages.py:55
 msgid "Enter a 'period to' date later than the 'period from' date"
 msgstr ""
 
@@ -162,18 +162,18 @@ msgstr ""
 msgid "Enter a valid duration"
 msgstr ""
 
-#: app/forms/error_messages.py:58
+#: app/forms/error_messages.py:59
 msgid ""
 "Enter a UK mobile number in a valid format, for example, 07700 900345 or "
 "+44 7700 900345"
 msgstr ""
 
-#: app/forms/error_messages.py:61
+#: app/forms/error_messages.py:62
 #, python-format
 msgid "Enter a reporting period greater than or equal to %(min)s"
 msgstr ""
 
-#: app/forms/error_messages.py:64
+#: app/forms/error_messages.py:65
 #, python-format
 msgid "Enter a reporting period less than or equal to %(max)s"
 msgstr ""
@@ -192,7 +192,7 @@ msgstr ""
 msgid "Remove an answer"
 msgstr ""
 
-#: app/forms/validators.py:352
+#: app/forms/validators.py:353
 #, python-format
 msgid "%(num)s day"
 msgid_plural "%(num)s days"
@@ -212,7 +212,7 @@ msgstr ""
 msgid "Census 2021"
 msgstr ""
 
-#: app/helpers/template_helpers.py:38
+#: app/helpers/template_helpers.py:39
 msgid "Northern Ireland Statistics and Research Agency logo"
 msgstr ""
 
@@ -236,7 +236,7 @@ msgstr ""
 msgid "The following links open in a new tab"
 msgstr ""
 
-#: app/helpers/template_helpers.py:86
+#: app/helpers/template_helpers.py:87
 msgid "Crown copyright and database rights 2021 NIMA MOU577.501."
 msgstr ""
 
@@ -244,7 +244,7 @@ msgstr ""
 msgid "Crown copyright and database rights 2020 OS 100019153."
 msgstr ""
 
-#: app/helpers/template_helpers.py:91
+#: app/helpers/template_helpers.py:92
 msgid "Use of address data is subject to the terms and conditions."
 msgstr ""
 
@@ -264,45 +264,51 @@ msgstr ""
 msgid "Terms and conditions"
 msgstr ""
 
-#: app/helpers/template_helpers.py:127
+#: app/helpers/template_helpers.py:128
+#, python-brace-format
 msgid ""
 "Make sure you <a href='{sign_out_url}'>leave this page</a> or close your "
 "browser if using a shared device"
 msgstr ""
 
-#: app/questionnaire/placeholder_transforms.py:92
+#: app/questionnaire/placeholder_transforms.py:93
+#, python-brace-format
 msgid "{number_of_years} year"
 msgid_plural "{number_of_years} years"
 msgstr[0] ""
 msgstr[1] ""
 
-#: app/questionnaire/placeholder_transforms.py:98
+#: app/questionnaire/placeholder_transforms.py:99
+#, python-brace-format
 msgid "{number_of_months} month"
 msgid_plural "{number_of_months} months"
 msgstr[0] ""
 msgstr[1] ""
 
-#: app/questionnaire/placeholder_transforms.py:103
+#: app/questionnaire/placeholder_transforms.py:104
+#, python-brace-format
 msgid "{number_of_days} day"
 msgid_plural "{number_of_days} days"
 msgstr[0] ""
 msgstr[1] ""
 
-#: app/routes/errors.py:115
+#: app/routes/errors.py:116
 msgid "You have reached the maximum number of individual access codes"
 msgstr ""
 
-#: app/routes/errors.py:118
+#: app/routes/errors.py:119
+#, python-brace-format
 msgid ""
 "If you need more individual access codes, please <a "
 "href='{contact_us_url}'>contact us</a>."
 msgstr ""
 
-#: app/routes/errors.py:134
+#: app/routes/errors.py:135
 msgid "You have reached the maximum number of times for submitting feedback"
 msgstr ""
 
-#: app/routes/errors.py:137
+#: app/routes/errors.py:138
+#, python-brace-format
 msgid ""
 "If you need to give more feedback, please <a "
 "href='{contact_us_url}'>contact us</a>."
@@ -312,11 +318,13 @@ msgstr ""
 msgid "Sorry, there was a problem sending the access code"
 msgstr ""
 
-#: app/routes/errors.py:175
+#: app/routes/errors.py:176
+#, python-brace-format
 msgid "You can try to <a href='{retry_url}'>request a new access code again</a>."
 msgstr ""
 
-#: app/routes/errors.py:178 app/routes/errors.py:201 app/routes/errors.py:223
+#: app/routes/errors.py:179 app/routes/errors.py:202 app/routes/errors.py:224
+#, python-brace-format
 msgid ""
 "If this problem keeps happening, please <a "
 "href='{contact_us_url}'>contact us</a> for help."
@@ -326,7 +334,8 @@ msgstr ""
 msgid "Sorry, there was a problem sending the confirmation email"
 msgstr ""
 
-#: app/routes/errors.py:198
+#: app/routes/errors.py:199
+#, python-brace-format
 msgid "You can try to <a href='{retry_url}'>send the email again</a>."
 msgstr ""
 
@@ -336,7 +345,8 @@ msgstr ""
 msgid "Sorry, there is a problem"
 msgstr ""
 
-#: app/routes/errors.py:220
+#: app/routes/errors.py:221
+#, python-brace-format
 msgid "You can try to <a href='{retry_url}'>submit your feedback again</a>."
 msgstr ""
 
@@ -357,6 +367,7 @@ msgid "View answers"
 msgstr ""
 
 #: app/views/contexts/hub_context.py:18
+#, python-brace-format
 msgid "View answers for {section_name}"
 msgstr ""
 
@@ -369,6 +380,7 @@ msgid "Continue with section"
 msgstr ""
 
 #: app/views/contexts/hub_context.py:25
+#, python-brace-format
 msgid "Continue with {section_name} section"
 msgstr ""
 
@@ -381,6 +393,7 @@ msgid "Start section"
 msgstr ""
 
 #: app/views/contexts/hub_context.py:32
+#, python-brace-format
 msgid "Start {section_name} section"
 msgstr ""
 
@@ -392,11 +405,11 @@ msgstr ""
 msgid "Change or resend"
 msgstr ""
 
-#: app/views/contexts/hub_context.py:49 app/views/contexts/hub_context.py:50
+#: app/views/contexts/hub_context.py:49 app/views/contexts/hub_context.py:51
 msgid "Submit survey"
 msgstr ""
 
-#: app/views/contexts/hub_context.py:54
+#: app/views/contexts/hub_context.py:55
 msgid "You must submit this survey to complete it"
 msgstr ""
 
@@ -416,40 +429,41 @@ msgstr ""
 msgid " (You)"
 msgstr ""
 
-#: app/views/contexts/questionnaire_summary_context.py:15
+#: app/views/contexts/questionnaire_summary_context.py:16
 msgid "Check your answers and submit"
 msgstr ""
 
-#: app/views/contexts/questionnaire_summary_context.py:18
+#: app/views/contexts/questionnaire_summary_context.py:19
 #: templates/confirmation.html:6 templates/confirmation.html:28
 msgid "Submit answers"
 msgstr ""
 
-#: app/views/contexts/questionnaire_summary_context.py:21
+#: app/views/contexts/questionnaire_summary_context.py:22
 msgid "Please submit this survey to complete it"
 msgstr ""
 
-#: app/views/handlers/confirm_email.py:31
+#: app/views/handlers/confirm_email.py:32
 msgid "Yes, send the confirmation email"
 msgstr ""
 
-#: app/views/handlers/confirm_email.py:60
+#: app/views/handlers/confirm_email.py:61
 msgid "Confirm your email address"
 msgstr ""
 
-#: app/views/handlers/confirm_email.py:78
+#: app/views/handlers/confirm_email.py:79
 msgid "Is this email address correct?"
 msgstr ""
 
-#: app/views/handlers/confirm_email.py:91
 #: app/views/handlers/confirm_email.py:92
+#: app/views/handlers/confirm_email.py:93
 #: app/views/handlers/individual_response.py:867
 msgid "No, I need to change it"
 msgstr ""
 
-#: app/views/handlers/confirm_email.py:116
+#: app/views/handlers/confirm_email.py:117
 #: app/views/handlers/confirmation_email.py:66
 #: app/views/handlers/feedback.py:62 app/views/handlers/question.py:150
+#, python-brace-format
 msgid "Error: {page_title}"
 msgstr ""
 
@@ -506,7 +520,7 @@ msgstr ""
 msgid "Give feedback about this service"
 msgstr ""
 
-#: app/views/handlers/feedback.py:128 app/views/handlers/feedback.py:172
+#: app/views/handlers/feedback.py:128 app/views/handlers/feedback.py:173
 msgid "Select what your feedback is about"
 msgstr ""
 
@@ -514,7 +528,7 @@ msgstr ""
 msgid "The census questions"
 msgstr ""
 
-#: app/views/handlers/feedback.py:138
+#: app/views/handlers/feedback.py:139
 msgid "For example, questions not clear, answer options not relevant"
 msgstr ""
 
@@ -522,7 +536,7 @@ msgstr ""
 msgid "Question topic"
 msgstr ""
 
-#: app/views/handlers/feedback.py:146 app/views/handlers/feedback.py:149
+#: app/views/handlers/feedback.py:146 app/views/handlers/feedback.py:150
 msgid "Select an option"
 msgstr ""
 
@@ -530,7 +544,7 @@ msgstr ""
 msgid "Page design and structure"
 msgstr ""
 
-#: app/views/handlers/feedback.py:162 app/views/handlers/feedback.py:165
+#: app/views/handlers/feedback.py:163 app/views/handlers/feedback.py:166
 msgid "General feedback about this service"
 msgstr ""
 
@@ -538,11 +552,12 @@ msgstr ""
 msgid "Enter your feedback"
 msgstr ""
 
-#: app/views/handlers/feedback.py:181
+#: app/views/handlers/feedback.py:182
 msgid "Do not include confidential information, such as your contact details"
 msgstr ""
 
 #: app/views/handlers/individual_response.py:137
+#, python-brace-format
 msgid "Person {list_item_position}"
 msgstr ""
 
@@ -550,7 +565,8 @@ msgstr ""
 msgid "Cannot answer questions for others in your household"
 msgstr ""
 
-#: app/views/handlers/individual_response.py:311
+#: app/views/handlers/individual_response.py:312
+#, python-brace-format
 msgid "How would you like <em>{person_name}</em> to receive a separate census?"
 msgstr ""
 
@@ -558,7 +574,7 @@ msgstr ""
 msgid "Text message"
 msgstr ""
 
-#: app/views/handlers/individual_response.py:336
+#: app/views/handlers/individual_response.py:337
 msgid "We will need their mobile number for this"
 msgstr ""
 
@@ -566,7 +582,7 @@ msgstr ""
 msgid "Post"
 msgstr ""
 
-#: app/views/handlers/individual_response.py:346
+#: app/views/handlers/individual_response.py:347
 msgid ""
 "We can only send this to an unnamed resident at the registered household "
 "address"
@@ -580,7 +596,7 @@ msgstr ""
 msgid "Select how to send access code."
 msgstr ""
 
-#: app/views/handlers/individual_response.py:360
+#: app/views/handlers/individual_response.py:361
 msgid ""
 "For someone to complete a separate census, we need to send them an "
 "individual access code."
@@ -590,23 +606,25 @@ msgstr ""
 msgid "Send individual access code"
 msgstr ""
 
-#: app/views/handlers/individual_response.py:437
+#: app/views/handlers/individual_response.py:438
+#, python-brace-format
 msgid "How would you like to answer <em>{person_name_possessive}</em> questions?"
 msgstr ""
 
-#: app/views/handlers/individual_response.py:452
+#: app/views/handlers/individual_response.py:453
 msgid "I would like to request a separate census for them to complete"
 msgstr ""
 
-#: app/views/handlers/individual_response.py:458
+#: app/views/handlers/individual_response.py:459
 msgid "I will ask them to answer their own questions"
 msgstr ""
 
-#: app/views/handlers/individual_response.py:462
+#: app/views/handlers/individual_response.py:463
 msgid "They will need the household access code from the letter we sent you"
 msgstr ""
 
-#: app/views/handlers/individual_response.py:468
+#: app/views/handlers/individual_response.py:469
+#, python-brace-format
 msgid "I will answer for {person_name}"
 msgstr ""
 
@@ -614,23 +632,24 @@ msgstr ""
 msgid "How to answer questions"
 msgstr ""
 
-#: app/views/handlers/individual_response.py:575
+#: app/views/handlers/individual_response.py:576
+#, python-brace-format
 msgid "Do you want to send an individual access code for {person_name} by post?"
 msgstr ""
 
-#: app/views/handlers/individual_response.py:583
+#: app/views/handlers/individual_response.py:584
 msgid ""
 "A letter with an individual access code will be sent to your registered "
 "household address"
 msgstr ""
 
-#: app/views/handlers/individual_response.py:590
+#: app/views/handlers/individual_response.py:591
 msgid ""
 "The letter will be addressed to <strong>Individual Resident</strong> "
 "instead of the name provided"
 msgstr ""
 
-#: app/views/handlers/individual_response.py:603
+#: app/views/handlers/individual_response.py:604
 msgid "Yes, send the access code by post"
 msgstr ""
 
@@ -647,11 +666,12 @@ msgstr ""
 msgid "Separate Census"
 msgstr ""
 
-#: app/views/handlers/individual_response.py:701
+#: app/views/handlers/individual_response.py:702
 msgid "Who do you need to request a separate census for?"
 msgstr ""
 
-#: app/views/handlers/individual_response.py:759
+#: app/views/handlers/individual_response.py:760
+#, python-brace-format
 msgid "What is <em>{person_name_possessive}</em> mobile number?"
 msgstr ""
 
@@ -659,7 +679,7 @@ msgstr ""
 msgid "UK mobile number"
 msgstr ""
 
-#: app/views/handlers/individual_response.py:772
+#: app/views/handlers/individual_response.py:773
 msgid "This will not be stored and only used once to send the access code"
 msgstr ""
 
@@ -696,18 +716,21 @@ msgid "Thank you for completing the survey"
 msgstr ""
 
 #: templates/census-thank-you.html:32
+#, python-brace-format
 msgid ""
 "Your individual census has been submitted for "
 "<strong>{display_address}</strong>"
 msgstr ""
 
 #: templates/census-thank-you.html:34
+#, python-brace-format
 msgid ""
 "Your census has been submitted for the household at "
 "<strong>{display_address}</strong>"
 msgstr ""
 
 #: templates/census-thank-you.html:36
+#, python-brace-format
 msgid ""
 "Your census has been submitted for the accommodation at "
 "<strong>{display_address}</strong>"
@@ -749,6 +772,7 @@ msgid "Confirmation email sent"
 msgstr ""
 
 #: templates/confirmation-email-sent.html:16
+#, python-brace-format
 msgid "A confirmation email has been sent to {email}"
 msgstr ""
 
@@ -763,6 +787,7 @@ msgid "Didn't receive an email?"
 msgstr ""
 
 #: templates/confirmation-email-sent.html:30
+#, python-brace-format
 msgid ""
 "It can take a few minutes for the email to arrive. If it doesn't arrive, "
 "check your junk mail, or you can <a href='{send_confirmation_email_url}' "
@@ -892,18 +917,21 @@ msgid "Submission successful"
 msgstr ""
 
 #: templates/thank-you.html:21
+#, python-brace-format
 msgid ""
 "Your answers were submitted for <span>{ru_name}</span> "
 "({trading_as_name}) on {submitted_date_time}"
 msgstr ""
 
 #: templates/thank-you.html:26
+#, python-brace-format
 msgid ""
 "Your answers were submitted for <span>{ru_name}</span> on "
 "{submitted_date_time}"
 msgstr ""
 
 #: templates/thank-you.html:32
+#, python-brace-format
 msgid "Transaction ID: <b>{transaction_id}</b>"
 msgstr ""
 
@@ -928,6 +956,7 @@ msgid "If the problem still occurs, try using a different browser or device."
 msgstr ""
 
 #: templates/errors/403.html:9
+#, python-brace-format
 msgid "For further help, please <a href='{url}'>contact us</a>."
 msgstr ""
 
@@ -944,6 +973,7 @@ msgid "If you pasted the web address, check you copied the whole address."
 msgstr ""
 
 #: templates/errors/404.html:9
+#, python-brace-format
 msgid ""
 "If the web address is correct or you selected a link or button, <a "
 "href='{url}'>contact us</a> for more help."
@@ -966,6 +996,7 @@ msgid "If you have started a survey, your answers have been saved."
 msgstr ""
 
 #: templates/errors/500.html:9
+#, python-brace-format
 msgid ""
 "<a href='{url}'>Contact us</a> if you need to speak to someone about your"
 " survey."
@@ -980,6 +1011,7 @@ msgid "Sorry there is a problem"
 msgstr ""
 
 #: templates/errors/no-cookie.html:7
+#, python-brace-format
 msgid ""
 "To access this page you need to <a href='{url}'>enter your 16-character "
 "access code</a>."
@@ -998,6 +1030,7 @@ msgid "To help protect your information we have timed you out"
 msgstr ""
 
 #: templates/errors/session-expired.html:8
+#, python-brace-format
 msgid ""
 "You will need to <a href='{url}'>enter your 16-character access code</a> "
 "again to continue your census."
@@ -1016,16 +1049,19 @@ msgid "Your census has been submitted"
 msgstr ""
 
 #: templates/errors/submission-failed.html:9
+#, python-brace-format
 msgid "You can try to <a href='{url}'>submit your census again</a>"
 msgstr ""
 
 #: templates/errors/submission-failed.html:10
+#, python-brace-format
 msgid ""
 "If this problem keeps happening, please <a href='{url}'>contact us</a> "
 "for help."
 msgstr ""
 
 #: templates/individual_response/confirmation-post.html:15
+#, python-brace-format
 msgid "A letter has been sent to Individual Resident at {display_address}"
 msgstr ""
 
@@ -1036,6 +1072,7 @@ msgid ""
 msgstr ""
 
 #: templates/individual_response/confirmation-text-message.html:15
+#, python-brace-format
 msgid "We have sent a text to {mobile_number}"
 msgstr ""
 
@@ -1070,6 +1107,7 @@ msgid "Request separate census"
 msgstr ""
 
 #: templates/individual_response/question.html:9
+#, python-brace-format
 msgid ""
 "To request a census in a different format or for further help, please <a "
 "href='{contact_us_url}'>contact us</a>"
@@ -1084,6 +1122,7 @@ msgid "Tell us whether you accept cookies"
 msgstr ""
 
 #: templates/layouts/_base.html:63
+#, python-brace-format
 msgid ""
 "We use <a href='{cookie_settings_url}'>cookies to collect information</a>"
 " about how you use census.gov.uk. We use this information to make the "
@@ -1091,6 +1130,7 @@ msgid ""
 msgstr ""
 
 #: templates/layouts/_base.html:64
+#, python-brace-format
 msgid ""
 "You’ve accepted all cookies. You can <a "
 "href='{cookie_settings_url}'>change your cookie preferences</a> at any "
@@ -1111,7 +1151,7 @@ msgstr ""
 msgid "Hide"
 msgstr ""
 
-#: templates/layouts/_base.html:115
+#: templates/layouts/_base.html:122
 msgid "Skip to main content"
 msgstr ""
 
@@ -1172,6 +1212,7 @@ msgid ""
 msgstr ""
 
 #: templates/partials/individual-response-guidance.html:26
+#, python-brace-format
 msgid ""
 "If this is not possible, there are <a href={url}>other ways each person "
 "can complete their own census.</a>"
@@ -1182,6 +1223,7 @@ msgid "This is the last viewed question in this section"
 msgstr ""
 
 #: templates/partials/last_viewed_question_guidance.html:10
+#, python-brace-format
 msgid ""
 "You can also <a id='section-start-link' href='{url}'>go back to the start"
 " of the section</a>"
@@ -1255,6 +1297,7 @@ msgid "There is one suggestion available."
 msgstr ""
 
 #: templates/partials/answers/address.html:46
+#, python-brace-format
 msgid "There are {n} suggestions available."
 msgstr ""
 
@@ -1265,10 +1308,12 @@ msgid ""
 msgstr ""
 
 #: templates/partials/answers/address.html:48
+#, python-brace-format
 msgid "There are {n} for {x}"
 msgstr ""
 
 #: templates/partials/answers/address.html:49
+#, python-brace-format
 msgid "{n} addresses"
 msgstr ""
 
@@ -1285,6 +1330,7 @@ msgid "No results found. Try entering a different part of the address"
 msgstr ""
 
 #: templates/partials/answers/address.html:53
+#, python-brace-format
 msgid "{n} results found. Enter more of the address to improve results"
 msgstr ""
 
@@ -1326,19 +1372,23 @@ msgstr ""
 
 #: templates/partials/answers/textarea.html:16
 #: templates/partials/answers/textfield.html:28
+#, python-brace-format
 msgid "You have {x} character remaining"
 msgstr ""
 
 #: templates/partials/answers/textarea.html:17
 #: templates/partials/answers/textfield.html:29
+#, python-brace-format
 msgid "You have {x} characters remaining"
 msgstr ""
 
 #: templates/partials/answers/textfield.html:26
+#, python-brace-format
 msgid "{x} character too many"
 msgstr ""
 
 #: templates/partials/answers/textfield.html:27
+#, python-brace-format
 msgid "{x} characters too many"
 msgstr ""
 
@@ -1401,6 +1451,7 @@ msgid "Change your answer for:"
 msgstr ""
 
 #: templates/partials/summary/list-summary.html:9
+#, python-brace-format
 msgid "Change details for {item_name}"
 msgstr ""
 
@@ -1409,6 +1460,7 @@ msgid "Remove"
 msgstr ""
 
 #: templates/partials/summary/list-summary.html:11
+#, python-brace-format
 msgid "Remove {item_name}"
 msgstr ""
 
