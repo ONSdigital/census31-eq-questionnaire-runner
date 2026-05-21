@@ -1,0 +1,935 @@
+{
+    "data_version": "0.0.3",
+    "description": "Census Communal Establishment",
+    "form_type": "C",
+    "language": "cy",
+    "legal_basis": "Wirfoddol",
+    "metadata": [
+        {
+            "name": "user_id",
+            "type": "string"
+        },
+        {
+            "name": "period_id",
+            "type": "string"
+        },
+        {
+            "name": "display_address",
+            "type": "string"
+        }
+    ],
+    "mime_type": "application/json/ons/eq",
+    "region_code": "GB-WLS",
+    "schema_version": "0.0.1",
+    "sections": [
+        {
+            "groups": [
+                {
+                    "blocks": [
+                        {
+                            "id": "nature-of-establishment",
+                            "page_title": "Math o sefydliad",
+                            "question": {
+                                "answers": [
+                                    {
+                                        "id": "nature-of-establishment-answer",
+                                        "mandatory": true,
+                                        "options": [
+                                            {
+                                                "description": "Er enghraifft, cartref gofal, cartref plant neu ysbyty",
+                                                "label": "Meddygol neu ofal",
+                                                "value": "Medical or care"
+                                            },
+                                            {
+                                                "description": "Gan gynnwys neuaddau preswyl",
+                                                "label": "Addysg",
+                                                "value": "Education"
+                                            },
+                                            {
+                                                "description": "Sefydliadau amddiffyn, gan gynnwys llongau",
+                                                "label": "Lluoedd arfog",
+                                                "value": "Armed forces"
+                                            },
+                                            {
+                                                "description": "Er enghraifft, carchar neu safle a gymeradwywyd",
+                                                "label": "Sefydliad cadw",
+                                                "value": "Detention"
+                                            },
+                                            {
+                                                "description": "Gan gynnwys llochesau i bobl ddigartref",
+                                                "label": "Llety dros dro neu wrth deithio",
+                                                "value": "Travel or temporary accommodation"
+                                            },
+                                            {
+                                                "label": "Sefydliad crefyddol",
+                                                "value": "Religious establishment"
+                                            },
+                                            {
+                                                "label": "Llety i staff neu weithwyr yn unig",
+                                                "value": "Staff or worker accommodation only"
+                                            },
+                                            {
+                                                "label": "Sefydliad arall",
+                                                "value": "Other establishment"
+                                            }
+                                        ],
+                                        "type": "Radio"
+                                    }
+                                ],
+                                "id": "nature-of-establishment-question",
+                                "title": "Pa fath o sefydliad yw hwn?",
+                                "type": "General"
+                            },
+                            "routing_rules": [
+                                {
+                                    "goto": {
+                                        "block": "medical-establishment",
+                                        "when": [
+                                            {
+                                                "condition": "equals",
+                                                "id": "nature-of-establishment-answer",
+                                                "value": "Medical or care"
+                                            }
+                                        ]
+                                    }
+                                },
+                                {
+                                    "goto": {
+                                        "block": "education-establishment",
+                                        "when": [
+                                            {
+                                                "condition": "equals",
+                                                "id": "nature-of-establishment-answer",
+                                                "value": "Education"
+                                            }
+                                        ]
+                                    }
+                                },
+                                {
+                                    "goto": {
+                                        "block": "detention-establishment",
+                                        "when": [
+                                            {
+                                                "condition": "equals",
+                                                "id": "nature-of-establishment-answer",
+                                                "value": "Detention"
+                                            }
+                                        ]
+                                    }
+                                },
+                                {
+                                    "goto": {
+                                        "block": "travel-establishment",
+                                        "when": [
+                                            {
+                                                "condition": "equals",
+                                                "id": "nature-of-establishment-answer",
+                                                "value": "Travel or temporary accommodation"
+                                            }
+                                        ]
+                                    }
+                                },
+                                {
+                                    "goto": {
+                                        "block": "responsible-for-establishment"
+                                    }
+                                }
+                            ],
+                            "type": "Question"
+                        },
+                        {
+                            "id": "medical-establishment",
+                            "page_title": "Math o sefydliad meddygol neu ofal",
+                            "question": {
+                                "answers": [
+                                    {
+                                        "id": "medical-establishment-answer",
+                                        "mandatory": false,
+                                        "options": [
+                                            {
+                                                "label": "Cartref gofal heb nyrsio",
+                                                "value": "Care home without nursing"
+                                            },
+                                            {
+                                                "label": "Cartref gofal \u00e2 nyrsio",
+                                                "value": "Care home with nursing"
+                                            },
+                                            {
+                                                "description": "Gan gynnwys unedau diogel",
+                                                "label": "Cartref plant",
+                                                "value": "Children\u2019s home"
+                                            },
+                                            {
+                                                "label": "Ysbyty cyffredinol",
+                                                "value": "General hospital"
+                                            },
+                                            {
+                                                "description": "Gan gynnwys unedau diogel",
+                                                "label": "Ysbyty neu uned iechyd meddwl",
+                                                "value": "Mental health hospital or unit"
+                                            },
+                                            {
+                                                "label": "Ysbyty arall",
+                                                "value": "Other hospital"
+                                            },
+                                            {
+                                                "label": "Math arall o sefydliad meddygol neu ofal",
+                                                "value": "Other medical or care establishment"
+                                            }
+                                        ],
+                                        "type": "Radio"
+                                    }
+                                ],
+                                "id": "medical-establishment-question",
+                                "title": {
+                                    "placeholders": [
+                                        {
+                                            "placeholder": "household_address",
+                                            "value": {
+                                                "identifier": "display_address",
+                                                "source": "metadata"
+                                            }
+                                        }
+                                    ],
+                                    "text": "Pa fath o sefydliad meddygol neu ofal yw <em>{household_address}</em>?"
+                                },
+                                "type": "General"
+                            },
+                            "routing_rules": [
+                                {
+                                    "goto": {
+                                        "block": "responsible-for-establishment"
+                                    }
+                                }
+                            ],
+                            "type": "Question"
+                        },
+                        {
+                            "id": "education-establishment",
+                            "page_title": "Math o sefydliad addysg",
+                            "question": {
+                                "answers": [
+                                    {
+                                        "id": "education-establishment-answer",
+                                        "mandatory": false,
+                                        "options": [
+                                            {
+                                                "label": "Ysgol",
+                                                "value": "School"
+                                            },
+                                            {
+                                                "description": "Er enghraifft, neuadd breswyl",
+                                                "label": "Prifysgol",
+                                                "value": "University"
+                                            },
+                                            {
+                                                "label": "Math arall o sefydliad addysg",
+                                                "value": "Other education establishment"
+                                            }
+                                        ],
+                                        "type": "Radio"
+                                    }
+                                ],
+                                "id": "education-establishment-question",
+                                "title": {
+                                    "placeholders": [
+                                        {
+                                            "placeholder": "household_address",
+                                            "value": {
+                                                "identifier": "display_address",
+                                                "source": "metadata"
+                                            }
+                                        }
+                                    ],
+                                    "text": "Pa fath o sefydliad addysg yw <em>{household_address}</em>?"
+                                },
+                                "type": "General"
+                            },
+                            "routing_rules": [
+                                {
+                                    "goto": {
+                                        "block": "responsible-for-establishment"
+                                    }
+                                }
+                            ],
+                            "type": "Question"
+                        },
+                        {
+                            "id": "detention-establishment",
+                            "page_title": "Math o sefydliad cadw",
+                            "question": {
+                                "answers": [
+                                    {
+                                        "id": "detention-establishment-answer",
+                                        "mandatory": false,
+                                        "options": [
+                                            {
+                                                "description": "Gan gynnwys sefydliadau troseddwyr ifanc",
+                                                "label": "Sefydliad gwasanaeth carchardai",
+                                                "value": "Prison service establishment"
+                                            },
+                                            {
+                                                "description": "Hostel prawf neu fechn\u00efaeth",
+                                                "label": "Safle a gymeradwywyd",
+                                                "value": "Approved premises"
+                                            },
+                                            {
+                                                "label": "Canolfan gadw",
+                                                "value": "Detention centre"
+                                            },
+                                            {
+                                                "label": "Math arall o sefydliad cadw",
+                                                "value": "Other detention establishment"
+                                            }
+                                        ],
+                                        "type": "Radio"
+                                    }
+                                ],
+                                "id": "detention-establishment-question",
+                                "title": {
+                                    "placeholders": [
+                                        {
+                                            "placeholder": "household_address",
+                                            "value": {
+                                                "identifier": "display_address",
+                                                "source": "metadata"
+                                            }
+                                        }
+                                    ],
+                                    "text": "Pa fath o sefydliad cadw yw <em>{household_address}</em>?"
+                                },
+                                "type": "General"
+                            },
+                            "routing_rules": [
+                                {
+                                    "goto": {
+                                        "block": "responsible-for-establishment"
+                                    }
+                                }
+                            ],
+                            "type": "Question"
+                        },
+                        {
+                            "id": "travel-establishment",
+                            "page_title": "Math o sefydliad llety dros dro neu wrth deithio",
+                            "question": {
+                                "answers": [
+                                    {
+                                        "id": "travel-establishment-answer",
+                                        "mandatory": false,
+                                        "options": [
+                                            {
+                                                "description": "Gan gynnwys tafarndai",
+                                                "label": "Gwesty, t\u0177 llety, gwely a brecwast, hostel ieuenctid",
+                                                "value": "Hotel, guest house, B&B, youth hostel"
+                                            },
+                                            {
+                                                "description": "Er enghraifft, parc gwyliau",
+                                                "label": "Llety gwyliau",
+                                                "value": "Holiday accommodation"
+                                            },
+                                            {
+                                                "label": "Hostel neu loches dros dro i bobl ddigartref",
+                                                "value": "Hostel or temporary shelter for homeless people"
+                                            },
+                                            {
+                                                "label": "Math arall o lety dros dro neu wrth deithio",
+                                                "value": "Other travel or temporary accommodation"
+                                            }
+                                        ],
+                                        "type": "Radio"
+                                    }
+                                ],
+                                "id": "travel-establishment-question",
+                                "title": {
+                                    "placeholders": [
+                                        {
+                                            "placeholder": "household_address",
+                                            "value": {
+                                                "identifier": "display_address",
+                                                "source": "metadata"
+                                            }
+                                        }
+                                    ],
+                                    "text": "Pa fath o sefydliad llety dros dro neu wrth deithio yw <em>{household_address}</em>?"
+                                },
+                                "type": "General"
+                            },
+                            "routing_rules": [
+                                {
+                                    "goto": {
+                                        "block": "responsible-for-establishment"
+                                    }
+                                }
+                            ],
+                            "type": "Question"
+                        },
+                        {
+                            "id": "responsible-for-establishment",
+                            "page_title": "Rheolwr y sefydliad hwn",
+                            "question": {
+                                "answers": [
+                                    {
+                                        "id": "responsible-for-establishment-answer",
+                                        "mandatory": false,
+                                        "options": [
+                                            {
+                                                "label": "Y Gwasanaeth Iechyd Gwladol",
+                                                "value": "NHS"
+                                            },
+                                            {
+                                                "label": "Awdurdod lleol",
+                                                "value": "Local authority"
+                                            },
+                                            {
+                                                "label": "Un o adrannau neu asiantaethau\u2019r llywodraeth",
+                                                "value": "Government department or agency"
+                                            },
+                                            {
+                                                "label": "Landlord cymdeithasol cofrestredig neu gymdeithas dai",
+                                                "value": "Registered social landlord or housing association"
+                                            },
+                                            {
+                                                "label": "Elusen neu gorff gwirfoddol",
+                                                "value": "Charity or voluntary organisation"
+                                            },
+                                            {
+                                                "label": "Cwmni neu berchennog preifat",
+                                                "value": "Private owner or company"
+                                            },
+                                            {
+                                                "label": "Sefydliad addysg uwch neu addysg bellach",
+                                                "value": "Higher or further education institution"
+                                            },
+                                            {
+                                                "label": "Arall",
+                                                "value": "Other"
+                                            }
+                                        ],
+                                        "type": "Radio"
+                                    }
+                                ],
+                                "id": "responsible-for-establishment-question",
+                                "title": "Pwy sy\u2019n gyfrifol am reoli\u2019r sefydliad hwn?",
+                                "type": "General"
+                            },
+                            "routing_rules": [
+                                {
+                                    "goto": {
+                                        "block": "people-in-establishment"
+                                    }
+                                }
+                            ],
+                            "type": "Question"
+                        },
+                        {
+                            "id": "people-in-establishment",
+                            "page_title": "Pobl sy\u2019n byw yn y sefydliad hwn",
+                            "question": {
+                                "answers": [
+                                    {
+                                        "id": "people-in-establishment-answer",
+                                        "mandatory": false,
+                                        "options": [
+                                            {
+                                                "label": {
+                                                    "placeholders": [
+                                                        {
+                                                            "placeholder": "census_date",
+                                                            "transforms": [
+                                                                {
+                                                                    "arguments": {
+                                                                        "date_format": "d MMMM yyyy",
+                                                                        "date_to_format": {
+                                                                            "value": "2027-03-21"
+                                                                        }
+                                                                    },
+                                                                    "transform": "format_date"
+                                                                }
+                                                            ]
+                                                        }
+                                                    ],
+                                                    "text": "Unrhyw un sydd eisoes wedi treulio, neu sy\u2019n disgwyl treulio, 6 mis neu fwy yn y sefydliad hwn, hyd yn oed os bydd i ffwrdd ar {census_date}"
+                                                },
+                                                "value": "Anyone who has already spent, or is expected to spend, 6 months or more in this establishment, even if they are away on {census_date}"
+                                            },
+                                            {
+                                                "label": {
+                                                    "placeholders": [
+                                                        {
+                                                            "placeholder": "census_date",
+                                                            "transforms": [
+                                                                {
+                                                                    "arguments": {
+                                                                        "date_format": "d MMMM yyyy",
+                                                                        "date_to_format": {
+                                                                            "value": "2027-03-21"
+                                                                        }
+                                                                    },
+                                                                    "transform": "format_date"
+                                                                }
+                                                            ]
+                                                        }
+                                                    ],
+                                                    "text": "Preswylwyr y Deyrnas Unedig sy\u2019n aros yn y sefydliad hwn ar {census_date} ac sydd heb gyfeiriad arferol arall yn y Deyrnas Unedig"
+                                                },
+                                                "value": "UK residents who are staying in this establishment on {census_date} and have no other usual UK address"
+                                            },
+                                            {
+                                                "label": "Pobl sy\u2019n byw y tu allan i\u2019r Deyrnas Unedig fel arfer, sydd wedi aros, neu sy\u2019n bwriadu aros, yn y Deyrnas Unedig am 3 mis neu fwy ac sydd heb gyfeiriad arall yn y Deyrnas Unedig",
+                                                "value": "People who usually live outside the UK who have stayed, or intend to stay, in the UK for 3 months or more who do not have another UK address"
+                                            },
+                                            {
+                                                "label": "Myfyrwyr neu blant ysgol sy\u2019n aros yn y sefydliad hwn yn ystod y tymor",
+                                                "value": "Students or schoolchildren who stay in this establishment during term time"
+                                            },
+                                            {
+                                                "label": "Chi\u2019ch hun, eich teulu, staff ac unrhyw un arall sy\u2019n byw yn y sefydliad hwn",
+                                                "value": "Yourself, your family, staff, and any others who live in this establishment"
+                                            }
+                                        ],
+                                        "type": "Checkbox"
+                                    },
+                                    {
+                                        "id": "people-in-establishment-exclusive",
+                                        "mandatory": false,
+                                        "options": [
+                                            {
+                                                "label": "Dim un o\u2019r rhain",
+                                                "value": "None of these apply"
+                                            }
+                                        ],
+                                        "type": "Checkbox"
+                                    }
+                                ],
+                                "id": "people-in-establishment-question",
+                                "mandatory": false,
+                                "title": "Oes unrhyw un o\u2019r canlynol yn byw yn y sefydliad hwn ar hyn o bryd?",
+                                "type": "MutuallyExclusive"
+                            },
+                            "routing_rules": [
+                                {
+                                    "goto": {
+                                        "block": "number-of-people-in-establishment"
+                                    }
+                                }
+                            ],
+                            "type": "Question"
+                        },
+                        {
+                            "id": "number-of-people-in-establishment",
+                            "page_title": "Nifer y bobl sy\u2019n byw yn y sefydliad hwn",
+                            "question_variants": [
+                                {
+                                    "question": {
+                                        "answers": [
+                                            {
+                                                "id": "number-of-people-in-establishment-answer",
+                                                "label": "Nifer y preswylwyr",
+                                                "mandatory": false,
+                                                "minimum": {
+                                                    "value": 0
+                                                },
+                                                "type": "Number"
+                                            }
+                                        ],
+                                        "guidance": {
+                                            "contents": [
+                                                {
+                                                    "description": "<em>Dylech gynnwys</em> pawb o\u2019r grwpiau y gwnaethoch eu dewis ar gyfer y cwestiwn blaenorol"
+                                                },
+                                                {
+                                                    "description": "<em>Peidiwch \u00e2 chynnwys </em>ymwelwyr sydd \u00e2 chyfeiriad arall yn y Deyrnas Unedig, neu sy\u2019n byw y tu allan i\u2019r Deyrnas Unedig fel arfer ac sy\u2019n bwriadu aros yn y Deyrnas Unedig am 3 mis neu lai"
+                                                }
+                                            ]
+                                        },
+                                        "id": "number-of-people-in-establishment-question",
+                                        "title": "Faint o bobl sy\u2019n byw yn y sefydliad hwn ar hyn o bryd?",
+                                        "type": "General"
+                                    },
+                                    "when": [
+                                        {
+                                            "condition": "set",
+                                            "id": "people-in-establishment-answer"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "question": {
+                                        "answers": [
+                                            {
+                                                "id": "number-of-people-in-establishment-answer",
+                                                "label": "Nifer y preswylwyr",
+                                                "mandatory": false,
+                                                "minimum": {
+                                                    "value": 0
+                                                },
+                                                "type": "Number"
+                                            },
+                                            {
+                                                "id": "number-of-people-in-establishment-answer-exclusive",
+                                                "mandatory": false,
+                                                "options": [
+                                                    {
+                                                        "label": "Nid oes neb yn byw yn y sefydliad hwn",
+                                                        "value": "No one is living in this establishment"
+                                                    }
+                                                ],
+                                                "type": "Checkbox"
+                                            }
+                                        ],
+                                        "guidance": {
+                                            "contents": [
+                                                {
+                                                    "description": "<em>Peidiwch \u00e2 chynnwys </em>ymwelwyr sydd \u00e2 chyfeiriad arall yn y Deyrnas Unedig, neu sy\u2019n byw y tu allan i\u2019r Deyrnas Unedig fel arfer ac sy\u2019n bwriadu aros yn y Deyrnas Unedig am 3 mis neu lai"
+                                                }
+                                            ]
+                                        },
+                                        "id": "number-of-people-in-establishment-question",
+                                        "mandatory": false,
+                                        "title": "Faint o bobl sy\u2019n byw yn y sefydliad hwn ar hyn o bryd?",
+                                        "type": "MutuallyExclusive"
+                                    },
+                                    "when": [
+                                        {
+                                            "condition": "set",
+                                            "id": "people-in-establishment-exclusive"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "question": {
+                                        "answers": [
+                                            {
+                                                "id": "number-of-people-in-establishment-answer",
+                                                "label": "Nifer y preswylwyr",
+                                                "mandatory": false,
+                                                "minimum": {
+                                                    "value": 0
+                                                },
+                                                "type": "Number"
+                                            },
+                                            {
+                                                "id": "number-of-people-in-establishment-answer-exclusive",
+                                                "mandatory": false,
+                                                "options": [
+                                                    {
+                                                        "label": "Nid oes neb yn byw yn y sefydliad hwn",
+                                                        "value": "No one is living in this establishment"
+                                                    }
+                                                ],
+                                                "type": "Checkbox"
+                                            }
+                                        ],
+                                        "guidance": {
+                                            "contents": [
+                                                {
+                                                    "description": "<em>Peidiwch \u00e2 chynnwys </em>ymwelwyr sydd \u00e2 chyfeiriad arall yn y Deyrnas Unedig, neu sy\u2019n byw y tu allan i\u2019r Deyrnas Unedig fel arfer ac sy\u2019n bwriadu aros yn y Deyrnas Unedig am 3 mis neu lai"
+                                                }
+                                            ]
+                                        },
+                                        "id": "number-of-people-in-establishment-question",
+                                        "mandatory": false,
+                                        "title": "Faint o bobl sy\u2019n byw yn y sefydliad hwn ar hyn o bryd?",
+                                        "type": "MutuallyExclusive"
+                                    },
+                                    "when": [
+                                        {
+                                            "condition": "not set",
+                                            "id": "people-in-establishment-answer"
+                                        }
+                                    ]
+                                }
+                            ],
+                            "type": "Question"
+                        },
+                        {
+                            "id": "visitors-in-establishment",
+                            "page_title": "Ymwelwyr sy\u2019n aros yn y sefydliad hwn",
+                            "question": {
+                                "answers": [
+                                    {
+                                        "id": "visitors-in-establishment-answer",
+                                        "mandatory": false,
+                                        "options": [
+                                            {
+                                                "label": "Unrhyw un \u00e2 chyfeiriad arferol arall yn y Deyrnas Unedig sydd wedi treulio, neu sy\u2019n disgwyl treulio, llai na 6 mis yn y sefydliad hwn",
+                                                "value": "Anyone with another usual address in the UK who has spent, or expects to spend, less than 6 months in this establishment"
+                                            },
+                                            {
+                                                "label": "Unrhyw un o\u2019r tu allan i\u2019r Deyrnas Unedig sy\u2019n bwriadu aros yn y Deyrnas Unedig am lai na 3 mis",
+                                                "value": "Anyone from outside the UK who intends to stay in the UK for less than 3 months"
+                                            }
+                                        ],
+                                        "type": "Checkbox"
+                                    },
+                                    {
+                                        "id": "visitors-in-establishment-exclusive",
+                                        "mandatory": false,
+                                        "options": [
+                                            {
+                                                "label": "Dim un o\u2019r rhain",
+                                                "value": "None of these apply"
+                                            }
+                                        ],
+                                        "type": "Checkbox"
+                                    }
+                                ],
+                                "guidance": {
+                                    "contents": [
+                                        {
+                                            "description": {
+                                                "placeholders": [
+                                                    {
+                                                        "placeholder": "census_date",
+                                                        "transforms": [
+                                                            {
+                                                                "arguments": {
+                                                                    "date_format": "d MMMM yyyy",
+                                                                    "date_to_format": {
+                                                                        "value": "2027-03-21"
+                                                                    }
+                                                                },
+                                                                "transform": "format_date"
+                                                            }
+                                                        ]
+                                                    }
+                                                ],
+                                                "text": "<em>Dylech gynnwys</em> gweithwyr shifft, er enghraifft, gweithwyr gofal neu borthorion gwesty, sy\u2019n aros dros nos ar {census_date} fel ymwelwyr"
+                                            }
+                                        }
+                                    ]
+                                },
+                                "id": "visitors-in-establishment-question",
+                                "mandatory": false,
+                                "title": {
+                                    "placeholders": [
+                                        {
+                                            "placeholder": "census_date",
+                                            "transforms": [
+                                                {
+                                                    "arguments": {
+                                                        "date_format": "d MMMM yyyy",
+                                                        "date_to_format": {
+                                                            "value": "2027-03-21"
+                                                        }
+                                                    },
+                                                    "transform": "format_date"
+                                                }
+                                            ]
+                                        }
+                                    ],
+                                    "text": "Oes unrhyw un o\u2019r ymwelwyr canlynol yn aros dros nos yn y sefydliad hwn ar {census_date}?"
+                                },
+                                "type": "MutuallyExclusive"
+                            },
+                            "routing_rules": [
+                                {
+                                    "goto": {
+                                        "block": "number-of-visitors-in-establishment"
+                                    }
+                                }
+                            ],
+                            "type": "Question"
+                        },
+                        {
+                            "id": "number-of-visitors-in-establishment",
+                            "page_title": "Nifer yr ymwelwyr sy\u2019n aros yn y sefydliad hwn",
+                            "question_variants": [
+                                {
+                                    "question": {
+                                        "answers": [
+                                            {
+                                                "id": "number-of-visitors-in-establishment-answer",
+                                                "label": "Nifer yr ymwelwyr",
+                                                "mandatory": false,
+                                                "minimum": {
+                                                    "value": 0
+                                                },
+                                                "type": "Number"
+                                            },
+                                            {
+                                                "id": "number-of-visitors-in-establishment-answer-exclusive",
+                                                "mandatory": false,
+                                                "options": [
+                                                    {
+                                                        "label": "Nid oes unrhyw ymwelwyr yn aros dros nos",
+                                                        "value": "No visitors are staying overnight"
+                                                    }
+                                                ],
+                                                "type": "Checkbox"
+                                            }
+                                        ],
+                                        "id": "number-of-visitors-in-establishment-question",
+                                        "mandatory": false,
+                                        "title": {
+                                            "placeholders": [
+                                                {
+                                                    "placeholder": "census_date",
+                                                    "transforms": [
+                                                        {
+                                                            "arguments": {
+                                                                "date_format": "d MMMM yyyy",
+                                                                "date_to_format": {
+                                                                    "value": "2027-03-21"
+                                                                }
+                                                            },
+                                                            "transform": "format_date"
+                                                        }
+                                                    ]
+                                                }
+                                            ],
+                                            "text": "Faint o ymwelwyr sy\u2019n aros dros nos yn y sefydliad hwn ar {census_date}?"
+                                        },
+                                        "type": "MutuallyExclusive"
+                                    },
+                                    "when": [
+                                        {
+                                            "condition": "set",
+                                            "id": "visitors-in-establishment-exclusive"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "question": {
+                                        "answers": [
+                                            {
+                                                "id": "number-of-visitors-in-establishment-answer",
+                                                "label": "Nifer yr ymwelwyr",
+                                                "mandatory": false,
+                                                "minimum": {
+                                                    "value": 0
+                                                },
+                                                "type": "Number"
+                                            }
+                                        ],
+                                        "guidance": {
+                                            "contents": [
+                                                {
+                                                    "description": "<em>Dylech gynnwys</em> pawb o\u2019r grwpiau y gwnaethoch eu dewis ar gyfer y cwestiwn blaenorol"
+                                                }
+                                            ]
+                                        },
+                                        "id": "number-of-visitors-in-establishment-question",
+                                        "title": {
+                                            "placeholders": [
+                                                {
+                                                    "placeholder": "census_date",
+                                                    "transforms": [
+                                                        {
+                                                            "arguments": {
+                                                                "date_format": "d MMMM yyyy",
+                                                                "date_to_format": {
+                                                                    "value": "2027-03-21"
+                                                                }
+                                                            },
+                                                            "transform": "format_date"
+                                                        }
+                                                    ]
+                                                }
+                                            ],
+                                            "text": "Faint o ymwelwyr sy\u2019n aros dros nos yn y sefydliad hwn ar {census_date}?"
+                                        },
+                                        "type": "General"
+                                    },
+                                    "when": [
+                                        {
+                                            "condition": "set",
+                                            "id": "visitors-in-establishment-answer"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "question": {
+                                        "answers": [
+                                            {
+                                                "id": "number-of-visitors-in-establishment-answer",
+                                                "label": "Nifer yr ymwelwyr",
+                                                "mandatory": false,
+                                                "minimum": {
+                                                    "value": 0
+                                                },
+                                                "type": "Number"
+                                            },
+                                            {
+                                                "id": "number-of-visitors-in-establishment-answer-exclusive",
+                                                "mandatory": false,
+                                                "options": [
+                                                    {
+                                                        "label": "Nid oes unrhyw ymwelwyr yn aros dros nos",
+                                                        "value": "No visitors are staying overnight"
+                                                    }
+                                                ],
+                                                "type": "Checkbox"
+                                            }
+                                        ],
+                                        "id": "number-of-visitors-in-establishment-question",
+                                        "mandatory": false,
+                                        "title": {
+                                            "placeholders": [
+                                                {
+                                                    "placeholder": "census_date",
+                                                    "transforms": [
+                                                        {
+                                                            "arguments": {
+                                                                "date_format": "d MMMM yyyy",
+                                                                "date_to_format": {
+                                                                    "value": "2027-03-21"
+                                                                }
+                                                            },
+                                                            "transform": "format_date"
+                                                        }
+                                                    ]
+                                                }
+                                            ],
+                                            "text": "Faint o ymwelwyr sy\u2019n aros dros nos yn y sefydliad hwn ar {census_date}?"
+                                        },
+                                        "type": "MutuallyExclusive"
+                                    },
+                                    "when": [
+                                        {
+                                            "condition": "not set",
+                                            "id": "visitors-in-establishment-answer"
+                                        }
+                                    ]
+                                }
+                            ],
+                            "type": "Question"
+                        }
+                    ],
+                    "id": "establishment-details-group"
+                }
+            ],
+            "id": "communal-establishment",
+            "title": "Sefydliad cymunedol"
+        },
+        {
+            "groups": [
+                {
+                    "blocks": [
+                        {
+                            "id": "summary",
+                            "type": "Summary"
+                        }
+                    ],
+                    "id": "submit-group",
+                    "title": "Cyflwyno eich atebion"
+                }
+            ],
+            "id": "submit-answers-section",
+            "title": "Cyflwyno eich atebion"
+        }
+    ],
+    "submission": {
+        "button": "Cyflwyno\u2019r cyfrifiad",
+        "confirmation_email": true,
+        "feedback": true,
+        "guidance": "Drwy gyflwyno\u2019r cyfrifiad hwn rydych chi\u2019n cadarnhau bod y manylion rydych chi wedi\u2019u rhoi yn gywir, hyd eithaf eich gwybodaeth a\u2019ch cred.",
+        "title": "Cyflwyno\u2019r cyfrifiad",
+        "warning": "Mae\u2019n rhaid i chi gyflwyno\u2019r cyfrifiad hwn er mwyn ei gwblhau"
+    },
+    "survey": "CENSUS",
+    "survey_id": "census",
+    "theme": "census",
+    "title": "cyfrifiad 2021"
+}
