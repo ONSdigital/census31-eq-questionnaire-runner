@@ -78,7 +78,7 @@ jobs:
       - name: Javascript linting
         run: make lint-js
       - name: HTML linting
-        run: make lint-html-report
+        run: make lint-html
   test-unit:
     if: "!contains(github.event.pull_request.labels.*.name, 'tests not required')"
     permissions:
@@ -119,8 +119,8 @@ jobs:
       - name: Link env vars
         run: ln -sf .development.env .env
       - name: Running unit tests
-        # run: make test-unit
-        run: poetry run pytest --disable-warnings tests/app/storage/test_redis.py
+        run: make test-unit
+        # run: poetry run pytest --disable-warnings tests/app/storage/test_redis.py
   validate-schemas:
     permissions:
       contents: 'read'
