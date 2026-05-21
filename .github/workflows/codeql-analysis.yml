@@ -7,17 +7,17 @@ name: "CodeQL"
 
 on:
   push:
-    branches: [ "main", "v3-census" ]
+    branches: [ "v3-census" ]
   pull_request:
     # The branches below must be a subset of the branches above
-    branches: [ "main", "v3-census" ]
+    branches: [ "v3-census" ]
   schedule:
     - cron: '0 15 * * 3'
 
 jobs:
   analyze:
     name: Analyze
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
 
     strategy:
       fail-fast: false
