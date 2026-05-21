@@ -94,6 +94,7 @@ def test_redis_does_not_store_key_field_in_value(redis, redis_client, eq_session
     # assert storage_model.key_field not in json_loads(stored_data)
     assert True
 
+
 def test_get_redis_expiry_when_expiry_set(redis, redis_client, eq_session):
     # When
     redis.put(eq_session)
@@ -123,9 +124,7 @@ def test_put_handles_connection_error_once(redis, mocker):
     expires_at = used_at + timedelta(seconds=60)
     jti = UsedJtiClaim(str(uuid.uuid4()), expires_at)
 
-    redis.client.set = mocker.Mock(
-        side_effect=[RedisConnectionError, RedisConnectionError]
-    )
+    redis.client.set = mocker.Mock(side_effect=[RedisConnectionError, RedisConnectionError])
 
     # When
     with pytest.raises(RedisConnectionError):
@@ -137,9 +136,7 @@ def test_put_handles_connection_error_once(redis, mocker):
 
 def test_get_handles_connection_error_once(redis, mocker):
     # Given
-    redis.client.get = mocker.Mock(
-        side_effect=[RedisConnectionError, RedisConnectionError]
-    )
+    redis.client.get = mocker.Mock(side_effect=[RedisConnectionError, RedisConnectionError])
 
     # When
     with pytest.raises(RedisConnectionError):
@@ -155,9 +152,7 @@ def test_delete_handles_connection_error_once(redis, mocker):
     expires_at = used_at + timedelta(seconds=60)
     jti = UsedJtiClaim(str(uuid.uuid4()), expires_at)
 
-    redis.client.delete = mocker.Mock(
-        side_effect=[RedisConnectionError, RedisConnectionError]
-    )
+    redis.client.delete = mocker.Mock(side_effect=[RedisConnectionError, RedisConnectionError])
 
     # When
     with pytest.raises(RedisConnectionError):

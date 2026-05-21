@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta, timezone
 
-import pytest
 import fakeredis
+import pytest
 from dateutil.tz import tzutc
 from pytest import fixture
 
@@ -48,6 +48,5 @@ def eq_session():
         eq_session_id="sessionid",
         user_id="someuser",
         session_data="somedata",
-        expires_at=datetime.now(tz=timezone.utc).replace(microsecond=0)
-        + timedelta(minutes=1),
+        expires_at=datetime.now(tz=timezone.utc).replace(microsecond=0) + timedelta(minutes=1),
     )
