@@ -317,10 +317,7 @@
                                                             "arguments": {
                                                                 "delimiter": " ",
                                                                 "list_to_concatenate": {
-                                                                    "identifier": [
-                                                                        "first-name",
-                                                                        "last-name"
-                                                                    ],
+                                                                    "identifier": ["first-name", "last-name"],
                                                                     "source": "answers"
                                                                 }
                                                             },
@@ -384,9 +381,7 @@
                                                 }
                                             }
                                         ],
-                                        "description": [
-                                            "Tha like o, 31 3 19an80"
-                                        ],
+                                        "description": ["Tha like o, 31 3 19an80"],
                                         "id": "date-of-birth-question",
                                         "title": "Whut date wur ye boarn?",
                                         "type": "General"
@@ -427,9 +422,7 @@
                                                 }
                                             }
                                         ],
-                                        "description": [
-                                            "Tha like o, 31 3 19an80"
-                                        ],
+                                        "description": ["Tha like o, 31 3 19an80"],
                                         "id": "date-of-birth-question",
                                         "title": {
                                             "placeholders": [
@@ -440,10 +433,7 @@
                                                             "arguments": {
                                                                 "delimiter": " ",
                                                                 "list_to_concatenate": {
-                                                                    "identifier": [
-                                                                        "first-name",
-                                                                        "last-name"
-                                                                    ],
+                                                                    "identifier": ["first-name", "last-name"],
                                                                     "source": "answers"
                                                                 }
                                                             },
@@ -587,10 +577,7 @@
                                                                             "arguments": {
                                                                                 "delimiter": " ",
                                                                                 "list_to_concatenate": {
-                                                                                    "identifier": [
-                                                                                        "first-name",
-                                                                                        "last-name"
-                                                                                    ],
+                                                                                    "identifier": ["first-name", "last-name"],
                                                                                     "source": "answers"
                                                                                 }
                                                                             },
@@ -638,10 +625,7 @@
                                                             "arguments": {
                                                                 "delimiter": " ",
                                                                 "list_to_concatenate": {
-                                                                    "identifier": [
-                                                                        "first-name",
-                                                                        "last-name"
-                                                                    ],
+                                                                    "identifier": ["first-name", "last-name"],
                                                                     "source": "answers"
                                                                 }
                                                             },
@@ -688,10 +672,7 @@
                                             {
                                                 "condition": "equals any",
                                                 "id": "confirm-age-answer",
-                                                "values": [
-                                                    "No, I need to correct their date of birth",
-                                                    "No, I need to correct my date of birth"
-                                                ]
+                                                "values": ["No, I need to correct their date of birth", "No, I need to correct my date of birth"]
                                             }
                                         ]
                                     }
@@ -748,10 +729,7 @@
                                                     "arguments": {
                                                         "delimiter": " ",
                                                         "list_to_concatenate": {
-                                                            "identifier": [
-                                                                "first-name",
-                                                                "last-name"
-                                                            ],
+                                                            "identifier": ["first-name", "last-name"],
                                                             "source": "answers"
                                                         }
                                                     },
@@ -845,10 +823,7 @@
                                                             "arguments": {
                                                                 "delimiter": " ",
                                                                 "list_to_concatenate": {
-                                                                    "identifier": [
-                                                                        "first-name",
-                                                                        "last-name"
-                                                                    ],
+                                                                    "identifier": ["first-name", "last-name"],
                                                                     "source": "answers"
                                                                 }
                                                             },
@@ -1065,10 +1040,7 @@
                                                             "arguments": {
                                                                 "delimiter": " ",
                                                                 "list_to_concatenate": {
-                                                                    "identifier": [
-                                                                        "first-name",
-                                                                        "last-name"
-                                                                    ],
+                                                                    "identifier": ["first-name", "last-name"],
                                                                     "source": "answers"
                                                                 }
                                                             },
@@ -1174,10 +1146,7 @@
                                                             "arguments": {
                                                                 "delimiter": " ",
                                                                 "list_to_concatenate": {
-                                                                    "identifier": [
-                                                                        "first-name",
-                                                                        "last-name"
-                                                                    ],
+                                                                    "identifier": ["first-name", "last-name"],
                                                                     "source": "answers"
                                                                 }
                                                             },
@@ -1273,10 +1242,7 @@
                                                             "arguments": {
                                                                 "delimiter": " ",
                                                                 "list_to_concatenate": {
-                                                                    "identifier": [
-                                                                        "first-name",
-                                                                        "last-name"
-                                                                    ],
+                                                                    "identifier": ["first-name", "last-name"],
                                                                     "source": "answers"
                                                                 }
                                                             },
@@ -1362,10 +1328,7 @@
                                                             "arguments": {
                                                                 "delimiter": " ",
                                                                 "list_to_concatenate": {
-                                                                    "identifier": [
-                                                                        "first-name",
-                                                                        "last-name"
-                                                                    ],
+                                                                    "identifier": ["first-name", "last-name"],
                                                                     "source": "answers"
                                                                 }
                                                             },
@@ -1502,10 +1465,7 @@
                                                             "arguments": {
                                                                 "delimiter": " ",
                                                                 "list_to_concatenate": {
-                                                                    "identifier": [
-                                                                        "first-name",
-                                                                        "last-name"
-                                                                    ],
+                                                                    "identifier": ["first-name", "last-name"],
                                                                     "source": "answers"
                                                                 }
                                                             },
@@ -1672,10 +1632,7 @@
                                                             "arguments": {
                                                                 "delimiter": " ",
                                                                 "list_to_concatenate": {
-                                                                    "identifier": [
-                                                                        "first-name",
-                                                                        "last-name"
-                                                                    ],
+                                                                    "identifier": ["first-name", "last-name"],
                                                                     "source": "answers"
                                                                 }
                                                             },
@@ -1810,10 +1767,7 @@
                                                             "arguments": {
                                                                 "delimiter": " ",
                                                                 "list_to_concatenate": {
-                                                                    "identifier": [
-                                                                        "first-name",
-                                                                        "last-name"
-                                                                    ],
+                                                                    "identifier": ["first-name", "last-name"],
                                                                     "source": "answers"
                                                                 }
                                                             },
@@ -2013,10 +1967,7 @@
                                                             "arguments": {
                                                                 "delimiter": " ",
                                                                 "list_to_concatenate": {
-                                                                    "identifier": [
-                                                                        "first-name",
-                                                                        "last-name"
-                                                                    ],
+                                                                    "identifier": ["first-name", "last-name"],
                                                                     "source": "answers"
                                                                 }
                                                             },
@@ -2129,10 +2080,7 @@
                                                             "arguments": {
                                                                 "delimiter": " ",
                                                                 "list_to_concatenate": {
-                                                                    "identifier": [
-                                                                        "first-name",
-                                                                        "last-name"
-                                                                    ],
+                                                                    "identifier": ["first-name", "last-name"],
                                                                     "source": "answers"
                                                                 }
                                                             },
@@ -2234,9 +2182,7 @@
                                                 "type": "Radio"
                                             }
                                         ],
-                                        "description": [
-                                            "Gin ye haed nae ordnar bakkin a twalmond syne, gie tha bakkin whar ye wur bidin"
-                                        ],
+                                        "description": ["Gin ye haed nae ordnar bakkin a twalmond syne, gie tha bakkin whar ye wur bidin"],
                                         "id": "location-one-year-ago-question",
                                         "title": "A twalmond syne, whut wus yer bakkin fur ordnar?",
                                         "type": "General"
@@ -2287,9 +2233,7 @@
                                                 "type": "Radio"
                                             }
                                         ],
-                                        "description": [
-                                            "Gin the\u2019 haed nae bakkin fur ordnar a twalmond syne, gie tha bakkin whar the\u2019 wur steyin"
-                                        ],
+                                        "description": ["Gin the\u2019 haed nae bakkin fur ordnar a twalmond syne, gie tha bakkin whar the\u2019 wur steyin"],
                                         "id": "location-one-year-ago-question",
                                         "title": {
                                             "placeholders": [
@@ -2300,10 +2244,7 @@
                                                             "arguments": {
                                                                 "delimiter": " ",
                                                                 "list_to_concatenate": {
-                                                                    "identifier": [
-                                                                        "first-name",
-                                                                        "last-name"
-                                                                    ],
+                                                                    "identifier": ["first-name", "last-name"],
                                                                     "source": "answers"
                                                                 }
                                                             },
@@ -2353,10 +2294,7 @@
                                             {
                                                 "condition": "equals any",
                                                 "id": "location-one-year-ago-answer",
-                                                "values": [
-                                                    "Another address in the UK",
-                                                    "Student term-time or boarding school address in the UK"
-                                                ]
+                                                "values": ["Another address in the UK", "Student term-time or boarding school address in the UK"]
                                             }
                                         ]
                                     }
@@ -2419,10 +2357,7 @@
                                                             "arguments": {
                                                                 "delimiter": " ",
                                                                 "list_to_concatenate": {
-                                                                    "identifier": [
-                                                                        "first-name",
-                                                                        "last-name"
-                                                                    ],
+                                                                    "identifier": ["first-name", "last-name"],
                                                                     "source": "answers"
                                                                 }
                                                             },
@@ -2515,10 +2450,7 @@
                                                             "arguments": {
                                                                 "delimiter": " ",
                                                                 "list_to_concatenate": {
-                                                                    "identifier": [
-                                                                        "first-name",
-                                                                        "last-name"
-                                                                    ],
+                                                                    "identifier": ["first-name", "last-name"],
                                                                     "source": "answers"
                                                                 }
                                                             },
@@ -2668,10 +2600,7 @@
                                                             "arguments": {
                                                                 "delimiter": " ",
                                                                 "list_to_concatenate": {
-                                                                    "identifier": [
-                                                                        "first-name",
-                                                                        "last-name"
-                                                                    ],
+                                                                    "identifier": ["first-name", "last-name"],
                                                                     "source": "answers"
                                                                 }
                                                             },
@@ -2701,10 +2630,7 @@
                                             {
                                                 "condition": "contains any",
                                                 "id": "passports-answer",
-                                                "values": [
-                                                    "United Kingdom",
-                                                    "Ireland"
-                                                ]
+                                                "values": ["United Kingdom", "Ireland"]
                                             },
                                             {
                                                 "condition": "contains",
@@ -2784,10 +2710,7 @@
                                                             "arguments": {
                                                                 "delimiter": " ",
                                                                 "list_to_concatenate": {
-                                                                    "identifier": [
-                                                                        "first-name",
-                                                                        "last-name"
-                                                                    ],
+                                                                    "identifier": ["first-name", "last-name"],
                                                                     "source": "answers"
                                                                 }
                                                             },
@@ -2868,10 +2791,7 @@
                                                             "arguments": {
                                                                 "delimiter": " ",
                                                                 "list_to_concatenate": {
-                                                                    "identifier": [
-                                                                        "first-name",
-                                                                        "last-name"
-                                                                    ],
+                                                                    "identifier": ["first-name", "last-name"],
                                                                     "source": "answers"
                                                                 }
                                                             },
@@ -3008,10 +2928,7 @@
                                                             "arguments": {
                                                                 "delimiter": " ",
                                                                 "list_to_concatenate": {
-                                                                    "identifier": [
-                                                                        "first-name",
-                                                                        "last-name"
-                                                                    ],
+                                                                    "identifier": ["first-name", "last-name"],
                                                                     "source": "answers"
                                                                 }
                                                             },
@@ -3041,14 +2958,7 @@
                                             {
                                                 "condition": "contains any",
                                                 "id": "national-identity-answer",
-                                                "values": [
-                                                    "British",
-                                                    "Irish",
-                                                    "Northern Irish",
-                                                    "English",
-                                                    "Scottish",
-                                                    "Welsh"
-                                                ]
+                                                "values": ["British", "Irish", "Northern Irish", "English", "Scottish", "Welsh"]
                                             },
                                             {
                                                 "condition": "contains",
@@ -3128,10 +3038,7 @@
                                                             "arguments": {
                                                                 "delimiter": " ",
                                                                 "list_to_concatenate": {
-                                                                    "identifier": [
-                                                                        "first-name",
-                                                                        "last-name"
-                                                                    ],
+                                                                    "identifier": ["first-name", "last-name"],
                                                                     "source": "answers"
                                                                 }
                                                             },
@@ -3212,10 +3119,7 @@
                                                             "arguments": {
                                                                 "delimiter": " ",
                                                                 "list_to_concatenate": {
-                                                                    "identifier": [
-                                                                        "first-name",
-                                                                        "last-name"
-                                                                    ],
+                                                                    "identifier": ["first-name", "last-name"],
                                                                     "source": "answers"
                                                                 }
                                                             },
@@ -3388,10 +3292,7 @@
                                                             "arguments": {
                                                                 "delimiter": " ",
                                                                 "list_to_concatenate": {
-                                                                    "identifier": [
-                                                                        "first-name",
-                                                                        "last-name"
-                                                                    ],
+                                                                    "identifier": ["first-name", "last-name"],
                                                                     "source": "answers"
                                                                 }
                                                             },
@@ -3492,10 +3393,7 @@
                                                             "arguments": {
                                                                 "delimiter": " ",
                                                                 "list_to_concatenate": {
-                                                                    "identifier": [
-                                                                        "first-name",
-                                                                        "last-name"
-                                                                    ],
+                                                                    "identifier": ["first-name", "last-name"],
                                                                     "source": "answers"
                                                                 }
                                                             },
@@ -3642,10 +3540,7 @@
                                                             "arguments": {
                                                                 "delimiter": " ",
                                                                 "list_to_concatenate": {
-                                                                    "identifier": [
-                                                                        "first-name",
-                                                                        "last-name"
-                                                                    ],
+                                                                    "identifier": ["first-name", "last-name"],
                                                                     "source": "answers"
                                                                 }
                                                             },
@@ -3778,10 +3673,7 @@
                                                             "arguments": {
                                                                 "delimiter": " ",
                                                                 "list_to_concatenate": {
-                                                                    "identifier": [
-                                                                        "first-name",
-                                                                        "last-name"
-                                                                    ],
+                                                                    "identifier": ["first-name", "last-name"],
                                                                     "source": "answers"
                                                                 }
                                                             },
@@ -3957,10 +3849,7 @@
                                                             "arguments": {
                                                                 "delimiter": " ",
                                                                 "list_to_concatenate": {
-                                                                    "identifier": [
-                                                                        "first-name",
-                                                                        "last-name"
-                                                                    ],
+                                                                    "identifier": ["first-name", "last-name"],
                                                                     "source": "answers"
                                                                 }
                                                             },
@@ -4082,10 +3971,7 @@
                                                             "arguments": {
                                                                 "delimiter": " ",
                                                                 "list_to_concatenate": {
-                                                                    "identifier": [
-                                                                        "first-name",
-                                                                        "last-name"
-                                                                    ],
+                                                                    "identifier": ["first-name", "last-name"],
                                                                     "source": "answers"
                                                                 }
                                                             },
@@ -4231,10 +4117,7 @@
                                                             "arguments": {
                                                                 "delimiter": " ",
                                                                 "list_to_concatenate": {
-                                                                    "identifier": [
-                                                                        "first-name",
-                                                                        "last-name"
-                                                                    ],
+                                                                    "identifier": ["first-name", "last-name"],
                                                                     "source": "answers"
                                                                 }
                                                             },
@@ -4347,10 +4230,7 @@
                                                             "arguments": {
                                                                 "delimiter": " ",
                                                                 "list_to_concatenate": {
-                                                                    "identifier": [
-                                                                        "first-name",
-                                                                        "last-name"
-                                                                    ],
+                                                                    "identifier": ["first-name", "last-name"],
                                                                     "source": "answers"
                                                                 }
                                                             },
@@ -4469,10 +4349,7 @@
                                                             "arguments": {
                                                                 "delimiter": " ",
                                                                 "list_to_concatenate": {
-                                                                    "identifier": [
-                                                                        "first-name",
-                                                                        "last-name"
-                                                                    ],
+                                                                    "identifier": ["first-name", "last-name"],
                                                                     "source": "answers"
                                                                 }
                                                             },
@@ -4584,10 +4461,7 @@
                                                             "arguments": {
                                                                 "delimiter": " ",
                                                                 "list_to_concatenate": {
-                                                                    "identifier": [
-                                                                        "first-name",
-                                                                        "last-name"
-                                                                    ],
+                                                                    "identifier": ["first-name", "last-name"],
                                                                     "source": "answers"
                                                                 }
                                                             },
@@ -4709,10 +4583,7 @@
                                                             "arguments": {
                                                                 "delimiter": " ",
                                                                 "list_to_concatenate": {
-                                                                    "identifier": [
-                                                                        "first-name",
-                                                                        "last-name"
-                                                                    ],
+                                                                    "identifier": ["first-name", "last-name"],
                                                                     "source": "answers"
                                                                 }
                                                             },
@@ -4824,10 +4695,7 @@
                                                             "arguments": {
                                                                 "delimiter": " ",
                                                                 "list_to_concatenate": {
-                                                                    "identifier": [
-                                                                        "first-name",
-                                                                        "last-name"
-                                                                    ],
+                                                                    "identifier": ["first-name", "last-name"],
                                                                     "source": "answers"
                                                                 }
                                                             },
@@ -4949,10 +4817,7 @@
                                                             "arguments": {
                                                                 "delimiter": " ",
                                                                 "list_to_concatenate": {
-                                                                    "identifier": [
-                                                                        "first-name",
-                                                                        "last-name"
-                                                                    ],
+                                                                    "identifier": ["first-name", "last-name"],
                                                                     "source": "answers"
                                                                 }
                                                             },
@@ -5064,10 +4929,7 @@
                                                             "arguments": {
                                                                 "delimiter": " ",
                                                                 "list_to_concatenate": {
-                                                                    "identifier": [
-                                                                        "first-name",
-                                                                        "last-name"
-                                                                    ],
+                                                                    "identifier": ["first-name", "last-name"],
                                                                     "source": "answers"
                                                                 }
                                                             },
@@ -5185,10 +5047,7 @@
                                                             "arguments": {
                                                                 "delimiter": " ",
                                                                 "list_to_concatenate": {
-                                                                    "identifier": [
-                                                                        "first-name",
-                                                                        "last-name"
-                                                                    ],
+                                                                    "identifier": ["first-name", "last-name"],
                                                                     "source": "answers"
                                                                 }
                                                             },
@@ -5336,10 +5195,7 @@
                                                             "arguments": {
                                                                 "delimiter": " ",
                                                                 "list_to_concatenate": {
-                                                                    "identifier": [
-                                                                        "first-name",
-                                                                        "last-name"
-                                                                    ],
+                                                                    "identifier": ["first-name", "last-name"],
                                                                     "source": "answers"
                                                                 }
                                                             },
@@ -5501,10 +5357,7 @@
                                                             "arguments": {
                                                                 "delimiter": " ",
                                                                 "list_to_concatenate": {
-                                                                    "identifier": [
-                                                                        "first-name",
-                                                                        "last-name"
-                                                                    ],
+                                                                    "identifier": ["first-name", "last-name"],
                                                                     "source": "answers"
                                                                 }
                                                             },
@@ -5695,10 +5548,7 @@
                                                             "arguments": {
                                                                 "delimiter": " ",
                                                                 "list_to_concatenate": {
-                                                                    "identifier": [
-                                                                        "first-name",
-                                                                        "last-name"
-                                                                    ],
+                                                                    "identifier": ["first-name", "last-name"],
                                                                     "source": "answers"
                                                                 }
                                                             },
@@ -5880,10 +5730,7 @@
                                                             "arguments": {
                                                                 "delimiter": " ",
                                                                 "list_to_concatenate": {
-                                                                    "identifier": [
-                                                                        "first-name",
-                                                                        "last-name"
-                                                                    ],
+                                                                    "identifier": ["first-name", "last-name"],
                                                                     "source": "answers"
                                                                 }
                                                             },
@@ -5953,10 +5800,7 @@
                                                                     "arguments": {
                                                                         "delimiter": " ",
                                                                         "list_to_concatenate": {
-                                                                            "identifier": [
-                                                                                "first-name",
-                                                                                "last-name"
-                                                                            ],
+                                                                            "identifier": ["first-name", "last-name"],
                                                                             "source": "answers"
                                                                         }
                                                                     },
@@ -6066,10 +5910,7 @@
                                                             "arguments": {
                                                                 "delimiter": " ",
                                                                 "list_to_concatenate": {
-                                                                    "identifier": [
-                                                                        "first-name",
-                                                                        "last-name"
-                                                                    ],
+                                                                    "identifier": ["first-name", "last-name"],
                                                                     "source": "answers"
                                                                 }
                                                             },
@@ -6201,10 +6042,7 @@
                                                             "arguments": {
                                                                 "delimiter": " ",
                                                                 "list_to_concatenate": {
-                                                                    "identifier": [
-                                                                        "first-name",
-                                                                        "last-name"
-                                                                    ],
+                                                                    "identifier": ["first-name", "last-name"],
                                                                     "source": "answers"
                                                                 }
                                                             },
@@ -6344,10 +6182,7 @@
                                                             "arguments": {
                                                                 "delimiter": " ",
                                                                 "list_to_concatenate": {
-                                                                    "identifier": [
-                                                                        "first-name",
-                                                                        "last-name"
-                                                                    ],
+                                                                    "identifier": ["first-name", "last-name"],
                                                                     "source": "answers"
                                                                 }
                                                             },
@@ -6485,10 +6320,7 @@
                                                             "arguments": {
                                                                 "delimiter": " ",
                                                                 "list_to_concatenate": {
-                                                                    "identifier": [
-                                                                        "first-name",
-                                                                        "last-name"
-                                                                    ],
+                                                                    "identifier": ["first-name", "last-name"],
                                                                     "source": "answers"
                                                                 }
                                                             },
@@ -6642,10 +6474,7 @@
                                                             "arguments": {
                                                                 "delimiter": " ",
                                                                 "list_to_concatenate": {
-                                                                    "identifier": [
-                                                                        "first-name",
-                                                                        "last-name"
-                                                                    ],
+                                                                    "identifier": ["first-name", "last-name"],
                                                                     "source": "answers"
                                                                 }
                                                             },
@@ -6749,10 +6578,7 @@
                                                             "arguments": {
                                                                 "delimiter": " ",
                                                                 "list_to_concatenate": {
-                                                                    "identifier": [
-                                                                        "first-name",
-                                                                        "last-name"
-                                                                    ],
+                                                                    "identifier": ["first-name", "last-name"],
                                                                     "source": "answers"
                                                                 }
                                                             },
@@ -6914,10 +6740,7 @@
                                                             "arguments": {
                                                                 "delimiter": " ",
                                                                 "list_to_concatenate": {
-                                                                    "identifier": [
-                                                                        "first-name",
-                                                                        "last-name"
-                                                                    ],
+                                                                    "identifier": ["first-name", "last-name"],
                                                                     "source": "answers"
                                                                 }
                                                             },
@@ -7050,10 +6873,7 @@
                                                             "arguments": {
                                                                 "delimiter": " ",
                                                                 "list_to_concatenate": {
-                                                                    "identifier": [
-                                                                        "first-name",
-                                                                        "last-name"
-                                                                    ],
+                                                                    "identifier": ["first-name", "last-name"],
                                                                     "source": "answers"
                                                                 }
                                                             },
@@ -7159,10 +6979,7 @@
                                                             "arguments": {
                                                                 "delimiter": " ",
                                                                 "list_to_concatenate": {
-                                                                    "identifier": [
-                                                                        "first-name",
-                                                                        "last-name"
-                                                                    ],
+                                                                    "identifier": ["first-name", "last-name"],
                                                                     "source": "answers"
                                                                 }
                                                             },
@@ -7269,10 +7086,7 @@
                                                             "arguments": {
                                                                 "delimiter": " ",
                                                                 "list_to_concatenate": {
-                                                                    "identifier": [
-                                                                        "first-name",
-                                                                        "last-name"
-                                                                    ],
+                                                                    "identifier": ["first-name", "last-name"],
                                                                     "source": "answers"
                                                                 }
                                                             },
@@ -7397,10 +7211,7 @@
                                                             "arguments": {
                                                                 "delimiter": " ",
                                                                 "list_to_concatenate": {
-                                                                    "identifier": [
-                                                                        "first-name",
-                                                                        "last-name"
-                                                                    ],
+                                                                    "identifier": ["first-name", "last-name"],
                                                                     "source": "answers"
                                                                 }
                                                             },
@@ -7451,9 +7262,7 @@
                                                 "type": "Radio"
                                             }
                                         ],
-                                        "description": [
-                                            "<em>Furlough</em> is taen as pey\u2019d wark"
-                                        ],
+                                        "description": ["<em>Furlough</em> is taen as pey\u2019d wark"],
                                         "id": "ever-worked-question",
                                         "title": "Hae ye ivver daen onie pey\u2019d wark?",
                                         "type": "General"
@@ -7489,9 +7298,7 @@
                                                 "type": "Radio"
                                             }
                                         ],
-                                        "description": [
-                                            "<em>Furlough</em> is taen as pey\u2019d wark"
-                                        ],
+                                        "description": ["<em>Furlough</em> is taen as pey\u2019d wark"],
                                         "id": "ever-worked-question",
                                         "title": {
                                             "placeholders": [
@@ -7502,10 +7309,7 @@
                                                             "arguments": {
                                                                 "delimiter": " ",
                                                                 "list_to_concatenate": {
-                                                                    "identifier": [
-                                                                        "first-name",
-                                                                        "last-name"
-                                                                    ],
+                                                                    "identifier": ["first-name", "last-name"],
                                                                     "source": "answers"
                                                                 }
                                                             },
@@ -7535,10 +7339,7 @@
                                             {
                                                 "condition": "not equals any",
                                                 "id": "ever-worked-answer",
-                                                "values": [
-                                                    "No, has never worked",
-                                                    "No, have never worked"
-                                                ]
+                                                "values": ["No, has never worked", "No, have never worked"]
                                             }
                                         ]
                                     }
@@ -7615,10 +7416,7 @@
                                                                     "arguments": {
                                                                         "delimiter": " ",
                                                                         "list_to_concatenate": {
-                                                                            "identifier": [
-                                                                                "first-name",
-                                                                                "last-name"
-                                                                            ],
+                                                                            "identifier": ["first-name", "last-name"],
                                                                             "source": "answers"
                                                                         }
                                                                     },
@@ -7695,10 +7493,7 @@
                                                                     "arguments": {
                                                                         "delimiter": " ",
                                                                         "list_to_concatenate": {
-                                                                            "identifier": [
-                                                                                "first-name",
-                                                                                "last-name"
-                                                                            ],
+                                                                            "identifier": ["first-name", "last-name"],
                                                                             "source": "answers"
                                                                         }
                                                                     },
@@ -7769,9 +7564,7 @@
                                                 "type": "Radio"
                                             }
                                         ],
-                                        "description": [
-                                            "Yer foremaist tack bes tha job whar ye wark tha maist feck fur ordnar"
-                                        ],
+                                        "description": ["Yer foremaist tack bes tha job whar ye wark tha maist feck fur ordnar"],
                                         "id": "main-job-status-question",
                                         "title": "In yer foremaist tack, whut wud be yer stannin in wark?",
                                         "type": "General"
@@ -7811,9 +7604,7 @@
                                                 "type": "Radio"
                                             }
                                         ],
-                                        "description": [
-                                            "Thair foremaist tack bes tha job whar the\u2019 wark tha maist feck fur ordnar"
-                                        ],
+                                        "description": ["Thair foremaist tack bes tha job whar the\u2019 wark tha maist feck fur ordnar"],
                                         "id": "main-job-status-question",
                                         "title": {
                                             "placeholders": [
@@ -7824,10 +7615,7 @@
                                                             "arguments": {
                                                                 "delimiter": " ",
                                                                 "list_to_concatenate": {
-                                                                    "identifier": [
-                                                                        "first-name",
-                                                                        "last-name"
-                                                                    ],
+                                                                    "identifier": ["first-name", "last-name"],
                                                                     "source": "answers"
                                                                 }
                                                             },
@@ -7939,10 +7727,7 @@
                                                             "arguments": {
                                                                 "delimiter": " ",
                                                                 "list_to_concatenate": {
-                                                                    "identifier": [
-                                                                        "first-name",
-                                                                        "last-name"
-                                                                    ],
+                                                                    "identifier": ["first-name", "last-name"],
                                                                     "source": "answers"
                                                                 }
                                                             },
@@ -8005,9 +7790,7 @@
                                                 "type": "Checkbox"
                                             }
                                         ],
-                                        "description": [
-                                            "Gin ye wark oan yer ain accoont in yer ain consarn, gie whut the\u2019 cry tha consarn."
-                                        ],
+                                        "description": ["Gin ye wark oan yer ain accoont in yer ain consarn, gie whut the\u2019 cry tha consarn."],
                                         "id": "business-name-question",
                                         "mandatory": false,
                                         "title": "Whut dae the\u2019 cry tha consarn or ootfit ye wark til?",
@@ -8047,9 +7830,7 @@
                                                 "type": "Checkbox"
                                             }
                                         ],
-                                        "description": [
-                                            "Gin the\u2019 wark oan thair ain accoont in thair ain ootfit, gie whut the\u2019 cry tha ootfit."
-                                        ],
+                                        "description": ["Gin the\u2019 wark oan thair ain accoont in thair ain ootfit, gie whut the\u2019 cry tha ootfit."],
                                         "id": "business-name-question",
                                         "mandatory": false,
                                         "title": {
@@ -8061,10 +7842,7 @@
                                                             "arguments": {
                                                                 "delimiter": " ",
                                                                 "list_to_concatenate": {
-                                                                    "identifier": [
-                                                                        "first-name",
-                                                                        "last-name"
-                                                                    ],
+                                                                    "identifier": ["first-name", "last-name"],
                                                                     "source": "answers"
                                                                 }
                                                             },
@@ -8111,9 +7889,7 @@
                                                 "type": "Checkbox"
                                             }
                                         ],
-                                        "description": [
-                                            "Gin ye wrocht oan yer ain accoont in yer ain ootfit, gie whut the\u2019 cried tha ootfit."
-                                        ],
+                                        "description": ["Gin ye wrocht oan yer ain accoont in yer ain ootfit, gie whut the\u2019 cried tha ootfit."],
                                         "id": "business-name-question",
                                         "mandatory": false,
                                         "title": "Whut daed the\u2019 cry tha consarn or ootfit ye wrocht fur?",
@@ -8154,9 +7930,7 @@
                                                 "type": "Checkbox"
                                             }
                                         ],
-                                        "description": [
-                                            "Gin the\u2019 wrocht oan thair ain accoont in thair ain ootfit, gie whut the\u2019 cried tha ootfit."
-                                        ],
+                                        "description": ["Gin the\u2019 wrocht oan thair ain accoont in thair ain ootfit, gie whut the\u2019 cried tha ootfit."],
                                         "id": "business-name-question",
                                         "mandatory": false,
                                         "title": {
@@ -8168,10 +7942,7 @@
                                                             "arguments": {
                                                                 "delimiter": " ",
                                                                 "list_to_concatenate": {
-                                                                    "identifier": [
-                                                                        "first-name",
-                                                                        "last-name"
-                                                                    ],
+                                                                    "identifier": ["first-name", "last-name"],
                                                                     "source": "answers"
                                                                 }
                                                             },
@@ -8258,10 +8029,7 @@
                                                             "arguments": {
                                                                 "delimiter": " ",
                                                                 "list_to_concatenate": {
-                                                                    "identifier": [
-                                                                        "first-name",
-                                                                        "last-name"
-                                                                    ],
+                                                                    "identifier": ["first-name", "last-name"],
                                                                     "source": "answers"
                                                                 }
                                                             },
@@ -8349,10 +8117,7 @@
                                                             "arguments": {
                                                                 "delimiter": " ",
                                                                 "list_to_concatenate": {
-                                                                    "identifier": [
-                                                                        "first-name",
-                                                                        "last-name"
-                                                                    ],
+                                                                    "identifier": ["first-name", "last-name"],
                                                                     "source": "answers"
                                                                 }
                                                             },
@@ -8443,10 +8208,7 @@
                                                             "arguments": {
                                                                 "delimiter": " ",
                                                                 "list_to_concatenate": {
-                                                                    "identifier": [
-                                                                        "first-name",
-                                                                        "last-name"
-                                                                    ],
+                                                                    "identifier": ["first-name", "last-name"],
                                                                     "source": "answers"
                                                                 }
                                                             },
@@ -8522,10 +8284,7 @@
                                                             "arguments": {
                                                                 "delimiter": " ",
                                                                 "list_to_concatenate": {
-                                                                    "identifier": [
-                                                                        "first-name",
-                                                                        "last-name"
-                                                                    ],
+                                                                    "identifier": ["first-name", "last-name"],
                                                                     "source": "answers"
                                                                 }
                                                             },
@@ -8612,10 +8371,7 @@
                                                             "arguments": {
                                                                 "delimiter": " ",
                                                                 "list_to_concatenate": {
-                                                                    "identifier": [
-                                                                        "first-name",
-                                                                        "last-name"
-                                                                    ],
+                                                                    "identifier": ["first-name", "last-name"],
                                                                     "source": "answers"
                                                                 }
                                                             },
@@ -8703,10 +8459,7 @@
                                                             "arguments": {
                                                                 "delimiter": " ",
                                                                 "list_to_concatenate": {
-                                                                    "identifier": [
-                                                                        "first-name",
-                                                                        "last-name"
-                                                                    ],
+                                                                    "identifier": ["first-name", "last-name"],
                                                                     "source": "answers"
                                                                 }
                                                             },
@@ -8766,9 +8519,7 @@
                                                 "type": "Radio"
                                             }
                                         ],
-                                        "description": [
-                                            "This cud be frae far aff or oan tha steidin"
-                                        ],
+                                        "description": ["This cud be frae far aff or oan tha steidin"],
                                         "id": "supervise-others-question",
                                         "title": "Wud ye owergang or hae tha owersicht o tha wark o ither warkin fowk day an daily?",
                                         "type": "General"
@@ -8804,9 +8555,7 @@
                                                 "type": "Radio"
                                             }
                                         ],
-                                        "description": [
-                                            "This cud be frae far aff or oan tha steidin"
-                                        ],
+                                        "description": ["This cud be frae far aff or oan tha steidin"],
                                         "id": "supervise-others-question",
                                         "title": {
                                             "placeholders": [
@@ -8817,10 +8566,7 @@
                                                             "arguments": {
                                                                 "delimiter": " ",
                                                                 "list_to_concatenate": {
-                                                                    "identifier": [
-                                                                        "first-name",
-                                                                        "last-name"
-                                                                    ],
+                                                                    "identifier": ["first-name", "last-name"],
                                                                     "source": "answers"
                                                                 }
                                                             },
@@ -8864,9 +8610,7 @@
                                                 "type": "Radio"
                                             }
                                         ],
-                                        "description": [
-                                            "This cud be frae far aff or oan tha steidin"
-                                        ],
+                                        "description": ["This cud be frae far aff or oan tha steidin"],
                                         "id": "supervise-others-question",
                                         "title": "Daed ye owergang or hae tha owersicht o tha wark o ither warkin fowk day an daily?",
                                         "type": "General"
@@ -8903,9 +8647,7 @@
                                                 "type": "Radio"
                                             }
                                         ],
-                                        "description": [
-                                            "This cud be frae far aff or oan tha steidin"
-                                        ],
+                                        "description": ["This cud be frae far aff or oan tha steidin"],
                                         "id": "supervise-others-question",
                                         "title": {
                                             "placeholders": [
@@ -8916,10 +8658,7 @@
                                                             "arguments": {
                                                                 "delimiter": " ",
                                                                 "list_to_concatenate": {
-                                                                    "identifier": [
-                                                                        "first-name",
-                                                                        "last-name"
-                                                                    ],
+                                                                    "identifier": ["first-name", "last-name"],
                                                                     "source": "answers"
                                                                 }
                                                             },
@@ -9052,10 +8791,7 @@
                                                             "arguments": {
                                                                 "delimiter": " ",
                                                                 "list_to_concatenate": {
-                                                                    "identifier": [
-                                                                        "first-name",
-                                                                        "last-name"
-                                                                    ],
+                                                                    "identifier": ["first-name", "last-name"],
                                                                     "source": "answers"
                                                                 }
                                                             },
@@ -9185,10 +8921,7 @@
                                                             "arguments": {
                                                                 "delimiter": " ",
                                                                 "list_to_concatenate": {
-                                                                    "identifier": [
-                                                                        "first-name",
-                                                                        "last-name"
-                                                                    ],
+                                                                    "identifier": ["first-name", "last-name"],
                                                                     "source": "answers"
                                                                 }
                                                             },
@@ -9335,10 +9068,7 @@
                                                                 "arguments": {
                                                                     "delimiter": " ",
                                                                     "list_to_concatenate": {
-                                                                        "identifier": [
-                                                                            "first-name",
-                                                                            "last-name"
-                                                                        ],
+                                                                        "identifier": ["first-name", "last-name"],
                                                                         "source": "answers"
                                                                     }
                                                                 },
@@ -9360,10 +9090,7 @@
                                                             "arguments": {
                                                                 "delimiter": " ",
                                                                 "list_to_concatenate": {
-                                                                    "identifier": [
-                                                                        "first-name",
-                                                                        "last-name"
-                                                                    ],
+                                                                    "identifier": ["first-name", "last-name"],
                                                                     "source": "answers"
                                                                 }
                                                             },
@@ -9419,9 +9146,7 @@
                                                 "type": "Radio"
                                             }
                                         ],
-                                        "description": [
-                                            "Mak repone anent tha place whar ye ware tha maist time."
-                                        ],
+                                        "description": ["Mak repone anent tha place whar ye ware tha maist time."],
                                         "id": "workplace-type-question",
                                         "title": "Whar daed ye <em>wark</em> fur tha maist feck?",
                                         "type": "General"
@@ -9467,10 +9192,7 @@
                                                                 "arguments": {
                                                                     "delimiter": " ",
                                                                     "list_to_concatenate": {
-                                                                        "identifier": [
-                                                                            "first-name",
-                                                                            "last-name"
-                                                                        ],
+                                                                        "identifier": ["first-name", "last-name"],
                                                                         "source": "answers"
                                                                     }
                                                                 },
@@ -9492,10 +9214,7 @@
                                                             "arguments": {
                                                                 "delimiter": " ",
                                                                 "list_to_concatenate": {
-                                                                    "identifier": [
-                                                                        "first-name",
-                                                                        "last-name"
-                                                                    ],
+                                                                    "identifier": ["first-name", "last-name"],
                                                                     "source": "answers"
                                                                 }
                                                             },
@@ -9618,10 +9337,7 @@
                                                             "arguments": {
                                                                 "delimiter": " ",
                                                                 "list_to_concatenate": {
-                                                                    "identifier": [
-                                                                        "first-name",
-                                                                        "last-name"
-                                                                    ],
+                                                                    "identifier": ["first-name", "last-name"],
                                                                     "source": "answers"
                                                                 }
                                                             },
@@ -9714,10 +9430,7 @@
                                                             "arguments": {
                                                                 "delimiter": " ",
                                                                 "list_to_concatenate": {
-                                                                    "identifier": [
-                                                                        "first-name",
-                                                                        "last-name"
-                                                                    ],
+                                                                    "identifier": ["first-name", "last-name"],
                                                                     "source": "answers"
                                                                 }
                                                             },
@@ -9755,10 +9468,7 @@
                                             {
                                                 "condition": "equals any",
                                                 "id": "workplace-location-answer",
-                                                "values": [
-                                                    "No, it is in another country",
-                                                    "No, it was in another country"
-                                                ]
+                                                "values": ["No, it is in another country", "No, it was in another country"]
                                             }
                                         ]
                                     }
@@ -9823,10 +9533,7 @@
                                                             "arguments": {
                                                                 "delimiter": " ",
                                                                 "list_to_concatenate": {
-                                                                    "identifier": [
-                                                                        "first-name",
-                                                                        "last-name"
-                                                                    ],
+                                                                    "identifier": ["first-name", "last-name"],
                                                                     "source": "answers"
                                                                 }
                                                             },
@@ -9903,10 +9610,7 @@
                                                             "arguments": {
                                                                 "delimiter": " ",
                                                                 "list_to_concatenate": {
-                                                                    "identifier": [
-                                                                        "first-name",
-                                                                        "last-name"
-                                                                    ],
+                                                                    "identifier": ["first-name", "last-name"],
                                                                     "source": "answers"
                                                                 }
                                                             },
@@ -10098,10 +9802,7 @@
                                                             "arguments": {
                                                                 "delimiter": " ",
                                                                 "list_to_concatenate": {
-                                                                    "identifier": [
-                                                                        "first-name",
-                                                                        "last-name"
-                                                                    ],
+                                                                    "identifier": ["first-name", "last-name"],
                                                                     "source": "answers"
                                                                 }
                                                             },
@@ -10192,10 +9893,7 @@
                                                             "arguments": {
                                                                 "delimiter": " ",
                                                                 "list_to_concatenate": {
-                                                                    "identifier": [
-                                                                        "first-name",
-                                                                        "last-name"
-                                                                    ],
+                                                                    "identifier": ["first-name", "last-name"],
                                                                     "source": "answers"
                                                                 }
                                                             },
@@ -10290,10 +9988,7 @@
                                                             "arguments": {
                                                                 "delimiter": " ",
                                                                 "list_to_concatenate": {
-                                                                    "identifier": [
-                                                                        "first-name",
-                                                                        "last-name"
-                                                                    ],
+                                                                    "identifier": ["first-name", "last-name"],
                                                                     "source": "answers"
                                                                 }
                                                             },
@@ -10374,10 +10069,7 @@
                                                             "arguments": {
                                                                 "delimiter": " ",
                                                                 "list_to_concatenate": {
-                                                                    "identifier": [
-                                                                        "first-name",
-                                                                        "last-name"
-                                                                    ],
+                                                                    "identifier": ["first-name", "last-name"],
                                                                     "source": "answers"
                                                                 }
                                                             },
@@ -10465,9 +10157,7 @@
                                                 "type": "Radio"
                                             }
                                         ],
-                                        "description": [
-                                            "Mak repone anent tha langest pairt, gan bae tha lenth o tha gate, o yer road tae yer wark fur ordnar"
-                                        ],
+                                        "description": ["Mak repone anent tha langest pairt, gan bae tha lenth o tha gate, o yer road tae yer wark fur ordnar"],
                                         "id": "travel-to-work-question",
                                         "title": "Hoo dae ye gang tae yer foremaist place o <em>wark</em> fur ordnar?",
                                         "type": "General"
@@ -10549,10 +10239,7 @@
                                                             "arguments": {
                                                                 "delimiter": " ",
                                                                 "list_to_concatenate": {
-                                                                    "identifier": [
-                                                                        "first-name",
-                                                                        "last-name"
-                                                                    ],
+                                                                    "identifier": ["first-name", "last-name"],
                                                                     "source": "answers"
                                                                 }
                                                             },
@@ -10629,9 +10316,7 @@
                                                 "type": "Radio"
                                             }
                                         ],
-                                        "description": [
-                                            "Mak repone anent tha langest pairt, gan bae tha lenth o tha gate, o yer road tae yer wark fur ordnar"
-                                        ],
+                                        "description": ["Mak repone anent tha langest pairt, gan bae tha lenth o tha gate, o yer road tae yer wark fur ordnar"],
                                         "id": "travel-to-work-question",
                                         "title": "Hoo daed ye gang tae yer foremaist place o <em>wark</em> fur ordnar?",
                                         "type": "General"
@@ -10709,10 +10394,7 @@
                                                             "arguments": {
                                                                 "delimiter": " ",
                                                                 "list_to_concatenate": {
-                                                                    "identifier": [
-                                                                        "first-name",
-                                                                        "last-name"
-                                                                    ],
+                                                                    "identifier": ["first-name", "last-name"],
                                                                     "source": "answers"
                                                                 }
                                                             },
@@ -10824,10 +10506,7 @@
                                                                 "arguments": {
                                                                     "delimiter": " ",
                                                                     "list_to_concatenate": {
-                                                                        "identifier": [
-                                                                            "first-name",
-                                                                            "last-name"
-                                                                        ],
+                                                                        "identifier": ["first-name", "last-name"],
                                                                         "source": "answers"
                                                                     }
                                                                 },
@@ -10849,10 +10528,7 @@
                                                             "arguments": {
                                                                 "delimiter": " ",
                                                                 "list_to_concatenate": {
-                                                                    "identifier": [
-                                                                        "first-name",
-                                                                        "last-name"
-                                                                    ],
+                                                                    "identifier": ["first-name", "last-name"],
                                                                     "source": "answers"
                                                                 }
                                                             },
@@ -10979,10 +10655,7 @@
                                                             "arguments": {
                                                                 "delimiter": " ",
                                                                 "list_to_concatenate": {
-                                                                    "identifier": [
-                                                                        "first-name",
-                                                                        "last-name"
-                                                                    ],
+                                                                    "identifier": ["first-name", "last-name"],
                                                                     "source": "answers"
                                                                 }
                                                             },
@@ -11081,10 +10754,7 @@
                                                             "arguments": {
                                                                 "delimiter": " ",
                                                                 "list_to_concatenate": {
-                                                                    "identifier": [
-                                                                        "first-name",
-                                                                        "last-name"
-                                                                    ],
+                                                                    "identifier": ["first-name", "last-name"],
                                                                     "source": "answers"
                                                                 }
                                                             },
@@ -11175,10 +10845,7 @@
                                                             "arguments": {
                                                                 "delimiter": " ",
                                                                 "list_to_concatenate": {
-                                                                    "identifier": [
-                                                                        "first-name",
-                                                                        "last-name"
-                                                                    ],
+                                                                    "identifier": ["first-name", "last-name"],
                                                                     "source": "answers"
                                                                 }
                                                             },
@@ -11346,10 +11013,7 @@
                                                             "arguments": {
                                                                 "delimiter": " ",
                                                                 "list_to_concatenate": {
-                                                                    "identifier": [
-                                                                        "first-name",
-                                                                        "last-name"
-                                                                    ],
+                                                                    "identifier": ["first-name", "last-name"],
                                                                     "source": "answers"
                                                                 }
                                                             },
