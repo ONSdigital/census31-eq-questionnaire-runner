@@ -4,9 +4,7 @@ on:
   pull_request:
     branches:
       - "main"
-      - "branch-v*"
-      - "bug-fix-*"
-      - "feature-*"
+      - "v3-census"
 
 concurrency:
   group: '${{ github.head_ref }}'
