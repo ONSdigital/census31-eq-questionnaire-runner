@@ -4,6 +4,7 @@ from app.data_models.app_models import (
     DateTimeSchemaMixin,
     EQSession,
     QuestionnaireState,
+    Timestamp,
     UsedJtiClaim,
 )
 from app.storage.storage import StorageModel
@@ -57,3 +58,18 @@ def test_set_date():
         QuestionnaireState("someuser", "somedata", "ce_sid", 1)
     )
     assert questionnaire_store.updated_at >= NOW
+
+
+def test_timestamp_serialize_non_datetime_returns_none():
+    field = Timestamp()
+    assert field._serialize("not-a-datetime", None, None) is None
+
+
+def test_timestamp_deserialize_non_numeric_returns_none():
+    field = Timestamp()
+    assert field._deserialize("not-a-number", None, None) is None
+
+
+def test_timestamp_deserialize_zero_returns_none():
+    field = Timestamp()
+    assert field._deserialize(0, None, None) is None
