@@ -62,14 +62,14 @@ def test_set_date():
 
 def test_timestamp_serialize_non_datetime_returns_none():
     field = Timestamp()
-    assert field._serialize("not-a-datetime", None, None) is None
+    assert field.serialize("expires_at", {"expires_at": "not-a-datetime"}) is None
 
 
 def test_timestamp_deserialize_non_numeric_returns_none():
     field = Timestamp()
-    assert field._deserialize("not-a-number", None, None) is None
+    assert field.deserialize("not-a-number") is None
 
 
 def test_timestamp_deserialize_zero_returns_none():
     field = Timestamp()
-    assert field._deserialize(0, None, None) is None
+    assert field.deserialize(0) is None
