@@ -36,18 +36,14 @@ class TestQuestionnaireListCollector(QuestionnaireTestCase):
         self.get(first_person_change_link)
 
         # Get the non-primary list item id
-        non_primary_person_list_item_id = re.search(
-            r"people\/([a-zA-Z]*)\/edit-person", self.last_url
-        ).group(1)
+        non_primary_person_list_item_id = re.search(r"people\/([a-zA-Z]*)\/edit-person", self.last_url).group(1)
 
         # Add primary person
         self.get("/questionnaire/primary-person-list-collector/")
         self.post({"you-live-here": "Yes"})
 
         # Use the non-primary person list item id in the URL
-        self.get(
-            f"/questionnaire/people/{non_primary_person_list_item_id}/add-or-edit-primary-person/"
-        )
+        self.get(f"/questionnaire/people/{non_primary_person_list_item_id}/add-or-edit-primary-person/")
 
         self.assertStatusNotFound()
 
@@ -87,9 +83,7 @@ class TestQuestionnaireListCollector(QuestionnaireTestCase):
 
         self.post({"you-live-here": "Yes"})
 
-        primary_person_list_item_id = re.search(
-            r"people\/([a-zA-Z]*)\/add-or-edit-primary-person", self.last_url
-        ).group(1)
+        primary_person_list_item_id = re.search(r"people\/([a-zA-Z]*)\/add-or-edit-primary-person", self.last_url).group(1)
 
         self.post({"first-name": "Marie", "last-name": "Day"})
 
@@ -127,9 +121,7 @@ class TestQuestionnaireListCollector(QuestionnaireTestCase):
     def test_section_summary_with_primary_no_driving_question_on_path(
         self,
     ):
-        self.launchSurvey(
-            "test_list_collector_primary_and_collector_with_driving_question"
-        )
+        self.launchSurvey("test_list_collector_primary_and_collector_with_driving_question")
 
         self.assertInBody("Start section")
 

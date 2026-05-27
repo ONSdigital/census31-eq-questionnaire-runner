@@ -18,16 +18,11 @@ from app.utilities.schema import load_schema_from_name
 from tests.app.app_context_test_case import AppContextTestCase
 
 
-class TestQuestionnaireForm(
-    AppContextTestCase
-):  # noqa: C901  pylint: disable=too-many-public-methods
+class TestQuestionnaireForm(AppContextTestCase):  # noqa: C901  pylint: disable=too-many-public-methods
     @staticmethod
     def _error_exists(answer_id, msg, mapped_errors):
         error_id = f"{answer_id}-error"
-        return any(
-            e_id == error_id and str(msg) in ordered_errors
-            for e_id, ordered_errors in mapped_errors
-        )
+        return any(e_id == error_id and str(msg) in ordered_errors for e_id, ordered_errors in mapped_errors)
 
     def test_form_ids_match_block_answer_ids(self):
         with self.app_request_context():
@@ -182,8 +177,7 @@ class TestQuestionnaireForm(
             self.assertEqual(form.data, expected_form_data)
             self.assertEqual(
                 form.question_errors["date-range-question"],
-                schema.error_messages["DATE_PERIOD_TOO_LARGE"]
-                % {"max": "1 month, 20 days"},
+                schema.error_messages["DATE_PERIOD_TOO_LARGE"] % {"max": "1 month, 20 days"},
                 AnswerStore(),
             )
 
@@ -285,22 +279,18 @@ class TestQuestionnaireForm(
                 "date-range-from": "2017-01-01",
                 "date-range-to": "2017-03-14",
             }
-            form = generate_form(
-                schema, question_schema, AnswerStore(), metadata, form_data=form_data
-            )
+            form = generate_form(schema, question_schema, AnswerStore(), metadata, form_data=form_data)
 
             form.validate()
             self.assertEqual(form.data, expected_form_data)
             self.assertEqual(
                 form.errors["date-range-from"]["year"][0],
-                schema.error_messages["SINGLE_DATE_PERIOD_TOO_EARLY"]
-                % {"min": "1 January 2017"},
+                schema.error_messages["SINGLE_DATE_PERIOD_TOO_EARLY"] % {"min": "1 January 2017"},
             )
 
             self.assertEqual(
                 form.errors["date-range-to"]["year"][0],
-                schema.error_messages["SINGLE_DATE_PERIOD_TOO_LATE"]
-                % {"max": "14 March 2017"},
+                schema.error_messages["SINGLE_DATE_PERIOD_TOO_LATE"] % {"max": "14 March 2017"},
             )
 
     def test_date_combined_range_too_small_validation(self):
@@ -330,9 +320,7 @@ class TestQuestionnaireForm(
                 "date-range-from": "2017-01-01",
                 "date-range-to": "2017-01-10",
             }
-            form = generate_form(
-                schema, question_schema, AnswerStore(), metadata, form_data=form_data
-            )
+            form = generate_form(schema, question_schema, AnswerStore(), metadata, form_data=form_data)
 
             form.validate()
             self.assertEqual(form.data, expected_form_data)
@@ -368,9 +356,7 @@ class TestQuestionnaireForm(
                 "date-range-from": "2017-01-01",
                 "date-range-to": "2017-02-21",
             }
-            form = generate_form(
-                schema, question_schema, AnswerStore(), metadata, form_data=form_data
-            )
+            form = generate_form(schema, question_schema, AnswerStore(), metadata, form_data=form_data)
 
             form.validate()
             self.assertEqual(form.data, expected_form_data)
@@ -404,22 +390,18 @@ class TestQuestionnaireForm(
                 "date-range-from": "2016-11",
                 "date-range-to": "2017-06",
             }
-            form = generate_form(
-                schema, question_schema, AnswerStore(), metadata, form_data=form_data
-            )
+            form = generate_form(schema, question_schema, AnswerStore(), metadata, form_data=form_data)
 
             form.validate()
             self.assertEqual(form.data, expected_form_data)
             self.assertEqual(
                 form.errors["date-range-from"]["year"][0],
-                schema.error_messages["SINGLE_DATE_PERIOD_TOO_EARLY"]
-                % {"min": "November 2016"},
+                schema.error_messages["SINGLE_DATE_PERIOD_TOO_EARLY"] % {"min": "November 2016"},
             )
 
             self.assertEqual(
                 form.errors["date-range-to"]["year"][0],
-                schema.error_messages["SINGLE_DATE_PERIOD_TOO_LATE"]
-                % {"max": "June 2017"},
+                schema.error_messages["SINGLE_DATE_PERIOD_TOO_LATE"] % {"max": "June 2017"},
             )
 
     def test_date_mm_yyyy_combined_range_too_small_validation(self):
@@ -447,9 +429,7 @@ class TestQuestionnaireForm(
                 "date-range-from": "2017-01",
                 "date-range-to": "2017-02",
             }
-            form = generate_form(
-                schema, question_schema, AnswerStore(), metadata, form_data=form_data
-            )
+            form = generate_form(schema, question_schema, AnswerStore(), metadata, form_data=form_data)
 
             form.validate()
             self.assertEqual(form.data, expected_form_data)
@@ -483,9 +463,7 @@ class TestQuestionnaireForm(
                 "date-range-from": "2017-01",
                 "date-range-to": "2017-05",
             }
-            form = generate_form(
-                schema, question_schema, AnswerStore(), metadata, form_data=form_data
-            )
+            form = generate_form(schema, question_schema, AnswerStore(), metadata, form_data=form_data)
 
             form.validate()
             self.assertEqual(form.data, expected_form_data)
@@ -500,9 +478,7 @@ class TestQuestionnaireForm(
 
             question_schema = schema.get_block("date-range-block").get("question")
 
-            form_data = MultiDict(
-                {"date-range-from-year": "2015", "date-range-to-year": "2021"}
-            )
+            form_data = MultiDict({"date-range-from-year": "2015", "date-range-to-year": "2021"})
 
             metadata = {
                 "ref_p_start_date": "2017-01-01",
@@ -514,9 +490,7 @@ class TestQuestionnaireForm(
                 "date-range-from": "2015",
                 "date-range-to": "2021",
             }
-            form = generate_form(
-                schema, question_schema, AnswerStore(), metadata, form_data=form_data
-            )
+            form = generate_form(schema, question_schema, AnswerStore(), metadata, form_data=form_data)
 
             form.validate()
             self.assertEqual(form.data, expected_form_data)
@@ -536,9 +510,7 @@ class TestQuestionnaireForm(
 
             question_schema = schema.get_block("date-range-block").get("question")
 
-            form_data = MultiDict(
-                {"date-range-from-year": "2016", "date-range-to-year": "2017"}
-            )
+            form_data = MultiDict({"date-range-from-year": "2016", "date-range-to-year": "2017"})
 
             metadata = {
                 "ref_p_start_date": "2017-01-01",
@@ -550,9 +522,7 @@ class TestQuestionnaireForm(
                 "date-range-from": "2016",
                 "date-range-to": "2017",
             }
-            form = generate_form(
-                schema, question_schema, AnswerStore(), metadata, form_data=form_data
-            )
+            form = generate_form(schema, question_schema, AnswerStore(), metadata, form_data=form_data)
 
             form.validate()
             self.assertEqual(form.data, expected_form_data)
@@ -567,9 +537,7 @@ class TestQuestionnaireForm(
 
             question_schema = schema.get_block("date-range-block").get("question")
 
-            form_data = MultiDict(
-                {"date-range-from-year": "2016", "date-range-to-year": "2020"}
-            )
+            form_data = MultiDict({"date-range-from-year": "2016", "date-range-to-year": "2020"})
 
             metadata = {
                 "ref_p_start_date": "2017-01-01",
@@ -581,9 +549,7 @@ class TestQuestionnaireForm(
                 "date-range-from": "2016",
                 "date-range-to": "2020",
             }
-            form = generate_form(
-                schema, question_schema, AnswerStore(), metadata, form_data=form_data
-            )
+            form = generate_form(schema, question_schema, AnswerStore(), metadata, form_data=form_data)
 
             form.validate()
             self.assertEqual(form.data, expected_form_data)
@@ -641,9 +607,7 @@ class TestQuestionnaireForm(
                 return_value=[question_schema],
             ):
                 form.validate()
-                self.assertIn(
-                    form.question_errors["date-range-question"], "Test Message"
-                )
+                self.assertIn(form.question_errors["date-range-question"], "Test Message")
 
     def test_invalid_minimum_period_limit_and_single_date_periods(self):
         with self.app_request_context():
@@ -802,9 +766,7 @@ class TestQuestionnaireForm(
 
             metadata = {"schema_name": "test_date_validation_range"}
 
-            form = generate_form(
-                schema, question_schema, store, metadata=metadata, form_data=form_data
-            )
+            form = generate_form(schema, question_schema, store, metadata=metadata, form_data=form_data)
 
             with self.assertRaises(Exception) as ite:
                 with patch(
@@ -827,9 +789,7 @@ class TestQuestionnaireForm(
         with self.app_request_context():
             schema = load_schema_from_name("test_sum_equal_validation_against_total")
 
-            question_schema = QuestionnaireSchema.get_mutable_deepcopy(
-                schema.get_block("breakdown-block").get("question")
-            )
+            question_schema = QuestionnaireSchema.get_mutable_deepcopy(schema.get_block("breakdown-block").get("question"))
 
             question_schema["calculations"] = [
                 {
@@ -842,9 +802,7 @@ class TestQuestionnaireForm(
 
             form_data = MultiDict({"breakdown-1": "3", "breakdown-2": "5"})
 
-            form = generate_form(
-                schema, question_schema, store, metadata=None, form_data=form_data
-            )
+            form = generate_form(schema, question_schema, store, metadata=None, form_data=form_data)
 
             with self.assertRaises(Exception) as ite:
                 with patch(
@@ -852,9 +810,7 @@ class TestQuestionnaireForm(
                     return_value=[question_schema],
                 ):
                     form.validate()
-            self.assertEqual(
-                "Invalid calculation_type: subtraction", str(ite.exception)
-            )
+            self.assertEqual("Invalid calculation_type: subtraction", str(ite.exception))
 
     def test_bespoke_message_for_sum_validation(self):
         store = AnswerStore()
@@ -866,28 +822,20 @@ class TestQuestionnaireForm(
         with self.app_request_context():
             schema = load_schema_from_name("test_sum_equal_validation_against_total")
 
-            question_schema = QuestionnaireSchema.get_mutable_deepcopy(
-                schema.get_block("breakdown-block").get("question")
-            )
+            question_schema = QuestionnaireSchema.get_mutable_deepcopy(schema.get_block("breakdown-block").get("question"))
 
-            question_schema["validation"] = {
-                "messages": {"TOTAL_SUM_NOT_EQUALS": "Test Message"}
-            }
+            question_schema["validation"] = {"messages": {"TOTAL_SUM_NOT_EQUALS": "Test Message"}}
 
             form_data = MultiDict({"breakdown-1": "3", "breakdown-2": "5"})
 
-            form = generate_form(
-                schema, question_schema, store, metadata=None, form_data=form_data
-            )
+            form = generate_form(schema, question_schema, store, metadata=None, form_data=form_data)
 
             with patch(
                 "app.questionnaire.questionnaire_schema.QuestionnaireSchema.get_all_questions_for_block",
                 return_value=[question_schema],
             ):
                 form.validate()
-                self.assertIn(
-                    form.question_errors["breakdown-question"], "Test Message"
-                )
+                self.assertIn(form.question_errors["breakdown-question"], "Test Message")
 
     def test_empty_calculated_field(self):
         store = AnswerStore()
@@ -917,9 +865,7 @@ class TestQuestionnaireForm(
                 "breakdown-3": Decimal("4"),
                 "breakdown-4": None,
             }
-            form = generate_form(
-                schema, question_schema, store, metadata=None, form_data=form_data
-            )
+            form = generate_form(schema, question_schema, store, metadata=None, form_data=form_data)
 
             form.validate()
             self.assertEqual(form.data, expected_form_data)
@@ -957,9 +903,7 @@ class TestQuestionnaireForm(
                 "breakdown-3": Decimal("4"),
                 "breakdown-4": Decimal("1"),
             }
-            form = generate_form(
-                schema, question_schema, store, metadata=None, form_data=form_data
-            )
+            form = generate_form(schema, question_schema, store, metadata=None, form_data=form_data)
 
             form.validate()
             self.assertEqual(form.data, expected_form_data)
@@ -992,9 +936,7 @@ class TestQuestionnaireForm(
                 "breakdown-3": None,
                 "breakdown-4": None,
             }
-            form = generate_form(
-                schema, question_schema, store, metadata=None, form_data=form_data
-            )
+            form = generate_form(schema, question_schema, store, metadata=None, form_data=form_data)
 
             form.validate()
             self.assertEqual(form.data, expected_form_data)
@@ -1026,9 +968,7 @@ class TestQuestionnaireForm(
             )
 
             # With no answers question validation should pass
-            form = generate_form(
-                schema, question_schema, store, metadata=None, form_data=form_data
-            )
+            form = generate_form(schema, question_schema, store, metadata=None, form_data=form_data)
             form.validate()
 
             self.assertEqual(len(form.question_errors), 0)
@@ -1036,9 +976,7 @@ class TestQuestionnaireForm(
             # With the data equaling the total question validation should pass
             form_data["breakdown-1"] = "10"
 
-            form = generate_form(
-                schema, question_schema, store, metadata=None, form_data=form_data
-            )
+            form = generate_form(schema, question_schema, store, metadata=None, form_data=form_data)
             form.validate()
 
             self.assertEqual(len(form.question_errors), 0)
@@ -1046,9 +984,7 @@ class TestQuestionnaireForm(
             # With the data not equaling zero or the total, question validation should fail
             form_data["breakdown-1"] = "1"
 
-            form = generate_form(
-                schema, question_schema, store, metadata=None, form_data=form_data
-            )
+            form = generate_form(schema, question_schema, store, metadata=None, form_data=form_data)
             form.validate()
 
             self.assertEqual(
@@ -1075,12 +1011,8 @@ class TestQuestionnaireForm(
 
             expected_form_data = {"csrf_token": "", "feeling-answer": "good"}
 
-            with patch(
-                "app.questionnaire.path_finder.evaluate_goto", return_value=False
-            ):
-                form = generate_form(
-                    schema, question_schema, store, metadata={}, form_data=form_data
-                )
+            with patch("app.questionnaire.path_finder.evaluate_goto", return_value=False):
+                form = generate_form(schema, question_schema, store, metadata={}, form_data=form_data)
 
             form.validate()
             assert form.data == expected_form_data
@@ -1163,9 +1095,7 @@ class TestQuestionnaireForm(
 
     def test_answer_with_detail_answer_errors_are_correctly_mapped(self):
         with self.app_request_context():
-            schema = load_schema_from_name(
-                "test_radio_mandatory_with_detail_answer_mandatory"
-            )
+            schema = load_schema_from_name("test_radio_mandatory_with_detail_answer_mandatory")
 
             question_schema = schema.get_block("radio-mandatory").get("question")
 
@@ -1211,17 +1141,13 @@ class TestQuestionnaireForm(
 
             form.validate()
             answer_errors = form.answer_errors("set-minimum")
-            self.assertIn(
-                schema.error_messages["NUMBER_TOO_SMALL"] % {"min": "0"}, answer_errors
-            )
+            self.assertIn(schema.error_messages["NUMBER_TOO_SMALL"] % {"min": "0"}, answer_errors)
 
     def test_mandatory_mutually_exclusive_question_raises_error_when_not_answered(self):
         with self.app_request_context():
             schema = load_schema_from_name("test_mutually_exclusive")
 
-            question_schema = schema.get_block("mutually-exclusive-mandatory-date").get(
-                "question"
-            )
+            question_schema = schema.get_block("mutually-exclusive-mandatory-date").get("question")
 
             form = generate_form(
                 schema,
@@ -1234,9 +1160,7 @@ class TestQuestionnaireForm(
 
             self.assertEqual(
                 form.question_errors["mutually-exclusive-mandatory-date-question"],
-                format_message_with_title(
-                    error_messages["MANDATORY_QUESTION"], question_schema.get("title")
-                ),
+                format_message_with_title(error_messages["MANDATORY_QUESTION"], question_schema.get("title")),
             )
 
     def test_mandatory_mutually_exclusive_question_raises_error_with_question_text(
@@ -1245,16 +1169,10 @@ class TestQuestionnaireForm(
         with self.app_request_context():
             schema = load_schema_from_name("test_question_title_in_error")
 
-            question_schema = schema.get_block("mutually-exclusive-checkbox").get(
-                "question"
-            )
-            answer_store = AnswerStore(
-                [{"answer_id": "mandatory-checkbox-answer", "value": ["Tuna"]}]
-            )
+            question_schema = schema.get_block("mutually-exclusive-checkbox").get("question")
+            answer_store = AnswerStore([{"answer_id": "mandatory-checkbox-answer", "value": ["Tuna"]}])
 
-            renderer = PlaceholderRenderer(
-                language="en", schema=schema, answer_store=answer_store
-            )
+            renderer = PlaceholderRenderer(language="en", schema=schema, answer_store=answer_store)
             rendered_schema = renderer.render(question_schema, None)
 
             form = generate_form(
@@ -1276,9 +1194,7 @@ class TestQuestionnaireForm(
         with self.app_request_context():
             schema = load_schema_from_name("test_mutually_exclusive")
 
-            question_schema = schema.get_block("mutually-exclusive-date").get(
-                "question"
-            )
+            question_schema = schema.get_block("mutually-exclusive-date").get("question")
 
             form_data = MultiDict(
                 {
@@ -1357,9 +1273,7 @@ class TestQuestionnaireForm(
 
     def test_form_for_radio_other_not_selected(self):
         with self.app_request_context():
-            schema = load_schema_from_name(
-                "test_radio_mandatory_with_detail_answer_mandatory"
-            )
+            schema = load_schema_from_name("test_radio_mandatory_with_detail_answer_mandatory")
 
             question_schema = schema.get_block("radio-mandatory").get("question")
 
@@ -1384,9 +1298,7 @@ class TestQuestionnaireForm(
 
     def test_form_for_radio_other_selected(self):
         with self.app_request_context():
-            schema = load_schema_from_name(
-                "test_radio_mandatory_with_detail_answer_mandatory"
-            )
+            schema = load_schema_from_name("test_radio_mandatory_with_detail_answer_mandatory")
 
             question_schema = schema.get_block("radio-mandatory").get("question")
 

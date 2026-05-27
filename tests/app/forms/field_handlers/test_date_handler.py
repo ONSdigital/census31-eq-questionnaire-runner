@@ -94,9 +94,7 @@ def test_get_referenced_offset_value_for_now_value(app):
     minimum_date = handler.get_date_value("minimum")
     minimum_date = handler.transform_date_by_offset(minimum_date, {"days": 10})
 
-    assert datetime.date(minimum_date) == (
-        datetime.utcnow().date() + relativedelta(days=10)
-    )
+    assert datetime.date(minimum_date) == (datetime.utcnow().date() + relativedelta(days=10))
 
 
 def test_get_referenced_offset_value_for_meta(app):
@@ -110,9 +108,7 @@ def test_get_referenced_offset_value_for_meta(app):
     assert minimum_date == convert_to_datetime("2018-02-10")
 
 
-@patch(
-    "app.utilities.schema.load_schema_from_name", return_value=QuestionnaireSchema({})
-)
+@patch("app.utilities.schema.load_schema_from_name", return_value=QuestionnaireSchema({}))
 def test_get_referenced_offset_value_for_answer_id(app):
     answer_store = AnswerStore()
 
@@ -129,9 +125,7 @@ def test_get_referenced_offset_value_for_answer_id(app):
 
 
 # pylint: disable=unused-argument
-@patch(
-    "app.utilities.schema.load_schema_from_name", return_value=QuestionnaireSchema({})
-)
+@patch("app.utilities.schema.load_schema_from_name", return_value=QuestionnaireSchema({}))
 @patch(
     "app.questionnaire.questionnaire_schema.QuestionnaireSchema.get_list_item_id_for_answer_id",
     return_value="abcde",
@@ -140,9 +134,7 @@ def test_get_referenced_offset_value_with_list_item_id(app, schema_mock):
     list_item_id = "abcde"
     answer_store = AnswerStore()
 
-    test_answer_id = Answer(
-        answer_id="date", value="2018-03-20", list_item_id=list_item_id
-    )
+    test_answer_id = Answer(answer_id="date", value="2018-03-20", list_item_id=list_item_id)
 
     location = Location(section_id="test", list_item_id=list_item_id)
 
@@ -171,9 +163,7 @@ def test_get_referenced_offset_value_with_no_offset(app):
     assert minimum_date == convert_to_datetime("2017-06-11")
 
 
-@patch(
-    "app.utilities.schema.load_schema_from_name", return_value=QuestionnaireSchema({})
-)
+@patch("app.utilities.schema.load_schema_from_name", return_value=QuestionnaireSchema({}))
 def test_minimum_and_maximum_offset_dates(app):
     test_metadata = {"date": "2018-02-20"}
     store = AnswerStore()
@@ -215,10 +205,7 @@ def test_greater_minimum_date_than_maximum_date(app):
     with pytest.raises(Exception) as ite:
         handler.get_date_value("minimum")
 
-        assert (
-            str(ite.exception)
-            == "The minimum offset date is greater than the maximum offset date for date-answer."
-        )
+        assert str(ite.exception) == "The minimum offset date is greater than the maximum offset date for date-answer."
 
 
 def test_validate_mandatory_date(app):

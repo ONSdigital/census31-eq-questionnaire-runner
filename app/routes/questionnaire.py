@@ -33,13 +33,9 @@ from app.views.handlers.thank_you import ThankYou
 END_BLOCKS = "Summary", "Confirmation"
 logger = get_logger()
 
-questionnaire_blueprint = Blueprint(
-    name="questionnaire", import_name=__name__, url_prefix="/questionnaire/"
-)
+questionnaire_blueprint = Blueprint(name="questionnaire", import_name=__name__, url_prefix="/questionnaire/")
 
-post_submission_blueprint = Blueprint(
-    name="post_submission", import_name=__name__, url_prefix="/submitted/"
-)
+post_submission_blueprint = Blueprint(name="post_submission", import_name=__name__, url_prefix="/submitted/")
 
 
 @questionnaire_blueprint.before_request
@@ -56,9 +52,7 @@ def before_questionnaire_request():
         questionnaire_id=metadata["questionnaire_id"],
     )
 
-    logger.info(
-        "questionnaire request", method=request.method, url_path=request.full_path
-    )
+    logger.info("questionnaire request", method=request.method, url_path=request.full_path)
 
     handle_language()
 
@@ -80,9 +74,7 @@ def before_post_submission_request():
 
     logger.bind(tx_id=session_data.tx_id, schema_name=session_data.schema_name)
 
-    logger.info(
-        "questionnaire request", method=request.method, url_path=request.full_path
-    )
+    logger.info("questionnaire request", method=request.method, url_path=request.full_path)
 
 
 @questionnaire_blueprint.route("/", methods=["GET", "POST"])
@@ -103,9 +95,7 @@ def get_questionnaire(schema, questionnaire_store):
 
     if request.method == "POST":
         if router.is_survey_complete():
-            submission_handler = SubmissionHandler(
-                schema, questionnaire_store, router.full_routing_path()
-            )
+            submission_handler = SubmissionHandler(schema, questionnaire_store, router.full_routing_path())
             submission_handler.submit_questionnaire()
             return redirect(url_for("post_submission.get_thank_you"))
         return redirect(router.get_first_incomplete_location_in_survey_url())
@@ -121,17 +111,13 @@ def get_questionnaire(schema, questionnaire_store):
         metadata=questionnaire_store.metadata,
     )
 
-    hub_context = hub.get_context(
-        router.is_survey_complete(), router.enabled_section_ids
-    )
+    hub_context = hub.get_context(router.is_survey_complete(), router.enabled_section_ids)
 
     return render_template("hub", content=hub_context, page_title=hub_context["title"])
 
 
 @questionnaire_blueprint.route("sections/<section_id>/", methods=["GET", "POST"])
-@questionnaire_blueprint.route(
-    "sections/<section_id>/<list_item_id>/", methods=["GET", "POST"]
-)
+@questionnaire_blueprint.route("sections/<section_id>/<list_item_id>/", methods=["GET", "POST"])
 @with_questionnaire_store
 @with_schema
 def get_section(schema, questionnaire_store, section_id, list_item_id=None):
@@ -165,9 +151,7 @@ def get_section(schema, questionnaire_store, section_id, list_item_id=None):
 # pylint: disable=too-many-return-statements
 @questionnaire_blueprint.route("<block_id>/", methods=["GET", "POST"])
 @questionnaire_blueprint.route("<list_name>/<block_id>/", methods=["GET", "POST"])
-@questionnaire_blueprint.route(
-    "<list_name>/<list_item_id>/<block_id>/", methods=["GET", "POST"]
-)
+@questionnaire_blueprint.route("<list_name>/<list_item_id>/<block_id>/", methods=["GET", "POST"])
 @with_questionnaire_store
 @with_schema
 def block(schema, questionnaire_store, block_id, list_name=None, list_item_id=None):
@@ -189,9 +173,7 @@ def block(schema, questionnaire_store, block_id, list_name=None, list_item_id=No
         block_handler.clear_radio_answers()
         return redirect(block_handler.current_location.url())
 
-    if request.method != "POST" or (
-        hasattr(block_handler, "form") and not block_handler.form.validate()
-    ):
+    if request.method != "POST" or (hasattr(block_handler, "form") and not block_handler.form.validate()):
         return _render_page(
             template=block_handler.rendered_block["type"],
             context=block_handler.get_context(),
@@ -201,9 +183,7 @@ def block(schema, questionnaire_store, block_id, list_name=None, list_item_id=No
         )
 
     if block_handler.block["type"] in END_BLOCKS:
-        submission_handler = SubmissionHandler(
-            schema, questionnaire_store, block_handler.router.full_routing_path()
-        )
+        submission_handler = SubmissionHandler(schema, questionnaire_store, block_handler.router.full_routing_path())
         submission_handler.submit_questionnaire()
         return redirect(url_for("post_submission.get_thank_you"))
 
@@ -221,9 +201,7 @@ def block(schema, questionnaire_store, block_id, list_name=None, list_item_id=No
     "relationships/<list_name>/<list_item_id>/to/<to_list_item_id>/",
     methods=["GET", "POST"],
 )
-@questionnaire_blueprint.route(
-    "relationships/<list_name>/<list_item_id>/<block_id>/", methods=["GET", "POST"]
-)
+@questionnaire_blueprint.route("relationships/<list_name>/<list_item_id>/<block_id>/", methods=["GET", "POST"])
 @with_questionnaire_store
 @with_schema
 def relationships(
@@ -254,9 +232,7 @@ def relationships(
             return redirect(block_handler.get_last_location_url())
         return redirect(block_handler.get_first_location_url())
 
-    if request.method != "POST" or (
-        hasattr(block_handler, "form") and not block_handler.form.validate()
-    ):
+    if request.method != "POST" or (hasattr(block_handler, "form") and not block_handler.form.validate()):
         return _render_page(
             template=block_handler.block["type"],
             context=block_handler.get_context(),
@@ -294,9 +270,7 @@ def get_thank_you(schema, session_store):
             error_message=str(confirmation_email.form.errors["email"][0]),
         )
 
-    show_feedback_call_to_action = Feedback.is_enabled(
-        schema
-    ) and not Feedback.is_limit_reached(session_store.session_data)
+    show_feedback_call_to_action = Feedback.is_enabled(schema) and not Feedback.is_limit_reached(session_store.session_data)
 
     return render_template(
         template=thank_you.template,
@@ -314,9 +288,7 @@ def get_thank_you(schema, session_store):
 @with_session_store
 def send_confirmation_email(session_store, schema):
     try:
-        confirmation_email = ConfirmationEmail(
-            session_store, schema, serialised_email=request.args.get("email")
-        )
+        confirmation_email = ConfirmationEmail(session_store, schema, serialised_email=request.args.get("email"))
     except (ConfirmationEmailLimitReached, ConfirmationEmailNotEnabled):
         return redirect(url_for(".get_thank_you"))
 
@@ -347,9 +319,7 @@ def send_confirmation_email(session_store, schema):
 @with_session_store
 def confirm_confirmation_email(session_store, schema):
     try:
-        confirm_email = ConfirmEmail(
-            schema, session_store, request.args["email"], form_data=request.form
-        )
+        confirm_email = ConfirmEmail(schema, session_store, request.args["email"], form_data=request.form)
     except (ConfirmationEmailLimitReached, ConfirmationEmailNotEnabled):
         return redirect(url_for(".get_thank_you"))
 
@@ -377,20 +347,14 @@ def get_confirmation_email_sent(session_store, schema):
     except BadSignature:
         raise BadRequest
 
-    show_send_another_email_guidance = not ConfirmationEmail.is_limit_reached(
-        session_store.session_data
-    )
-    show_feedback_call_to_action = Feedback.is_enabled(
-        schema
-    ) and not Feedback.is_limit_reached(session_store.session_data)
+    show_send_another_email_guidance = not ConfirmationEmail.is_limit_reached(session_store.session_data)
+    show_feedback_call_to_action = Feedback.is_enabled(schema) and not Feedback.is_limit_reached(session_store.session_data)
 
     return render_template(
         template="confirmation-email-sent",
         content={
             "email": email,
-            "send_confirmation_email_url": url_for(
-                "post_submission.send_confirmation_email"
-            ),
+            "send_confirmation_email_url": url_for("post_submission.send_confirmation_email"),
             "hide_sign_out_button": False,
             "show_send_another_email_guidance": show_send_another_email_guidance,
             "sign_out_url": url_for("session.get_sign_out"),

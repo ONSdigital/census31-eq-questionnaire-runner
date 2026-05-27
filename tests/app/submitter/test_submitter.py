@@ -14,9 +14,7 @@ class TestRabbitMQSubmitter(TestCase):
         self.host2 = "host2"
         self.port = 5672
 
-        self.submitter = RabbitMQSubmitter(
-            host=self.host1, secondary_host=self.host2, port=self.port, queue=self.queue
-        )
+        self.submitter = RabbitMQSubmitter(host=self.host1, secondary_host=self.host2, port=self.port, queue=self.queue)
 
     def test_when_fail_to_connect_to_queue_then_published_false(self):
         # Given
@@ -51,9 +49,10 @@ class TestRabbitMQSubmitter(TestCase):
 
     def test_when_first_connection_fails_then_secondary_succeeds(self):
         # Given
-        with patch("app.submitter.submitter.BlockingConnection") as connection, patch(
-            "app.submitter.submitter.URLParameters"
-        ) as url_parameters:
+        with (
+            patch("app.submitter.submitter.BlockingConnection") as connection,
+            patch("app.submitter.submitter.URLParameters") as url_parameters,
+        ):
             secondary_connection = Mock()
             connection.side_effect = [AMQPError(), secondary_connection]
 
@@ -78,9 +77,10 @@ class TestRabbitMQSubmitter(TestCase):
 
     def test_url_generation_with_credentials(self):
         # Given
-        with patch("app.submitter.submitter.BlockingConnection") as connection, patch(
-            "app.submitter.submitter.URLParameters"
-        ) as url_parameters:
+        with (
+            patch("app.submitter.submitter.BlockingConnection") as connection,
+            patch("app.submitter.submitter.URLParameters") as url_parameters,
+        ):
             secondary_connection = Mock()
             connection.side_effect = [AMQPError(), secondary_connection]
 
@@ -108,16 +108,8 @@ class TestRabbitMQSubmitter(TestCase):
             self.assertTrue(published, "send_message should publish message")
             # Check we create url for primary then secondary
             url_parameters_calls = [
-                call(
-                    "amqp://{}:{}@{}:{}/%2F".format(
-                        username, password, self.host1, self.port
-                    )
-                ),
-                call(
-                    "amqp://{}:{}@{}:{}/%2F".format(
-                        username, password, self.host2, self.port
-                    )
-                ),
+                call("amqp://{}:{}@{}:{}/%2F".format(username, password, self.host1, self.port)),
+                call("amqp://{}:{}@{}:{}/%2F".format(username, password, self.host2, self.port)),
             ]
             url_parameters.assert_has_calls(url_parameters_calls)
             # Check we create connection twice, failing first then with self.url2
@@ -129,9 +121,10 @@ class TestRabbitMQSubmitter(TestCase):
         error = AMQPError()
         connection.close.side_effect = [error]
 
-        with patch(
-            "app.submitter.submitter.BlockingConnection", return_value=connection
-        ), patch("app.submitter.submitter.logger") as logger:
+        with (
+            patch("app.submitter.submitter.BlockingConnection", return_value=connection),
+            patch("app.submitter.submitter.logger") as logger,
+        ):
             # When
             published = self.submitter.send_message(
                 message={},
@@ -142,9 +135,7 @@ class TestRabbitMQSubmitter(TestCase):
 
             # Then
             self.assertTrue(published)
-            logger.error.assert_called_once_with(
-                "unable to close connection", category="rabbitmq", exc_info=error
-            )
+            logger.error.assert_called_once_with("unable to close connection", category="rabbitmq", exc_info=error)
 
     def test_when_fail_to_publish_message_then_returns_false(self):
         # Given
@@ -152,9 +143,7 @@ class TestRabbitMQSubmitter(TestCase):
         channel.basic_publish = Mock(return_value=False)
         connection = Mock()
         connection.channel.side_effect = Mock(return_value=channel)
-        with patch(
-            "app.submitter.submitter.BlockingConnection", return_value=connection
-        ):
+        with patch("app.submitter.submitter.BlockingConnection", return_value=connection):
             # When
             published = self.submitter.send_message(
                 message={},
@@ -171,9 +160,7 @@ class TestRabbitMQSubmitter(TestCase):
         channel = Mock()
         connection = Mock()
         connection.channel.side_effect = Mock(return_value=channel)
-        with patch(
-            "app.submitter.submitter.BlockingConnection", return_value=connection
-        ):
+        with patch("app.submitter.submitter.BlockingConnection", return_value=connection):
             # When
             self.submitter.send_message(
                 message={},
@@ -195,13 +182,9 @@ class TestRabbitMQSubmitter(TestCase):
         channel = Mock()
         connection = Mock()
         connection.channel.side_effect = Mock(return_value=channel)
-        with patch(
-            "app.submitter.submitter.BlockingConnection", return_value=connection
-        ):
+        with patch("app.submitter.submitter.BlockingConnection", return_value=connection):
             # When
-            self.submitter.send_message(
-                message={}, tx_id="12345", questionnaire_id="0123456789000000"
-            )
+            self.submitter.send_message(message={}, tx_id="12345", questionnaire_id="0123456789000000")
 
             # Then
             call_args = channel.basic_publish.call_args
@@ -302,8 +285,7 @@ class TestGCSFeedbackSubmitter(TestCase):
         blob_contents = blob.upload_from_string.call_args[0][0]
 
         assert (
-            blob_contents
-            == b'{"feedback-type": "Feedback type", "feedback-text": "Feedback text", '
+            blob_contents == b'{"feedback-type": "Feedback type", "feedback-text": "Feedback text", '
             b'"feedback_count": 1, "feedback_submission_date": "2021-03-23", '
             b'"form_type": "H", "language_code": "cy", "region_code": "GB-ENG", "tx_id": "12345"}'
         )

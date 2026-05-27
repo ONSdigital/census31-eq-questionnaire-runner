@@ -89,20 +89,14 @@ class PlaceholderTransforms:
         )
 
         if time.years:
-            year_string = ngettext(
-                "{number_of_years} year", "{number_of_years} years", time.years
-            )
+            year_string = ngettext("{number_of_years} year", "{number_of_years} years", time.years)
             return year_string.format(number_of_years=time.years)
 
         if time.months:
-            month_string = ngettext(
-                "{number_of_months} month", "{number_of_months} months", time.months
-            )
+            month_string = ngettext("{number_of_months} month", "{number_of_months} months", time.months)
             return month_string.format(number_of_months=time.months)
 
-        day_string = ngettext(
-            "{number_of_days} day", "{number_of_days} days", time.days
-        )
+        day_string = ngettext("{number_of_days} day", "{number_of_days} days", time.days)
         return day_string.format(number_of_days=time.days)
 
     @staticmethod
@@ -118,13 +112,9 @@ class PlaceholderTransforms:
             return datetime.now(tz=tzutc())
 
         try:
-            return datetime.strptime(
-                date, PlaceholderTransforms.input_date_format
-            ).replace(tzinfo=tzutc())
+            return datetime.strptime(date, PlaceholderTransforms.input_date_format).replace(tzinfo=tzutc())
         except ValueError:
-            return datetime.strptime(
-                date, PlaceholderTransforms.input_date_format_month_year_only
-            ).replace(tzinfo=tzutc())
+            return datetime.strptime(date, PlaceholderTransforms.input_date_format_month_year_only).replace(tzinfo=tzutc())
 
     @staticmethod
     def add(lhs, rhs):
@@ -135,11 +125,7 @@ class PlaceholderTransforms:
         indicator = self.get_ordinal_indicator(number_to_format)
 
         if determiner == "a_or_an" and self.language in ["en", "eo"]:
-            a_or_an = (
-                "an"
-                if str(number_to_format).startswith("8") or number_to_format in [11, 18]
-                else "a"
-            )
+            a_or_an = "an" if str(number_to_format).startswith("8") or number_to_format in [11, 18] else "a"
             return f"{a_or_an} {number_to_format}{indicator}"
 
         return f"{number_to_format}{indicator}"
@@ -195,8 +181,4 @@ class PlaceholderTransforms:
 
     @staticmethod
     def format_name(first_name, middle_names, last_name, include_middle_names=False):
-        return (
-            f"{first_name} {middle_names} {last_name}"
-            if include_middle_names and middle_names
-            else f"{first_name} {last_name}"
-        )
+        return f"{first_name} {middle_names} {last_name}" if include_middle_names and middle_names else f"{first_name} {last_name}"

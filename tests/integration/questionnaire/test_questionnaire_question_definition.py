@@ -7,9 +7,7 @@ class TestQuestionnaireQuestionDefinition(IntegrationTestCase):
         self.launchSurvey("test_question_definition")
 
         # When I start the survey I am presented with the definitions title and content correctly
-        self.assertInBody(
-            "Do you connect a LiFePO4 battery to your <em>photovoltaic system</em> to store surplus energy?"
-        )
+        self.assertInBody("Do you connect a LiFePO4 battery to your <em>photovoltaic system</em> to store surplus energy?")
 
         self.assertInBody("What is a photovoltaic system?")
         self.assertInBody(
@@ -24,12 +22,8 @@ class TestQuestionnaireQuestionDefinition(IntegrationTestCase):
             "LifePO4 batteries have a life span 10 times longer than that of traditional lead acid batteries. "
             "This dramatically reduces the need for battery changes."
         )
-        self.assertInBody(
-            "Lithium iron phosphate batteries operate with much lower resistance and consequently recharge at a faster rate."
-        )
-        self.assertInBody(
-            "LifeP04 lightweight batteries are lighter than lead acid batteries, usually weighing about 1/4 less."
-        )
+        self.assertInBody("Lithium iron phosphate batteries operate with much lower resistance and consequently recharge at a faster rate.")
+        self.assertInBody("LifeP04 lightweight batteries are lighter than lead acid batteries, usually weighing about 1/4 less.")
 
         # When we continue we go to the summary page
         self.post()

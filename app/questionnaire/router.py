@@ -23,11 +23,7 @@ class Router:
 
     @property
     def enabled_section_ids(self):
-        return [
-            section["id"]
-            for section in self._schema.get_sections()
-            if self._is_section_enabled(section=section)
-        ]
+        return [section["id"] for section in self._schema.get_sections() if self._is_section_enabled(section=section)]
 
     def is_list_item_in_list_store(self, list_item_id, list_name):
         return list_item_id in self._list_store[list_name]
@@ -40,18 +36,13 @@ class Router:
         if location.section_id not in self.enabled_section_ids:
             return False
 
-        if location.list_item_id and not self.is_list_item_in_list_store(
-            location.list_item_id, location.list_name
-        ):
+        if location.list_item_id and not self.is_list_item_in_list_store(location.list_item_id, location.list_name):
             return False
 
         allowable_path = self._get_allowable_path(routing_path)
         if location.block_id in allowable_path:
             block = self._schema.get_block(location.block_id)
-            if (
-                block["type"] in ["Confirmation", "Summary"]
-                and not self.is_survey_complete()
-            ):
+            if block["type"] in ["Confirmation", "Summary"] and not self.is_survey_complete():
                 return False
 
             return True
@@ -65,9 +56,7 @@ class Router:
         )
 
     def can_display_section_summary(self, section_id, list_item_id=None):
-        return self._schema.get_summary_for_section(
-            section_id
-        ) and self._progress_store.is_section_complete(section_id, list_item_id)
+        return self._schema.get_summary_for_section(section_id) and self._progress_store.is_section_complete(section_id, list_item_id)
 
     def routing_path(self, section_id, list_item_id=None):
         return self._path_finder.routing_path(section_id, list_item_id)
@@ -78,9 +67,7 @@ class Router:
         whether it be a summary, the hub or the next incomplete location.
         """
         is_last_block_in_section = routing_path[-1] == location.block_id
-        if self._progress_store.is_section_complete(
-            location.section_id, location.list_item_id
-        ):
+        if self._progress_store.is_section_complete(location.section_id, location.list_item_id):
             if return_to == "section-summary":
                 return self._get_section_url(location)
 
@@ -137,9 +124,7 @@ class Router:
         if first_incomplete_section_key:
             section_id, list_item_id = first_incomplete_section_key
 
-            section_routing_path = self._path_finder.routing_path(
-                section_id=section_id, list_item_id=list_item_id
-            )
+            section_routing_path = self._path_finder.routing_path(section_id=section_id, list_item_id=list_item_id)
             return self.get_section_resume_url(section_routing_path)
 
         return self.get_last_location_in_survey().url()
@@ -192,21 +177,13 @@ class Router:
 
             if repeating_list:
                 for list_item_id in self._list_store[repeating_list]:
-                    full_routing_path.append(
-                        self._path_finder.routing_path(
-                            section_id=section_id, list_item_id=list_item_id
-                        )
-                    )
+                    full_routing_path.append(self._path_finder.routing_path(section_id=section_id, list_item_id=list_item_id))
             else:
-                full_routing_path.append(
-                    self._path_finder.routing_path(section_id=section_id)
-                )
+                full_routing_path.append(self._path_finder.routing_path(section_id=section_id))
         return full_routing_path
 
     def _is_block_complete(self, block_id, section_id, list_item_id):
-        completed_block_ids = self._progress_store.get_completed_block_ids(
-            section_id, list_item_id
-        )
+        completed_block_ids = self._progress_store.get_completed_block_ids(section_id, list_item_id)
 
         return block_id in completed_block_ids
 
@@ -215,9 +192,7 @@ class Router:
             block = self._schema.get_block(block_id)
             block_type = block.get("type")
 
-            if not self._is_block_complete(
-                block_id, routing_path.section_id, routing_path.list_item_id
-            ) and block_type not in {"Summary", "Confirmation"}:
+            if not self._is_block_complete(block_id, routing_path.section_id, routing_path.list_item_id) and block_type not in {"Summary", "Confirmation"}:
                 return Location(
                     block_id=block_id,
                     section_id=routing_path.section_id,
@@ -235,9 +210,7 @@ class Router:
             for block_id in routing_path:
                 allowable_path.append(block_id)
 
-                if not self._is_block_complete(
-                    block_id, routing_path.section_id, routing_path.list_item_id
-                ):
+                if not self._is_block_complete(block_id, routing_path.section_id, routing_path.list_item_id):
                     return allowable_path
 
         return allowable_path

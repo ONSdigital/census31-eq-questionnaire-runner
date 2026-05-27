@@ -46,11 +46,7 @@ def test_decimal_field():
         "mandatory": False,
         "type": "Number",
         "decimal_places": 2,
-        "validation": {
-            "messages": {
-                "INVALID_NUMBER": "Please only enter whole numbers into the field."
-            }
-        },
+        "validation": {"messages": {"INVALID_NUMBER": "Please only enter whole numbers into the field."}},
     }
 
     form_class = get_test_form_class(answer_schema)
@@ -68,11 +64,7 @@ def test_currency_field():
         "mandatory": False,
         "label": "",
         "type": "Currency",
-        "validation": {
-            "messages": {
-                "INVALID_NUMBER": "Please only enter whole numbers into the field."
-            }
-        },
+        "validation": {"messages": {"INVALID_NUMBER": "Please only enter whole numbers into the field."}},
     }
 
     form_class = get_test_form_class(answer_schema)
@@ -129,10 +121,7 @@ def test_manual_min(app):
 
     form.validate()
 
-    assert (
-        form.errors["test_field"][0]
-        == answer_schema["validation"]["messages"]["NUMBER_TOO_SMALL"]
-    )
+    assert form.errors["test_field"][0] == answer_schema["validation"]["messages"]["NUMBER_TOO_SMALL"]
 
 
 def test_manual_max(app):
@@ -155,10 +144,7 @@ def test_manual_max(app):
 
     form.validate()
 
-    assert (
-        form.errors["test_field"][0]
-        == answer_schema["validation"]["messages"]["NUMBER_TOO_LARGE"]
-    )
+    assert form.errors["test_field"][0] == answer_schema["validation"]["messages"]["NUMBER_TOO_LARGE"]
 
 
 def test_manual_decimal(app):
@@ -180,10 +166,7 @@ def test_manual_decimal(app):
     form = test_form_class(MultiDict({"test_field": "1.234"}))
     form.validate()
 
-    assert (
-        form.errors["test_field"][0]
-        == answer_schema["validation"]["messages"]["INVALID_DECIMAL"]
-    )
+    assert form.errors["test_field"][0] == answer_schema["validation"]["messages"]["INVALID_DECIMAL"]
 
 
 def test_zero_max(app):
@@ -245,18 +228,12 @@ def test_value_min_and_max(app):
     form = test_form_class(MultiDict({"test_field": "9"}))
     form.validate()
 
-    assert (
-        form.errors["test_field"][0]
-        == answer_schema["validation"]["messages"]["NUMBER_TOO_SMALL"]
-    )
+    assert form.errors["test_field"][0] == answer_schema["validation"]["messages"]["NUMBER_TOO_SMALL"]
 
     form = test_form_class(MultiDict({"test_field": "22"}))
     form.validate()
 
-    assert (
-        form.errors["test_field"][0]
-        == answer_schema["validation"]["messages"]["NUMBER_TOO_LARGE"]
-    )
+    assert form.errors["test_field"][0] == answer_schema["validation"]["messages"]["NUMBER_TOO_LARGE"]
 
 
 def test_manual_min_exclusive(app):
@@ -279,10 +256,7 @@ def test_manual_min_exclusive(app):
     form = test_form_class(MultiDict({"test_field": "10"}))
     form.validate()
 
-    assert (
-        form.errors["test_field"][0]
-        == answer_schema["validation"]["messages"]["NUMBER_TOO_SMALL_EXCLUSIVE"]
-    )
+    assert form.errors["test_field"][0] == answer_schema["validation"]["messages"]["NUMBER_TOO_SMALL_EXCLUSIVE"]
 
 
 def test_manual_max_exclusive(app):
@@ -305,10 +279,7 @@ def test_manual_max_exclusive(app):
     form = test_form_class(MultiDict({"test_field": "20"}))
     form.validate()
 
-    assert (
-        form.errors["test_field"][0]
-        == answer_schema["validation"]["messages"]["NUMBER_TOO_LARGE_EXCLUSIVE"]
-    )
+    assert form.errors["test_field"][0] == answer_schema["validation"]["messages"]["NUMBER_TOO_LARGE_EXCLUSIVE"]
 
 
 def test_default_range():
@@ -350,9 +321,7 @@ def test_get_schema_value_answer_store():
     answer_store.add_or_update(Answer(answer_id="set-maximum", value=10))
     answer_store.add_or_update(Answer(answer_id="set-minimum", value=1))
 
-    number_handler = NumberHandler(
-        answer_schema, answer_store=answer_store, metadata=mock_metadata
-    )
+    number_handler = NumberHandler(answer_schema, answer_store=answer_store, metadata=mock_metadata)
 
     maximum = number_handler.get_schema_value(answer_schema["maximum"])
     minimum = number_handler.get_schema_value(answer_schema["minimum"])

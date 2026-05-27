@@ -58,9 +58,7 @@ class TestDatastore(AppContextTestCase):
         with self.assertRaises(NotImplementedError) as exception:
             self.ds.put(model, False)
 
-        self.assertEqual(
-            exception.exception.args[0], "Unique key checking not supported"
-        )
+        self.assertEqual(exception.exception.args[0], "Unique key checking not supported")
 
     @mock.patch("app.storage.datastore.Entity")
     def test_put_exclude_indexes(self, mock_entity):
@@ -74,9 +72,7 @@ class TestDatastore(AppContextTestCase):
     def test_put_with_index(self, mock_entity):
         model = EQSession("session-id", "user-id", datetime.now(), "session-data")
         self.ds.put(model)
-        self.assertNotIn(
-            "expires_at", mock_entity.call_args.kwargs["exclude_from_indexes"]
-        )
+        self.assertNotIn("expires_at", mock_entity.call_args.kwargs["exclude_from_indexes"])
 
     def test_delete(self):
         model = QuestionnaireState("someuser", "data", 1)
@@ -91,8 +87,6 @@ class TestDatastore(AppContextTestCase):
     def test_retry(self):
         model = QuestionnaireState("someuser", "data", 1)
 
-        self.mock_client.put = mock.Mock(
-            side_effect=[exceptions.InternalServerError("error"), mock.DEFAULT]
-        )
+        self.mock_client.put = mock.Mock(side_effect=[exceptions.InternalServerError("error"), mock.DEFAULT])
         self.ds.put(model, True)
         assert self.mock_client.put.call_count > 1

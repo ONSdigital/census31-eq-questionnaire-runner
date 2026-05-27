@@ -63,6 +63,4 @@ class TestAnswerComparisonsRoutes(IntegrationTestCase):
         # Go back to the second question and change the answer to a lower one
         self.post({"route-comparison-2-answer": 1}, url=second_page)
 
-        self.assertInBody(
-            "This page should be skipped if your second answer was higher than your first"
-        )
+        self.assertInBody("This page should be skipped if your second answer was higher than your first")

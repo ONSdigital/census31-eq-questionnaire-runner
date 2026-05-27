@@ -24,9 +24,7 @@ def configure_logging():
     error_log_handler = logging.StreamHandler(sys.stderr)
     error_log_handler.setLevel(logging.ERROR)
 
-    logging.basicConfig(
-        level=log_level, format="%(message)s", handlers=[error_log_handler, log_handler]
-    )
+    logging.basicConfig(level=log_level, format="%(message)s", handlers=[error_log_handler, log_handler])
 
     # Set werkzeug logging level
     werkzeug_logger = logging.getLogger("werkzeug")

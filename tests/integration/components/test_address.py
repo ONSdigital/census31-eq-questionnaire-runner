@@ -121,10 +121,6 @@ class TestLookupAddressFields(IntegrationTestCase):
         # When
         self.get("questionnaire/address-block-mandatory/")
         # Then
-        auth_token = (
-            self.getHtmlSoup()
-            .select(f"#address-mandatory-autosuggest-container")[0]
-            .get("data-authorization-token")
-        )
+        auth_token = self.getHtmlSoup().select(f"#address-mandatory-autosuggest-container")[0].get("data-authorization-token")
         assert auth_token
         assert len(auth_token.split(".")) == 3

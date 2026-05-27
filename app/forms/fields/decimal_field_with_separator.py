@@ -24,8 +24,6 @@ class DecimalFieldWithSeparator(DecimalField):
 
         if valuelist:
             try:
-                self.data = Decimal(
-                    valuelist[0].replace(numbers.get_group_symbol(DEFAULT_LOCALE), "")
-                )
+                self.data = Decimal(valuelist[0].replace(numbers.get_group_symbol(DEFAULT_LOCALE), ""))
             except (ValueError, TypeError, InvalidOperation):
                 pass

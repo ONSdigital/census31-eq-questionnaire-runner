@@ -30,9 +30,7 @@ class TestRouter(TestCase):
         self.assertEqual(len(self.block_ids), len(self.routing_path))
 
     def test_reversed(self):
-        self.assertEqual(
-            list(reversed(self.block_ids)), list(reversed(self.routing_path))
-        )
+        self.assertEqual(list(reversed(self.block_ids)), list(reversed(self.routing_path)))
 
     def test_contains_true(self):
         self.assertIn(self.block_ids[0], self.routing_path)

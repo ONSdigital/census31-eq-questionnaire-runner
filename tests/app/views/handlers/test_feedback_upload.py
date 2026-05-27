@@ -5,9 +5,7 @@ from app.views.handlers.feedback import FeedbackMetadata, FeedbackPayload
 
 def test_feedback_payload_with_feedback_type_question_category():
 
-    feedback_payload = FeedbackPayload(
-        "Feedback text", "Feedback type", "Feedback type question category"
-    )
+    feedback_payload = FeedbackPayload("Feedback text", "Feedback type", "Feedback type question category")
     expected_payload = {
         "feedback_text": "Feedback text",
         "feedback_type": "Feedback type",

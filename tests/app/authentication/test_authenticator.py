@@ -37,9 +37,7 @@ class TestAuthenticator(AppContextTestCase):  # pylint: disable=too-many-public-
                 return_value=self.session_store,
             ):
                 # Given
-                self.session_store.create(
-                    "eq_session_id", "user_id", self.session_data, self.expires_at
-                )
+                self.session_store.create("eq_session_id", "user_id", self.session_data, self.expires_at)
                 cookie_session[USER_IK] = "user_ik"
 
                 # When
@@ -51,9 +49,7 @@ class TestAuthenticator(AppContextTestCase):  # pylint: disable=too-many-public-
 
     def test_check_session_with_no_user_id_in_session(self):
         with self.app_request_context("/status"):
-            with patch(
-                "app.authentication.authenticator.get_session_store", return_value=None
-            ):
+            with patch("app.authentication.authenticator.get_session_store", return_value=None):
                 # When
                 user = load_user()
 
@@ -67,9 +63,7 @@ class TestAuthenticator(AppContextTestCase):  # pylint: disable=too-many-public-
                 return_value=self.session_store,
             ):
                 # Given
-                self.session_store.create(
-                    "eq_session_id", "user_id", self.session_data, self.expires_at
-                )
+                self.session_store.create("eq_session_id", "user_id", self.session_data, self.expires_at)
                 cookie_session[USER_IK] = "user_ik"
 
                 # When
@@ -86,9 +80,7 @@ class TestAuthenticator(AppContextTestCase):  # pylint: disable=too-many-public-
                 return_value=self.session_store,
             ):
                 # Given
-                self.session_store.create(
-                    "eq_session_id", "user_id", self.session_data, self.expires_at
-                )
+                self.session_store.create("eq_session_id", "user_id", self.session_data, self.expires_at)
                 cookie_session[USER_IK] = "user_ik"
 
                 # When
@@ -129,9 +121,7 @@ class TestAuthenticator(AppContextTestCase):  # pylint: disable=too-many-public-
                 return_value=self.session_store,
             ):
                 # Given
-                self.session_store.create(
-                    "eq_session_id", "user_id", self.session_data, self.expires_at
-                )
+                self.session_store.create("eq_session_id", "user_id", self.session_data, self.expires_at)
                 cookie_session[USER_IK] = "user_ik"
                 cookie_session["expires_in"] = 5
 
@@ -153,9 +143,7 @@ class TestAuthenticator(AppContextTestCase):  # pylint: disable=too-many-public-
                 return_value=self.session_store,
             ):
                 # Given
-                self.session_store.create(
-                    "eq_session_id", "user_id", self.session_data, self.expires_at
-                )
+                self.session_store.create("eq_session_id", "user_id", self.session_data, self.expires_at)
                 cookie_session[USER_IK] = "user_ik"
                 cookie_session["expires_in"] = 600
 

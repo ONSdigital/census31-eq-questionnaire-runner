@@ -29,9 +29,7 @@ class TestRouter(AppContextTestCase):  # pylint: disable=too-many-public-methods
         )
 
         current_location = Location(section_id="default-section", block_id="name-block")
-        routing_path = RoutingPath(
-            ["name-block", "summary"], section_id="default-section"
-        )
+        routing_path = RoutingPath(["name-block", "summary"], section_id="default-section")
 
         can_access_location = router.can_access_location(current_location, routing_path)
 
@@ -49,9 +47,7 @@ class TestRouter(AppContextTestCase):  # pylint: disable=too-many-public-methods
                 }
             ]
         )
-        router = Router(
-            schema, self.answer_store, list_store, self.progress_store, self.metadata
-        )
+        router = Router(schema, self.answer_store, list_store, self.progress_store, self.metadata)
 
         current_location = Location(
             section_id="personal-details-section",
@@ -74,12 +70,8 @@ class TestRouter(AppContextTestCase):  # pylint: disable=too-many-public-methods
             self.metadata,
         )
 
-        current_location = Location(
-            section_id="section-2", block_id="section-2-block", list_item_id=None
-        )
-        can_access_location = router.can_access_location(
-            current_location, routing_path=[]
-        )
+        current_location = Location(section_id="section-2", block_id="section-2-block", list_item_id=None)
+        can_access_location = router.can_access_location(current_location, routing_path=[])
 
         self.assertFalse(can_access_location)
 
@@ -110,9 +102,7 @@ class TestRouter(AppContextTestCase):  # pylint: disable=too-many-public-methods
             self.metadata,
         )
 
-        current_location = Location(
-            section_id="default-section", block_id="set-duration-units-block"
-        )
+        current_location = Location(section_id="default-section", block_id="set-duration-units-block")
         routing_path = RoutingPath(
             [
                 "set-length-units-block",
@@ -140,21 +130,15 @@ class TestRouter(AppContextTestCase):  # pylint: disable=too-many-public-methods
             ]
         )
 
-        router = Router(
-            schema, self.answer_store, self.list_store, progress_store, self.metadata
-        )
+        router = Router(schema, self.answer_store, self.list_store, progress_store, self.metadata)
 
-        current_location = Location(
-            section_id="default-section", block_id="mandatory-checkbox"
-        )
+        current_location = Location(section_id="default-section", block_id="mandatory-checkbox")
         routing_path = RoutingPath(
             ["mandatory-checkbox", "non-mandatory-checkbox", "single-checkbox"],
             section_id="default-section",
         )
         next_location = router.get_next_location_url(current_location, routing_path)
-        expected_location = Location(
-            section_id="default-section", block_id="non-mandatory-checkbox"
-        ).url()
+        expected_location = Location(section_id="default-section", block_id="non-mandatory-checkbox").url()
 
         self.assertEqual(next_location, expected_location)
 
@@ -171,23 +155,13 @@ class TestRouter(AppContextTestCase):  # pylint: disable=too-many-public-methods
             ]
         )
 
-        router = Router(
-            schema, self.answer_store, self.list_store, progress_store, self.metadata
-        )
+        router = Router(schema, self.answer_store, self.list_store, progress_store, self.metadata)
 
-        current_location = Location(
-            section_id="property-details-section", block_id="insurance-type"
-        )
-        routing_path = RoutingPath(
-            ["insurance-type", "insurance-address"], section_id="default-section"
-        )
-        next_location = router.get_next_location_url(
-            current_location, routing_path, return_to="section-summary"
-        )
+        current_location = Location(section_id="property-details-section", block_id="insurance-type")
+        routing_path = RoutingPath(["insurance-type", "insurance-address"], section_id="default-section")
+        next_location = router.get_next_location_url(current_location, routing_path, return_to="section-summary")
 
-        self.assertIn(
-            "/questionnaire/sections/property-details-section/", next_location
-        )
+        self.assertIn("/questionnaire/sections/property-details-section/", next_location)
 
     def test_return_to_final_summary_next_location_url(self):
         schema = load_schema_from_name("test_textfield")
@@ -202,19 +176,11 @@ class TestRouter(AppContextTestCase):  # pylint: disable=too-many-public-methods
             ]
         )
 
-        router = Router(
-            schema, self.answer_store, self.list_store, progress_store, self.metadata
-        )
+        router = Router(schema, self.answer_store, self.list_store, progress_store, self.metadata)
         current_location = Location(section_id="default-section", block_id="name-block")
-        routing_path = RoutingPath(
-            ["name-block", "summary"], section_id="default-section"
-        )
-        next_location = router.get_next_location_url(
-            current_location, routing_path, return_to="final-summary"
-        )
-        expected_location = Location(
-            section_id="default-section", block_id="summary"
-        ).url()
+        routing_path = RoutingPath(["name-block", "summary"], section_id="default-section")
+        next_location = router.get_next_location_url(current_location, routing_path, return_to="final-summary")
+        expected_location = Location(section_id="default-section", block_id="summary").url()
 
         self.assertEqual(next_location, expected_location)
 
@@ -233,13 +199,9 @@ class TestRouter(AppContextTestCase):  # pylint: disable=too-many-public-methods
                 }
             ]
         )
-        router = Router(
-            schema, self.answer_store, self.list_store, progress_store, self.metadata
-        )
+        router = Router(schema, self.answer_store, self.list_store, progress_store, self.metadata)
         current_location = Location(section_id="section-1", block_id="block-1")
-        routing_path = RoutingPath(
-            ["block-1", "block-2", "block-1"], section_id="section-1"
-        )
+        routing_path = RoutingPath(["block-1", "block-2", "block-1"], section_id="section-1")
         next_location = router.get_next_location_url(current_location, routing_path)
         self.assertIn("questionnaire/block-2/", next_location)
 
@@ -255,12 +217,8 @@ class TestRouter(AppContextTestCase):  # pylint: disable=too-many-public-methods
                 }
             ]
         )
-        router = Router(
-            schema, self.answer_store, self.list_store, progress_store, self.metadata
-        )
-        current_location = Location(
-            section_id="accommodation-section", block_id="proxy"
-        )
+        router = Router(schema, self.answer_store, self.list_store, progress_store, self.metadata)
+        current_location = Location(section_id="accommodation-section", block_id="proxy")
         routing_path = RoutingPath(["proxy"], section_id="default-section")
         next_location = router.get_next_location_url(current_location, routing_path)
 
@@ -278,15 +236,9 @@ class TestRouter(AppContextTestCase):  # pylint: disable=too-many-public-methods
                 }
             ]
         )
-        router = Router(
-            schema, self.answer_store, self.list_store, progress_store, self.metadata
-        )
-        current_location = Location(
-            section_id="employment-section", block_id="employment-type"
-        )
-        routing_path = RoutingPath(
-            ["employment-status", "employment-type"], section_id="employment-section"
-        )
+        router = Router(schema, self.answer_store, self.list_store, progress_store, self.metadata)
+        current_location = Location(section_id="employment-section", block_id="employment-type")
+        routing_path = RoutingPath(["employment-status", "employment-type"], section_id="employment-section")
         next_location = router.get_next_location_url(current_location, routing_path)
         expected_location_url = url_for("questionnaire.get_questionnaire")
 
@@ -308,12 +260,8 @@ class TestRouter(AppContextTestCase):  # pylint: disable=too-many-public-methods
                 }
             ]
         )
-        router = Router(
-            schema, self.answer_store, self.list_store, progress_store, self.metadata
-        )
-        current_location = Location(
-            section_id="default-section", block_id="single-checkbox"
-        )
+        router = Router(schema, self.answer_store, self.list_store, progress_store, self.metadata)
+        current_location = Location(section_id="default-section", block_id="single-checkbox")
         routing_path = RoutingPath(
             [
                 "mandatory-checkbox",
@@ -324,9 +272,7 @@ class TestRouter(AppContextTestCase):  # pylint: disable=too-many-public-methods
             section_id="default-section",
         )
         next_location = router.get_next_location_url(current_location, routing_path)
-        expected_location = Location(
-            section_id="default-section", block_id="summary"
-        ).url()
+        expected_location = Location(section_id="default-section", block_id="summary").url()
 
         self.assertEqual(next_location, expected_location)
 
@@ -343,15 +289,9 @@ class TestRouter(AppContextTestCase):  # pylint: disable=too-many-public-methods
 
         current_location = Location(section_id="default-section", block_id="summary")
 
-        routing_path = RoutingPath(
-            ["name-block", "summary"], section_id="default-section"
-        )
-        previous_location_url = router.get_previous_location_url(
-            current_location, routing_path
-        )
-        expected_location_url = Location(
-            section_id="default-section", block_id="name-block"
-        ).url()
+        routing_path = RoutingPath(["name-block", "summary"], section_id="default-section")
+        previous_location_url = router.get_previous_location_url(current_location, routing_path)
+        expected_location_url = Location(section_id="default-section", block_id="name-block").url()
 
         self.assertEqual(previous_location_url, expected_location_url)
 
@@ -366,15 +306,9 @@ class TestRouter(AppContextTestCase):  # pylint: disable=too-many-public-methods
             self.metadata,
         )
 
-        current_location = Location(
-            section_id="employment-section", block_id="employment-status"
-        )
-        routing_path = RoutingPath(
-            ["employment-status", "employment-status"], section_id="employment-section"
-        )
-        previous_location_url = router.get_previous_location_url(
-            current_location, routing_path
-        )
+        current_location = Location(section_id="employment-section", block_id="employment-status")
+        routing_path = RoutingPath(["employment-status", "employment-status"], section_id="employment-section")
+        previous_location_url = router.get_previous_location_url(current_location, routing_path)
         expected_location_url = url_for("questionnaire.get_questionnaire")
 
         self.assertEqual(previous_location_url, expected_location_url)
@@ -392,9 +326,7 @@ class TestRouter(AppContextTestCase):  # pylint: disable=too-many-public-methods
             ]
         )
 
-        router = Router(
-            schema, self.answer_store, self.list_store, progress_store, self.metadata
-        )
+        router = Router(schema, self.answer_store, self.list_store, progress_store, self.metadata)
 
         routing_path = router.routing_path(section_id="default-section")
 
@@ -432,9 +364,7 @@ class TestRouter(AppContextTestCase):  # pylint: disable=too-many-public-methods
             ]
         )
 
-        router = Router(
-            schema, self.answer_store, self.list_store, progress_store, self.metadata
-        )
+        router = Router(schema, self.answer_store, self.list_store, progress_store, self.metadata)
 
         is_survey_complete = router.is_survey_complete()
 
@@ -478,9 +408,7 @@ class TestRouter(AppContextTestCase):  # pylint: disable=too-many-public-methods
             ]
         )
 
-        router = Router(
-            schema, self.answer_store, list_store, progress_store, self.metadata
-        )
+        router = Router(schema, self.answer_store, list_store, progress_store, self.metadata)
 
         is_survey_complete = router.is_survey_complete()
 
@@ -510,13 +438,9 @@ class TestRouter(AppContextTestCase):  # pylint: disable=too-many-public-methods
             ]
         )
 
-        list_store = ListStore(
-            [{"items": ["abc123"], "name": "people", "primary_person": "abc123"}]
-        )
+        list_store = ListStore([{"items": ["abc123"], "name": "people", "primary_person": "abc123"}])
 
-        router = Router(
-            schema, self.answer_store, list_store, progress_store, self.metadata
-        )
+        router = Router(schema, self.answer_store, list_store, progress_store, self.metadata)
 
         is_survey_complete = router.is_survey_complete()
 
@@ -554,9 +478,7 @@ class TestRouter(AppContextTestCase):  # pylint: disable=too-many-public-methods
             ]
         )
 
-        router = Router(
-            schema, self.answer_store, self.list_store, progress_store, self.metadata
-        )
+        router = Router(schema, self.answer_store, self.list_store, progress_store, self.metadata)
 
         is_survey_complete = router.is_survey_complete()
 
@@ -576,18 +498,14 @@ class TestRouter(AppContextTestCase):  # pylint: disable=too-many-public-methods
             ]
         )
 
-        router = Router(
-            schema, self.answer_store, self.list_store, progress_store, self.metadata
-        )
+        router = Router(schema, self.answer_store, self.list_store, progress_store, self.metadata)
 
         section_routing_path = RoutingPath(
             ["insurance-type", "insurance-address"],
             section_id="property-details-section",
         )
 
-        section_resume_url = router.get_section_resume_url(
-            routing_path=section_routing_path
-        )
+        section_resume_url = router.get_section_resume_url(routing_path=section_routing_path)
 
         self.assertEqual(
             section_resume_url,
@@ -607,9 +525,7 @@ class TestRouter(AppContextTestCase):  # pylint: disable=too-many-public-methods
             self.metadata,
         )
 
-        routing_path = RoutingPath(
-            ["employment-status", "employment-type"], section_id="employment-section"
-        )
+        routing_path = RoutingPath(["employment-status", "employment-type"], section_id="employment-section")
 
         section_resume_url = router.get_section_resume_url(routing_path=routing_path)
 
@@ -630,9 +546,7 @@ class TestRouter(AppContextTestCase):  # pylint: disable=too-many-public-methods
             ]
         )
 
-        answer_store = AnswerStore(
-            [{"answer_id": "section-1-answer", "value": ["Section 2"]}]
-        )
+        answer_store = AnswerStore([{"answer_id": "section-1-answer", "value": ["Section 2"]}])
         router = Router(
             schema=schema,
             answer_store=answer_store,
@@ -685,9 +599,7 @@ class TestRouter(AppContextTestCase):  # pylint: disable=too-many-public-methods
             ]
         )
 
-        router = Router(
-            schema, self.answer_store, list_store, self.progress_store, self.metadata
-        )
+        router = Router(schema, self.answer_store, list_store, self.progress_store, self.metadata)
 
         routing_path = router.full_routing_path()
 

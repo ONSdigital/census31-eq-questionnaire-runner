@@ -18,9 +18,7 @@ class DurationForm(Form):
             self._set_error("INVALID_DURATION")
             return False
 
-        if "months" in self.units and (
-            self.months.data is None or self.months.data < 0
-        ):
+        if "months" in self.units and (self.months.data is None or self.months.data < 0):
             self._set_error("INVALID_DURATION")
             return False
 

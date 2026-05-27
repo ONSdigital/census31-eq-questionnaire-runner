@@ -55,17 +55,13 @@ def test_answer_with_zero(fake_questionnaire_store):
 
     routing_path = RoutingPath(["block-1"], section_id="section-1")
 
-    answer_object = convert_answers(
-        QuestionnaireSchema(questionnaire), fake_questionnaire_store, routing_path
-    )
+    answer_object = convert_answers(QuestionnaireSchema(questionnaire), fake_questionnaire_store, routing_path)
 
     assert answer_object["data"]["003"] == "0"
 
 
 def test_answer_with_float(fake_questionnaire_store):
-    fake_questionnaire_store.answer_store = AnswerStore(
-        [Answer("GHI", 10.02).to_dict()]
-    )
+    fake_questionnaire_store.answer_store = AnswerStore([Answer("GHI", 10.02).to_dict()])
 
     question = {
         "id": "question-2",
@@ -76,18 +72,14 @@ def test_answer_with_float(fake_questionnaire_store):
 
     routing_path = RoutingPath(["block-1"], section_id="section-1")
 
-    answer_object = convert_answers(
-        QuestionnaireSchema(questionnaire), fake_questionnaire_store, routing_path
-    )
+    answer_object = convert_answers(QuestionnaireSchema(questionnaire), fake_questionnaire_store, routing_path)
 
     # Check the converter correctly
     assert answer_object["data"]["003"] == "10.02"
 
 
 def test_answer_with_string(fake_questionnaire_store):
-    fake_questionnaire_store.answer_store = AnswerStore(
-        [Answer("GHI", "String test + !").to_dict()]
-    )
+    fake_questionnaire_store.answer_store = AnswerStore([Answer("GHI", "String test + !").to_dict()])
 
     question = {
         "id": "question-2",
@@ -98,18 +90,14 @@ def test_answer_with_string(fake_questionnaire_store):
 
     routing_path = RoutingPath(["block-1"], section_id="section-1")
 
-    answer_object = convert_answers(
-        QuestionnaireSchema(questionnaire), fake_questionnaire_store, routing_path
-    )
+    answer_object = convert_answers(QuestionnaireSchema(questionnaire), fake_questionnaire_store, routing_path)
 
     # Check the converter correctly
     assert answer_object["data"]["003"] == "String test + !"
 
 
 def test_answer_without_qcode(fake_questionnaire_store):
-    fake_questionnaire_store.answer_store = AnswerStore(
-        [Answer("GHI", "String test + !").to_dict()]
-    )
+    fake_questionnaire_store.answer_store = AnswerStore([Answer("GHI", "String test + !").to_dict()])
 
     question = {"id": "question-2", "answers": [{"id": "GHI", "type": "TextField"}]}
 
@@ -117,18 +105,14 @@ def test_answer_without_qcode(fake_questionnaire_store):
 
     routing_path = RoutingPath(["block-1"], section_id="section-1")
 
-    answer_object = convert_answers(
-        QuestionnaireSchema(questionnaire), fake_questionnaire_store, routing_path
-    )
+    answer_object = convert_answers(QuestionnaireSchema(questionnaire), fake_questionnaire_store, routing_path)
 
     assert not answer_object["data"]
 
 
 def test_converter_checkboxes_with_q_codes(fake_questionnaire_store):
     routing_path = RoutingPath(["crisps"], section_id="food")
-    fake_questionnaire_store.answer_store = AnswerStore(
-        [Answer("crisps-answer", ["Ready salted", "Sweet chilli"]).to_dict()]
-    )
+    fake_questionnaire_store.answer_store = AnswerStore([Answer("crisps-answer", ["Ready salted", "Sweet chilli"]).to_dict()])
 
     question = {
         "id": "crisps-question",
@@ -161,14 +145,10 @@ def test_converter_checkboxes_with_q_codes(fake_questionnaire_store):
         ],
     }
 
-    questionnaire = make_schema(
-        "0.0.1", "section-1", "favourite-food", "crisps", question
-    )
+    questionnaire = make_schema("0.0.1", "section-1", "favourite-food", "crisps", question)
 
     # When
-    answer_object = convert_answers(
-        QuestionnaireSchema(questionnaire), fake_questionnaire_store, routing_path
-    )
+    answer_object = convert_answers(QuestionnaireSchema(questionnaire), fake_questionnaire_store, routing_path)
 
     # Then
     assert len(answer_object["data"]) == 2
@@ -217,14 +197,10 @@ def test_converter_checkboxes_with_q_codes_and_other_value(fake_questionnaire_st
         ],
     }
 
-    questionnaire = make_schema(
-        "0.0.1", "section-1", "favourite-food", "crisps", question
-    )
+    questionnaire = make_schema("0.0.1", "section-1", "favourite-food", "crisps", question)
 
     # When
-    answer_object = convert_answers(
-        QuestionnaireSchema(questionnaire), fake_questionnaire_store, routing_path
-    )
+    answer_object = convert_answers(QuestionnaireSchema(questionnaire), fake_questionnaire_store, routing_path)
 
     # Then
     assert len(answer_object["data"]) == 2
@@ -275,14 +251,10 @@ def test_converter_checkboxes_with_q_codes_and_empty_other_value(
         ],
     }
 
-    questionnaire = make_schema(
-        "0.0.1", "section-1", "favourite-food", "crisps", question
-    )
+    questionnaire = make_schema("0.0.1", "section-1", "favourite-food", "crisps", question)
 
     # When
-    answer_object = convert_answers(
-        QuestionnaireSchema(questionnaire), fake_questionnaire_store, routing_path
-    )
+    answer_object = convert_answers(QuestionnaireSchema(questionnaire), fake_questionnaire_store, routing_path)
 
     # Then
     assert len(answer_object["data"]) == 2
@@ -295,9 +267,7 @@ def test_converter_checkboxes_with_missing_q_codes_uses_answer_q_code(
 ):
     routing_path = RoutingPath(["crisps"], section_id="food")
 
-    fake_questionnaire_store.answer_store = AnswerStore(
-        [Answer("crisps-answer", ["Ready salted", "Sweet chilli"]).to_dict()]
-    )
+    fake_questionnaire_store.answer_store = AnswerStore([Answer("crisps-answer", ["Ready salted", "Sweet chilli"]).to_dict()])
 
     question = {
         "id": "crisps-question",
@@ -331,14 +301,10 @@ def test_converter_checkboxes_with_missing_q_codes_uses_answer_q_code(
         ],
     }
 
-    questionnaire = make_schema(
-        "0.0.1", "section-1", "favourite-food", "crisps", question
-    )
+    questionnaire = make_schema("0.0.1", "section-1", "favourite-food", "crisps", question)
 
     # When
-    answer_object = convert_answers(
-        QuestionnaireSchema(questionnaire), fake_questionnaire_store, routing_path
-    )
+    answer_object = convert_answers(QuestionnaireSchema(questionnaire), fake_questionnaire_store, routing_path)
 
     # Then
     assert len(answer_object["data"]) == 1
@@ -367,14 +333,10 @@ def test_converter_q_codes_for_empty_strings(fake_questionnaire_store):
         ],
     }
 
-    questionnaire = make_schema(
-        "0.0.1", "section-1", "favourite-food", "crisps", question
-    )
+    questionnaire = make_schema("0.0.1", "section-1", "favourite-food", "crisps", question)
 
     # When
-    answer_object = convert_answers(
-        QuestionnaireSchema(questionnaire), fake_questionnaire_store, routing_path
-    )
+    answer_object = convert_answers(QuestionnaireSchema(questionnaire), fake_questionnaire_store, routing_path)
 
     # Then
     assert len(answer_object["data"]) == 1
@@ -383,9 +345,7 @@ def test_converter_q_codes_for_empty_strings(fake_questionnaire_store):
 
 def test_radio_answer(fake_questionnaire_store):
     routing_path = RoutingPath(["radio-block"], section_id="section-1")
-    fake_questionnaire_store.answer_store = AnswerStore(
-        [Answer("radio-answer", "Coffee").to_dict()]
-    )
+    fake_questionnaire_store.answer_store = AnswerStore([Answer("radio-answer", "Coffee").to_dict()])
 
     question = {
         "id": "radio-question",
@@ -401,14 +361,10 @@ def test_radio_answer(fake_questionnaire_store):
             }
         ],
     }
-    questionnaire = make_schema(
-        "0.0.1", "section-1", "radio-block", "radio-block", question
-    )
+    questionnaire = make_schema("0.0.1", "section-1", "radio-block", "radio-block", question)
 
     # When
-    answer_object = convert_answers(
-        QuestionnaireSchema(questionnaire), fake_questionnaire_store, routing_path
-    )
+    answer_object = convert_answers(QuestionnaireSchema(questionnaire), fake_questionnaire_store, routing_path)
 
     # Then
     assert len(answer_object["data"]) == 1
@@ -417,23 +373,17 @@ def test_radio_answer(fake_questionnaire_store):
 
 def test_number_answer(fake_questionnaire_store):
     routing_path = RoutingPath(["number-block"], section_id="section-1")
-    fake_questionnaire_store.answer_store = AnswerStore(
-        [Answer("number-answer", 0.9999).to_dict()]
-    )
+    fake_questionnaire_store.answer_store = AnswerStore([Answer("number-answer", 0.9999).to_dict()])
 
     question = {
         "id": "number-question",
         "answers": [{"id": "number-answer", "type": "Number", "q_code": "1"}],
     }
 
-    questionnaire = make_schema(
-        "0.0.1", "section-1", "number-block", "number-block", question
-    )
+    questionnaire = make_schema("0.0.1", "section-1", "number-block", "number-block", question)
 
     # When
-    answer_object = convert_answers(
-        QuestionnaireSchema(questionnaire), fake_questionnaire_store, routing_path
-    )
+    answer_object = convert_answers(QuestionnaireSchema(questionnaire), fake_questionnaire_store, routing_path)
 
     # Then
     assert len(answer_object["data"]) == 1
@@ -442,23 +392,17 @@ def test_number_answer(fake_questionnaire_store):
 
 def test_percentage_answer(fake_questionnaire_store):
     routing_path = RoutingPath(["percentage-block"], section_id="section-1")
-    fake_questionnaire_store.answer_store = AnswerStore(
-        [Answer("percentage-answer", 100).to_dict()]
-    )
+    fake_questionnaire_store.answer_store = AnswerStore([Answer("percentage-answer", 100).to_dict()])
 
     question = {
         "id": "percentage-question",
         "answers": [{"id": "percentage-answer", "type": "Percentage", "q_code": "1"}],
     }
 
-    questionnaire = make_schema(
-        "0.0.1", "section-1", "percentage-block", "percentage-block", question
-    )
+    questionnaire = make_schema("0.0.1", "section-1", "percentage-block", "percentage-block", question)
 
     # When
-    answer_object = convert_answers(
-        QuestionnaireSchema(questionnaire), fake_questionnaire_store, routing_path
-    )
+    answer_object = convert_answers(QuestionnaireSchema(questionnaire), fake_questionnaire_store, routing_path)
 
     # Then
     assert len(answer_object["data"]) == 1
@@ -467,23 +411,17 @@ def test_percentage_answer(fake_questionnaire_store):
 
 def test_textarea_answer(fake_questionnaire_store):
     routing_path = RoutingPath(["textarea-block"], section_id="section-1")
-    fake_questionnaire_store.answer_store = AnswerStore(
-        [Answer("textarea-answer", "example text.").to_dict()]
-    )
+    fake_questionnaire_store.answer_store = AnswerStore([Answer("textarea-answer", "example text.").to_dict()])
 
     question = {
         "id": "textarea-question",
         "answers": [{"id": "textarea-answer", "q_code": "1", "type": "TextArea"}],
     }
 
-    questionnaire = make_schema(
-        "0.0.1", "section-1", "textarea-block", "textarea-block", question
-    )
+    questionnaire = make_schema("0.0.1", "section-1", "textarea-block", "textarea-block", question)
 
     # When
-    answer_object = convert_answers(
-        QuestionnaireSchema(questionnaire), fake_questionnaire_store, routing_path
-    )
+    answer_object = convert_answers(QuestionnaireSchema(questionnaire), fake_questionnaire_store, routing_path)
 
     # Then
     assert len(answer_object["data"]) == 1
@@ -492,23 +430,17 @@ def test_textarea_answer(fake_questionnaire_store):
 
 def test_currency_answer(fake_questionnaire_store):
     routing_path = RoutingPath(["currency-block"], section_id="section-1")
-    fake_questionnaire_store.answer_store = AnswerStore(
-        [Answer("currency-answer", 99.99).to_dict()]
-    )
+    fake_questionnaire_store.answer_store = AnswerStore([Answer("currency-answer", 99.99).to_dict()])
 
     question = {
         "id": "currency-question",
         "answers": [{"id": "currency-answer", "type": "Currency", "q_code": "1"}],
     }
 
-    questionnaire = make_schema(
-        "0.0.1", "section-1", "currency-block", "currency-block", question
-    )
+    questionnaire = make_schema("0.0.1", "section-1", "currency-block", "currency-block", question)
 
     # When
-    answer_object = convert_answers(
-        QuestionnaireSchema(questionnaire), fake_questionnaire_store, routing_path
-    )
+    answer_object = convert_answers(QuestionnaireSchema(questionnaire), fake_questionnaire_store, routing_path)
 
     # Then
     assert len(answer_object["data"]) == 1
@@ -517,9 +449,7 @@ def test_currency_answer(fake_questionnaire_store):
 
 def test_dropdown_answer(fake_questionnaire_store):
     routing_path = RoutingPath(["dropdown-block"], section_id="section-1")
-    fake_questionnaire_store.answer_store = AnswerStore(
-        [Answer("dropdown-answer", "Liverpool").to_dict()]
-    )
+    fake_questionnaire_store.answer_store = AnswerStore([Answer("dropdown-answer", "Liverpool").to_dict()])
 
     question = {
         "id": "dropdown-question",
@@ -537,14 +467,10 @@ def test_dropdown_answer(fake_questionnaire_store):
         ],
     }
 
-    questionnaire = make_schema(
-        "0.0.1", "section-1", "dropdown-block", "dropdown-block", question
-    )
+    questionnaire = make_schema("0.0.1", "section-1", "dropdown-block", "dropdown-block", question)
 
     # When
-    answer_object = convert_answers(
-        QuestionnaireSchema(questionnaire), fake_questionnaire_store, routing_path
-    )
+    answer_object = convert_answers(QuestionnaireSchema(questionnaire), fake_questionnaire_store, routing_path)
 
     # Then
     assert len(answer_object["data"]) == 1
@@ -569,14 +495,10 @@ def test_date_answer(fake_questionnaire_store):
         ],
     }
 
-    questionnaire = make_schema(
-        "0.0.1", "section-1", "date-block", "date-block", question
-    )
+    questionnaire = make_schema("0.0.1", "section-1", "date-block", "date-block", question)
 
     # When
-    answer_object = convert_answers(
-        QuestionnaireSchema(questionnaire), fake_questionnaire_store, routing_path
-    )
+    answer_object = convert_answers(QuestionnaireSchema(questionnaire), fake_questionnaire_store, routing_path)
 
     # Then
     assert len(answer_object["data"]) == 2
@@ -586,23 +508,17 @@ def test_date_answer(fake_questionnaire_store):
 
 def test_unit_answer(fake_questionnaire_store):
     routing_path = RoutingPath(["unit-block"], section_id="section-1")
-    fake_questionnaire_store.answer_store = AnswerStore(
-        [Answer("unit-answer", 10).to_dict()]
-    )
+    fake_questionnaire_store.answer_store = AnswerStore([Answer("unit-answer", 10).to_dict()])
 
     question = {
         "id": "unit-question",
         "answers": [{"id": "unit-answer", "type": "Unit", "q_code": "1"}],
     }
 
-    questionnaire = make_schema(
-        "0.0.1", "section-1", "unit-block", "unit-block", question
-    )
+    questionnaire = make_schema("0.0.1", "section-1", "unit-block", "unit-block", question)
 
     # When
-    answer_object = convert_answers(
-        QuestionnaireSchema(questionnaire), fake_questionnaire_store, routing_path
-    )
+    answer_object = convert_answers(QuestionnaireSchema(questionnaire), fake_questionnaire_store, routing_path)
 
     # Then
     assert len(answer_object["data"]) == 1

@@ -32,9 +32,7 @@ class UnrelatedQuestion(RelationshipQuestion):
         "No" to the unrelated question, so we get them from the list store.
         """
         list_model = self._questionnaire_store.list_store[self.list_name]
-        previous_location = self.relationship_router.get_previous_location(
-            self.current_location
-        )
+        previous_location = self.relationship_router.get_previous_location(self.current_location)
         previous_item_index = list_model.index(previous_location.to_list_item_id)
         return list_model[previous_item_index + 1 :]
 
@@ -42,9 +40,7 @@ class UnrelatedQuestion(RelationshipQuestion):
         if answer_action := self._get_answer_action():
             self.handle_answer_action(answer_action["type"])
 
-        self.questionnaire_store_updater.update_answers(
-            self.form.data, list_item_id=self.current_location.list_item_id
-        )
+        self.questionnaire_store_updater.update_answers(self.form.data, list_item_id=self.current_location.list_item_id)
         self.questionnaire_store_updater.save()
 
     def handle_answer_action(self, answer_action_type):
@@ -52,16 +48,9 @@ class UnrelatedQuestion(RelationshipQuestion):
 
         if answer_action_type == "RemoveUnrelatedRelationships":
             for to_list_item_id in self.get_remaining_relationships_for_individual():
-                relationship = self.relationship_store.get_relationship(
-                    from_list_item_id, to_list_item_id
-                )
-                if relationship and (
-                    relationship.relationship
-                    == self.relationship_router.UNRELATED_RELATIONSHIP_VALUE
-                ):
-                    self.relationship_store.remove_relationship(
-                        from_list_item_id, to_list_item_id
-                    )
+                relationship = self.relationship_store.get_relationship(from_list_item_id, to_list_item_id)
+                if relationship and (relationship.relationship == self.relationship_router.UNRELATED_RELATIONSHIP_VALUE):
+                    self.relationship_store.remove_relationship(from_list_item_id, to_list_item_id)
 
         elif answer_action_type == "AddUnrelatedRelationships":
             for to_list_item_id in self.get_remaining_relationships_for_individual():

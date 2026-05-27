@@ -43,9 +43,7 @@ def get_schema_path_map(include_test_schemas: Optional[bool] = False) -> Mapping
 
     return {
         language_code: {
-            Path(schema_file).with_suffix("").name: schema_file
-            for schema_dir in dirs
-            for schema_file in glob(f"{schema_dir}/{language_code}/*.json")
+            Path(schema_file).with_suffix("").name: schema_file for schema_dir in dirs for schema_file in glob(f"{schema_dir}/{language_code}/*.json")
         }
         for language_code in LANGUAGE_CODES
     }
@@ -53,10 +51,7 @@ def get_schema_path_map(include_test_schemas: Optional[bool] = False) -> Mapping
 
 def _schema_exists(language_code, schema_name):
     schema_path_map = get_schema_path_map(include_test_schemas=True)
-    return (
-        language_code in schema_path_map
-        and schema_name in schema_path_map[language_code]
-    )
+    return language_code in schema_path_map and schema_name in schema_path_map[language_code]
 
 
 def get_allowed_languages(schema_name, launch_language):
@@ -68,13 +63,9 @@ def get_allowed_languages(schema_name, launch_language):
 
 def load_schema_from_metadata(metadata):
     if metadata.get("survey_url"):
-        return load_schema_from_url(
-            metadata["survey_url"], metadata.get("language_code")
-        )
+        return load_schema_from_url(metadata["survey_url"], metadata.get("language_code"))
 
-    return load_schema_from_name(
-        metadata.get("schema_name"), language_code=metadata.get("language_code")
-    )
+    return load_schema_from_name(metadata.get("schema_name"), language_code=metadata.get("language_code"))
 
 
 def load_schema_from_session_data(session_data):
@@ -114,16 +105,12 @@ def get_schema_name_from_census_params(survey, form_type, region_code):
     try:
         form_type_transformed = transform_form_type(form_type)
     except KeyError:
-        raise ValueError(
-            "Invalid form_type parameter was specified. Must be one of `H`, `I`, `C`"
-        )
+        raise ValueError("Invalid form_type parameter was specified. Must be one of `H`, `I`, `C`")
 
     region_code_transformed = transform_region_code(region_code)
     survey_transformed = transform_survey(survey)
 
-    schema_name = (
-        f"{survey_transformed}_{form_type_transformed}_{region_code_transformed}"
-    )
+    schema_name = f"{survey_transformed}_{form_type_transformed}_{region_code_transformed}"
     return schema_name
 
 
@@ -133,9 +120,7 @@ def _load_schema_file(schema_name, language_code):
     :param schema_name: The name of the schema e.g. census_household
     :param language_code: ISO 2-character code for language e.g. 'en', 'cy'
     """
-    if language_code != DEFAULT_LANGUAGE_CODE and not _schema_exists(
-        language_code, schema_name
-    ):
+    if language_code != DEFAULT_LANGUAGE_CODE and not _schema_exists(language_code, schema_name):
         language_code = DEFAULT_LANGUAGE_CODE
         logger.info(
             "couldn't find requested language schema, falling back to 'en'",
@@ -151,9 +136,7 @@ def _load_schema_file(schema_name, language_code):
         )
         raise FileNotFoundError
 
-    schema_path = get_schema_path_map(include_test_schemas=True)[language_code][
-        schema_name
-    ]
+    schema_path = get_schema_path_map(include_test_schemas=True)[language_code][schema_name]
 
     logger.info(
         "loading schema",
@@ -169,9 +152,7 @@ def _load_schema_file(schema_name, language_code):
 @lru_cache(maxsize=None)
 def load_schema_from_url(survey_url, language_code):
     language_code = language_code or DEFAULT_LANGUAGE_CODE
-    logger.info(
-        "loading schema from URL", survey_url=survey_url, language_code=language_code
-    )
+    logger.info("loading schema from URL", survey_url=survey_url, language_code=language_code)
 
     constructed_survey_url = "{}?language={}".format(survey_url, language_code)
 

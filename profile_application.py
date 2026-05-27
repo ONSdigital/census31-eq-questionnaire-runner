@@ -15,9 +15,7 @@ def setup_profiling(application):
         shutil.rmtree(profiling_dir)
 
     os.makedirs(profiling_dir)
-    application.wsgi_app = ProfilerMiddleware(
-        application.wsgi_app, profile_dir=profiling_dir
-    )
+    application.wsgi_app = ProfilerMiddleware(application.wsgi_app, profile_dir=profiling_dir)
     application.debug = True
 
 

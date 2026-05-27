@@ -80,9 +80,7 @@ class Feedback:
             self.form.data.get("feedback-type-question-category"),
         )
 
-        if not current_app.eq["feedback_submitter"].upload(
-            feedback_metadata(), feedback_message()
-        ):
+        if not current_app.eq["feedback_submitter"].upload(feedback_metadata(), feedback_message()):
             raise FeedbackUploadFailed()
 
         self._session_store.save()
@@ -116,10 +114,7 @@ class Feedback:
             ],
         }
 
-        options = (
-            {"label": value, "value": value}
-            for value in detail_answers_option_map.get(self._schema.form_type or "H")
-        )
+        options = ({"label": value, "value": value} for value in detail_answers_option_map.get(self._schema.form_type or "H"))
 
         return {
             "type": "General",
@@ -135,22 +130,14 @@ class Feedback:
                         {
                             "label": lazy_gettext("The census questions"),
                             "value": lazy_gettext("The census questions"),
-                            "description": lazy_gettext(
-                                "For example, questions not clear, answer options not relevant"
-                            ),
+                            "description": lazy_gettext("For example, questions not clear, answer options not relevant"),
                             "detail_answer": {
                                 "type": "Dropdown",
                                 "id": "feedback-type-question-category",
                                 "mandatory": True,
                                 "label": lazy_gettext("Question topic"),
                                 "placeholder": lazy_gettext("Select an option"),
-                                "validation": {
-                                    "messages": {
-                                        "MANDATORY_DROPDOWN": lazy_gettext(
-                                            "Select an option"
-                                        )
-                                    }
-                                },
+                                "validation": {"messages": {"MANDATORY_DROPDOWN": lazy_gettext("Select an option")}},
                                 "options": options,
                             },
                         },
@@ -159,37 +146,21 @@ class Feedback:
                             "value": lazy_gettext("Page design and structure"),
                         },
                         {
-                            "label": lazy_gettext(
-                                "General feedback about this service"
-                            ),
-                            "value": lazy_gettext(
-                                "General feedback about this service"
-                            ),
+                            "label": lazy_gettext("General feedback about this service"),
+                            "value": lazy_gettext("General feedback about this service"),
                         },
                     ],
-                    "validation": {
-                        "messages": {
-                            "MANDATORY_RADIO": lazy_gettext(
-                                "Select what your feedback is about"
-                            )
-                        }
-                    },
+                    "validation": {"messages": {"MANDATORY_RADIO": lazy_gettext("Select what your feedback is about")}},
                 },
                 {
                     "id": "feedback-text",
                     "label": lazy_gettext("Enter your feedback"),
-                    "description": lazy_gettext(
-                        "Do not include confidential information, such as your contact details"
-                    ),
+                    "description": lazy_gettext("Do not include confidential information, such as your contact details"),
                     "rows": 8,
                     "mandatory": True,
                     "type": "TextArea",
                     "max_length": 1000,
-                    "validation": {
-                        "messages": {
-                            "MANDATORY_TEXTAREA": lazy_gettext("Enter your feedback")
-                        }
-                    },
+                    "validation": {"messages": {"MANDATORY_TEXTAREA": lazy_gettext("Enter your feedback")}},
                 },
             ],
         }

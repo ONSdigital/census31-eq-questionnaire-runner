@@ -64,9 +64,7 @@ def login():
     schema_metadata = g.schema.json["metadata"]
 
     try:
-        questionnaire_claims = validate_questionnaire_claims(
-            decrypted_token, schema_metadata
-        )
+        questionnaire_claims = validate_questionnaire_claims(decrypted_token, schema_metadata)
     except ValidationError as e:
         raise InvalidTokenException("Invalid questionnaire claims") from e
 
@@ -94,17 +92,13 @@ def login():
         cookie_session["account_service_url"] = claims.get("account_service_url")
 
     if claims.get("account_service_log_out_url"):
-        cookie_session["account_service_log_out_url"] = claims.get(
-            "account_service_log_out_url"
-        )
+        cookie_session["account_service_log_out_url"] = claims.get("account_service_log_out_url")
 
     return redirect(url_for("questionnaire.get_questionnaire"))
 
 
 def validate_jti(decrypted_token):
-    expires_at = datetime.utcfromtimestamp(decrypted_token["exp"]).replace(
-        tzinfo=tzutc()
-    )
+    expires_at = datetime.utcfromtimestamp(decrypted_token["exp"]).replace(tzinfo=tzutc())
     jwt_expired = expires_at < datetime.now(tz=tzutc())
     if jwt_expired:
         raise Unauthorized
@@ -135,22 +129,13 @@ def get_sign_out():
     if not cookie_session:
         log_out_url = get_census_base_url(None, None)
 
-    elif (
-        "census" in (theme := cookie_session.get("theme", DEFAULT_THEME))
-        and cookie_session.get("submitted") is True
-    ):
+    elif "census" in (theme := cookie_session.get("theme", DEFAULT_THEME)) and cookie_session.get("submitted") is True:
         session_store = get_session_store()
-        language_code = (
-            session_store.session_data.language_code
-            if session_store and session_store.session_data
-            else None
-        )
+        language_code = session_store.session_data.language_code if session_store and session_store.session_data else None
         log_out_url = get_census_base_url(theme, language_code)
 
     else:
-        log_out_url = cookie_session.get(
-            "account_service_log_out_url", url_for(".get_signed_out")
-        )
+        log_out_url = cookie_session.get("account_service_log_out_url", url_for(".get_signed_out"))
 
     # Check for GET as we don't want to log out for HEAD requests
     if request.method == "GET":

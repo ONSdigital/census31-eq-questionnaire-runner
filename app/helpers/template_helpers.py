@@ -35,9 +35,7 @@ def get_page_header_context(language: str, theme: str) -> Dict[str, Any]:
         "census-nisra": {
             "logo": "nisra-logo-en",
             "mobileLogo": "nisra-logo-en-mobile",
-            "logoAlt": lazy_gettext(
-                "Northern Ireland Statistics and Research Agency logo"
-            ),
+            "logoAlt": lazy_gettext("Northern Ireland Statistics and Research Agency logo"),
             "titleLogo": "census-logo-en",
             "titleLogoAlt": lazy_gettext("Census 2021"),
             "customHeaderLogo": "nisra",
@@ -46,9 +44,7 @@ def get_page_header_context(language: str, theme: str) -> Dict[str, Any]:
     return context.get(theme, {})
 
 
-def get_footer_context(
-    language_code: str, static_content_urls: Mapping, sign_out_url: str, theme: str
-) -> Optional[Dict[str, Any]]:
+def get_footer_context(language_code: str, static_content_urls: Mapping, sign_out_url: str, theme: str) -> Optional[Dict[str, Any]]:
 
     items_list = [
         {
@@ -83,14 +79,12 @@ def get_footer_context(
         "crest": True,
         "newTabWarning": lazy_gettext("The following links open in a new tab"),
         "copyrightDeclaration": {
-            "copyright": lazy_gettext(
-                "Crown copyright and database rights 2021 NIMA MOU577.501."
-            )
-            if theme == "census-nisra"
-            else lazy_gettext("Crown copyright and database rights 2020 OS 100019153."),
-            "text": lazy_gettext(
-                "Use of address data is subject to the terms and conditions."
+            "copyright": (
+                lazy_gettext("Crown copyright and database rights 2021 NIMA MOU577.501.")
+                if theme == "census-nisra"
+                else lazy_gettext("Crown copyright and database rights 2020 OS 100019153.")
             ),
+            "text": lazy_gettext("Use of address data is subject to the terms and conditions."),
         },
         "rows": [
             {"itemsList": items_list},
@@ -175,9 +169,7 @@ def render_template(template: str, **kwargs: Mapping) -> str:
     cdn_url = f'{current_app.config["CDN_URL"]}{current_app.config["CDN_ASSETS_PATH"]}'
     base_url = get_census_base_url(theme, language_code)
     include_csrf_token = request.url_rule and "POST" in request.url_rule.methods
-    account_service_url = cookie_session.get(
-        "account_service_url", f"{CENSUS_EN_BASE_URL}en/start"
-    )
+    account_service_url = cookie_session.get("account_service_url", f"{CENSUS_EN_BASE_URL}en/start")
     sign_out_url = url_for("session.get_sign_out")
     static_content_urls = get_static_content_urls(language_code, base_url, theme)
     footer_context = get_footer_context(
@@ -233,9 +225,7 @@ def get_census_base_url(schema_theme: str, language_code: str) -> str:
 
 
 @lru_cache(maxsize=None)
-def get_static_content_urls(
-    language_code: str, base_url: str, schema_theme: str
-) -> Mapping:
+def get_static_content_urls(language_code: str, base_url: str, schema_theme: str) -> Mapping:
     is_nisra_theme = schema_theme == "census-nisra"
     if language_code == "cy":
         help_path = "help/sut-i-ateb-y-cwestiynau/help-y-cwestiynau-ar-lein/"
@@ -245,24 +235,16 @@ def get_static_content_urls(
         terms_and_conditions_path = "telerau-ac-amodau/"
         contact_us = "cysylltu-a-ni/"
         languages = "help/ieithoedd-a-hygyrchedd/ieithoedd/"
-        bsl_and_audio_videos = (
-            "help/ieithoedd-a-hygyrchedd/hygyrchedd/fideos-hygyrch-gyda-bsl/"
-        )
+        bsl_and_audio_videos = "help/ieithoedd-a-hygyrchedd/hygyrchedd/fideos-hygyrch-gyda-bsl/"
     else:
-        help_path = (
-            "help/help-with-the-questions/online-questions-help/"
-            if is_nisra_theme
-            else "help/how-to-answer-questions/online-questions-help/"
-        )
+        help_path = "help/help-with-the-questions/online-questions-help/" if is_nisra_theme else "help/how-to-answer-questions/online-questions-help/"
         cookies_path = "cookies/"
         accessibility_statement_path = "accessibility-statement/"
         privacy_and_data_protection_path = "privacy-and-data-protection/"
         terms_and_conditions_path = "terms-and-conditions/"
         contact_us = "contact-us/"
         languages = "help/languages-and-accessibility/languages/"
-        bsl_and_audio_videos = (
-            "help/languages-and-accessibility/accessibility/accessible-videos-with-bsl/"
-        )
+        bsl_and_audio_videos = "help/languages-and-accessibility/accessibility/accessible-videos-with-bsl/"
     urls = {
         "help": f"{base_url}{help_path}",
         "cookies": f"{base_url}{cookies_path}",

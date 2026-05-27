@@ -41,9 +41,7 @@ class StorageEncryption:
 
         protected_header = {"alg": "dir", "enc": "A256GCM", "kid": "1,1"}
 
-        jwe_token = jwe.JWE(
-            plaintext=data, protected=protected_header, recipient=self.key
-        )
+        jwe_token = jwe.JWE(plaintext=data, protected=protected_header, recipient=self.key)
 
         return jwe_token.serialize(compact=True)
 

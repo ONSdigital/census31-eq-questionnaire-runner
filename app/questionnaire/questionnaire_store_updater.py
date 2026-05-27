@@ -25,11 +25,7 @@ class QuestionnaireStoreUpdater:
             self._questionnaire_store.save()
 
     def is_dirty(self):
-        if (
-            self._answer_store.is_dirty
-            or self._list_store.is_dirty
-            or self._progress_store.is_dirty
-        ):
+        if self._answer_store.is_dirty or self._list_store.is_dirty or self._progress_store.is_dirty:
             return True
         return False
 
@@ -38,16 +34,10 @@ class QuestionnaireStoreUpdater:
         relationship_store,
         relationships_answer_id,
     ):
-        self._answer_store.add_or_update(
-            Answer(relationships_answer_id, relationship_store.serialize())
-        )
+        self._answer_store.add_or_update(Answer(relationships_answer_id, relationship_store.serialize()))
 
-    def remove_completed_relationship_locations_for_list_name(
-        self, list_name: str
-    ) -> None:
-        target_relationship_collectors = self._get_relationship_collectors_by_list_name(
-            list_name
-        )
+    def remove_completed_relationship_locations_for_list_name(self, list_name: str) -> None:
+        target_relationship_collectors = self._get_relationship_collectors_by_list_name(list_name)
         if target_relationship_collectors:
             for target in target_relationship_collectors:
                 block_id = target["id"]
@@ -55,9 +45,7 @@ class QuestionnaireStoreUpdater:
                 self.remove_completed_location(Location(section_id, block_id))
 
     def update_relationship_question_completeness(self, list_name: str) -> None:
-        relationship_collectors = self._get_relationship_collectors_by_list_name(
-            list_name
-        )
+        relationship_collectors = self._get_relationship_collectors_by_list_name(list_name)
 
         if not relationship_collectors:
             return None
@@ -66,24 +54,15 @@ class QuestionnaireStoreUpdater:
 
         for collector in relationship_collectors:
 
-            relationship_answer_id = self._schema.get_first_answer_id_for_block(
-                collector["id"]
-            )
-            relationship_answers = self._get_relationships_in_answer_store(
-                relationship_answer_id
-            )
+            relationship_answer_id = self._schema.get_first_answer_id_for_block(collector["id"])
+            relationship_answers = self._get_relationships_in_answer_store(relationship_answer_id)
 
             if relationship_answers:
-                pairs = {
-                    (answer["list_item_id"], answer["to_list_item_id"])
-                    for answer in relationship_answers
-                }
+                pairs = {(answer["list_item_id"], answer["to_list_item_id"]) for answer in relationship_answers}
 
                 expected_pairs = set(combinations(list_items, 2))
                 if expected_pairs == pairs:
-                    section_id = self._schema.get_section_for_block_id(collector["id"])[
-                        "id"
-                    ]
+                    section_id = self._schema.get_section_for_block_id(collector["id"])["id"]
                     location = Location(section_id, collector["id"])
                     self.add_completed_location(location)
 
@@ -128,9 +107,7 @@ class QuestionnaireStoreUpdater:
         """
         self._list_store.delete_list_item(list_name, list_item_id)
 
-        self._answer_store.remove_all_answers_for_list_item_id(
-            list_item_id=list_item_id
-        )
+        self._answer_store.remove_all_answers_for_list_item_id(list_item_id=list_item_id)
 
         answers = self.get_relationship_answers_for_list_name(list_name)
         if answers:
@@ -139,25 +116,16 @@ class QuestionnaireStoreUpdater:
 
         self._progress_store.remove_progress_for_list_item_id(list_item_id=list_item_id)
 
-    def get_relationship_answers_for_list_name(
-        self, list_name: str
-    ) -> Union[List[Answer], None]:
-        associated_relationship_collectors = (
-            self._get_relationship_collectors_by_list_name(list_name)
-        )
+    def get_relationship_answers_for_list_name(self, list_name: str) -> Union[List[Answer], None]:
+        associated_relationship_collectors = self._get_relationship_collectors_by_list_name(list_name)
         if not associated_relationship_collectors:
             return None
 
-        relationship_answer_ids = [
-            self._schema.get_first_answer_id_for_block(block["id"])
-            for block in associated_relationship_collectors
-        ]
+        relationship_answer_ids = [self._schema.get_first_answer_id_for_block(block["id"]) for block in associated_relationship_collectors]
 
         return self._answer_store.get_answers_by_answer_id(relationship_answer_ids)
 
-    def update_same_name_items(
-        self, list_name: str, same_name_answer_ids: Optional[List[str]]
-    ):
+    def update_same_name_items(self, list_name: str, same_name_answer_ids: Optional[List[str]]):
         if not same_name_answer_ids:
             return
 
@@ -167,9 +135,7 @@ class QuestionnaireStoreUpdater:
         list_model = self._questionnaire_store.list_store[list_name]
 
         for current_list_item_id in list_model:
-            answers = self._questionnaire_store.answer_store.get_answers_by_answer_id(
-                answer_ids=same_name_answer_ids, list_item_id=current_list_item_id
-            )
+            answers = self._questionnaire_store.answer_store.get_answers_by_answer_id(answer_ids=same_name_answer_ids, list_item_id=current_list_item_id)
             current_names = [answer.value.casefold() for answer in answers if answer]
             current_list_item_name = " ".join(current_names)
 
@@ -180,15 +146,9 @@ class QuestionnaireStoreUpdater:
 
         list_model.same_name_items = list(same_name_items)
 
-    def remove_relationship_answers_for_list_item_id(
-        self, list_item_id: str, answers: List
-    ) -> None:
+    def remove_relationship_answers_for_list_item_id(self, list_item_id: str, answers: List) -> None:
         for answer in answers:
-            answers_to_keep = [
-                value
-                for value in answer.value
-                if list_item_id not in {value["to_list_item_id"], value["list_item_id"]}
-            ]
+            answers_to_keep = [value for value in answer.value if list_item_id not in {value["to_list_item_id"], value["list_item_id"]}]
             answer.value = answers_to_keep
             self._answer_store.add_or_update(answer)
 
@@ -201,12 +161,8 @@ class QuestionnaireStoreUpdater:
         location = location or self._current_location
         self._progress_store.remove_completed_location(location)
 
-    def update_section_status(
-        self, is_complete: bool, section_id: str, list_item_id: Optional[str] = None
-    ):
-        status = (
-            CompletionStatus.COMPLETED if is_complete else CompletionStatus.IN_PROGRESS
-        )
+    def update_section_status(self, is_complete: bool, section_id: str, list_item_id: Optional[str] = None):
+        status = CompletionStatus.COMPLETED if is_complete else CompletionStatus.IN_PROGRESS
         self._progress_store.update_section_status(status, section_id, list_item_id)
 
     def started_section_keys(self, section_ids: Iterable[str] = None):
@@ -217,19 +173,13 @@ class QuestionnaireStoreUpdater:
 
     def update_answers(self, form_data, list_item_id=None):
         list_item_id = list_item_id or self._current_location.list_item_id
-        answer_ids_for_question = self._schema.get_answer_ids_for_question(
-            self._current_question
-        )
+        answer_ids_for_question = self._schema.get_answer_ids_for_question(self._current_question)
 
         for answer_id, answer_value in form_data.items():
 
             if answer_id in answer_ids_for_question:
                 answer_value_to_store = (
-                    {
-                        key: value
-                        for key, value in answer_value.items()
-                        if value not in self.EMPTY_ANSWER_VALUES
-                    }
+                    {key: value for key, value in answer_value.items() if value not in self.EMPTY_ANSWER_VALUES}
                     if isinstance(answer_value, dict)
                     else answer_value
                 )

@@ -96,15 +96,11 @@ def convert_answers(schema, questionnaire_store, routing_path, flushed=False):
 
     if schema.json["data_version"] == "0.0.3":
         payload["data"] = {
-            "answers": convert_answers_to_payload_0_0_3(
-                answer_store, list_store, schema, routing_path
-            ),
+            "answers": convert_answers_to_payload_0_0_3(answer_store, list_store, schema, routing_path),
             "lists": list_store.serialize(),
         }
     elif schema.json["data_version"] == "0.0.1":
-        payload["data"] = convert_answers_to_payload_0_0_1(
-            metadata, answer_store, list_store, schema, routing_path
-        )
+        payload["data"] = convert_answers_to_payload_0_0_1(metadata, answer_store, list_store, schema, routing_path)
     else:
         raise DataVersionError(schema.json["data_version"])
 

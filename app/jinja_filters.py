@@ -37,9 +37,7 @@ def get_formatted_address(address_fields):
 
 def get_formatted_currency(value, currency="GBP"):
     if value or value == 0:
-        return numbers.format_currency(
-            number=value, currency=currency, locale=flask_babel.get_locale()
-        )
+        return numbers.format_currency(number=value, currency=currency, locale=flask_babel.get_locale())
 
     return ""
 
@@ -90,17 +88,9 @@ def format_duration(value):
     parts = []
 
     if "years" in value and (value["years"] > 0 or len(value) == 1):
-        parts.append(
-            flask_babel.ngettext("%(num)s year", "%(num)s years", value["years"])
-        )
-    if "months" in value and (
-        value["months"] > 0
-        or len(value) == 1
-        or ("years" in value and value["years"] == 0)
-    ):
-        parts.append(
-            flask_babel.ngettext("%(num)s month", "%(num)s months", value["months"])
-        )
+        parts.append(flask_babel.ngettext("%(num)s year", "%(num)s years", value["years"]))
+    if "months" in value and (value["months"] > 0 or len(value) == 1 or ("years" in value and value["years"] == 0)):
+        parts.append(flask_babel.ngettext("%(num)s month", "%(num)s months", value["months"]))
     return " ".join(parts)
 
 
@@ -126,9 +116,7 @@ def get_format_date(value):
         date_format = "yyyy"
 
     date_to_format = convert_to_datetime(value).date()
-    result = "<span class='date'>{date}</span>".format(
-        date=flask_babel.format_date(date_to_format, format=date_format)
-    )
+    result = "<span class='date'>{date}</span>".format(date=flask_babel.format_date(date_to_format, format=date_format))
 
     return result
 
@@ -141,11 +129,7 @@ def format_datetime(context, value):
     formatted_date = flask_babel.format_date(london_date, format="d MMMM yyyy")
     formatted_time = flask_babel.format_time(london_date_time, format="HH:mm")
 
-    result = "<span class='date'>{date}</span>".format(
-        date=flask_babel.gettext(
-            "%(date)s at %(time)s", date=formatted_date, time=formatted_time
-        )
-    )
+    result = "<span class='date'>{date}</span>".format(date=flask_babel.gettext("%(date)s at %(time)s", date=formatted_date, time=formatted_time))
     return mark_safe(context, result)
 
 
@@ -189,9 +173,7 @@ def setAttributes(dictionary, attributes):
 def should_wrap_with_fieldset(question):
     answers = question["answers"]
 
-    if len(answers) > 1 and not any(
-        answer["type"] in {"Date", "MonthYearDate", "Duration"} for answer in answers
-    ):
+    if len(answers) > 1 and not any(answer["type"] in {"Date", "MonthYearDate", "Duration"} for answer in answers):
         return True
 
     return False
@@ -296,9 +278,7 @@ class RelationshipRadioConfig:
             # the 'pre-' prefix is added to the attributes here so that html minification
             # doesn't mess with the attribute contents (the 'pre-' is removed during minification).
             # see https://htmlmin.readthedocs.io/en/latest/quickstart.html
-            attribute_key = (
-                "pre-" if current_app.config["EQ_ENABLE_HTML_MINIFY"] else ""
-            )
+            attribute_key = "pre-" if current_app.config["EQ_ENABLE_HTML_MINIFY"] else ""
 
             self.attributes = {
                 f"{attribute_key}data-title": escape(answer_option["title"]),
@@ -317,15 +297,10 @@ class OtherConfig:
 
         if answer_type == "Dropdown":
             self.otherType = "select"
-            self.options = [
-                SelectOptionConfig(choice, detail_answer_field)
-                for choice in detail_answer_field.choices
-            ]
+            self.options = [SelectOptionConfig(choice, detail_answer_field) for choice in detail_answer_field.choices]
         else:
             self.otherType = "input"
-            self.value = escape(
-                detail_answer_field._value()
-            )  # pylint: disable=protected-access
+            self.value = escape(detail_answer_field._value())  # pylint: disable=protected-access
 
             if answer_type == "Number":
                 self.classes = get_width_class_for_number(detail_answer_schema)
@@ -359,9 +334,7 @@ def map_radio_config_processor():
 def map_relationships_config(form, answer):
     options = form["fields"][answer["id"]]
 
-    return [
-        RelationshipRadioConfig(option, i, answer) for i, option in enumerate(options)
-    ]
+    return [RelationshipRadioConfig(option, i, answer) for i, option in enumerate(options)]
 
 
 @blueprint.app_context_processor
@@ -387,9 +360,7 @@ def map_select_config_processor():
 
 
 class SummaryAction:
-    def __init__(
-        self, block, answer, answer_title, edit_link_text, edit_link_aria_label
-    ):
+    def __init__(self, block, answer, answer_title, edit_link_text, edit_link_aria_label):
         self.text = edit_link_text
         self.ariaLabel = edit_link_aria_label + " " + answer_title
         self.url = block["link"] + "#" + answer["id"]
@@ -429,15 +400,7 @@ class SummaryRowItem:
         else:
             answer_type = "calculated"
 
-        if (
-            (
-                multiple_answers
-                or answer_type == "relationship"
-                or summary_type == "CalculatedSummary"
-            )
-            and "label" in answer
-            and answer["label"]
-        ):
+        if (multiple_answers or answer_type == "relationship" or summary_type == "CalculatedSummary") and "label" in answer and answer["label"]:
             self.rowTitle = answer["label"]
             self.rowTitleAttributes = {"data-qa": answer["id"] + "-label"}
         else:
@@ -453,21 +416,12 @@ class SummaryRowItem:
         elif answer_type == "address":
             self.valueList = [SummaryRowItemValue(get_formatted_address(value))]
         elif answer_type == "checkbox":
-            self.valueList = [
-                SummaryRowItemValue(option["label"], option["detail_answer_value"])
-                for option in value
-            ]
+            self.valueList = [SummaryRowItemValue(option["label"], option["detail_answer_value"]) for option in value]
         elif answer_type == "currency":
-            self.valueList = [
-                SummaryRowItemValue(get_formatted_currency(value, answer["currency"]))
-            ]
+            self.valueList = [SummaryRowItemValue(get_formatted_currency(value, answer["currency"]))]
         elif answer_type in ["date", "monthyeardate", "yeardate"]:
             if question["type"] == "DateRange":
-                self.valueList = [
-                    SummaryRowItemValue(
-                        get_format_date_range(value["from"], value["to"])
-                    )
-                ]
+                self.valueList = [SummaryRowItemValue(get_format_date_range(value["from"], value["to"]))]
             else:
                 self.valueList = [SummaryRowItemValue(get_format_date(value))]
         elif answer_type == "duration":
@@ -482,20 +436,12 @@ class SummaryRowItem:
         elif answer_type == "textarea":
             self.valueList = [SummaryRowItemValue(get_format_multilined_string(value))]
         elif answer_type == "unit":
-            self.valueList = [
-                SummaryRowItemValue(
-                    format_unit(answer["unit"], value, answer["unit_length"])
-                )
-            ]
+            self.valueList = [SummaryRowItemValue(format_unit(answer["unit"], value, answer["unit_length"]))]
         else:
             self.valueList = [SummaryRowItemValue(value)]
 
         if answers_are_editable:
-            self.actions = [
-                SummaryAction(
-                    block, answer, self.rowTitle, edit_link_text, edit_link_aria_label
-                )
-            ]
+            self.actions = [SummaryAction(block, answer, self.rowTitle, edit_link_text, edit_link_aria_label)]
 
 
 class SummaryRow:
@@ -558,11 +504,7 @@ def map_summary_item_config(
             )
         )
         if summary_type == "CalculatedSummary":
-            rows.append(
-                SummaryRow(
-                    block, calculated_question, summary_type, False, None, None, None
-                )
-            )
+            rows.append(SummaryRow(block, calculated_question, summary_type, False, None, None, None))
 
     return rows
 

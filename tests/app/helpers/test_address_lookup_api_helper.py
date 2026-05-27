@@ -20,13 +20,9 @@ class TestAddressLookupApiAuthToken(AppContextTestCase):
     @freeze_time(time_to_freeze)
     def test_get_address_lookup_api_auth_token(self):
         with self.app_request_context("/status"):
-            secret = self.test_app.eq["secret_store"].get_secret_by_name(
-                "ADDRESS_LOOKUP_API_AUTH_TOKEN_SECRET"
-            )
+            secret = self.test_app.eq["secret_store"].get_secret_by_name("ADDRESS_LOOKUP_API_AUTH_TOKEN_SECRET")
             session_timeout = self.test_app.config["EQ_SESSION_TIMEOUT_SECONDS"]
-            leeway = self.test_app.config[
-                "ADDRESS_LOOKUP_API_AUTH_TOKEN_LEEWAY_IN_SECONDS"
-            ]
+            leeway = self.test_app.config["ADDRESS_LOOKUP_API_AUTH_TOKEN_LEEWAY_IN_SECONDS"]
             expiry_time = int(datetime.utcnow().timestamp()) + session_timeout + leeway
 
             token = get_address_lookup_api_auth_token()

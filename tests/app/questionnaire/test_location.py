@@ -7,19 +7,13 @@ class TestLocation(AppContextTestCase):
         location = Location(section_id="some-section", block_id="some-block")
         location_url = location.url()
 
-        self.assertEqual(
-            location_url, "http://test.localdomain/questionnaire/some-block/"
-        )
+        self.assertEqual(location_url, "http://test.localdomain/questionnaire/some-block/")
 
     def test_location_url_with_list(self):
-        location = Location(
-            section_id="some-section", block_id="add-block", list_name="people"
-        )
+        location = Location(section_id="some-section", block_id="add-block", list_name="people")
         location_url = location.url()
 
-        self.assertEqual(
-            location_url, "http://test.localdomain/questionnaire/people/add-block/"
-        )
+        self.assertEqual(location_url, "http://test.localdomain/questionnaire/people/add-block/")
 
     def test_location_url_with_list_item_id(self):
         location = Location(

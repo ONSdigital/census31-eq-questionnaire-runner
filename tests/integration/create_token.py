@@ -74,9 +74,7 @@ class TokenGenerator:
         return self.generate_token(payload_vars)
 
     def create_token_with_survey_url(self, schema_name, survey_url, **extra_payload):
-        payload_vars = self._get_payload_with_params(
-            schema_name, survey_url, **extra_payload
-        )
+        payload_vars = self._get_payload_with_params(schema_name, survey_url, **extra_payload)
 
         return self.generate_token(payload_vars)
 

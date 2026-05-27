@@ -18,9 +18,7 @@ class TestIntroduction(IntegrationTestCase):
 
         # When on the introduction page
         # Then description should be displayed
-        self.assertInBody(
-            "To take part, all you need to do is check that you have the information you need to answer the survey questions."
-        )
+        self.assertInBody("To take part, all you need to do is check that you have the information you need to answer the survey questions.")
 
     def test_intro_description_not_displayed(self):
         # Given survey without introduction description
@@ -56,9 +54,7 @@ class TestIntroduction(IntegrationTestCase):
         # Then started_at should be set in response_metadata (and payload)
         actual = self.dumpSubmission()["submission"]
 
-        started_at_datetime = datetime.strptime(
-            actual["started_at"], "%Y-%m-%dT%H:%M:%S.%f"
-        )
+        started_at_datetime = datetime.strptime(actual["started_at"], "%Y-%m-%dT%H:%M:%S.%f")
 
         self.assertIsNotNone(started_at_datetime)
 

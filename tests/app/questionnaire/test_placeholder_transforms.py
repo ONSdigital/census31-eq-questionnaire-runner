@@ -31,73 +31,32 @@ class TestPlaceholderParser(unittest.TestCase):
 
         format_value = self.transforms.format_list(names)
 
-        expected_result = (
-            "<ul>"
-            "<li>Alice Aardvark</li>"
-            "<li>Bob Berty Brown</li>"
-            "<li>Dave Dixon Davies</li>"
-            "</ul>"
-        )
+        expected_result = "<ul>" "<li>Alice Aardvark</li>" "<li>Bob Berty Brown</li>" "<li>Dave Dixon Davies</li>" "</ul>"
 
         assert expected_result == format_value
 
     def test_format_possessive(self):
         assert self.transforms.format_possessive("Alice Aardvark") == "Alice Aardvark’s"
-        assert (
-            self.transforms.format_possessive("Dave Dixon Davies")
-            == "Dave Dixon Davies’"
-        )
-        assert (
-            self.transforms.format_possessive("Alice Aardvark's") == "Alice Aardvark’s"
-        )
-        assert (
-            self.transforms.format_possessive("Alice Aardvark’s") == "Alice Aardvark’s"
-        )
+        assert self.transforms.format_possessive("Dave Dixon Davies") == "Dave Dixon Davies’"
+        assert self.transforms.format_possessive("Alice Aardvark's") == "Alice Aardvark’s"
+        assert self.transforms.format_possessive("Alice Aardvark’s") == "Alice Aardvark’s"
 
     @staticmethod
     def test_format_possessive_non_english_does_nothing():
         welsh_transforms = PlaceholderTransforms(language="cy")
         assert welsh_transforms.format_possessive("Alice Aardvark") == "Alice Aardvark"
-        assert (
-            welsh_transforms.format_possessive("Dave Dixon Davies")
-            == "Dave Dixon Davies"
-        )
-        assert (
-            welsh_transforms.format_possessive("Alice Aardvark's") == "Alice Aardvark's"
-        )
-        assert (
-            welsh_transforms.format_possessive("Alice Aardvark’s") == "Alice Aardvark’s"
-        )
+        assert welsh_transforms.format_possessive("Dave Dixon Davies") == "Dave Dixon Davies"
+        assert welsh_transforms.format_possessive("Alice Aardvark's") == "Alice Aardvark's"
+        assert welsh_transforms.format_possessive("Alice Aardvark’s") == "Alice Aardvark’s"
 
     def test_calculate_difference(self):
-        assert (
-            PlaceholderTransforms.calculate_date_difference("2016-06-10", "2019-06-10")
-            == "3 years"
-        )
-        assert (
-            PlaceholderTransforms.calculate_date_difference("2018-06-10", "2019-06-10")
-            == "1 year"
-        )
-        assert (
-            PlaceholderTransforms.calculate_date_difference("2010-01-01", "2018-12-31")
-            == "8 years"
-        )
-        assert (
-            PlaceholderTransforms.calculate_date_difference("2011-01", "2015-04")
-            == "4 years"
-        )
-        assert (
-            PlaceholderTransforms.calculate_date_difference("2019-06-10", "2019-08-11")
-            == "2 months"
-        )
-        assert (
-            PlaceholderTransforms.calculate_date_difference("2019-07-10", "2019-08-11")
-            == "1 month"
-        )
-        assert (
-            PlaceholderTransforms.calculate_date_difference("2019-07-10", "2019-07-11")
-            == "1 day"
-        )
+        assert PlaceholderTransforms.calculate_date_difference("2016-06-10", "2019-06-10") == "3 years"
+        assert PlaceholderTransforms.calculate_date_difference("2018-06-10", "2019-06-10") == "1 year"
+        assert PlaceholderTransforms.calculate_date_difference("2010-01-01", "2018-12-31") == "8 years"
+        assert PlaceholderTransforms.calculate_date_difference("2011-01", "2015-04") == "4 years"
+        assert PlaceholderTransforms.calculate_date_difference("2019-06-10", "2019-08-11") == "2 months"
+        assert PlaceholderTransforms.calculate_date_difference("2019-07-10", "2019-08-11") == "1 month"
+        assert PlaceholderTransforms.calculate_date_difference("2019-07-10", "2019-07-11") == "1 day"
         assert PlaceholderTransforms.calculate_date_difference("now", "now") == "0 days"
         with self.assertRaises(ValueError):
             PlaceholderTransforms.calculate_date_difference("2018", "now")
@@ -105,18 +64,9 @@ class TestPlaceholderParser(unittest.TestCase):
     def test_concatenate_list(self):
         list_to_concatenate = ["Milk", "Eggs", "Flour", "Water"]
 
-        assert (
-            self.transforms.concatenate_list(list_to_concatenate, "")
-            == "MilkEggsFlourWater"
-        )
-        assert (
-            self.transforms.concatenate_list(list_to_concatenate, " ")
-            == "Milk Eggs Flour Water"
-        )
-        assert (
-            self.transforms.concatenate_list(list_to_concatenate, ", ")
-            == "Milk, Eggs, Flour, Water"
-        )
+        assert self.transforms.concatenate_list(list_to_concatenate, "") == "MilkEggsFlourWater"
+        assert self.transforms.concatenate_list(list_to_concatenate, " ") == "Milk Eggs Flour Water"
+        assert self.transforms.concatenate_list(list_to_concatenate, ", ") == "Milk, Eggs, Flour, Water"
 
     def test_add(self):
         assert self.transforms.add(1, 2) == 3
@@ -216,16 +166,6 @@ class TestPlaceholderParser(unittest.TestCase):
 
     def test_format_name(self):
         assert self.transforms.format_name("Joe", None, "Bloggs") == "Joe Bloggs"
-        assert (
-            self.transforms.format_name(
-                "Joe", None, "Bloggs", include_middle_names=True
-            )
-            == "Joe Bloggs"
-        )
+        assert self.transforms.format_name("Joe", None, "Bloggs", include_middle_names=True) == "Joe Bloggs"
         assert self.transforms.format_name("Joe", "Michael", "Bloggs") == "Joe Bloggs"
-        assert (
-            self.transforms.format_name(
-                "Joe", "Michael", "Bloggs", include_middle_names=True
-            )
-            == "Joe Michael Bloggs"
-        )
+        assert self.transforms.format_name("Joe", "Michael", "Bloggs", include_middle_names=True) == "Joe Michael Bloggs"

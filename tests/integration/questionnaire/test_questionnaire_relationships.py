@@ -33,9 +33,7 @@ class TestQuestionnaireRelationships(QuestionnaireTestCase):
         second_list_item_id = self.add_person("John", "Doe")
         self.post({"anyone-else": "No"})
         self.get("/questionnaire/relationships?last=True")
-        self.assertInUrl(
-            f"/questionnaire/relationships/people/{first_list_item_id}/to/{second_list_item_id}"
-        )
+        self.assertInUrl(f"/questionnaire/relationships/people/{first_list_item_id}/to/{second_list_item_id}")
 
     def test_get_relationships_when_not_on_path_raises_404(self):
         self.launchSurvey("test_relationships")
@@ -132,7 +130,5 @@ class TestQuestionnaireRelationships(QuestionnaireTestCase):
         first_list_item_id = self.add_person("Marie", "Doe")
         second_list_item_id = self.add_person("John", "Doe")
         self.post({"anyone-else": "No"})
-        self.head(
-            f"/questionnaire/relationships/people/{first_list_item_id}/to/{second_list_item_id}"
-        )
+        self.head(f"/questionnaire/relationships/people/{first_list_item_id}/to/{second_list_item_id}")
         self.assertStatusOK()

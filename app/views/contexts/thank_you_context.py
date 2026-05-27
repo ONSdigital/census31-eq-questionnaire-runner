@@ -26,9 +26,7 @@ def build_default_thank_you_context(session_data: SessionData) -> Mapping:
     return context
 
 
-def build_census_thank_you_context(
-    session_data: SessionData, confirmation_email_form, form_type
-) -> Mapping:
+def build_census_thank_you_context(session_data: SessionData, confirmation_email_form, form_type) -> Mapping:
 
     context = {
         "display_address": session_data.display_address,

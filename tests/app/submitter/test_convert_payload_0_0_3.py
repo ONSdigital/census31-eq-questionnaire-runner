@@ -11,9 +11,7 @@ from tests.app.submitter.schema import make_schema
 
 
 def test_convert_answers_to_payload_0_0_3(fake_questionnaire_store):
-    full_routing_path = [
-        RoutingPath(["about you", "where you live"], section_id="household-section")
-    ]
+    full_routing_path = [RoutingPath(["about you", "where you live"], section_id="household-section")]
 
     fake_questionnaire_store.answer_store = AnswerStore(
         [
@@ -61,9 +59,7 @@ def test_convert_answers_to_payload_0_0_3(fake_questionnaire_store):
     }
 
     # When
-    answer_object = convert_answers(
-        QuestionnaireSchema(questionnaire), fake_questionnaire_store, full_routing_path
-    )
+    answer_object = convert_answers(QuestionnaireSchema(questionnaire), fake_questionnaire_store, full_routing_path)
 
     # Then
     assert len(answer_object["data"]["answers"]) == 2
@@ -73,9 +69,7 @@ def test_convert_answers_to_payload_0_0_3(fake_questionnaire_store):
 
 def test_convert_payload_0_0_3_multiple_answers(fake_questionnaire_store):
     full_routing_path = [RoutingPath(["crisps"], section_id="section-1")]
-    answers = AnswerStore(
-        [Answer("crisps-answer", ["Ready salted", "Sweet chilli"]).to_dict()]
-    )
+    answers = AnswerStore([Answer("crisps-answer", ["Ready salted", "Sweet chilli"]).to_dict()])
     fake_questionnaire_store.answer_store = answers
 
     questionnaire = make_schema(
@@ -100,9 +94,7 @@ def test_convert_payload_0_0_3_multiple_answers(fake_questionnaire_store):
     )
 
     # When
-    answer_object = convert_answers(
-        QuestionnaireSchema(questionnaire), fake_questionnaire_store, full_routing_path
-    )
+    answer_object = convert_answers(QuestionnaireSchema(questionnaire), fake_questionnaire_store, full_routing_path)
     # Then
     assert len(answer_object["data"]["answers"]) == 1
     assert answer_object["data"]["answers"][0].value == ["Ready salted", "Sweet chilli"]
@@ -133,9 +125,7 @@ def test_radio_answer(fake_questionnaire_store):
         },
     )
 
-    answer_object = convert_answers(
-        QuestionnaireSchema(questionnaire), fake_questionnaire_store, full_routing_path
-    )
+    answer_object = convert_answers(QuestionnaireSchema(questionnaire), fake_questionnaire_store, full_routing_path)
 
     assert len(answer_object["data"]["answers"]) == 1
     assert answer_object["data"]["answers"][0].value == "Coffee"
@@ -157,9 +147,7 @@ def test_number_answer(fake_questionnaire_store):
         },
     )
 
-    answer_object = convert_answers(
-        QuestionnaireSchema(questionnaire), fake_questionnaire_store, full_routing_path
-    )
+    answer_object = convert_answers(QuestionnaireSchema(questionnaire), fake_questionnaire_store, full_routing_path)
 
     assert len(answer_object["data"]["answers"]) == 1
     assert answer_object["data"]["answers"][0].value == 1.755
@@ -181,9 +169,7 @@ def test_percentage_answer(fake_questionnaire_store):
         },
     )
 
-    answer_object = convert_answers(
-        QuestionnaireSchema(questionnaire), fake_questionnaire_store, full_routing_path
-    )
+    answer_object = convert_answers(QuestionnaireSchema(questionnaire), fake_questionnaire_store, full_routing_path)
 
     assert len(answer_object["data"]["answers"]) == 1
     assert answer_object["data"]["answers"][0].value == 99
@@ -191,9 +177,7 @@ def test_percentage_answer(fake_questionnaire_store):
 
 def test_textarea_answer(fake_questionnaire_store):
     full_routing_path = [RoutingPath(["textarea-block"], section_id="section-1")]
-    answers = AnswerStore(
-        [Answer("textarea-answer", "This is an example text!").to_dict()]
-    )
+    answers = AnswerStore([Answer("textarea-answer", "This is an example text!").to_dict()])
     fake_questionnaire_store.answer_store = answers
 
     questionnaire = make_schema(
@@ -207,9 +191,7 @@ def test_textarea_answer(fake_questionnaire_store):
         },
     )
 
-    answer_object = convert_answers(
-        QuestionnaireSchema(questionnaire), fake_questionnaire_store, full_routing_path
-    )
+    answer_object = convert_answers(QuestionnaireSchema(questionnaire), fake_questionnaire_store, full_routing_path)
 
     assert len(answer_object["data"]["answers"]) == 1
     assert answer_object["data"]["answers"][0].value == "This is an example text!"
@@ -231,9 +213,7 @@ def test_currency_answer(fake_questionnaire_store):
         },
     )
 
-    answer_object = convert_answers(
-        QuestionnaireSchema(questionnaire), fake_questionnaire_store, full_routing_path
-    )
+    answer_object = convert_answers(QuestionnaireSchema(questionnaire), fake_questionnaire_store, full_routing_path)
 
     assert len(answer_object["data"]["answers"]) == 1
     assert answer_object["data"]["answers"][0].value == 100
@@ -265,9 +245,7 @@ def test_dropdown_answer(fake_questionnaire_store):
         },
     )
 
-    answer_object = convert_answers(
-        QuestionnaireSchema(questionnaire), fake_questionnaire_store, full_routing_path
-    )
+    answer_object = convert_answers(QuestionnaireSchema(questionnaire), fake_questionnaire_store, full_routing_path)
 
     # Then
     assert len(answer_object["data"]["answers"]) == 1
@@ -295,9 +273,7 @@ def test_date_answer(fake_questionnaire_store):
         },
     )
 
-    answer_object = convert_answers(
-        QuestionnaireSchema(questionnaire), fake_questionnaire_store, full_routing_path
-    )
+    answer_object = convert_answers(QuestionnaireSchema(questionnaire), fake_questionnaire_store, full_routing_path)
 
     assert len(answer_object["data"]["answers"]) == 1
 
@@ -325,9 +301,7 @@ def test_month_year_date_answer(fake_questionnaire_store):
         },
     )
 
-    answer_object = convert_answers(
-        QuestionnaireSchema(questionnaire), fake_questionnaire_store, full_routing_path
-    )
+    answer_object = convert_answers(QuestionnaireSchema(questionnaire), fake_questionnaire_store, full_routing_path)
 
     assert len(answer_object["data"]["answers"]) == 1
 
@@ -347,20 +321,14 @@ def test_unit_answer(fake_questionnaire_store):
         {"id": "unit-question", "answers": [{"id": "unit-answer", "type": "Unit"}]},
     )
 
-    answer_object = convert_answers(
-        QuestionnaireSchema(questionnaire), fake_questionnaire_store, full_routing_path
-    )
+    answer_object = convert_answers(QuestionnaireSchema(questionnaire), fake_questionnaire_store, full_routing_path)
 
     assert len(answer_object["data"]["answers"]) == 1
     assert answer_object["data"]["answers"][0].value == 10
 
 
 def test_primary_person_list_item_conversion(fake_questionnaire_store):
-    routing_path = [
-        RoutingPath(
-            ["primary-person-list-collector", "list-collector"], section_id="section-1"
-        )
-    ]
+    routing_path = [RoutingPath(["primary-person-list-collector", "list-collector"], section_id="section-1")]
 
     answer_objects = [
         {"answer_id": "you-live-here", "value": "Yes"},
@@ -392,9 +360,7 @@ def test_primary_person_list_item_conversion(fake_questionnaire_store):
 
     data_dict = json.loads(json.dumps(output["data"]["answers"], for_json=True))
 
-    assert sorted(answer_objects, key=lambda x: x["answer_id"]) == sorted(
-        data_dict, key=lambda x: x["answer_id"]
-    )
+    assert sorted(answer_objects, key=lambda x: x["answer_id"]) == sorted(data_dict, key=lambda x: x["answer_id"])
 
 
 def test_list_item_conversion(fake_questionnaire_store):
@@ -417,9 +383,7 @@ def test_list_item_conversion(fake_questionnaire_store):
 
     answers = AnswerStore(answer_objects)
 
-    list_store = ListStore(
-        existing_items=[{"name": "people", "items": ["xJlKBy", "RfAGDc"]}]
-    )
+    list_store = ListStore(existing_items=[{"name": "people", "items": ["xJlKBy", "RfAGDc"]}])
 
     fake_questionnaire_store.answer_store = answers
     fake_questionnaire_store.list_store = list_store
@@ -432,9 +396,7 @@ def test_list_item_conversion(fake_questionnaire_store):
 
     data_dict = json.loads(json.dumps(output["data"]["answers"], for_json=True))
 
-    assert sorted(answer_objects, key=lambda x: x["answer_id"]) == sorted(
-        data_dict, key=lambda x: x["answer_id"]
-    )
+    assert sorted(answer_objects, key=lambda x: x["answer_id"]) == sorted(data_dict, key=lambda x: x["answer_id"])
 
 
 def test_list_item_conversion_empty_list(fake_questionnaire_store):
@@ -467,9 +429,7 @@ def test_list_item_conversion_empty_list(fake_questionnaire_store):
 
     data_dict = json.loads(json.dumps(output["data"]["answers"], for_json=True))
 
-    assert sorted(answer_objects, key=lambda x: x["answer_id"]) == sorted(
-        data_dict, key=lambda x: x["answer_id"]
-    )
+    assert sorted(answer_objects, key=lambda x: x["answer_id"]) == sorted(data_dict, key=lambda x: x["answer_id"])
 
 
 def test_default_answers_not_present_when_not_answered(fake_questionnaire_store):
@@ -482,11 +442,7 @@ def test_default_answers_not_present_when_not_answered(fake_questionnaire_store)
     fake_questionnaire_store.answer_store = AnswerStore(answer_objects)
     fake_questionnaire_store.list_store = ListStore()
 
-    routing_path = [
-        RoutingPath(
-            ["number-question-one", "number-question-two"], section_id="default-section"
-        )
-    ]
+    routing_path = [RoutingPath(["number-question-one", "number-question-two"], section_id="default-section")]
 
     output = convert_answers(schema, fake_questionnaire_store, routing_path)
     data = json.loads(json.dumps(output["data"]["answers"], for_json=True))
@@ -496,11 +452,7 @@ def test_default_answers_not_present_when_not_answered(fake_questionnaire_store)
 
 
 def test_list_structure_in_payload_is_as_expected(fake_questionnaire_store):
-    routing_path = [
-        RoutingPath(
-            ["primary-person-list-collector", "list-collector"], section_id="section-1"
-        )
-    ]
+    routing_path = [RoutingPath(["primary-person-list-collector", "list-collector"], section_id="section-1")]
 
     answer_objects = [
         {"answer_id": "you-live-here", "value": "Yes"},
@@ -557,9 +509,7 @@ def test_primary_person_not_in_payload_when_not_answered(fake_questionnaire_stor
 
     answers = AnswerStore(answer_objects)
 
-    list_store = ListStore(
-        existing_items=[{"name": "people", "items": ["xJlKBy", "RfAGDc"]}]
-    )
+    list_store = ListStore(existing_items=[{"name": "people", "items": ["xJlKBy", "RfAGDc"]}])
 
     fake_questionnaire_store.answer_store = answers
     fake_questionnaire_store.list_store = list_store
@@ -763,9 +713,7 @@ def test_unrelated_block_answers_in_payload(fake_questionnaire_store):
 
     output = convert_answers(schema, fake_questionnaire_store, routing_path)
     data = json.loads(json.dumps(output["data"]["answers"], for_json=True))
-    answers = {
-        (answer["answer_id"], answer.get("list_item_id")): answer for answer in data
-    }
+    answers = {(answer["answer_id"], answer.get("list_item_id")): answer for answer in data}
 
     expected_relationships_answer = [
         {
@@ -856,9 +804,7 @@ def test_unrelated_block_answers_not_on_path_not_in_payload(fake_questionnaire_s
 
     output = convert_answers(schema, fake_questionnaire_store, routing_path)
     data = json.loads(json.dumps(output["data"]["answers"], for_json=True))
-    answers = {
-        (answer["answer_id"], answer.get("list_item_id")): answer for answer in data
-    }
+    answers = {(answer["answer_id"], answer.get("list_item_id")): answer for answer in data}
 
     assert ("related-to-anyone-else-answer", "person1") not in answers
 
@@ -939,9 +885,7 @@ def test_relationship_answers_not_on_path_in_payload(fake_questionnaire_store):
 
     output = convert_answers(schema, fake_questionnaire_store, routing_path)
     data = json.loads(json.dumps(output["data"]["answers"], for_json=True))
-    answers = {
-        (answer["answer_id"], answer.get("list_item_id")): answer for answer in data
-    }
+    answers = {(answer["answer_id"], answer.get("list_item_id")): answer for answer in data}
 
     expected_relationships_answer = [
         {

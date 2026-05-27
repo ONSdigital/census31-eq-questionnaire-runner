@@ -41,12 +41,7 @@ def test_add_relationship():
     relationship_store = RelationshipStore()
     relationship_store.add_or_update(relationship)
 
-    assert (
-        relationship_store.get_relationship(
-            relationship.list_item_id, relationship.to_list_item_id
-        )
-        == relationship
-    )
+    assert relationship_store.get_relationship(relationship.list_item_id, relationship.to_list_item_id) == relationship
     assert len(relationship_store) == 1
     assert relationship_store.is_dirty
 
@@ -62,34 +57,26 @@ def test_add_relationship_that_already_exists():
 
 def test_get_relationship():
     relationship_store = RelationshipStore(relationships)
-    relationship = relationship_store.get_relationship(
-        list_item_id="123456", to_list_item_id="789101"
-    )
+    relationship = relationship_store.get_relationship(list_item_id="123456", to_list_item_id="789101")
     assert relationship
 
 
 def test_get_relationship_that_doesnt_exist():
     relationship_store = RelationshipStore(relationships)
-    relationship = relationship_store.get_relationship(
-        list_item_id="123456", to_list_item_id="yyyyyy"
-    )
+    relationship = relationship_store.get_relationship(list_item_id="123456", to_list_item_id="yyyyyy")
     assert not relationship
 
 
 def test_remove_relationship():
     relationship_store = RelationshipStore(relationships)
-    relationship_store.remove_relationship(
-        list_item_id="123456", to_list_item_id="789101"
-    )
+    relationship_store.remove_relationship(list_item_id="123456", to_list_item_id="789101")
     assert relationship_store.is_dirty
     assert len(relationship_store) == 1
 
 
 def test_remove_relationship_that_doesnt_exist():
     relationship_store = RelationshipStore(relationships)
-    relationship_store.remove_relationship(
-        list_item_id="123456", to_list_item_id="yyyyyy"
-    )
+    relationship_store.remove_relationship(list_item_id="123456", to_list_item_id="yyyyyy")
     assert not relationship_store.is_dirty
     assert len(relationship_store) == 2
 
@@ -108,12 +95,7 @@ def test_remove_id_in_single_relationship():
     remaining_relationship = Relationship(**relationships[1])
 
     assert len(relationship_store) == 1
-    assert (
-        relationship_store.get_relationship(
-            remaining_relationship.list_item_id, remaining_relationship.to_list_item_id
-        )
-        == remaining_relationship
-    )
+    assert relationship_store.get_relationship(remaining_relationship.list_item_id, remaining_relationship.to_list_item_id) == remaining_relationship
     assert relationship_store.is_dirty
 
 
@@ -126,8 +108,6 @@ def test_update_existing_relationship():
     relationship_store.add_or_update(relationship)
 
     assert len(relationship_store) == 2
-    updated_relationship = relationship_store.get_relationship(
-        relationship.list_item_id, relationship.to_list_item_id
-    )
+    updated_relationship = relationship_store.get_relationship(relationship.list_item_id, relationship.to_list_item_id)
     assert updated_relationship.relationship == "test"
     assert relationship_store.is_dirty

@@ -24,12 +24,8 @@ class TestDynamo(AppContextTestCase):
             if table_name:
                 client.create_table(  # pylint: disable=no-member
                     TableName=table_name,
-                    AttributeDefinitions=[
-                        {"AttributeName": config["key_field"], "AttributeType": "S"}
-                    ],
-                    KeySchema=[
-                        {"AttributeName": config["key_field"], "KeyType": "HASH"}
-                    ],
+                    AttributeDefinitions=[{"AttributeName": config["key_field"], "AttributeType": "S"}],
+                    KeySchema=[{"AttributeName": config["key_field"], "KeyType": "HASH"}],
                     ProvisionedThroughput={
                         "ReadCapacityUnits": 1,
                         "WriteCapacityUnits": 1,

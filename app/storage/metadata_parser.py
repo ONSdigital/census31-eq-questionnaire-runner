@@ -68,41 +68,33 @@ class StripWhitespaceMixin:
 class RunnerMetadataSchema(Schema, StripWhitespaceMixin):
     """Metadata which is required for the operation of runner itself"""
 
-    jti = VALIDATORS["uuid"]()  # type:ignore
-    ru_ref = VALIDATORS["string"](validate=validate.Length(min=1))  # type:ignore
-    collection_exercise_sid = VALIDATORS["string"](
-        validate=validate.Length(min=1)
-    )  # type:ignore
-    tx_id = VALIDATORS["uuid"]()  # type:ignore
-    questionnaire_id = VALIDATORS["string"](
-        validate=validate.Length(min=1)
-    )  # type:ignore
-    response_id = VALIDATORS["string"](validate=validate.Length(min=1))  # type:ignore
+    jti = VALIDATORS["uuid"]()  # type: ignore
+    ru_ref = VALIDATORS["string"](validate=validate.Length(min=1))  # type: ignore
+    collection_exercise_sid = VALIDATORS["string"](validate=validate.Length(min=1))  # type: ignore
+    tx_id = VALIDATORS["uuid"]()  # type: ignore
+    questionnaire_id = VALIDATORS["string"](validate=validate.Length(min=1))  # type: ignore
+    response_id = VALIDATORS["string"](validate=validate.Length(min=1))  # type: ignore
 
-    account_service_url = VALIDATORS["url"](required=False)  # type:ignore
-    case_id = VALIDATORS["uuid"](required=False)  # type:ignore
-    account_service_log_out_url = VALIDATORS["url"](required=False)  # type:ignore
+    account_service_url = VALIDATORS["url"](required=False)  # type: ignore
+    case_id = VALIDATORS["uuid"](required=False)  # type: ignore
+    account_service_log_out_url = VALIDATORS["url"](required=False)  # type: ignore
     roles = fields.List(fields.String(), required=False)
-    survey_url = VALIDATORS["url"](required=False)  # type:ignore
-    language_code = VALIDATORS["string"](required=False)  # type:ignore
-    channel = VALIDATORS["string"](
-        required=False, validate=validate.Length(min=1)
-    )  # type:ignore
-    case_type = VALIDATORS["string"](required=False)  # type:ignore
+    survey_url = VALIDATORS["url"](required=False)  # type: ignore
+    language_code = VALIDATORS["string"](required=False)  # type: ignore
+    channel = VALIDATORS["string"](required=False, validate=validate.Length(min=1))  # type: ignore
+    case_type = VALIDATORS["string"](required=False)  # type: ignore
 
     # Either schema_name OR the three census parameters are required. Should be required after census.
-    schema_name = VALIDATORS["string"](required=False)  # type:ignore
+    schema_name = VALIDATORS["string"](required=False)  # type: ignore
 
     # The following three parameters can be removed after Census
     survey = VALIDATORS["string"](
-        required=False, validate=validate.OneOf(("CENSUS", "CCS")), missing="CENSUS"
-    )  # type:ignore
-    form_type = VALIDATORS["string"](
-        required=False, validate=validate.OneOf(("H", "I", "C"))
-    )  # type:ignore
-    region_code = VALIDATORS["string"](
-        required=False, validate=RegionCode()
-    )  # type:ignore
+        required=False,
+        validate=validate.OneOf(("CENSUS", "CCS")),
+        load_default="CENSUS",  # missing="CENSUS" changed in marshmallow >4
+    )  # type: ignore
+    form_type = VALIDATORS["string"](required=False, validate=validate.OneOf(("H", "I", "C")))  # type: ignore
+    region_code = VALIDATORS["string"](required=False, validate=RegionCode())  # type: ignore
 
     @validates_schema
     def validate_schema_name(self, data, **kwargs):
@@ -117,9 +109,7 @@ class RunnerMetadataSchema(Schema, StripWhitespaceMixin):
         )
         if not data.get("schema_name"):
             if not all(individual_schema_claims):
-                raise ValidationError(
-                    "Either 'schema_name' or 'survey' and 'form_type' and 'region_code' must be defined"
-                )
+                raise ValidationError("Either 'schema_name' or 'survey' and 'form_type' and 'region_code' must be defined")
 
     @post_load
     def convert_schema_name(self, data, **kwargs):
@@ -128,18 +118,14 @@ class RunnerMetadataSchema(Schema, StripWhitespaceMixin):
         This can be removed after census.
         """
         if data.get("schema_name"):
-            logger.info(
-                "Using schema_name claim to specify schema, overriding survey, form_type and region_code"
-            )
+            logger.info("Using schema_name claim to specify schema, overriding survey, form_type and region_code")
         else:
-            data["schema_name"] = get_schema_name_from_census_params(
-                data.get("survey"), data.get("form_type"), data.get("region_code")
-            )
+            data["schema_name"] = get_schema_name_from_census_params(data.get("survey"), data.get("form_type"), data.get("region_code"))
         return data
 
 
 def validate_questionnaire_claims(claims, questionnaire_specific_metadata):
-    """ Validate any survey specific claims required for a questionnaire"""
+    """Validate any survey specific claims required for a questionnaire"""
     dynamic_fields = {}
 
     for metadata_field in questionnaire_specific_metadata:
@@ -149,10 +135,7 @@ def validate_questionnaire_claims(claims, questionnaire_specific_metadata):
         if metadata_field.get("optional"):
             field_arguments["required"] = False
 
-        if any(
-            length_limit in metadata_field
-            for length_limit in ("min_length", "max_length", "length")
-        ):
+        if any(length_limit in metadata_field for length_limit in ("min_length", "max_length", "length")):
             validators.append(
                 validate.Length(
                     min=metadata_field.get("min_length"),
@@ -161,19 +144,15 @@ def validate_questionnaire_claims(claims, questionnaire_specific_metadata):
                 )
             )
 
-        dynamic_fields[metadata_field["name"]] = VALIDATORS[metadata_field["type"]](
-            validate=validators, **field_arguments
-        )
+        dynamic_fields[metadata_field["name"]] = VALIDATORS[metadata_field["type"]](validate=validators, **field_arguments)
 
-    questionnaire_metadata_schema = type(
-        "QuestionnaireMetadataSchema", (Schema, StripWhitespaceMixin), dynamic_fields
-    )(unknown=EXCLUDE)
+    questionnaire_metadata_schema = type("QuestionnaireMetadataSchema", (Schema, StripWhitespaceMixin), dynamic_fields)(unknown=EXCLUDE)
 
     # The load method performs validation.
     return questionnaire_metadata_schema.load(claims)
 
 
 def validate_runner_claims(claims: Dict):
-    """ Validate claims required for runner to function"""
+    """Validate claims required for runner to function"""
     runner_metadata_schema = RunnerMetadataSchema(unknown=EXCLUDE)
     return runner_metadata_schema.load(claims)

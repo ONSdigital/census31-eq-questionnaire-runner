@@ -29,9 +29,7 @@ def requires_schema(func):
 @login_required
 @role_required("dumper")
 def dump_debug():
-    questionnaire_store = get_questionnaire_store(
-        current_user.user_id, current_user.user_ik
-    )
+    questionnaire_store = get_questionnaire_store(current_user.user_id, current_user.user_ik)
     return questionnaire_store.serialize()
 
 
@@ -76,9 +74,7 @@ def dump_submission(schema, questionnaire_store):
     )
 
     routing_path = router.full_routing_path()
-    questionnaire_store = get_questionnaire_store(
-        current_user.user_id, current_user.user_ik
-    )
+    questionnaire_store = get_questionnaire_store(current_user.user_id, current_user.user_ik)
 
     submission_handler = SubmissionHandler(schema, questionnaire_store, routing_path)
 

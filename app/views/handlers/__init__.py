@@ -26,12 +26,7 @@ def individual_response_url(
 ) -> Union[str, None]:
     if individual_response_for_list:
 
-        if (
-            list_item_id
-            != questionnaire_store.list_store[
-                individual_response_for_list
-            ].primary_person
-        ):
+        if list_item_id != questionnaire_store.list_store[individual_response_for_list].primary_person:
             return url_for(
                 "individual_response.request_individual_response",
                 list_item_id=list_item_id,

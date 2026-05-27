@@ -16,9 +16,7 @@ class JtiTokenUsed(Exception):
         self.jti_claim = jti_claim
 
     def __str__(self, *args, **kwargs):
-        return "jti claim '{jti_claim}' has already been used".format(
-            jti_claim=self.jti_claim
-        )
+        return "jti claim '{jti_claim}' has already been used".format(jti_claim=self.jti_claim)
 
 
 def use_jti_claim(jti_claim, expires_at):
