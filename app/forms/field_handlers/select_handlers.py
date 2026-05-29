@@ -22,7 +22,8 @@ class SelectHandlerBase(FieldHandler):
 
     @property
     def dynamic_options_schema(self) -> dict[str, Any]:
-        return self.answer_schema.get("dynamic_options", {})
+        dynamic_options = self.answer_schema.get("dynamic_options")
+        return dynamic_options if isinstance(dynamic_options, dict) else {}
 
     def _build_dynamic_choices(self) -> list[ChoiceWithDetailAnswer]:
         if not self.dynamic_options_schema:
