@@ -1,6 +1,8 @@
 services:
     datastore:
-        image: knarz/datastore-emulator
+        image: pricemonsdigital/gcloud-datastore-emulator:2.3.1
+        environment:
+            - CLOUDSDK_CORE_PROJECT=local
         networks:
             - eq-env
         ports:
