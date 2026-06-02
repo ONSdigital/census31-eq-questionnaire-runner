@@ -1,5 +1,5 @@
 from datetime import datetime, timezone
-from typing import Any
+from typing import Any, Mapping
 
 from marshmallow import Schema, fields, post_load, pre_dump
 
@@ -48,27 +48,31 @@ class UsedJtiClaim:
 
 # pylint: disable=no-self-use
 class Timestamp(fields.Field):
-    # pylint: disable=unused-argument
     def _serialize(
         self,
-        value: datetime,
-        *args: list | None,
+        value: Any,
+        attr: str | None,
+        obj: Any,
         **kwargs: Any,
     ) -> int | None:
-        if value:
+        if isinstance(value, datetime):
             # Timezone aware datetime to timestamp
             return int(value.replace(tzinfo=timezone.utc).timestamp())
 
-    # pylint: disable=unused-argument
+        return None
+
     def _deserialize(
         self,
-        value: float,
-        *args: list | None,
+        value: Any,
+        attr: str | None,
+        data: Mapping[str, Any] | None,
         **kwargs: Any,
     ) -> datetime | None:
-        if value:
+        if isinstance(value, (float, int)) and value:
             # Timestamp to timezone aware datetime
             return datetime.fromtimestamp(value, tz=timezone.utc)
+
+        return None
 
 
 class DateTimeSchemaMixin:
