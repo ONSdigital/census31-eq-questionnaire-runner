@@ -1,13 +1,12 @@
-import standardConfig from "eslint-config-standard";
+import neostandard from "neostandard";
 import importPlugin from "eslint-plugin-import";
-import nPlugin from "eslint-plugin-n";
-import promisePlugin from "eslint-plugin-promise";
 import jsonPlugin from "eslint-plugin-json";
 
 export default [
   {
-    ignores: ["node_modules/**", "htmlcov/**"],
+    ignores: ["node_modules/**", "htmlcov/**", "coverage/**", "dist/**", "src/index.html"],
   },
+  ...neostandard({ semi: true }),
   {
     files: ["**/*.js"],
     languageOptions: {
@@ -42,12 +41,9 @@ export default [
     },
     plugins: {
       import: importPlugin,
-      n: nPlugin,
-      promise: promisePlugin,
       json: jsonPlugin,
     },
     rules: {
-      ...(standardConfig.rules || {}),
       ...(importPlugin.configs.recommended.rules || {}),
 
       "no-loss-of-precision": 0,
@@ -55,14 +51,30 @@ export default [
       "no-unsafe-optional-chaining": 0,
       "no-useless-backreference": 0,
       "consistent-return": 1,
-      indent: [
+      "@stylistic/quotes": [
+        2,
+        "double",
+        {
+          avoidEscape: true,
+          allowTemplateLiterals: true,
+        },
+      ],
+      "@stylistic/semi": [2, "always"],
+      "@stylistic/space-before-function-paren": 0,
+      "@stylistic/indent": [
         2,
         2,
         {
           SwitchCase: 1,
         },
       ],
-      "comma-dangle": 0,
+      "@stylistic/padded-blocks": [
+        "error",
+        {
+          blocks: "never",
+        },
+      ],
+      "@stylistic/comma-dangle": 0,
       "new-cap": 2,
       "no-alert": 1,
       "no-console": 2,
@@ -73,22 +85,6 @@ export default [
         2,
         {
           allowNamedFunctions: false,
-        },
-      ],
-      quotes: [
-        2,
-        "double",
-        {
-          avoidEscape: true,
-          allowTemplateLiterals: true,
-        },
-      ],
-      semi: [2, "always"],
-      "space-before-function-paren": 0,
-      "padded-blocks": [
-        "error",
-        {
-          blocks: "never",
         },
       ],
       "require-await": "error",
