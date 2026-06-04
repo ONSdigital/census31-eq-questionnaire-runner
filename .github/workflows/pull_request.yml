@@ -81,7 +81,7 @@ jobs:
       - name: HTML linting
         run: make lint-html
   test-unit:
-    if: "!contains(github.event.pull_request.labels.*.name, 'tests not required')"
+    if: "!contains(github.event.pull_request.labels.*.name, 'skip-tests-unit')"
     permissions:
       contents: 'read'
     needs: python-dependencies
@@ -142,7 +142,7 @@ jobs:
       - name: Running schema validation
         run: make validate-test-schemas
   test-functional:
-    if: "!contains(github.event.pull_request.labels.*.name, 'tests not required')"
+    if: "!contains(github.event.pull_request.labels.*.name, 'skip-tests-acceptance')"
     permissions:
       contents: 'read'
     needs: [python-dependencies, node-dependencies]
