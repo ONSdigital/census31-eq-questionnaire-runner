@@ -11,10 +11,10 @@ describe("Address Answer Type", () => {
 
   describe("Given the user is on an address input question", () => {
     it("When the user enters all address fields, Then the summary displays the address fields", async () => {
-      await $(AddressMandatory.Line1()).setValue("Evelyn Street");
-      await $(AddressMandatory.Line2()).setValue("Apt 7");
-      await $(AddressMandatory.Town()).setValue("Barry");
-      await $(AddressMandatory.Postcode()).setValue("CF63 4JG");
+      await $(AddressMandatory.line1()).setValue("Evelyn Street");
+      await $(AddressMandatory.line2()).setValue("Apt 7");
+      await $(AddressMandatory.town()).setValue("Barry");
+      await $(AddressMandatory.postcode()).setValue("CF63 4JG");
 
       await click(AddressMandatory.submit());
       await click(AddressOptional.submit());
@@ -27,7 +27,7 @@ describe("Address Answer Type", () => {
 
   describe("Given the user is on an address input question", () => {
     it("When the user enters only address line 1, Then the summary only displays address line 1", async () => {
-      await $(AddressMandatory.Line1()).setValue("Evelyn Street");
+      await $(AddressMandatory.line1()).setValue("Evelyn Street");
 
       await click(AddressMandatory.submit());
       await click(AddressOptional.submit());
@@ -47,7 +47,7 @@ describe("Address Answer Type", () => {
   describe("Given the user is on an optional address input question", () => {
     it("When the user submits the page without entering any fields, Then the summary should display `No answer provided`.", async () => {
       // Get to optional address question
-      await $(AddressMandatory.Line1()).setValue("Evelyn Street");
+      await $(AddressMandatory.line1()).setValue("Evelyn Street");
       await click(AddressMandatory.submit());
 
       await click(AddressOptional.submit());
@@ -58,28 +58,28 @@ describe("Address Answer Type", () => {
 
   describe("Given the user has submitted an address answer type question", () => {
     it("When the user revisits the address question page, Then all entered fields are filled in", async () => {
-      await $(AddressMandatory.Line1()).setValue("Evelyn Street");
-      await $(AddressMandatory.Line2()).setValue("Apt 7");
-      await $(AddressMandatory.Town()).setValue("Barry");
-      await $(AddressMandatory.Postcode()).setValue("CF63 4JG");
+      await $(AddressMandatory.line1()).setValue("Evelyn Street");
+      await $(AddressMandatory.line2()).setValue("Apt 7");
+      await $(AddressMandatory.town()).setValue("Barry");
+      await $(AddressMandatory.postcode()).setValue("CF63 4JG");
 
       await click(AddressMandatory.submit());
       await verifyUrlContains(AddressOptional.pageName);
 
       await browser.url(AddressMandatory.url());
 
-      await expect(await $(AddressMandatory.Line1()).getValue()).toBe("Evelyn Street");
-      await expect(await $(AddressMandatory.Line2()).getValue()).toBe("Apt 7");
-      await expect(await $(AddressMandatory.Town()).getValue()).toBe("Barry");
-      await expect(await $(AddressMandatory.Postcode()).getValue()).toBe("CF63 4JG");
+      await expect(await $(AddressMandatory.line1()).getValue()).toBe("Evelyn Street");
+      await expect(await $(AddressMandatory.line2()).getValue()).toBe("Apt 7");
+      await expect(await $(AddressMandatory.town()).getValue()).toBe("Barry");
+      await expect(await $(AddressMandatory.postcode()).getValue()).toBe("CF63 4JG");
     });
   });
   describe("Given the user has submitted an address answer type question", () => {
     it("When the user visits the address confirmation question page, Then the first line of the address is displayed", async () => {
-      await $(AddressMandatory.Line1()).setValue("Evelyn Street");
-      await $(AddressMandatory.Line2()).setValue("Apt 7");
-      await $(AddressMandatory.Town()).setValue("Barry");
-      await $(AddressMandatory.Postcode()).setValue("CF63 4JG");
+      await $(AddressMandatory.line1()).setValue("Evelyn Street");
+      await $(AddressMandatory.line2()).setValue("Apt 7");
+      await $(AddressMandatory.town()).setValue("Barry");
+      await $(AddressMandatory.postcode()).setValue("CF63 4JG");
       await click(AddressMandatory.submit());
       await click(AddressOptional.submit());
       await expect(await $(AddressConfirmation.questionText()).getText()).toBe("Please confirm the first line of your address is Evelyn Street");

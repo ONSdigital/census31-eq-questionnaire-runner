@@ -9,13 +9,13 @@ describe("Feature: Question level validation for date ranges", () => {
   describe("Period Validation", () => {
     describe("Given I enter a date period greater than the max period limit", () => {
       it("When I continue, Then I should see a period validation error", async () => {
-        await $(DateRangePage.dateRangeFromday()).setValue(1);
-        await $(DateRangePage.dateRangeFrommonth()).setValue(1);
-        await $(DateRangePage.dateRangeFromyear()).setValue(2018);
+        await $(DateRangePage.dateRangeFromDay()).setValue(1);
+        await $(DateRangePage.dateRangeFromMonth()).setValue(1);
+        await $(DateRangePage.dateRangeFromYear()).setValue(2018);
 
         await $(DateRangePage.dateRangeToday()).setValue(3);
-        await $(DateRangePage.dateRangeTomonth()).setValue(3);
-        await $(DateRangePage.dateRangeToyear()).setValue(2018);
+        await $(DateRangePage.dateRangeToMonth()).setValue(3);
+        await $(DateRangePage.dateRangeToYear()).setValue(2018);
         await click(DateRangePage.submit());
         await expect(await $(DateRangePage.errorNumber(1)).getText()).toBe("Enter a reporting period less than or equal to 1 month, 20 days");
       });
@@ -23,13 +23,13 @@ describe("Feature: Question level validation for date ranges", () => {
 
     describe("Given I enter a date period less than the min period limit", () => {
       it("When I continue, Then I should see a period validation error", async () => {
-        await $(DateRangePage.dateRangeFromday()).setValue(1);
-        await $(DateRangePage.dateRangeFrommonth()).setValue(1);
-        await $(DateRangePage.dateRangeFromyear()).setValue(2018);
+        await $(DateRangePage.dateRangeFromDay()).setValue(1);
+        await $(DateRangePage.dateRangeFromMonth()).setValue(1);
+        await $(DateRangePage.dateRangeFromYear()).setValue(2018);
 
         await $(DateRangePage.dateRangeToday()).setValue(3);
-        await $(DateRangePage.dateRangeTomonth()).setValue(1);
-        await $(DateRangePage.dateRangeToyear()).setValue(2018);
+        await $(DateRangePage.dateRangeToMonth()).setValue(1);
+        await $(DateRangePage.dateRangeToYear()).setValue(2018);
         await click(DateRangePage.submit());
         await expect(await $(DateRangePage.errorNumber(1)).getText()).toBe("Enter a reporting period greater than or equal to 23 days");
       });
@@ -37,13 +37,13 @@ describe("Feature: Question level validation for date ranges", () => {
 
     describe("Given I enter a date period within the set period limits", () => {
       it("When I continue, Then I should be able to reach the summary", async () => {
-        await $(DateRangePage.dateRangeFromday()).setValue(1);
-        await $(DateRangePage.dateRangeFrommonth()).setValue(1);
-        await $(DateRangePage.dateRangeFromyear()).setValue(2018);
+        await $(DateRangePage.dateRangeFromDay()).setValue(1);
+        await $(DateRangePage.dateRangeFromMonth()).setValue(1);
+        await $(DateRangePage.dateRangeFromYear()).setValue(2018);
 
         await $(DateRangePage.dateRangeToday()).setValue(3);
-        await $(DateRangePage.dateRangeTomonth()).setValue(2);
-        await $(DateRangePage.dateRangeToyear()).setValue(2018);
+        await $(DateRangePage.dateRangeToMonth()).setValue(2);
+        await $(DateRangePage.dateRangeToYear()).setValue(2018);
         await click(DateRangePage.submit());
         await verifyUrlContains(SubmitPage.pageName);
       });
@@ -53,13 +53,13 @@ describe("Feature: Question level validation for date ranges", () => {
   describe("Date Range Validation", () => {
     describe('Given I enter a "to date" which is earlier than the "from date"', () => {
       it("When I continue, Then I should see a validation error", async () => {
-        await $(DateRangePage.dateRangeFromday()).setValue(1);
-        await $(DateRangePage.dateRangeFrommonth()).setValue(2);
-        await $(DateRangePage.dateRangeFromyear()).setValue(2018);
+        await $(DateRangePage.dateRangeFromDay()).setValue(1);
+        await $(DateRangePage.dateRangeFromMonth()).setValue(2);
+        await $(DateRangePage.dateRangeFromYear()).setValue(2018);
 
         await $(DateRangePage.dateRangeToday()).setValue(3);
-        await $(DateRangePage.dateRangeTomonth()).setValue(1);
-        await $(DateRangePage.dateRangeToyear()).setValue(2018);
+        await $(DateRangePage.dateRangeToMonth()).setValue(1);
+        await $(DateRangePage.dateRangeToYear()).setValue(2018);
         await click(DateRangePage.submit());
         await expect(await $(DateRangePage.errorNumber(1)).getText()).toBe("Enter a 'period to' date later than the 'period from' date");
       });
@@ -67,13 +67,13 @@ describe("Feature: Question level validation for date ranges", () => {
 
     describe('Given I enter matching dates for the "from" and "to" dates', () => {
       it("When I continue, Then I should see a validation error", async () => {
-        await $(DateRangePage.dateRangeFromday()).setValue(1);
-        await $(DateRangePage.dateRangeFrommonth()).setValue(1);
-        await $(DateRangePage.dateRangeFromyear()).setValue(2018);
+        await $(DateRangePage.dateRangeFromDay()).setValue(1);
+        await $(DateRangePage.dateRangeFromMonth()).setValue(1);
+        await $(DateRangePage.dateRangeFromYear()).setValue(2018);
 
         await $(DateRangePage.dateRangeToday()).setValue(1);
-        await $(DateRangePage.dateRangeTomonth()).setValue(1);
-        await $(DateRangePage.dateRangeToyear()).setValue(2018);
+        await $(DateRangePage.dateRangeToMonth()).setValue(1);
+        await $(DateRangePage.dateRangeToYear()).setValue(2018);
         await click(DateRangePage.submit());
         await expect(await $(DateRangePage.errorNumber(1)).getText()).toBe("Enter a 'period to' date later than the 'period from' date");
       });
@@ -81,13 +81,13 @@ describe("Feature: Question level validation for date ranges", () => {
 
     describe("Given I enter a valid date range", () => {
       it("When I continue, Then I should be able to reach the summary", async () => {
-        await $(DateRangePage.dateRangeFromday()).setValue(1);
-        await $(DateRangePage.dateRangeFrommonth()).setValue(1);
-        await $(DateRangePage.dateRangeFromyear()).setValue(2018);
+        await $(DateRangePage.dateRangeFromDay()).setValue(1);
+        await $(DateRangePage.dateRangeFromMonth()).setValue(1);
+        await $(DateRangePage.dateRangeFromYear()).setValue(2018);
 
         await $(DateRangePage.dateRangeToday()).setValue(3);
-        await $(DateRangePage.dateRangeTomonth()).setValue(2);
-        await $(DateRangePage.dateRangeToyear()).setValue(2018);
+        await $(DateRangePage.dateRangeToMonth()).setValue(2);
+        await $(DateRangePage.dateRangeToYear()).setValue(2018);
         await click(DateRangePage.submit());
         await verifyUrlContains(SubmitPage.pageName);
       });

@@ -691,18 +691,21 @@ def _write_date_answer(answer_id, prefix):
 
 
 def _write_month_year_date_answer(answer_id, prefix):
+    month_name = camel_case(prefix + "Month")
+    year_name = camel_case(prefix + "Year")
+
     return (
         ANSWER_GETTER.substitute(
-            {"answerName": prefix + "Month", "answerId": answer_id + "-month"}
+            {"answerName": month_name, "answerId": answer_id + "-month"}
         )
         + ANSWER_GETTER.substitute(
-            {"answerName": prefix + "Year", "answerId": answer_id + "-year"}
+            {"answerName": year_name, "answerId": answer_id + "-year"}
         )
         + ANSWER_LABEL_GETTER.substitute(
-            {"answerName": prefix + "Month", "answerId": answer_id + "-month"}
+            {"answerName": month_name, "answerId": answer_id + "-month"}
         )
         + ANSWER_LABEL_GETTER.substitute(
-            {"answerName": prefix + "Year", "answerId": answer_id + "-year"}
+            {"answerName": year_name, "answerId": answer_id + "-year"}
         )
     )
 
@@ -710,10 +713,11 @@ def _write_month_year_date_answer(answer_id, prefix):
 def _write_duration_answer(answer_id, units, prefix):
     resp = []
     for unit in units:
+        answer_name = camel_case(f"{prefix}{unit.title()}")
         resp.append(
             ANSWER_GETTER.substitute(
                 {
-                    "answerName": f"{prefix}{unit.title()}",
+                    "answerName": answer_name,
                     "answerId": f"{answer_id}-{unit}",
                 }
             )
@@ -725,10 +729,11 @@ def _write_duration_answer(answer_id, units, prefix):
 def _write_duration_suffix(answer_id, units, prefix):
     resp = []
     for unit in units:
+        answer_name = camel_case(f"{prefix}{unit.title()}")
         resp.append(
             ANSWER_SUFFIX_GETTER.substitute(
                 {
-                    "answerName": f"{prefix}{unit.title()}",
+                    "answerName": answer_name,
                     "answerId": f"{answer_id}-{unit}",
                 }
             )
@@ -740,10 +745,11 @@ def _write_duration_suffix(answer_id, units, prefix):
 def _write_address_answer(answer_id, prefix):
     resp = []
     for address_field in ["line1", "line2", "town", "postcode"]:
+        answer_name = camel_case(f"{prefix}{address_field.title()}")
         resp.append(
             ANSWER_GETTER.substitute(
                 {
-                    "answerName": f"{prefix}{address_field.title()}",
+                    "answerName": answer_name,
                     "answerId": f"{answer_id}-{address_field}",
                 }
             )
