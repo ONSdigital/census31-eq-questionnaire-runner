@@ -67,3 +67,16 @@ export const verifyUrlContains = async (expectedUrlString) => {
 export const verifyUrlContainsSyncMode = (expectedUrlString) => {
   expect(browser).toHaveUrl(expect.stringContaining(expectedUrlString));
 };
+
+/**
+ * Normalize HTML by removing extra whitespace and normalizing self-closing tags.
+ * This helps tests be resilient to formatting changes in templates (e.g., pretty-printed vs minified HTML).
+ * Converts: `<br />` to `<br>` and removes extra whitespace/newlines between tags.
+ */
+export const normalizeHtml = (html) => {
+  return html
+    .replace(/\s+/g, " ") // Replace multiple whitespace (including newlines) with single space
+    .replace(/>\s+</g, "><") // Remove whitespace between tags
+    .replace(/<br\s*\/>/g, "<br>") // Normalize XHTML br tags to HTML5
+    .trim();
+};
