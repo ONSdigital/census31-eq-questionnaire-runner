@@ -18,7 +18,7 @@ describe("First Non Empty Item Transform", () => {
     // Set the date
     await $(DateQuestionBlockPage.noINeedToReportForADifferentPeriod()).click();
     await click(DateQuestionBlockPage.submit());
-    await $(DateEntryBlockPage.dateEntryFromday()).setValue("5");
+    await $(DateEntryBlockPage.dateEntryFromDay()).setValue("5");
     await $(DateEntryBlockPage.dateEntryFrommonth()).setValue("01");
     await $(DateEntryBlockPage.dateEntryFromyear()).setValue("2017");
     await $(DateEntryBlockPage.dateEntryToday()).setValue("25");
@@ -45,7 +45,7 @@ describe("First Non Empty Item Transform Cross Section", () => {
     // Set the date
     await $(DateQuestionBlockPage.noINeedToReportForADifferentPeriod()).click();
     await click(DateQuestionBlockPage.submit());
-    await $(DateEntryBlockPage.dateEntryFromday()).setValue("5");
+    await $(DateEntryBlockPage.dateEntryFromDay()).setValue("5");
     await $(DateEntryBlockPage.dateEntryFrommonth()).setValue("01");
     await $(DateEntryBlockPage.dateEntryFromyear()).setValue("2017");
     await $(DateEntryBlockPage.dateEntryToday()).setValue("25");
@@ -76,7 +76,7 @@ describe("First Non Empty Item Transform Repeating Sections", () => {
     // Set the date
     await $(DateQuestionBlockPage.noINeedToReportForADifferentPeriod()).click();
     await click(DateQuestionBlockPage.submit());
-    await $(DateEntryBlockPage.dateEntryFromday()).setValue("5");
+    await $(DateEntryBlockPage.dateEntryFromDay()).setValue("5");
     await $(DateEntryBlockPage.dateEntryFrommonth()).setValue("01");
     await $(DateEntryBlockPage.dateEntryFromyear()).setValue("2017");
     await $(DateEntryBlockPage.dateEntryToday()).setValue("25");
