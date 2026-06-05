@@ -23,7 +23,7 @@ describe('Checkbox with multiple "detail_answer" options', () => {
     await $(MandatoryCheckboxPage.yourChoice()).click();
     await click(MandatoryCheckboxPage.submit());
     // Then
-    await expect(await $(MandatoryCheckboxPage.error()).isDisplayed()).toBe(true);
+    await expect(await $("body").getText()).toContain("There is a problem with your answer");
     await expect(await $(MandatoryCheckboxPage.errorNumber(1)).getText()).toBe("Enter your topping choice to continue");
   });
 
@@ -32,7 +32,7 @@ describe('Checkbox with multiple "detail_answer" options', () => {
     await browser.openQuestionnaire(checkboxSchema);
     await $(MandatoryCheckboxPage.yourChoice()).click();
     await click(MandatoryCheckboxPage.submit());
-    await expect(await $(MandatoryCheckboxPage.error()).isDisplayed()).toBe(true);
+    await expect(await $("body").getText()).toContain("There is a problem with your answer");
 
     // When
     await $(MandatoryCheckboxPage.yourChoiceDetail()).setValue("Bacon");

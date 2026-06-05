@@ -65,7 +65,7 @@ describe("Difference check (years range)", () => {
     await $(AgeBlockDayMonthYearRangePage.periodFromMonth()).setValue(1);
     await $(AgeBlockDayMonthYearRangePage.periodFromYear()).setValue(1990);
 
-    await $(AgeBlockDayMonthYearRangePage.periodToday()).setValue(1);
+    await $(AgeBlockDayMonthYearRangePage.periodToDay()).setValue(1);
     await $(AgeBlockDayMonthYearRangePage.periodToMonth()).setValue(1);
     await $(AgeBlockDayMonthYearRangePage.periodToYear()).setValue(1991);
 

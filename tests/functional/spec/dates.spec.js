@@ -20,7 +20,7 @@ describe("Date checks", () => {
     await $(DateRangePage.dateRangeFromMonth()).setValue(1);
     await $(DateRangePage.dateRangeFromYear()).setValue(1901);
 
-    await $(DateRangePage.dateRangeToday()).setValue(3);
+    await $(DateRangePage.dateRangeToDay()).setValue(3);
     await $(DateRangePage.dateRangeToMonth()).setValue(5);
     await $(DateRangePage.dateRangeToYear()).setValue(2017);
 
@@ -35,7 +35,7 @@ describe("Date checks", () => {
     await $(DateRangePage.dateRangeFromMonth()).setValue(1);
     await $(DateRangePage.dateRangeFromYear()).setValue(1901);
 
-    await $(DateRangePage.dateRangeToday()).setValue(3);
+    await $(DateRangePage.dateRangeToDay()).setValue(3);
     await $(DateRangePage.dateRangeToMonth()).setValue(5);
     await $(DateRangePage.dateRangeToYear()).setValue(2017);
 
@@ -74,7 +74,7 @@ describe("Date checks", () => {
     await $(DateRangePage.dateRangeFromMonth()).setValue(1);
     await $(DateRangePage.dateRangeFromYear()).setValue(2016);
 
-    await $(DateRangePage.dateRangeToday()).setValue(1);
+    await $(DateRangePage.dateRangeToDay()).setValue(1);
     await $(DateRangePage.dateRangeToMonth()).setValue(1);
     await $(DateRangePage.dateRangeToYear()).setValue(2015);
 
@@ -95,7 +95,7 @@ describe("Date checks", () => {
     await $(DateRangePage.dateRangeFromMonth()).setValue(1);
     await $(DateRangePage.dateRangeFromYear()).setValue(2016);
 
-    await $(DateRangePage.dateRangeToday()).setValue(1);
+    await $(DateRangePage.dateRangeToDay()).setValue(1);
     await $(DateRangePage.dateRangeToMonth()).setValue(1);
     await $(DateRangePage.dateRangeToYear()).setValue(2016);
 

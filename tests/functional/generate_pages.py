@@ -668,24 +668,28 @@ def long_names_required(question, num_questions):
 
 
 def _write_date_answer(answer_id, prefix):
+    day_name = camel_case(prefix + "Day")
+    month_name = camel_case(prefix + "Month")
+    year_name = camel_case(prefix + "Year")
+
     return (
         ANSWER_GETTER.substitute(
-            {"answerName": prefix + "day", "answerId": answer_id + "-day"}
+            {"answerName": day_name, "answerId": answer_id + "-day"}
         )
         + ANSWER_GETTER.substitute(
-            {"answerName": prefix + "month", "answerId": answer_id + "-month"}
+            {"answerName": month_name, "answerId": answer_id + "-month"}
         )
         + ANSWER_GETTER.substitute(
-            {"answerName": prefix + "year", "answerId": answer_id + "-year"}
+            {"answerName": year_name, "answerId": answer_id + "-year"}
         )
         + ANSWER_LABEL_GETTER.substitute(
-            {"answerName": prefix + "day", "answerId": answer_id + "-day"}
+            {"answerName": day_name, "answerId": answer_id + "-day"}
         )
         + ANSWER_LABEL_GETTER.substitute(
-            {"answerName": prefix + "month", "answerId": answer_id + "-month"}
+            {"answerName": month_name, "answerId": answer_id + "-month"}
         )
         + ANSWER_LABEL_GETTER.substitute(
-            {"answerName": prefix + "year", "answerId": answer_id + "-year"}
+            {"answerName": year_name, "answerId": answer_id + "-year"}
         )
     )
 
