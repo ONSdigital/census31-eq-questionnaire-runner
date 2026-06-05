@@ -16,12 +16,12 @@
         "lint": "npm run generate_pages && npm run lint:tests && npm run lint:test-schemas",
         "lint:tests": "prettier --check \"tests/functional/**/*.js\" && eslint \"tests/functional/**/*.js\"",
         "lint:test-schemas": "prettier --check \"schemas/test/*/*.json\" && eslint \"schemas/test/**/*.json\"",
-        "test_functional": "./node_modules/.bin/wdio tests/functional/wdio.conf.js",
+        "test_functional": "./node_modules/.bin/wdio tests/functional/wdio.conf.cjs",
         "generate_pages": "rm -rf ./tests/functional/generated_pages && poetry run python -m tests.functional.generate_pages schemas/test/en/ ./tests/functional/generated_pages -r '../../base_pages'",
         "format": "npm run format:tests && npm run format:test-schemas",
         "format:tests": "prettier \"tests/functional/**/*.js\" --write && eslint --fix \"tests/functional/**/*.js\"",
         "format:test-schemas": "prettier \"schemas/test/*/*.json\" --write && eslint --fix \"schemas/test/*/*.json\"",
-        "wdio": "wdio run ./tests/functional/wdio.conf.js"
+        "wdio": "wdio run ./tests/functional/wdio.conf.cjs"
     },
     "devDependencies": {
         "@babel/core": "7.29.0",
