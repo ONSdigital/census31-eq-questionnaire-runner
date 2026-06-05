@@ -77,6 +77,10 @@ export const normalizeHtml = (html) => {
   return html
     .replace(/\s+/g, " ") // Replace multiple whitespace (including newlines) with single space
     .replace(/>\s+</g, "><") // Remove whitespace between tags
+    .replace(/\s*(<br\s*\/?>)\s*/gi, "$1") // Remove whitespace around line-break tags
+    .replace(/>\s+/g, ">") // Remove whitespace immediately after opening tags
+    .replace(/\s+</g, "<") // Remove whitespace immediately before closing/opening tags
     .replace(/<br\s*\/>/g, "<br>") // Normalize XHTML br tags to HTML5
+    .replace(/[\u2018\u2019]/g, "'") // Normalize smart apostrophes to ASCII apostrophe
     .trim();
 };
