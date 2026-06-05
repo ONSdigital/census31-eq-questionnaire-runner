@@ -8,7 +8,7 @@ export default [
   },
   ...neostandard({ semi: true }),
   {
-    files: ["**/*.js"],
+    files: ["**/*.js", "**/*.cjs"],
     languageOptions: {
       ecmaVersion: 11,
       sourceType: "module",
