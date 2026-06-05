@@ -19,11 +19,11 @@ describe("First Non Empty Item Transform", () => {
     await $(DateQuestionBlockPage.noINeedToReportForADifferentPeriod()).click();
     await click(DateQuestionBlockPage.submit());
     await $(DateEntryBlockPage.dateEntryFromDay()).setValue("5");
-    await $(DateEntryBlockPage.dateEntryFrommonth()).setValue("01");
-    await $(DateEntryBlockPage.dateEntryFromyear()).setValue("2017");
-    await $(DateEntryBlockPage.dateEntryToday()).setValue("25");
-    await $(DateEntryBlockPage.dateEntryTomonth()).setValue("01");
-    await $(DateEntryBlockPage.dateEntryToyear()).setValue("2017");
+    await $(DateEntryBlockPage.dateEntryFromMonth()).setValue("01");
+    await $(DateEntryBlockPage.dateEntryFromYear()).setValue("2017");
+    await $(DateEntryBlockPage.dateEntryToDay()).setValue("25");
+    await $(DateEntryBlockPage.dateEntryToMonth()).setValue("01");
+    await $(DateEntryBlockPage.dateEntryToYear()).setValue("2017");
     await click(DateEntryBlockPage.submit());
     // Change to original dates
     await $(TotalTurnoverBlockPage.previous()).click();
@@ -46,11 +46,11 @@ describe("First Non Empty Item Transform Cross Section", () => {
     await $(DateQuestionBlockPage.noINeedToReportForADifferentPeriod()).click();
     await click(DateQuestionBlockPage.submit());
     await $(DateEntryBlockPage.dateEntryFromDay()).setValue("5");
-    await $(DateEntryBlockPage.dateEntryFrommonth()).setValue("01");
-    await $(DateEntryBlockPage.dateEntryFromyear()).setValue("2017");
-    await $(DateEntryBlockPage.dateEntryToday()).setValue("25");
-    await $(DateEntryBlockPage.dateEntryTomonth()).setValue("01");
-    await $(DateEntryBlockPage.dateEntryToyear()).setValue("2017");
+    await $(DateEntryBlockPage.dateEntryFromMonth()).setValue("01");
+    await $(DateEntryBlockPage.dateEntryFromYear()).setValue("2017");
+    await $(DateEntryBlockPage.dateEntryToDay()).setValue("25");
+    await $(DateEntryBlockPage.dateEntryToMonth()).setValue("01");
+    await $(DateEntryBlockPage.dateEntryToYear()).setValue("2017");
     await click(DateEntryBlockPage.submit());
 
     // Check date changed and then change to original dates
@@ -77,11 +77,11 @@ describe("First Non Empty Item Transform Repeating Sections", () => {
     await $(DateQuestionBlockPage.noINeedToReportForADifferentPeriod()).click();
     await click(DateQuestionBlockPage.submit());
     await $(DateEntryBlockPage.dateEntryFromDay()).setValue("5");
-    await $(DateEntryBlockPage.dateEntryFrommonth()).setValue("01");
-    await $(DateEntryBlockPage.dateEntryFromyear()).setValue("2017");
-    await $(DateEntryBlockPage.dateEntryToday()).setValue("25");
-    await $(DateEntryBlockPage.dateEntryTomonth()).setValue("01");
-    await $(DateEntryBlockPage.dateEntryToyear()).setValue("2017");
+    await $(DateEntryBlockPage.dateEntryFromMonth()).setValue("01");
+    await $(DateEntryBlockPage.dateEntryFromYear()).setValue("2017");
+    await $(DateEntryBlockPage.dateEntryToDay()).setValue("25");
+    await $(DateEntryBlockPage.dateEntryToMonth()).setValue("01");
+    await $(DateEntryBlockPage.dateEntryToYear()).setValue("2017");
     await click(DateEntryBlockPage.submit());
     await click(HubPage.submit());
 
