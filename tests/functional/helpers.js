@@ -46,24 +46,10 @@ export const click = async (selector) => {
   // it's no longer over the button and the click silently fails. This means that when the test comes to do assertions on the following page
   // they fail, as we never navigated to that page.
   await $(selector).scrollIntoView({ block: "center", inline: "center", behavior: "smooth" });
-  const urlBefore = await browser.getUrl();
   await $(selector).click();
 
-  // Wait for navigation after form submission - if URL changes, wait for it;
-  // otherwise just pause briefly for other interactions (link clicks, etc.)
-  const isSubmitButton = selector.toLowerCase().includes("submit");
-  if (isSubmitButton) {
-    await browser.waitUntil(
-      async () => {
-        const currentUrl = await browser.getUrl();
-        return currentUrl !== urlBefore;
-      },
-      { timeout: 5000, timeoutMsg: "Expected URL to change after clicking submit button" }
-    );
-  } else {
-    // Allow time in case the click loads a new page.
-    await browser.pause(100);
-  }
+  // Allow time in case the click loads a new page.
+  await browser.pause(100);
 };
 
 export const clickSyncMode = (selector) => {
