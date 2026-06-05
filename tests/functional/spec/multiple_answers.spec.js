@@ -5,7 +5,7 @@ import { click, verifyUrlContains } from "../helpers";
 
 async function answerAllQuestions() {
   await $(AboutYou.textfield()).setValue("John Doe");
-  await $(AboutYou.dateday()).setValue("1");
+  await $(AboutYou.dateDay()).setValue("1");
   await $(AboutYou.datemonth()).setValue("1");
   await $(AboutYou.dateyear()).setValue("1995");
   await $(AboutYou.checkboxBmw()).click();

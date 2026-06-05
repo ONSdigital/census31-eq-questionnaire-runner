@@ -15,7 +15,7 @@ describe("Feature: Validation for single date periods", () => {
       await $(DatePeriodPage.dateRangeFromYear()).setValue(2016);
       await click(DatePeriodPage.submit());
 
-      await $(DatePeriodPage.dateRangeToday()).setValue(3);
+      await $(DatePeriodPage.dateRangeToDay()).setValue(3);
       await $(DatePeriodPage.dateRangeToMonth()).setValue(3);
       await $(DatePeriodPage.dateRangeToYear()).setValue(2018);
       await click(DatePeriodPage.submit());
@@ -30,7 +30,7 @@ describe("Feature: Validation for single date periods", () => {
       await $(DatePeriodPage.dateRangeFromYear()).setValue(2017);
       await click(DatePeriodPage.submit());
 
-      await $(DatePeriodPage.dateRangeToday()).setValue(3);
+      await $(DatePeriodPage.dateRangeToDay()).setValue(3);
       await $(DatePeriodPage.dateRangeToMonth()).setValue(3);
       await $(DatePeriodPage.dateRangeToYear()).setValue(2018);
       await click(DatePeriodPage.submit());
@@ -45,7 +45,7 @@ describe("Feature: Validation for single date periods", () => {
       await $(DatePeriodPage.dateRangeFromYear()).setValue(2016);
       await click(DatePeriodPage.submit());
 
-      await $(DatePeriodPage.dateRangeToday()).setValue(13);
+      await $(DatePeriodPage.dateRangeToDay()).setValue(13);
       await $(DatePeriodPage.dateRangeToMonth()).setValue(1);
       await $(DatePeriodPage.dateRangeToYear()).setValue(2018);
       await click(DatePeriodPage.submit());
@@ -60,7 +60,7 @@ describe("Feature: Validation for single date periods", () => {
       await $(DatePeriodPage.dateRangeFromYear()).setValue(2016);
       await click(DatePeriodPage.submit());
 
-      await $(DatePeriodPage.dateRangeToday()).setValue(11);
+      await $(DatePeriodPage.dateRangeToDay()).setValue(11);
       await $(DatePeriodPage.dateRangeToMonth()).setValue(2);
       await $(DatePeriodPage.dateRangeToYear()).setValue(2018);
       await click(DatePeriodPage.submit());

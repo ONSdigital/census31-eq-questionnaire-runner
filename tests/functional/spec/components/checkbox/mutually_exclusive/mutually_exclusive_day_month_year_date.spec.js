@@ -14,10 +14,10 @@ describe("Component: Mutually Exclusive Day Month Year Date With Single Checkbox
       // Given
       await $(DatePage.dateDay()).setValue("17");
       await $(DatePage.dateMonth()).setValue("3");
-      await $(DatePage.dateyear()).setValue("2018");
+      await $(DatePage.dateYear()).setValue("2018");
       await expect(await $(DatePage.dateDay()).getValue()).toBe("17");
       await expect(await $(DatePage.dateMonth()).getValue()).toBe("3");
-      await expect(await $(DatePage.dateyear()).getValue()).toBe("2018");
+      await expect(await $(DatePage.dateYear()).getValue()).toBe("2018");
 
       // When
       await $(DatePage.dateExclusiveIPreferNotToSay()).click();
@@ -26,7 +26,7 @@ describe("Component: Mutually Exclusive Day Month Year Date With Single Checkbox
       await expect(await $(DatePage.dateExclusiveIPreferNotToSay()).isSelected()).toBe(true);
       await expect(await $(DatePage.dateDay()).getValue()).toBe("");
       await expect(await $(DatePage.dateMonth()).getValue()).toBe("");
-      await expect(await $(DatePage.dateyear()).getValue()).toBe("");
+      await expect(await $(DatePage.dateYear()).getValue()).toBe("");
 
       await click(DatePage.submit());
 
@@ -44,12 +44,12 @@ describe("Component: Mutually Exclusive Day Month Year Date With Single Checkbox
       // When
       await $(DatePage.dateDay()).setValue("17");
       await $(DatePage.dateMonth()).setValue("3");
-      await $(DatePage.dateyear()).setValue("2018");
+      await $(DatePage.dateYear()).setValue("2018");
 
       // Then
       await expect(await $(DatePage.dateDay()).getValue()).toBe("17");
       await expect(await $(DatePage.dateMonth()).getValue()).toBe("3");
-      await expect(await $(DatePage.dateyear()).getValue()).toBe("2018");
+      await expect(await $(DatePage.dateYear()).getValue()).toBe("2018");
 
       await expect(await $(DatePage.dateExclusiveIPreferNotToSay()).isSelected()).toBe(false);
 
@@ -68,12 +68,12 @@ describe("Component: Mutually Exclusive Day Month Year Date With Single Checkbox
       // When
       await $(DatePage.dateDay()).setValue("17");
       await $(DatePage.dateMonth()).setValue("3");
-      await $(DatePage.dateyear()).setValue("2018");
+      await $(DatePage.dateYear()).setValue("2018");
 
       // Then
       await expect(await $(DatePage.dateDay()).getValue()).toBe("17");
       await expect(await $(DatePage.dateMonth()).getValue()).toBe("3");
-      await expect(await $(DatePage.dateyear()).getValue()).toBe("2018");
+      await expect(await $(DatePage.dateYear()).getValue()).toBe("2018");
       await expect(await $(DatePage.dateExclusiveIPreferNotToSay()).isSelected()).toBe(false);
 
       await click(DatePage.submit());
@@ -87,7 +87,7 @@ describe("Component: Mutually Exclusive Day Month Year Date With Single Checkbox
       // Given
       await expect(await $(DatePage.dateDay()).getValue()).toBe("");
       await expect(await $(DatePage.dateMonth()).getValue()).toBe("");
-      await expect(await $(DatePage.dateyear()).getValue()).toBe("");
+      await expect(await $(DatePage.dateYear()).getValue()).toBe("");
 
       // When
       await $(DatePage.dateExclusiveIPreferNotToSay()).click();
@@ -106,7 +106,7 @@ describe("Component: Mutually Exclusive Day Month Year Date With Single Checkbox
       // Given
       await expect(await $(DatePage.dateDay()).getValue()).toBe("");
       await expect(await $(DatePage.dateMonth()).getValue()).toBe("");
-      await expect(await $(DatePage.dateyear()).getValue()).toBe("");
+      await expect(await $(DatePage.dateYear()).getValue()).toBe("");
       await expect(await $(DatePage.dateExclusiveIPreferNotToSay()).isSelected()).toBe(false);
 
       // When
