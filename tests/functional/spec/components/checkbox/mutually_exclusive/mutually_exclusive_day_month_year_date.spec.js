@@ -13,10 +13,10 @@ describe("Component: Mutually Exclusive Day Month Year Date With Single Checkbox
     it("When then user clicks the mutually exclusive checkbox answer, Then only the mutually exclusive checkbox should be answered.", async () => {
       // Given
       await $(DatePage.dateDay()).setValue("17");
-      await $(DatePage.datemonth()).setValue("3");
+      await $(DatePage.dateMonth()).setValue("3");
       await $(DatePage.dateyear()).setValue("2018");
       await expect(await $(DatePage.dateDay()).getValue()).toBe("17");
-      await expect(await $(DatePage.datemonth()).getValue()).toBe("3");
+      await expect(await $(DatePage.dateMonth()).getValue()).toBe("3");
       await expect(await $(DatePage.dateyear()).getValue()).toBe("2018");
 
       // When
@@ -25,7 +25,7 @@ describe("Component: Mutually Exclusive Day Month Year Date With Single Checkbox
       // Then
       await expect(await $(DatePage.dateExclusiveIPreferNotToSay()).isSelected()).toBe(true);
       await expect(await $(DatePage.dateDay()).getValue()).toBe("");
-      await expect(await $(DatePage.datemonth()).getValue()).toBe("");
+      await expect(await $(DatePage.dateMonth()).getValue()).toBe("");
       await expect(await $(DatePage.dateyear()).getValue()).toBe("");
 
       await click(DatePage.submit());
@@ -43,12 +43,12 @@ describe("Component: Mutually Exclusive Day Month Year Date With Single Checkbox
 
       // When
       await $(DatePage.dateDay()).setValue("17");
-      await $(DatePage.datemonth()).setValue("3");
+      await $(DatePage.dateMonth()).setValue("3");
       await $(DatePage.dateyear()).setValue("2018");
 
       // Then
       await expect(await $(DatePage.dateDay()).getValue()).toBe("17");
-      await expect(await $(DatePage.datemonth()).getValue()).toBe("3");
+      await expect(await $(DatePage.dateMonth()).getValue()).toBe("3");
       await expect(await $(DatePage.dateyear()).getValue()).toBe("2018");
 
       await expect(await $(DatePage.dateExclusiveIPreferNotToSay()).isSelected()).toBe(false);
@@ -67,12 +67,12 @@ describe("Component: Mutually Exclusive Day Month Year Date With Single Checkbox
 
       // When
       await $(DatePage.dateDay()).setValue("17");
-      await $(DatePage.datemonth()).setValue("3");
+      await $(DatePage.dateMonth()).setValue("3");
       await $(DatePage.dateyear()).setValue("2018");
 
       // Then
       await expect(await $(DatePage.dateDay()).getValue()).toBe("17");
-      await expect(await $(DatePage.datemonth()).getValue()).toBe("3");
+      await expect(await $(DatePage.dateMonth()).getValue()).toBe("3");
       await expect(await $(DatePage.dateyear()).getValue()).toBe("2018");
       await expect(await $(DatePage.dateExclusiveIPreferNotToSay()).isSelected()).toBe(false);
 
@@ -86,7 +86,7 @@ describe("Component: Mutually Exclusive Day Month Year Date With Single Checkbox
     it("When the user clicks the mutually exclusive checkbox answer, Then only the exclusive checkbox should be answered.", async () => {
       // Given
       await expect(await $(DatePage.dateDay()).getValue()).toBe("");
-      await expect(await $(DatePage.datemonth()).getValue()).toBe("");
+      await expect(await $(DatePage.dateMonth()).getValue()).toBe("");
       await expect(await $(DatePage.dateyear()).getValue()).toBe("");
 
       // When
@@ -105,7 +105,7 @@ describe("Component: Mutually Exclusive Day Month Year Date With Single Checkbox
     it("When the user clicks the Continue button, Then it should display `No answer provided`", async () => {
       // Given
       await expect(await $(DatePage.dateDay()).getValue()).toBe("");
-      await expect(await $(DatePage.datemonth()).getValue()).toBe("");
+      await expect(await $(DatePage.dateMonth()).getValue()).toBe("");
       await expect(await $(DatePage.dateyear()).getValue()).toBe("");
       await expect(await $(DatePage.dateExclusiveIPreferNotToSay()).isSelected()).toBe(false);
 
