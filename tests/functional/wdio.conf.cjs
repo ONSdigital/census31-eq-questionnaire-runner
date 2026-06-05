@@ -52,6 +52,10 @@ exports.config = {
     {
       browserName: "chrome",
       browserVersion: "stable",
+      // Disable WebDriver BiDi — v9 enables it by default when Chrome supports it,
+      // but BiDi's script.callFunction fails with "invalid argument" for certain
+      // element references used in isDisplayed() calls across the test suite.
+      webSocketUrl: false,
       // If outputDir is provided WebdriverIO can capture driver session logs
       // it is possible to configure which logTypes to include/exclude.
       // excludeDriverLogs: ['*'], // pass '*' to exclude all driver session logs
