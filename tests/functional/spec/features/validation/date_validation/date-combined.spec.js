@@ -14,7 +14,7 @@ describe("Feature: Combined question level and single validation for dates", () 
         await $(DateRangePage.dateRangeFromMonth()).setValue(12);
         await $(DateRangePage.dateRangeFromYear()).setValue(2016);
 
-        await $(DateRangePage.dateRangeToday()).setValue(22);
+        await $(DateRangePage.dateRangeToDay()).setValue(22);
         await $(DateRangePage.dateRangeToMonth()).setValue(2);
         await $(DateRangePage.dateRangeToYear()).setValue(2017);
         await click(DateRangePage.submit());
@@ -27,7 +27,7 @@ describe("Feature: Combined question level and single validation for dates", () 
         await $(DateRangePage.dateRangeFromMonth()).setValue(12);
         await $(DateRangePage.dateRangeFromYear()).setValue(2016);
 
-        await $(DateRangePage.dateRangeToday()).setValue(21);
+        await $(DateRangePage.dateRangeToDay()).setValue(21);
         await $(DateRangePage.dateRangeToMonth()).setValue(2);
         await $(DateRangePage.dateRangeToYear()).setValue(2017);
         await click(DateRangePage.submit());
@@ -39,7 +39,7 @@ describe("Feature: Combined question level and single validation for dates", () 
         await $(DateRangePage.dateRangeFromMonth()).setValue(1);
         await $(DateRangePage.dateRangeFromYear()).setValue(2017);
 
-        await $(DateRangePage.dateRangeToday()).setValue(10);
+        await $(DateRangePage.dateRangeToDay()).setValue(10);
         await $(DateRangePage.dateRangeToMonth()).setValue(1);
         await $(DateRangePage.dateRangeToYear()).setValue(2017);
         await click(DateRangePage.submit());
@@ -52,7 +52,7 @@ describe("Feature: Combined question level and single validation for dates", () 
         await $(DateRangePage.dateRangeFromYear()).setValue(2017);
 
         // Min range
-        await $(DateRangePage.dateRangeToday()).setValue(11);
+        await $(DateRangePage.dateRangeToDay()).setValue(11);
         await $(DateRangePage.dateRangeToMonth()).setValue(1);
         await $(DateRangePage.dateRangeToYear()).setValue(2017);
         await click(DateRangePage.submit());
@@ -60,7 +60,7 @@ describe("Feature: Combined question level and single validation for dates", () 
 
         // Max range
         await $(SubmitPage.dateRangeFromEdit()).click();
-        await $(DateRangePage.dateRangeToday()).setValue(20);
+        await $(DateRangePage.dateRangeToDay()).setValue(20);
         await $(DateRangePage.dateRangeToMonth()).setValue(2);
         await $(DateRangePage.dateRangeToYear()).setValue(2017);
         await click(DateRangePage.submit());

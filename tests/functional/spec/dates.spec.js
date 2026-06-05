@@ -112,7 +112,7 @@ describe("Date checks", () => {
     await $(DateRangePage.dateRangeFromMonth()).setValue(1);
     await $(DateRangePage.dateRangeFromYear()).setValue(2016);
 
-    await $(DateRangePage.dateRangeToday()).setValue(1);
+    await $(DateRangePage.dateRangeToDay()).setValue(1);
     await $(DateRangePage.dateRangeToMonth()).setValue(1);
     await $(DateRangePage.dateRangeToYear()).setValue("");
 
@@ -126,7 +126,7 @@ describe("Date checks", () => {
     await $(DateRangePage.dateRangeFromDay()).setValue(1);
     await $(DateRangePage.dateRangeFromMonth()).setValue(1);
     await $(DateRangePage.dateRangeFromYear()).setValue(2016);
-    await $(DateRangePage.dateRangeToday()).setValue(1);
+    await $(DateRangePage.dateRangeToDay()).setValue(1);
     await $(DateRangePage.dateRangeToMonth()).setValue(1);
     await $(DateRangePage.dateRangeToYear()).setValue(2017);
     await click(DateRangePage.submit());
@@ -145,7 +145,7 @@ describe("Date checks", () => {
     await $(DateRangePage.dateRangeFromDay()).setValue(1);
     await $(DateRangePage.dateRangeFromMonth()).setValue(1);
     await $(DateRangePage.dateRangeFromYear()).setValue(2016);
-    await $(DateRangePage.dateRangeToday()).setValue(1);
+    await $(DateRangePage.dateRangeToDay()).setValue(1);
     await $(DateRangePage.dateRangeToMonth()).setValue(1);
     await $(DateRangePage.dateRangeToYear()).setValue(2017);
     await click(DateRangePage.submit());
@@ -168,7 +168,7 @@ describe("Date checks", () => {
     await $(DateRangePage.dateRangeFromDay()).setValue(1);
     await $(DateRangePage.dateRangeFromMonth()).setValue(1);
     await $(DateRangePage.dateRangeFromYear()).setValue(2016);
-    await $(DateRangePage.dateRangeToday()).setValue(1);
+    await $(DateRangePage.dateRangeToDay()).setValue(1);
     await $(DateRangePage.dateRangeToMonth()).setValue(1);
     await $(DateRangePage.dateRangeToYear()).setValue(2017);
     await click(DateRangePage.submit());
@@ -195,7 +195,7 @@ describe("Date checks", () => {
     await $(DateRangePage.dateRangeFromDay()).setValue(1);
     await $(DateRangePage.dateRangeFromMonth()).setValue(1);
     await $(DateRangePage.dateRangeFromYear()).setValue(2016);
-    await $(DateRangePage.dateRangeToday()).setValue(1);
+    await $(DateRangePage.dateRangeToDay()).setValue(1);
     await $(DateRangePage.dateRangeToMonth()).setValue(1);
     await $(DateRangePage.dateRangeToYear()).setValue(2017);
     await click(DateRangePage.submit());

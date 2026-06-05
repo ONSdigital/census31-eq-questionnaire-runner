@@ -13,7 +13,7 @@ describe("Feature: Question level validation for date ranges", () => {
         await $(DateRangePage.dateRangeFromMonth()).setValue(1);
         await $(DateRangePage.dateRangeFromYear()).setValue(2018);
 
-        await $(DateRangePage.dateRangeToday()).setValue(3);
+        await $(DateRangePage.dateRangeToDay()).setValue(3);
         await $(DateRangePage.dateRangeToMonth()).setValue(3);
         await $(DateRangePage.dateRangeToYear()).setValue(2018);
         await click(DateRangePage.submit());
@@ -27,7 +27,7 @@ describe("Feature: Question level validation for date ranges", () => {
         await $(DateRangePage.dateRangeFromMonth()).setValue(1);
         await $(DateRangePage.dateRangeFromYear()).setValue(2018);
 
-        await $(DateRangePage.dateRangeToday()).setValue(3);
+        await $(DateRangePage.dateRangeToDay()).setValue(3);
         await $(DateRangePage.dateRangeToMonth()).setValue(1);
         await $(DateRangePage.dateRangeToYear()).setValue(2018);
         await click(DateRangePage.submit());
@@ -41,7 +41,7 @@ describe("Feature: Question level validation for date ranges", () => {
         await $(DateRangePage.dateRangeFromMonth()).setValue(1);
         await $(DateRangePage.dateRangeFromYear()).setValue(2018);
 
-        await $(DateRangePage.dateRangeToday()).setValue(3);
+        await $(DateRangePage.dateRangeToDay()).setValue(3);
         await $(DateRangePage.dateRangeToMonth()).setValue(2);
         await $(DateRangePage.dateRangeToYear()).setValue(2018);
         await click(DateRangePage.submit());
@@ -57,7 +57,7 @@ describe("Feature: Question level validation for date ranges", () => {
         await $(DateRangePage.dateRangeFromMonth()).setValue(2);
         await $(DateRangePage.dateRangeFromYear()).setValue(2018);
 
-        await $(DateRangePage.dateRangeToday()).setValue(3);
+        await $(DateRangePage.dateRangeToDay()).setValue(3);
         await $(DateRangePage.dateRangeToMonth()).setValue(1);
         await $(DateRangePage.dateRangeToYear()).setValue(2018);
         await click(DateRangePage.submit());
@@ -71,7 +71,7 @@ describe("Feature: Question level validation for date ranges", () => {
         await $(DateRangePage.dateRangeFromMonth()).setValue(1);
         await $(DateRangePage.dateRangeFromYear()).setValue(2018);
 
-        await $(DateRangePage.dateRangeToday()).setValue(1);
+        await $(DateRangePage.dateRangeToDay()).setValue(1);
         await $(DateRangePage.dateRangeToMonth()).setValue(1);
         await $(DateRangePage.dateRangeToYear()).setValue(2018);
         await click(DateRangePage.submit());
@@ -85,7 +85,7 @@ describe("Feature: Question level validation for date ranges", () => {
         await $(DateRangePage.dateRangeFromMonth()).setValue(1);
         await $(DateRangePage.dateRangeFromYear()).setValue(2018);
 
-        await $(DateRangePage.dateRangeToday()).setValue(3);
+        await $(DateRangePage.dateRangeToDay()).setValue(3);
         await $(DateRangePage.dateRangeToMonth()).setValue(2);
         await $(DateRangePage.dateRangeToYear()).setValue(2018);
         await click(DateRangePage.submit());
