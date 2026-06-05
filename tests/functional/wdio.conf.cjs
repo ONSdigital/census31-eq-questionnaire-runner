@@ -50,6 +50,7 @@ exports.config = {
   //
   capabilities: [
     {
+      webSocketUrl: null,
       browserName: "chrome",
       browserVersion: "stable",
       // If outputDir is provided WebdriverIO can capture driver session logs
@@ -63,10 +64,6 @@ exports.config = {
           "--no-sandbox",
           "--disable-gpu",
           "--disable-extensions",
-          // Disable WebDriver BiDi — v9 enables it automatically when Chrome supports
-          // it, but BiDi's script.callFunction fails with "invalid argument" for
-          // certain element references used in isDisplayed() calls across the test suite.
-          "--disable-features=WebDriverBiDi",
         ],
       },
     },
