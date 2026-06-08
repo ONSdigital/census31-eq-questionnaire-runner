@@ -234,6 +234,20 @@ exports.config = {
           booleanFlag,
         });
         await this.url(`/session?token=${token}`);
+        // WebdriverIO 9 doesn't implicitly wait for redirects after navigation
+        // Give the app up to 5 seconds to process the session and redirect
+        await browser.waitUntil(
+          async () => {
+            const currentUrl = await browser.getUrl();
+            // Successfully redirected when we're no longer on the session page
+            return !currentUrl.includes("/session?token=");
+          },
+          {
+            timeout: 5000,
+            interval: 100,
+            timeoutMsg: "Session failed to redirect away from /session page",
+          }
+        );
       },
     );
   },
