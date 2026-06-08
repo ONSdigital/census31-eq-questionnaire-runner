@@ -16,6 +16,21 @@ import { expect } from "@wdio/globals";
 import ThankYouPage from "../../../base_pages/thank-you.page";
 
 const summaryValues = 'dd[class="ons-summary__values"]';
+
+const waitForThankYouAfterSubmit = async () => {
+  await browser.waitUntil(
+    async () => {
+      const currentUrl = await browser.getUrl();
+      return currentUrl.includes(ThankYouPage.pageName);
+    },
+    {
+      timeout: 10000,
+      interval: 100,
+      timeoutMsg: `Expected redirect to ${ThankYouPage.pageName} after submit`,
+    },
+  );
+};
+
 async function proceedToListCollector() {
   await $(ResponsiblePartyPage.yes()).click();
   await click(AnyCompaniesOrBranchesPage.submit());
@@ -72,6 +87,7 @@ describe("List Collector Repeating Blocks", () => {
       await click(AnyOtherTradingDetailsPage.submit());
       await click(SectionCompaniesPage.submit());
       await click(SubmitPage.submit());
+      await waitForThankYouAfterSubmit();
       await verifyUrlContains(ThankYouPage.pageName);
     });
   });
@@ -121,6 +137,7 @@ describe("List Collector Repeating Blocks", () => {
       await click(AnyOtherTradingDetailsPage.submit());
       await click(SectionCompaniesPage.submit());
       await click(SubmitPage.submit());
+      await waitForThankYouAfterSubmit();
       await verifyUrlContains(ThankYouPage.pageName);
     });
   });

@@ -1,3 +1,5 @@
+const isHeadless = String(process.env.EQ_RUN_FUNCTIONAL_TESTS_HEADLESS).toLowerCase() === "true";
+
 exports.config = {
   //
   // ====================
@@ -7,6 +9,8 @@ exports.config = {
   // WebdriverIO allows it to run your tests in arbitrary locations (e.g. locally or
   // on a remote machine).
   runner: "local",
+  // Avoid spawning xvfb-run in headless CI runs where a virtual display is unnecessary.
+  autoXvfb: !isHeadless,
   //
   // ==================
   // Specify Test Files
@@ -58,7 +62,7 @@ exports.config = {
       // excludeDriverLogs: ['bugreport', 'server'],
       "goog:chromeOptions": {
         args: [
-          process.env.EQ_RUN_FUNCTIONAL_TESTS_HEADLESS ? "--headless" : "--start-maximized",
+          isHeadless ? "--headless" : "--start-maximized",
           "--window-size=3840,2160",
           "--no-sandbox",
           "--disable-gpu",
