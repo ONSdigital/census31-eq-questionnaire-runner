@@ -27,7 +27,7 @@ def test_deserialize_incorrect_format_errors_with_default_format():
     date_string = DateString()
     with pytest.raises(Exception) as e:
         date_string._deserialize(  # pylint: disable=protected-access
-            value="2014-12-22", attr="", data=""
+            value="2014-12-32", attr="", data=""
         )
     assert "Not a valid datetime." in str(e.value)
 
