@@ -50,7 +50,6 @@ exports.config = {
   //
   capabilities: [
     {
-      webSocketUrl: null,
       browserName: "chrome",
       browserVersion: "stable",
       // If outputDir is provided WebdriverIO can capture driver session logs
