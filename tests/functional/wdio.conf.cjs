@@ -1,4 +1,5 @@
 const isHeadless = String(process.env.EQ_RUN_FUNCTIONAL_TESTS_HEADLESS).toLowerCase() === "true";
+const sessionRedirectTimeoutMs = parseInt(process.env.EQ_SESSION_REDIRECT_TIMEOUT_MS || "20000", 10);
 
 exports.config = {
   //
@@ -238,8 +239,8 @@ exports.config = {
           booleanFlag,
         });
         await this.url(`/session?token=${token}`);
-        // WebdriverIO 9 doesn't implicitly wait for redirects after navigation
-        // Give the app up to 5 seconds to process the session and redirect
+        // WebdriverIO 9 doesn't implicitly wait for redirects after navigation.
+        // Supplementary-data schemas can take longer in CI before redirecting.
         await browser.waitUntil(
           async () => {
             const currentUrl = await browser.getUrl();
@@ -247,9 +248,9 @@ exports.config = {
             return !currentUrl.includes("/session?token=");
           },
           {
-            timeout: 5000,
+            timeout: sessionRedirectTimeoutMs,
             interval: 100,
-            timeoutMsg: "Session failed to redirect away from /session page",
+            timeoutMsg: `Session failed to redirect away from /session page within ${sessionRedirectTimeoutMs}ms`,
           }
         );
       },
