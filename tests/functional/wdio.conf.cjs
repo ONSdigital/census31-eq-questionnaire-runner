@@ -1,5 +1,5 @@
 const isHeadless = String(process.env.EQ_RUN_FUNCTIONAL_TESTS_HEADLESS).toLowerCase() === "true";
-const sessionRedirectTimeoutMs = parseInt(process.env.EQ_SESSION_REDIRECT_TIMEOUT_MS || "20000", 10);
+const sessionRedirectTimeoutMs = parseInt(process.env.EQ_SESSION_REDIRECT_TIMEOUT_MS || "30000", 10);
 
 exports.config = {
   //

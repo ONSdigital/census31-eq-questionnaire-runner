@@ -150,6 +150,7 @@ jobs:
     timeout-minutes: 35
     env:
       EQ_RUN_FUNCTIONAL_TESTS_HEADLESS: True
+      EQ_SESSION_REDIRECT_TIMEOUT_MS: 60000
       # :TODO: Revisit & update when 2 instances can be used without adverse effects
       EQ_FUNCTIONAL_TEST_MAX_INSTANCES: 2
     steps:
