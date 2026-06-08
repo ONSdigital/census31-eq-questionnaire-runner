@@ -67,6 +67,14 @@ class SurveyMetadata(Schema, StripWhitespaceMixin):
                 raise ValidationError(receipting_keys_error_message)
 
 
+def validate_response_expires_at(expires_at: str) -> None:
+    if parse_iso_8601_datetime(expires_at) < datetime.now(tz=timezone.utc):
+        error_message = (
+            f"Response expires at: {expires_at} is not valid, must be in the future"
+        )
+        raise ValidationError(error_message)
+
+
 class RunnerMetadataSchema(Schema, StripWhitespaceMixin):
     """Metadata which is required for the operation of runner itself"""
 
@@ -91,7 +99,7 @@ class RunnerMetadataSchema(Schema, StripWhitespaceMixin):
     channel = VALIDATORS["string"](required=False, validate=validate.Length(min=1))
     response_expires_at = VALIDATORS["iso_8601_date_string"](
         required=True,
-        validate=lambda x: parse_iso_8601_datetime(x) > datetime.now(tz=timezone.utc),
+        validate=validate_response_expires_at,
     )
     region_code = VALIDATORS["string"](required=False, validate=RegionCode())
 

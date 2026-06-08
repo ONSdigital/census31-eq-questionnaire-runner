@@ -217,7 +217,7 @@ def test_deserialisation_iso_8601_datetime_past_datetime_raises_ValidationError(
 def test_deserialisation_iso_8601_datetime_bad_datetime_raises_ValidationError():
     metadata = get_metadata_full()
 
-    metadata["response_expires_at"] = "2021-11-22"
+    metadata["response_expires_at"] = "2021-11-32"
     with pytest.raises(ValidationError):
         validate_runner_claims_v2(metadata)
 
