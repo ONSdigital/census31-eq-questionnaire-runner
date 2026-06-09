@@ -1,8 +1,3 @@
-const sessionRedirectTimeoutMs = parseInt(process.env.EQ_SESSION_REDIRECT_TIMEOUT_MS || "60000", 10);
-const configuredMochaTimeoutMs = parseInt(process.env.EQ_FUNCTIONAL_TEST_MOCHA_TIMEOUT_MS || "180000", 10);
-const mochaTimeoutMs = Math.max(configuredMochaTimeoutMs, sessionRedirectTimeoutMs + 60000);
-const openQuestionnaireAttempts = parseInt(process.env.EQ_OPEN_QUESTIONNAIRE_ATTEMPTS || "2", 10);
-
 exports.config = {
   //
   // ====================
@@ -145,7 +140,7 @@ exports.config = {
   // See the full list at http://mochajs.org/
   mochaOpts: {
     ui: "bdd",
-    timeout: mochaTimeoutMs,
+    timeout: 60000,
     compilers: ["js:@babel/register"],
   },
   //
@@ -221,53 +216,24 @@ exports.config = {
           booleanFlag = false,
         } = {},
       ) {
-        let launchError;
-
-        for (let attempt = 1; attempt <= openQuestionnaireAttempts; attempt += 1) {
-          const token = await JwtHelper.generateToken(schema, {
-            launchVersion,
-            theme,
-            userId,
-            collectionId,
-            responseId,
-            surveyId,
-            periodId,
-            periodStr,
-            ruRef,
-            sdsDatasetId,
-            regionCode: region,
-            languageCode: language,
-            includeLogoutUrl,
-            cirInstrumentId,
-            booleanFlag,
-          });
-
-          await this.url(`/session?token=${token}`);
-
-          try {
-            await browser.waitUntil(
-              async () => {
-                const currentUrl = await browser.getUrl();
-                return !currentUrl.includes("/session?token=");
-              },
-              {
-                timeout: sessionRedirectTimeoutMs,
-                interval: 100,
-                timeoutMsg: `Session failed to redirect away from /session page within ${sessionRedirectTimeoutMs}ms`,
-              },
-            );
-
-            return;
-          } catch (error) {
-            launchError = error;
-
-            if (attempt < openQuestionnaireAttempts) {
-              await this.url("/");
-            }
-          }
-        }
-
-        throw launchError;
+        const token = await JwtHelper.generateToken(schema, {
+          launchVersion,
+          theme,
+          userId,
+          collectionId,
+          responseId,
+          surveyId,
+          periodId,
+          periodStr,
+          ruRef,
+          sdsDatasetId,
+          regionCode: region,
+          languageCode: language,
+          includeLogoutUrl,
+          cirInstrumentId,
+          booleanFlag,
+        });
+        this.url(`/session?token=${token}`);
       },
     );
   },
