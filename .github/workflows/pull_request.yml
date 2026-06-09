@@ -208,3 +208,27 @@ jobs:
 #          gcloud auth configure-docker ${{ secrets.GAR_LOCATION }}
 #          echo "Pushing to GAR with tag $TAG"
 #          docker push ${{ secrets.GAR_LOCATION }}/${{ secrets.GAR_PROJECT_ID }}/docker-images/census31-eq-questionnaire-runner:$TAG
+  required-gate:
+    runs-on: ubuntu-22.04
+    if: always()
+    needs: [lint, test-unit, validate-schemas, test-functional]
+    steps:
+      - name: Check required jobs passed
+        env:
+          LINT: ${{ needs.lint.result }}
+          VALIDATE_SCHEMAS: ${{ needs.validate-schemas.result }}
+          TEST_UNIT: ${{ needs.test-unit.result }}
+          TEST_FUNCTIONAL: ${{ needs.test-functional.result }}
+        run: |
+          echo "lint=$LINT"
+          echo "validate-schemas=$VALIDATE_SCHEMAS"
+          echo "test-unit=$TEST_UNIT"
+          echo "test-functional=$TEST_FUNCTIONAL"
+
+          [ "$LINT" = "success" ] || { echo "::error::lint failed or was skipped unexpectedly"; exit 1; }
+          [ "$VALIDATE_SCHEMAS" = "success" ] || { echo "::error::validate-schemas failed or was skipped unexpectedly"; exit 1; }
+
+          [ "$TEST_UNIT" = "success" ] || { echo "::error::test-unit must run and pass before merge (result: $TEST_UNIT). If skip-tests-unit is set, remove the label and rerun checks."; exit 1; }
+          [ "$TEST_FUNCTIONAL" = "success" ] || { echo "::error::test-functional must run and pass before merge (result: $TEST_FUNCTIONAL). If skip-tests-acceptance is set, remove the label and rerun checks."; exit 1; }
+
+          echo "All required checks passed!"
