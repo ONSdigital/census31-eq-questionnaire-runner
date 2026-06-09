@@ -1,4 +1,4 @@
-from typing import Any, Mapping
+from typing import Any, Mapping, TypedDict
 
 from marshmallow import (
     INCLUDE,
@@ -9,22 +9,35 @@ from marshmallow import (
     validates,
     validates_schema,
 )
+from marshmallow.experimental.context import Context
 
 from app.utilities.metadata_parser_v2 import VALIDATORS, StripWhitespaceMixin
 
 
+class SupplementaryDataMetadataContext(TypedDict):
+    dataset_id: str
+    identifier: str
+    survey_id: str
+    sds_schema_version: str | None
+
+
+SupplementaryDataMetadataSchemaContext = Context[SupplementaryDataMetadataContext]
+
+
 class ItemsSchema(Schema):
-    identifier = fields.Field(required=True)
+    identifier: fields.Field = fields.Field(required=True)
     ITEM_IDENTIFIER_ERROR_MESSAGE = (
-        "Item identifier must be a non-empty string or non-negative integer"
+        "Item {data_key} must be a non-empty string or non-negative integer"
     )
 
     @validates("identifier")
-    def validate_identifier(self, identifier: fields.Field) -> None:
+    def validate_identifier(self, identifier: fields.Field, data_key: str) -> None:
         if not (isinstance(identifier, str) and identifier.strip()) and not (
             isinstance(identifier, int) and identifier >= 0
         ):
-            raise ValidationError(self.ITEM_IDENTIFIER_ERROR_MESSAGE)
+            raise ValidationError(
+                self.ITEM_IDENTIFIER_ERROR_MESSAGE.format(data_key=data_key)
+            )
 
 
 class ItemsData(Schema, StripWhitespaceMixin):
@@ -43,7 +56,11 @@ class SupplementaryData(Schema, StripWhitespaceMixin):
     def validate_identifier(  # pylint: disable=unused-argument
         self, data: Mapping, **kwargs: Any
     ) -> None:
-        if data and data["identifier"] != self.context["identifier"]:
+        if (
+            data
+            and data["identifier"]
+            != SupplementaryDataMetadataSchemaContext.get()["identifier"]
+        ):
             raise ValidationError(self.SDS_IDENTIFIER_ERROR_MESSAGE)
 
 
@@ -71,14 +88,21 @@ class SupplementaryDataMetadataSchema(Schema, StripWhitespaceMixin):
         self, payload: Mapping, **kwargs: Any
     ) -> None:
         if payload:
-            if payload["dataset_id"] != self.context["dataset_id"]:
+            if (
+                payload["dataset_id"]
+                != SupplementaryDataMetadataSchemaContext.get()["dataset_id"]
+            ):
                 raise ValidationError(self.DATASET_ID_ERROR_MESSAGE)
 
-            if payload["survey_id"] != self.context["survey_id"]:
+            if (
+                payload["survey_id"]
+                != SupplementaryDataMetadataSchemaContext.get()["survey_id"]
+            ):
                 raise ValidationError(self.SURVEY_ID_ERROR_MESSAGE)
 
-            if self.context["sds_schema_version"] and (
-                payload["data"]["schema_version"] != self.context["sds_schema_version"]
+            if SupplementaryDataMetadataSchemaContext.get()["sds_schema_version"] and (
+                payload["data"]["schema_version"]
+                != SupplementaryDataMetadataSchemaContext.get()["sds_schema_version"]
             ):
                 raise ValidationError(self.SDS_VERSION_ERROR_MESSAGE)
 
@@ -94,16 +118,17 @@ def validate_supplementary_data_v1(
     supplementary_data_metadata_schema = SupplementaryDataMetadataSchema(
         unknown=INCLUDE
     )
-    supplementary_data_metadata_schema.context = {
-        "dataset_id": dataset_id,
-        "identifier": identifier,
-        "survey_id": survey_id,
-        "sds_schema_version": sds_schema_version,
-    }
-    validated_supplementary_data = supplementary_data_metadata_schema.load(
-        supplementary_data
-    )
-
+    with SupplementaryDataMetadataSchemaContext(
+        {
+            "dataset_id": dataset_id,
+            "identifier": identifier,
+            "survey_id": survey_id,
+            "sds_schema_version": sds_schema_version,
+        }
+    ):
+        validated_supplementary_data = supplementary_data_metadata_schema.load(
+            supplementary_data
+        )
     if supplementary_data_items := supplementary_data.get("data", {}).get("items"):
         for key, values in supplementary_data_items.items():
             items = [ItemsSchema(unknown=INCLUDE).load(value) for value in values]
