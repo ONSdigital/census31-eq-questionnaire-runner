@@ -209,6 +209,7 @@ jobs:
 #          echo "Pushing to GAR with tag $TAG"
 #          docker push ${{ secrets.GAR_LOCATION }}/${{ secrets.GAR_PROJECT_ID }}/docker-images/census31-eq-questionnaire-runner:$TAG
   required-gate:
+    permissions: {}
     runs-on: ubuntu-22.04
     if: always()
     needs: [lint, test-unit, validate-schemas, test-functional]
