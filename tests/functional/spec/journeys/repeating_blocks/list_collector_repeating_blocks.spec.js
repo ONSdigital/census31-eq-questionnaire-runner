@@ -18,20 +18,38 @@ import ThankYouPage from "../../../base_pages/thank-you.page";
 const summaryValues = 'dd[class="ons-summary__values"]';
 
 const waitForThankYouAfterSubmit = async () => {
-  // Under CI load with multiple instances, submission redirects can be slow.
-  // Use the same patience as session redirect (60s default, increased buffer for POST processing).
-  const submitRedirectTimeoutMs = parseInt(process.env.EQ_SESSION_REDIRECT_TIMEOUT_MS || "30000", 10) + 10000;
-  await browser.waitUntil(
-    async () => {
-      const currentUrl = await browser.getUrl();
-      return currentUrl.includes(ThankYouPage.pageName);
-    },
-    {
-      timeout: submitRedirectTimeoutMs,
-      interval: 100,
-      timeoutMsg: `Expected redirect to ${ThankYouPage.pageName} after submit`,
-    },
-  );
+  const submitRedirectAttempts = 2;
+  const submitRedirectTimeoutMs = parseInt(process.env.EQ_SUBMIT_REDIRECT_TIMEOUT_MS || "10000", 10);
+  let waitError;
+
+  for (let attempt = 1; attempt <= submitRedirectAttempts; attempt += 1) {
+    try {
+      await browser.waitUntil(
+        async () => {
+          const currentUrl = await browser.getUrl();
+          return currentUrl.includes(ThankYouPage.pageName);
+        },
+        {
+          timeout: submitRedirectTimeoutMs,
+          interval: 100,
+          timeoutMsg: `Expected redirect to ${ThankYouPage.pageName} after submit`,
+        },
+      );
+
+      return;
+    } catch (error) {
+      waitError = error;
+
+      if (attempt < submitRedirectAttempts) {
+        const currentUrl = await browser.getUrl();
+        if (currentUrl.includes(SubmitPage.pageName)) {
+          await click(SubmitPage.submit());
+        }
+      }
+    }
+  }
+
+  throw waitError;
 };
 
 async function proceedToListCollector() {

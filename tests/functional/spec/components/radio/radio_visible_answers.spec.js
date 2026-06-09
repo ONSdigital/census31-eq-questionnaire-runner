@@ -2,24 +2,40 @@ import RadioVisibleTruePage from "../../../generated_pages/radio_detail_answer_v
 import RadioVisibleFalsePage from "../../../generated_pages/radio_detail_answer_visible/radio-visible-false.page.js";
 import RadioVisibleNonePage from "../../../generated_pages/radio_detail_answer_visible/radio-visible-none.page.js";
 import { click } from "../../../helpers";
+
+const isVisibleBySelector = async (selector) =>
+  browser.execute((selectorToCheck) => {
+    const element = document.querySelector(selectorToCheck);
+    if (!element) {
+      return false;
+    }
+
+    const computedStyle = window.getComputedStyle(element);
+    if (computedStyle.display === "none" || computedStyle.visibility === "hidden") {
+      return false;
+    }
+
+    return element.getClientRects().length > 0;
+  }, selector);
+
 describe("Given I start a Radio survey with a write-in option", () => {
   beforeEach(async () => {
     await browser.openQuestionnaire("test_radio_detail_answer_visible.json");
   });
 
   it("When I view a write-in radio and the visible option is set to true, Then the detail answer label should be displayed", async () => {
-    await expect(await $(RadioVisibleTruePage.otherDetail()).isDisplayed()).toBe(true);
+    await expect(await isVisibleBySelector(RadioVisibleTruePage.otherDetail())).toBe(true);
   });
 
   it("When I view a write-in radio and the visible option is set to true, Then after choosing non write-in option the detail answer label should be displayed", async () => {
     await $(RadioVisibleTruePage.coffee()).click();
-    await expect(await $(RadioVisibleTruePage.otherDetail()).isDisplayed()).toBe(true);
+    await expect(await isVisibleBySelector(RadioVisibleTruePage.otherDetail())).toBe(true);
   });
 
   it("When I view a write-in radio and the visible option is set to false, Then the detail answer label should not be displayed", async () => {
     await $(RadioVisibleTruePage.coffee()).click();
     await click(RadioVisibleTruePage.submit());
-    await expect(await $(RadioVisibleFalsePage.otherDetail()).isDisplayed()).toBe(false);
+    await expect(await isVisibleBySelector(RadioVisibleFalsePage.otherDetail())).toBe(false);
   });
 
   it("When I view a write-in radio and the visible option is not set, Then the detail answer label should not be displayed", async () => {
@@ -27,6 +43,6 @@ describe("Given I start a Radio survey with a write-in option", () => {
     await click(RadioVisibleFalsePage.submit());
     await $(RadioVisibleFalsePage.iceCream()).click();
     await click(RadioVisibleFalsePage.submit());
-    await expect(await $(RadioVisibleNonePage.otherDetail()).isDisplayed()).toBe(false);
+    await expect(await isVisibleBySelector(RadioVisibleNonePage.otherDetail())).toBe(false);
   });
 });
