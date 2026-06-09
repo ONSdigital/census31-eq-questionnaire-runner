@@ -26,7 +26,9 @@ describe("Collapsible Summary", () => {
     });
 
     it("When I am on the submit page, Then a collapsed summary should be displayed with the group title and questions should not be displayed", async () => {
-      await expect(await $(SubmitPage.collapsibleSummary()).isDisplayed()).toBe(true);
+      // WebdriverIO v9 BiDi has serialization issues with isDisplayed() on complex elements.
+      // Use waitForDisplayed with a short timeout to verify element is displayed.
+      await $(SubmitPage.collapsibleSummary()).waitForDisplayed({ timeout: 5000 });
 
       await expect(await $(SubmitPage.collapsibleSummary()).getText()).toContain("Property Details");
       await expect(await $(SubmitPage.collapsibleSummary()).getText()).toContain("House Details");
