@@ -1,5 +1,7 @@
 const isHeadless = String(process.env.EQ_RUN_FUNCTIONAL_TESTS_HEADLESS).toLowerCase() === "true";
 const sessionRedirectTimeoutMs = parseInt(process.env.EQ_SESSION_REDIRECT_TIMEOUT_MS || "30000", 10);
+const configuredMochaTimeoutMs = parseInt(process.env.EQ_FUNCTIONAL_TEST_MOCHA_TIMEOUT_MS || "120000", 10);
+const mochaTimeoutMs = Math.max(configuredMochaTimeoutMs, sessionRedirectTimeoutMs + 30000);
 
 exports.config = {
   //
@@ -145,7 +147,8 @@ exports.config = {
   // See the full list at http://mochajs.org/
   mochaOpts: {
     ui: "bdd",
-    timeout: 60000,
+    // Ensure hook timeout always allows for slow session redirects under CI load.
+    timeout: mochaTimeoutMs,
     compilers: ["js:@babel/register"],
   },
   //
