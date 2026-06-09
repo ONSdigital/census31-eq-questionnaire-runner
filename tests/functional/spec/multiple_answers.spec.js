@@ -7,7 +7,7 @@ async function answerAllQuestions() {
   await $(AboutYou.textfield()).setValue("John Doe");
   await $(AboutYou.dateDay()).setValue("1");
   await $(AboutYou.dateMonth()).setValue("1");
-  await $(AboutYou.dateyear()).setValue("1995");
+  await $(AboutYou.dateYear()).setValue("1995");
   await $(AboutYou.checkboxBmw()).click();
   await $(AboutYou.radioYes()).click();
   await $(AboutYou.currency()).setValue("50000");
