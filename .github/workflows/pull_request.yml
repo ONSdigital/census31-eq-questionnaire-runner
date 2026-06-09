@@ -195,7 +195,7 @@ jobs:
 
       - name: Set Tag and SHA
         run: |
-          CLEAN_TAG=$(echo "${{ github.event.pull_request.head.ref  }}"  | tr / -)
+          CLEAN_TAG=$(echo "${{ github.event.pull_request.head.ref }}" | tr / -)
           echo "TAG=$CLEAN_TAG" >> $GITHUB_ENV
           echo "SHA=${{ github.event.pull_request.head.sha }}" >> $GITHUB_ENV
       - name: Write app version
