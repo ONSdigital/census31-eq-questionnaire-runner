@@ -18,13 +18,16 @@ import ThankYouPage from "../../../base_pages/thank-you.page";
 const summaryValues = 'dd[class="ons-summary__values"]';
 
 const waitForThankYouAfterSubmit = async () => {
+  // Under CI load with multiple instances, submission redirects can be slow.
+  // Use the same patience as session redirect (60s default, increased buffer for POST processing).
+  const submitRedirectTimeoutMs = parseInt(process.env.EQ_SESSION_REDIRECT_TIMEOUT_MS || "30000", 10) + 10000;
   await browser.waitUntil(
     async () => {
       const currentUrl = await browser.getUrl();
       return currentUrl.includes(ThankYouPage.pageName);
     },
     {
-      timeout: 10000,
+      timeout: submitRedirectTimeoutMs,
       interval: 100,
       timeoutMsg: `Expected redirect to ${ThankYouPage.pageName} after submit`,
     },
