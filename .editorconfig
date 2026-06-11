@@ -35,7 +35,7 @@ insert_final_newline = true
 [*.{json}]
 insert_final_newline = false
 
-[*.{jsonnet,yml,yaml}]
+[*.{js,scss,html,jsonnet,yml,yaml}]
 indent_size = 2
 
 [Makefile]
