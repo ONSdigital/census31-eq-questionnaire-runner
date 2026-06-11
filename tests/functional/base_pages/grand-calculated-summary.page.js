@@ -1,17 +1,17 @@
-import BasePage from './base.page'
+import BasePage from "./base.page";
 
 class GrandCalculatedSummaryBasePage extends BasePage {
-  grandCalculatedSummaryTitle () {
-    return '[data-qa="grand-calculated-summary-title"]'
+  grandCalculatedSummaryTitle() {
+    return '[data-qa="grand-calculated-summary-title"]';
   }
 
-  grandCalculatedSummaryQuestion () {
-    return '[data-qa=grand-calculated-summary-question]'
+  grandCalculatedSummaryQuestion() {
+    return "[data-qa=grand-calculated-summary-question]";
   }
 
-  grandCalculatedSummaryAnswer () {
-    return '[data-qa=grand-calculated-summary-answer]'
+  grandCalculatedSummaryAnswer() {
+    return "[data-qa=grand-calculated-summary-answer]";
   }
 }
 
-export default GrandCalculatedSummaryBasePage
+export default GrandCalculatedSummaryBasePage;

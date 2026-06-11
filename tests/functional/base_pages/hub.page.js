@@ -1,25 +1,25 @@
-import BasePage from './base.page'
+import BasePage from "./base.page";
 
 class HubBasePage extends BasePage {
-  url () {
-    return `/${this.pageName}/`
+  url() {
+    return `/${this.pageName}/`;
   }
 
-  summaryItems () {
-    return 'dl.ons-summary__items'
+  summaryItems() {
+    return "dl.ons-summary__items";
   }
 
-  summaryRowState (sectionId) {
-    return `[data-qa="hub-row-${sectionId}-state"]`
+  summaryRowState(sectionId) {
+    return `[data-qa="hub-row-${sectionId}-state"]`;
   }
 
-  summaryRowLink (sectionId) {
-    return `[data-qa="hub-row-${sectionId}-link"]`
+  summaryRowLink(sectionId) {
+    return `[data-qa="hub-row-${sectionId}-link"]`;
   }
 
-  summaryRowTitle (sectionId) {
-    return `[data-qa="hub-row-${sectionId}-title"]`
+  summaryRowTitle(sectionId) {
+    return `[data-qa="hub-row-${sectionId}-title"]`;
   }
 }
 
-export default new HubBasePage('questionnaire')
+export default new HubBasePage("questionnaire");
