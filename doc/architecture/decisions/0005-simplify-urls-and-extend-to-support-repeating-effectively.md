@@ -34,7 +34,7 @@ Removing these from the URL effectively reduces the example above to:
 /i-dont-live-here
 ```
 
-- No group id and unnecessary zero based group instance 
+- No group id and unnecessary zero based group instance
 - Easy to identify simple non repeating blocks
 
 ### Blocks that drive repeats (list creators)

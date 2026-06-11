@@ -53,7 +53,7 @@ A new block type "PrimaryPersonCollector" will be defined to support the necessa
 
 ![Primary Flow](0009-primary-flow.png)
 
-Both the PrimaryPersonListCollector and ListCollector operate upon the same list in the store. The PrimaryPersonCollector would create an item in the list store, before collecting any answers it refers to. This allows the identification of a primary person in one block and deferring their name entry to another. 
+Both the PrimaryPersonListCollector and ListCollector operate upon the same list in the store. The PrimaryPersonCollector would create an item in the list store, before collecting any answers it refers to. This allows the identification of a primary person in one block and deferring their name entry to another.
 
 As per a ListCollector, the navigation path followed by the PrimaryPersonCollector exists separately from the main routing path. On routing backwards from the ListCollector, the primary person will be routed back to the driving question. This is represented in the reverse flow below, where the primary person would be unable to reach the primary name block when using the "Previous" link.
 

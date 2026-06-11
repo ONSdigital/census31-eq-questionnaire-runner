@@ -1,20 +1,20 @@
-import BasePage from "./base.page";
+import BasePage from './base.page'
 
 class ConfirmationEmailBasePage extends BasePage {
-  title() {
-    return '[data-qa="title"]';
+  title () {
+    return '[data-qa="title"]'
   }
 
-  email() {
-    return "#email";
+  email () {
+    return '#email'
   }
 
-  errorPanel() {
-    return `[data-qa=error-body] div.ons-panel__body > [data-qa=error-list]`;
+  errorPanel () {
+    return '[data-qa=error-body] div.ons-panel__body > [data-qa=error-list]'
   }
 
-  feedback() {
-    return ".ons-feedback";
+  feedback () {
+    return '.ons-feedback'
   }
 }
-export default new ConfirmationEmailBasePage("email-confirmation");
+export default new ConfirmationEmailBasePage('email-confirmation')

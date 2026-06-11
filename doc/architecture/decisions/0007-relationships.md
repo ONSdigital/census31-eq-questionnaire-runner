@@ -20,7 +20,7 @@ Where the `list_item_id` and `to_list_item_id` identify which list items the rel
 
 ### Storing relationships
 
-For each relationship we need to store both the relationship type and the items that are related. This is represented by storing all relationships as a list within a single answer: 
+For each relationship we need to store both the relationship type and the items that are related. This is represented by storing all relationships as a list within a single answer:
 
 ```
 {
@@ -39,10 +39,10 @@ For each relationship we need to store both the relationship type and the items 
   ]
 }
 ```
- 
+
 ### Schema
 
-The relationship block will be defined as one block in the schema. 
+The relationship block will be defined as one block in the schema.
 
 The question text for relationships is dynamic and changes dependent the two people the relationship is being asked of:
 

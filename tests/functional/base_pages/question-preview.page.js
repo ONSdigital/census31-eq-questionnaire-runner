@@ -1,13 +1,13 @@
-import BasePage from "./base.page";
+import BasePage from './base.page'
 
 class QuestionPreviewBasePage extends BasePage {
-  url() {
-    return `/submitted/feedback/${this.pageName}`;
+  url () {
+    return `/submitted/feedback/${this.pageName}`
   }
 
-  showButton() {
-    return '[data-ga-category="Preview Survey"]';
+  showButton () {
+    return '[data-ga-category="Preview Survey"]'
   }
 }
 
-export default QuestionPreviewBasePage;
+export default QuestionPreviewBasePage
