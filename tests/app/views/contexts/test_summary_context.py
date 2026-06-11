@@ -35,9 +35,7 @@ class TestStandardSummaryContext(AppContextTestCase):
 
     def check_context(self, context):
         self.assertEqual(len(context), 1)
-        self.assertTrue(
-            "summary" in context, "Key value {} missing from context".format("summary")
-        )
+        self.assertTrue("summary" in context, "Key value {} missing from context".format("summary"))
 
         summary_context = context["summary"]
         for key_value in ("groups", "answers_are_editable", "summary_type"):
@@ -74,9 +72,7 @@ class TestSummaryContext(TestStandardSummaryContext):
             "type": "Summary",
             "collapsible": True,
         }
-        self.current_location = Location(
-            section_id="default-section", block_id="summary"
-        )
+        self.current_location = Location(section_id="default-section", block_id="summary")
 
     def test_build_summary_rendering_context(self):
         questionnaire_summary_context = QuestionnaireSummaryContext(
@@ -171,9 +167,7 @@ class TestSectionSummaryContext(TestStandardSummaryContext):
             routing_path=MagicMock(),
         )
         context = summary_context()
-        self.assertEqual(
-            "Household Summary - Semi-detached", context["summary"]["title"]
-        )
+        self.assertEqual("Household Summary - Semi-detached", context["summary"]["title"])
 
     def test_custom_section_summary_page_title(self):
         summary_context = SectionSummaryContext(
@@ -187,9 +181,7 @@ class TestSectionSummaryContext(TestStandardSummaryContext):
             routing_path=MagicMock(),
         )
         context = summary_context()
-        self.assertEqual(
-            "Custom section summary title", context["summary"]["page_title"]
-        )
+        self.assertEqual("Custom section summary title", context["summary"]["page_title"])
 
     def test_section_summary_page_title_placeholder_text_replaced(self):
 
@@ -263,9 +255,7 @@ class TestCalculatedSummaryContext(TestStandardSummaryContext):
 
     @patch("app.jinja_filters.flask_babel.get_locale", Mock(return_value="en_GB"))
     def test_build_view_context_for_currency_calculated_summary_no_skip(self):
-        current_location = Location(
-            section_id="default-section", block_id="currency-total-playback-with-fourth"
-        )
+        current_location = Location(section_id="default-section", block_id="currency-total-playback-with-fourth")
 
         calculated_summary_context = CalculatedSummaryContext(
             "en",
@@ -276,9 +266,7 @@ class TestCalculatedSummaryContext(TestStandardSummaryContext):
             self.metadata,
         )
 
-        context = calculated_summary_context.build_view_context_for_calculated_summary(
-            current_location
-        )
+        context = calculated_summary_context.build_view_context_for_calculated_summary(current_location)
 
         self.check_context(context)
         self.check_summary_rendering_context(context)
@@ -296,9 +284,7 @@ class TestCalculatedSummaryContext(TestStandardSummaryContext):
             context_summary["calculated_question"]["title"],
             "Grand total of previous values",
         )
-        self.assertEqual(
-            context_summary["calculated_question"]["answers"][0]["value"], "£27.00"
-        )
+        self.assertEqual(context_summary["calculated_question"]["answers"][0]["value"], "£27.00")
 
     @patch("app.jinja_filters.flask_babel.get_locale", Mock(return_value="en_GB"))
     def test_build_view_context_for_currency_calculated_summary_with_skip(self):
@@ -319,9 +305,7 @@ class TestCalculatedSummaryContext(TestStandardSummaryContext):
             self.metadata,
         )
 
-        context = calculated_summary_context.build_view_context_for_calculated_summary(
-            current_location
-        )
+        context = calculated_summary_context.build_view_context_for_calculated_summary(current_location)
 
         self.check_context(context)
         self.check_summary_rendering_context(context)
@@ -339,15 +323,11 @@ class TestCalculatedSummaryContext(TestStandardSummaryContext):
             context_summary["calculated_question"]["title"],
             "Grand total of previous values",
         )
-        self.assertEqual(
-            context_summary["calculated_question"]["answers"][0]["value"], "£12.00"
-        )
+        self.assertEqual(context_summary["calculated_question"]["answers"][0]["value"], "£12.00")
 
     @patch("app.jinja_filters.flask_babel.get_locale", Mock(return_value="cy"))
     def test_build_view_context_for_unit_calculated_summary(self):
-        current_location = Location(
-            section_id="default-section", block_id="unit-total-playback"
-        )
+        current_location = Location(section_id="default-section", block_id="unit-total-playback")
 
         calculated_summary_context = CalculatedSummaryContext(
             "cy",
@@ -358,9 +338,7 @@ class TestCalculatedSummaryContext(TestStandardSummaryContext):
             self.metadata,
         )
 
-        context = calculated_summary_context.build_view_context_for_calculated_summary(
-            current_location
-        )
+        context = calculated_summary_context.build_view_context_for_calculated_summary(current_location)
 
         self.check_context(context)
         self.check_summary_rendering_context(context)
@@ -377,14 +355,10 @@ class TestCalculatedSummaryContext(TestStandardSummaryContext):
             context_summary["calculated_question"]["title"],
             "Grand total of previous values",
         )
-        self.assertEqual(
-            context_summary["calculated_question"]["answers"][0]["value"], "9 cm"
-        )
+        self.assertEqual(context_summary["calculated_question"]["answers"][0]["value"], "9 cm")
 
     def test_build_view_context_for_percentage_calculated_summary(self):
-        current_location = Location(
-            section_id="default-section", block_id="percentage-total-playback"
-        )
+        current_location = Location(section_id="default-section", block_id="percentage-total-playback")
 
         calculated_summary_context = CalculatedSummaryContext(
             "en",
@@ -395,9 +369,7 @@ class TestCalculatedSummaryContext(TestStandardSummaryContext):
             self.metadata,
         )
 
-        context = calculated_summary_context.build_view_context_for_calculated_summary(
-            current_location
-        )
+        context = calculated_summary_context.build_view_context_for_calculated_summary(current_location)
 
         self.check_context(context)
         self.check_summary_rendering_context(context)
@@ -414,15 +386,11 @@ class TestCalculatedSummaryContext(TestStandardSummaryContext):
             context_summary["calculated_question"]["title"],
             "Grand total of previous values",
         )
-        self.assertEqual(
-            context_summary["calculated_question"]["answers"][0]["value"], "20%"
-        )
+        self.assertEqual(context_summary["calculated_question"]["answers"][0]["value"], "20%")
 
     @patch("app.jinja_filters.flask_babel.get_locale", Mock(return_value="cy"))
     def test_build_view_context_for_number_calculated_summary(self):
-        current_location = Location(
-            section_id="default-section", block_id="number-total-playback"
-        )
+        current_location = Location(section_id="default-section", block_id="number-total-playback")
 
         calculated_summary_context = CalculatedSummaryContext(
             "cy",
@@ -433,9 +401,7 @@ class TestCalculatedSummaryContext(TestStandardSummaryContext):
             self.metadata,
         )
 
-        context = calculated_summary_context.build_view_context_for_calculated_summary(
-            current_location
-        )
+        context = calculated_summary_context.build_view_context_for_calculated_summary(current_location)
 
         self.check_context(context)
         self.check_summary_rendering_context(context)
@@ -452,9 +418,7 @@ class TestCalculatedSummaryContext(TestStandardSummaryContext):
             context_summary["calculated_question"]["title"],
             "Grand total of previous values",
         )
-        self.assertEqual(
-            context_summary["calculated_question"]["answers"][0]["value"], "22"
-        )
+        self.assertEqual(context_summary["calculated_question"]["answers"][0]["value"], "22")
 
 
 @pytest.mark.usefixtures("app")
@@ -608,9 +572,7 @@ def test_context_for_driving_question_summary():
         ProgressStore(),
         {},
         current_location=Location(section_id="section"),
-        routing_path=RoutingPath(
-            ["anyone-usually-live-at", "anyone-else-live-at"], section_id="section"
-        ),
+        routing_path=RoutingPath(["anyone-usually-live-at", "anyone-else-live-at"], section_id="section"),
     )
 
     context = summary_context()
@@ -711,9 +673,7 @@ def test_primary_only_links_for_section_summary(people_answer_store):
         language=DEFAULT_LANGUAGE_CODE,
         schema=schema,
         answer_store=people_answer_store,
-        list_store=ListStore(
-            [{"items": ["PlwgoG"], "name": "people", "primary_person": "PlwgoG"}]
-        ),
+        list_store=ListStore([{"items": ["PlwgoG"], "name": "people", "primary_person": "PlwgoG"}]),
         progress_store=ProgressStore(),
         metadata={"display_address": "70 Abingdon Road, Goathill"},
         current_location=Location(section_id="section"),

@@ -61,9 +61,7 @@ class TestFeedback(IntegrationTestCase):
         self.get(self.SEND_FEEDBACK_URL)
 
         # When I enter a valid feedback and submit
-        self.post(
-            {"feedback-type": "Page design and structure", "feedback-text": "Feedback"}
-        )
+        self.post({"feedback-type": "Page design and structure", "feedback-text": "Feedback"})
 
         # Then I get the feedback sent page
         self.assertInUrl(self.SENT_FEEDBACK_URL)
@@ -91,15 +89,11 @@ class TestFeedback(IntegrationTestCase):
         self.get(self.SEND_FEEDBACK_URL)
 
         # When I enter a valid feedback and submit
-        self.post(
-            {"feedback-type": "Page design and structure", "feedback-text": "Feedback"}
-        )
+        self.post({"feedback-type": "Page design and structure", "feedback-text": "Feedback"})
 
         # Then I get a sign out warning
         self.assertInUrl(self.SENT_FEEDBACK_URL)
-        self.assertInBody(
-            'Make sure you <a href="/sign-out">leave this page</a> or close your browser if using a shared device'
-        )
+        self.assertInBody('Make sure you <a href="/sign-out">leave this page</a> or close your browser if using a shared device')
 
     def test_feedback_error_message_on_get_when_limit_reached(self):
         # Given I launch and complete the test_feedback questionnaire, and provide
@@ -119,9 +113,7 @@ class TestFeedback(IntegrationTestCase):
         self.get(self.SEND_FEEDBACK_URL)
 
         # Then an appropriate error is shown
-        self.assertInBody(
-            "You have reached the maximum number of times for submitting feedback"
-        )
+        self.assertInBody("You have reached the maximum number of times for submitting feedback")
 
     def test_feedback_error_message_on_post_when_limit_reached(self):
         # Given I launch and complete the test_feedback questionnaire, and provide
@@ -148,9 +140,7 @@ class TestFeedback(IntegrationTestCase):
         )
 
         # Then I should see an appropriate error
-        self.assertInBody(
-            "You have reached the maximum number of times for submitting feedback"
-        )
+        self.assertInBody("You have reached the maximum number of times for submitting feedback")
 
     def test_send_feedback_back_breadcrumb(self):
         # Given I launch and complete the test_feedback questionnaire
@@ -168,9 +158,7 @@ class TestFeedback(IntegrationTestCase):
         # feedback
         self._launch_and_complete_questionnaire()
         self.get(self.SEND_FEEDBACK_URL)
-        self.post(
-            {"feedback-type": "Page design and structure", "feedback-text": "Feedback"}
-        )
+        self.post({"feedback-type": "Page design and structure", "feedback-text": "Feedback"})
         self.assertInUrl(self.SENT_FEEDBACK_URL)
 
     def test_multiple_submissions(self):
@@ -178,13 +166,9 @@ class TestFeedback(IntegrationTestCase):
         # multiple feedback submissions
         self._launch_and_complete_questionnaire()
         self.get(self.SEND_FEEDBACK_URL)
-        self.post(
-            {"feedback-type": "Page design and structure", "feedback-text": "Feedback"}
-        )
+        self.post({"feedback-type": "Page design and structure", "feedback-text": "Feedback"})
         self.get(self.SEND_FEEDBACK_URL)
-        self.post(
-            {"feedback-type": "Page design and structure", "feedback-text": "Feedback"}
-        )
+        self.post({"feedback-type": "Page design and structure", "feedback-text": "Feedback"})
 
         self.assertInUrl("/submitted/feedback/sent")
 
@@ -222,9 +206,7 @@ class TestFeedback(IntegrationTestCase):
         self.get(self.SEND_FEEDBACK_URL)
 
         # When I submit without selecting a feedback topic
-        self.post(
-            {"feedback-type": "The census questions", "feedback-text": "Feedback"}
-        )
+        self.post({"feedback-type": "The census questions", "feedback-text": "Feedback"})
 
         # Then I stay on the send page and am presented with an error
         self.assertInUrl(self.SEND_FEEDBACK_URL)
@@ -277,9 +259,7 @@ class TestFeedback(IntegrationTestCase):
         self.get("/submitted/feedback/send")
 
         # Then I am able to submit feedback
-        self.post(
-            {"feedback-type": "Page design and structure", "feedback-text": "Feedback"}
-        )
+        self.post({"feedback-type": "Page design and structure", "feedback-text": "Feedback"})
         self.assertInUrl("/submitted/feedback/sent")
 
     def test_feedback_call_to_action_visible_on_email_confirmation(self):
@@ -306,9 +286,7 @@ class TestFeedback(IntegrationTestCase):
         self.get("/submitted/feedback/send")
 
         # Then I am able to submit feedback
-        self.post(
-            {"feedback-type": "Page design and structure", "feedback-text": "Feedback"}
-        )
+        self.post({"feedback-type": "Page design and structure", "feedback-text": "Feedback"})
         self.assertInUrl("/submitted/feedback/sent")
 
     def test_feedback_back_breadcrumb_after_email_confirmation(self):
@@ -331,9 +309,7 @@ class TestFeedback(IntegrationTestCase):
         self.post({"answer_id": "Yes"})
         self.post()
         self.get("/submitted/feedback/send")
-        self.post(
-            {"feedback-type": "Page design and structure", "feedback-text": "Feedback"}
-        )
+        self.post({"feedback-type": "Page design and structure", "feedback-text": "Feedback"})
         self.post()
         self.post({"email": "email@example.com"})
 
@@ -352,18 +328,14 @@ class TestFeedback(IntegrationTestCase):
         self.get("/submitted/feedback/send")
 
         # When I post my feedback
-        self.post(
-            {"feedback-type": "Page design and structure", "feedback-text": "Feedback"}
-        )
+        self.post({"feedback-type": "Page design and structure", "feedback-text": "Feedback"})
 
         # Then I should see an error page
         self.assertStatusCode(500)
         self.assertEqualPageTitle("Sorry, there is a problem - Census 2021")
         self.assertInBody("submit your feedback again")
 
-        retry_url = (
-            self.getHtmlSoup().find("p", {"data-qa": "retry"}).find("a").attrs["href"]
-        )
+        retry_url = self.getHtmlSoup().find("p", {"data-qa": "retry"}).find("a").attrs["href"]
         self.get(retry_url)
         self.assertInUrl("/submitted/feedback/send")
 

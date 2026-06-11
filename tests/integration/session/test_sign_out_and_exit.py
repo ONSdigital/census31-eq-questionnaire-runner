@@ -30,9 +30,7 @@ class TestSaveAndSignOut(IntegrationTestCase):
     def test_redirects_to_account_service_log_out_url_when_present(self):
         for schema in ["test_textfield", "test_hub_and_spoke"]:
             with self.subTest(schema=schema):
-                self.launchSurvey(
-                    schema, account_service_log_out_url=ACCOUNT_SERVICE_LOG_OUT_URL
-                )
+                self.launchSurvey(schema, account_service_log_out_url=ACCOUNT_SERVICE_LOG_OUT_URL)
                 self.get(SIGN_OUT_URL_PATH)
                 self.assertInUrl(ACCOUNT_SERVICE_LOG_OUT_URL_PATH)
 
@@ -52,9 +50,7 @@ class TestExitPostSubmissionTestCase(IntegrationTestCase):
         self.assertInUrl("/thank-you")
 
 
-class TestExitPostSubmissionWithFinalSummaryDefaultTheme(
-    TestExitPostSubmissionTestCase
-):
+class TestExitPostSubmissionWithFinalSummaryDefaultTheme(TestExitPostSubmissionTestCase):
     def test_no_account_service_log_out_url_redirects_to_signed_out_page(self):
         self._launch_and_submit_questionnaire(schema="test_textfield")
         self.get(SIGN_OUT_URL_PATH)
@@ -113,9 +109,7 @@ class TestExitPostSubmissionWithHubDefaultTheme(IntegrationTestCase):
         self.assertInUrl("/thank-you")
 
     def test_no_account_service_log_out_url_redirects_to_signed_out_page(self):
-        self._launch_and_submit_questionnaire(
-            schema="test_hub_section_required_and_enabled"
-        )
+        self._launch_and_submit_questionnaire(schema="test_hub_section_required_and_enabled")
         self.get(SIGN_OUT_URL_PATH, follow_redirects=False)
         self.assertInUrl(SIGN_OUT_URL_PATH)
 

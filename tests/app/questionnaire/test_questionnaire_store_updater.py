@@ -54,12 +54,8 @@ class TestQuestionnaireStoreUpdater(unittest.TestCase):
 
         form_data = {answer_id: answer_value}
 
-        self.current_question = self.schema.get_block(self.location.block_id)[
-            "question"
-        ]
-        self.questionnaire_store_updater = QuestionnaireStoreUpdater(
-            self.location, self.schema, self.questionnaire_store, self.current_question
-        )
+        self.current_question = self.schema.get_block(self.location.block_id)["question"]
+        self.questionnaire_store_updater = QuestionnaireStoreUpdater(self.location, self.schema, self.questionnaire_store, self.current_question)
         self.questionnaire_store_updater.update_answers(form_data)
 
         assert self.answer_store.add_or_update.call_count == 1
@@ -88,9 +84,7 @@ class TestQuestionnaireStoreUpdater(unittest.TestCase):
         form_data = MultiDict({answer_id: answer_value})
 
         self.current_question = self.schema.get_block(location.block_id)["question"]
-        self.questionnaire_store_updater = QuestionnaireStoreUpdater(
-            location, self.schema, self.questionnaire_store, self.current_question
-        )
+        self.questionnaire_store_updater = QuestionnaireStoreUpdater(location, self.schema, self.questionnaire_store, self.current_question)
         self.questionnaire_store_updater.update_answers(form_data)
 
         assert self.answer_store.add_or_update.call_count == 1
@@ -119,12 +113,8 @@ class TestQuestionnaireStoreUpdater(unittest.TestCase):
         # No answer given so will use schema defined default
         form_data = MultiDict({answer_id: None})
 
-        self.current_question = {
-            "answers": [{"id": "answer", "default": default_value}]
-        }
-        self.questionnaire_store_updater = QuestionnaireStoreUpdater(
-            self.location, self.schema, self.questionnaire_store, self.current_question
-        )
+        self.current_question = {"answers": [{"id": "answer", "default": default_value}]}
+        self.questionnaire_store_updater = QuestionnaireStoreUpdater(self.location, self.schema, self.questionnaire_store, self.current_question)
         self.questionnaire_store_updater.update_answers(form_data)
 
         assert self.answer_store.add_or_update.call_count == 0
@@ -153,9 +143,7 @@ class TestQuestionnaireStoreUpdater(unittest.TestCase):
                 {"id": "radio-answer"},
             ]
         }
-        self.questionnaire_store_updater = QuestionnaireStoreUpdater(
-            self.location, self.schema, self.questionnaire_store, self.current_question
-        )
+        self.questionnaire_store_updater = QuestionnaireStoreUpdater(self.location, self.schema, self.questionnaire_store, self.current_question)
         self.questionnaire_store_updater.update_answers(form_data)
 
         assert self.answer_store.add_or_update.call_count == 0
@@ -177,9 +165,7 @@ class TestQuestionnaireStoreUpdater(unittest.TestCase):
             progress_store=ProgressStore(),
         )
 
-        self.questionnaire_store_updater = QuestionnaireStoreUpdater(
-            self.location, self.schema, questionnaire_store, self.current_question
-        )
+        self.questionnaire_store_updater = QuestionnaireStoreUpdater(self.location, self.schema, questionnaire_store, self.current_question)
         self.questionnaire_store_updater.remove_list_item_and_answers("abc", "abcdef")
 
         assert len(answer_store) == 1
@@ -204,9 +190,7 @@ class TestQuestionnaireStoreUpdater(unittest.TestCase):
             progress_store=ProgressStore(),
         )
 
-        questionnaire_store_updater = QuestionnaireStoreUpdater(
-            self.location, self.schema, questionnaire_store, self.current_question
-        )
+        questionnaire_store_updater = QuestionnaireStoreUpdater(self.location, self.schema, questionnaire_store, self.current_question)
 
         questionnaire_store_updater.remove_primary_person("people")
 
@@ -221,9 +205,7 @@ class TestQuestionnaireStoreUpdater(unittest.TestCase):
             progress_store=ProgressStore(),
         )
 
-        questionnaire_store_updater = QuestionnaireStoreUpdater(
-            self.location, self.schema, questionnaire_store, self.current_question
-        )
+        questionnaire_store_updater = QuestionnaireStoreUpdater(self.location, self.schema, questionnaire_store, self.current_question)
         questionnaire_store_updater.add_primary_person("people")
 
     def test_remove_completed_relationship_locations_for_list_name(self):
@@ -239,16 +221,12 @@ class TestQuestionnaireStoreUpdater(unittest.TestCase):
             list_store=list_store,
             progress_store=self.progress_store,
         )
-        questionnaire_store_updater = QuestionnaireStoreUpdater(
-            self.location, self.schema, questionnaire_store, self.current_question
-        )
+        questionnaire_store_updater = QuestionnaireStoreUpdater(self.location, self.schema, questionnaire_store, self.current_question)
 
         patch_method = "app.questionnaire.questionnaire_store_updater.QuestionnaireStoreUpdater._get_relationship_collectors_by_list_name"
         with patch(patch_method) as patched:
             patched.return_value = [{"id": "test-relationship-collector"}]
-            questionnaire_store_updater.remove_completed_relationship_locations_for_list_name(
-                "test-relationship-collector"
-            )
+            questionnaire_store_updater.remove_completed_relationship_locations_for_list_name("test-relationship-collector")
 
         completed = self.progress_store.serialize()
         self.assertEqual(len(completed), 0)
@@ -267,16 +245,12 @@ class TestQuestionnaireStoreUpdater(unittest.TestCase):
             list_store=list_store,
             progress_store=self.progress_store,
         )
-        questionnaire_store_updater = QuestionnaireStoreUpdater(
-            self.location, self.schema, questionnaire_store, self.current_question
-        )
+        questionnaire_store_updater = QuestionnaireStoreUpdater(self.location, self.schema, questionnaire_store, self.current_question)
 
         patch_method = "app.questionnaire.questionnaire_store_updater.QuestionnaireStoreUpdater._get_relationship_collectors_by_list_name"
         with patch(patch_method) as patched:
             patched.return_value = None
-            questionnaire_store_updater.remove_completed_relationship_locations_for_list_name(
-                "test-relationship-collector"
-            )
+            questionnaire_store_updater.remove_completed_relationship_locations_for_list_name("test-relationship-collector")
 
         self.assertEqual(self.progress_store.serialize(), initial_progress_store)
 
@@ -289,18 +263,12 @@ class TestQuestionnaireStoreUpdater(unittest.TestCase):
             list_store=list_store,
             progress_store=self.progress_store,
         )
-        questionnaire_store_updater = QuestionnaireStoreUpdater(
-            self.location, self.schema, questionnaire_store, self.current_question
-        )
+        questionnaire_store_updater = QuestionnaireStoreUpdater(self.location, self.schema, questionnaire_store, self.current_question)
 
         patch_method = "app.questionnaire.questionnaire_store_updater.QuestionnaireStoreUpdater._get_relationship_collectors_by_list_name"
         with patch(patch_method) as patched:
             patched.return_value = None
-            self.assertIsNone(
-                questionnaire_store_updater.update_relationship_question_completeness(
-                    "test-relationship-collector"
-                )
-            )
+            self.assertIsNone(questionnaire_store_updater.update_relationship_question_completeness("test-relationship-collector"))
 
     def test_update_same_name_items(self):
         answer_store = AnswerStore(
@@ -337,13 +305,9 @@ class TestQuestionnaireStoreUpdater(unittest.TestCase):
             progress_store=ProgressStore(),
         )
 
-        questionnaire_store_updater = QuestionnaireStoreUpdater(
-            self.location, self.schema, questionnaire_store, self.current_question
-        )
+        questionnaire_store_updater = QuestionnaireStoreUpdater(self.location, self.schema, questionnaire_store, self.current_question)
 
-        questionnaire_store_updater.update_same_name_items(
-            "people", ["first-name", "last-name"]
-        )
+        questionnaire_store_updater.update_same_name_items("people", ["first-name", "last-name"])
 
         assert "abcdef" in list_store["people"].same_name_items
         assert "ghijkl" in list_store["people"].same_name_items

@@ -201,9 +201,7 @@ class TestEmailConfirmation(IntegrationTestCase):
 
         # Then I get confirmation that the email has been sent
         self.assertInUrl("confirmation-email/sent")
-        self.assertInBody(
-            'Make sure you <a href="/sign-out">leave this page</a> or close your browser if using a shared device'
-        )
+        self.assertInBody('Make sure you <a href="/sign-out">leave this page</a> or close your browser if using a shared device')
 
     def test_confirm_email_confirmation_email_limit_reached(
         self,
@@ -247,9 +245,7 @@ class TestEmailConfirmation(IntegrationTestCase):
         self.assertInUrl("/submitted/thank-you/")
         self.assertInBody("There is a problem with this page")
         self.assertInBody("Enter an email address")
-        self.assertEqualPageTitle(
-            "Error: Thank you for completing the census - Census 2021"
-        )
+        self.assertEqualPageTitle("Error: Thank you for completing the census - Census 2021")
 
     def test_thank_you_incorrect_email_format(self):
         # Given I launch and complete the test_confirmation_email questionnaire
@@ -261,13 +257,9 @@ class TestEmailConfirmation(IntegrationTestCase):
         # Then I get an error message on the thank you page
         self.assertInUrl("thank-you")
         self.assertInBody("There is a problem with this page")
-        self.assertInBody(
-            "Enter an email address in a valid format, for example name@example.com"
-        )
+        self.assertInBody("Enter an email address in a valid format, for example name@example.com")
 
-        self.assertEqualPageTitle(
-            "Error: Thank you for completing the census - Census 2021"
-        )
+        self.assertEqualPageTitle("Error: Thank you for completing the census - Census 2021")
 
     def test_thank_you_email_invalid_tld(self):
         # Given I launch and complete the test_confirmation_email questionnaire
@@ -279,9 +271,7 @@ class TestEmailConfirmation(IntegrationTestCase):
         # Then I get an error message on the thank you page
         self.assertInUrl("thank-you")
         self.assertInBody("There is a problem with this page")
-        self.assertInBody(
-            "Enter an email address in a valid format, for example name@example.com"
-        )
+        self.assertInBody("Enter an email address in a valid format, for example name@example.com")
 
     def test_thank_you_email_invalid_and_invalid_tld(self):
         # Given I launch and complete the test_confirmation_email questionnaire
@@ -293,9 +283,7 @@ class TestEmailConfirmation(IntegrationTestCase):
         # Then I get a single error message on the thank you page
         self.assertInUrl("thank-you")
         self.assertInBody("There is a problem with this page")
-        self.assertInBody(
-            "Enter an email address in a valid format, for example name@example.com"
-        )
+        self.assertInBody("Enter an email address in a valid format, for example name@example.com")
         self.assertNotInBody('data-qa="error-link-2"')
 
     def test_confirmation_email_page_missing_email(self):
@@ -325,9 +313,7 @@ class TestEmailConfirmation(IntegrationTestCase):
         # Then I get an error message on the confirmation email page
         self.assertInUrl("/submitted/confirmation-email/send/")
         self.assertInBody("There is a problem with this page")
-        self.assertInBody(
-            "Enter an email address in a valid format, for example name@example.com"
-        )
+        self.assertInBody("Enter an email address in a valid format, for example name@example.com")
         self.assertEqualPageTitle("Error: Confirmation email - Census 2021")
 
     def test_confirmation_email_page(self):
@@ -467,9 +453,7 @@ class TestEmailConfirmation(IntegrationTestCase):
         self.post({"confirm-email": "Yes, send the confirmation email"})
 
         # Then an error page is shown
-        self.assertEqualPageTitle(
-            "Sorry, there was a problem sending the confirmation email - Census 2021"
-        )
+        self.assertEqualPageTitle("Sorry, there was a problem sending the confirmation email - Census 2021")
         self.assertInSelector(self.last_url, "p[data-qa=retry]")
 
     def test_attempting_to_deserialize_email_hash_from_different_session_fails(self):

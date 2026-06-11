@@ -25,6 +25,4 @@ class TestFieldFactory(AppContextTestCase):
         invalid_field_type = "Football"
         # When / Then
         with self.assertRaises(KeyError):
-            get_field_handler(
-                {"type": invalid_field_type}, error_messages, AnswerStore(), metadata
-            )
+            get_field_handler({"type": invalid_field_type}, error_messages, AnswerStore(), metadata)

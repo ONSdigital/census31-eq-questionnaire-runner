@@ -192,11 +192,7 @@ class QuestionnaireSchema:  # pylint: disable=too-many-public-methods
             ignore_keys = {"question_variants", "content_variants"}
             when_rules = get_values_for_key(section, "when", ignore_keys)
 
-            if any(
-                rule.get("list") == list_name
-                for when_rule in when_rules
-                for rule in when_rule
-            ):
+            if any(rule.get("list") == list_name for when_rule in when_rules for rule in when_rule):
                 section_ids.append(section["id"])
 
         return section_ids
@@ -208,10 +204,7 @@ class QuestionnaireSchema:  # pylint: disable=too-many-public-methods
     @classmethod
     def get_driving_question_for_list(cls, section, list_name):
         for block in cls.get_blocks_for_section(section):
-            if (
-                block["type"] == "ListCollectorDrivingQuestion"
-                and list_name == block["for_list"]
-            ):
+            if block["type"] == "ListCollectorDrivingQuestion" and list_name == block["for_list"]:
                 return block
 
     def get_remove_block_id_for_list(self, list_name):
@@ -226,9 +219,7 @@ class QuestionnaireSchema:  # pylint: disable=too-many-public-methods
         return self.json.get("individual_response", {}).get("show_on_hub", True)
 
     def get_individual_response_individual_section_id(self):
-        return self._questionnaire_json.get("individual_response", {}).get(
-            "individual_section_id"
-        )
+        return self._questionnaire_json.get("individual_response", {}).get("individual_section_id")
 
     def get_title_for_section(self, section_id):
         return self._sections_by_id.get(section_id).get("title")
@@ -328,11 +319,7 @@ class QuestionnaireSchema:  # pylint: disable=too-many-public-methods
         return self.is_block_in_repeating_section(block_id=block["id"])
 
     def get_list_item_id_for_answer_id(self, answer_id, list_item_id):
-        if (
-            list_item_id
-            and not self.is_answer_in_list_collector_block(answer_id)
-            and not self.is_answer_in_repeating_section(answer_id)
-        ):
+        if list_item_id and not self.is_answer_in_list_collector_block(answer_id) and not self.is_answer_in_repeating_section(answer_id):
             return None
 
         return list_item_id
@@ -378,20 +365,12 @@ class QuestionnaireSchema:  # pylint: disable=too-many-public-methods
     def get_list_collectors_for_list(section, for_list, primary=False):
         collector_type = "PrimaryPersonListCollector" if primary else "ListCollector"
 
-        return (
-            block
-            for block in QuestionnaireSchema.get_blocks_for_section(section)
-            if block["type"] == collector_type and block["for_list"] == for_list
-        )
+        return (block for block in QuestionnaireSchema.get_blocks_for_section(section) if block["type"] == collector_type and block["for_list"] == for_list)
 
     @staticmethod
     def get_list_collector_for_list(section, for_list, primary=False):
         try:
-            return next(
-                QuestionnaireSchema.get_list_collectors_for_list(
-                    section, for_list, primary
-                )
-            )
+            return next(QuestionnaireSchema.get_list_collectors_for_list(section, for_list, primary))
         except StopIteration:
             return None
 
@@ -418,26 +397,16 @@ class QuestionnaireSchema:  # pylint: disable=too-many-public-methods
             if block.get("question"):
                 return self.get_answer_ids_for_question(block["question"])
             if block.get("question_variants"):
-                return self.get_answer_ids_for_question(
-                    block["question_variants"][0]["question"]
-                )
+                return self.get_answer_ids_for_question(block["question_variants"][0]["question"])
         return []
 
     def get_relationship_collectors(self) -> List:
-        return [
-            block
-            for block in self.get_blocks()
-            if block["type"] == "RelationshipCollector"
-        ]
+        return [block for block in self.get_blocks() if block["type"] == "RelationshipCollector"]
 
     def get_relationship_collectors_by_list_name(self, list_name: str):
         relationship_collectors = self.get_relationship_collectors()
         if relationship_collectors:
-            return [
-                block
-                for block in relationship_collectors
-                if block["for_list"] == list_name
-            ]
+            return [block for block in relationship_collectors if block["for_list"] == list_name]
 
     def get_unrelated_block_no_answer_values(self, unrelated_answer_id):
         return [
@@ -496,11 +465,7 @@ class QuestionnaireSchema:  # pylint: disable=too-many-public-methods
 
     @staticmethod
     def has_address_lookup_answer(question):
-        return any(
-            answer
-            for answer in question["answers"]
-            if answer["type"] == "Address" and "lookup_options" in answer
-        )
+        return any(answer for answer in question["answers"] if answer["type"] == "Address" and "lookup_options" in answer)
 
     def _get_parent_section_id_for_block(self, block_id):
         parent_block_id = self._parent_id_map[block_id]

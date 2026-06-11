@@ -13,9 +13,7 @@ class RelationshipQuestion(Question):
 
     @cached_property
     def relationships_answer_id(self):
-        return self._schema.get_first_answer_id_for_block(
-            self.relationships_block["id"]
-        )
+        return self._schema.get_first_answer_id_for_block(self.relationships_block["id"])
 
     @property
     def parent_location(self):
@@ -37,15 +35,11 @@ class RelationshipQuestion(Question):
     @cached_property
     def unrelated_no_answer_values(self):
         if self.unrelated_answer_id:
-            return self._schema.get_unrelated_block_no_answer_values(
-                self.unrelated_answer_id
-            )
+            return self._schema.get_unrelated_block_no_answer_values(self.unrelated_answer_id)
 
     @cached_property
     def relationship_store(self):
-        answer = self._questionnaire_store.answer_store.get_answer(
-            self.relationships_answer_id
-        )
+        answer = self._questionnaire_store.answer_store.get_answer(self.relationships_answer_id)
         if answer:
             return RelationshipStore(answer.value)
         return RelationshipStore()
@@ -71,12 +65,8 @@ class RelationshipQuestion(Question):
         return self.router.routing_path(section_id=self.parent_location.section_id)
 
     def is_location_valid(self):
-        can_access_parent_location = self.router.can_access_location(
-            self.parent_location, self._routing_path
-        )
-        can_access_relationship_location = self.relationship_router.can_access_location(
-            self._current_location
-        )
+        can_access_parent_location = self.router.can_access_location(self.parent_location, self._routing_path)
+        can_access_relationship_location = self.relationship_router.can_access_location(self._current_location)
         if not can_access_parent_location or not can_access_relationship_location:
             return False
         return True
@@ -88,23 +78,15 @@ class RelationshipQuestion(Question):
         return self.relationship_router.get_last_location().url()
 
     def get_previous_location_url(self):
-        previous_location = self.relationship_router.get_previous_location(
-            self._current_location
-        )
+        previous_location = self.relationship_router.get_previous_location(self._current_location)
         if previous_location:
             return previous_location.url()
 
-        return self.router.get_previous_location_url(
-            self.parent_location, self._routing_path
-        )
+        return self.router.get_previous_location_url(self.parent_location, self._routing_path)
 
     def get_next_location_url(self):
-        next_location = self.relationship_router.get_next_location(
-            self._current_location
-        )
+        next_location = self.relationship_router.get_next_location(self._current_location)
         if next_location:
             return next_location.url()
 
-        return self.router.get_next_location_url(
-            self.parent_location, self._routing_path, self._return_to
-        )
+        return self.router.get_next_location_url(self.parent_location, self._routing_path, self._return_to)

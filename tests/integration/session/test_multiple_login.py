@@ -16,9 +16,7 @@ class MultipleClientTestCase(IntegrationTestCase):
         self.get(client, "/session?token=" + token)
 
     def get(self, client, url, **kwargs):
-        environ, response = client.get(
-            url, as_tuple=True, follow_redirects=True, **kwargs
-        )
+        environ, response = client.get(url, as_tuple=True, follow_redirects=True, **kwargs)
 
         self._cache_response(client, environ, response)
 
@@ -49,9 +47,7 @@ class MultipleClientTestCase(IntegrationTestCase):
         if action:
             _post_data.update({"action[{action}]".format(action=action): ""})
 
-        environ, response = client.post(
-            url, data=_post_data, as_tuple=True, follow_redirects=True, **kwargs
-        )
+        environ, response = client.post(url, data=_post_data, as_tuple=True, follow_redirects=True, **kwargs)
 
         self._cache_response(client, environ, response)
 
@@ -130,9 +126,7 @@ class TestMultipleLogin(MultipleClientTestCase):
         # user B posts an answer and the questionnaire language is still Welsh
         self.post(self.client_b, {"first-name": "John", "last-name": "Smith"})
         last_response_b = self.cache[self.client_b]["last_response"]
-        self.assertIn(
-            "Beth yw dyddiad geni John Smith?", last_response_b.get_data(True)
-        )
+        self.assertIn("Beth yw dyddiad geni John Smith?", last_response_b.get_data(True))
 
         # user A refreshes the page and sees the answers from B
         self.get(self.client_a, "/questionnaire/name-block/")
@@ -180,8 +174,6 @@ class TestCollectionMetadataStorage(MultipleClientTestCase):
         # it is the same for both users
         self.assertEqual(a_submission["started_at"], b_submission["started_at"])
 
-        started_at_datetime = datetime.strptime(
-            a_submission["started_at"], "%Y-%m-%dT%H:%M:%S.%f"
-        )
+        started_at_datetime = datetime.strptime(a_submission["started_at"], "%Y-%m-%dT%H:%M:%S.%f")
 
         self.assertIsNotNone(started_at_datetime)

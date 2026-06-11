@@ -46,9 +46,7 @@ class RelationshipStore:
         self._is_dirty = True
 
     def serialize(self):
-        return [
-            relationship.for_json() for relationship in self._relationships.values()
-        ]
+        return [relationship.for_json() for relationship in self._relationships.values()]
 
     def get_relationship(self, list_item_id, to_list_item_id):
         key = (list_item_id, to_list_item_id)
@@ -80,9 +78,7 @@ class RelationshipStore:
                 relationship.to_list_item_id,
                 relationship.list_item_id,
             ):
-                keys_to_delete.append(
-                    (relationship.list_item_id, relationship.to_list_item_id)
-                )
+                keys_to_delete.append((relationship.list_item_id, relationship.to_list_item_id))
 
         for key in keys_to_delete:
             del self._relationships[key]

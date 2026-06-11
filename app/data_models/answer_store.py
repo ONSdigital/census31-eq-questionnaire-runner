@@ -41,18 +41,13 @@ class AnswerStore:
 
     @staticmethod
     def _build_map(answers: List[Dict]):
-        """ Builds the answer_store's data structure from a list of answer dictionaries"""
-        return {
-            (answer["answer_id"], answer.get("list_item_id")): Answer.from_dict(answer)
-            for answer in answers
-        }
+        """Builds the answer_store's data structure from a list of answer dictionaries"""
+        return {(answer["answer_id"], answer.get("list_item_id")): Answer.from_dict(answer) for answer in answers}
 
     @staticmethod
     def _validate(answer):
         if not isinstance(answer, Answer):
-            raise TypeError(
-                f"Method only supports Answer argument type, found type: {type(answer)}"
-            )
+            raise TypeError(f"Method only supports Answer argument type, found type: {type(answer)}")
 
     @property
     def is_dirty(self):
@@ -83,9 +78,7 @@ class AnswerStore:
         """
         return self.answer_map.get((answer_id, list_item_id))
 
-    def get_answers_by_answer_id(
-        self, answer_ids: List[str], list_item_id: str = None
-    ) -> List[Answer]:
+    def get_answers_by_answer_id(self, answer_ids: List[str], list_item_id: str = None) -> List[Answer]:
         """Get multiple answers from the store using the answer_id
 
         Args:
@@ -140,23 +133,14 @@ class AnswerStore:
     def get_escaped_answer_value(self, answer_id, list_item_id=None):
         if answer := self.get_answer(answer_id, list_item_id):
             if isinstance(answer.value, list):
-                return [
-                    escape(list_item)
-                    if list_item and isinstance(list_item, str)
-                    else list_item
-                    for list_item in answer.value
-                ]
+                return [(escape(list_item) if list_item and isinstance(list_item, str) else list_item) for list_item in answer.value]
 
             if isinstance(answer.value, dict):
                 escaped_dict = {}
                 for key, value in answer.value.items():
-                    escaped_dict[key] = (
-                        escape(value) if isinstance(value, str) else value
-                    )
+                    escaped_dict[key] = escape(value) if isinstance(value, str) else value
                 return escaped_dict
 
-            return (
-                escape(answer.value) if isinstance(answer.value, str) else answer.value
-            )
+            return escape(answer.value) if isinstance(answer.value, str) else answer.value
 
         return None

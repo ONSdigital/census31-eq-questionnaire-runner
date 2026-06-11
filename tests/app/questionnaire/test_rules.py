@@ -219,9 +219,7 @@ class TestRules(AppContextTestCase):  # pylint: disable=too-many-public-methods
 
         goto_not_contains = {
             "id": "next-question",
-            "when": [
-                {"id": "my_answers", "condition": "not contains", "value": "answer1"}
-            ],
+            "when": [{"id": "my_answers", "condition": "not contains", "value": "answer1"}],
         }
         answer_store = AnswerStore()
 
@@ -258,9 +256,7 @@ class TestRules(AppContextTestCase):  # pylint: disable=too-many-public-methods
             "when": [{"id": "my_answers", "condition": "contains", "value": "answer1"}],
         }
         answer_store = AnswerStore()
-        answer_store.add_or_update(
-            Answer(answer_id="my_answers", value=["answer1", "answer2", "answer3"])
-        )
+        answer_store.add_or_update(Answer(answer_id="my_answers", value=["answer1", "answer2", "answer3"]))
 
         current_location = Location(section_id="some-section", block_id="some-block")
 
@@ -281,14 +277,10 @@ class TestRules(AppContextTestCase):  # pylint: disable=too-many-public-methods
 
         goto = {
             "id": "next-question",
-            "when": [
-                {"id": "my_answers", "condition": "not contains", "value": "answer1"}
-            ],
+            "when": [{"id": "my_answers", "condition": "not contains", "value": "answer1"}],
         }
         answer_store = AnswerStore()
-        answer_store.add_or_update(
-            Answer(answer_id="my_answers", value=["answer2", "answer3"])
-        )
+        answer_store.add_or_update(Answer(answer_id="my_answers", value=["answer2", "answer3"]))
 
         current_location = Location(section_id="some-section", block_id="some-block")
 
@@ -318,9 +310,7 @@ class TestRules(AppContextTestCase):  # pylint: disable=too-many-public-methods
             ],
         }
         answer_store = AnswerStore()
-        answer_store.add_or_update(
-            Answer(answer_id="my_answers", value=["answer1", "answer4"])
-        )
+        answer_store.add_or_update(Answer(answer_id="my_answers", value=["answer1", "answer4"]))
 
         current_location = Location(section_id="some-section", block_id="some-block")
 
@@ -350,9 +340,7 @@ class TestRules(AppContextTestCase):  # pylint: disable=too-many-public-methods
             ],
         }
         answer_store = AnswerStore()
-        answer_store.add_or_update(
-            Answer(answer_id="my_answers", value=["answer1", "answer2", "answer3"])
-        )
+        answer_store.add_or_update(Answer(answer_id="my_answers", value=["answer1", "answer2", "answer3"]))
 
         current_location = Location(section_id="some-section", block_id="some-block")
 
@@ -697,12 +685,8 @@ class TestRules(AppContextTestCase):  # pylint: disable=too-many-public-methods
             "medium": Answer(answer_id="medium", value=5),
             "high": Answer(answer_id="high", value=10),
             "list_answer": Answer(answer_id="list_answer", value=["a", "abc", "cba"]),
-            "other_list_answer": Answer(
-                answer_id="other_list_answer", value=["x", "y", "z"]
-            ),
-            "other_list_answer_2": Answer(
-                answer_id="other_list_answer_2", value=["a", "abc", "cba"]
-            ),
+            "other_list_answer": Answer(answer_id="other_list_answer", value=["x", "y", "z"]),
+            "other_list_answer_2": Answer(answer_id="other_list_answer_2", value=["a", "abc", "cba"]),
             "text_answer": Answer(answer_id="small_string", value="abc"),
             "other_text_answer": Answer(answer_id="other_string", value="xyz"),
         }
@@ -764,9 +748,7 @@ class TestRules(AppContextTestCase):  # pylint: disable=too-many-public-methods
 
         for lhs, comparison, rhs, expected_result in param_list:
             # Given
-            with self.subTest(
-                lhs=lhs, comparison=comparison, rhs=rhs, expected_result=expected_result
-            ):
+            with self.subTest(lhs=lhs, comparison=comparison, rhs=rhs, expected_result=expected_result):
                 answer_store = AnswerStore()
                 for answer in answers.values():
                     answer_store.add_or_update(answer)
@@ -779,9 +761,7 @@ class TestRules(AppContextTestCase):  # pylint: disable=too-many-public-methods
                     }
                 ]
 
-                current_location = Location(
-                    section_id="some-section", block_id="some-block"
-                )
+                current_location = Location(section_id="some-section", block_id="some-block")
 
                 self.assertEqual(
                     evaluate_when_rules(
@@ -797,20 +777,14 @@ class TestRules(AppContextTestCase):  # pylint: disable=too-many-public-methods
                 )
 
     def test_evaluate_when_rule_fetches_answer_using_list_item_id(self):
-        when = {
-            "when": [{"id": "my_answer", "condition": "equals", "value": "an answer"}]
-        }
+        when = {"when": [{"id": "my_answer", "condition": "equals", "value": "an answer"}]}
 
         list_item_id = "abc123"
 
         answer_store = AnswerStore()
-        answer_store.add_or_update(
-            Answer(answer_id="my_answer", value="an answer", list_item_id=list_item_id)
-        )
+        answer_store.add_or_update(Answer(answer_id="my_answer", value="an answer", list_item_id=list_item_id))
 
-        current_location = Location(
-            section_id="some-section", block_id="some-block", list_item_id=list_item_id
-        )
+        current_location = Location(section_id="some-section", block_id="some-block", list_item_id=list_item_id)
 
         schema = Mock(get_schema())
         schema.get_list_item_id_for_answer_id = Mock(return_value=list_item_id)
@@ -827,18 +801,12 @@ class TestRules(AppContextTestCase):  # pylint: disable=too-many-public-methods
         )
 
     def test_evaluate_when_rule_with_invalid_list_item_id(self):
-        when = {
-            "when": [{"id": "my_answer", "condition": "equals", "value": "an answer"}]
-        }
+        when = {"when": [{"id": "my_answer", "condition": "equals", "value": "an answer"}]}
 
         answer_store = AnswerStore()
-        answer_store.add_or_update(
-            Answer(answer_id="my_answer", value="an answer", list_item_id="abc123")
-        )
+        answer_store.add_or_update(Answer(answer_id="my_answer", value="an answer", list_item_id="abc123"))
 
-        current_location = Location(
-            section_id="some-section", block_id="some-block", list_item_id="123abc"
-        )
+        current_location = Location(section_id="some-section", block_id="some-block", list_item_id="123abc")
 
         schema = Mock(get_schema())
         schema.get_list_item_id_for_answer_id = Mock(return_value="123abc")
@@ -858,9 +826,7 @@ class TestRules(AppContextTestCase):  # pylint: disable=too-many-public-methods
         when = {"when": [{"condition": "not set"}]}
         answer_store = AnswerStore()
         with self.assertRaises(Exception):
-            evaluate_when_rules(
-                when["when"], get_schema(), {}, answer_store, ListStore(), None
-            )
+            evaluate_when_rules(when["when"], get_schema(), {}, answer_store, ListStore(), None)
 
     def test_list_rules_less_than(self):
         answer_store = AnswerStore()
@@ -901,11 +867,7 @@ class TestRules(AppContextTestCase):  # pylint: disable=too-many-public-methods
         )
 
     def test_routing_answer_on_path_when_in_a_repeat(self):
-        when = {
-            "when": [
-                {"id": "some-answer", "condition": "equals", "value": "some value"}
-            ]
-        }
+        when = {"when": [{"id": "some-answer", "condition": "equals", "value": "some value"}]}
 
         answer_store = AnswerStore()
         answer = Answer(answer_id="some-answer", value="some value")
@@ -925,9 +887,7 @@ class TestRules(AppContextTestCase):  # pylint: disable=too-many-public-methods
             list_item_id="abc123",
         )
 
-        with patch(
-            "app.questionnaire.rules.get_answer_for_answer_id", return_value=answer
-        ):
+        with patch("app.questionnaire.rules.get_answer_for_answer_id", return_value=answer):
             with patch("app.questionnaire.rules._is_answer_on_path", return_value=True):
 
                 self.assertTrue(
@@ -943,11 +903,7 @@ class TestRules(AppContextTestCase):  # pylint: disable=too-many-public-methods
                 )
 
     def test_routing_answer_not_on_path_when_in_a_repeat(self):
-        when = {
-            "when": [
-                {"id": "some-answer", "condition": "equals", "value": "some value"}
-            ]
-        }
+        when = {"when": [{"id": "some-answer", "condition": "equals", "value": "some value"}]}
 
         answer_store = AnswerStore()
         answer = Answer(answer_id="some-answer", value="some value")
@@ -968,12 +924,8 @@ class TestRules(AppContextTestCase):  # pylint: disable=too-many-public-methods
             list_item_id="abc123",
         )
 
-        with patch(
-            "app.questionnaire.rules.get_answer_for_answer_id", return_value=answer
-        ):
-            with patch(
-                "app.questionnaire.rules._is_answer_on_path", return_value=False
-            ):
+        with patch("app.questionnaire.rules.get_answer_for_answer_id", return_value=answer):
+            with patch("app.questionnaire.rules._is_answer_on_path", return_value=False):
 
                 self.assertFalse(
                     evaluate_when_rules(
@@ -988,11 +940,7 @@ class TestRules(AppContextTestCase):  # pylint: disable=too-many-public-methods
                 )
 
     def test_routing_ignores_answers_not_on_path(self):
-        when = {
-            "when": [
-                {"id": "some-answer", "condition": "equals", "value": "some value"}
-            ]
-        }
+        when = {"when": [{"id": "some-answer", "condition": "equals", "value": "some value"}]}
         answer_store = AnswerStore()
         answer_store.add_or_update(Answer(answer_id="some-answer", value="some value"))
 
@@ -1101,9 +1049,7 @@ class TestRules(AppContextTestCase):  # pylint: disable=too-many-public-methods
 
     def test_when_rule_returns_first_item_in_list(self):
         answer_store = AnswerStore()
-        list_store = ListStore(
-            existing_items=[{"name": "people", "items": ["abcdef", "12345"]}]
-        )
+        list_store = ListStore(existing_items=[{"name": "people", "items": ["abcdef", "12345"]}])
 
         current_location = Location(
             section_id="some-section",

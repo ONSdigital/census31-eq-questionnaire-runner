@@ -47,13 +47,9 @@ class HubContext(Context):
         if survey_complete:
             submission_schema = self._schema.get_submission()
             title = submission_schema.get("title") or lazy_gettext("Submit survey")
-            submit_button = submission_schema.get("button") or lazy_gettext(
-                "Submit survey"
-            )
+            submit_button = submission_schema.get("button") or lazy_gettext("Submit survey")
             guidance = submission_schema.get("guidance")
-            warning = submission_schema.get("warning") or lazy_gettext(
-                "You must submit this survey to complete it"
-            )
+            warning = submission_schema.get("warning") or lazy_gettext("You must submit this survey to complete it")
             individual_response_enabled = False
             self._individual_response_url = None
 
@@ -74,9 +70,7 @@ class HubContext(Context):
             "warning": warning,
         }
 
-    def get_row_context_for_section(
-        self, section_name: str, section_status: str, section_url: str, row_id: str
-    ) -> Mapping[str, Union[str, List]]:
+    def get_row_context_for_section(self, section_name: str, section_status: str, section_url: str, row_id: str) -> Mapping[str, Union[str, List]]:
         section_content = self.SECTION_CONTENT_STATES[section_status]
         context: Mapping = {
             "rowItems": [
@@ -88,9 +82,7 @@ class HubContext(Context):
                     "actions": [
                         {
                             "text": section_content["link"]["text"],
-                            "ariaLabel": section_content["link"]["aria_label"].format(
-                                section_name=section_name
-                            ),
+                            "ariaLabel": section_content["link"]["aria_label"].format(section_name=section_name),
                             "url": section_url,
                             "attributes": {"data-qa": f"hub-row-{row_id}-link"},
                         }
@@ -127,22 +119,14 @@ class HubContext(Context):
     def _get_row_for_repeating_section(self, section_id, list_item_id, list_item_index):
         repeating_title = self._schema.get_repeating_title_for_section(section_id)
 
-        title = self._placeholder_renderer.render_placeholder(
-            repeating_title, list_item_id
-        )
+        title = self._placeholder_renderer.render_placeholder(repeating_title, list_item_id)
 
-        return self._get_row_for_section(
-            title, section_id, list_item_id, list_item_index
-        )
+        return self._get_row_for_section(title, section_id, list_item_id, list_item_index)
 
-    def _get_row_for_section(
-        self, section_title, section_id, list_item_id=None, list_item_index=None
-    ):
+    def _get_row_for_section(self, section_title, section_id, list_item_id=None, list_item_index=None):
         row_id = f"{section_id}-{list_item_index}" if list_item_index else section_id
 
-        section_status = self._progress_store.get_section_status(
-            section_id, list_item_id
-        )
+        section_status = self._progress_store.get_section_status(section_id, list_item_id)
 
         return self.get_row_context_for_section(
             section_title,
@@ -162,15 +146,9 @@ class HubContext(Context):
                 repeating_list = self._schema.get_repeating_list_for_section(section_id)
 
                 if repeating_list:
-                    for list_item_index, list_item_id in enumerate(
-                        self._list_store[repeating_list].items, start=1
-                    ):
+                    for list_item_index, list_item_id in enumerate(self._list_store[repeating_list].items, start=1):
 
-                        rows.append(
-                            self._get_row_for_repeating_section(
-                                section_id, list_item_id, list_item_index
-                            )
-                        )
+                        rows.append(self._get_row_for_repeating_section(section_id, list_item_id, list_item_index))
                 else:
                     rows.append(self._get_row_for_section(section_title, section_id))
 
@@ -189,11 +167,6 @@ class HubContext(Context):
 
     @cached_property
     def _individual_response_url(self) -> Union[str, None]:
-        if (
-            self._individual_response_enabled
-            and self._schema.get_individual_response_show_on_hub()
-        ):
-            return url_for(
-                "individual_response.request_individual_response", journey="hub"
-            )
+        if self._individual_response_enabled and self._schema.get_individual_response_show_on_hub():
+            return url_for("individual_response.request_individual_response", journey="hub")
         return None

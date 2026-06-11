@@ -21,6 +21,4 @@ class TestQuestionnaireCalculatedSummary(IntegrationTestCase):
         self.post({"fifth-percent-answer": "50", "fifth-number-answer": "50"})
         self.post({"sixth-percent-answer": "60", "sixth-number-answer": "60"})
         self.assertInBody("Skipped Fourth")
-        self.assertInBody(
-            "We calculate the total of currency values entered to be £80.00"
-        )
+        self.assertInBody("We calculate the total of currency values entered to be £80.00")

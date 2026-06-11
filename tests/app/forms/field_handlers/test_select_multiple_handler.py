@@ -29,9 +29,7 @@ def test_get_field():
 
     form = TestForm()
 
-    expected_choices = [
-        (option["value"], option["label"], None) for option in checkbox_json["options"]
-    ]
+    expected_choices = [(option["value"], option["label"], None) for option in checkbox_json["options"]]
 
     assert isinstance(form.test_field, MultipleSelectFieldWithDetailAnswer)
     assert form.test_field.label.text == checkbox_json["label"]

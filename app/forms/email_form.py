@@ -18,8 +18,4 @@ class EmailForm(FlaskForm):
     )
 
     def map_errors(self):
-        return (
-            map_subfield_errors(self.errors, self.email.id)
-            if self.email.id in self.errors
-            else []
-        )
+        return map_subfield_errors(self.errors, self.email.id) if self.email.id in self.errors else []

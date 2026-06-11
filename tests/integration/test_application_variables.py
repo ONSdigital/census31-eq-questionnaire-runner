@@ -17,9 +17,7 @@ class TestApplicationVariables(IntegrationTestCase):
 
     def test_google_analytics_code_and_credentials_are_present(self):
         self.launchSurvey("test_textfield")
-        self._client.set_cookie(
-            "localhost", key="ons_cookie_policy", value="'usage':true"
-        )
+        self._client.set_cookie("localhost", key="ons_cookie_policy", value="'usage':true")
         self.get("/questionnaire/name-block/")
         self.assertStatusOK()
         self.assertInHead("gtm.start")
@@ -30,9 +28,7 @@ class TestApplicationVariables(IntegrationTestCase):
 
     def test_google_analytics_data_layer_is_set_to_nisra_false(self):
         self.launchSurvey("test_thank_you_census_individual")
-        self._client.set_cookie(
-            "localhost", key="ons_cookie_policy", value="'usage':true"
-        )
+        self._client.set_cookie("localhost", key="ons_cookie_policy", value="'usage':true")
         self.get("/questionnaire/individual-confirmation/")
         self.assertStatusOK()
         self.assertInHead("gtm.start")

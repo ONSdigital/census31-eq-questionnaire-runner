@@ -12,9 +12,7 @@ def router(schema, answer_store, list_store, progress_store):
     return Router(schema, answer_store, list_store, progress_store, metadata={})
 
 
-def test_get_not_started_row_for_section(
-    schema, progress_store, answer_store, list_store
-):
+def test_get_not_started_row_for_section(schema, progress_store, answer_store, list_store):
     expected = {
         "rowItems": [
             {
@@ -53,9 +51,7 @@ def test_get_not_started_row_for_section(
     assert expected == actual
 
 
-def test_get_completed_row_for_section(
-    schema, progress_store, answer_store, list_store
-):
+def test_get_completed_row_for_section(schema, progress_store, answer_store, list_store):
     expected = {
         "rowItems": [
             {
@@ -116,14 +112,10 @@ def test_get_context(progress_store, answer_store, list_store, router):
         "warning": None,
     }
 
-    assert expected_context == hub.get_context(
-        survey_complete=False, enabled_section_ids=router.enabled_section_ids
-    )
+    assert expected_context == hub.get_context(survey_complete=False, enabled_section_ids=router.enabled_section_ids)
 
 
-def test_get_context_custom_content_incomplete(
-    progress_store, answer_store, list_store, router
-):
+def test_get_context_custom_content_incomplete(progress_store, answer_store, list_store, router):
     schema = load_schema_from_name("test_hub_and_spoke_custom_content")
     hub_context = HubContext(
         language=None,
@@ -144,14 +136,10 @@ def test_get_context_custom_content_incomplete(
         "warning": None,
     }
 
-    assert expected_context == hub_context.get_context(
-        survey_complete=False, enabled_section_ids=router.enabled_section_ids
-    )
+    assert expected_context == hub_context.get_context(survey_complete=False, enabled_section_ids=router.enabled_section_ids)
 
 
-def test_get_context_custom_content_complete(
-    progress_store, answer_store, list_store, router
-):
+def test_get_context_custom_content_complete(progress_store, answer_store, list_store, router):
     schema = load_schema_from_name("test_hub_and_spoke_custom_content")
     hub_context = HubContext(
         language=None,
@@ -172,14 +160,10 @@ def test_get_context_custom_content_complete(
         "warning": "Submission warning",
     }
 
-    assert expected_context == hub_context.get_context(
-        survey_complete=True, enabled_section_ids=router.enabled_section_ids
-    )
+    assert expected_context == hub_context.get_context(survey_complete=True, enabled_section_ids=router.enabled_section_ids)
 
 
-def test_get_context_no_list_items_survey_incomplete_individual_response_disabled(
-    progress_store, answer_store, list_store, router
-):
+def test_get_context_no_list_items_survey_incomplete_individual_response_disabled(progress_store, answer_store, list_store, router):
     schema = load_schema_from_name("test_individual_response")
     hub_context = HubContext(
         language=None,
@@ -190,8 +174,4 @@ def test_get_context_no_list_items_survey_incomplete_individual_response_disable
         metadata={},
     )
 
-    assert not (
-        hub_context.get_context(
-            survey_complete=False, enabled_section_ids=router.enabled_section_ids
-        )["individual_response_enabled"]
-    )
+    assert not (hub_context.get_context(survey_complete=False, enabled_section_ids=router.enabled_section_ids)["individual_response_enabled"])

@@ -5,9 +5,7 @@ from app.data_models.relationship_store import RelationshipStore
 from app.questionnaire.relationship_router import RelationshipRouter
 
 
-def convert_answers_to_payload_0_0_3(
-    answer_store, list_store, schema, full_routing_path
-) -> List[Dict]:
+def convert_answers_to_payload_0_0_3(answer_store, list_store, schema, full_routing_path) -> List[Dict]:
     """
     Convert answers into the data format below
     'data': [
@@ -50,9 +48,7 @@ def convert_answers_to_payload_0_0_3(
                     answers_payload=answers_payload,
                 )
 
-            if schema.is_list_block_type(
-                block_type
-            ) or schema.is_primary_person_block_type(block_type):
+            if schema.is_list_block_type(block_type) or schema.is_primary_person_block_type(block_type):
                 add_list_collector_answers(
                     answer_store=answer_store,
                     list_store=list_store,
@@ -62,24 +58,18 @@ def convert_answers_to_payload_0_0_3(
                 )
 
             answer_ids = schema.get_answer_ids_for_block(block_id)
-            answers_in_block = answer_store.get_answers_by_answer_id(
-                answer_ids, list_item_id=routing_path.list_item_id
-            )
+            answers_in_block = answer_store.get_answers_by_answer_id(answer_ids, list_item_id=routing_path.list_item_id)
             for answer_in_block in answers_in_block:
                 answers_payload.add_or_update(answer_in_block)
 
     return list(answers_payload.answer_map.values())
 
 
-def add_list_collector_answers(
-    answer_store, list_store, schema, list_collector_block, answers_payload
-):
+def add_list_collector_answers(answer_store, list_store, schema, list_collector_block, answers_payload):
     """Add answers from a ListCollector block.
     Output is added to the `answers_payload` argument."""
 
-    answers_ids_in_add_block = schema.get_answer_ids_for_list_items(
-        list_collector_block["id"]
-    )
+    answers_ids_in_add_block = schema.get_answer_ids_for_list_items(list_collector_block["id"])
     list_name = list_collector_block["for_list"]
     list_item_ids = list_store[list_name].items
 
@@ -90,12 +80,8 @@ def add_list_collector_answers(
                 answers_payload.add_or_update(answer)
 
 
-def add_relationships_unrelated_answers(
-    answer_store, list_store, schema, section_id, relationships_block, answers_payload
-):
-    relationships_answer_id = schema.get_first_answer_id_for_block(
-        relationships_block["id"]
-    )
+def add_relationships_unrelated_answers(answer_store, list_store, schema, section_id, relationships_block, answers_payload):
+    relationships_answer_id = schema.get_first_answer_id_for_block(relationships_block["id"])
     relationships_answer = answer_store.get_answer(relationships_answer_id)
     if not relationships_answer:
         return None
@@ -105,9 +91,7 @@ def add_relationships_unrelated_answers(
     unrelated_block = relationships_block["unrelated_block"]
     unrelated_block_id = unrelated_block["id"]
     unrelated_answer_id = schema.get_first_answer_id_for_block(unrelated_block_id)
-    unrelated_no_answer_values = schema.get_unrelated_block_no_answer_values(
-        unrelated_answer_id
-    )
+    unrelated_no_answer_values = schema.get_unrelated_block_no_answer_values(unrelated_answer_id)
 
     relationship_router = RelationshipRouter(
         answer_store=answer_store,
@@ -122,9 +106,5 @@ def add_relationships_unrelated_answers(
     )
 
     for location in relationship_router.path:
-        if location.block_id == unrelated_block_id and (
-            unrelated_answer := answer_store.get_answer(
-                unrelated_answer_id, list_item_id=location.list_item_id
-            )
-        ):
+        if location.block_id == unrelated_block_id and (unrelated_answer := answer_store.get_answer(unrelated_answer_id, list_item_id=location.list_item_id)):
             answers_payload.add_or_update(unrelated_answer)

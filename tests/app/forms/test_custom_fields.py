@@ -19,9 +19,7 @@ class TestMaxTextAreaField(unittest.TestCase):
         self.assertIsInstance(text_area, Field)
 
     def test_text_area_supports_maxlength_property(self):
-        text_area = MaxTextAreaField(
-            "TestLabel", maxlength=20, _form=self.mock_form, _name="aName"
-        )
+        text_area = MaxTextAreaField("TestLabel", maxlength=20, _form=self.mock_form, _name="aName")
         self.assertIsInstance(text_area, Field)
         self.assertEqual(text_area.maxlength, 20)
 

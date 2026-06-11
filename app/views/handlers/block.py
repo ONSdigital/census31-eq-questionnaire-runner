@@ -40,9 +40,7 @@ class BlockHandler:
         self.resume = "resume" in request_args
 
         if not self.is_location_valid():
-            raise InvalidLocationException(
-                f"location {self._current_location} is not valid"
-            )
+            raise InvalidLocationException(f"location {self._current_location} is not valid")
 
     @property
     def current_location(self):
@@ -79,19 +77,13 @@ class BlockHandler:
         )
 
     def is_location_valid(self):
-        return self.router.can_access_location(
-            self._current_location, self._routing_path
-        )
+        return self.router.can_access_location(self._current_location, self._routing_path)
 
     def get_previous_location_url(self):
-        return self.router.get_previous_location_url(
-            self._current_location, self._routing_path
-        )
+        return self.router.get_previous_location_url(self._current_location, self._routing_path)
 
     def get_next_location_url(self):
-        return self.router.get_next_location_url(
-            self._current_location, self._routing_path, self._return_to
-        )
+        return self.router.get_next_location_url(self._current_location, self._routing_path, self._return_to)
 
     def handle_post(self):
         self._set_started_at_metadata()
@@ -105,9 +97,7 @@ class BlockHandler:
             list_item_id=self._current_location.list_item_id,
         )
 
-    def _update_section_completeness(
-        self, location: Optional[Union[Location, RelationshipLocation]] = None
-    ):
+    def _update_section_completeness(self, location: Optional[Union[Location, RelationshipLocation]] = None):
         location = location or self._current_location
 
         self.questionnaire_store_updater.update_section_status(
@@ -128,24 +118,15 @@ class BlockHandler:
         return safe_content(page_title)
 
     def _resolve_custom_page_title_vars(self) -> MutableMapping:
-        list_item_position = self._questionnaire_store.list_store.list_item_position(
-            self.current_location.list_name, self.current_location.list_item_id
-        )
+        list_item_position = self._questionnaire_store.list_store.list_item_position(self.current_location.list_name, self.current_location.list_item_id)
         return {"list_item_position": list_item_position}
 
     def _set_page_title(self, page_title):
-        section_repeating_page_title = (
-            self._schema.get_repeating_page_title_for_section(
-                self._current_location.section_id
-            )
-        )
+        section_repeating_page_title = self._schema.get_repeating_page_title_for_section(self._current_location.section_id)
         if section_repeating_page_title:
             page_title = f"{page_title}: {section_repeating_page_title}"
 
-        if (
-            self._current_location.list_item_id
-            or self.block["type"] == "ListAddQuestion"
-        ):
+        if self._current_location.list_item_id or self.block["type"] == "ListAddQuestion":
             page_title_vars = self._resolve_custom_page_title_vars()
             page_title = page_title.format(**page_title_vars)
 

@@ -84,15 +84,11 @@ class TestDateRules(AppContextTestCase):
         }
 
         answer_value = "2016-06-11"
-        result = evaluate_date_rule(
-            when, None, get_schema_mock(), metadata, answer_value
-        )
+        result = evaluate_date_rule(when, None, get_schema_mock(), metadata, answer_value)
         self.assertTrue(result)
 
         answer_value = "2016-06-12"
-        result = evaluate_date_rule(
-            when, None, get_schema_mock(), metadata, answer_value
-        )
+        result = evaluate_date_rule(when, None, get_schema_mock(), metadata, answer_value)
         self.assertFalse(result)
 
     def test_evaluate_date_rule_greater_than_with_id(self):
@@ -104,20 +100,14 @@ class TestDateRules(AppContextTestCase):
         }
 
         answer_store = AnswerStore({})
-        answer_store.add_or_update(
-            Answer(answer_id="compare_date_answer", value="2018-02-03")
-        )
+        answer_store.add_or_update(Answer(answer_id="compare_date_answer", value="2018-02-03"))
 
         answer_value = "2018-02-04"
-        result = evaluate_date_rule(
-            when, answer_store, get_schema_mock(), None, answer_value
-        )
+        result = evaluate_date_rule(when, answer_store, get_schema_mock(), None, answer_value)
         self.assertTrue(result)
 
         answer_value = "2018-02-03"
-        result = evaluate_date_rule(
-            when, answer_store, get_schema_mock(), None, answer_value
-        )
+        result = evaluate_date_rule(when, answer_store, get_schema_mock(), None, answer_value)
         self.assertFalse(result)
 
     def test_evaluate_date_rule_invalid(self):

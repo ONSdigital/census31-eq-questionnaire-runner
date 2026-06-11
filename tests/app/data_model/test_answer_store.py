@@ -15,24 +15,16 @@ def empty_answer_store():
 def basic_answer_store():
     answer_store = AnswerStore()
 
-    answer_store.add_or_update(
-        Answer(answer_id="answer1", value=10, list_item_id="abc123")
-    )
-    answer_store.add_or_update(
-        Answer(answer_id="answer2", value=20, list_item_id="xyz987")
-    )
-    answer_store.add_or_update(
-        Answer(answer_id="another-answer2", value=25, list_item_id="xyz987")
-    )
+    answer_store.add_or_update(Answer(answer_id="answer1", value=10, list_item_id="abc123"))
+    answer_store.add_or_update(Answer(answer_id="answer2", value=20, list_item_id="xyz987"))
+    answer_store.add_or_update(Answer(answer_id="another-answer2", value=25, list_item_id="xyz987"))
 
     answer_store.add_or_update(Answer(answer_id="answer3", value=30))
     answer_store.add_or_update(Answer(answer_id="another-answer3", value=35))
 
     answer_store.add_or_update(Answer(answer_id="answer4", value="<p>abc123</p>"))
     answer_store.add_or_update(Answer(answer_id="answer5", value=["<p>abc123</p>", 1]))
-    answer_store.add_or_update(
-        Answer(answer_id="answer6", value={"item1": "<p>abc123</p>", "item2": 1})
-    )
+    answer_store.add_or_update(Answer(answer_id="answer6", value={"item1": "<p>abc123</p>", "item2": 1}))
 
     answer_store.add_or_update(Answer(answer_id="to-escape", value="'Twenty Five'"))
     return answer_store
@@ -72,12 +64,8 @@ def relationship_answer_store():
 def store_to_serialize():
     answer_store = AnswerStore()
 
-    answer_store.add_or_update(
-        Answer(answer_id="answer1", value=10, list_item_id="abc123")
-    )
-    answer_store.add_or_update(
-        Answer(answer_id="answer2", value=20, list_item_id="xyz987")
-    )
+    answer_store.add_or_update(Answer(answer_id="answer1", value=10, list_item_id="abc123"))
+    answer_store.add_or_update(Answer(answer_id="answer2", value=20, list_item_id="xyz987"))
     answer_store.add_or_update(Answer(answer_id="answer3", value=30))
 
     return answer_store
@@ -125,15 +113,11 @@ def test_updates_answer_with_list_id(basic_answer_store):
 
 
 def test_get_answer_no_list(basic_answer_store):
-    assert basic_answer_store.get_answer("answer3") == Answer.from_dict(
-        {"answer_id": "answer3", "list_item_id": None, "value": 30}
-    )
+    assert basic_answer_store.get_answer("answer3") == Answer.from_dict({"answer_id": "answer3", "list_item_id": None, "value": 30})
 
 
 def test_get_answer_with_list(basic_answer_store):
-    assert basic_answer_store.get_answer("answer1", "abc123") == Answer.from_dict(
-        {"answer_id": "answer1", "list_item_id": "abc123", "value": 10}
-    )
+    assert basic_answer_store.get_answer("answer1", "abc123") == Answer.from_dict({"answer_id": "answer1", "list_item_id": "abc123", "value": 10})
 
 
 def test_get_answer_does_not_escape_values(basic_answer_store):
@@ -191,12 +175,8 @@ def test_list_serialisation(store_to_serialize):
     serialized_store = list(store_to_serialize)
 
     assert serialized_store == [
-        Answer.from_dict(
-            {"answer_id": "answer1", "value": 10, "list_item_id": "abc123"}
-        ),
-        Answer.from_dict(
-            {"answer_id": "answer2", "value": 20, "list_item_id": "xyz987"}
-        ),
+        Answer.from_dict({"answer_id": "answer1", "value": 10, "list_item_id": "abc123"}),
+        Answer.from_dict({"answer_id": "answer2", "value": 20, "list_item_id": "xyz987"}),
         Answer.from_dict({"answer_id": "answer3", "value": 30, "list_item_id": None}),
     ]
 
@@ -214,10 +194,7 @@ def test_bad_answer_type(basic_answer_store):
 
 
 def test_escaped_answer_value_method(basic_answer_store):
-    assert (
-        basic_answer_store.get_escaped_answer_value("answer4")
-        == "&lt;p&gt;abc123&lt;/p&gt;"
-    )
+    assert basic_answer_store.get_escaped_answer_value("answer4") == "&lt;p&gt;abc123&lt;/p&gt;"
     assert basic_answer_store.get_escaped_answer_value("answer5") == [
         "&lt;p&gt;abc123&lt;/p&gt;",
         1,

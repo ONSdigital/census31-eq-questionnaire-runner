@@ -36,14 +36,10 @@ class Redis(StorageHandler):
             expires_in = expiry_at - datetime.now(tz=tzutc())
 
         try:
-            record_created = self.client.set(
-                name=key_value, value=value, ex=expires_in, nx=not overwrite
-            )
+            record_created = self.client.set(name=key_value, value=value, ex=expires_in, nx=not overwrite)
         except RedisConnectionError:
             self.log_retry("set")
-            record_created = self.client.set(
-                name=key_value, value=value, ex=expires_in, nx=not overwrite
-            )
+            record_created = self.client.set(name=key_value, value=value, ex=expires_in, nx=not overwrite)
 
         if not record_created:
             raise ItemAlreadyExistsError()

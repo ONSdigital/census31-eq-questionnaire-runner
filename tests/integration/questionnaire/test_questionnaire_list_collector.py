@@ -253,9 +253,7 @@ class TestQuestionnaireListCollector(QuestionnaireTestCase):
 
         self.get(remove_link)
 
-        self.assertIsNotNone(
-            self.getHtmlSoup().select("#question-warning-remove-question")
-        )
+        self.assertIsNotNone(self.getHtmlSoup().select("#question-warning-remove-question"))
 
         self.assertInBody("All of the information about this person will be deleted")
 

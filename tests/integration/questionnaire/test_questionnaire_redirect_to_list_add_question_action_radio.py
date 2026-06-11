@@ -12,9 +12,7 @@ class TestQuestionnaireListCollector(QuestionnaireTestCase):
         self.post({"anyone-usually-live-at-answer": "Yes"})
 
         # Then
-        self.assertInUrl(
-            "/questionnaire/people/add-person/?previous=anyone-usually-live-at"
-        )
+        self.assertInUrl("/questionnaire/people/add-person/?previous=anyone-usually-live-at")
 
     def test_previous_link_when_list_empty_with_return_to_query_string(self):
         # Given

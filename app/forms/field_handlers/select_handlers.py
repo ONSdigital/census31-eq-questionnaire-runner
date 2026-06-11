@@ -21,9 +21,7 @@ class SelectHandler(FieldHandler):
     def build_choices_with_detail_answer_ids(options: dict):
         choices = []
         for option in options:
-            detail_answer_id = (
-                option["detail_answer"]["id"] if option.get("detail_answer") else None
-            )
+            detail_answer_id = option["detail_answer"]["id"] if option.get("detail_answer") else None
             choices.append((option["value"], option["label"], detail_answer_id))
         return choices
 
@@ -37,9 +35,7 @@ class SelectHandler(FieldHandler):
         return SelectFieldWithDetailAnswer(
             label=self.label,
             description=self.guidance,
-            choices=self.build_choices_with_detail_answer_ids(
-                self.answer_schema["options"]
-            ),
+            choices=self.build_choices_with_detail_answer_ids(self.answer_schema["options"]),
             validators=self.validators,
             coerce=self.coerce_str_unless_none,
         )
@@ -52,8 +48,6 @@ class SelectMultipleHandler(SelectHandler):
         return MultipleSelectFieldWithDetailAnswer(
             label=self.label,
             description=self.guidance,
-            choices=self.build_choices_with_detail_answer_ids(
-                self.answer_schema["options"]
-            ),
+            choices=self.build_choices_with_detail_answer_ids(self.answer_schema["options"]),
             validators=self.validators,
         )

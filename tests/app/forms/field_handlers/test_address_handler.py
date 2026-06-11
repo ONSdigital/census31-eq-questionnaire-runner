@@ -65,11 +65,7 @@ def test_address_validator_with_message_override():
         "id": "address",
         "mandatory": True,
         "type": "Address",
-        "validation": {
-            "messages": {
-                "MANDATORY_ADDRESS": "Please enter an address line 1 to continue"
-            }
-        },
+        "validation": {"messages": {"MANDATORY_ADDRESS": "Please enter an address line 1 to continue"}},
     }
     address_handler = AddressHandler(answer_json, error_messages=error_messages)
 

@@ -45,9 +45,7 @@ def test_get_field():
 
     form = TestForm()
 
-    expected_choices = [
-        (option["label"], option["value"], None) for option in radio_json["options"]
-    ]
+    expected_choices = [(option["label"], option["value"], None) for option in radio_json["options"]]
 
     assert isinstance(form.test_field, SelectFieldWithDetailAnswer)
     assert form.test_field.label.text == radio_json["label"]

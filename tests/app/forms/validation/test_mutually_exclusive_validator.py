@@ -23,9 +23,7 @@ class TestMutuallyExclusive(unittest.TestCase):
                 )
 
             self.assertEqual(
-                format_message_with_title(
-                    error_messages["MANDATORY_CHECKBOX"], self.question_title
-                ),
+                format_message_with_title(error_messages["MANDATORY_CHECKBOX"], self.question_title),
                 str(ite.exception),
             )
 
@@ -41,9 +39,7 @@ class TestMutuallyExclusive(unittest.TestCase):
                 )
 
             self.assertEqual(
-                format_message_with_title(
-                    error_messages["MANDATORY_QUESTION"], self.question_title
-                ),
+                format_message_with_title(error_messages["MANDATORY_QUESTION"], self.question_title),
                 str(ite.exception),
             )
 
@@ -51,9 +47,7 @@ class TestMutuallyExclusive(unittest.TestCase):
         answer_permutations = [[[], []], [None, []], ["", []]]
 
         for values in answer_permutations:
-            self.validator(
-                answer_values=iter(values), is_mandatory=False, is_only_checkboxes=True
-            )
+            self.validator(answer_values=iter(values), is_mandatory=False, is_only_checkboxes=True)
 
     def test_mutually_exclusive_exception(self):
         answer_permutations = [
@@ -83,6 +77,4 @@ class TestMutuallyExclusive(unittest.TestCase):
         ]
 
         for values in answer_permutations:
-            self.validator(
-                answer_values=iter(values), is_mandatory=True, is_only_checkboxes=True
-            )
+            self.validator(answer_values=iter(values), is_mandatory=True, is_only_checkboxes=True)

@@ -34,12 +34,8 @@ def test_get_length_validator():
 
 
 def test_get_length_validator_with_message_override():
-    answer = {
-        "validation": {"messages": {"MAX_LENGTH_EXCEEDED": "The message is too long!"}}
-    }
-    string_handler = StringHandler(
-        answer, {"MAX_LENGTH_EXCEEDED": "This is the default max length message"}
-    )
+    answer = {"validation": {"messages": {"MAX_LENGTH_EXCEEDED": "The message is too long!"}}}
+    string_handler = StringHandler(answer, {"MAX_LENGTH_EXCEEDED": "This is the default max length message"})
 
     validator = string_handler.get_length_validator
 

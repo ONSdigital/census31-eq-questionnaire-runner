@@ -29,9 +29,7 @@ class ProgressStore:
             in_progress_sections: A list of hierarchical dict containing the section status and completed blocks
         """
         self._is_dirty = False  # type: bool
-        self._progress = self._build_map(
-            in_progress_sections or []
-        )  # type: MutableMapping
+        self._progress = self._build_map(in_progress_sections or [])  # type: MutableMapping
 
     def __contains__(self, section_key) -> bool:
         return section_key in self._progress
@@ -67,9 +65,7 @@ class ProgressStore:
     def is_dirty(self) -> bool:
         return self._is_dirty
 
-    def is_section_complete(
-        self, section_id: str, list_item_id: Optional[str] = None
-    ) -> bool:
+    def is_section_complete(self, section_id: str, list_item_id: Optional[str] = None) -> bool:
         return (section_id, list_item_id) in self.section_keys(
             statuses={
                 CompletionStatus.COMPLETED,
@@ -77,39 +73,24 @@ class ProgressStore:
             }
         )
 
-    def section_keys(
-        self, statuses: Iterable[str] = None, section_ids: Iterable[str] = None
-    ):
+    def section_keys(self, statuses: Iterable[str] = None, section_ids: Iterable[str] = None):
         if not statuses:
             statuses = {*CompletionStatus()}
 
-        section_keys = [
-            section_key
-            for section_key, section_progress in self._progress.items()
-            if section_progress.status in statuses
-        ]
+        section_keys = [section_key for section_key, section_progress in self._progress.items() if section_progress.status in statuses]
 
         if section_ids is None:
             return section_keys
 
-        return [
-            section_key
-            for section_key in section_keys
-            if any(section_id in section_key for section_id in section_ids)
-        ]
+        return [section_key for section_key in section_keys if any(section_id in section_key for section_id in section_ids)]
 
-    def update_section_status(
-        self, section_status: str, section_id: str, list_item_id: Optional[str] = None
-    ) -> None:
+    def update_section_status(self, section_status: str, section_id: str, list_item_id: Optional[str] = None) -> None:
         section_key = (section_id, list_item_id)
         if section_key in self._progress:
             self._progress[section_key].status = section_status
             self._is_dirty = True
 
-        elif (
-            section_status == CompletionStatus.INDIVIDUAL_RESPONSE_REQUESTED
-            and section_key not in self._progress
-        ):
+        elif section_status == CompletionStatus.INDIVIDUAL_RESPONSE_REQUESTED and section_key not in self._progress:
             self._progress[section_key] = Progress(
                 section_id=section_id,
                 list_item_id=list_item_id,
@@ -118,18 +99,14 @@ class ProgressStore:
             )
             self._is_dirty = True
 
-    def get_section_status(
-        self, section_id: str, list_item_id: Optional[str] = None
-    ) -> str:
+    def get_section_status(self, section_id: str, list_item_id: Optional[str] = None) -> str:
         section_key = (section_id, list_item_id)
         if section_key in self._progress:
             return self._progress[section_key].status
 
         return CompletionStatus.NOT_STARTED
 
-    def get_completed_block_ids(
-        self, section_id: str, list_item_id: Optional[str] = None
-    ) -> List[Optional[str]]:
+    def get_completed_block_ids(self, section_id: str, list_item_id: Optional[str] = None) -> List[Optional[str]]:
         section_key = (section_id, list_item_id)
         if section_key in self._progress:
             return self._progress[section_key].block_ids
@@ -160,10 +137,7 @@ class ProgressStore:
 
     def remove_completed_location(self, location: Location) -> None:
         section_key = (location.section_id, location.list_item_id)
-        if (
-            section_key in self._progress
-            and location.block_id in self._progress[section_key].block_ids
-        ):
+        if section_key in self._progress and location.block_id in self._progress[section_key].block_ids:
             self._progress[section_key].block_ids.remove(location.block_id)
 
             if not self._progress[section_key].block_ids:
@@ -179,9 +153,7 @@ class ProgressStore:
         """
 
         section_keys_to_delete = [
-            (section_id, progress_list_item_id)
-            for section_id, progress_list_item_id in self._progress
-            if progress_list_item_id == list_item_id
+            (section_id, progress_list_item_id) for section_id, progress_list_item_id in self._progress if progress_list_item_id == list_item_id
         ]
 
         for section_key in section_keys_to_delete:

@@ -9,11 +9,7 @@ REQUIRED_SECRETS = [
 
 
 def validate_required_secrets(secrets, additional_required_secrets=None):
-    all_required_secrets = (
-        REQUIRED_SECRETS + additional_required_secrets
-        if additional_required_secrets
-        else REQUIRED_SECRETS
-    )
+    all_required_secrets = REQUIRED_SECRETS + additional_required_secrets if additional_required_secrets else REQUIRED_SECRETS
     for required_secret in all_required_secrets:
         if required_secret not in secrets["secrets"]:
             raise Exception("Missing Secret [{}]".format(required_secret))

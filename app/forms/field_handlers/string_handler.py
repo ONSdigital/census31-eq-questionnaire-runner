@@ -29,6 +29,4 @@ class StringHandler(FieldHandler):
         return self.answer_schema.get("max_length", self.MAX_LENGTH)
 
     def get_field(self) -> StringField:
-        return StringField(
-            label=self.label, description=self.guidance, validators=self.validators
-        )
+        return StringField(label=self.label, description=self.guidance, validators=self.validators)

@@ -33,11 +33,7 @@ def test_get_mandatory_validator_mandatory():
 def test_get_mandatory_validator_mandatory_with_error():
     answer = {
         "mandatory": True,
-        "validation": {
-            "messages": {
-                "MANDATORY_TEXTFIELD": "This is the mandatory message for an answer"
-            }
-        },
+        "validation": {"messages": {"MANDATORY_TEXTFIELD": "This is the mandatory message for an answer"}},
     }
 
     text_area_handler = StringHandler(
@@ -55,11 +51,7 @@ def test_get_mandatory_validator_mandatory_with_error():
 def test_get_mandatory_validator_mandatory_with_question_in_error():
     answer = {
         "mandatory": True,
-        "validation": {
-            "messages": {
-                "MANDATORY_TEXTFIELD": "Select an answer to ‘%(question_title)s’"
-            }
-        },
+        "validation": {"messages": {"MANDATORY_TEXTFIELD": "Select an answer to ‘%(question_title)s’"}},
     }
 
     text_area_handler = StringHandler(

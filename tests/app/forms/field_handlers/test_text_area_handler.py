@@ -13,11 +13,7 @@ def test_get_field():
         "mandatory": False,
         "q_code": "0",
         "type": "TextArea",
-        "validation": {
-            "messages": {
-                "MAX_LENGTH_EXCEEDED": "A message with characters %(max)d placeholder"
-            }
-        },
+        "validation": {"messages": {"MAX_LENGTH_EXCEEDED": "A message with characters %(max)d placeholder"}},
     }
 
     text_area_handler = TextAreaHandler(textarea_json)
@@ -45,13 +41,7 @@ def test_get_length_validator():
 
 
 def test_get_length_validator_with_message_override():
-    answer = {
-        "validation": {
-            "messages": {
-                "MAX_LENGTH_EXCEEDED": "A message with characters %(max)d placeholder"
-            }
-        }
-    }
+    answer = {"validation": {"messages": {"MAX_LENGTH_EXCEEDED": "A message with characters %(max)d placeholder"}}}
     text_area_handler = TextAreaHandler(
         answer,
         {"MAX_LENGTH_EXCEEDED": "This is the default max length message"},
@@ -67,9 +57,7 @@ def test_get_length_validator_with_message_override():
 def test_get_length_validator_with_max_length_override():
     answer = {"max_length": 30}
 
-    text_area_handler = TextAreaHandler(
-        answer, {"MAX_LENGTH_EXCEEDED": "%(max)d characters"}, AnswerStore(), {}
-    )
+    text_area_handler = TextAreaHandler(answer, {"MAX_LENGTH_EXCEEDED": "%(max)d characters"}, AnswerStore(), {})
     validator = text_area_handler.get_length_validator()
 
     assert validator.max == 30

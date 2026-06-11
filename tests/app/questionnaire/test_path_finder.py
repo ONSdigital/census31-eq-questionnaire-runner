@@ -29,16 +29,12 @@ class TestPathFinder(AppContextTestCase):
                 }
             ]
         )
-        path_finder = PathFinder(
-            schema, self.answer_store, self.list_store, progress_store, self.metadata
-        )
+        path_finder = PathFinder(schema, self.answer_store, self.list_store, progress_store, self.metadata)
 
         section_id = schema.get_section_id_for_block_id("name-block")
         routing_path = path_finder.routing_path(section_id=section_id)
 
-        assumed_routing_path = RoutingPath(
-            ["name-block", "summary"], section_id="default-section"
-        )
+        assumed_routing_path = RoutingPath(["name-block", "summary"], section_id="default-section")
 
         self.assertEqual(routing_path, assumed_routing_path)
 
@@ -94,9 +90,7 @@ class TestPathFinder(AppContextTestCase):
                 }
             ]
         )
-        path_finder = PathFinder(
-            schema, answer_store, self.list_store, progress_store, self.metadata
-        )
+        path_finder = PathFinder(schema, answer_store, self.list_store, progress_store, self.metadata)
 
         routing_path = path_finder.routing_path(section_id=section_id)
 
@@ -117,9 +111,7 @@ class TestPathFinder(AppContextTestCase):
         answer_store.add_or_update(answer_1)
 
         # When
-        path_finder = PathFinder(
-            schema, answer_store, self.list_store, self.progress_store, self.metadata
-        )
+        path_finder = PathFinder(schema, answer_store, self.list_store, self.progress_store, self.metadata)
         routing_path = path_finder.routing_path(section_id=section_id)
 
         # Then
@@ -143,9 +135,7 @@ class TestPathFinder(AppContextTestCase):
             section_id="introduction-section",
         )
 
-        path_finder = PathFinder(
-            schema, self.answer_store, self.list_store, progress_store, self.metadata
-        )
+        path_finder = PathFinder(schema, self.answer_store, self.list_store, progress_store, self.metadata)
         routing_path = path_finder.routing_path(section_id=section_id)
 
         self.assertEqual(routing_path, expected_routing_path)
@@ -173,9 +163,7 @@ class TestPathFinder(AppContextTestCase):
                 }
             ]
         )
-        path_finder = PathFinder(
-            schema, self.answer_store, self.list_store, progress_store, self.metadata
-        )
+        path_finder = PathFinder(schema, self.answer_store, self.list_store, progress_store, self.metadata)
         routing_path = path_finder.routing_path(section_id=section_id)
 
         self.assertEqual(routing_path, expected_path)
@@ -197,14 +185,10 @@ class TestPathFinder(AppContextTestCase):
                 }
             ]
         )
-        path_finder = PathFinder(
-            schema, self.answer_store, self.list_store, progress_store, self.metadata
-        )
+        path_finder = PathFinder(schema, self.answer_store, self.list_store, progress_store, self.metadata)
 
         repeating_section_id = "personal-details-section"
-        routing_path = path_finder.routing_path(
-            section_id=repeating_section_id, list_item_id="abc123"
-        )
+        routing_path = path_finder.routing_path(section_id=repeating_section_id, list_item_id="abc123")
 
         expected_path = RoutingPath(
             ["proxy", "date-of-birth", "confirm-dob", "sex"],
@@ -248,9 +232,7 @@ class TestPathFinder(AppContextTestCase):
             ]
         )
 
-        path_finder = PathFinder(
-            schema, answer_store, self.list_store, progress_store, self.metadata
-        )
+        path_finder = PathFinder(schema, answer_store, self.list_store, progress_store, self.metadata)
         routing_path = path_finder.routing_path(section_id=section_id)
 
         self.assertEqual(routing_path, expected_path)
@@ -258,9 +240,7 @@ class TestPathFinder(AppContextTestCase):
     def test_routing_path_with_conditional_value_not_in_metadata(self):
         schema = load_schema_from_name("test_metadata_routing")
         section_id = schema.get_section_id_for_block_id("block1")
-        expected_path = RoutingPath(
-            ["block1", "block2", "block3", "summary"], section_id="default-section"
-        )
+        expected_path = RoutingPath(["block1", "block2", "block3", "summary"], section_id="default-section")
 
         progress_store = ProgressStore(
             [
@@ -273,9 +253,7 @@ class TestPathFinder(AppContextTestCase):
             ]
         )
 
-        path_finder = PathFinder(
-            schema, self.answer_store, self.list_store, progress_store, self.metadata
-        )
+        path_finder = PathFinder(schema, self.answer_store, self.list_store, progress_store, self.metadata)
         routing_path = path_finder.routing_path(section_id=section_id)
 
         self.assertEqual(routing_path, expected_path)
@@ -285,9 +263,7 @@ class TestPathFinder(AppContextTestCase):
         schema = load_schema_from_name("test_skip_condition_block")
         section_id = schema.get_section_id_for_block_id("should-skip")
         answer_store = AnswerStore()
-        answer_store.add_or_update(
-            Answer(answer_id="do-you-want-to-skip-answer", value="Yes")
-        )
+        answer_store.add_or_update(Answer(answer_id="do-you-want-to-skip-answer", value="Yes"))
 
         progress_store = ProgressStore(
             [
@@ -301,9 +277,7 @@ class TestPathFinder(AppContextTestCase):
         )
 
         # When
-        path_finder = PathFinder(
-            schema, answer_store, self.list_store, progress_store, self.metadata
-        )
+        path_finder = PathFinder(schema, answer_store, self.list_store, progress_store, self.metadata)
         routing_path = path_finder.routing_path(section_id=section_id)
 
         # Then
@@ -312,9 +286,7 @@ class TestPathFinder(AppContextTestCase):
             section_id="default-section",
         )
 
-        with patch(
-            "app.questionnaire.path_finder.evaluate_skip_conditions", return_value=True
-        ):
+        with patch("app.questionnaire.path_finder.evaluate_skip_conditions", return_value=True):
             self.assertEqual(routing_path, expected_routing_path)
 
     def test_routing_path_should_skip_group(self):
@@ -323,9 +295,7 @@ class TestPathFinder(AppContextTestCase):
 
         section_id = schema.get_section_id_for_block_id("do-you-want-to-skip")
         answer_store = AnswerStore()
-        answer_store.add_or_update(
-            Answer(answer_id="do-you-want-to-skip-answer", value="Yes")
-        )
+        answer_store.add_or_update(Answer(answer_id="do-you-want-to-skip-answer", value="Yes"))
         progress_store = ProgressStore(
             [
                 {
@@ -338,9 +308,7 @@ class TestPathFinder(AppContextTestCase):
         )
 
         # When
-        path_finder = PathFinder(
-            schema, answer_store, self.list_store, progress_store, self.metadata
-        )
+        path_finder = PathFinder(schema, answer_store, self.list_store, progress_store, self.metadata)
         routing_path = path_finder.routing_path(section_id=section_id)
 
         # Then
@@ -349,9 +317,7 @@ class TestPathFinder(AppContextTestCase):
             section_id="default-section",
         )
 
-        with patch(
-            "app.questionnaire.path_finder.evaluate_skip_conditions", return_value=True
-        ):
+        with patch("app.questionnaire.path_finder.evaluate_skip_conditions", return_value=True):
             self.assertEqual(routing_path, expected_routing_path)
 
     def test_routing_path_should_not_skip_group(self):
@@ -360,9 +326,7 @@ class TestPathFinder(AppContextTestCase):
 
         section_id = schema.get_section_id_for_block_id("do-you-want-to-skip")
         answer_store = AnswerStore()
-        answer_store.add_or_update(
-            Answer(answer_id="do-you-want-to-skip-answer", value="No")
-        )
+        answer_store.add_or_update(Answer(answer_id="do-you-want-to-skip-answer", value="No"))
         progress_store = ProgressStore(
             [
                 {
@@ -375,9 +339,7 @@ class TestPathFinder(AppContextTestCase):
         )
 
         # When
-        path_finder = PathFinder(
-            schema, answer_store, self.list_store, progress_store, self.metadata
-        )
+        path_finder = PathFinder(schema, answer_store, self.list_store, progress_store, self.metadata)
         routing_path = path_finder.routing_path(section_id=section_id)
 
         # Then
@@ -386,23 +348,17 @@ class TestPathFinder(AppContextTestCase):
             section_id="default-section",
         )
 
-        with patch(
-            "app.questionnaire.path_finder.evaluate_skip_conditions", return_value=False
-        ):
+        with patch("app.questionnaire.path_finder.evaluate_skip_conditions", return_value=False):
             self.assertEqual(routing_path, expected_routing_path)
 
     def test_get_routing_path_when_first_block_in_group_skipped(self):
         # Given
         schema = load_schema_from_name("test_skip_condition_group")
         answer_store = AnswerStore()
-        answer_store.add_or_update(
-            Answer(answer_id="do-you-want-to-skip-answer", value="Yes")
-        )
+        answer_store.add_or_update(Answer(answer_id="do-you-want-to-skip-answer", value="Yes"))
 
         # When
-        path_finder = PathFinder(
-            schema, answer_store, self.list_store, self.progress_store, self.metadata
-        )
+        path_finder = PathFinder(schema, answer_store, self.list_store, self.progress_store, self.metadata)
 
         # Then
         expected_route = [
@@ -414,13 +370,9 @@ class TestPathFinder(AppContextTestCase):
         ]
 
         section_id = schema.get_section_id_for_block_id("summary")
-        pytest.xfail(
-            reason="Known bug when skipping last group due to summary bundled into it"
-        )
+        pytest.xfail(reason="Known bug when skipping last group due to summary bundled into it")
 
-        self.assertEqual(
-            path_finder.routing_path(section_id=section_id), expected_route
-        )
+        self.assertEqual(path_finder.routing_path(section_id=section_id), expected_route)
 
     def test_build_path_with_group_routing(self):
         # Given i have answered the routing question
@@ -428,14 +380,10 @@ class TestPathFinder(AppContextTestCase):
         section_id = schema.get_section_id_for_block_id("group2-block")
 
         answer_store = AnswerStore()
-        answer_store.add_or_update(
-            Answer(answer_id="which-group-answer", value="group2")
-        )
+        answer_store.add_or_update(Answer(answer_id="which-group-answer", value="group2"))
 
         # When i build the path
-        path_finder = PathFinder(
-            schema, answer_store, self.list_store, self.progress_store, self.metadata
-        )
+        path_finder = PathFinder(schema, answer_store, self.list_store, self.progress_store, self.metadata)
         path = path_finder.routing_path(section_id=section_id)
 
         # Then it should route me straight to Group2 and not Group1
@@ -462,25 +410,15 @@ class TestPathFinder(AppContextTestCase):
         )
 
         answer_store = AnswerStore()
-        number_of_employees_answer = Answer(
-            answer_id="number-of-employees-total", value=0
-        )
-        confirm_zero_answer = Answer(
-            answer_id="confirm-zero-employees-answer", value="No I need to change this"
-        )
+        number_of_employees_answer = Answer(answer_id="number-of-employees-total", value=0)
+        confirm_zero_answer = Answer(answer_id="confirm-zero-employees-answer", value="No I need to change this")
         answer_store.add_or_update(number_of_employees_answer)
         answer_store.add_or_update(confirm_zero_answer)
 
-        path_finder = PathFinder(
-            schema, answer_store, self.list_store, progress_store, self.metadata
-        )
+        path_finder = PathFinder(schema, answer_store, self.list_store, progress_store, self.metadata)
 
         self.assertEqual(
-            len(
-                path_finder.progress_store.get_completed_block_ids(
-                    section_id="default-section"
-                )
-            ),
+            len(path_finder.progress_store.get_completed_block_ids(section_id="default-section")),
             2,
         )
         self.assertEqual(len(path_finder.answer_store), 2)
@@ -498,9 +436,7 @@ class TestPathFinder(AppContextTestCase):
         self.assertEqual(routing_path, expected_path)
 
         self.assertEqual(
-            path_finder.progress_store.get_completed_block_ids(
-                section_id="default-section"
-            ),
+            path_finder.progress_store.get_completed_block_ids(section_id="default-section"),
             [progress_store.get_completed_block_ids(section_id="default-section")[0]],
         )
         self.assertEqual(len(path_finder.answer_store), 1)

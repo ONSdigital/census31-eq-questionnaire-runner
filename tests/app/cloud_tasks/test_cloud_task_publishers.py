@@ -27,14 +27,10 @@ class TestCloudTaskPublisher(TestCase):
 
     def test_create_task(self):
         # Mock the actual call within the gRPC stub, and fake the request.
-        with mock.patch.object(
-            type(self.cloud_task_publisher._client.transport.create_task), "__call__"
-        ) as call:
+        with mock.patch.object(type(self.cloud_task_publisher._client.transport.create_task), "__call__") as call:
 
             # Designate an appropriate return value for the call.
-            call.return_value = self.cloud_task_publisher._get_task(
-                body=self.body, function_name=self.function_name
-            )
+            call.return_value = self.cloud_task_publisher._get_task(body=self.body, function_name=self.function_name)
             self.cloud_task_publisher.create_task(
                 body=self.body,
                 queue_name=self.queue_name,
@@ -48,9 +44,7 @@ class TestCloudTaskPublisher(TestCase):
             assert args[0] == CreateTaskRequest(
                 mapping={
                     "parent": f"projects/{self.PROJECT_ID}/locations/europe-west2/queues/test",
-                    "task": self.cloud_task_publisher._get_task(
-                        body=self.body, function_name=self.function_name
-                    ),
+                    "task": self.cloud_task_publisher._get_task(body=self.body, function_name=self.function_name),
                 }
             )
 

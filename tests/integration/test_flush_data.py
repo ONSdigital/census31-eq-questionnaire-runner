@@ -30,10 +30,7 @@ class TestFlushData(IntegrationTestCase):
         super().tearDown()
 
     def test_flush_data_successful(self):
-        self.post(
-            url="/flush?token="
-            + self.token_generator.generate_token(self.get_payload())
-        )
+        self.post(url="/flush?token=" + self.token_generator.generate_token(self.get_payload()))
         self.assertStatusOK()
 
     def test_no_data_to_flush(self):
@@ -61,17 +58,11 @@ class TestFlushData(IntegrationTestCase):
         self.assertStatusForbidden()
 
     def test_double_flush(self):
-        self.post(
-            url="/flush?token="
-            + self.token_generator.generate_token(self.get_payload())
-        )
+        self.post(url="/flush?token=" + self.token_generator.generate_token(self.get_payload()))
 
         # Once the data has been flushed it is wiped.
         # It can't be flushed again and should return 404 no data on second flush
-        self.post(
-            url="/flush?token="
-            + self.token_generator.generate_token(self.get_payload())
-        )
+        self.post(url="/flush?token=" + self.token_generator.generate_token(self.get_payload()))
         self.assertStatusCode(404)
 
     def test_no_token_passed_to_flush(self):
@@ -83,22 +74,14 @@ class TestFlushData(IntegrationTestCase):
         self.assertStatusForbidden()
 
     def test_flush_errors_when_submission_fails(self):
-        self.submitter_instance.send_message.return_value = (
-            False  # pylint: disable=no-member
-        )
+        self.submitter_instance.send_message.return_value = False  # pylint: disable=no-member
 
-        self.post(
-            url="/flush?token="
-            + self.token_generator.generate_token(self.get_payload())
-        )
+        self.post(url="/flush?token=" + self.token_generator.generate_token(self.get_payload()))
         self.assertStatusCode(500)
 
     def test_flush_sets_flushed_flag_to_true(self):
 
-        self.post(
-            url="/flush?token="
-            + self.token_generator.generate_token(self.get_payload())
-        )
+        self.post(url="/flush?token=" + self.token_generator.generate_token(self.get_payload()))
 
         self.encrypt_instance.assert_called_once()  # pylint: disable=no-member
         args = self.encrypt_instance.call_args[0]  # pylint: disable=no-member
@@ -107,10 +90,7 @@ class TestFlushData(IntegrationTestCase):
 
     def test_flush_sets_submission_language_code(self):
 
-        self.post(
-            url="/flush?token="
-            + self.token_generator.generate_token(self.get_payload())
-        )
+        self.post(url="/flush?token=" + self.token_generator.generate_token(self.get_payload()))
         args = self.encrypt_instance.call_args[0]  # pylint: disable=no-member
 
         self.assertTrue('"submission_language_code": "-9"' in args[0])

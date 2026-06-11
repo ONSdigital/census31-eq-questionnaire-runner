@@ -10,9 +10,7 @@ FINAL_CONFIRMATION_PATH = "/questionnaire/confirmation/"
 class SubmissionTestCase(IntegrationTestCase):
     @property
     def retry_url(self):
-        return (
-            self.getHtmlSoup().find("p", {"data-qa": "retry"}).find("a").attrs["href"]
-        )
+        return self.getHtmlSoup().find("p", {"data-qa": "retry"}).find("a").attrs["href"]
 
     def _mock_submission_failure(self):
         submitter = self._application.eq["submitter"]
@@ -34,9 +32,7 @@ class TestQuestionnaireSubmissionFinalConfirmation(SubmissionTestCase):
         self._launch_and_submit_questionnaire()
 
         # Then I should see the thank you page
-        self.assertInBody(
-            "Your answers were submitted for <span>Integration Testing</span>"
-        )
+        self.assertInBody("Your answers were submitted for <span>Integration Testing</span>")
         self.assertInUrl(THANK_YOU_URL_PATH)
 
     def test_unsuccessful_submission(self):
@@ -77,9 +73,7 @@ class TestQuestionnaireSubmissionHub(SubmissionTestCase):
         self._launch_and_submit_questionnaire()
 
         # Then I should see the thank you page
-        self.assertInBody(
-            "Your answers were submitted for <span>Integration Testing</span>"
-        )
+        self.assertInBody("Your answers were submitted for <span>Integration Testing</span>")
         self.assertEqualUrl(THANK_YOU_URL_PATH)
 
     def test_unsuccessful_submission(self):
@@ -113,9 +107,7 @@ class TestQuestionnaireSubmissionFinalSummary(SubmissionTestCase):
         self._launch_and_submit_questionnaire()
 
         # Then I should see the thank you page
-        self.assertInBody(
-            "Your answers were submitted for <span>Integration Testing</span>"
-        )
+        self.assertInBody("Your answers were submitted for <span>Integration Testing</span>")
         self.assertInUrl(THANK_YOU_URL_PATH)
 
     def test_unsuccessful_submission(self):

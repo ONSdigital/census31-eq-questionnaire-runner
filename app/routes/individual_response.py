@@ -28,9 +28,7 @@ from app.views.handlers.individual_response import (
 
 logger = get_logger()
 
-individual_response_blueprint = Blueprint(
-    name="individual_response", import_name=__name__, url_prefix="/individual-response/"
-)
+individual_response_blueprint = Blueprint(name="individual_response", import_name=__name__, url_prefix="/individual-response/")
 
 
 @login_required
@@ -47,9 +45,7 @@ def before_individual_response_request():
         questionnaire_id=metadata["questionnaire_id"],
     )
 
-    logger.info(
-        "individual-response request", method=request.method, url_path=request.full_path
-    )
+    logger.info("individual-response request", method=request.method, url_path=request.full_path)
 
     handle_language()
 
@@ -117,9 +113,7 @@ def individual_response_change(schema, questionnaire_store, list_item_id):
     return individual_response_handler.handle_get()
 
 
-@individual_response_blueprint.route(
-    "/<list_item_id>/post/confirm-address", methods=["GET", "POST"]
-)
+@individual_response_blueprint.route("/<list_item_id>/post/confirm-address", methods=["GET", "POST"])
 @with_questionnaire_store
 @with_schema
 def individual_response_post_address_confirm(schema, questionnaire_store, list_item_id):
@@ -163,9 +157,7 @@ def individual_response_post_address_confirmation(schema, questionnaire_store):
     return render_template(
         template="individual_response/confirmation-post",
         display_address=questionnaire_store.metadata.get("display_address"),
-        page_title=individual_response_handler.page_title(
-            lazy_gettext("An individual access code has been sent by post")
-        ),
+        page_title=individual_response_handler.page_title(lazy_gettext("An individual access code has been sent by post")),
     )
 
 
@@ -189,9 +181,7 @@ def individual_response_who(schema, questionnaire_store):
     return individual_response_handler.handle_get()
 
 
-@individual_response_blueprint.route(
-    "/<list_item_id>/text/enter-number", methods=["GET", "POST"]
-)
+@individual_response_blueprint.route("/<list_item_id>/text/enter-number", methods=["GET", "POST"])
 @with_questionnaire_store
 @with_schema
 def individual_response_text_message(schema, questionnaire_store, list_item_id):
@@ -211,9 +201,7 @@ def individual_response_text_message(schema, questionnaire_store, list_item_id):
     return individual_response_handler.handle_get()
 
 
-@individual_response_blueprint.route(
-    "/<list_item_id>/text/confirm-number", methods=["GET", "POST"]
-)
+@individual_response_blueprint.route("/<list_item_id>/text/confirm-number", methods=["GET", "POST"])
 @with_questionnaire_store
 @with_schema
 def individual_response_text_message_confirm(schema, questionnaire_store, list_item_id):
@@ -258,7 +246,5 @@ def individual_response_text_message_confirmation(schema, questionnaire_store):
     return render_template(
         template="individual_response/confirmation-text-message",
         mobile_number=mobile_number,
-        page_title=individual_response_handler.page_title(
-            lazy_gettext("An individual access code has been sent by text")
-        ),
+        page_title=individual_response_handler.page_title(lazy_gettext("An individual access code has been sent by text")),
     )

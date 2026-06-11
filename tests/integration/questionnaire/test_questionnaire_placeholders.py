@@ -3,9 +3,7 @@ from tests.integration.integration_test_case import IntegrationTestCase
 
 class TestPlaceholders(IntegrationTestCase):
     def test_title_placeholders_rendered_in_summary(self):
-        self.launchSurvey(
-            "test_placeholder_full", display_address="68 Abingdon Road, Goathill"
-        )
+        self.launchSurvey("test_placeholder_full", display_address="68 Abingdon Road, Goathill")
         self.assertInBody("Please enter a name")
         self.post({"first-name": "Kevin", "last-name": "Bacon"})
 
@@ -19,13 +17,9 @@ class TestPlaceholders(IntegrationTestCase):
             }
         )
 
-        self.post(
-            {"confirm-date-of-birth-answer-proxy": "Yes, {person_name} is {age} old."}
-        )
+        self.post({"confirm-date-of-birth-answer-proxy": "Yes, {person_name} is {age} old."})
 
-        self.post(
-            {"checkbox-answer": ["{household_address}", "7 Evelyn Street, Barry"]}
-        )
+        self.post({"checkbox-answer": ["{household_address}", "7 Evelyn Street, Barry"]})
 
         self.assertInUrl("/summary/")
         self.assertInBody("What is Kevin Bacon’s date of birth?")
@@ -36,9 +30,7 @@ class TestPlaceholders(IntegrationTestCase):
         self.assertInBody("Please enter the total retail turnover")
         self.post({"total-retail-turnover-answer": 2000})
 
-        self.assertInBody(
-            "Of the <em>£2,000.00</em> total retail turnover, what was the value of internet sales?"
-        )
+        self.assertInBody("Of the <em>£2,000.00</em> total retail turnover, what was the value of internet sales?")
 
         self.post({"total-retail-turnover-internet-sales-answer": 3000})
 
@@ -65,6 +57,4 @@ class TestPlaceholders(IntegrationTestCase):
         )
         self.post({})
 
-        self.assertInBody(
-            "Please confirm the first line of your address is 7 Evelyn Street"
-        )
+        self.assertInBody("Please confirm the first line of your address is 7 Evelyn Street")

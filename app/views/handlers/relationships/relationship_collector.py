@@ -8,9 +8,7 @@ from app.views.handlers.relationships.relationship_question import RelationshipQ
 class RelationshipCollector(RelationshipQuestion):
     def is_location_valid(self):
         if isinstance(self._current_location, Location):
-            return self.router.can_access_location(
-                self._current_location, self._routing_path
-            )
+            return self.router.can_access_location(self._current_location, self._routing_path)
 
         return super().is_location_valid()
 
@@ -30,9 +28,7 @@ class RelationshipCollector(RelationshipQuestion):
             )
 
         if self._is_last_relationship():
-            self.questionnaire_store_updater.add_completed_location(
-                location=self.parent_location
-            )
+            self.questionnaire_store_updater.add_completed_location(location=self.parent_location)
             self._update_section_completeness(location=self.parent_location)
 
         self.questionnaire_store_updater.save()
@@ -55,9 +51,7 @@ class RelationshipCollector(RelationshipQuestion):
         page_title_vars = super()._resolve_custom_page_title_vars()
 
         if to_list_item_position := self.current_location.to_list_item_id:
-            page_title_vars[
-                "to_list_item_position"
-            ] = self._questionnaire_store.list_store.list_item_position(
+            page_title_vars["to_list_item_position"] = self._questionnaire_store.list_store.list_item_position(
                 self.current_location.list_name, to_list_item_position
             )
 

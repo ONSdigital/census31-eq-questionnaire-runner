@@ -39,9 +39,7 @@ class SessionStoreTest(AppContextTestCase):
 
     def test_create(self):
         with self._app.test_request_context():
-            self.session_store.create(
-                "eq_session_id", "test", self.session_data, self.expires_at
-            )
+            self.session_store.create("eq_session_id", "test", self.session_data, self.expires_at)
             self.assertEqual("eq_session_id", self.session_store.eq_session_id)
             self.assertEqual("test", self.session_store.user_id)
             self.assertEqual(self.session_data, self.session_store.session_data)
@@ -151,9 +149,7 @@ class SessionStoreTest(AppContextTestCase):
             session_store = SessionStore("user_ik", "pepper", "eq_session_id")
 
             self.assertFalse(hasattr(session_store.session_data, "additional_value"))
-            self.assertFalse(
-                hasattr(session_store.session_data, "second_additional_value")
-            )
+            self.assertFalse(hasattr(session_store.session_data, "second_additional_value"))
 
     def test_session_store_stores_trading_as_value_if_present(self):
         session_data = SessionData(
@@ -237,14 +233,10 @@ class TestSessionStoreEncoding(AppContextTestCase):
         )
 
         # pylint: disable=protected-access
-        self.key = storage_encryption.StorageEncryption._generate_key(
-            self.user_id, self.user_ik, self.pepper
-        )
+        self.key = storage_encryption.StorageEncryption._generate_key(self.user_id, self.user_ik, self.pepper)
 
     def test_legacy_load(self):
-        self._save_session(
-            self.session_id, self.user_id, self.session_data, legacy=True
-        )
+        self._save_session(self.session_id, self.user_id, self.session_data, legacy=True)
         session_store = SessionStore(self.user_ik, self.pepper, self.session_id)
         self.assertEqual(session_store.session_data.tx_id, self.session_data.tx_id)
 
@@ -262,9 +254,7 @@ class TestSessionStoreEncoding(AppContextTestCase):
         else:
             plaintext = raw_data
 
-        jwe_token = jwe.JWE(
-            plaintext=plaintext, protected=protected_header, recipient=self.key
-        )
+        jwe_token = jwe.JWE(plaintext=plaintext, protected=protected_header, recipient=self.key)
 
         session_model = EQSession(
             eq_session_id=session_id,

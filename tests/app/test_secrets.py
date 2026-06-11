@@ -24,9 +24,7 @@ class TestSecrets(TestCase):
         secrets = {"secrets": {secret: "abc" for secret in REQUIRED_SECRETS}}
 
         with self.assertRaises(Exception) as exception:
-            validate_required_secrets(
-                secrets, additional_required_secrets=["MY_REQUIRED_SECRET"]
-            )
+            validate_required_secrets(secrets, additional_required_secrets=["MY_REQUIRED_SECRET"])
 
             self.assertIn(
                 "Missing Secret [MY_REQUIRED_SECRET]",

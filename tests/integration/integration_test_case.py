@@ -78,30 +78,22 @@ class IntegrationTestCase(unittest.TestCase):  # pylint: disable=too-many-public
                     EQ_USER_AUTHENTICATION_RRM_PRIVATE_KEY_KID: {
                         "purpose": KEY_PURPOSE_AUTHENTICATION,
                         "type": "private",
-                        "value": get_file_contents(
-                            "sdc-rrm-authentication-signing-private-v1.pem"
-                        ),
+                        "value": get_file_contents("sdc-rrm-authentication-signing-private-v1.pem"),
                     },
                     SR_USER_AUTHENTICATION_PUBLIC_KEY_KID: {
                         "purpose": KEY_PURPOSE_AUTHENTICATION,
                         "type": "public",
-                        "value": get_file_contents(
-                            "sdc-sr-authentication-encryption-public-v1.pem"
-                        ),
+                        "value": get_file_contents("sdc-sr-authentication-encryption-public-v1.pem"),
                     },
                     EQ_SUBMISSION_SDX_PRIVATE_KEY: {
                         "purpose": KEY_PURPOSE_SUBMISSION,
                         "type": "private",
-                        "value": get_file_contents(
-                            "sdc-sdx-submission-encryption-private-v1.pem"
-                        ),
+                        "value": get_file_contents("sdc-sdx-submission-encryption-private-v1.pem"),
                     },
                     EQ_SUBMISSION_SR_PRIVATE_SIGNING_KEY: {
                         "purpose": KEY_PURPOSE_SUBMISSION,
                         "type": "public",
-                        "value": get_file_contents(
-                            "sdc-sr-submission-signing-private-v1.pem"
-                        ),
+                        "value": get_file_contents("sdc-sr-submission-signing-private-v1.pem"),
                     },
                 }
             }
@@ -125,9 +117,7 @@ class IntegrationTestCase(unittest.TestCase):  # pylint: disable=too-many-public
         Launch a survey as an authenticated user and follow re-directs
         :param schema_name: The name of the schema to load
         """
-        token = self.token_generator.create_token(
-            schema_name=schema_name, **payload_kwargs
-        )
+        token = self.token_generator.create_token(schema_name=schema_name, **payload_kwargs)
         self.get("/session?token=" + token)
 
     def dumpAnswers(self):
@@ -168,9 +158,7 @@ class IntegrationTestCase(unittest.TestCase):  # pylint: disable=too-many-public
 
         :param url: the URL to GET
         """
-        environ, response = self._client.get(
-            url, as_tuple=True, follow_redirects=follow_redirects, **kwargs
-        )
+        environ, response = self._client.get(url, as_tuple=True, follow_redirects=follow_redirects, **kwargs)
 
         self._cache_response(environ, response)
 
@@ -197,9 +185,7 @@ class IntegrationTestCase(unittest.TestCase):  # pylint: disable=too-many-public
         if action:
             _post_data.update({f"action[{action}]": ""})
 
-        environ, response = self._client.post(
-            url, data=_post_data, as_tuple=True, follow_redirects=True, **kwargs
-        )
+        environ, response = self._client.post(url, data=_post_data, as_tuple=True, follow_redirects=True, **kwargs)
 
         self._cache_response(environ, response)
 
@@ -308,15 +294,11 @@ class IntegrationTestCase(unittest.TestCase):  # pylint: disable=too-many-public
 
     def assertNotInPage(self, content, message=None):
 
-        self.assertNotIn(
-            member=str(content), container=self.getResponseData(), msg=str(message)
-        )
+        self.assertNotIn(member=str(content), container=self.getResponseData(), msg=str(message))
 
     def assertRegexPage(self, regex, message=None):
 
-        self.assertRegex(
-            text=self.getResponseData(), expected_regex=str(regex), msg=str(message)
-        )
+        self.assertRegex(text=self.getResponseData(), expected_regex=str(regex), msg=str(message))
 
     def assertEqualPageTitle(self, title):
         self.assertEqual(title, self.getHtmlSoup().title.string)

@@ -63,20 +63,13 @@ class RelationshipRouter:
 
         return path
 
-    def _individual_relationships_routing_path(
-        self, from_list_item_id, to_list_item_ids
-    ):
+    def _individual_relationships_routing_path(self, from_list_item_id, to_list_item_ids):
         path = []
         number_of_unrelated_relationships = 0
         number_of_relationships_left = len(to_list_item_ids)
         unrelated_block_in_path = False
         for to_item_id in to_list_item_ids:
-            if (
-                self.unrelated_block_id
-                and number_of_relationships_left >= 2
-                and number_of_unrelated_relationships == 2
-                and not unrelated_block_in_path
-            ):
+            if self.unrelated_block_id and number_of_relationships_left >= 2 and number_of_unrelated_relationships == 2 and not unrelated_block_in_path:
                 path.append(
                     RelationshipLocation(
                         section_id=self.section_id,
@@ -86,13 +79,8 @@ class RelationshipRouter:
                     )
                 )
                 unrelated_block_in_path = True
-                unrelated_answer = self.answer_store.get_answer(
-                    self.unrelated_answer_id, from_list_item_id
-                )
-                if (
-                    unrelated_answer
-                    and unrelated_answer.value in self.unrelated_no_answer_values
-                ):
+                unrelated_answer = self.answer_store.get_answer(self.unrelated_answer_id, from_list_item_id)
+                if unrelated_answer and unrelated_answer.value in self.unrelated_no_answer_values:
                     return path
 
             path.append(
@@ -104,14 +92,8 @@ class RelationshipRouter:
                     list_name=self.list_name,
                 )
             )
-            relationship_answer = self.relationship_store.get_relationship(
-                from_list_item_id, to_item_id
-            )
-            if (
-                relationship_answer
-                and relationship_answer.relationship
-                == self.UNRELATED_RELATIONSHIP_VALUE
-            ):
+            relationship_answer = self.relationship_store.get_relationship(from_list_item_id, to_item_id)
+            if relationship_answer and relationship_answer.relationship == self.UNRELATED_RELATIONSHIP_VALUE:
                 number_of_unrelated_relationships += 1
 
             number_of_relationships_left -= 1

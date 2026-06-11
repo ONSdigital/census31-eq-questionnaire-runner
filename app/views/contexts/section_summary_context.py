@@ -45,9 +45,7 @@ class SectionSummaryContext(Context):
         summary = self._build_summary()
         title_for_location = self._title_for_location()
         title = (
-            self._placeholder_renderer.render_placeholder(
-                title_for_location, self.current_location.list_item_id
-            )
+            self._placeholder_renderer.render_placeholder(title_for_location, self.current_location.list_item_id)
             if isinstance(title_for_location, dict)
             else title_for_location
         )
@@ -81,22 +79,14 @@ class SectionSummaryContext(Context):
 
     def get_page_title(self, title_for_location: str) -> str:
 
-        section_repeating_page_title = (
-            self._schema.get_repeating_page_title_for_section(
-                self.current_location.section_id
-            )
-        )
-        page_title = self._schema.get_custom_page_title_for_section(
-            self.current_location.section_id
-        ) or self._get_safe_page_title(title_for_location)
+        section_repeating_page_title = self._schema.get_repeating_page_title_for_section(self.current_location.section_id)
+        page_title = self._schema.get_custom_page_title_for_section(self.current_location.section_id) or self._get_safe_page_title(title_for_location)
 
         if section_repeating_page_title:
             page_title = f"{page_title}: {section_repeating_page_title}"
 
         if self.current_location.list_item_id:
-            list_item_position = self._list_store.list_item_position(
-                self.current_location.list_name, self.current_location.list_item_id
-            )
+            list_item_position = self._list_store.list_item_position(self.current_location.list_name, self.current_location.list_item_id)
             page_title = page_title.format(list_item_position=list_item_position)
 
         return page_title
@@ -158,16 +148,10 @@ class SectionSummaryContext(Context):
         edit_block_id, remove_block_id, primary_person_edit_block_id = None, None, None
         current_list = self._list_store[summary["for_list"]]
 
-        list_collector_blocks = list(
-            self._schema.get_list_collectors_for_list(
-                self.section, for_list=summary["for_list"]
-            )
-        )
+        list_collector_blocks = list(self._schema.get_list_collectors_for_list(self.section, for_list=summary["for_list"]))
 
         list_collector_blocks_on_path = [
-            list_collector_block
-            for list_collector_block in list_collector_blocks
-            if list_collector_block["id"] in self.routing_path.block_ids
+            list_collector_block for list_collector_block in list_collector_blocks if list_collector_block["id"] in self.routing_path.block_ids
         ]
 
         if list_collector_blocks_on_path:
@@ -178,18 +162,12 @@ class SectionSummaryContext(Context):
         add_link = self._add_link(summary, list_collector_block)
 
         if len(current_list) == 1 and current_list.primary_person:
-            primary_person_block = self._schema.get_list_collector_for_list(
-                self.section, for_list=summary["for_list"], primary=True
-            )
+            primary_person_block = self._schema.get_list_collector_for_list(self.section, for_list=summary["for_list"], primary=True)
 
-            primary_person_edit_block_id = primary_person_block["add_or_edit_block"][
-                "id"
-            ]
+            primary_person_edit_block_id = primary_person_block["add_or_edit_block"]["id"]
             edit_block_id = primary_person_block["add_or_edit_block"]["id"]
 
-        rendered_summary = self._placeholder_renderer.render(
-            summary, self.current_location.list_item_id
-        )
+        rendered_summary = self._placeholder_renderer.render(summary, self.current_location.list_item_id)
 
         list_collector_block = list_collector_block or list_collector_blocks[0]
 
@@ -222,9 +200,7 @@ class SectionSummaryContext(Context):
                 return_to="section-summary",
             )
 
-        driving_question_block = QuestionnaireSchema.get_driving_question_for_list(
-            self.section, summary["for_list"]
-        )
+        driving_question_block = QuestionnaireSchema.get_driving_question_for_list(self.section, summary["for_list"])
 
         if driving_question_block:
             return url_for(

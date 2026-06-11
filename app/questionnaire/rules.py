@@ -74,26 +74,17 @@ def evaluate_condition(condition, answer_value, match_value):
         "equals": lambda answer_value, match_value: answer_value == match_value,
         "not equals": lambda answer_value, match_value: answer_value != match_value,
         "equals any": lambda answer_value, match_values: answer_value in match_values,
-        "not equals any": lambda answer_value, match_values: answer_value
-        not in match_values,
-        "contains": lambda answer_values, match_value: answer_and_match
-        and match_value in answer_values,
-        "not contains": lambda answer_values, match_value: answer_and_match
-        and match_value not in answer_values,
-        "contains any": lambda answer_values, match_values: answer_and_match
-        and any(match_value in answer_values for match_value in match_values),
-        "contains all": lambda answer_values, match_values: answer_and_match
-        and all(match_value in answer_values for match_value in match_values),
+        "not equals any": lambda answer_value, match_values: answer_value not in match_values,
+        "contains": lambda answer_values, match_value: answer_and_match and match_value in answer_values,
+        "not contains": lambda answer_values, match_value: answer_and_match and match_value not in answer_values,
+        "contains any": lambda answer_values, match_values: answer_and_match and any(match_value in answer_values for match_value in match_values),
+        "contains all": lambda answer_values, match_values: answer_and_match and all(match_value in answer_values for match_value in match_values),
         "set": lambda answer_value, _: answer_value not in (None, []),
         "not set": lambda answer_value, _: answer_value in (None, []),
-        "greater than": lambda answer_value, match_value: answer_and_match
-        and answer_value > match_value,
-        "greater than or equal to": lambda answer_value, match_value: answer_and_match
-        and answer_value >= match_value,
-        "less than": lambda answer_value, match_value: answer_and_match
-        and answer_value < match_value,
-        "less than or equal to": lambda answer_value, match_value: answer_and_match
-        and answer_value <= match_value,
+        "greater than": lambda answer_value, match_value: answer_and_match and answer_value > match_value,
+        "greater than or equal to": lambda answer_value, match_value: answer_and_match and answer_value >= match_value,
+        "less than": lambda answer_value, match_value: answer_and_match and answer_value < match_value,
+        "less than or equal to": lambda answer_value, match_value: answer_and_match and answer_value <= match_value,
     }
 
     match_function = comparison_operators[condition]
@@ -182,9 +173,7 @@ def _is_answer_on_path(schema, answer, routing_path_block_ids):
     return block_id in routing_path_block_ids
 
 
-def _get_comparison_id_value(
-    when_rule, answer_store, schema, current_location=None, routing_path_block_ids=None
-):
+def _get_comparison_id_value(when_rule, answer_store, schema, current_location=None, routing_path_block_ids=None):
     """
     Gets the value of a comparison id specified as an operand in a comparator
     """
@@ -337,16 +326,12 @@ def evaluate_when_rules(
 def get_answer_for_answer_id(answer_id, answer_store, schema, list_item_id):
     list_item_id = schema.get_list_item_id_for_answer_id(answer_id, list_item_id)
 
-    answer = answer_store.get_answer(
-        answer_id, list_item_id
-    ) or schema.get_default_answer(answer_id)
+    answer = answer_store.get_answer(answer_id, list_item_id) or schema.get_default_answer(answer_id)
 
     return answer
 
 
-def get_answer_value(
-    answer_id, answer_store, schema, list_item_id=None, routing_path_block_ids=None
-):
+def get_answer_value(answer_id, answer_store, schema, list_item_id=None, routing_path_block_ids=None):
     answer = get_answer_for_answer_id(answer_id, answer_store, schema, list_item_id)
 
     if not answer:
@@ -368,6 +353,4 @@ def get_list_count(list_store, list_name):
 
 
 def is_goto_rule(rule):
-    return any(
-        key in rule.get("goto", {}) for key in ("when", "block", "group", "section")
-    )
+    return any(key in rule.get("goto", {}) for key in ("when", "block", "group", "section"))

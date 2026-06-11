@@ -67,9 +67,7 @@ class IndividualResponseHandler:
         return [
             {
                 "placeholder": "person_name",
-                "transforms": IndividualResponseHandler._person_name_transforms(
-                    list_name
-                ),
+                "transforms": IndividualResponseHandler._person_name_transforms(list_name),
             }
         ]
 
@@ -82,9 +80,7 @@ class IndividualResponseHandler:
                 "transforms": name_transforms
                 + [
                     {
-                        "arguments": {
-                            "string_to_format": {"source": "previous_transform"}
-                        },
+                        "arguments": {"string_to_format": {"source": "previous_transform"}},
                         "transform": "format_possessive",
                     }
                 ],
@@ -93,9 +89,7 @@ class IndividualResponseHandler:
 
     @cached_property
     def has_postal_deadline_passed(self):
-        individual_response_postal_deadline = current_app.config[
-            "EQ_INDIVIDUAL_RESPONSE_POSTAL_DEADLINE"
-        ]
+        individual_response_postal_deadline = current_app.config["EQ_INDIVIDUAL_RESPONSE_POSTAL_DEADLINE"]
         return individual_response_postal_deadline < datetime.now(timezone.utc)
 
     def __init__(
@@ -127,17 +121,11 @@ class IndividualResponseHandler:
 
     @cached_property
     def _list_item_position(self):
-        return self._questionnaire_store.list_store.list_item_position(
-            self._list_name, self._list_item_id
-        )
+        return self._questionnaire_store.list_store.list_item_position(self._list_name, self._list_item_id)
 
     def page_title(self, page_title):
         if self._list_item_id:
-            page_title += ": " + lazy_gettext(
-                "Person {list_item_position}".format(
-                    list_item_position=self._list_item_position
-                )
-            )
+            page_title += ": " + lazy_gettext("Person {list_item_position}".format(list_item_position=self._list_item_position))
         return page_title
 
     def _is_location_valid(self):
@@ -199,9 +187,7 @@ class IndividualResponseHandler:
     def _publish_fulfilment_request(self, mobile_number=None):
         self._check_individual_response_count()
         topic_id = current_app.config["EQ_FULFILMENT_TOPIC_ID"]
-        fulfilment_request = IndividualResponseFulfilmentRequest(
-            self._metadata, mobile_number
-        )
+        fulfilment_request = IndividualResponseFulfilmentRequest(self._metadata, mobile_number)
         try:
             return current_app.eq["publisher"].publish(
                 topic_id,
@@ -212,15 +198,8 @@ class IndividualResponseHandler:
             raise IndividualResponseFulfilmentRequestPublicationFailed
 
     def _check_individual_response_count(self):
-        if (
-            self._questionnaire_store.response_metadata.get(
-                "individual_response_count", 0
-            )
-            >= current_app.config["EQ_INDIVIDUAL_RESPONSE_LIMIT"]
-        ):
-            raise IndividualResponseLimitReached(
-                "Individual response limit has been reached"
-            )
+        if self._questionnaire_store.response_metadata.get("individual_response_count", 0) >= current_app.config["EQ_INDIVIDUAL_RESPONSE_LIMIT"]:
+            raise IndividualResponseLimitReached("Individual response limit has been reached")
 
     def _update_individual_response_count(self):
         response_metadata = self._questionnaire_store.response_metadata
@@ -241,9 +220,7 @@ class IndividualResponseHandler:
             language=self._language,
             previous_location_url=self._get_previous_location_url(),
             next_location_url=self._get_next_location_url(),
-            page_title=self.page_title(
-                lazy_gettext("Cannot answer questions for others in your household")
-            ),
+            page_title=self.page_title(lazy_gettext("Cannot answer questions for others in your household")),
         )
 
     def _get_next_location_url(self):
@@ -275,9 +252,7 @@ class IndividualResponseHandler:
             )
 
         if self._list_item_id:
-            individual_section_first_block_id = (
-                self._schema.get_first_block_id_for_section(self.individual_section_id)
-            )
+            individual_section_first_block_id = self._schema.get_first_block_id_for_section(self.individual_section_id)
             return url_for(
                 "questionnaire.block",
                 list_name=self._list_name,
@@ -288,14 +263,10 @@ class IndividualResponseHandler:
         return url_for("questionnaire.get_questionnaire")
 
     def _render_block(self):
-        return self.placeholder_renderer.render(
-            self.block_definition, self._list_item_id
-        )
+        return self.placeholder_renderer.render(self.block_definition, self._list_item_id)
 
     def _update_section_status(self, status):
-        self._questionnaire_store.progress_store.update_section_status(
-            status, self.individual_section_id, self._list_item_id
-        )
+        self._questionnaire_store.progress_store.update_section_status(status, self.individual_section_id, self._list_item_id)
 
 
 class IndividualResponseHowHandler(IndividualResponseHandler):
@@ -308,12 +279,8 @@ class IndividualResponseHowHandler(IndividualResponseHandler):
                 "type": "Question",
                 "id": "individual-response-how",
                 "title": {
-                    "text": lazy_gettext(
-                        "How would you like <em>{person_name}</em> to receive a separate census?"
-                    ),
-                    "placeholders": IndividualResponseHandler._person_name_placeholder(
-                        self._list_name
-                    ),
+                    "text": lazy_gettext("How would you like <em>{person_name}</em> to receive a separate census?"),
+                    "placeholders": IndividualResponseHandler._person_name_placeholder(self._list_name),
                 },
                 "description": self._build_question_description(),
                 "answers": [
@@ -333,9 +300,7 @@ class IndividualResponseHowHandler(IndividualResponseHandler):
             {
                 "label": lazy_gettext("Text message"),
                 "value": "Text message",
-                "description": lazy_gettext(
-                    "We will need their mobile number for this"
-                ),
+                "description": lazy_gettext("We will need their mobile number for this"),
             }
         ]
         if not self.has_postal_deadline_passed:
@@ -343,9 +308,7 @@ class IndividualResponseHowHandler(IndividualResponseHandler):
                 {
                     "label": lazy_gettext("Post"),
                     "value": "Post",
-                    "description": lazy_gettext(
-                        "We can only send this to an unnamed resident at the registered household address"
-                    ),
+                    "description": lazy_gettext("We can only send this to an unnamed resident at the registered household address"),
                 }
             )
         return handler_options
@@ -357,9 +320,7 @@ class IndividualResponseHowHandler(IndividualResponseHandler):
             else lazy_gettext("Select how to send access code.")
         )
         return [
-            lazy_gettext(
-                "For someone to complete a separate census, we need to send them an individual access code."
-            ),
+            lazy_gettext("For someone to complete a separate census, we need to send them an individual access code."),
             lazy_gettext(description),
         ]
 
@@ -434,12 +395,8 @@ class IndividualResponseChangeHandler(IndividualResponseHandler):
                 "type": "Question",
                 "id": "individual-response-change-question",
                 "title": {
-                    "text": lazy_gettext(
-                        "How would you like to answer <em>{person_name_possessive}</em> questions?"
-                    ),
-                    "placeholders": IndividualResponseHandler._person_name_placeholder_possessive(
-                        self._list_name
-                    ),
+                    "text": lazy_gettext("How would you like to answer <em>{person_name_possessive}</em> questions?"),
+                    "placeholders": IndividualResponseHandler._person_name_placeholder_possessive(self._list_name),
                 },
                 "answers": [
                     {
@@ -449,28 +406,18 @@ class IndividualResponseChangeHandler(IndividualResponseHandler):
                         "default": "I would like to request a separate census for them to complete",
                         "options": [
                             {
-                                "label": lazy_gettext(
-                                    "I would like to request a separate census for them to complete"
-                                ),
+                                "label": lazy_gettext("I would like to request a separate census for them to complete"),
                                 "value": "I would like to request a separate census for them to complete",
                             },
                             {
-                                "label": lazy_gettext(
-                                    "I will ask them to answer their own questions"
-                                ),
+                                "label": lazy_gettext("I will ask them to answer their own questions"),
                                 "value": "I will ask them to answer their own questions",
-                                "description": lazy_gettext(
-                                    "They will need the household access code from the letter we sent you"
-                                ),
+                                "description": lazy_gettext("They will need the household access code from the letter we sent you"),
                             },
                             {
                                 "label": {
-                                    "text": lazy_gettext(
-                                        "I will answer for {person_name}"
-                                    ),
-                                    "placeholders": IndividualResponseHandler._person_name_placeholder(
-                                        self._list_name
-                                    ),
+                                    "text": lazy_gettext("I will answer for {person_name}"),
+                                    "placeholders": IndividualResponseHandler._person_name_placeholder(self._list_name),
                                 },
                                 "value": "I will answer for {person_name}",
                             },
@@ -498,9 +445,7 @@ class IndividualResponseChangeHandler(IndividualResponseHandler):
         return self.form.get_data(answer_id)
 
     def handle_get(self):
-        self._answers = {
-            "individual-response-change-answer": self.request_separate_census_option
-        }
+        self._answers = {"individual-response-change-answer": self.request_separate_census_option}
         return render_template(
             "individual_response/question",
             language=self._language,
@@ -526,9 +471,7 @@ class IndividualResponseChangeHandler(IndividualResponseHandler):
 
         if self.selected_option == self.cancel_go_to_section_option:
             self._update_section_completeness()
-            individual_section_first_block_id = (
-                self._schema.get_first_block_id_for_section(self.individual_section_id)
-            )
+            individual_section_first_block_id = self._schema.get_first_block_id_for_section(self.individual_section_id)
             return redirect(
                 url_for(
                     "questionnaire.block",
@@ -540,19 +483,11 @@ class IndividualResponseChangeHandler(IndividualResponseHandler):
             )
 
     def _update_section_completeness(self):
-        if not self._questionnaire_store.progress_store.get_completed_block_ids(
-            self.individual_section_id, self._list_item_id
-        ):
+        if not self._questionnaire_store.progress_store.get_completed_block_ids(self.individual_section_id, self._list_item_id):
             status = CompletionStatus.NOT_STARTED
         else:
-            routing_path = self.router.routing_path(
-                self.individual_section_id, self._list_item_id
-            )
-            status = (
-                CompletionStatus.COMPLETED
-                if self.router.is_path_complete(routing_path)
-                else CompletionStatus.IN_PROGRESS
-            )
+            routing_path = self.router.routing_path(self.individual_section_id, self._list_item_id)
+            status = CompletionStatus.COMPLETED if self.router.is_path_complete(routing_path) else CompletionStatus.IN_PROGRESS
         self._update_section_status(status)
         if self._questionnaire_store.progress_store.is_dirty:
             self._questionnaire_store.save()
@@ -572,25 +507,13 @@ class IndividualResponsePostAddressConfirmHandler(IndividualResponseHandler):
                 "type": "Question",
                 "id": "individual-response-post-confirm",
                 "title": {
-                    "text": lazy_gettext(
-                        "Do you want to send an individual access code for {person_name} by post?"
-                    ),
-                    "placeholders": IndividualResponseHandler._person_name_placeholder(
-                        self._list_name
-                    ),
+                    "text": lazy_gettext("Do you want to send an individual access code for {person_name} by post?"),
+                    "placeholders": IndividualResponseHandler._person_name_placeholder(self._list_name),
                 },
-                "description": [
-                    lazy_gettext(
-                        "A letter with an individual access code will be sent to your registered household address"
-                    )
-                ],
+                "description": [lazy_gettext("A letter with an individual access code will be sent to your registered household address")],
                 "guidance": {
                     "contents": [
-                        {
-                            "description": lazy_gettext(
-                                "The letter will be addressed to <strong>Individual Resident</strong> instead of the name provided"
-                            )
-                        }
+                        {"description": lazy_gettext("The letter will be addressed to <strong>Individual Resident</strong> instead of the name provided")}
                     ]
                 },
                 "answers": [
@@ -600,9 +523,7 @@ class IndividualResponsePostAddressConfirmHandler(IndividualResponseHandler):
                         "mandatory": True,
                         "options": [
                             {
-                                "label": lazy_gettext(
-                                    "Yes, send the access code by post"
-                                ),
+                                "label": lazy_gettext("Yes, send the access code by post"),
                                 "value": "Yes, send the access code by post",
                             },
                             {
@@ -675,9 +596,7 @@ class IndividualResponseWhoHandler(IndividualResponseHandler):
             name_answer_ids = ["first-name", "last-name"]
 
         for list_item_id in list_model.non_primary_people:
-            name_answers = questionnaire_store.answer_store.get_answers_by_answer_id(
-                name_answer_ids, list_item_id=list_item_id
-            )
+            name_answers = questionnaire_store.answer_store.get_answers_by_answer_id(name_answer_ids, list_item_id=list_item_id)
             name = " ".join(name_answer.value for name_answer in name_answers)
             self.non_primary_people_names[list_item_id] = name
 
@@ -698,18 +617,13 @@ class IndividualResponseWhoHandler(IndividualResponseHandler):
             "question": {
                 "type": "Question",
                 "id": "individual-response-who",
-                "title": lazy_gettext(
-                    "Who do you need to request a separate census for?"
-                ),
+                "title": lazy_gettext("Who do you need to request a separate census for?"),
                 "answers": [
                     {
                         "type": "Radio",
                         "id": "individual-response-who-answer",
                         "mandatory": True,
-                        "options": [
-                            {"label": name, "value": list_item_id}
-                            for list_item_id, name in self.non_primary_people_names.items()
-                        ],
+                        "options": [{"label": name, "value": list_item_id} for list_item_id, name in self.non_primary_people_names.items()],
                     }
                 ],
             },
@@ -756,12 +670,8 @@ class IndividualResponseTextHandler(IndividualResponseHandler):
                 "type": "Question",
                 "id": "individual-response-enter-number",
                 "title": {
-                    "text": lazy_gettext(
-                        "What is <em>{person_name_possessive}</em> mobile number?"
-                    ),
-                    "placeholders": IndividualResponseHandler._person_name_placeholder_possessive(
-                        self._list_name
-                    ),
+                    "text": lazy_gettext("What is <em>{person_name_possessive}</em> mobile number?"),
+                    "placeholders": IndividualResponseHandler._person_name_placeholder_possessive(self._list_name),
                 },
                 "answers": [
                     {
@@ -769,9 +679,7 @@ class IndividualResponseTextHandler(IndividualResponseHandler):
                         "id": "individual-response-enter-number-answer",
                         "mandatory": True,
                         "label": lazy_gettext("UK mobile number"),
-                        "description": lazy_gettext(
-                            "This will not be stored and only used once to send the access code"
-                        ),
+                        "description": lazy_gettext("This will not be stored and only used once to send the access code"),
                     }
                 ],
             },
@@ -787,9 +695,7 @@ class IndividualResponseTextHandler(IndividualResponseHandler):
 
     def handle_get(self):
         if "mobile_number" in self._request_args:
-            mobile_number = url_safe_serializer().loads(
-                self._request_args["mobile_number"]
-            )
+            mobile_number = url_safe_serializer().loads(self._request_args["mobile_number"])
             self._answers = {"individual-response-enter-number-answer": mobile_number}
         previous_location_url = url_for(
             "individual_response.individual_response_how",
@@ -829,9 +735,7 @@ class IndividualResponseTextConfirmHandler(IndividualResponseHandler):
         list_item_id,
     ):
         try:
-            self.mobile_number = url_safe_serializer().loads(
-                request_args["mobile_number"]
-            )
+            self.mobile_number = url_safe_serializer().loads(request_args["mobile_number"])
         except BadSignature:
             raise BadRequest
 
@@ -931,18 +835,10 @@ class IndividualResponseFulfilmentRequest(FulfilmentRequest):
         self._fulfilment_type = "sms" if self._mobile_number else "postal"
 
     def _get_individual_case_id_mapping(self) -> Mapping:
-        return (
-            {}
-            if self._metadata.get("case_type") in ["SPG", "CE"]
-            else {"individualCaseId": str(uuid4())}
-        )
+        return {} if self._metadata.get("case_type") in ["SPG", "CE"] else {"individualCaseId": str(uuid4())}
 
     def _get_contact_mapping(self) -> Mapping:
-        return (
-            {"telNo": sanitise_mobile_number(self._mobile_number)}
-            if self._mobile_number
-            else {}
-        )
+        return {"telNo": sanitise_mobile_number(self._mobile_number)} if self._mobile_number else {}
 
     def _get_fulfilment_code(self) -> str:
         fulfilment_codes = {
