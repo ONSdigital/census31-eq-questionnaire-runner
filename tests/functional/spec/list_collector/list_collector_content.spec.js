@@ -147,9 +147,9 @@ const completeBothSections = async () => {
 
 const completeRepeatingBlocks = async (registrationNumber, day, month, year, authorisedUk, authorisedEu) => {
   await $(ListCollectorFirstRepeatingBlockPage.registrationNumberRepeatingBlock()).setValue(registrationNumber);
-  await $(ListCollectorFirstRepeatingBlockPage.registrationDateRepeatingBlockday()).setValue(day);
-  await $(ListCollectorFirstRepeatingBlockPage.registrationDateRepeatingBlockmonth()).setValue(month);
-  await $(ListCollectorFirstRepeatingBlockPage.registrationDateRepeatingBlockyear()).setValue(year);
+  await $(ListCollectorFirstRepeatingBlockPage.registrationDateRepeatingBlockDay()).setValue(day);
+  await $(ListCollectorFirstRepeatingBlockPage.registrationDateRepeatingBlockMonth()).setValue(month);
+  await $(ListCollectorFirstRepeatingBlockPage.registrationDateRepeatingBlockYear()).setValue(year);
   await click(ListCollectorFirstRepeatingBlockPage.submit());
   if (authorisedUk) {
     await $(ListCollectorSecondRepeatingBlockPage.authorisedTraderUkRadioRepeatingBlockYes()).click();

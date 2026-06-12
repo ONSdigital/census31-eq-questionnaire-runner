@@ -150,6 +150,7 @@ jobs:
     timeout-minutes: 35
     env:
       EQ_RUN_FUNCTIONAL_TESTS_HEADLESS: True
+      EQ_OPEN_QUESTIONNAIRE_ATTEMPTS: 2
       # :TODO: Revisit & update when 2 instances can be used without adverse effects
       EQ_FUNCTIONAL_TEST_MAX_INSTANCES: 2
     steps:
@@ -194,7 +195,7 @@ jobs:
 
       - name: Set Tag and SHA
         run: |
-          CLEAN_TAG=$(echo "${{ github.event.pull_request.head.ref  }}"  | tr / -)
+          CLEAN_TAG=$(echo "${{ github.event.pull_request.head.ref }}" | tr / -)
           echo "TAG=$CLEAN_TAG" >> $GITHUB_ENV
           echo "SHA=${{ github.event.pull_request.head.sha }}" >> $GITHUB_ENV
       - name: Write app version
