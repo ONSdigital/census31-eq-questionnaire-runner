@@ -9,7 +9,8 @@ import flask
 import flask_babel
 from babel import numbers
 from flask import current_app, g
-from jinja2 import nodes, pass_eval_context
+from jinja2 import pass_context
+from jinja2.runtime import Context
 from markupsafe import Markup, escape
 from wtforms import SelectFieldBase
 
@@ -31,8 +32,9 @@ AnswerType = Mapping[str, Any]
 UnitLengthType: TypeAlias = Literal["short", "long", "narrow"]
 
 
-def mark_safe(context: nodes.EvalContext, value: str) -> Markup | str:
-    return Markup(value) if context.autoescape else value  # noqa: S704
+@pass_context
+def mark_safe(context: Context, value: str) -> Markup | str:
+    return Markup(value) if context.environment.autoescape else value  # noqa: S704
 
 
 def strip_tags(value: str) -> Markup:
@@ -149,9 +151,9 @@ def get_format_date(value: Markup) -> str:
     return f"<span class='date'>{date}</span>"
 
 
-@pass_eval_context
+@pass_context
 @blueprint.app_template_filter()
-def format_datetime(context: nodes.EvalContext, date_time: datetime) -> str | Markup:
+def format_datetime(context: Context, date_time: datetime) -> str | Markup:
     # flask babel on formatting will automatically convert based on the time zone specified in setup.py
     formatted_date = flask_babel.format_date(date_time, format="d MMMM yyyy")
     formatted_time = flask_babel.format_time(date_time, format="HH:mm")
