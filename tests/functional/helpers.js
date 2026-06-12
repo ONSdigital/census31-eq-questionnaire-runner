@@ -1,3 +1,5 @@
+export const WAIT_FOR_DISPLAYED_TIMEOUT_MS = 5000;
+
 export const checkItemsInList = async (itemsExpected, listLabel) => {
   await $(listLabel(1)).waitForDisplayed();
 

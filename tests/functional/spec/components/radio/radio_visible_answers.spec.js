@@ -1,7 +1,7 @@
 import RadioVisibleTruePage from "../../../generated_pages/radio_detail_answer_visible/radio-visible-true.page.js";
 import RadioVisibleFalsePage from "../../../generated_pages/radio_detail_answer_visible/radio-visible-false.page.js";
 import RadioVisibleNonePage from "../../../generated_pages/radio_detail_answer_visible/radio-visible-none.page.js";
-import { click } from "../../../helpers";
+import { click, WAIT_FOR_DISPLAYED_TIMEOUT_MS } from "../../../helpers";
 
 describe("Given I start a Radio survey with a write-in option", () => {
   beforeEach(async () => {
@@ -9,18 +9,18 @@ describe("Given I start a Radio survey with a write-in option", () => {
   });
 
   it("When I view a write-in radio and the visible option is set to true, Then the detail answer label should be displayed", async () => {
-    await expect(await $(RadioVisibleTruePage.otherDetail()).waitForDisplayed({ timeout: 5000 })).toBe(true);
+    await expect(await $(RadioVisibleTruePage.otherDetail()).waitForDisplayed({ timeout: WAIT_FOR_DISPLAYED_TIMEOUT_MS })).toBe(true);
   });
 
   it("When I view a write-in radio and the visible option is set to true, Then after choosing non write-in option the detail answer label should be displayed", async () => {
     await $(RadioVisibleTruePage.coffee()).click();
-    await expect(await $(RadioVisibleTruePage.otherDetail()).waitForDisplayed({ timeout: 5000 })).toBe(true);
+    await expect(await $(RadioVisibleTruePage.otherDetail()).waitForDisplayed({ timeout: WAIT_FOR_DISPLAYED_TIMEOUT_MS })).toBe(true);
   });
 
   it("When I view a write-in radio and the visible option is set to false, Then the detail answer label should not be displayed", async () => {
     await $(RadioVisibleTruePage.coffee()).click();
     await click(RadioVisibleTruePage.submit());
-    await expect(await $(RadioVisibleFalsePage.otherDetail()).waitForDisplayed({ timeout: 5000, reverse: true })).toBe(true);
+    await expect(await $(RadioVisibleFalsePage.otherDetail()).waitForDisplayed({ timeout: WAIT_FOR_DISPLAYED_TIMEOUT_MS, reverse: true })).toBe(true);
   });
 
   it("When I view a write-in radio and the visible option is not set, Then the detail answer label should not be displayed", async () => {
@@ -28,6 +28,6 @@ describe("Given I start a Radio survey with a write-in option", () => {
     await click(RadioVisibleFalsePage.submit());
     await $(RadioVisibleFalsePage.iceCream()).click();
     await click(RadioVisibleFalsePage.submit());
-    await expect(await $(RadioVisibleNonePage.otherDetail()).waitForDisplayed({ timeout: 5000, reverse: true })).toBe(true);
+    await expect(await $(RadioVisibleNonePage.otherDetail()).waitForDisplayed({ timeout: WAIT_FOR_DISPLAYED_TIMEOUT_MS, reverse: true })).toBe(true);
   });
 });

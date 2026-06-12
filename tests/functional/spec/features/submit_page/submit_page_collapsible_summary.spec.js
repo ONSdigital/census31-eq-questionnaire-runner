@@ -7,7 +7,7 @@ import ListedPage from "../../../generated_pages/section_summary/listed.page.js"
 import NumberOfPeoplePage from "../../../generated_pages/section_summary/number-of-people.page.js";
 import PropertyDetailsSummaryPage from "../../../generated_pages/section_summary/property-details-section-summary.page.js";
 import SubmitPage from "../../../generated_pages/section_summary/submit.page.js";
-import { click } from "../../../helpers";
+import { click, WAIT_FOR_DISPLAYED_TIMEOUT_MS } from "../../../helpers";
 
 describe("Collapsible Summary", () => {
   describe("Given I complete a questionnaire with collapsible summary enabled", () => {
@@ -28,7 +28,7 @@ describe("Collapsible Summary", () => {
     it("When I am on the submit page, Then a collapsed summary should be displayed with the group title and questions should not be displayed", async () => {
       // WebdriverIO v9 BiDi has serialization issues with isDisplayed() on complex elements.
       // Use waitForDisplayed with a short timeout to verify element is displayed.
-      await $(SubmitPage.collapsibleSummary()).waitForDisplayed({ timeout: 5000 });
+      await $(SubmitPage.collapsibleSummary()).waitForDisplayed({ timeout: WAIT_FOR_DISPLAYED_TIMEOUT_MS });
 
       await expect(await $(SubmitPage.collapsibleSummary()).getText()).toContain("Property Details");
       await expect(await $(SubmitPage.collapsibleSummary()).getText()).toContain("House Details");
