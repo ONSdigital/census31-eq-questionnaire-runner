@@ -101,7 +101,7 @@ command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
 
 eval "$(pyenv init -)"
 ```
-Python versions can be changed with the `pyenv local` or `pyenv global` commands suffixed with the desired version (e.g. 3.13.5). Different versions of Python can be installed first with the `pyenv install` command. Refer to the pyenv project Readme [here](https://github.com/pyenv/pyenv). To avoid confusion, check the current Python version at any given time using `python --version` or `python3 --version`.
+Python versions can be changed with the `pyenv local` or `pyenv global` commands suffixed with the desired version (e.g. 3.13.5). Different versions of Python can be installed first with the `pyenv install` command. Refer to the [pyenv project README](https://github.com/pyenv/pyenv). To avoid confusion, check the current Python version at any given time using `python --version` or `python3 --version`.
 
 #### Python & dependencies
 
@@ -255,7 +255,7 @@ npm install
 Available commands:
 
 | Command                | Task                                                                                                      |
-|------------------------| --------------------------------------------------------------------------------------------------------- |
+|------------------------|-----------------------------------------------------------------------------------------------------------|
 | `make test-functional` | Runs the functional tests through Webdriver (requires app running on localhost:5000 and generated pages). |
 | `make generate-pages`  | Generates the functional test pages.                                                                      |
 | `make lint-js`         | Lints the JS, reporting errors/warnings.                                                                  |
@@ -377,7 +377,7 @@ PROJECT_ID=eq-test EQ_KEYS_FILE=dev-keys.yml EQ_SECRETS_FILE=dev-secrets.yml ./c
 The following environment variables must be set when deploying the app.
 
 | Variable Name   | Description                            |
-| --------------- | -------------------------------------- |
+|-----------------|----------------------------------------|
 | PROJECT_ID      | The ID of the GCP target project       |
 | DOCKER_REGISTRY | The FQDN of the target Docker registry |
 | IMAGE_TAG       |                                        |
@@ -385,7 +385,7 @@ The following environment variables must be set when deploying the app.
 The following environment variables are optional:
 
 | Variable Name                | Default          | Description                                                                                                    |
-|------------------------------| ---------------- |----------------------------------------------------------------------------------------------------------------|
+|------------------------------|------------------|----------------------------------------------------------------------------------------------------------------|
 | REGION                       | europe-west2     | The region that will be used for your Cloud Run service                                                        |
 | CONCURRENCY                  | 80               | The maximum number of requests that can be processed simultaneously by a given container instance              |
 | MIN_INSTANCES                | 1                | The minimum number of container instances that can be used for your Cloud Run service                          |
@@ -419,7 +419,7 @@ make translation-templates
 
 This will extract messages and place them in the .pot files ready for translation.
 
-These .pot files will then need to be translated. The translation process is documented in Confluence [here](https://collaborate2.ons.gov.uk/confluence/display/SDC/Translation+Process)
+These .pot files will then need to be translated. The translation process is documented in Confluence in the [Translation Process guide](https://collaborate2.ons.gov.uk/confluence/display/SDC/Translation+Process)
 
 Once we have the translated .po files they can be added to the source code and used by the application
 

@@ -1,46 +1,46 @@
 platform: linux
 image_resource:
-    type: registry-image
-    source:
-        repository: gcr.io/google.com/cloudsdktool/cloud-sdk
+  type: registry-image
+  source:
+    repository: gcr.io/google.com/cloudsdktool/cloud-sdk
 params:
-    SERVICE_ACCOUNT_JSON: ((gcp.service_account_json))
-    PROJECT_ID:
-    DATAFLOW_TEMPLATE_VERSION: '2024-07-23-00_RC00'
-    SUBMITTED_AT_PURGE_OFFSET_IN_SECONDS: 3600
+  SERVICE_ACCOUNT_JSON: ((gcp.service_account_json))
+  PROJECT_ID:
+  DATAFLOW_TEMPLATE_VERSION: "2024-07-23-00_RC00"
+  SUBMITTED_AT_PURGE_OFFSET_IN_SECONDS: 3600
 run:
-    path: bash
-    args:
-        - -exc
-        - |
-            export GOOGLE_APPLICATION_CREDENTIALS=/root/gcloud-service-key.json
-            cat >$GOOGLE_APPLICATION_CREDENTIALS <<EOL
-            $SERVICE_ACCOUNT_JSON
-            EOL
+  path: bash
+  args:
+    - -exc
+    - |
+      export GOOGLE_APPLICATION_CREDENTIALS=/root/gcloud-service-key.json
+      cat >$GOOGLE_APPLICATION_CREDENTIALS <<EOL
+      $SERVICE_ACCOUNT_JSON
+      EOL
 
-            gcloud auth activate-service-account --key-file "${GOOGLE_APPLICATION_CREDENTIALS}"
-            gcloud config set project "${PROJECT_ID}"
+      gcloud auth activate-service-account --key-file "${GOOGLE_APPLICATION_CREDENTIALS}"
+      gcloud config set project "${PROJECT_ID}"
 
-            DATAFLOW_JOB=$(gcloud dataflow jobs run purge_submitted_questionnaire_state \
-            --region europe-west2 \
-            --gcs-location gs://dataflow-templates/"${DATAFLOW_TEMPLATE_VERSION}"/Firestore_to_Firestore_Delete \
-            --parameters \
-            firestoreReadGqlQuery="SELECT * FROM \`questionnaire-state\` WHERE submitted_at < $((`date --utc +%s` - SUBMITTED_AT_PURGE_OFFSET_IN_SECONDS)) AND submitted_at > NULL",\
-            firestoreReadProjectId="${PROJECT_ID}",\
-            firestoreDeleteProjectId="${PROJECT_ID}" \
-            --subnetwork regions/europe-west2/subnetworks/eq \
-            --disable-public-ips \
-            --format="value(id.scope())")
+      DATAFLOW_JOB=$(gcloud dataflow jobs run purge_submitted_questionnaire_state \
+      --region europe-west2 \
+      --gcs-location gs://dataflow-templates/"${DATAFLOW_TEMPLATE_VERSION}"/Firestore_to_Firestore_Delete \
+      --parameters \
+      firestoreReadGqlQuery="SELECT * FROM \`questionnaire-state\` WHERE submitted_at < $((`date --utc +%s` - SUBMITTED_AT_PURGE_OFFSET_IN_SECONDS)) AND submitted_at > NULL",\
+      firestoreReadProjectId="${PROJECT_ID}",\
+      firestoreDeleteProjectId="${PROJECT_ID}" \
+      --subnetwork regions/europe-west2/subnetworks/eq \
+      --disable-public-ips \
+      --format="value(id.scope())")
 
-            DATAFLOW_JOB_STATE=$(gcloud dataflow jobs describe "${DATAFLOW_JOB}" --region europe-west2 --format="value(currentState)")
+      DATAFLOW_JOB_STATE=$(gcloud dataflow jobs describe "${DATAFLOW_JOB}" --region europe-west2 --format="value(currentState)")
 
-            while [[ $DATAFLOW_JOB_STATE == "JOB_STATE_RUNNING" || $DATAFLOW_JOB_STATE == "JOB_STATE_PENDING" ]]; do
-              sleep 60
-              DATAFLOW_JOB_STATE=$(gcloud dataflow jobs describe "${DATAFLOW_JOB}" --region europe-west2 --format="value(currentState)")
-            done
+      while [[ $DATAFLOW_JOB_STATE == "JOB_STATE_RUNNING" || $DATAFLOW_JOB_STATE == "JOB_STATE_PENDING" ]]; do
+        sleep 60
+        DATAFLOW_JOB_STATE=$(gcloud dataflow jobs describe "${DATAFLOW_JOB}" --region europe-west2 --format="value(currentState)")
+      done
 
-            if [[ "${DATAFLOW_JOB_STATE}" == "JOB_STATE_DONE" ]]; then
-              echo "Submitted questionnaire states purged successfully from Datastore"
-            else
-              exit 1
-            fi
+      if [[ "${DATAFLOW_JOB_STATE}" == "JOB_STATE_DONE" ]]; then
+        echo "Submitted questionnaire states purged successfully from Datastore"
+      else
+        exit 1
+      fi

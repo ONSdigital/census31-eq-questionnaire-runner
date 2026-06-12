@@ -31,18 +31,18 @@ tests/
             ...
 ```
 - Create a consistent set of tests for each component e.g. TextField, Currency, Dates etc. Each component should test:
-    - Optional/mandatory
-    - Saved data is persisted
-    - Summary screen content
-    - Summary screen updates after answer changes
-    - Component specific tests e.g. other field on radio/checkbox answers
+  - Optional/mandatory
+  - Saved data is persisted
+  - Summary screen content
+  - Summary screen updates after answer changes
+  - Component specific tests e.g. other field on radio/checkbox answers
 - Create a set of tests for each feature
-    - Final confirmation/Summary
-    - Navigation
-    - Save and Resume
-    - Timeout
-    - Routing
-    - Language
+  - Final confirmation/Summary
+  - Navigation
+  - Save and Resume
+  - Timeout
+  - Routing
+  - Language
 - One spec file for each survey, component or feature
 
 - The JSON schemas will remain in the data directory so they are accessible by both users of the service and the functional tests.

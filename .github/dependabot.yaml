@@ -41,11 +41,11 @@ updates:
       # temporarily pinned to minor/patch only - eslint v9 not supported in eslint-config-standard v17.1.0: https://github.com/standard/eslint-config-standard/issues/410
       # This had a knock-on effect with `eslint-plugin-n` and `eslint-plugin-promise`
       - dependency-name: "eslint*"
-        update-types: [ "version-update:semver-major" ]
+        update-types: ["version-update:semver-major"]
 
       # temporarily pinned to minor/patch only - wdio v9 causes getHTML() to return strings with indentation & newlines, causing assertion errors - needs investigation
       - dependency-name: "@wdio/local-runner"
-        update-types: [ "version-update:semver-major" ]
+        update-types: ["version-update:semver-major"]
 
   - package-ecosystem: "pip"
     directory: "/"
@@ -99,7 +99,7 @@ updates:
     ignore:
       # "babel" temporarily pinned to v2.14.0 - problem for translations found in v2.15.0, see: https://github.com/ONSdigital/eq-questionnaire-runner/pull/1384
       - dependency-name: "babel"
-        update-types: [ "version-update:semver-major", "version-update:semver-minor" ]
+        update-types: ["version-update:semver-major", "version-update:semver-minor"]
 
   - package-ecosystem: "pip"
     directory: "/"
