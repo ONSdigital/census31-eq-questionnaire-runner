@@ -40,7 +40,10 @@ describe("Feature: Grand Calculated Summary", () => {
       await click(GrandCalculatedSummaryShoppingPage.submit());
     });
 
-    it("Given I edit an answer that is only used in a single calculated summary, I am routed back to the calculated summary and then the grand calculated summary and the correct fields are focused", async () => {
+    it(
+      "Given I edit an answer that is only used in a single calculated summary, " +
+        "I am routed back to the calculated summary and then the grand calculated summary and the correct fields are focused",
+      async () => {
       await $(HubPage.summaryRowLink("section-3")).click();
       await $(GrandCalculatedSummaryShoppingPage.calculatedSummary2Edit()).click();
       await $(CalculatedSummary2Page.q1A2Edit()).click();
@@ -50,7 +53,8 @@ describe("Feature: Grand Calculated Summary", () => {
       // taken back to calculated summary
       await verifyUrlContains(CalculatedSummary2Page.pageName);
       await verifyUrlContains(
-        "/questionnaire/calculated-summary-2/?return_to=grand-calculated-summary&return_to_block_id=grand-calculated-summary-shopping&return_to_answer_id=calculated-summary-2#q1-a2",
+        "/questionnaire/calculated-summary-2/?return_to=grand-calculated-summary" +
+          "&return_to_block_id=grand-calculated-summary-shopping&return_to_answer_id=calculated-summary-2#q1-a2",
       );
       await click(CalculatedSummary2Page.submit());
 
@@ -60,9 +64,14 @@ describe("Feature: Grand Calculated Summary", () => {
         "Grand Calculated Summary of purchases this week comes to £460.00. Is this correct?.",
       );
       await verifyUrlContains("/questionnaire/grand-calculated-summary-shopping/#calculated-summary-2");
-    });
+      },
+    );
 
-    it("Given I edit an answer that is used in two calculated summaries, if I edit it from the first calculated summary change link, I taken through each block between the question and the second calculated summary before returning to the grand calculated summary", async () => {
+    it(
+      "Given I edit an answer that is used in two calculated summaries, " +
+        "if I edit it from the first calculated summary change link, " +
+          "I taken through each block between the question and the second calculated summary before returning to the grand calculated summary",
+      async () => {
       await $(GrandCalculatedSummaryShoppingPage.calculatedSummary2Edit()).click();
       await $(CalculatedSummary2Page.q2A2Edit()).click();
       await $(Block2Page.q2A2()).setValue(400);
@@ -87,9 +96,14 @@ describe("Feature: Grand Calculated Summary", () => {
       await expect(await $(GrandCalculatedSummaryShoppingPage.grandCalculatedSummaryTitle()).getText()).toContain(
         "Grand Calculated Summary of purchases this week comes to £1,220.00. Is this correct?",
       );
-    });
+      },
+    );
 
-    it("Given I edit an answer that is used in two calculated summaries, if I edit it from the second calculated summary change link, I taken through each block between the question and the second calculated summary before returning to the grand calculated summary", async () => {
+    it(
+      "Given I edit an answer that is used in two calculated summaries, " +
+        "if I edit it from the second calculated summary change link, " +
+          "I taken through each block between the question and the second calculated summary before returning to the grand calculated summary",
+      async () => {
       await $(GrandCalculatedSummaryShoppingPage.calculatedSummary4Edit()).click();
       await $(CalculatedSummary4Page.q2A2Edit()).click();
       await $(Block2Page.q2A2()).setValue(500);
@@ -115,9 +129,13 @@ describe("Feature: Grand Calculated Summary", () => {
         "Grand Calculated Summary of purchases this week comes to £1,420.00. Is this correct?",
       );
       await click(GrandCalculatedSummaryShoppingPage.submit());
-    });
+      },
+    );
 
-    it("Given I change an answer and return to the Hub before all calculated summaries are confirmed, the grand calculated summary section becomes inaccessible", async () => {
+    it(
+      "Given I change an answer and return to the Hub before all calculated summaries are confirmed, " +
+        "the grand calculated summary section becomes inaccessible",
+      async () => {
       await $(HubPage.summaryRowLink("section-3")).click();
       await $(GrandCalculatedSummaryShoppingPage.calculatedSummary4Edit()).click();
       await $(CalculatedSummary4Page.q2A2Edit()).click();
@@ -131,9 +149,13 @@ describe("Feature: Grand Calculated Summary", () => {
       // calculated summary 4 is not confirmed so GCS doesn't show
       await expect(await $(HubPage.summaryRowState("section-1")).getText()).toBe("Partially completed");
       await expect(await $(HubPage.summaryRowLink("section-3")).isExisting()).toBe(false);
-    });
+      },
+    );
 
-    it("Given I complete the calculated and grand calculated summaries, When I return to the Hub, Then I see a new conditional section has opened up", async () => {
+    it(
+      "Given I complete the calculated and grand calculated summaries, " +
+        "When I return to the Hub, Then I see a new conditional section has opened up",
+      async () => {
       await click(HubPage.submit());
       await click(CalculatedSummary4Page.submit());
       await click(Section1SummaryPage.submit());
@@ -145,9 +167,13 @@ describe("Feature: Grand Calculated Summary", () => {
       await expect(await $(HubPage.summaryRowState("section-1")).getText()).toBe("Completed");
       await expect(await $(HubPage.summaryRowState("section-3")).getText()).toBe("Completed");
       await expect(await $(HubPage.summaryRowLink("section-4")).isExisting()).toBe(true);
-    });
+      },
+    );
 
-    it("Given I change my answer about purchasing additional items decreasing the gcs, When I return to the Hub, Then I see the conditional section is gone", async () => {
+    it(
+      "Given I change my answer about purchasing additional items decreasing the gcs, " +
+        "When I return to the Hub, Then I see the conditional section is gone",
+      async () => {
       await $(HubPage.summaryRowLink("section-1")).click();
       await $(Section1SummaryPage.radioExtraEdit()).click();
       await $(Block3Page.no()).click();
@@ -156,6 +182,7 @@ describe("Feature: Grand Calculated Summary", () => {
       await expect(await $(HubPage.summaryRowState("section-1")).getText()).toBe("Completed");
       await expect(await $(HubPage.summaryRowState("section-3")).getText()).toBe("Completed");
       await expect(await $(HubPage.summaryRowLink("section-4")).isExisting()).toBe(false);
-    });
+      },
+    );
   });
 });

@@ -291,14 +291,7 @@
                             "title": "We calculate the total of currency values entered to be %(total)s. Is this correct?",
                             "calculation": {
                                 "calculation_type": "sum",
-                                "answers_to_calculate": [
-                                    "first-number-answer",
-                                    "second-number-answer",
-                                    "second-number-answer-also-in-total",
-                                    "third-number-answer",
-                                    "fourth-number-answer",
-                                    "fourth-and-a-half-number-answer-also-in-total"
-                                ],
+                                "answers_to_calculate": ["first-number-answer", "second-number-answer", "second-number-answer-also-in-total", "third-number-answer", "fourth-number-answer", "fourth-and-a-half-number-answer-also-in-total"],
                                 "title": "Grand total of previous values"
                             }
                         },

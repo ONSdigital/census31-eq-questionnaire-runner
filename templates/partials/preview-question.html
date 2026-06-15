@@ -53,13 +53,13 @@
         {% endif %}
         {# answer guidance not implemented yet due to some work that needs to be done in the DS will be implemented in iteration 2 #}
         {# {% if answer.guidance %}
-      {% with answer_guidance = {
-        'id': answer.id,
-        'label': answer.label,
-        'schema_item': answer.guidance
-      } %}
-        {% include "partials/answer-guidance.html" %}
-      {% endwith %}
-{% endif %} #}
+            {% with answer_guidance = {
+                'id': answer.id,
+                'label': answer.label,
+                'schema_item': answer.guidance
+            } %}
+                {% include "partials/answer-guidance.html" %}
+            {% endwith %}
+        {% endif %} #}
     {% endfor %}
 </div>

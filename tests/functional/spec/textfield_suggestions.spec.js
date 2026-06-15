@@ -12,7 +12,10 @@ describe("Suggestions", () => {
 });
 
 describe("Suggestions", () => {
-  it("Given I open a textfield with a suggestions url that allows multiple suggestions, when I have entered text and picked suggestion from a list, then after typing more text it will show new suggestions", async () => {
+  it(
+    "Given I open a textfield with a suggestions url that allows multiple suggestions, " +
+      "when I have entered text and picked suggestion from a list, then after typing more text it will show new suggestions",
+    async () => {
     await browser.openQuestionnaire("test_textfield_suggestions.json");
     const suggestionsOption = $("#multiple-country-answer-listbox__option--0");
 

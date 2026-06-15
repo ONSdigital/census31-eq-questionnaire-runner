@@ -9,7 +9,10 @@ describe("Answers not on path are not considered when routing", () => {
     await browser.openQuestionnaire("test_routing_not_affected_by_answers_not_on_path.json");
   });
 
-  it("Given the user enters an answer on the first path, when they return to the second path, they should be routed to the valid path interstitial", async () => {
+  it(
+    "Given the user enters an answer on the first path, when they return to the second path, " +
+      "they should be routed to the valid path interstitial",
+    async () => {
     await $(InitialChoicePage.goHereFirst()).click();
     await click(InitialChoicePage.submit());
 

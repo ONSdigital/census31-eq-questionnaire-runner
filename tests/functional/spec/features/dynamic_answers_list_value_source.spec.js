@@ -46,7 +46,10 @@ describe("Dynamic answers list value source", () => {
     await expect(await $$(DynamicAnswerPage.labels())[1].getText()).toBe("Percentage of shopping at Aldi");
     await expect(await $$(DynamicAnswerPage.labels()).length).toBe(4);
   });
-  it("Given list items have been added and the dynamic answers are submitted, When the summary is displayed, Then the correct answers should be visible and have correct values", async () => {
+  it(
+    "Given list items have been added and the dynamic answers are submitted, " +
+      "When the summary is displayed, Then the correct answers should be visible and have correct values",
+    async () => {
     await addTwoSupermarkets();
     await $$(DynamicAnswerPage.inputs())[0].setValue(12);
     await $$(DynamicAnswerPage.inputs())[1].setValue(21);
@@ -61,8 +64,12 @@ describe("Dynamic answers list value source", () => {
     await expect(await $(SectionSummaryPage.listCollectorGroupContent(2)).$$(summaryValues)[3].getText()).toBe("7");
     await expect(await $(SectionSummaryPage.listCollectorGroupContent(2)).$$(summaryTitles).length).toBe(8);
     await expect(await $(SectionSummaryPage.listCollectorGroupContent(2)).$$(summaryValues).length).toBe(8);
-  });
-  it("Given list items have been added and the dynamic answers are submitted, When the dynamic answers are revisited, Then they should be visible and have correct values", async () => {
+    },
+  );
+  it(
+    "Given list items have been added and the dynamic answers are submitted, " +
+      "When the dynamic answers are revisited, Then they should be visible and have correct values",
+    async () => {
     await addTwoSupermarkets();
     await $$(DynamicAnswerPage.inputs())[0].setValue(12);
     await $$(DynamicAnswerPage.inputs())[1].setValue(21);
@@ -75,8 +82,12 @@ describe("Dynamic answers list value source", () => {
     await expect(await $$(DynamicAnswerPage.inputs())[1].getValue()).toBe("21");
     await expect(await $$(DynamicAnswerPage.labels())[0].getText()).toBe("Percentage of shopping at Tesco");
     await expect(await $$(DynamicAnswerPage.labels())[1].getText()).toBe("Percentage of shopping at Aldi");
-  });
-  it("Given list items have been added and the dynamic answers are submitted, When the dynamic answers are resubmitted with different values, Then they should be displayed correctly on summary", async () => {
+    },
+  );
+  it(
+    "Given list items have been added and the dynamic answers are submitted, " +
+      "When the dynamic answers are resubmitted with different values, Then they should be displayed correctly on summary",
+    async () => {
     await addTwoSupermarkets();
     await $$(DynamicAnswerPage.inputs())[0].setValue(12);
     await $$(DynamicAnswerPage.inputs())[1].setValue(21);
@@ -89,8 +100,12 @@ describe("Dynamic answers list value source", () => {
     await click(DynamicAnswerPage.submit());
     await expect(await $(SectionSummaryPage.listCollectorGroupContent(2)).$$(summaryValues)[0].getText()).toBe("21%");
     await expect(await $(SectionSummaryPage.listCollectorGroupContent(2)).$$(summaryValues)[1].getText()).toBe("12%");
-  });
-  it("Given list items have been added and the dynamic answers are submitted, When the summary edit answer link is used for dynamic answer, Then the focus is on correct answer option", async () => {
+    },
+  );
+  it(
+    "Given list items have been added and the dynamic answers are submitted, " +
+      "When the summary edit answer link is used for dynamic answer, Then the focus is on correct answer option",
+    async () => {
     await addTwoSupermarkets();
     await $$(DynamicAnswerPage.inputs())[0].setValue(12);
     await $$(DynamicAnswerPage.inputs())[1].setValue(21);
@@ -102,8 +117,12 @@ describe("Dynamic answers list value source", () => {
     await $(SectionSummaryPage.listCollectorGroupContent(2)).$$(summaryActions)[1].$("a").click();
     await verifyUrlContains(DynamicAnswerPage.pageName);
     await expect(await $$(DynamicAnswerPage.inputs())[1].isFocused()).toBe(true);
-  });
-  it("Given list items have been added and the dynamic answers are submitted, When the dynamic answers are resubmitted with answers updated, Then they should be displayed correctly on summary", async () => {
+    },
+  );
+  it(
+    "Given list items have been added and the dynamic answers are submitted, " +
+      "When the dynamic answers are resubmitted with answers updated, Then they should be displayed correctly on summary",
+    async () => {
     await addTwoSupermarkets();
     await $$(DynamicAnswerPage.inputs())[0].setValue(12);
     await $$(DynamicAnswerPage.inputs())[1].setValue(21);
@@ -113,8 +132,12 @@ describe("Dynamic answers list value source", () => {
     await click(DynamicAnswerPage.submit());
     await expect(await $(SectionSummaryPage.listCollectorGroupContent(2)).$$(summaryValues)[0].getText()).toBe("21%");
     await expect(await $(SectionSummaryPage.listCollectorGroupContent(2)).$$(summaryValues)[1].getText()).toBe("21%");
-  });
-  it("Given list items have been added and the dynamic answers are submitted, When the list items are removed and answers updated, Then they should be displayed correctly on summary", async () => {
+    },
+  );
+  it(
+    "Given list items have been added and the dynamic answers are submitted, " +
+      "When the list items are removed and answers updated, Then they should be displayed correctly on summary",
+    async () => {
     await addTwoSupermarkets();
     await $$(DynamicAnswerPage.inputs())[0].setValue(12);
     await $$(DynamicAnswerPage.inputs())[1].setValue(21);
@@ -129,8 +152,12 @@ describe("Dynamic answers list value source", () => {
     await expect(await $(SectionSummaryPage.listCollectorGroupContent(2)).$$(summaryValues)[0].getText()).toBe("21%");
     await expect(await $(SectionSummaryPage.listCollectorGroupContent(2)).$$(summaryTitles).length).toBe(5);
     await expect(await $(SectionSummaryPage.listCollectorGroupContent(2)).$$(summaryValues).length).toBe(5);
-  });
-  it("Given list items have been added and the dynamic answers are submitted, When the driving question is changed to 'No' and subsequently changed back to 'Yes', Then all answers should re-appear on summary", async () => {
+    },
+  );
+  it(
+    "Given list items have been added and the dynamic answers are submitted, " +
+      "When the driving question is changed to 'No' and subsequently changed back to 'Yes', Then all answers should re-appear on summary",
+    async () => {
     await addTwoSupermarkets();
     await $$(DynamicAnswerPage.inputs())[0].setValue(12);
     await $$(DynamicAnswerPage.inputs())[1].setValue(21);
@@ -180,7 +207,8 @@ async function addTwoSupermarkets() {
 }
 
 async function addTwoSupermarketsAndGetToNextSection() {
-  await $(DriverPage.yes()).click();
+    },
+  );
   await click(DriverPage.submit());
   await $(ListCollectorAddPage.supermarketName()).setValue("Tesco");
   await $(ListCollectorAddPage.setMaximum()).setValue(10000);

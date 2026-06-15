@@ -29,14 +29,21 @@ describe("Using supplementary data", () => {
       responseId,
     });
   });
-  it("Given I have a list collector content block using a supplementary list, When I start the section, I see the supplementary list items in the list", async () => {
+  it(
+    "Given I have a list collector content block using a supplementary list, " +
+      "When I start the section, I see the supplementary list items in the list",
+    async () => {
     await click(HubPage.submit());
     await expect(await $(ListCollectorEmployeesPage.listLabel(1)).getText()).toBe("Harry Potter");
     await expect(await $(ListCollectorEmployeesPage.listLabel(2)).getText()).toBe("Clark Kent");
     await click(ListCollectorEmployeesPage.submit());
-  });
+    },
+  );
 
-  it("Given I add some additional employees via another list collector, When I return to the Hub, Then I see new enabled sections for the supplementary list items and my added ones", async () => {
+  it(
+    "Given I add some additional employees via another list collector, " +
+      "When I return to the Hub, Then I see new enabled sections for the supplementary list items and my added ones",
+    async () => {
     await click(HubPage.submit());
     await $(AnyAdditionalEmployeesPage.yes()).click();
     await click(AnyAdditionalEmployeesPage.submit());
@@ -56,29 +63,45 @@ describe("Using supplementary data", () => {
     await expect(await $(HubPage.summaryItems("section-4-1")).getText()).toContain("Jane Doe");
     await expect(await $(HubPage.summaryItems("section-4-2")).getText()).toContain("John Smith");
     await click(HubPage.submit());
-  });
+    },
+  );
 
-  it("Given I have repeating sections for both supplementary and dynamic list items, When I start a repeating section for a supplementary list item, Then I see static supplementary data correctly piped in", async () => {
+  it(
+    "Given I have repeating sections for both supplementary and dynamic list items, " +
+      "When I start a repeating section for a supplementary list item, Then I see static supplementary data correctly piped in",
+    async () => {
     await expect(await $(LengthOfEmploymentPage.questionTitle()).getText()).toContain("When did Harry Potter start working for Tesco?");
     await expect(await $(LengthOfEmploymentPage.employmentStartLegend()).getText()).toContain("Start date at Tesco");
-  });
+    },
+  );
 
-  it("Given I have validation on the start date in the repeating section, When I enter a date before the incorporation date, Then I see an error message", async () => {
+  it(
+    "Given I have validation on the start date in the repeating section, " +
+      "When I enter a date before the incorporation date, Then I see an error message",
+    async () => {
     await $(LengthOfEmploymentPage.day()).setValue(1);
     await $(LengthOfEmploymentPage.month()).setValue(1);
     await $(LengthOfEmploymentPage.year()).setValue(1930);
     await click(LengthOfEmploymentPage.submit());
     await expect(await $(LengthOfEmploymentPage.singleErrorLink()).getText()).toBe("Enter a date after 26 November 1947");
-  });
+    },
+  );
 
-  it("Given I have validation on the start date in the repeating section, When I enter a date after the incorporation date, Then I see that date on the summary page for the section", async () => {
+  it(
+    "Given I have validation on the start date in the repeating section, " +
+      "When I enter a date after the incorporation date, Then I see that date on the summary page for the section",
+    async () => {
     await $(LengthOfEmploymentPage.year()).setValue(1990);
     await click(LengthOfEmploymentPage.submit());
     await expect(await $(Section3Page.lengthEmploymentQuestion()).getText()).toBe("When did Harry Potter start working for Tesco?");
     await expect(await $(Section3Page.employmentStart()).getText()).toBe("1 January 1990");
-  });
+    },
+  );
 
-  it("Given I complete the repeating section for another supplementary item, When I reach the summary page, Then I see the correct supplementary data with my answers", async () => {
+  it(
+    "Given I complete the repeating section for another supplementary item, " +
+      "When I reach the summary page, Then I see the correct supplementary data with my answers",
+    async () => {
     await click(Section3Page.submit());
     await click(HubPage.submit());
     await expect(await $(LengthOfEmploymentPage.questionTitle()).getText()).toContain("When did Clark Kent start working for Tesco?");
@@ -88,9 +111,13 @@ describe("Using supplementary data", () => {
     await click(LengthOfEmploymentPage.submit());
     await expect(await $(Section3Page.lengthEmploymentQuestion()).getText()).toBe("When did Clark Kent start working for Tesco?");
     await expect(await $(Section3Page.employmentStart()).getText()).toBe("5 June 2011");
-  });
+    },
+  );
 
-  it("Given I move onto the dynamic list items, When I start a repeating section for a dynamic list item, Then I see static supplementary data correctly piped in and the same validation and summary", async () => {
+  it(
+    "Given I move onto the dynamic list items, " +
+      "When I start a repeating section for a dynamic list item, Then I see static supplementary data correctly piped in and the same validation and summary",
+    async () => {
     await click(Section3Page.submit());
     await click(HubPage.submit());
     await expect(await $(AdditionalLengthOfEmploymentPage.questionTitle()).getText()).toContain("When did Jane Doe start working for Tesco?");
@@ -113,8 +140,12 @@ describe("Using supplementary data", () => {
     await expect(await $(Section4Page.additionalLengthEmploymentQuestion()).getText()).toBe("When did John Smith start working for Tesco?");
     await expect(await $(Section4Page.additionalEmploymentStart()).getText()).toBe("3 March 2010");
     await click(Section4Page.submit());
-  });
-  it("Given I relaunch the survey with new supplementary data and new list items for the repeating section, When I open the Hub page, Then I see the new supplementary list items as new incomplete sections and not any old ones", async () => {
+    },
+  );
+  it(
+    "Given I relaunch the survey with new supplementary data and new list items for the repeating section, " +
+      "When I open the Hub page, Then I see the new supplementary list items as new incomplete sections and not any old ones",
+    async () => {
     await browser.openQuestionnaire("test_supplementary_data_with_list_collector.json", {
       version: "v2",
       sdsDatasetId: "3bb41d29-4daa-9520-82f0-cae365f390c6",
@@ -129,8 +160,12 @@ describe("Using supplementary data", () => {
     await expect(await $(HubPage.summaryRowState("section-4-1")).getText()).toBe("Completed");
     await expect(await $(HubPage.summaryRowState("section-4-2")).getText()).toBe("Completed");
     await expect(await $("body").getText()).not.toContain("Clark Kent");
-  });
-  it("Given I return to the new data resulting in a new incomplete section, When I start the section, Then I see the new supplementary data piped in accordingly", async () => {
+    },
+  );
+  it(
+    "Given I return to the new data resulting in a new incomplete section, " +
+      "When I start the section, Then I see the new supplementary data piped in accordingly",
+    async () => {
     await click(HubPage.submit());
     await $(LengthOfEmploymentPage.day()).setValue(10);
     await $(LengthOfEmploymentPage.month()).setValue(10);
@@ -139,8 +174,12 @@ describe("Using supplementary data", () => {
     await expect(await $(Section3Page.lengthEmploymentQuestion()).getText()).toBe("When did Bruce Wayne start working for Lidl?");
     await expect(await $(Section3Page.employmentStart()).getText()).toBe("10 October 1999");
     await click(Section3Page.submit());
-  });
-  it("Given I can view my response after submission, When I submit the survey, Then I see the values I've entered and correct rendering with supplementary data", async () => {
+    },
+  );
+  it(
+    "Given I can view my response after submission, " +
+      "When I submit the survey, Then I see the values I've entered and correct rendering with supplementary data",
+    async () => {
     await click(HubPage.submit());
     await $(ThankYouPage.savePrintAnswersLink()).click();
 

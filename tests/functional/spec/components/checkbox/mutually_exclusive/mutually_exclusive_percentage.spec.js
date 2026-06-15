@@ -30,7 +30,10 @@ describe("Component: Mutually Exclusive Percentage With Single Checkbox Override
   });
 
   describe("Given the user has clicked the mutually exclusive checkbox answer", () => {
-    it("When the user enters a value for the non-exclusive percentage answer and removes focus, Then only the non-exclusive percentage answer should be answered.", async () => {
+    it(
+      "When the user enters a value for the non-exclusive percentage answer and removes focus, " +
+        "Then only the non-exclusive percentage answer should be answered.",
+      async () => {
       // Given
       await browser.url("/questionnaire/mutually-exclusive-percentage");
       await $(PercentagePage.percentageExclusiveIPreferNotToSay()).click();
@@ -47,7 +50,8 @@ describe("Component: Mutually Exclusive Percentage With Single Checkbox Override
 
       await expect(await $(SummaryPage.percentageAnswer()).getText()).toBe("99%");
       await expect(await $(SummaryPage.percentageAnswer()).getText()).not.toBe("I prefer not to say");
-    });
+      },
+    );
   });
 
   describe("Given the user has not clicked the mutually exclusive checkbox answer", () => {

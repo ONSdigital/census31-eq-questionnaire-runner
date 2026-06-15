@@ -52,17 +52,23 @@ describe("Thank You Default View Response Enabled", () => {
       await verifyUrlContains(ThankYouPage.pageName);
     });
 
-    it("When I navigate to the thank you page, and I have submitted less than 40 seconds ago, Then I should see the countdown timer and option to view my answers", async () => {
+    it(
+      "When I navigate to the thank you page, and I have submitted less than 40 seconds ago, " +
+        "Then I should see the countdown timer and option to view my answers",
+      async () => {
       await expect(await $(ThankYouPage.viewSubmittedGuidance()).isDisplayed()).toBe(false);
       await expect(await $(ThankYouPage.title()).getHTML()).toContain("Thank you for completing the Test Thank You");
       await expect(await $(ThankYouPage.viewAnswersTitle()).getHTML()).toContain("Get a copy of your answers");
       await expect(await $(ThankYouPage.viewAnswersLink()).getText()).toContain("save or print your answers");
       await expect(await $(ThankYouPage.viewSubmittedCountdown()).getHTML()).toContain("For security, your answers will only be available to view for another");
-    });
+      },
+    );
 
     it("When I navigate to the thank you page, and I have submitted more than 40 seconds ago, Then I shouldn't see the option to view my answers", async () => {
       await expect(await $(ThankYouPage.viewSubmittedGuidance()).isDisplayed()).toBe(false);
-      await browser.pause(46000); // Waiting 40 seconds for the timeout to expire (45 minute timeout changed to 35 seconds by overriding VIEW_SUBMITTED_RESPONSE_EXPIRATION_IN_SECONDS for the purpose of the functional test)
+      // Waiting 40 seconds for the timeout to expire (45 minute timeout changed to 35 seconds
+      // by overriding VIEW_SUBMITTED_RESPONSE_EXPIRATION_IN_SECONDS for this functional test)
+      await browser.pause(46000);
       await expect(await $(ThankYouPage.viewSubmittedGuidance()).isDisplayed()).toBe(true);
       await expect(await $(ThankYouPage.viewSubmittedGuidance()).getHTML()).toContain("For security, you can no longer view or get a copy of your answers");
     });

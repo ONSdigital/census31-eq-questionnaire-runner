@@ -45,12 +45,19 @@ describe("Introduction preview questions", () => {
     expect(await $(previewQuestion).$$("ul")[0].getText()).toBe("Yes\nNo");
   }
 
-  it("Given I start a survey, When I view the preview page, Then all preview elements should be visible and any metadata piped answers are resolved", async () => {
+  it(
+    "Given I start a survey, When I view the preview page, " +
+      "Then all preview elements should be visible and any metadata piped answers are resolved",
+    async () => {
     await testPreview(introductionSchemaHub, IntroductionPageHub);
     await testPreview(introductionSchemaLinear, IntroductionPageLinear);
-  });
+    },
+  );
 
-  it("Given I complete some of a survey and the piped answers should be being populated, Then preview answers should still be showing placeholders", async () => {
+  it(
+    "Given I complete some of a survey and the piped answers should be being populated, " +
+      "Then preview answers should still be showing placeholders",
+    async () => {
     await browser.openQuestionnaire(introductionSchemaLinear);
     await $(startSurveyButton).click();
     await $(noRadio).click();
@@ -70,9 +77,13 @@ describe("Introduction preview questions", () => {
     expect(await $$(previewQuestion)[2].$("h3").getText()).toBe(
       "Are you sure you are able to report for the calendar month {calendar_start_date} to {calendar_end_date}?",
     );
-  });
+    },
+  );
 
-  it("Given I start a survey, When I view the preview page of hub flow schema, Then the twisty button should read 'Show all' and answers should be invisible", async () => {
+  it(
+    "Given I start a survey, When I view the preview page of hub flow schema, " +
+      "Then the twisty button should read 'Show all' and answers should be invisible",
+    async () => {
     await browser.openQuestionnaire(introductionSchemaHub);
     await $(IntroductionPageHub.previewQuestions()).click();
     await verifyUrlContains("questionnaire/preview");

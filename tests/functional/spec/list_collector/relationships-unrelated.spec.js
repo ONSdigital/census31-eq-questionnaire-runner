@@ -39,12 +39,16 @@ describe("Unrelated Relationships", () => {
         await expect(await $(RelationshipsPage.questionText()).getText()).toContain("Carla Clark is unrelated to Andrew Austin");
       });
 
-      it("When I return to the 'related to anyone else' question and select 'Yes', Then I will be taken to the next relationship for the first person", async () => {
+      it(
+        "When I return to the 'related to anyone else' question and select 'Yes', " +
+          "Then I will be taken to the next relationship for the first person",
+        async () => {
         await click(RelationshipsPage.submit());
         await $(RelatedToAnyoneElsePage.yes()).click();
         await click(RelatedToAnyoneElsePage.submit());
         await expect(await $(RelationshipsPage.questionText()).getText()).toContain("Thinking about Andrew Austin, Daniel Davis is their");
-      });
+        },
+      );
 
       it("When I click previous, Then I will go back to the 'related to anyone else' question", async () => {
         await $(RelationshipsPage.previous()).click();

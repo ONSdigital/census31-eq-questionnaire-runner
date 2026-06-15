@@ -4,7 +4,8 @@
 
 The current approach to collecting a list of things e.g. people that live in a household, and asking questions for each thing in that list, is more complex than it needs to be.
 
-Collecting a list of things is currently achieved using repeat until logic with a confirmation question to get out of the repeat - something like "Is this everyone that lives at ...?". While the happy path journey is acceptable, it soon falls apart when a user attempts to do something else, for example editing or removing a list item. This also means that every time we evaluate the routing path, we need to follow the list item entry and confirmation combination for every item in the list. Attempting to fit creation of a list of things into the standard question per block model is wrong, as the add/edit/remove journeys are not relevant outside of the list creation.
+Collecting a list of things is currently achieved using repeat until logic with a confirmation question to get out of the repeat - something like "Is this everyone that lives at ...?". While the happy path journey is acceptable, it soon falls apart when a user attempts to do something else, for example editing or removing a list item.
+This also means that every time we evaluate the routing path, we need to follow the list item entry and confirmation combination for every item in the list. Attempting to fit creation of a list of things into the standard question per block model is wrong, as the add/edit/remove journeys are not relevant outside of the list creation.
 
 ## Decision
 

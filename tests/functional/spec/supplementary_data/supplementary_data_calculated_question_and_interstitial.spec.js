@@ -25,11 +25,15 @@ describe("Using supplementary data", () => {
       responseId,
     });
   });
-  it("Given I launch a survey using supplementary data, When I am outside a repeating section, Then I am able to see the list of items relating to a given supplementary data list item on the page", async () => {
+  it(
+    "Given I launch a survey using supplementary data, When I am outside a repeating section, " +
+      "Then I am able to see the list of items relating to a given supplementary data list item on the page",
+    async () => {
     await expect(await $("#main-content #guidance-1").getText()).toContain("The surnames of the employees are: Potter, Kent.");
     await expect(await $$("#main-content li")[0].getText()).toBe("Articles and equipment for sports or outdoor games");
     await expect(await $$("#main-content li")[1].getText()).toBe("Kitchen Equipment");
-  });
+    },
+  );
 
   it("Given I progress through the interstitial block, When I begin the introduction block, Then I see the supplementary data piped in", async () => {
     await click(LoadedSuccessfullyBlockPage.submit());
@@ -45,7 +49,10 @@ describe("Using supplementary data", () => {
     await click(EmailBlockPage.submit());
   });
 
-  it("Given I have dynamic answer options based off a supplementary date value, When I reach the block using them, Then I see a correct list of options to choose from", async () => {
+  it(
+    "Given I have dynamic answer options based off a supplementary date value, " +
+      "When I reach the block using them, Then I see a correct list of options to choose from",
+    async () => {
     await expect(await $(TradingPage.answerLabelByIndex(0)).getText()).toBe("Thursday 27 November 1947");
     await expect(await $(TradingPage.answerLabelByIndex(1)).getText()).toBe("Friday 28 November 1947");
     await expect(await $(TradingPage.answerLabelByIndex(2)).getText()).toBe("Saturday 29 November 1947");
@@ -55,24 +62,36 @@ describe("Using supplementary data", () => {
     await expect(await $(TradingPage.answerLabelByIndex(6)).getText()).toBe("Wednesday 3 December 1947");
     await $(TradingPage.answerByIndex(3)).click();
     await click(TradingPage.submit());
-  });
+    },
+  );
 
-  it("Given I have a calculated question validated against a supplementary data value, When I enter a breakdown that exceeds the total, Then I see an error message", async () => {
+  it(
+    "Given I have a calculated question validated against a supplementary data value, " +
+      "When I enter a breakdown that exceeds the total, Then I see an error message",
+    async () => {
     await $(SalesBreakdownBlockPage.salesBristol()).setValue(333000);
     await $(SalesBreakdownBlockPage.salesLondon()).setValue(444000);
     await click(SalesBreakdownBlockPage.submit());
     await expect(await $(SalesBreakdownBlockPage.errorNumber(1)).getText()).toContain("Enter answers that add up to or are less than 555,000");
-  });
+    },
+  );
 
-  it("Given I have a calculated question validated against a supplementary data value, When I enter a breakdown less than the total, Then I see a calculated summary page with the sum of my previous answers", async () => {
+  it(
+    "Given I have a calculated question validated against a supplementary data value, " +
+      "When I enter a breakdown less than the total, Then I see a calculated summary page with the sum of my previous answers",
+    async () => {
     await $(SalesBreakdownBlockPage.salesLondon()).setValue(111000);
     await click(SalesBreakdownBlockPage.submit());
     await expect(await $(CalculatedSummarySalesPage.calculatedSummaryTitle()).getText()).toBe(
       "Total value of sales from Bristol and London is calculated to be £444,000.00. Is this correct?",
     );
-  });
+    },
+  );
 
-  it("Given I have an interstitial block with all answers and supplementary data, When I reach this block, Then I see the placeholders rendered correctly", async () => {
+  it(
+    "Given I have an interstitial block with all answers and supplementary data, " +
+      "When I reach this block, Then I see the placeholders rendered correctly",
+    async () => {
     await click(CalculatedSummarySalesPage.submit());
     await expect(await $(Section1InterstitialPage.questionText()).getText()).toContain("Summary of information provided for Tesco");
     await expect(await $("body").getText()).toContain("Telephone Number: 01171231231");
@@ -88,7 +107,8 @@ describe("Using supplementary data", () => {
     await expect(await $("body").getText()).toContain("Bristol sales: £333,000.00");
     await expect(await $("body").getText()).toContain("London sales: £111,000.00");
     await expect(await $("body").getText()).toContain("Sum of Bristol and London sales: £444,000.00");
-  });
+    },
+  );
 
   it("Given I have a section summary enabled, When I reach the section summary, Then I see it rendered correctly with supplementary data", async () => {
     await click(Section1InterstitialPage.submit());
@@ -101,7 +121,10 @@ describe("Using supplementary data", () => {
     await expect(await $(Section1Page.salesLondonAnswer()).getText()).toBe("£111,000.00");
   });
 
-  it("Given I add an answer used in a first non empty item transform with supplementary data, When I return to the interstitial block, Then I see the transform value has updated", async () => {
+  it(
+    "Given I add an answer used in a first non empty item transform with supplementary data, " +
+      "When I return to the interstitial block, Then I see the transform value has updated",
+    async () => {
     await $(Section1Page.sameEmailAnswerEdit()).click();
     await $(EmailBlockPage.no()).click();
     await click(EmailBlockPage.submit());
@@ -111,8 +134,12 @@ describe("Using supplementary data", () => {
     await expect(await $("body").getText()).toContain("Email: new.contact@gmail.com");
     await click(Section1InterstitialPage.submit());
     await click(Section1Page.submit());
-  });
-  it("Given I can view my response after submission, When I submit the survey, Then I see the values I've entered and correct rendering with supplementary data", async () => {
+    },
+  );
+  it(
+    "Given I can view my response after submission, " +
+      "When I submit the survey, Then I see the values I've entered and correct rendering with supplementary data",
+    async () => {
     await browser.openQuestionnaire("test_supplementary_data_with_introduction_and_calculated_summary.json", {
       version: "v2",
       sdsDatasetId: "3bb41d29-4daa-9520-82f0-cae365f390c6",

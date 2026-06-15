@@ -8,7 +8,10 @@ describe("Textfield", () => {
     await expect(await $(TextFieldPage.name()).isFocused()).toBe(true);
   });
 
-  it("Given a text entered in textfield , When user submits and revisits the textfield, Then the textfield must contain the text entered previously", async () => {
+  it(
+    "Given a text entered in textfield , " +
+      "When user submits and revisits the textfield, Then the textfield must contain the text entered previously",
+    async () => {
     await browser.openQuestionnaire("test_textfield.json");
     await $(TextFieldPage.name()).setValue("'Twenty><&Five'");
     await click(TextFieldPage.submit());
@@ -16,7 +19,8 @@ describe("Textfield", () => {
     await expect(await $(SubmitPage.nameAnswer()).getText()).toBe("'Twenty><&Five'");
     await $(SubmitPage.nameAnswerEdit()).click();
     await $(TextFieldPage.name()).getValue();
-  });
+    },
+  );
 
   it("Given the string entered to the textfield is too long, When the user submits, then the correct error message is displayed", async () => {
     await browser.openQuestionnaire("test_textfield.json");

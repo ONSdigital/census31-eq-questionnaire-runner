@@ -37,7 +37,10 @@ describe("Save sign out / Exit", () => {
     await expect(await $("body").getHTML()).toContain("Sorry, you need to sign in again");
   });
 
-  it("Given I have started a questionnaire, when I return to the questionnaire, then I am returned to the page I was on and can then complete the questionnaire", async () => {
+  it(
+    "Given I have started a questionnaire, when I return to the questionnaire, " +
+      "then I am returned to the page I was on and can then complete the questionnaire",
+    async () => {
     await browser.openQuestionnaire("test_numbers.json", { userId: "test_user", responseId });
 
     await $(TestMinMax.testRange()).setValue("10");
@@ -57,18 +60,26 @@ describe("Save sign out / Exit", () => {
 
     await click(SubmitPage.submit());
     await verifyUrlContains("thank-you");
-  });
+    },
+  );
 
-  it("Given a I have started a social questionnaire, when I select save and sign out, then I am redirected to the signed out page and the correct access code link is shown", async () => {
+  it(
+    "Given a I have started a social questionnaire, when I select save and sign out, " +
+      "then I am redirected to the signed out page and the correct access code link is shown",
+    async () => {
     await browser.openQuestionnaire("test_theme_social.json", { theme: "social" });
     await $(SubmitPage.saveSignOut()).click();
     await verifyUrlContains("/signed-out");
     await expect(await $("body").getHTML()).toContain("Your progress has been saved");
     await expect(await $("body").getHTML()).toContain("To resume the survey,");
     await expect(await $("body").getHTML()).toContain("/en/start");
-  });
+    },
+  );
 
-  it("Given a I have started a business questionnaire, when I select save and sign out, then I am redirected to the signed out page and the correct access code link is shown", async () => {
+  it(
+    "Given a I have started a business questionnaire, when I select save and sign out, " +
+      "then I am redirected to the signed out page and the correct access code link is shown",
+    async () => {
     await browser.openQuestionnaire("test_introduction.json");
     await $(IntroductionPage.getStarted()).click();
     await $(IntroInterstitialPage.saveSignOut()).click();
@@ -76,7 +87,8 @@ describe("Save sign out / Exit", () => {
     await expect(await $("body").getHTML()).toContain("Your progress has been saved");
     await expect(await $("body").getHTML()).toContain("To find further information or resume the survey,");
     await expect(await $("body").getHTML()).toContain("/surveys/todo");
-  });
+    },
+  );
 
   it("Given a business questionnaire, when I navigate the questionnaire, then I see the correct sign out buttons", async () => {
     await browser.openQuestionnaire("test_introduction.json");

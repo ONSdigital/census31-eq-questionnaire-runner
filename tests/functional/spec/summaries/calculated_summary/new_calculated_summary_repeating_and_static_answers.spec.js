@@ -43,7 +43,10 @@ describe("Calculated summary with repeating answers", () => {
     await $(ExtraSpendingBlockPage.extraSpending()).setValue(0);
   });
 
-  it("Given I complete all list collector dynamic answers for two calculated summaries one of which also has static answers, I'm taken to each one in turn, showing the correct answers", async () => {
+  it(
+    "Given I complete all list collector dynamic answers for two calculated summaries one of which also has static answers, " +
+      "I'm taken to each one in turn, showing the correct answers",
+    async () => {
     await click(ExtraSpendingBlockPage.submit());
     await expect(await $(CalculatedSummarySpendingPage.calculatedSummaryTitle()).getText()).toBe(
       "We calculate the total cost of your weekly shopping to be £550.00. Is this correct?",
@@ -55,7 +58,8 @@ describe("Calculated summary with repeating answers", () => {
       "We calculate the total visits to the shop to be 6. Is this correct?",
     );
     await assertSummaryValues(["4", "2", "6"]);
-  });
+    },
+  );
 
   it("Given I click on a change link, when I use the previous button, I return to the calculated summary", async () => {
     await dynamicAnswerChangeLink(1).click();
@@ -76,7 +80,10 @@ describe("Calculated summary with repeating answers", () => {
     await click(CalculatedSummaryVisitsPage.submit());
   });
 
-  it("Given I go back and change an answer that opens up a new question before the calculated summary, I am taken to the new question, and then the calculated summary", async () => {
+  it(
+    "Given I go back and change an answer that opens up a new question before the calculated summary, " +
+      "I am taken to the new question, and then the calculated summary",
+    async () => {
     await $(SummaryPage.extraSpendingAnswerEdit()).click();
     await $(ExtraSpendingBlockPage.extraSpending()).setValue(50);
     await click(ExtraSpendingBlockPage.submit());
@@ -95,9 +102,13 @@ describe("Calculated summary with repeating answers", () => {
     // then jump straight back to section summary (as other calculated summary is unchanged
     await click(CalculatedSummarySpendingPage.submit());
     await verifyUrlContains(SummaryPage.pageName);
-  });
+    },
+  );
 
-  it("Given I add a new item to the list, I return to the list collector block, then the dynamic answers, then both calculated summaries to confirm newly added answers", async () => {
+  it(
+    "Given I add a new item to the list, I return to the list collector block, " +
+      "then the dynamic answers, then both calculated summaries to confirm newly added answers",
+    async () => {
     await $(SummaryPage.supermarketsListAddLink()).click();
     await $(ListCollectorAddPage.supermarketName()).setValue("Sainsburys");
     await click(ListCollectorAddPage.submit());
@@ -126,9 +137,13 @@ describe("Calculated summary with repeating answers", () => {
     await assertSummaryValues(["4", "3", "2", "14"]);
     await click(CalculatedSummaryVisitsPage.submit());
     await verifyUrlContains(SummaryPage.pageName);
-  });
+    },
+  );
 
-  it("Given I remove an item from the list which changes the calculated summaries, I return to each incomplete block only to confirm new dynamic answers and totals with answers removed", async () => {
+  it(
+    "Given I remove an item from the list which changes the calculated summaries, " +
+      "I return to each incomplete block only to confirm new dynamic answers and totals with answers removed",
+    async () => {
     await expect(await $(SummaryPage.supermarketsListLabel(1)).getText()).toBe("Tesco");
     await expect(await $(SummaryPage.supermarketsListLabel(2)).getText()).toBe("Lidl");
     await expect(await $(SummaryPage.supermarketsListLabel(3)).getText()).toBe("Sainsburys");
@@ -158,15 +173,20 @@ describe("Calculated summary with repeating answers", () => {
     await expect(await $(SummaryPage.supermarketsListLabel(1)).getText()).toBe("Lidl");
     await expect(await $(SummaryPage.supermarketsListLabel(2)).getText()).toBe("Sainsburys");
     await expect(await $(SummaryPage.supermarketsListLabel(3)).isExisting()).toBe(false);
-  });
+    },
+  );
 
-  it("Given I proceed to the second section and enter a value greater than the calculated summary from the previous section, the correct error message is displayed", async () => {
+  it(
+    "Given I proceed to the second section and enter a value greater than the calculated summary from the previous section, " +
+      "the correct error message is displayed",
+    async () => {
     await click(SummaryPage.submit());
     await click(HubPage.submit());
     await $(SupermarketTransportPage.weeklyCarTrips()).setValue(11);
     await click(SupermarketTransportPage.submit());
     await expect(await $(SupermarketTransportPage.singleErrorLink()).getText()).toBe("Enter an answer less than or equal to 10");
-  });
+    },
+  );
 
   it("Given I change my answer to a value less than the calculated summary from the previous section, I am able to proceed", async () => {
     await $(SupermarketTransportPage.weeklyCarTrips()).setValue(9);

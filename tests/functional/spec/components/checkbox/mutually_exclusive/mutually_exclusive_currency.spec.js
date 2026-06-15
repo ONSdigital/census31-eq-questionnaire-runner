@@ -30,7 +30,10 @@ describe("Component: Mutually Exclusive Currency With Single Checkbox Override",
   });
 
   describe("Given the user has clicked the mutually exclusive checkbox answer", () => {
-    it("When the user enters a value for the non-exclusive currency answer and removes focus, Then only the non-exclusive currency answer should be answered.", async () => {
+    it(
+      "When the user enters a value for the non-exclusive currency answer and removes focus, " +
+        "Then only the non-exclusive currency answer should be answered.",
+      async () => {
       // Given
       await $(CurrencyPage.currencyExclusiveIPreferNotToSay()).click();
       await expect(await $(CurrencyPage.currencyExclusiveIPreferNotToSay()).isSelected()).toBe(true);
@@ -46,7 +49,8 @@ describe("Component: Mutually Exclusive Currency With Single Checkbox Override",
 
       await expect(await $(SummaryPage.currencyAnswer()).getText()).toBe("£123");
       await expect(await $(SummaryPage.currencyAnswer()).getText()).not.toBe("I prefer not to say");
-    });
+      },
+    );
   });
 
   describe("Given the user has not clicked the mutually exclusive checkbox answer", () => {

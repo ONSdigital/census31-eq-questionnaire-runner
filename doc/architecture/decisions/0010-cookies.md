@@ -27,15 +27,15 @@ We store a number of properties in the `session` cookie:
 - Store `schema_name` or `schema_url` in the cookie and remove schema properties i.e. `theme`, `survey_title` and `expires_in`. This simplifies runner code as we will always be able to load a schema for any request (if they have successfully launched a questionnaire), and it provides a way to use other schema properties without adding to the cookie.
 - The session cookie will contain:
 
-  | Property                    | Description                                 |
-  |-----------------------------|---------------------------------------------|
-  | eq_session_id               | The session identifier                      |
-  | user_ik                     | The user half of the encryption key         |
-  | csrf_token                  | The CSRF token (generated for each request) |
-  | account_service_url         | The link back to the launch service         |
-  | account_service_log_out_url | The The URL to redirect to on signout       |
-  | schema_name                 | The schema filename                         |
-  | schema_url                  | A URL to a schema                           |
+    | Property                    | Description                                 |
+    |-----------------------------|---------------------------------------------|
+    | eq_session_id               | The session identifier                      |
+    | user_ik                     | The user half of the encryption key         |
+    | csrf_token                  | The CSRF token (generated for each request) |
+    | account_service_url         | The link back to the launch service         |
+    | account_service_log_out_url | The The URL to redirect to on signout       |
+    | schema_name                 | The schema filename                         |
+    | schema_url                  | A URL to a schema                           |
 
 - The `session` cookie should be set once on successful authentication. To enable this, we will review our CSRF token implementation - one per session or a separate cookie.
 

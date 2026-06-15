@@ -43,7 +43,10 @@ describe("Difference check (months and years range)", () => {
     await browser.openQuestionnaire("test_placeholder_difference_in_years_month_year_range.json");
   });
 
-  it("Given a month and year answers 'from' and 'to' are provided for a date question then the difference in years should be calculated and displayed on the page ", async () => {
+  it(
+    "Given a month and year answers 'from' and 'to' are provided for a date question " +
+      "then the difference in years should be calculated and displayed on the page ",
+    async () => {
     await $(AgeBlockMonthYearRangePage.periodFromMonth()).setValue(1);
     await $(AgeBlockMonthYearRangePage.periodFromYear()).setValue(1990);
     await $(AgeBlockMonthYearRangePage.periodToMonth()).setValue(1);
@@ -52,7 +55,8 @@ describe("Difference check (months and years range)", () => {
     await click(AgeBlockMonthYearRangePage.submit());
 
     await expect(await $(AgeTestMonthYearRangePage.heading()).getText()).toBe("You were out of the UK for 1 year. Is this correct?");
-  });
+    },
+  );
 });
 
 describe("Difference check (years range)", () => {
@@ -60,7 +64,10 @@ describe("Difference check (years range)", () => {
     await browser.openQuestionnaire("test_placeholder_difference_in_years_range.json");
   });
 
-  it("Given a day, month and year answers 'from' and 'to' are provided for a date question then the difference in years should be calculated and displayed on the page ", async () => {
+  it(
+    "Given a day, month and year answers 'from' and 'to' are provided for a date question " +
+      "then the difference in years should be calculated and displayed on the page ",
+    async () => {
     await $(AgeBlockDayMonthYearRangePage.periodFromday()).setValue(1);
     await $(AgeBlockDayMonthYearRangePage.periodFrommonth()).setValue(1);
     await $(AgeBlockDayMonthYearRangePage.periodFromyear()).setValue(1990);
@@ -72,7 +79,8 @@ describe("Difference check (years range)", () => {
     await click(AgeBlockDayMonthYearRangePage.submit());
 
     await expect(await $(AgeTestDayMonthYearRangePage.heading()).getText()).toBe("You were out of the UK for 1 year. Is this correct?");
-  });
+    },
+  );
 });
 
 function getYears(date) {

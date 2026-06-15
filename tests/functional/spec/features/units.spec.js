@@ -6,7 +6,10 @@ import SetWeightUnitsBlockPage from "../../generated_pages/unit_patterns/set-wei
 import SubmitPage from "../../generated_pages/unit_patterns/submit.page.js";
 import { click } from "../../helpers";
 describe("Units", () => {
-  it("Given we do not set a language code and run the questionnaire, when we enter values for durations, they should be displayed on the summary with their units.", async () => {
+  it(
+    "Given we do not set a language code and run the questionnaire, when we enter values for durations, " +
+      "they should be displayed on the summary with their units.",
+    async () => {
     await browser.openQuestionnaire("test_unit_patterns.json", { language: "en" });
     await click(SetLengthUnitsBlockPage.submit());
     await expect(await $(SetDurationUnitsBlockPage.durationHourUnit()).getText()).toBe("hours");
@@ -19,9 +22,13 @@ describe("Units", () => {
     await click(SetWeightUnitsBlockPage.submit());
     await expect(await $(SubmitPage.durationHour()).getText()).toBe("6 hours");
     await expect(await $(SubmitPage.durationYear()).getText()).toBe("20 years");
-  });
+    },
+  );
 
-  it("Given we set a language code for welsh and run the questionnaire, when we enter values for durations, they should be displayed on the summary with their units.", async () => {
+  it(
+    "Given we set a language code for welsh and run the questionnaire, when we enter values for durations, " +
+      "they should be displayed on the summary with their units.",
+    async () => {
     await browser.openQuestionnaire("test_unit_patterns.json", { language: "cy" });
     await $(SetLengthUnitsBlockPage.submit()).scrollIntoView();
     await click(SetLengthUnitsBlockPage.submit());
@@ -36,26 +43,38 @@ describe("Units", () => {
     await click(SetWeightUnitsBlockPage.submit());
     await expect(await $(SubmitPage.durationHour()).getText()).toBe("6 awr");
     await expect(await $(SubmitPage.durationYear()).getText()).toBe("20 mlynedd");
-  });
+    },
+  );
 
-  it("Given we open a questionnaire with unit labels, when the label is highlighted by the tooltip, then the long unit label should be displayed.", async () => {
+  it(
+    "Given we open a questionnaire with unit labels, when the label is highlighted by the tooltip, " +
+      "then the long unit label should be displayed.",
+    async () => {
     await browser.openQuestionnaire("test_unit_patterns.json", { language: "en" });
     await expect(await $(SetLengthUnitsBlockPage.centimetresUnit()).getAttribute("title")).toBe("centimetres");
     await expect(await $(SetLengthUnitsBlockPage.metresUnit()).getAttribute("title")).toBe("metres");
     await expect(await $(SetLengthUnitsBlockPage.kilometresUnit()).getAttribute("title")).toBe("kilometres");
     await expect(await $(SetLengthUnitsBlockPage.milesUnit()).getAttribute("title")).toBe("miles");
-  });
+    },
+  );
 
-  it("Given we open a questionnaire with unit labels, when the weight unit label is highlighted by the tooltip, then the correct unit label should be displayed.", async () => {
+  it(
+    "Given we open a questionnaire with unit labels, when the weight unit label is highlighted by the tooltip, " +
+      "then the correct unit label should be displayed.",
+    async () => {
     await browser.openQuestionnaire("test_unit_patterns.json", { language: "en" });
     await click(SetLengthUnitsBlockPage.submit());
     await click(SetDurationUnitsBlockPage.submit());
     await click(SetAreaUnitsBlockPage.submit());
     await click(SetVolumeUnitsBlockPage.submit());
     await expect(await $("body").getText()).toContain("tonnes");
-  });
+    },
+  );
 
-  it("Given we open a questionnaire with unit inputs, when the unit allows a maximum of 6 decimal places, then the correct number of decimal places should be displayed on the summary.", async () => {
+  it(
+    "Given we open a questionnaire with unit inputs, when the unit allows a maximum of 6 decimal places, " +
+      "then the correct number of decimal places should be displayed on the summary.",
+    async () => {
     await browser.openQuestionnaire("test_unit_patterns.json", { language: "en" });
     await $(SetLengthUnitsBlockPage.submit()).click();
     await $(SetDurationUnitsBlockPage.submit()).click();
@@ -72,5 +91,6 @@ describe("Units", () => {
     await expect(await $(SubmitPage.litres()).getText()).toBe("1.123 l");
     await expect(await $(SubmitPage.hectolitres()).getText()).toBe("1.1234 hl");
     await expect(await $(SubmitPage.megalitres()).getText()).toBe("1.10000 Ml");
-  });
+    },
+  );
 });

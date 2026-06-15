@@ -56,7 +56,10 @@ describe("Component: Mutually Exclusive Day Month Year Date With Multiple Radio 
   });
 
   describe("Given the user has clicked the first mutually exclusive radio answer", () => {
-    it("When the user enters a value for the non-exclusive month year date answer and removes focus, Then only the non-exclusive month year date answer should be answered.", async () => {
+    it(
+      "When the user enters a value for the non-exclusive month year date answer and removes focus, " +
+        "Then only the non-exclusive month year date answer should be answered.",
+      async () => {
       // Given
       await $(DatePage.dateExclusiveIPreferNotToSay()).click();
       await expect(await $(DatePage.dateExclusiveIPreferNotToSay()).isSelected()).toBe(true);
@@ -79,11 +82,15 @@ describe("Component: Mutually Exclusive Day Month Year Date With Multiple Radio 
       await expect(await $(SummaryPage.dateAnswer()).getText()).toBe("17 March 2018");
       await expect(await $(SummaryPage.dateAnswer()).getText()).not.toBe("I prefer not to say");
       await expect(await $(SummaryPage.dateAnswer()).getText()).not.toBe("I have never worked");
-    });
+      },
+    );
   });
 
   describe("Given the user has clicked the second mutually exclusive radio answer", () => {
-    it("When the user enters a value for the non-exclusive month year date answer and removes focus, Then only the non-exclusive month year date answer should be answered.", async () => {
+    it(
+      "When the user enters a value for the non-exclusive month year date answer and removes focus, " +
+        "Then only the non-exclusive month year date answer should be answered.",
+      async () => {
       // Given
       await $(DatePage.dateExclusiveIHaveNeverWorked()).click();
       await expect(await $(DatePage.dateExclusiveIHaveNeverWorked()).isSelected()).toBe(true);
@@ -106,11 +113,15 @@ describe("Component: Mutually Exclusive Day Month Year Date With Multiple Radio 
       await expect(await $(SummaryPage.dateAnswer()).getText()).toBe("17 March 2018");
       await expect(await $(SummaryPage.dateAnswer()).getText()).not.toBe("I prefer not to say");
       await expect(await $(SummaryPage.dateAnswer()).getText()).not.toBe("I have never worked");
-    });
+      },
+    );
   });
 
   describe("Given the user has not clicked the mutually exclusive checkbox answer", () => {
-    it("When the user enters a value for the non-exclusive month year date answer, Then only the non-exclusive month year date answer should be answered.", async () => {
+    it(
+      "When the user enters a value for the non-exclusive month year date answer, " +
+        "Then only the non-exclusive month year date answer should be answered.",
+      async () => {
       // Given
       await expect(await $(DatePage.dateExclusiveIPreferNotToSay()).isSelected()).toBe(false);
       await expect(await $(DatePage.dateExclusiveIHaveNeverWorked()).isSelected()).toBe(false);
@@ -131,7 +142,8 @@ describe("Component: Mutually Exclusive Day Month Year Date With Multiple Radio 
       await expect(await $(SummaryPage.dateAnswer()).getText()).toBe("17 March 2018");
       await expect(await $(SummaryPage.dateAnswer()).getText()).not.toBe("I prefer not to say");
       await expect(await $(SummaryPage.dateAnswer()).getText()).not.toBe("I have never worked");
-    });
+      },
+    );
   });
 
   describe("Given the user has not answered the non-exclusive month year date answer", () => {

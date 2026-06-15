@@ -164,7 +164,10 @@ describe("Date checks", () => {
     await verifyUrlContains(DateSinglePage.url());
   });
 
-  it("Given the test_dates survey is selected when an error message is shown then when it is corrected, it goes to the summary page and the information is correct", async () => {
+  it(
+    "Given the test_dates survey is selected when an error message is shown then when it is corrected, " +
+      "it goes to the summary page and the information is correct",
+    async () => {
     await $(DateRangePage.dateRangeFromday()).setValue(1);
     await $(DateRangePage.dateRangeFrommonth()).setValue(1);
     await $(DateRangePage.dateRangeFromyear()).setValue(2016);

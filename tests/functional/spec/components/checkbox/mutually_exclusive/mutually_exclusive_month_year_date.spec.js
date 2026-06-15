@@ -33,7 +33,10 @@ describe("Component: Mutually Exclusive Month Year Date With Single Checkbox Ove
   });
 
   describe("Given the user has clicked the mutually exclusive checkbox answer", () => {
-    it("When the user enters a value for the non-exclusive month year date answer and removes focus, Then only the non-exclusive month year date answer should be answered.", async () => {
+    it(
+      "When the user enters a value for the non-exclusive month year date answer and removes focus, " +
+        "Then only the non-exclusive month year date answer should be answered.",
+      async () => {
       // Given
       await $(MonthYearDatePage.monthYearDateExclusiveIPreferNotToSay()).click();
       await expect(await $(MonthYearDatePage.monthYearDateExclusiveIPreferNotToSay()).isSelected()).toBe(true);
@@ -52,11 +55,15 @@ describe("Component: Mutually Exclusive Month Year Date With Single Checkbox Ove
 
       await expect(await $(SummaryPage.monthYearDateAnswer()).getText()).toBe("March 2018");
       await expect(await $(SummaryPage.monthYearDateAnswer()).getText()).not.toBe("I prefer not to say");
-    });
+      },
+    );
   });
 
   describe("Given the user has not clicked the mutually exclusive checkbox answer", () => {
-    it("When the user enters a value for the non-exclusive month year date answer, Then only the non-exclusive month year date answer should be answered.", async () => {
+    it(
+      "When the user enters a value for the non-exclusive month year date answer, " +
+        "Then only the non-exclusive month year date answer should be answered.",
+      async () => {
       // Given
       await expect(await $(MonthYearDatePage.monthYearDateExclusiveIPreferNotToSay()).isSelected()).toBe(false);
 
@@ -73,7 +80,8 @@ describe("Component: Mutually Exclusive Month Year Date With Single Checkbox Ove
 
       await expect(await $(SummaryPage.monthYearDateAnswer()).getText()).toBe("March 2018");
       await expect(await $(SummaryPage.monthYearDateAnswer()).getText()).not.toBe("I prefer not to say");
-    });
+      },
+    );
   });
 
   describe("Given the user has not answered the non-exclusive month year date answer", () => {

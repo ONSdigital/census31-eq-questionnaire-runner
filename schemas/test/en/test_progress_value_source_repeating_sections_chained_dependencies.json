@@ -298,9 +298,7 @@
                             "question": {
                                 "id": "second-random-question-enabler-question",
                                 "title": "Random question enabler",
-                                "description": [
-                                    "Answering this question will enable the random question in the repeated section coming after the list collector."
-                                ],
+                                "description": ["Answering this question will enable the random question in the repeated section coming after the list collector."],
                                 "type": "General",
                                 "answers": [
                                     {

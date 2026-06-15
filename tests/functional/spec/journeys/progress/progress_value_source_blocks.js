@@ -15,7 +15,10 @@ describe("Feature: Routing  based on progress value sources using block identifi
   });
 
   describe("Given I have routing based on the completeness of a block", () => {
-    it("When the block being evaluated is incomplete (Q2), Then the dependent question (Q4) should not be on the path or displayed on the summary", async () => {
+    it(
+      "When the block being evaluated is incomplete (Q2), " +
+        "Then the dependent question (Q4) should not be on the path or displayed on the summary",
+      async () => {
       await $(FirstQuestionPage.q1A1()).setValue("0");
       await click(FirstQuestionPage.submit());
 
@@ -32,11 +35,15 @@ describe("Feature: Routing  based on progress value sources using block identifi
       await verifyUrlContains(SubmitPage.pageName);
       await expect(await $("body").getText()).not.toBe("Section 1 Question 2");
       await expect(await $("body").getText()).not.toBe("Section 1 Question 4");
-    });
+      },
+    );
   });
 
   describe("Given I have routing based on the completeness of a block", () => {
-    it("When the blocks being evaluated are complete (Q2 + Q5), Then the dependent questions (Q4 + Q6) should be on the path and displayed on the summary", async () => {
+    it(
+      "When the blocks being evaluated are complete (Q2 + Q5), " +
+        "Then the dependent questions (Q4 + Q6) should be on the path and displayed on the summary",
+      async () => {
       await $(FirstQuestionPage.q1A1()).setValue("1");
       await click(FirstQuestionPage.submit());
 
@@ -64,11 +71,15 @@ describe("Feature: Routing  based on progress value sources using block identifi
       await verifyUrlContains(SubmitPage.pageName);
       await expect(await $("body").getText()).toContain("Section 1 Question 4");
       await expect(await $("body").getText()).toContain("Section 1 Question 6");
-    });
+      },
+    );
   });
 
   describe("Given I have routing based on the completeness of a block", () => {
-    it("When an answer is changed so that the block being evaluated is completed, Then the dependent questions (Q4 + Q6) should be on the path and displayed on the summary", async () => {
+    it(
+      "When an answer is changed so that the block being evaluated is completed, " +
+        "Then the dependent questions (Q4 + Q6) should be on the path and displayed on the summary",
+      async () => {
       await $(FirstQuestionPage.q1A1()).setValue("0");
       await click(FirstQuestionPage.submit());
 
@@ -106,11 +117,15 @@ describe("Feature: Routing  based on progress value sources using block identifi
       await verifyUrlContains(SubmitPage.pageName);
       await expect(await $("body").getText()).toContain("Section 1 Question 4");
       await expect(await $("body").getText()).toContain("Section 1 Question 6");
-    });
+      },
+    );
   });
 
   describe("Given I have routing based on the completeness of a block", () => {
-    it("When an answer is removed form the path block being evaluated is no longer completed, Then the dependent questions (Q4 + Q6) should not be on the path and not be displayed on the summary", async () => {
+    it(
+      "When an answer is removed form the path block being evaluated is no longer completed, " +
+        "Then the dependent questions (Q4 + Q6) should not be on the path and not be displayed on the summary",
+      async () => {
       await $(FirstQuestionPage.q1A1()).setValue("1");
       await click(FirstQuestionPage.submit());
 

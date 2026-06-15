@@ -36,23 +36,31 @@ describe("Submit Page with Summary", () => {
     await expect(await $(RadioPage.bacon()).isSelected()).toBe(true);
   });
 
-  it("Given a questionnaire with a summary has been completed and a summary page edit link is clicked, when I click previous, then it should return to the summary", async () => {
+  it(
+    "Given a questionnaire with a summary has been completed and a summary page edit link is clicked, " +
+      "when I click previous, then it should return to the summary",
+    async () => {
     await completeAllQuestions();
 
     await $(SubmitPage.radioAnswerEdit()).click();
     await $(RadioPage.previous()).click();
 
     await verifyUrlContains(SubmitPage.pageName);
-  });
+    },
+  );
 
-  it("Given a questionnaire with a summary has been completed when a summary page edit link is clicked then it should return to that question then back to summary", async () => {
+  it(
+    "Given a questionnaire with a summary has been completed when a summary page edit link is clicked " +
+      "then it should return to that question then back to summary",
+    async () => {
     await completeAllQuestions();
 
     await $(SubmitPage.radioAnswerEdit()).click();
     await $(RadioPage.sausage()).click();
     await click(RadioPage.submit());
     await expect(await $(SubmitPage.radioAnswer()).getText()).toBe("Sausage");
-  });
+    },
+  );
 
   it("Given the edit link is used when a question is updated then the submit page summary should show the new answer", async () => {
     await completeAllQuestions();
@@ -85,12 +93,16 @@ describe("Submit Page with Summary", () => {
     await expect(await $(SubmitPage.numbersCurrencyAnswer()).getText()).toBe("No answer provided");
   });
 
-  it("Given a questionnaire with a summary has been completed, when submission content has not been set in the schema, then the default content should be displayed", async () => {
+  it(
+    "Given a questionnaire with a summary has been completed, when submission content has not been set in the schema, " +
+      "then the default content should be displayed",
+    async () => {
     await completeAllQuestions();
 
     await expect(await $(SubmitPage.heading()).getText()).toBe("Check your answers and submit");
     await expect(await $(SubmitPage.submit()).getText()).toBe("Submit answers");
-  });
+    },
+  );
 
   async function completeAllQuestions() {
     await $(RadioPage.bacon()).click();

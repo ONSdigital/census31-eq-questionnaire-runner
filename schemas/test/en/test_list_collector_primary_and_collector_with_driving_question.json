@@ -111,11 +111,7 @@
                                     "contents": [
                                         {
                                             "title": "Outcomes",
-                                            "list": [
-                                                "`None of the these apply, I am the only person who usually lives here` - Takes you directly to the list collector.",
-                                                "Any of the other checkboxes and the list <strong>is</strong> empty - Takes you to the list collector‘s <strong>add</strong> question.",
-                                                "Any of the other checkboxes and the list <strong>is not</strong> empty - Takes you directly to the list collector."
-                                            ]
+                                            "list": ["`None of the these apply, I am the only person who usually lives here` - Takes you directly to the list collector.", "Any of the other checkboxes and the list <strong>is</strong> empty - Takes you to the list collector‘s <strong>add</strong> question.", "Any of the other checkboxes and the list <strong>is not</strong> empty - Takes you directly to the list collector."]
                                         }
                                     ]
                                 },

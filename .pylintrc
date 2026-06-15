@@ -120,12 +120,13 @@ attr-naming-style=snake_case
 attr-rgx=[a-z_][a-z0-9_]{2,30}$
 
 # Bad variable names which should always be refused, separated by a comma.
-bad-names=foo,
-          bar,
-          baz,
-          toto,
-          tutu,
-          tata
+bad-names=
+        foo,
+        bar,
+        baz,
+        toto,
+        tutu,
+        tata
 
 # Bad variable names regexes, separated by a comma. If names match any regex,
 # they will always be refused
@@ -238,17 +239,19 @@ variable-rgx=[a-z_][a-z0-9_]{2,30}$
 check-protected-access-in-special-methods=no
 
 # List of method names used to declare (i.e. assign) instance attributes.
-defining-attr-methods=__init__,
-                      __new__,
-                      setUp,
+defining-attr-methods=
+                    __init__,
+                    __new__,
+                    setUp,
 
 # List of member names, which should be excluded from the protected access
 # warning.
-exclude-protected=_asdict,
-                  _fields,
-                  _replace,
-                  _source,
-                  _make
+exclude-protected=
+                _asdict,
+                _fields,
+                _replace,
+                _source,
+                _make
 # List of valid names for the first argument in a class method.
 valid-classmethod-first-arg=cls
 
@@ -305,8 +308,9 @@ max-positional-arguments=12
 [EXCEPTIONS]
 
 # Exceptions that will emit a warning when caught.
-overgeneral-exceptions=builtins.BaseException,
-                       builtins.Exception
+overgeneral-exceptions=
+                    builtins.BaseException,
+                    builtins.Exception
 
 
 [FORMAT]
@@ -420,15 +424,24 @@ enable=c-extension-no-member,useless-suppression
 
 # List of qualified names (i.e., library.method) which require a timeout
 # parameter e.g. 'requests.api.get,requests.api.post'
-timeout-methods=requests.api.delete,requests.api.get,requests.api.head,requests.api.options,requests.api.patch,requests.api.post,requests.api.put,requests.api.request
+timeout-methods=
+    requests.api.delete,
+    requests.api.get,
+    requests.api.head,
+    requests.api.options,
+    requests.api.patch,
+    requests.api.post,
+    requests.api.put,
+    requests.api.request
 
 
 [MISCELLANEOUS]
 
 # List of note tags to take in consideration, separated by a comma.
-notes=FIXME,
-      XXX,
-      TODO
+notes=
+    FIXME,
+    XXX,
+    TODO
 
 # Regular expression of note tags to take in consideration.
 notes-rgx=
@@ -552,10 +565,11 @@ ignore-none=yes
 ignore-on-opaque-inference=yes
 
 # List of symbolic message names to ignore for Mixin members.
-ignored-checks-for-mixins=no-member,
-                          not-async-context-manager,
-                          not-context-manager,
-                          attribute-defined-outside-init
+ignored-checks-for-mixins=
+                        no-member,
+                        not-async-context-manager,
+                        not-context-manager,
+                        attribute-defined-outside-init
 
 # List of class names for which member attributes should not be checked (useful
 # for classes with dynamically set attributes). This supports the use of
@@ -595,8 +609,9 @@ allowed-redefined-builtins=
 
 # List of strings which can identify a callback function by name. A callback
 # name must start or end with one of those strings.
-callbacks=cb_,
-          _cb
+callbacks=
+        cb_,
+        _cb
 
 # A regular expression matching the name of dummy variables (i.e. expected to
 # not be used).

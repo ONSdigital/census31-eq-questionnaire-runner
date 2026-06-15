@@ -1,10 +1,27 @@
 {% extends "errors/_base.html" %}
 
 {% set page_title = _("An error has occurred") %}
-{% set business_sign_in = _("If you have attempted to submit your survey, you should check that this was successful. To do this, <a href='{url}'>sign in to your business survey account</a>.").format(url = business_logout_url) %}
+{% set business_sign_in =
+    _(
+        "If you have attempted to submit your survey, you should check that "
+        "this was successful. To do this, <a href='{url}'>sign in to your "
+        "business survey account</a>."
+    ).format(url = business_logout_url)
+%}
 {% set contact_us = _("If you need more help, <a href='{url}'>contact us</a>.").format(url=contact_us_url) %}
-{% set access_code = _("If you have attempted to submit your survey, you should check that this was successful. To do this, <a href='{url}'>re-enter your code</a>.").format(url = other_logout_url) %}
-{% set business_contact_us = _("If you need more help, <a href='{url}'>contact us about business surveys</a>.").format(url=business_contact_us_url) %}
+{% set access_code =
+    _(
+        "If you have attempted to submit your survey, you should check that "
+        "this was successful. To do this, <a href='{url}'>re-enter your "
+        "code</a>."
+    ).format(url = other_logout_url)
+%}
+{% set business_contact_us =
+    _(
+        "If you need more help, <a href='{url}'>contact us about business "
+        "surveys</a>."
+    ).format(url=business_contact_us_url)
+%}
 {% set other_contact_us = _("If you need more help, <a href='{url}'>contact us about all other surveys</a>.").format(url=other_contact_us_url) %}
 
 {% block main %}

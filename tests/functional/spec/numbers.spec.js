@@ -14,19 +14,27 @@ describe("Number validation", () => {
   });
 
   describe("Given I am completing the test numbers questionnaire,", () => {
-    it("When a minimum value with decimals is used and I enter a value less than the minimum, Then the error message includes the minimum value with the decimals values", async () => {
+    it(
+      "When a minimum value with decimals is used and I enter a value less than the minimum, " +
+        "Then the error message includes the minimum value with the decimals values",
+      async () => {
       await $(SetMinMax.setMinimum()).setValue(-1000.99);
       await $(SetMinMax.setMaximum()).setValue(1000);
       await click(SetMinMax.submit());
       await expect(await $(SetMinMax.errorNumber(1)).getText()).toBe("Enter an answer more than or equal to -1,000.98");
-    });
+      },
+    );
 
-    it("When a maximum value with decimals is used and I enter a value greater than the maximum, Then the error message includes the minimum value with the decimal values", async () => {
+    it(
+      "When a maximum value with decimals is used and I enter a value greater than the maximum, " +
+        "Then the error message includes the minimum value with the decimal values",
+      async () => {
       await $(SetMinMax.setMinimum()).setValue(100);
       await $(SetMinMax.setMaximum()).setValue(10000.99);
       await click(SetMinMax.submit());
       await expect(await $(SetMinMax.errorNumber(1)).getText()).toBe("Enter an answer less than or equal to 10,000.98");
-    });
+      },
+    );
 
     it("When I am on the set minimum and maximum page, Then each field has a label", async () => {
       await expect(await $(SetMinMax.setMinimumLabelDescription()).getText()).toBe("This is a description of the minimum value");
@@ -111,7 +119,10 @@ describe("Number validation", () => {
       await verifyUrlContains(SubmitPage.pageName);
     });
 
-    it("When I edit and change the minimum value, Then I must re-validate and submit any dependent answers again before I can return to the summary", async () => {
+    it(
+      "When I edit and change the minimum value, " +
+        "Then I must re-validate and submit any dependent answers again before I can return to the summary",
+      async () => {
       await $(SubmitPage.setMinimumEdit()).click();
       await $(SetMinMax.setMinimum()).setValue("11");
       await click(SetMinMax.submit());
@@ -123,7 +134,8 @@ describe("Number validation", () => {
       await click(TestMinMax.submit());
 
       await verifyUrlContains(SubmitPage.pageName);
-    });
+      },
+    );
 
     it("When a number with more than 3 decimal places has been entered, Then it should be displayed correctly on the summary", async () => {
       await expect(await $(SubmitPage.testDecimal()).getText()).toBe("£11.10000");

@@ -351,11 +351,7 @@
                                     "contents": [
                                         {
                                             "title": "How to test",
-                                            "list": [
-                                                "If you enter a value other than £0 an additional question opens up.",
-                                                "Test that if you answer £0 to this question and then edit the answer from the calculated summary change link",
-                                                "First you are taken to the new question which opens up (provided it isn’t already complete), and only then back to the calculated summary"
-                                            ]
+                                            "list": ["If you enter a value other than £0 an additional question opens up.", "Test that if you answer £0 to this question and then edit the answer from the calculated summary change link", "First you are taken to the new question which opens up (provided it isn’t already complete), and only then back to the calculated summary"]
                                         }
                                     ]
                                 },

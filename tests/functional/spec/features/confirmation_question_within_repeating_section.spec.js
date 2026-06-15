@@ -52,7 +52,10 @@ describe("Feature: Confirmation Question Within A Repeating Section", () => {
     });
 
     describe("Given a confirmation question with a skip condition", () => {
-      it("When I submit an a date of birth where the age is at least '16', Then I should be skipped past the confirmation question and directed to the carer question", async () => {
+      it(
+        "When I submit an a date of birth where the age is at least '16', " +
+          "Then I should be skipped past the confirmation question and directed to the carer question",
+        async () => {
         await $(DateOfBirthPage.day()).setValue("01");
         await $(DateOfBirthPage.month()).setValue("01");
         await $(DateOfBirthPage.year()).setValue("2000");
@@ -60,10 +63,14 @@ describe("Feature: Confirmation Question Within A Repeating Section", () => {
 
         await verifyUrlContains(CarerPage.pageName);
         await expect(await $(CarerPage.questionText()).getText()).toContain("Does John Doe look");
-      });
+        },
+      );
     });
     describe("Given a confirmation question", () => {
-      it("When I go back to change my answer and return to the confirmation question, then the confirmation answer is cleared and I am routed to the next question", async () => {
+      it(
+        "When I go back to change my answer and return to the confirmation question, " +
+          "then the confirmation answer is cleared and I am routed to the next question",
+        async () => {
         await $(DateOfBirthPage.day()).setValue("01");
         await $(DateOfBirthPage.month()).setValue("01");
         await $(DateOfBirthPage.year()).setValue("1990");
@@ -81,7 +88,8 @@ describe("Feature: Confirmation Question Within A Repeating Section", () => {
         await $(ConfirmCarerPage.yesTheCarerAnswerIsCorrect()).click();
         await click(ConfirmCarerPage.submit());
         await verifyUrlContains(StudentPage.pageName);
-      });
+        },
+      );
     });
   });
 });

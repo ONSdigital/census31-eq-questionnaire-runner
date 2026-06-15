@@ -46,18 +46,25 @@ describe("Feature: Sum of grouped answers equal to validation against value sour
   });
 
   describe("Given I have a calculated summary value of 12", () => {
-    it("When I continue to second breakdown and enter values equal to calculated summary total, Then I should be able to get to the next calculated summary", async () => {
+    it(
+      "When I continue to second breakdown and enter values equal to calculated summary total, " +
+        "Then I should be able to get to the next calculated summary",
+      async () => {
       await $(TotalAnswerPage.total()).setValue("12");
       await click(TotalAnswerPage.submit());
 
       await answerBothBreakdownQuestions(["3", "3", "3", "3"], ["2", "2", "1", "1"]);
 
       await verifyUrlContains(AnotherTotalPlaybackPage.pageName);
-    });
+      },
+    );
   });
 
   describe("Given I completed both grouped answer validation questions and I am on the summary", () => {
-    it("When I go back from the summary and change the total, Then I must reconfirm both breakdown questions with valid answers before I can get to the next calculated summary", async () => {
+    it(
+      "When I go back from the summary and change the total, Then I must reconfirm both breakdown questions " +
+        "with valid answers before I can get to the next calculated summary",
+      async () => {
       await $(TotalAnswerPage.total()).setValue("12");
       await click(TotalAnswerPage.submit());
 
@@ -78,11 +85,15 @@ describe("Feature: Sum of grouped answers equal to validation against value sour
       await answerBothBreakdownQuestions(["6", "3", "3", "3"], ["3", "3", "2", "1"]);
 
       await verifyUrlContains(AnotherTotalPlaybackPage.pageName);
-    });
+      },
+    );
   });
 
   describe("Given I completed both grouped answer validation questions and I am on the summary", () => {
-    it("When I go back from the summary and change the total, Then I must reconfirm the breakdown question based on answer value source with valid answers before I can continue", async () => {
+    it(
+      "When I go back from the summary and change the total, " +
+        "Then I must reconfirm the breakdown question based on answer value source with valid answers before I can continue",
+      async () => {
       await $(TotalAnswerPage.total()).setValue("12");
       await click(TotalAnswerPage.submit());
 
@@ -103,11 +114,15 @@ describe("Feature: Sum of grouped answers equal to validation against value sour
       await answerBothBreakdownQuestions(["5", "4", "4", "2"], ["3", "3", "2", "1"]);
 
       await verifyUrlContains(AnotherTotalPlaybackPage.pageName);
-    });
+      },
+    );
   });
 
   describe("Given I completed both grouped answer validation questions and I am on the summary", () => {
-    it("When I go back from the summary and change the first breakdown question answers so its total changes, Then I must reconfirm the second breakdown question based on calculated summary value source with valid answers before I can continue", async () => {
+    it(
+      "When I go back from the summary and change the first breakdown question answers so its total changes, " +
+        "Then I must reconfirm the second breakdown question based on calculated summary value source with valid answers before I can continue",
+      async () => {
       await $(TotalAnswerPage.total()).setValue("12");
       await click(TotalAnswerPage.submit());
 
@@ -132,7 +147,8 @@ describe("Feature: Sum of grouped answers equal to validation against value sour
       await expect(await $(SecondBreakdownAnswerPage.singleErrorLink()).isDisplayed()).toBe(false);
 
       await verifyUrlContains(AnotherTotalPlaybackPage.pageName);
-    });
+      },
+    );
   });
 
   describe("Given I start a grouped answer validation survey and enter 5 into the total", () => {
@@ -157,7 +173,10 @@ describe("Feature: Sum of grouped answers equal to validation against value sour
     });
   });
   describe("Given I edit a question from a Calculated Summary page", () => {
-    it("When I change the answer and there is a question that needs to be revisited before I can return to the Calculated Summary Page, Then I revisit the relevant page before I route back to the Calculated Summary page", async () => {
+    it(
+      "When I change the answer and there is a question that needs to be revisited before I can return " +
+        "to the Calculated Summary Page, Then I revisit the relevant page before I route back to the Calculated Summary page",
+      async () => {
       await $(TotalAnswerPage.total()).setValue("5");
       await click(TotalAnswerPage.submit());
 
@@ -181,6 +200,7 @@ describe("Feature: Sum of grouped answers equal to validation against value sour
       await click(AnotherTotalPlaybackPage.submit());
 
       await verifyUrlContains(SubmitPage.pageName);
-    });
+      },
+    );
   });
 });

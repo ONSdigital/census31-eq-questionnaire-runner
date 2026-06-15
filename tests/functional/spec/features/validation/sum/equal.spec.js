@@ -27,7 +27,10 @@ describe("Feature: Sum of grouped answers equal to validation against total ", (
   });
 
   describe("Given I completed a grouped answer validation question and I am on the summary", () => {
-    it("When I go back from the summary and change the total, Then I must reconfirm the breakdown question with valid answers before I can get to the summary", async () => {
+    it(
+      "When I go back from the summary and change the total, " +
+        "Then I must reconfirm the breakdown question with valid answers before I can get to the summary",
+      async () => {
       await $(TotalAnswerPage.total()).setValue("12");
       await click(TotalAnswerPage.submit());
       await answerAndSubmitBreakdownQuestion("3", "3", "3", "3");
@@ -45,7 +48,8 @@ describe("Feature: Sum of grouped answers equal to validation against total ", (
       await answerAndSubmitBreakdownQuestion("6", "3", "3", "3");
 
       await verifyUrlContains(SubmitPage.pageName);
-    });
+      },
+    );
   });
 
   describe("Given I start a grouped answer validation survey and enter 5 into the total", () => {

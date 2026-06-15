@@ -34,7 +34,10 @@ describe("Component: Mutually Exclusive Duration With Single Checkbox Override",
   });
 
   describe("Given the user has clicked the mutually exclusive checkbox answer", () => {
-    it("When the user enters a value for the non-exclusive duration answer and removes focus, Then only the non-exclusive duration answer should be answered.", async () => {
+    it(
+      "When the user enters a value for the non-exclusive duration answer and removes focus, " +
+        "Then only the non-exclusive duration answer should be answered.",
+      async () => {
       // Given
       await $(DurationPage.durationExclusiveIPreferNotToSay()).click();
       await expect(await $(DurationPage.durationExclusiveIPreferNotToSay()).isSelected()).toBe(true);
@@ -52,7 +55,8 @@ describe("Component: Mutually Exclusive Duration With Single Checkbox Override",
 
       await expect(await $(SummaryPage.durationAnswer()).getText()).toBe("1 year 7 months");
       await expect(await $(SummaryPage.durationAnswer()).getText()).not.toBe("I prefer not to say");
-    });
+      },
+    );
   });
 
   describe("Given the user has not clicked the mutually exclusive checkbox answer", () => {

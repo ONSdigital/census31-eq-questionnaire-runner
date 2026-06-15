@@ -35,7 +35,16 @@ insert_final_newline = true
 [*.{json}]
 insert_final_newline = false
 
-[*.{js,scss,html,jsonnet,yml,yaml}]
+[*.{py}]
+max_line_length = 120
+
+[*.{md,po,json}]
+max_line_length = off
+
+[tests/{integration/routes/test_session.py,app/services/conftest.py}]
+max_line_length = off
+
+[*.{js,cjs,jsonnet,yml,yaml,md}]
 indent_size = 2
 
 [Makefile]

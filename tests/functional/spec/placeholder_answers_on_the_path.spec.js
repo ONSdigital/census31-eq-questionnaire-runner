@@ -41,7 +41,10 @@ describe("First Non Empty Item Transform Cross Section", () => {
     await click(HubPage.submit());
   });
 
-  it("Given a custom date range is entered, When the answer is changed back to metadata range, Then the metadata date should be displayed for both sections", async () => {
+    it(
+      "Given a custom date range is entered, " +
+        "When the answer is changed back to metadata range, Then the metadata date should be displayed for both sections",
+      async () => {
     // Set the date
     await $(DateQuestionBlockPage.noINeedToReportForADifferentPeriod()).click();
     await click(DateQuestionBlockPage.submit());
@@ -64,7 +67,8 @@ describe("First Non Empty Item Transform Cross Section", () => {
     await click(HubPage.submit());
     await verifyUrlContains(FoodQuestionBlockPage.pageName);
     expect(await $(FoodQuestionBlockPage.questionTitle()).getText()).toContain("1 January 2017 to 1 February 2017");
-  });
+      },
+    );
 });
 
 describe("First Non Empty Item Transform Repeating Sections", () => {
@@ -72,7 +76,10 @@ describe("First Non Empty Item Transform Repeating Sections", () => {
     await browser.openQuestionnaire("test_placeholder_first_non_empty_item_repeating_sections.json");
     await click(HubPage.submit());
   });
-  it("Given a custom date range is entered, When the answer is changed back to metadata range, Then the metadata date should be displayed for the repeating section title", async () => {
+    it(
+      "Given a custom date range is entered, " +
+        "When the answer is changed back to metadata range, Then the metadata date should be displayed for the repeating section title",
+      async () => {
     // Set the date
     await $(DateQuestionBlockPage.noINeedToReportForADifferentPeriod()).click();
     await click(DateQuestionBlockPage.submit());
@@ -107,5 +114,6 @@ describe("First Non Empty Item Transform Repeating Sections", () => {
     // Check the list collector has metadata dates in the title
     await verifyUrlContains(PersonalDetailsBlockPage.pageName);
     expect(await $(PersonalDetailsBlockPage.questionTitle()).getText()).toContain("1 January 2017 to 1 February 2017");
-  });
+      },
+    );
 });

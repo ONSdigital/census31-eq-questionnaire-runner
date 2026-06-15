@@ -302,7 +302,10 @@ def test_context_for_section_summary_with_list_summary_and_first_variant(
                                         "editable": True,
                                         "list_items": [
                                             {
-                                                "edit_link": "/questionnaire/companies/PlwgoG/edit-company/?return_to=section-summary&return_to_answer_id=PlwgoG",
+                                                "edit_link": (
+                                                    "/questionnaire/companies/PlwgoG/edit-company/?return_to=section-summary"
+                                                    "&return_to_answer_id=PlwgoG"
+                                                ),
                                                 "item_title": "company a",
                                                 "list_item_id": "PlwgoG",
                                                 "primary_person": False,
@@ -311,7 +314,10 @@ def test_context_for_section_summary_with_list_summary_and_first_variant(
                                                 "repeating_blocks": False,
                                             },
                                             {
-                                                "edit_link": "/questionnaire/companies/UHPLbX/edit-company/?return_to=section-summary&return_to_answer_id=UHPLbX",
+                                                "edit_link": (
+                                                    "/questionnaire/companies/UHPLbX/edit-company/?return_to=section-summary"
+                                                    "&return_to_answer_id=UHPLbX"
+                                                ),
                                                 "item_title": "company b",
                                                 "list_item_id": "UHPLbX",
                                                 "primary_person": False,
@@ -333,7 +339,10 @@ def test_context_for_section_summary_with_list_summary_and_first_variant(
                                                             "currency": None,
                                                             "id": "registration-number-PlwgoG",
                                                             "label": answer_1_label,
-                                                            "link": "/questionnaire/companies/PlwgoG/edit-company/?return_to=section-summary&return_to_answer_id=registration-number-PlwgoG#registration-number",
+                                                            "link": (
+                                                                "/questionnaire/companies/PlwgoG/edit-company/?return_to=section-summary"
+                                                                "&return_to_answer_id=registration-number-PlwgoG#registration-number"
+                                                            ),
                                                             "type": "number",
                                                             "unit": None,
                                                             "unit_length": None,
@@ -344,7 +353,10 @@ def test_context_for_section_summary_with_list_summary_and_first_variant(
                                                             "currency": None,
                                                             "id": "authorised-insurer-radio-PlwgoG",
                                                             "label": answer_2_label,
-                                                            "link": "/questionnaire/companies/PlwgoG/edit-company/?return_to=section-summary&return_to_answer_id=authorised-insurer-radio-PlwgoG#authorised-insurer-radio",
+                                                            "link": (
+                                                                "/questionnaire/companies/PlwgoG/edit-company/?return_to=section-summary"
+                                                                "&return_to_answer_id=authorised-insurer-radio-PlwgoG#authorised-insurer-radio"
+                                                            ),
                                                             "type": "radio",
                                                             "unit": None,
                                                             "unit_length": None,
@@ -373,7 +385,10 @@ def test_context_for_section_summary_with_list_summary_and_first_variant(
                                                             "currency": None,
                                                             "id": "registration-number-UHPLbX",
                                                             "label": answer_1_label,
-                                                            "link": "/questionnaire/companies/UHPLbX/edit-company/?return_to=section-summary&return_to_answer_id=registration-number-UHPLbX#registration-number",
+                                                            "link": (
+                                                                "/questionnaire/companies/UHPLbX/edit-company/?return_to=section-summary"
+                                                                "&return_to_answer_id=registration-number-UHPLbX#registration-number"
+                                                            ),
                                                             "type": "number",
                                                             "unit": None,
                                                             "unit_length": None,
@@ -384,7 +399,10 @@ def test_context_for_section_summary_with_list_summary_and_first_variant(
                                                             "currency": None,
                                                             "id": "authorised-insurer-radio-UHPLbX",
                                                             "label": answer_2_label,
-                                                            "link": "/questionnaire/companies/UHPLbX/edit-company/?return_to=section-summary&return_to_answer_id=authorised-insurer-radio-UHPLbX#authorised-insurer-radio",
+                                                            "link": (
+                                                                "/questionnaire/companies/UHPLbX/edit-company/?return_to=section-summary"
+                                                                "&return_to_answer_id=authorised-insurer-radio-UHPLbX#authorised-insurer-radio"
+                                                            ),
                                                             "type": "radio",
                                                             "unit": None,
                                                             "unit_length": None,

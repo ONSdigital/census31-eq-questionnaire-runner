@@ -24,10 +24,14 @@ describe("Answer Action: Redirect To List Add Question (Checkbox)", () => {
       await verifyUrlContains("?previous=anyone-usually-live-at");
     });
 
-    it('When the user clicks the "Previous" link from the add question then they should be taken to the block they came from, not the list collector', async () => {
+    it(
+      'When the user clicks the "Previous" link from the add question then they should be taken to the block they came from, ' +
+        "not the list collector",
+      async () => {
       await $(AnyoneLiveAtListCollectorAddPage.previous()).click();
       await verifyUrlContains(AnyoneUsuallyLiveAt.pageName);
-    });
+      },
+    );
 
     it("When the user adds a household member, Then, they are taken to the list collector and the household members are displayed", async () => {
       await click(AnyoneUsuallyLiveAt.submit());

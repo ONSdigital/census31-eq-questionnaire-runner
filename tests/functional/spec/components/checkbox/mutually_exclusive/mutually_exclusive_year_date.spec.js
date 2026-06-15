@@ -30,7 +30,10 @@ describe("Component: Mutually Exclusive Year Date With Single Checkbox Override"
   });
 
   describe("Given the user has clicked the mutually exclusive checkbox answer", () => {
-    it("When the user enters a value for the non-exclusive year date answer and removes focus, Then only the non-exclusive year date answer should be answered.", async () => {
+    it(
+      "When the user enters a value for the non-exclusive year date answer and removes focus, " +
+        "Then only the non-exclusive year date answer should be answered.",
+      async () => {
       // Given
       await $(YearDatePage.yearDateExclusiveIPreferNotToSay()).click();
       await expect(await $(YearDatePage.yearDateExclusiveIPreferNotToSay()).isSelected()).toBe(true);
@@ -46,7 +49,8 @@ describe("Component: Mutually Exclusive Year Date With Single Checkbox Override"
 
       await expect(await $(SubmitPage.yearDateAnswer()).getText()).toBe("2018");
       await expect(await $(SubmitPage.yearDateAnswer()).getText()).not.toBe("I prefer not to say");
-    });
+      },
+    );
   });
 
   describe("Given the user has not clicked the mutually exclusive checkbox answer", () => {

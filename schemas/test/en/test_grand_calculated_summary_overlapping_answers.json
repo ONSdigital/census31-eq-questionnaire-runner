@@ -46,19 +46,11 @@
                                     "contents": [
                                         {
                                             "title": "About",
-                                            "list": [
-                                                "This survey tests that when you re-use answers between calculated summaries, the grand calculated summary still resolves to the correct value"
-                                            ]
+                                            "list": ["This survey tests that when you re-use answers between calculated summaries, the grand calculated summary still resolves to the correct value"]
                                         },
                                         {
                                             "title": "How to test this schema",
-                                            "list": [
-                                                "Ensure that the grand calculated summary section does not show unless all dependent calculated summaries in section-1 have been confirmed.",
-                                                "Your answer to the third question, may unlock an additional calculated summary which re-use your answers to the first two questions",
-                                                "If you do not select to buy extra food, verify no additional calculated summary occurs, and that the grand calculated summary is correct",
-                                                "If you choose to buy any food items twice, verify that they are included twice in the grand calculated summary, one for each calculated summary",
-                                                "Verify that if you have the extra calculated summary, and change the cost of bread for example <strong>using either of the calculated summary change links which include it</strong> that you are routed to each calculated summary first, and only then the grand calculated summary"
-                                            ]
+                                            "list": ["Ensure that the grand calculated summary section does not show unless all dependent calculated summaries in section-1 have been confirmed.", "Your answer to the third question, may unlock an additional calculated summary which re-use your answers to the first two questions", "If you do not select to buy extra food, verify no additional calculated summary occurs, and that the grand calculated summary is correct", "If you choose to buy any food items twice, verify that they are included twice in the grand calculated summary, one for each calculated summary", "Verify that if you have the extra calculated summary, and change the cost of bread for example <strong>using either of the calculated summary change links which include it</strong> that you are routed to each calculated summary first, and only then the grand calculated summary"]
                                         }
                                     ]
                                 }

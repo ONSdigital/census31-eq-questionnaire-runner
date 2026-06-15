@@ -8,20 +8,28 @@ describe("Summary Screen", () => {
     await browser.openQuestionnaire("test_custom_question_summary.json");
   });
 
-  it("Given a survey has question summary concatenations and has been completed when on the summary page then the correct response should be displayed formatted correctly", async () => {
+  it(
+    "Given a survey has question summary concatenations and has been completed when on the summary page " +
+      "then the correct response should be displayed formatted correctly",
+    async () => {
     await completeAllQuestions();
     await expect(await $(SubmitPage.summaryRowState("name-question-concatenated-answer")).getText()).toBe("John Smith");
     await expect(await $(SubmitPage.summaryRowState("address-question-concatenated-answer")).getText()).toBe("Cardiff Road\nNewport\nNP10 8XG");
     await expect(await $(SubmitPage.summaryRowState("age-question-concatenated-answer")).getText()).toBe("7\nThis age is an estimate");
-  });
+    },
+  );
 
-  it("Given no values are entered in a question with multiple answers and concatenation set, when on the summary screen then the correct response should be displayed", async () => {
+  it(
+    "Given no values are entered in a question with multiple answers and concatenation set, " +
+      "when on the summary screen then the correct response should be displayed",
+    async () => {
     await click(NameBlockPage.submit());
     await click(AddressBlockPage.submit());
     await click(AgeBlock.submit());
     await verifyUrlContains(SubmitPage.pageName);
     await expect(await $(SubmitPage.summaryRowState("name-question-concatenated-answer")).getText()).toBe("No answer provided");
-  });
+    },
+  );
 
   async function completeAllQuestions() {
     await $(NameBlockPage.first()).setValue("John");

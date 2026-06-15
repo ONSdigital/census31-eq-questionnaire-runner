@@ -62,7 +62,10 @@ describe("Feature: Routing rules based on progress value sources in repeating se
   });
 
   describe("Given I have routing in a repeating section based on the completeness of a block", () => {
-    it("When the status of the block changes from incomplete to complete, then the dependent question should be on the path in the repeating sections", async () => {
+    it(
+      "When the status of the block changes from incomplete to complete, " +
+        "then the dependent question should be on the path in the repeating sections",
+      async () => {
       await click(HubPage.submit());
       await $(ListCollectorPage.yes()).click();
       await click(ListCollectorPage.submit());
@@ -93,7 +96,8 @@ describe("Feature: Routing rules based on progress value sources in repeating se
 
       await expect(await $(HubPage.summaryRowState("section-2-1")).getText()).toBe("Partially completed");
       await expect(await $(HubPage.summaryRowState("section-2-2")).getText()).toBe("Not started");
-    });
+      },
+    );
   });
 });
 
@@ -131,7 +135,10 @@ describe("Feature: Routing rules based on progress value sources in repeating se
   });
 
   describe("Given I have routing in a repeating section based on the completeness of a calculated summary", () => {
-    it("When the calculated summary block is incomplete but is updated so that it is completed, then I should see the dependency should be updated in the repeating section", async () => {
+    it(
+      "When the calculated summary block is incomplete but is updated so that it is completed, " +
+        "then I should see the dependency should be updated in the repeating section",
+      async () => {
       await click(HubPage.submit());
       await $(FirstNumberBlockPage.firstNumber()).setValue(1);
       await click(FirstNumberBlockPage.submit());

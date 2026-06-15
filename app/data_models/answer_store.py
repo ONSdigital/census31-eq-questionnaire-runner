@@ -103,7 +103,7 @@ class AnswerStore:
         Args:
             answer_ids: list of answer ids to find
             list_item_id: list item id to match
-                          If not provided (None), will only match an answer with no list_item_id
+                        If not provided (None), will only match an answer with no list_item_id
 
         Returns:
             A list of Answer objects

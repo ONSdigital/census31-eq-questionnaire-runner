@@ -11,10 +11,14 @@ describe("Given I start a Radio survey with a write-in option", () => {
     await expect(await $(RadioVisibleTruePage.otherDetail()).isDisplayed()).toBe(true);
   });
 
-  it("When I view a write-in radio and the visible option is set to true, Then after choosing non write-in option the detail answer label should be displayed", async () => {
+  it(
+    "When I view a write-in radio and the visible option is set to true, " +
+      "Then after choosing non write-in option the detail answer label should be displayed",
+    async () => {
     await $(RadioVisibleTruePage.coffee()).click();
     await expect(await $(RadioVisibleTruePage.otherDetail()).isDisplayed()).toBe(true);
-  });
+    },
+  );
 
   it("When I view a write-in radio and the visible option is set to false, Then the detail answer label should not be displayed", async () => {
     await $(RadioVisibleTruePage.coffee()).click();

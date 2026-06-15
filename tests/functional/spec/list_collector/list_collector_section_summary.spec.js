@@ -81,7 +81,10 @@ describe("List Collector Section Summary and Summary Items", () => {
       await verifyUrlContains(SectionSummaryPage.url());
       await expect(await $("body").getText()).toContain("No UK company or branch added");
     });
-    it("When I have multiple items in the list and I remove the first item, Then only the item that was not deleted should be visible on the section summary.", async () => {
+    it(
+      "When I have multiple items in the list and I remove the first item, " +
+        "Then only the item that was not deleted should be visible on the section summary.",
+      async () => {
       await drivingQuestionYes();
       await addCompany("Company A", "123", true);
       await anyMoreCompaniesYes();
@@ -91,7 +94,8 @@ describe("List Collector Section Summary and Summary Items", () => {
       await verifyUrlContains(SectionSummaryPage.url());
       await expect(await $("body").getText()).not.toBe("Company A");
       await expect(await $("body").getText()).toContain("Company B");
-    });
+      },
+    );
     it("When I add an item and relevant data and answer No on the additional items page, Then I should get to the section summary page.", async () => {
       await drivingQuestionYes();
       await addCompany("Company A", "123", true);
@@ -99,7 +103,10 @@ describe("List Collector Section Summary and Summary Items", () => {
       await verifyUrlContains(SectionSummaryPage.url());
       await expect(await $(SectionSummaryPage.companiesListAddLink()).isExisting()).toBe(true);
     });
-    it("When I add an item and relevant data and answer Yes on the additional items page, Then I should be able to and add a new item and relevant data.", async () => {
+    it(
+      "When I add an item and relevant data and answer Yes on the additional items page, " +
+        "Then I should be able to and add a new item and relevant data.",
+      async () => {
       await drivingQuestionYes();
       await addCompany("Company A", "123", true);
       await anyMoreCompaniesYes();
@@ -109,7 +116,8 @@ describe("List Collector Section Summary and Summary Items", () => {
       await expect(await $(AnyCompaniesOrBranchesAddPage.heading()).getText()).toBe(
         "Give details about the company or branch that undertakes general insurance business",
       );
-    });
+      },
+    );
     it("When I add an item and relevant data, Then I should be able to edit that item from the section summary page.", async () => {
       await drivingQuestionYes();
       await addCompany("Company A", "123", true);
@@ -145,7 +153,10 @@ describe("List Collector Section Summary and Summary Items", () => {
       await expect(await $(SectionSummaryPage.companiesListRemoveLink(1)).isExisting()).toBe(true);
       await expect(await $(SectionSummaryPage.companiesListAddLink()).isExisting()).toBe(true);
     });
-    it("When I add an item and relevant data but change my answer to the driving question to No, Then I should see the original item on the summary if change the answer back to Yes.", async () => {
+    it(
+      "When I add an item and relevant data but change my answer to the driving question to No, " +
+        "Then I should see the original item on the summary if change the answer back to Yes.",
+      async () => {
       await drivingQuestionYes();
       await addCompany("Company A", "123", true);
       await anyMoreCompaniesNo();
@@ -164,7 +175,8 @@ describe("List Collector Section Summary and Summary Items", () => {
       await expect(await $(SectionSummaryPage.companiesListEditLink(1)).isExisting()).toBe(true);
       await expect(await $(SectionSummaryPage.companiesListRemoveLink(1)).isExisting()).toBe(true);
       await expect(await $(SectionSummaryPage.companiesListAddLink()).isExisting()).toBe(true);
-    });
+      },
+    );
     it("When I add another company from the summary page, Then I am asked if I want to add any more company before accessing the section summary", async () => {
       await drivingQuestionYes();
       await addCompany("Company A", "123", true);
@@ -209,7 +221,10 @@ describe("List Collector Section Summary and Summary Items", () => {
       await anyMoreCompaniesNo();
       await verifyUrlContains(SectionSummaryPage.url());
     });
-    it("When I add another company from the summary page, and the amount then totals to 3, and the confirmation question hasn't been previously answered, Then I am prompted with the confirmation question", async () => {
+    it(
+      "When I add another company from the summary page, and the amount then totals to 3, " +
+        "and the confirmation question hasn't been previously answered, Then I am prompted with the confirmation question",
+      async () => {
       await drivingQuestionYes();
       await addCompany("Company A", "123", true);
       await anyMoreCompaniesYes();
@@ -224,8 +239,12 @@ describe("List Collector Section Summary and Summary Items", () => {
       await verifyUrlContains(UkBasedPage.url());
       await answerUkBasedQuestion();
       await verifyUrlContains(SectionSummaryPage.url());
-    });
-    it("When I remove a company from the summary page, and the amount then totals to 3, and the confirmation question hasn't been previously answered, Then I am prompted with the confirmation question", async () => {
+      },
+    );
+    it(
+      "When I remove a company from the summary page, and the amount then totals to 3, " +
+        "and the confirmation question hasn't been previously answered, Then I am prompted with the confirmation question",
+      async () => {
       await drivingQuestionYes();
       await addCompany("Company A", "123", true);
       await anyMoreCompaniesYes();

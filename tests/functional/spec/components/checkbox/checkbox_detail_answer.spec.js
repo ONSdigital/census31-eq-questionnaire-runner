@@ -11,10 +11,14 @@ describe("Given the checkbox detail_answer questionnaire,", () => {
   it("When a checkbox has a detail_answer with visible set to true, Then the detail answer write-in field should be shown", async () => {
     await expect(await $(CheckboxVisibleTruePage.otherDetail()).isDisplayed()).toBe(true);
   });
-  it("When a checkbox has a detail_answer with visible set to true and another answer is checked, then the detail answer write-in field should still be shown", async () => {
+  it(
+    "When a checkbox has a detail_answer with visible set to true and another answer is checked, " +
+      "then the detail answer write-in field should still be shown",
+    async () => {
     await $(CheckboxVisibleTruePage.coffee()).click();
     await expect(await $(CheckboxVisibleTruePage.otherDetail()).isDisplayed()).toBe(true);
-  });
+    },
+  );
   it("When a checkbox has a detail_answer with visible set to false, Then the detail answer write-in field should not be shown", async () => {
     await $(CheckboxVisibleTruePage.coffee()).click();
     await click(CheckboxVisibleTruePage.submit());

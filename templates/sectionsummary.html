@@ -31,7 +31,7 @@
                 {% set empty_list_text = summary.empty_list_text %}
                 {% set list_title = summary.title %}
                 <div {{ 'class="ons-u-mb-l"' if not loop.last }}
-                     data-qa="{{ summary.list_name }}-list-summary">
+                    data-qa="{{ summary.list_name }}-list-summary">
                     {% if summary.list %}
                         {% set list = summary.list %}
                         {% include "partials/summary/list-summary.html" %}

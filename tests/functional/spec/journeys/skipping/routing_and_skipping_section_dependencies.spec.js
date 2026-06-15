@@ -1,5 +1,6 @@
 import AgePage from "../../../generated_pages/routing_and_skipping_section_dependencies/age.page";
-import HouseHoldPersonalDetailsSectionSummaryPage from "../../../generated_pages/routing_and_skipping_section_dependencies/household-personal-details-section-summary.page";
+import HouseHoldPersonalDetailsSectionSummaryPage from
+  "../../../generated_pages/routing_and_skipping_section_dependencies/household-personal-details-section-summary.page";
 import HouseholdSectionSummaryPage from "../../../generated_pages/routing_and_skipping_section_dependencies/household-section-summary.page";
 import ListCollectorAddPage from "../../../generated_pages/routing_and_skipping_section_dependencies/list-collector-add.page";
 import ListCollectorPage from "../../../generated_pages/routing_and_skipping_section_dependencies/list-collector.page";
@@ -27,7 +28,10 @@ describe("Routing and skipping section dependencies", () => {
       await browser.openQuestionnaire("test_routing_and_skipping_section_dependencies.json");
     });
 
-    it("When I answer 'No' to skipping the age question, Then in the Primary Person section I am asked my name, age and why I didn't confirm skipping", async () => {
+    it(
+      "When I answer 'No' to skipping the age question, " +
+        "Then in the Primary Person section I am asked my name, age and why I didn't confirm skipping",
+      async () => {
       await answerNoToSkipAgeQuestion();
 
       await selectPrimaryPerson();
@@ -38,9 +42,13 @@ describe("Routing and skipping section dependencies", () => {
       await expectPersonalDetailsName();
       await expectPersonalDetailsAge();
       await expectReasonNoConfirmationAnswer();
-    });
+      },
+    );
 
-    it("When I answer 'Yes' to skipping the age question, Then in the Primary Person section I am only asked my name and why I didn't confirm skipping", async () => {
+    it(
+      "When I answer 'Yes' to skipping the age question, " +
+        "Then in the Primary Person section I am only asked my name and why I didn't confirm skipping",
+      async () => {
       await answerYesToSkipAgeQuestion();
 
       await selectPrimaryPerson();
@@ -50,9 +58,13 @@ describe("Routing and skipping section dependencies", () => {
       await expectPersonalDetailsName();
       await expectReasonNoConfirmationAnswer();
       await expectPersonalDetailsAgeExistingFalse();
-    });
+      },
+    );
 
-    it("When I answer 'Yes' to skipping the age question and 'Yes' to are you sure in skip question confirmation section, Then in the Primary Person section I am just asked my name", async () => {
+    it(
+      "When I answer 'Yes' to skipping the age question and 'Yes' to are you sure in skip question confirmation section, " +
+        "Then in the Primary Person section I am just asked my name",
+      async () => {
       await answerYesToSkipAgeQuestion();
 
       await selectConfirmationSectionAndAnswerSecurityQuestion();
@@ -64,9 +76,13 @@ describe("Routing and skipping section dependencies", () => {
       await expectPersonalDetailsName();
       await expectPersonalDetailsAgeExistingFalse();
       await expectReasonNoConfirmationExistingFalse();
-    });
+      },
+    );
 
-    it("When I answer 'Yes' to skipping the age question but 'No' to are you sure in skip question confirmation section, Then in the Primary Person section I am only asked my name and age", async () => {
+    it(
+      "When I answer 'Yes' to skipping the age question but 'No' to are you sure in skip question confirmation section, " +
+        "Then in the Primary Person section I am only asked my name and age",
+      async () => {
       await answerYesToSkipAgeQuestion();
 
       await selectConfirmationSectionAndAnswerSecurityQuestion();
@@ -79,7 +95,8 @@ describe("Routing and skipping section dependencies", () => {
       await expectPersonalDetailsName();
       await expectPersonalDetailsAge();
       await expectReasonNoConfirmationExistingFalse();
-    });
+      },
+    );
 
     it("When I answer 'No' to skipping the age question and populate the household, Then in each repeating section I am not asked their age", async () => {
       await answerNoToSkipAgeQuestion();
@@ -141,19 +158,30 @@ describe("Routing and skipping section dependencies", () => {
     beforeEach("Load the survey", async () => {
       await browser.openQuestionnaire("test_routing_and_skipping_section_dependencies.json");
     });
-    it("When I answer 'No' to skipping the section question and 'Yes' to enable the section question, Then the household summary will be visible on the hub", async () => {
+    it(
+      "When I answer 'No' to skipping the section question and 'Yes' to enable the section question, " +
+        "Then the household summary will be visible on the hub",
+      async () => {
       await answerNoToSkipEnableQuestionAndYesToEnableSection();
 
       await expect(await $(HubPage.summaryRowLink("household-section")).isExisting()).toBe(true);
-    });
-    it("When I answer 'No' to skipping the section question and 'No' to enable the section question, Then the household summary will not be visible on the hub", async () => {
+      },
+    );
+    it(
+      "When I answer 'No' to skipping the section question and 'No' to enable the section question, " +
+        "Then the household summary will not be visible on the hub",
+      async () => {
       await answerNoToSkipEnableQuestionAndNoToEnableSection();
 
       await expect(await $(HubPage.summaryRowLink("household-section")).isExisting()).toBe(false);
-    });
+      },
+    );
   });
 
-  describe("Given the routing and skipping section dependencies questionnaire and I answered 'No' to skipping the section question and 'Yes' to enable the section question", () => {
+  describe(
+    "Given the routing and skipping section dependencies questionnaire and I answered 'No' to skipping the section question " +
+      "and 'Yes' to enable the section question",
+    () => {
     before("Load the survey", async () => {
       await browser.openQuestionnaire("test_routing_and_skipping_section_dependencies.json");
     });
@@ -163,14 +191,21 @@ describe("Routing and skipping section dependencies", () => {
 
       await expect(await $(HubPage.summaryRowLink("household-section")).isExisting()).toBe(false);
     });
-  });
+    },
+  );
 
-  describe("Given the routing and skipping section dependencies questionnaire and I answered 'Yes' to skipping the age question but 'No' to are you sure in skip question confirmation section", () => {
+  describe(
+    "Given the routing and skipping section dependencies questionnaire and I answered 'Yes' to skipping the age question " +
+      "but 'No' to are you sure in skip question confirmation section",
+    () => {
     before("Load the survey", async () => {
       await browser.openQuestionnaire("test_routing_and_skipping_section_dependencies.json");
     });
 
-    it("When I change my answer to skipping age to 'No', removing the 'are you sure' question from the path, Then in the Primary Person section I am asked my name, age and why I didn't confirm skipping", async () => {
+    it(
+      "When I change my answer to skipping age to 'No', removing the 'are you sure' question from the path, " +
+        "Then in the Primary Person section I am asked my name, age and why I didn't confirm skipping",
+      async () => {
       await answerYesToSkipAgeQuestion();
 
       await selectConfirmationSectionAndAnswerSecurityQuestion();
@@ -190,10 +225,15 @@ describe("Routing and skipping section dependencies", () => {
       await expect(await $(PrimaryPersonSummaryPage.reasonNoConfirmationAnswer()).getText()).toBe(
         "I did, but it was removed from the path as I changed my answer to No on the skip question",
       );
-    });
-  });
+      },
+    );
+    },
+  );
 
-  describe("Given the routing and skipping section dependencies questionnaire and I answered 'Yes' to skipping the age question and complete the Primary Person section", () => {
+  describe(
+    "Given the routing and skipping section dependencies questionnaire and I answered 'Yes' to skipping the age question " +
+      "and complete the Primary Person section",
+    () => {
     before("Load the survey", async () => {
       await browser.openQuestionnaire("test_routing_and_skipping_section_dependencies.json");
     });
@@ -217,14 +257,21 @@ describe("Routing and skipping section dependencies", () => {
 
       await expect(await $(HubPage.summaryRowState("primary-person")).getText()).toBe("Completed");
     });
-  });
+    },
+  );
 
-  describe("Given the routing and skipping section dependencies questionnaire and I answered 'Yes' to skipping the age question and add 2 household members but complete only one", () => {
+  describe(
+    "Given the routing and skipping section dependencies questionnaire and I answered 'Yes' to skipping the age question " +
+      "and add 2 household members but complete only one",
+    () => {
     before("Load the survey", async () => {
       await browser.openQuestionnaire("test_routing_and_skipping_section_dependencies.json");
     });
 
-    it("When I change my answer to skipping age to 'No', Then the completed household member status is changed to Partially completed and the other stays as not started", async () => {
+    it(
+      "When I change my answer to skipping age to 'No', " +
+        "Then the completed household member status is changed to Partially completed and the other stays as not started",
+      async () => {
       await answerYesToSkipAgeQuestion();
       await addHouseholdMembers();
       await $(HubPage.summaryRowLink("household-personal-details-section-1")).click();
@@ -238,22 +285,31 @@ describe("Routing and skipping section dependencies", () => {
 
       await expect(await $(HubPage.summaryRowState("household-personal-details-section-1")).getText()).toBe("Partially completed");
       await expect(await $(HubPage.summaryRowState("household-personal-details-section-2")).getText()).toBe("Not started");
-    });
+      },
+    );
 
-    it("When I change my answer back to skipping age to 'Yes', Then the Partially completed household member status is changed back to Completed and the other stays as not started", async () => {
+    it(
+      "When I change my answer back to skipping age to 'Yes', " +
+        "Then the Partially completed household member status is changed back to Completed and the other stays as not started",
+      async () => {
       await editYesToSkipAgeQuestion();
 
       await expect(await $(HubPage.summaryRowState("household-personal-details-section-1")).getText()).toBe("Completed");
       await expect(await $(HubPage.summaryRowState("household-personal-details-section-2")).getText()).toBe("Not started");
-    });
-  });
+      },
+    );
+    },
+  );
 
   describe("Given the routing and skipping section dependencies questionnaire", () => {
     beforeEach("Load the survey", async () => {
       await browser.openQuestionnaire("test_routing_and_skipping_section_dependencies.json");
     });
 
-    it("When I answer 'No' to skipping the age question and populate the household with Repeating Age > 18, Then in each repeating section I am asked if they are smoker", async () => {
+    it(
+      "When I answer 'No' to skipping the age question and populate the household with Repeating Age > 18, " +
+        "Then in each repeating section I am asked if they are smoker",
+      async () => {
       await answerNoToSkipAgeQuestion();
 
       await addHouseholdMembers();
@@ -286,9 +342,13 @@ describe("Routing and skipping section dependencies", () => {
       await expect(await $(HouseHoldPersonalDetailsSectionSummaryPage.repeatingSexAnswer()).getText()).toBe("Male");
       await expect(await $(HouseHoldPersonalDetailsSectionSummaryPage.repeatingAgeAnswer()).getText()).toBe("19");
       await expect(await $(HouseHoldPersonalDetailsSectionSummaryPage.repeatingIsSmokerAnswer()).getText()).toBe("No");
-    });
+      },
+    );
 
-    it("When I answer 'No' to skipping the age question and populate the household with Repeating Age < 18, Then in each repeating section I am not asked if they are smoker", async () => {
+    it(
+      "When I answer 'No' to skipping the age question and populate the household with Repeating Age < 18, " +
+        "Then in each repeating section I am not asked if they are smoker",
+      async () => {
       await answerNoToSkipAgeQuestion();
 
       await addHouseholdMembers();
@@ -317,9 +377,13 @@ describe("Routing and skipping section dependencies", () => {
       await expect(await $(HouseHoldPersonalDetailsSectionSummaryPage.repeatingSexAnswer()).getText()).toBe("Male");
       await expect(await $(HouseHoldPersonalDetailsSectionSummaryPage.repeatingAgeAnswer()).getText()).toBe("10");
       await expect(await $(HouseHoldPersonalDetailsSectionSummaryPage.repeatingIsSmokerAnswer()).isExisting()).toBe(false);
-    });
+      },
+    );
 
-    it("When I answer 'Yes' to skipping the age question and populate the household, Then in each repeating section I am not asked if they are smoker", async () => {
+    it(
+      "When I answer 'Yes' to skipping the age question and populate the household, " +
+        "Then in each repeating section I am not asked if they are smoker",
+      async () => {
       await answerYesToSkipAgeQuestion();
 
       await addHouseholdMembers();
@@ -343,7 +407,8 @@ describe("Routing and skipping section dependencies", () => {
       await expect(await $(HouseHoldPersonalDetailsSectionSummaryPage.repeatingSexAnswer()).getText()).toBe("Male");
       await expect(await $(HouseHoldPersonalDetailsSectionSummaryPage.repeatingAgeAnswer()).isExisting()).toBe(false);
       await expect(await $(HouseHoldPersonalDetailsSectionSummaryPage.repeatingIsSmokerAnswer()).isExisting()).toBe(false);
-    });
+      },
+    );
   });
 });
 

@@ -10,13 +10,7 @@
     "questionnaire_flow": {
         "type": "Hub",
         "options": {
-            "required_completed_sections": [
-                "stock-section",
-                "household-section",
-                "questions-section",
-                "section-companies",
-                "grand-calculated-summary-section-1"
-            ]
+            "required_completed_sections": ["stock-section", "household-section", "questions-section", "section-companies", "grand-calculated-summary-section-1"]
         }
     },
     "post_submission": {
@@ -73,11 +67,7 @@
                                     },
                                     "contents": [
                                         {
-                                            "list": [
-                                                "This survey covers UK businesses. The business is the individual company, partnership or sole proprietorship to which the questionnaire has been sent, unless specified otherwise.",
-                                                "Include all stock owned by your business, whether in the UK or abroad.",
-                                                "We will treat your data securely and confidentially."
-                                            ]
+                                            "list": ["This survey covers UK businesses. The business is the individual company, partnership or sole proprietorship to which the questionnaire has been sent, unless specified otherwise.", "Include all stock owned by your business, whether in the UK or abroad.", "We will treat your data securely and confidentially."]
                                         }
                                     ]
                                 }
@@ -93,12 +83,7 @@
                                         "description": "Include:"
                                     },
                                     {
-                                        "list": [
-                                            "all stock owned by your business, whether in the UK or abroad",
-                                            "duty for dutiable goods held out of bond",
-                                            "the value of any goods let out on hire, only if they were charged to current account when acquired and do not rank as capital items for taxation purposes",
-                                            "work in progress"
-                                        ]
+                                        "list": ["all stock owned by your business, whether in the UK or abroad", "duty for dutiable goods held out of bond", "the value of any goods let out on hire, only if they were charged to current account when acquired and do not rank as capital items for taxation purposes", "work in progress"]
                                     },
                                     {
                                         "description": "Exclude:"
@@ -114,11 +99,7 @@
                                     "contents": [
                                         {
                                             "title": "How we use your data",
-                                            "list": [
-                                                "The information supplied is used to estimate changes in stock levels which are used in the compilation of Gross Domestic Product (GDP), the total UK economic activity.",
-                                                "GDP is used to measure the UK&apos;s financial health and prosperity over time and in comparison to other countries.",
-                                                "The results are used by the Bank of England and HM Treasury to monitor interest rates, inflation and in formulating financial policies (e.g. income, expenditure and taxation) for the UK."
-                                            ]
+                                            "list": ["The information supplied is used to estimate changes in stock levels which are used in the compilation of Gross Domestic Product (GDP), the total UK economic activity.", "GDP is used to measure the UK&apos;s financial health and prosperity over time and in comparison to other countries.", "The results are used by the Bank of England and HM Treasury to monitor interest rates, inflation and in formulating financial policies (e.g. income, expenditure and taxation) for the UK."]
                                         }
                                     ]
                                 }
@@ -267,12 +248,7 @@
                                             "description": "Include:"
                                         },
                                         {
-                                            "list": [
-                                                "all stock owned by your business, whether in the UK or abroad",
-                                                "duty for dutiable goods held out of bond",
-                                                "the value of any goods let out on hire, only if they were charged to current account when acquired and do not rank as capital items for taxation purposes",
-                                                "work in progress"
-                                            ]
+                                            "list": ["all stock owned by your business, whether in the UK or abroad", "duty for dutiable goods held out of bond", "the value of any goods let out on hire, only if they were charged to current account when acquired and do not rank as capital items for taxation purposes", "work in progress"]
                                         },
                                         {
                                             "description": "Exclude:"

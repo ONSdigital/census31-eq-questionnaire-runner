@@ -42,7 +42,7 @@ parser.add_argument(
     "-r",
     "--require_path",
     default="../../base_pages",
-    help="The relative path from a page file to the directory containing the base/parent page classes. "
+    help="The relative path from a page file to the directory containing the base/parent page classes."
     'Defaults to ".."',
 )
 
@@ -55,13 +55,13 @@ SPEC_PAGE_IMPORT = Template(
 
 SPEC_EXAMPLE_TEST = Template(r"""
 describe("Example Test", () => {
-  beforeEach("Load the survey", () => {
-    browser.openQuestionnaire(schema);
-  });
+    beforeEach("Load the survey", () => {
+        browser.openQuestionnaire(schema);
+    });
 
-  it("Given..., When..., Then...", () => {
+    it("Given..., When..., Then...", () => {
 
-  });
+    });
 });
 
 """)
@@ -107,32 +107,32 @@ QUESTION_ERROR_PANEL = Template(
 )
 
 QUESTION_TITLE = Template(r"""  questionTitle() {
-    return `#${questionId}`;
-  }
+        return `#${questionId}`;
+    }
 
 """)
 
 ANSWER_LEGEND_GETTER = Template(r"""  ${answerName}Legend() {
-    return `#${answerId} > legend`;
-  }
+        return `#${answerId} > legend`;
+    }
 
 """)
 
 ANSWER_LABEL_GETTER = Template(r"""  ${answerName}Label() {
-    return `[for=${answerId}]`;
-  }
+        return `[for=${answerId}]`;
+    }
 
 """)
 
 DYNAMIC_ANSWER_LABEL_GETTER = Template(r"""  answerLabelByIndex(answerIndex) {
-    return `[for=${answerId}-${answerIndex}]`;
-  }
+        return `[for=${answerId}-${answerIndex}]`;
+    }
 
 """)
 
 ANSWER_ERROR_GETTER = Template(r"""  ${answerName}ErrorItem() {
-    return `#${answerId}-error .ons-panel__body .ons-panel__error`;
-  }
+        return `#${answerId}-error .ons-panel__body .ons-panel__error`;
+    }
 
 """)
 
@@ -145,20 +145,20 @@ ANSWER_SINGLE_ERROR_LINK_GETTER = r"""  singleErrorLink() { return `p[data-qa="e
 """
 
 ANSWER_LABEL_DESCRIPTION_GETTER = Template(r"""  ${answerName}LabelDescription() {
-    return `#${answerId}-label-description-hint`;
-  }
+        return `#${answerId}-label-description-hint`;
+    }
 
 """)
 
 ANSWER_GETTER = Template(r"""  ${answerName}() {
-    return `#${answerId}`;
-  }
+        return `#${answerId}`;
+    }
 
 """)
 
 ANSWER_SUFFIX_GETTER = Template(r"""  ${answerName}Suffix() {
-    return `#${answerId} + span`;
-  }
+        return `#${answerId} + span`;
+    }
 
 """)
 
@@ -171,20 +171,20 @@ QUESTION_INPUTS_GETTER = r"""  inputs() { return `[data-qa="input-text"]`; }
 """
 
 DYNAMIC_ANSWER_GETTER = Template(r"""  answerByIndex(answerIndex) {
-    return `#${answerId}-${answerIndex}`;
-  }
+        return `#${answerId}-${answerIndex}`;
+    }
 
 """)
 
 BLOCK_DESCRIPTION = Template(r"""  ${block_name}Description() {
-    return `div.block__description`;
-  }
+        return `div.block__description`;
+    }
 
 """)
 
 ANSWER_UNIT_TYPE_GETTER = Template(r"""  ${answerName}Unit() {
-    return `#${answerId}-type`;
-  }
+        return `#${answerId}-type`;
+    }
 
 """)
 
@@ -258,13 +258,15 @@ LIST_SECTION_SUMMARY_ADD_LINK_GETTER = Template(
 
 # pylint: disable=line-too-long
 LIST_SECTION_SUMMARY_EDIT_LINK_GETTER = Template(
-    r"""  ${list_name}ListEditLink(listItemInstance) { return `div[data-qa="${list_name}-list-summary"] a[data-qa="list-item-change-` + listItemInstance + `-link"]`; }
+    r"""  ${list_name}ListEditLink(listItemInstance) { return `div[data-qa="${list_name}-list-summary"] """
+    r"""a[data-qa="list-item-change-` + listItemInstance + `-link"]`; }
 
 """
 )
 # pylint: disable=line-too-long
 LIST_SECTION_SUMMARY_REMOVE_LINK_GETTER = Template(
-    r"""  ${list_name}ListRemoveLink(listItemInstance) { return `div[data-qa="${list_name}-list-summary"] a[data-qa="list-item-remove-` + listItemInstance + `-link"]`; }
+    r"""  ${list_name}ListRemoveLink(listItemInstance) { return `div[data-qa="${list_name}-list-summary"] """
+    r"""a[data-qa="list-item-remove-` + listItemInstance + `-link"]`; }
 
 """
 )
@@ -301,8 +303,8 @@ CLEAR_SELECTION_BUTTON_GETTER = r"""  clearSelectionButton() { return `.ons-js-c
 """
 
 CONSTRUCTOR = Template(r"""  constructor() {
-    super(`${page_id}`);
-  }
+        super(`${page_id}`);
+    }
 
 """)
 

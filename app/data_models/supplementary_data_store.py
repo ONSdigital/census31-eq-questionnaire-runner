@@ -70,13 +70,13 @@ class SupplementaryDataStore:
         """
         The raw data will be of the form
         {
-          "some_key": "some_value"
-          "items": {
-            "some_list": [
-                {"identifier": ... },
-                {"identifier": ... }
-            ]
-          }
+            "some_key": "some_value",
+            "items": {
+                "some_list": [
+                    {"identifier": ... },
+                    {"identifier": ... }
+                ]
+            }
         }
         each list item has an identifier which will link to a list-item-id in self.list_lookup
         for example: {"some_list": {identifier-1: list_item_id-1, identifier-2: list_item_id-2 }}

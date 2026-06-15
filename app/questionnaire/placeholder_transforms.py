@@ -336,7 +336,7 @@ class PlaceholderTransforms:
         :param items: anything that is iterable
         :return: first non empty value
 
-         Note: to guarantee the returned element is actually the first non empty element in the iterable,
+        Note: to guarantee the returned element is actually the first non empty element in the iterable,
         'items' must be a data structure that preserves order, ie tuple, list etc.
         If order is not important, this can be reused to return `one of` the elements which is non empty.
         """

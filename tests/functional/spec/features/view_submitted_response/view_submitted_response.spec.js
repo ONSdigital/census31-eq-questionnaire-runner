@@ -18,7 +18,8 @@ import ThirdNumberBlockPageSectionTwo from "../../../generated_pages/view_submit
 import CalculatedSummarySectionTwo from "../../../generated_pages/view_submitted_response_repeating_sections/currency-total-playback-2.page";
 import DependencyQuestionSectionTwo from "../../../generated_pages/view_submitted_response_repeating_sections/mutually-exclusive-checkbox.page";
 import SkippableBlockSectionTwo from "../../../generated_pages/view_submitted_response_repeating_sections/skippable-block.page";
-import SectionSummarySectionTwo from "../../../generated_pages/new_calculated_summary_cross_section_dependencies_repeating/calculated-summary-section-summary.page";
+import SectionSummarySectionTwo from
+  "../../../generated_pages/new_calculated_summary_cross_section_dependencies_repeating/calculated-summary-section-summary.page";
 import ListCollectorAddPage from "../../../generated_pages/view_submitted_response_repeating_sections//list-collector-add.page";
 import { click, verifyUrlContains } from "../../../helpers";
 
@@ -36,7 +37,10 @@ describe("View Submitted Response", () => {
     await verifyUrlContains(ViewSubmittedResponsePage.pageName);
   });
 
-  it("Given I have completed a questionnaire with view submitted response enabled, When I am on the view submitted response page within 45 minutes of submission, Then the summary is displayed correctly", async () => {
+  it(
+    "Given I have completed a questionnaire with view submitted response enabled, " +
+      "When I am on the view submitted response page within 45 minutes of submission, Then the summary is displayed correctly",
+    async () => {
     await expect(await $(ViewSubmittedResponsePage.informationPanel()).isDisplayed()).toBe(false);
     await expect(await $(ViewSubmittedResponsePage.printButton()).isDisplayed()).toBe(true);
     await expect(await $(ViewSubmittedResponsePage.heading()).getText()).toBe("Answers submitted for Apple (Apple)");
@@ -48,17 +52,22 @@ describe("View Submitted Response", () => {
     await expect(await $(ViewSubmittedResponsePage.addressDetailsGroupTitle()).getText()).toBe("Address Details");
     await expect(await $(ViewSubmittedResponsePage.addressQuestion()).getText()).toBe("What is your address?");
     await expect(await $(ViewSubmittedResponsePage.addressAnswer()).getText()).toBe("NP10 8XG");
-  });
+    },
+  );
 
   describe("Given I am on the view submitted response page and I submitted over 45 minutes ago", () => {
-    it("When I click the Download as PDF button, Then I should be redirected to a page informing me that I can no longer view or get a copy of my answers", async () => {
-      await browser.pause(40000); // Waiting 40 seconds for the timeout to expire (45 minute timeout changed to 35 seconds by overriding VIEW_SUBMITTED_RESPONSE_EXPIRATION_IN_SECONDS for the purpose of the functional test)
+    it(
+      "When I click the Download as PDF button, Then I should be redirected to a page informing me that I can no longer view or get a copy of my answers",
+      async () => {
+      await browser.pause(40000); // Waiting 40 seconds for timeout expiry (45-minute timeout set to 35 seconds via
+      // VIEW_SUBMITTED_RESPONSE_EXPIRATION_IN_SECONDS for this functional test).
       await $(ViewSubmittedResponsePage.downloadButton()).click();
       await expect(await $(ViewSubmittedResponsePage.informationPanel()).isDisplayed()).toBe(true);
       await expect(await $(ViewSubmittedResponsePage.informationPanel()).getHTML()).toContain(
         "For security, you can no longer view or get a copy of your answers",
       );
-    });
+      },
+    );
   });
 });
 
@@ -129,7 +138,10 @@ describe("View Submitted Response Summary Page With Repeating Sections", () => {
     await verifyUrlContains(ViewSubmittedResponsePage.pageName);
   });
 
-  it("Given I have completed a questionnaire with a repeating section and view submitted response enabled, When I am on the view submitted response page within 45 minutes of submission, Then the summary is displayed correctly", async () => {
+  it(
+    "Given I have completed a questionnaire with a repeating section and view submitted response enabled, " +
+      "When I am on the view submitted response page within 45 minutes of submission, Then the summary is displayed correctly",
+    async () => {
     await expect(await $(ViewSubmittedResponseRepeatingPage.informationPanel()).isDisplayed()).toBe(false);
     await expect(await $(ViewSubmittedResponseRepeatingPage.printButton()).isDisplayed()).toBe(true);
     await expect(await $(ViewSubmittedResponseRepeatingPage.heading()).getText()).toBe("Answers submitted for Apple (Apple)");
@@ -150,5 +162,6 @@ describe("View Submitted Response Summary Page With Repeating Sections", () => {
     await expect(await $(secondGroup).$$(groupTitle)[0].getText()).toBe("Calculated Summary Group");
     await expect(await $(secondGroup).$$(repeatingSectionAnswer)[0].getText()).toBe("80 - calculated summary answer (current section)");
     await expect(await $("body").getHTML()).not.toContain("How much did John Doe spend on fruit?");
-  });
+    },
+  );
 });

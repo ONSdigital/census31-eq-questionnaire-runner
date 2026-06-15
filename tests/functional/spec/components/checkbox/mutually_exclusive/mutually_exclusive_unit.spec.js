@@ -30,7 +30,10 @@ describe("Component: Mutually Exclusive Unit With Single Checkbox Override", () 
   });
 
   describe("Given the user has clicked the mutually exclusive checkbox answer", () => {
-    it("When the user enters a value for the non-exclusive unit answer and removes focus, Then only the non-exclusive unit answer should be answered.", async () => {
+    it(
+      "When the user enters a value for the non-exclusive unit answer and removes focus, " +
+        "Then only the non-exclusive unit answer should be answered.",
+      async () => {
       // Given
       await $(UnitPage.unitExclusiveIPreferNotToSay()).click();
       await expect(await $(UnitPage.unitExclusiveIPreferNotToSay()).isSelected()).toBe(true);
@@ -46,7 +49,8 @@ describe("Component: Mutually Exclusive Unit With Single Checkbox Override", () 
 
       await expect(await $(SummaryPage.unitAnswer()).getText()).toContain("10");
       await expect(await $(SummaryPage.unitAnswer()).getText()).not.toBe("I prefer not to say");
-    });
+      },
+    );
   });
 
   describe("Given the user has not clicked the mutually exclusive checkbox answer", () => {

@@ -104,23 +104,38 @@ class TestCase {
       await expect(await $$(NumberTotalPlaybackPage.sixthNumberAnswer())).toHaveLength(0);
     });
 
-    it("Given I reach the calculated summary page, Then the Change link url should contain return_to, return_to_answer_id and return_to_block_id query params", async () => {
+    it(
+      "Given I reach the calculated summary page, " +
+        "Then the Change link url should contain return_to, return_to_answer_id and return_to_block_id query params",
+      async () => {
       await expect(await $(CurrencyTotalPlaybackPage.firstNumberAnswerEdit()).getAttribute("href")).toContain(
-        "/questionnaire/first-number-block/?return_to=calculated-summary&return_to_answer_id=first-number-answer&return_to_block_id=currency-total-playback#first-number-answer",
+        "/questionnaire/first-number-block/?return_to=calculated-summary" +
+          "&return_to_answer_id=first-number-answer&return_to_block_id=currency-total-playback#first-number-answer",
       );
-    });
+      },
+    );
 
-    it("Given I edit an answer from the calculated summary page and click the Previous button, Then I am taken to the calculated summary page that I clicked the change link from and the browser url should contain an anchor referencing the answer id of the answer I am changing", async () => {
+    it(
+      "Given I edit an answer from the calculated summary page and click the Previous button, " +
+        "Then I am taken to the calculated summary page that I clicked the change link from " +
+          "and the browser url should contain an anchor referencing the answer id of the answer I am changing",
+      async () => {
       await $(CurrencyTotalPlaybackPage.thirdNumberAnswerEdit()).click();
       await $(ThirdNumberBlockPage.previous()).click();
       await verifyUrlContains("currency-total-playback/#third-number-answer");
-    });
+      },
+    );
 
-    it("Given I edit an answer from the calculated summary page and click the Submit button, Then I am taken to the calculated summary page that I clicked the change link from and the browser url should contain an anchor referencing the answer id of the answer I am changing", async () => {
+    it(
+      "Given I edit an answer from the calculated summary page and click the Submit button, " +
+        "Then I am taken to the calculated summary page that I clicked the change link from " +
+          "and the browser url should contain an anchor referencing the answer id of the answer I am changing",
+      async () => {
       await $(CurrencyTotalPlaybackPage.thirdNumberAnswerEdit()).click();
       await click(ThirdNumberBlockPage.submit());
       await verifyUrlContains("currency-total-playback/#third-number-answer");
-    });
+      },
+    );
 
     it("Given I change an answer, When I get to the currency summary, Then I should see the new total", async () => {
       await $(CurrencyTotalPlaybackPage.fourthNumberAnswerEdit()).click();
@@ -185,9 +200,13 @@ class TestCase {
       await expect(await $(UnitTotalPlaybackPage.thirdAndAHalfNumberAnswerUnitTotal()).getText()).toBe("678 cm");
     });
 
-    it("Given the calculated summary has a custom title, When I am on the unit calculated summary, Then the page title should use the custom title", async () => {
+    it(
+      "Given the calculated summary has a custom title, " +
+        "When I am on the unit calculated summary, Then the page title should use the custom title",
+      async () => {
       await expect(await browser.getTitle()).toContain("Total Unit Values - ");
-    });
+      },
+    );
 
     it("Given I complete every question, When I get to the percentage summary, Then I should see the correct total", async () => {
       // Totals and titles should be shown
@@ -221,7 +240,10 @@ class TestCase {
       await expect(await $(NumberTotalPlaybackPage.sixthNumberAnswer()).getText()).toBe("45.67");
     });
 
-    it("Given I complete every calculated summary, When I go to a page with calculated summary piping, Then I should the see the piped calculated summary total for each summary", async () => {
+    it(
+      "Given I complete every calculated summary, " +
+        "When I go to a page with calculated summary piping, Then I should the see the piped calculated summary total for each summary",
+      async () => {
       await click(NumberTotalPlaybackPage.submit());
 
       const content = await $("h1 + ul").getText();
@@ -237,9 +259,13 @@ class TestCase {
       for (const text of textsToAssert) {
         await expect(content).toContain(text);
       }
-    });
+      },
+    );
 
-    it("Given I have an answer minimum based on a calculated summary total, When I enter an invalid answer, Then I should see an error message on the page", async () => {
+    it(
+      "Given I have an answer minimum based on a calculated summary total, " +
+        "When I enter an invalid answer, Then I should see an error message on the page",
+      async () => {
       await click(CalculatedSummaryTotalConfirmation.submit());
       await verifyUrlContains(SetMinMaxBlockPage.pageName);
       await $(SetMinMaxBlockPage.setMinimum()).setValue(8.0);
@@ -247,9 +273,13 @@ class TestCase {
       await expect(await $(SetMinMaxBlockPage.errorNumber(1)).getText()).toBe("Enter an answer more than or equal to £9.36");
       await $(SetMinMaxBlockPage.setMinimum()).setValue(10.0);
       await click(SetMinMaxBlockPage.submit());
-    });
+      },
+    );
 
-    it("Given I have an answer maximum based on a calculated summary total, When I enter an invalid answer, Then I should see an error message on the page", async () => {
+    it(
+      "Given I have an answer maximum based on a calculated summary total, " +
+        "When I enter an invalid answer, Then I should see an error message on the page",
+      async () => {
       await click(SubmitPage.submit());
       await verifyUrlContains(SetMinMaxBlockPage.pageName);
       await $(SetMinMaxBlockPage.setMaximum()).setValue(10.0);
@@ -257,9 +287,14 @@ class TestCase {
       await expect(await $(SetMinMaxBlockPage.errorNumber(1)).getText()).toBe("Enter an answer less than or equal to £9.36");
       await $(SetMinMaxBlockPage.setMaximum()).setValue(7.0);
       await click(SetMinMaxBlockPage.submit());
-    });
+      },
+    );
 
-    it("Given I confirm the totals and am on the summary, When I edit and change an answer, Then I must re-confirm the dependant calculated summary page and min max question page before I can return to the summary", async () => {
+    it(
+      "Given I confirm the totals and am on the summary, " +
+        "When I edit and change an answer, Then I must re-confirm the dependant calculated summary page " +
+          "and min max question page before I can return to the summary",
+      async () => {
       await verifyUrlContains(SubmitPage.pageName);
       await $(SubmitPage.thirdNumberAnswerEdit()).click();
       await $(ThirdNumberBlockPage.thirdNumber()).setValue(3.5);
@@ -280,9 +315,14 @@ class TestCase {
 
       // back to summary
       await verifyUrlContains(SubmitPage.pageName);
-    });
+      },
+    );
 
-    it("Given I confirm the totals and am on the summary, When I edit and change an answer that has a dependent minimum value from a calculated summary total, And the minimum value has been changed, Then I must re-validate before I get to the summary", async () => {
+    it(
+      "Given I confirm the totals and am on the summary, " +
+        "When I edit and change an answer that has a dependent minimum value from a calculated summary total, " +
+          "And the minimum value has been changed, Then I must re-validate before I get to the summary",
+      async () => {
       await verifyUrlContains(SubmitPage.pageName);
       await $(SubmitPage.thirdNumberAnswerEdit()).click();
       await $(ThirdNumberBlockPage.thirdNumber()).setValue(10.0);
@@ -298,9 +338,14 @@ class TestCase {
       await $(SetMinMaxBlockPage.setMinimum()).setValue(16.0);
       await click(SetMinMaxBlockPage.submit());
       await verifyUrlContains(SubmitPage.pageName);
-    });
+      },
+    );
 
-    it("Given I confirm the totals and am on the summary, When I edit and change an answer that has a dependent maximum value from a calculated summary total, And the maximum value has been changed, Then I must re-validate before I get to the summary", async () => {
+    it(
+      "Given I confirm the totals and am on the summary, " +
+        "When I edit and change an answer that has a dependent maximum value from a calculated summary total, " +
+          "And the maximum value has been changed, Then I must re-validate before I get to the summary",
+      async () => {
       await verifyUrlContains(SubmitPage.pageName);
       await $(SubmitPage.thirdNumberAnswerEdit()).click();
       await $(ThirdNumberBlockPage.thirdNumber()).setValue(1.0);
@@ -316,9 +361,13 @@ class TestCase {
       await $(SetMinMaxBlockPage.setMaximum()).setValue(6.0);
       await click(SetMinMaxBlockPage.submit());
       await verifyUrlContains(SubmitPage.pageName);
-    });
+      },
+    );
 
-    it("Given I am on a page with a placeholder containing a calculated summary value, When I have updated the calculated summary so that additional answers are on the path, Then the placeholder should display the updated value", async () => {
+    it(
+      "Given I am on a page with a placeholder containing a calculated summary value, " +
+        "When I have updated the calculated summary so that additional answers are on the path, Then the placeholder should display the updated value",
+      async () => {
       await $(SubmitPage.skipFourthBlockAnswerEdit()).click();
       await $(SkipFourthBlockPage.no()).click();
       await click(SkipFourthBlockPage.submit());
@@ -339,9 +388,13 @@ class TestCase {
         await expect(content).toContain(text);
       }
       await browser.url(SubmitPage.url());
-    });
+      },
+    );
 
-    it("Given I am on a page with a dependent question based on a calculated summary value, When I have updated the calculated summary so that additional answers are on the path, Then the question should display the updated value", async () => {
+    it(
+      "Given I am on a page with a dependent question based on a calculated summary value, " +
+        "When I have updated the calculated summary so that additional answers are on the path, Then the question should display the updated value",
+      async () => {
       await $(SubmitPage.setMinimumAnswerEdit()).click();
       await verifyUrlContains(SetMinMaxBlockPage.pageName);
       await expect(await $(SetMinMaxBlockPage.questionTitle()).getText()).toContain(
@@ -352,7 +405,8 @@ class TestCase {
       await $(SetMinMaxBlockPage.setMinimum()).setValue(30.0);
       await $(SetMinMaxBlockPage.setMaximum()).setValue(6.0);
       await click(SetMinMaxBlockPage.submit());
-    });
+      },
+    );
 
     it("Given I am on the summary, When I submit the questionnaire, Then I should see the thank you page", async () => {
       await click(SubmitPage.submit());
@@ -381,13 +435,20 @@ class TestCase {
       await click(CalculatedSummarySectionTwo.submit());
     });
 
-    it("Given I have a placeholder displaying a calculated summary value source, When the calculated summary value is from a previous section, Then the value displayed should be correct", async () => {
+    it(
+      "Given I have a placeholder displaying a calculated summary value source, " +
+        "When the calculated summary value is from a previous section, Then the value displayed should be correct",
+      async () => {
       await verifyUrlContains(DependencyQuestionSectionTwo.pageName);
       await expect(await $(DependencyQuestionSectionTwo.checkboxAnswerCalcValue1Label()).getText()).toBe("60 - calculated summary answer (previous section)");
       await expect(await $(DependencyQuestionSectionTwo.checkboxAnswerCalcValue2Label()).getText()).toBe("40 - calculated summary answer (current section)");
-    });
+      },
+    );
 
-    it("Given I have validation using a calculated summary value source, When the calculated summary value is from a previous section, Then the value used to validate should be correct", async () => {
+    it(
+      "Given I have validation using a calculated summary value source, " +
+        "When the calculated summary value is from a previous section, Then the value used to validate should be correct",
+      async () => {
       await $(DependencyQuestionSectionTwo.checkboxAnswerCalcValue1()).click();
       await click(DependencyQuestionSectionTwo.submit());
       await verifyUrlContains(MinMaxSectionTwo.pageName);
@@ -398,9 +459,13 @@ class TestCase {
       await $(MinMaxSectionTwo.setMinimum()).setValue(61.0);
       await $(MinMaxSectionTwo.setMaximum()).setValue(40.0);
       await click(MinMaxSectionTwo.submit());
-    });
+      },
+    );
 
-    it("Given I remove answers from the path for a calculated summary in a previous section by changing an answer, When I return to the question with the calculated summary value source, Then the value displayed should be correct", async () => {
+    it(
+      "Given I remove answers from the path for a calculated summary in a previous section by changing an answer, " +
+        "When I return to the question with the calculated summary value source, Then the value displayed should be correct",
+      async () => {
       await click(SectionSummarySectionTwo.submit());
       await $(HubPage.summaryRowLink("questions-section")).click();
       await $(SectionSummarySectionOne.skipFirstBlockAnswerEdit()).click();
@@ -412,7 +477,8 @@ class TestCase {
       await $(SectionSummarySectionTwo.checkboxAnswerEdit()).click();
       await expect(await $(DependencyQuestionSectionTwo.checkboxAnswerCalcValue1Label()).getText()).toBe("30 - calculated summary answer (previous section)");
       await expect(await $(DependencyQuestionSectionTwo.checkboxAnswerCalcValue2Label()).getText()).toBe("40 - calculated summary answer (current section)");
-    });
+      },
+    );
   }
 
   testNegative(schema, firstAnswerValue, secondAnswerValue, thirdAnswerValue, fourthAnswerValue, expectedTotalValue, expectedAnswerValues) {
