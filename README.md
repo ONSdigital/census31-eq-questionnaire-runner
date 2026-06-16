@@ -602,3 +602,24 @@ Then edit the first line in the `templates/layout/_template.njk` file to remove 
 Then spin up launcher and runner with `make dev-compose-up` and `make run`
 
 Now when navigating to localhost:8000 and launching a schema, this will now be using the local cdn with the changes from the Design System branch
+
+## Code Linting/Formatting
+
+We use [Megalinter](https://megalinter.io/latest/mega-linter-runner/) to maintain our code by running various linters over the different file types we have. This is run against PRs using the `mega-linter` GitHub action but can also be run locally but you will need node and docker installed and then the megalinter runner will also need to be installed using:
+
+```shell
+npm install mega-linter-runner -g
+```
+
+Then to run the linter you can run:
+
+```shell
+make megalint
+```
+
+This command will run all the linters enabled in the `mega-linter.yml` config file in the root of the repo against the all the files in the repo and report back any issues. This is run via docker and may take some time to run first time.
+We also have another command which will also run Megalinter locally but this one will attempt to fix any issues it can rather than just report them.
+
+```shell
+make megalint-apply
+```
