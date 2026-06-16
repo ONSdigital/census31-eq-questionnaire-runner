@@ -13,7 +13,7 @@ The functional tests should be organised in such a way that encourages consisten
 ## Decision
 
 - Organise test specifications (.spec.js files) under a surveys, components or features folder:
-```
+```text
 tests/
   functional/
     spec/
