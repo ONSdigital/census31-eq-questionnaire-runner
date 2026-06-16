@@ -605,13 +605,7 @@ Now when navigating to localhost:8000 and launching a schema, this will now be u
 
 ## Code Linting/Formatting
 
-We use [Megalinter](https://megalinter.io/latest/mega-linter-runner/) to maintain our code by running various linters over the different file types we have. This is run against PRs using the `mega-linter` GitHub action but can also be run locally but you will need node and docker installed and then the megalinter runner will also need to be installed using:
-
-```shell
-npm install mega-linter-runner -g
-```
-
-Then to run the linter you can run:
+We use [Megalinter](https://megalinter.io/latest/mega-linter-runner/) to maintain our code by running various linters over the different file types we have. This is run against PRs using the `mega-linter` GitHub action but can also be run locally. To run the linter locally you can run:
 
 ```shell
 make megalint
