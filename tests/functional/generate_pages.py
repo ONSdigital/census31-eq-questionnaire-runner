@@ -616,24 +616,12 @@ def _write_date_answer(answer_id, prefix):
     year_name = camel_case(prefix + "Year")
 
     return (
-        ANSWER_GETTER.substitute(
-            {"answerName": day_name, "answerId": answer_id + "-day"}
-        )
-        + ANSWER_GETTER.substitute(
-            {"answerName": month_name, "answerId": answer_id + "-month"}
-        )
-        + ANSWER_GETTER.substitute(
-            {"answerName": year_name, "answerId": answer_id + "-year"}
-        )
-        + ANSWER_LABEL_GETTER.substitute(
-            {"answerName": day_name, "answerId": answer_id + "-day"}
-        )
-        + ANSWER_LABEL_GETTER.substitute(
-            {"answerName": month_name, "answerId": answer_id + "-month"}
-        )
-        + ANSWER_LABEL_GETTER.substitute(
-            {"answerName": year_name, "answerId": answer_id + "-year"}
-        )
+        ANSWER_GETTER.substitute({"answerName": day_name, "answerId": answer_id + "-day"})
+        + ANSWER_GETTER.substitute({"answerName": month_name, "answerId": answer_id + "-month"})
+        + ANSWER_GETTER.substitute({"answerName": year_name, "answerId": answer_id + "-year"})
+        + ANSWER_LABEL_GETTER.substitute({"answerName": day_name, "answerId": answer_id + "-day"})
+        + ANSWER_LABEL_GETTER.substitute({"answerName": month_name, "answerId": answer_id + "-month"})
+        + ANSWER_LABEL_GETTER.substitute({"answerName": year_name, "answerId": answer_id + "-year"})
     )
 
 
@@ -642,18 +630,10 @@ def _write_month_year_date_answer(answer_id, prefix):
     year_name = camel_case(prefix + "Year")
 
     return (
-        ANSWER_GETTER.substitute(
-            {"answerName": month_name, "answerId": answer_id + "-month"}
-        )
-        + ANSWER_GETTER.substitute(
-            {"answerName": year_name, "answerId": answer_id + "-year"}
-        )
-        + ANSWER_LABEL_GETTER.substitute(
-            {"answerName": month_name, "answerId": answer_id + "-month"}
-        )
-        + ANSWER_LABEL_GETTER.substitute(
-            {"answerName": year_name, "answerId": answer_id + "-year"}
-        )
+        ANSWER_GETTER.substitute({"answerName": month_name, "answerId": answer_id + "-month"})
+        + ANSWER_GETTER.substitute({"answerName": year_name, "answerId": answer_id + "-year"})
+        + ANSWER_LABEL_GETTER.substitute({"answerName": month_name, "answerId": answer_id + "-month"})
+        + ANSWER_LABEL_GETTER.substitute({"answerName": year_name, "answerId": answer_id + "-year"})
     )
 
 
