@@ -111,7 +111,8 @@ class BusinessSurveyConfig(SurveyConfig):
     @property
     def _stripped_base_url(self) -> str:
         warn(
-            "base_url contains extra pathing which will eventually be corrected and this function will need to be removed"
+            "base_url contains extra pathing which will eventually be corrected "
+            "and this function will need to be removed"
         )
         return self.base_url.replace("/surveys/todo", "")
 

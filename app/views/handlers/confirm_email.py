@@ -137,7 +137,9 @@ class ConfirmEmail:
 
         try:
             # Type ignore: mypy not aware of eq attribute but it is a cloud task publisher
-            cloud_task_publisher: CloudTaskPublisher | LogCloudTaskPublisher = current_app.eq["cloud_tasks"]  # type: ignore
+            cloud_task_publisher: CloudTaskPublisher | LogCloudTaskPublisher = (
+                current_app.eq["cloud_tasks"]  # type: ignore
+            )
             return cloud_task_publisher.create_task(
                 body=fulfilment_request.message,
                 queue_name=EQ_SUBMISSION_CONFIRMATION_QUEUE,

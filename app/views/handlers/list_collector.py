@@ -64,7 +64,8 @@ class ListCollector(Question):
         )
 
     def _get_additional_view_context(self) -> dict:
-        """This is only needed so we can use it in List Collector Content class where we override the default behaviour of the Question class"""
+        """This is only needed for List Collector Content where we override
+        the default Question class behaviour."""
         return super().get_context()
 
     def get_context(self) -> dict:

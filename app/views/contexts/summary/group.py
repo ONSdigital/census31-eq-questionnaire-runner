@@ -76,8 +76,10 @@ class Group:
         blocks = []
 
         for block in group_schema["blocks"]:
-            # the block type will only be ListRepeatingQuestion when in the context of a calculated summary or grand calculated summary
-            # any other summary like section-summary will use the parent list collector instead and render items as part of the ListCollector check further down
+            # block type is only ListRepeatingQuestion when in the context of a
+            # calculated summary or grand calculated summary.
+            # Other summaries like section-summary use the parent list collector
+            # and render items in the ListCollector check further down.
             if block["type"] == "ListRepeatingQuestion":
                 # list repeating questions aren't themselves on the path, it's determined by the parent list collector
                 parent_list_collector_block_id = schema.parent_id_map[block["id"]]

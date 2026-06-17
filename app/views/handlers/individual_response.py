@@ -132,7 +132,8 @@ class IndividualResponseHandler:
 
     @cached_property
     def _list_item_position(self) -> int:
-        # Type ignore: Current usages of this cached property occur when List Name and List Item ID exist and be not None
+        # Type ignore: current usages of this cached property occur when list
+        # name and list item id both exist and are not None.
         return self._questionnaire_store.data_stores.list_store.list_item_position(
             self._list_name, self._list_item_id  # type: ignore
         )
@@ -565,7 +566,8 @@ class IndividualResponsePostAddressConfirmHandler(IndividualResponseHandler):
                     "contents": [
                         {
                             "description": lazy_gettext(
-                                "The letter will be addressed to <strong>Individual Resident</strong> instead of the name provided"
+                                "The letter will be addressed to <strong>Individual "
+                                "Resident</strong> instead of the name provided"
                             )
                         }
                     ]

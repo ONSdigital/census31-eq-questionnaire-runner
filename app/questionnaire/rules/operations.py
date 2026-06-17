@@ -146,7 +146,8 @@ class Operations:
                 if not offset_by_full_weeks and (days_offset < 0 and days_difference < 0):
                     # A negative day difference means that the `day_of_week` offset went back to the previous week;
                     # therefore, if we also have a negative days offset,
-                    # then the no. of days we reduce the offset by must be adjusted by 7 to prevent going back two weeks.
+                    # then the no. of days we reduce the offset by must be
+                    # adjusted by 7 to prevent going back two weeks.
                     days_to_reduce -= 7
 
                 days_offset -= days_to_reduce

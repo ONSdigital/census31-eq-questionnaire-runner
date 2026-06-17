@@ -131,11 +131,14 @@ def _set_questionnaire_supplementary_data(
     schema: QuestionnaireSchema,
 ) -> None:
     """
-    If the survey metadata has an sds dataset id, and it either doesn't match what it stored, or there is no stored supplementary data
-    then fetch it, verify any schema supplementary lists are included in the fetched data, and add it to the questionnaire store
+    If the survey metadata has an sds dataset id, and it either does not match
+    what is stored, or there is no stored supplementary data, then fetch it,
+    verify any schema supplementary lists are included in the fetched data, and
+    add it to the questionnaire store.
 
-    Validation of the supplementary lists must be performed every time a survey launches, not just when the supplementary data is fetched
-    as it is possible that the survey has changed but the dataset hasn't so the validity could have changed.
+    Validation of the supplementary lists must be performed every time a survey
+    launches, not just when supplementary data is fetched, because the survey
+    could have changed while the dataset has not.
     """
     existing_sds_dataset_id = (
         questionnaire_store.data_stores.metadata.survey_metadata["sds_dataset_id"]

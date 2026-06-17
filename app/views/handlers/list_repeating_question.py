@@ -12,8 +12,9 @@ class ListRepeatingQuestion(ListEditQuestion):
         if url := self.get_section_or_final_summary_url():
             return url
 
-        # the locations list_item_id is referring to where to return to within the context of a repeating section
-        # since the list collector won't be in a repeating section, use the parent location which doesn't have a list item id
+        # the location's list_item_id refers to where to return to within a
+        # repeating section. Since the list collector is not in a repeating
+        # section, use the parent location without a list item id.
         if url := self.router.get_return_to_location_url(
             location=self.parent_location,
             return_location=self.return_location,

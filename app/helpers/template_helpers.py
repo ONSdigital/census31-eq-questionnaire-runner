@@ -147,7 +147,8 @@ class ContextHelper:
     def _footer_warning(self) -> str | None:
         if self._is_post_submission:
             footer_warning: str = lazy_gettext(
-                "Make sure you <a href='{sign_out_url}'>leave this page</a> or close your browser if using a shared device"
+                "Make sure you <a href='{sign_out_url}'>leave this page</a> or "
+                "close your browser if using a shared device"
             ).format(sign_out_url=self._sign_out_url)
 
             return footer_warning

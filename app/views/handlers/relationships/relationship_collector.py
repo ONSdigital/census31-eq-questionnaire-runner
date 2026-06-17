@@ -15,7 +15,8 @@ class RelationshipCollector(RelationshipQuestion):
     def handle_post(self) -> None:
         relationship_answer = self.form.data.get(self.relationships_answer_id)
         relationship = Relationship(
-            # Type ignore: handle_post is only called from relationships endpoint and location class is assigned to RelationshipLocation
+            # Type ignore: handle_post is only called from relationships
+            # endpoint and location is assigned to RelationshipLocation.
             self._current_location.list_item_id,  # type: ignore
             self._current_location.to_list_item_id,  # type: ignore
             relationship_answer,

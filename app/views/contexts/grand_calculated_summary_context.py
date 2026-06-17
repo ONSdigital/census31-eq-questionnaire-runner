@@ -35,7 +35,8 @@ class GrandCalculatedSummaryContext(CalculatedSummaryContext):
         section_ids: set[str] = {
             self._schema.get_section_id_for_block_id(block_id) for block_id in calculated_summary_ids  # type: ignore
         }
-        # find any sections involved in the grand calculated summary (but only if they have started, to avoid evaluating the path if not necessary)
+        # Find sections involved in the grand calculated summary, but only if
+        # started, to avoid evaluating the path unnecessarily.
         started_sections = [key for key, _ in self._data_stores.progress_store.started_section_keys(section_ids)]
         routing_path_block_ids: list[str] = []
 

@@ -60,9 +60,11 @@ class PlaceholderParser:
     ) -> MutableMapping[str, ValueSourceEscapedTypes | ValueSourceTypes]:
         sections_to_ignore = list(self._routing_path_block_ids_by_section_key)
 
-        if routing_path_block_ids_map := self._get_routing_path_block_ids_by_section_for_calculated_summary_dependencies(
+        if routing_path_block_ids_map := (
+            self._get_routing_path_block_ids_by_section_for_calculated_summary_dependencies(
             data=placeholder_list,
             sections_to_ignore=sections_to_ignore,
+            )
         ):
             self._routing_path_block_ids_by_section_key.update(routing_path_block_ids_map)
 
@@ -72,7 +74,9 @@ class PlaceholderParser:
             )
 
         for placeholder in placeholder_list:
-            # :TODO: Caching of placeholder values will need to be revisited once validation is added to ensure that placeholders are globally unique
+            # :TODO: Caching of placeholder values will need to be revisited
+            # once validation is added to ensure placeholders are globally
+            # unique.
             # if placeholder["placeholder"] not in self._placeholder_map:
             self._placeholder_map[placeholder["placeholder"]] = self._parse_placeholder(placeholder)
         return self._placeholder_map

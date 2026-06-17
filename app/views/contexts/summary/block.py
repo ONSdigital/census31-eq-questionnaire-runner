@@ -66,8 +66,10 @@ class Block:
 
     def _handle_id_suffixing(self, block: dict) -> dict:
         """
-        If the block is repeating but not within a repeating section, summary pages will render it multiple times, once per list item
-        so the block id, as well as any other ids (e.g. question, answer) need suffixing with list_item_id to ensure the HTML rendered is valid and doesn't
+        If the block is repeating but not within a repeating section, summary
+        pages render it multiple times, once per list item. So the block id,
+        as well as any other ids (e.g. question, answer), need suffixing with
+        list_item_id to ensure the HTML rendered is valid and does not
         have duplicate div ids
         """
         if self.location.list_item_id and not self.schema.is_block_in_repeating_section(self.id):

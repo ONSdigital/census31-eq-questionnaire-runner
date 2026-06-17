@@ -52,7 +52,9 @@ class CalculatedSummaryBlock:
         )
 
         # Type ignore: for a calculated summary the resolved answer would only ever be one of these 3
-        calculated_total: NumericType = self._rule_evaluator.evaluate(block_schema["calculation"]["operation"])  # type: ignore
+        calculated_total: NumericType = self._rule_evaluator.evaluate(  # type: ignore
+            block_schema["calculation"]["operation"]
+        )
         answer_format = self._schema.get_answer_format_for_calculated_summary(self.id)
         self.answers = [
             {

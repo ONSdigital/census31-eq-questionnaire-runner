@@ -55,9 +55,10 @@ class GCSSubmitter:
         try:
             blob.upload_from_string(str(message).encode("utf8"))
         except Forbidden as e:
-            # If an object exists then the GCS Client will attempt to delete the existing object before reuploading.
-            # However, in an attempt to reduce duplicate receipts, runner does not have a delete permission.
-            # The first version of the object is acceptable as it is an extreme edge case for two submissions to contain different response data.
+            # If an object exists then the GCS client attempts to delete the
+            # existing object before reuploading. Runner does not have delete
+            # permission, and keeping the first object is acceptable given this
+            # is an extreme edge case for duplicate submissions.
             if "storage.objects.delete" not in e.message:
                 raise
 

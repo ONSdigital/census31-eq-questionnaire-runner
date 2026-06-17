@@ -70,8 +70,10 @@ class ValueSourceResolver:
 
     def _resolve_list_item_id_for_answer_id(self, answer_id: str) -> str | None:
         """
-        If there's a list item id and the answer is repeating, return the list item id to resolve the instance of the answer
-        However if the answer is repeating for a different list, return None so that the repeating answer id resolves to a list
+        If there is a list item id and the answer is repeating, return the list
+        item id to resolve the instance of the answer.
+        However if the answer is repeating for a different list, return None so
+        that the repeating answer id resolves to a list.
         """
         if self.list_item_id and (list_name_for_answer := self.schema.get_list_name_for_answer_id(answer_id)):
             # if there is a current list, and it differs to the repeating answer one, return None
@@ -104,7 +106,8 @@ class ValueSourceResolver:
             return self._resolve_list_item_id_for_answer_id(value_source["identifier"])
 
     def _resolve_repeating_answers_for_list(self, *, answer_id: str, list_name: str) -> ResolvedAnswerList:
-        """Return the list of answers in answer store that correspond to the given list name and dynamic/repeating answer_id"""
+        """Return answer-store answers for the given list name and
+        dynamic/repeating answer_id."""
         answer_values: ResolvedAnswerList = []
         for list_item_id in self.data_stores.list_store[list_name]:
             answer_value = self._get_answer_value(answer_id=answer_id, list_item_id=list_item_id)
@@ -136,7 +139,8 @@ class ValueSourceResolver:
         list_item_id = self._resolve_list_item_id_for_value_source(value_source)
         answer_id = value_source["identifier"]
 
-        # if not in a repeating section and the id is for a list of dynamic/repeating block answers, then return the list of values
+        # if not in a repeating section and the id is for a list of
+        # dynamic/repeating block answers, then return the list of values.
         if not list_item_id:
             if self.schema.is_answer_dynamic(answer_id):
                 return self._resolve_dynamic_answers(answer_id)
@@ -209,7 +213,8 @@ class ValueSourceResolver:
             return None
 
         calculation = summary_block["calculation"]
-        # the calculation object for the old type of calculated summary block may contain answers_to_calculate instead of operation
+        # the calculation object for the old type of calculated summary block
+        # may contain answers_to_calculate instead of operation.
         if calculation.get("answers_to_calculate"):
             operator = self.get_calculation_operator(calculation["calculation_type"])
             values = [

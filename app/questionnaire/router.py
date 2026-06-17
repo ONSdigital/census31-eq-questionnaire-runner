@@ -293,7 +293,8 @@ class Router:
                 _anchor=return_location.return_to_answer_id,
             )
         # since the above may define a different routing_path,
-        # retrieval of the next incomplete block needs to be here instead of returning None and allowing default behaviour
+            # retrieval of the next incomplete block needs to be here instead of
+            # returning None and allowing default behaviour.
         return self._get_return_url_for_inaccessible_location(
             is_for_previous=is_for_previous,
             return_location=return_location,
@@ -308,14 +309,17 @@ class Router:
         routing_path: RoutingPath,
     ) -> str | None:
         """
-        The return url for a calculated summary varies based on whether it's standalone or part of a grand calculated summary
+        The return url for a calculated summary varies based on whether it is
+        standalone or part of a grand calculated summary.
 
-        If the user goes from GrandCalculatedSummary -> CalculatedSummary -> Question, then return_to_block_ids needs to be a list
+        If the user goes from GrandCalculatedSummary -> CalculatedSummary ->
+        Question, then return_to_block_ids needs to be a list
         so that both the calculated summary id and the grand calculated summary ids are stored.
         """
         block_id = None
         remaining: list[str] = []
-        # for a calculated summary this might have multiple items, e.g. a calculated summary to go to and then a grand calculated one
+        # for a calculated summary this might have multiple items, e.g. a
+        # calculated summary to go to and then a grand calculated one.
         if return_location.return_to_block_id:
             # the first item is the block id to route to (e.g. a calculated summary to go back to first)
             # anything remaining forms where to go next (e.g. a grand calculated summary)
@@ -329,7 +333,8 @@ class Router:
             ),
             routing_path,
         ):
-            # if the next location is valid, the new url is that location, and the new 'return to block id' is just what remains
+            # if the next location is valid, the new url is that location, and
+            # the new 'return to block id' is just what remains.
             return_to_block_id = ",".join(remaining) if remaining else None
 
             # remove first item and return the remaining ones
