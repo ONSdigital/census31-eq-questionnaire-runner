@@ -25,11 +25,11 @@ UnitLengthType: TypeAlias = Literal["short", "long", "narrow"]
 
 
 def mark_safe(context: nodes.EvalContext, value: str) -> Markup | str:
-    return Markup(value) if context.autoescape else value  # noqa: S704
+    return Markup(value) if context.autoescape else value  # noqa: S704  # nosec B704
 
 
 def strip_tags(value: str) -> Markup:
-    return escape(Markup(value).striptags())  # noqa: S704
+    return escape(Markup(value).striptags())  # noqa: S704  # nosec B704
 
 
 @blueprint.app_template_filter()

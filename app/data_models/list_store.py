@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-import random
+import secrets
 from functools import cached_property
 from string import ascii_letters
 from typing import Iterable, Iterator, TypedDict, overload
@@ -20,7 +20,7 @@ class ListModelDictType(TypedDict, total=False):
 
 
 def random_string(length: int) -> str:
-    return "".join(random.choice(ascii_letters) for _ in range(length))
+    return "".join(secrets.choice(ascii_letters) for _ in range(length))
 
 
 class ListModel:

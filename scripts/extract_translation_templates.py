@@ -86,7 +86,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     if args.test:
-        with tempfile.TemporaryDirectory(dir="/tmp") as temp_dir:
+        with tempfile.TemporaryDirectory() as temp_dir:
             build_static_template(f"{temp_dir}/messages.pot")
 
             static_success = compare_files("app/translations", temp_dir, "messages.pot")

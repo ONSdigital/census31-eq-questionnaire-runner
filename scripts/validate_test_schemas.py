@@ -34,7 +34,7 @@ def check_connection():
             capture_output=True,
             text=True,
             check=False,
-        ).stdout.strip()  # nosec B603
+        ).stdout.strip()
 
         if response == "200":
             return
