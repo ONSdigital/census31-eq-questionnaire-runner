@@ -9,7 +9,7 @@ import flask
 import flask_babel
 from babel import numbers
 from flask import current_app, g
-from jinja2 import pass_context
+from jinja2 import nodes, pass_eval_context
 from jinja2.runtime import Context
 from markupsafe import Markup, escape
 from wtforms import SelectFieldBase
@@ -150,9 +150,9 @@ def get_format_date(value: Markup) -> str:
     return f"<span class='date'>{date}</span>"
 
 
-@pass_context
+@pass_eval_context
 @blueprint.app_template_filter()
-def format_datetime(context: Context, date_time: datetime) -> str | Markup:
+def format_datetime(context: nodes.EvalContext, date_time: datetime) -> str | Markup:
     # flask babel on formatting will automatically convert based on the time zone specified in setup.py
     formatted_date = flask_babel.format_date(date_time, format="d MMMM yyyy")
     formatted_time = flask_babel.format_time(date_time, format="HH:mm")
