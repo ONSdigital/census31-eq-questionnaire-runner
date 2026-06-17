@@ -2,7 +2,8 @@ import json
 import logging
 import os
 import re
-import subprocess
+import shutil
+import subprocess  # nosec B404
 import sys
 import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
@@ -10,11 +11,20 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 
 
+def get_curl_executable() -> str:
+    curl_executable = shutil.which("curl")
+    if not curl_executable:
+        raise FileNotFoundError("curl executable not found in PATH")
+    return curl_executable
+
+
 def check_connection():
+    curl_executable = get_curl_executable()
+
     for connection_attempts in range(4, 0, -1):
         response = subprocess.run(
             [
-                "curl",
+                curl_executable,
                 "-so",
                 "/dev/null",
                 "-w",
@@ -24,7 +34,7 @@ def check_connection():
             capture_output=True,
             text=True,
             check=False,
-        ).stdout.strip()
+        ).stdout.strip()  # nosec B603
 
         if response == "200":
             return
@@ -53,10 +63,12 @@ def get_schemas() -> list[str]:
 
 
 def validate_schema(schema_path):
+    curl_executable = get_curl_executable()
+
     try:
         result = subprocess.run(
             [
-                "curl",
+                curl_executable,
                 "-s",
                 "-w",
                 "HTTPSTATUS:%{http_code}",
@@ -71,7 +83,7 @@ def validate_schema(schema_path):
             capture_output=True,
             text=True,
             check=True,
-        )
+        )  # nosec B603
         return schema_path, result.stdout
     except subprocess.CalledProcessError as e:
         logging.info("Error validating schema %s: %s", schema_path, e)

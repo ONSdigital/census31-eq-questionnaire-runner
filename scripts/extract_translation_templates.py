@@ -2,7 +2,8 @@
 import argparse
 import difflib
 import logging
-import subprocess
+import shutil
+import subprocess  # nosec B404
 import sys
 import tempfile
 
@@ -36,9 +37,13 @@ def print_filename_results(filename, success=True):
 
 
 def build_static_template(output_filepath):
+    poetry_executable = shutil.which("poetry")
+    if not poetry_executable:
+        raise FileNotFoundError("poetry executable not found in PATH")
+
     subprocess.run(
         [
-            "poetry",
+            poetry_executable,
             "run",
             "pybabel",
             "extract",
@@ -52,7 +57,7 @@ def build_static_template(output_filepath):
             output_filepath,
             ".",
         ],
-        check=False,
+        check=True,  # nosec B603
     )
 
 
