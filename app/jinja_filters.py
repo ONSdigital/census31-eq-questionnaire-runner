@@ -13,17 +13,10 @@ from jinja2 import nodes, pass_eval_context
 from markupsafe import Markup, escape
 from wtforms import SelectFieldBase
 
-from app.questionnaire.questionnaire_schema import (
-    QuestionnaireSchema,
-    is_summary_with_calculation,
-)
+from app.questionnaire.questionnaire_schema import QuestionnaireSchema, is_summary_with_calculation
 from app.questionnaire.rules.utils import parse_datetime
 from app.settings import MAX_NUMBER
-from app.utilities.decimal_places import (
-    custom_format_decimal,
-    custom_format_unit,
-    get_formatted_currency,
-)
+from app.utilities.decimal_places import custom_format_decimal, custom_format_unit, get_formatted_currency
 
 blueprint = flask.Blueprint("filters", __name__)
 FormType = Mapping[str, Mapping[str, Any]]
@@ -54,9 +47,7 @@ def get_formatted_address(address_fields: dict[str, str]) -> str:
 
 @blueprint.app_template_filter()
 def get_currency_symbol(currency: str = "GBP") -> str:
-    currency_symbol: str = numbers.get_currency_symbol(
-        currency, locale=flask_babel.get_locale()
-    )
+    currency_symbol: str = numbers.get_currency_symbol(currency, locale=flask_babel.get_locale())
     return currency_symbol
 
 
@@ -91,14 +82,10 @@ def format_unit_input_label(unit: str, unit_length: UnitLengthType = "short") ->
     unit_label: str
 
     if unit_length == "long":
-        unit_label = format_unit(value=2, unit=unit, length=unit_length).replace(
-            "2 ", ""
-        )
+        unit_label = format_unit(value=2, unit=unit, length=unit_length).replace("2 ", "")
     else:
         # Type ignore: We pass an empty string  as the value so that we just return the unit label
-        unit_label = format_unit(
-            value="", unit=unit, length=unit_length  # type: ignore
-        ).strip()
+        unit_label = format_unit(value="", unit=unit, length=unit_length).strip()  # type: ignore
 
     return unit_label
 
@@ -107,17 +94,9 @@ def format_duration(value: Mapping[str, int]) -> str:
     parts = []
 
     if "years" in value and (value["years"] > 0 or len(value) == 1):
-        parts.append(
-            flask_babel.ngettext("%(num)s year", "%(num)s years", value["years"])
-        )
-    if "months" in value and (
-        value["months"] > 0
-        or len(value) == 1
-        or ("years" in value and value["years"] == 0)
-    ):
-        parts.append(
-            flask_babel.ngettext("%(num)s month", "%(num)s months", value["months"])
-        )
+        parts.append(flask_babel.ngettext("%(num)s year", "%(num)s years", value["years"]))
+    if "months" in value and (value["months"] > 0 or len(value) == 1 or ("years" in value and value["years"] == 0)):
+        parts.append(flask_babel.ngettext("%(num)s month", "%(num)s months", value["months"]))
     return " ".join(parts)
 
 
@@ -156,9 +135,7 @@ def format_datetime(context: nodes.EvalContext, date_time: datetime) -> str | Ma
     formatted_date = flask_babel.format_date(date_time, format="d MMMM yyyy")
     formatted_time = flask_babel.format_time(date_time, format="HH:mm")
 
-    date = flask_babel.gettext(
-        "%(date)s at %(time)s", date=formatted_date, time=formatted_time
-    )
+    date = flask_babel.gettext("%(date)s at %(time)s", date=formatted_date, time=formatted_time)
 
     result = f"<span class='date'>{date}</span>"
 
@@ -200,9 +177,7 @@ def setAttribute(dictionary: dict[str, str], key: str, value: str) -> dict[str, 
 
 
 @blueprint.app_template_filter()
-def setAttributes(
-    dictionary: dict[str, str], attributes: dict[str, str]
-) -> dict[str, str]:
+def setAttributes(dictionary: dict[str, str], attributes: dict[str, str]) -> dict[str, str]:
     for key in attributes:
         dictionary[key] = attributes[key]
     return dictionary
@@ -240,9 +215,7 @@ def should_wrap_with_fieldset_processor() -> dict[str, Callable]:
     return {"should_wrap_with_fieldset": should_wrap_with_fieldset}
 
 
-def get_min_max_value_width(
-    min_max: Literal["minimum", "maximum"], answer: AnswerType, default_value: int
-) -> int:
+def get_min_max_value_width(min_max: Literal["minimum", "maximum"], answer: AnswerType, default_value: int) -> int:
     """
     This function gets the minimum and maximum value accepted for a question.
     Which then allows us to use that value to set the width of the textbox to suit that min and max.
@@ -337,15 +310,11 @@ class RelationshipRadioConfig(SelectConfig):
             # the 'pre-' prefix is added to the attributes here so that html minification
             # doesn't mess with the attribute contents (the 'pre-' is removed during minification).
             # see https://htmlmin.readthedocs.io/en/latest/quickstart.html
-            attribute_key = (
-                "pre-" if current_app.config["EQ_ENABLE_HTML_MINIFY"] else ""
-            )
+            attribute_key = "pre-" if current_app.config["EQ_ENABLE_HTML_MINIFY"] else ""
 
             self.attributes = {
                 f"{attribute_key}data-title": escape(self._answer_option["title"]),
-                f"{attribute_key}data-playback": escape(
-                    self._answer_option["playback"]
-                ),
+                f"{attribute_key}data-playback": escape(self._answer_option["playback"]),
             }
 
 
@@ -364,10 +333,7 @@ class OtherConfig:
 
         if answer_type == "Dropdown":
             self.otherType = "select"
-            self.options = [
-                DropdownConfig(choice, detail_answer_field)
-                for choice in detail_answer_field.choices
-            ]
+            self.options = [DropdownConfig(choice, detail_answer_field) for choice in detail_answer_field.choices]
         else:
             self.otherType = "input"
             self.value = escape(detail_answer_field._value())
@@ -380,10 +346,7 @@ class OtherConfig:
 def map_select_config(form: FormType, answer: AnswerType) -> list[SelectConfig]:
     options = form["fields"][answer["id"]]
 
-    return [
-        SelectConfig(option, index, answer, form)
-        for index, option in enumerate(options)
-    ]
+    return [SelectConfig(option, index, answer, form) for index, option in enumerate(options)]
 
 
 @blueprint.app_context_processor
@@ -397,9 +360,7 @@ def map_relationships_config(
 ) -> list[RelationshipRadioConfig]:
     options = form["fields"][answer["id"]]
 
-    return [
-        RelationshipRadioConfig(option, i, answer) for i, option in enumerate(options)
-    ]
+    return [RelationshipRadioConfig(option, i, answer) for i, option in enumerate(options)]
 
 
 @blueprint.app_context_processor
@@ -408,9 +369,7 @@ def map_relationships_config_processor() -> dict[str, Callable]:
 
 
 class DropdownConfig:
-    def __init__(
-        self, option: SelectFieldBase._Option, select: SelectFieldBase._Option
-    ) -> None:
+    def __init__(self, option: SelectFieldBase._Option, select: SelectFieldBase._Option) -> None:
         self.value, self.text = option.value, option.label
         self.selected = select.data == self.value
         self.disabled = self.value == "" and select.flags.required
@@ -478,9 +437,7 @@ class SummaryRowItem:
     ) -> None:
         answer_type = answer.get("type", "calculated")
         if (
-            answer_type == "relationship"
-            or is_summary_with_calculation(summary_type)
-            or use_answer_label
+            answer_type == "relationship" or is_summary_with_calculation(summary_type) or use_answer_label
         ) and answer.get("label"):
             self.title = answer["label"]
             self.titleAttributes = {"data-qa": answer["id"] + "-label"}
@@ -500,10 +457,7 @@ class SummaryRowItem:
         elif answer_type == "address":
             self.valueList = [SummaryRowItemValue(get_formatted_address(value))]
         elif answer_type == "checkbox":
-            self.valueList = [
-                SummaryRowItemValue(option["label"], option["detail_answer_value"])
-                for option in value
-            ]
+            self.valueList = [SummaryRowItemValue(option["label"], option["detail_answer_value"]) for option in value]
         elif answer_type == "currency":
             decimal_places = answer.get("decimal_places")
             self.valueList = [
@@ -517,11 +471,7 @@ class SummaryRowItem:
             ]
         elif answer_type in ["date", "monthyeardate", "yeardate"]:
             if question["type"] == "DateRange":
-                self.valueList = [
-                    SummaryRowItemValue(
-                        get_format_date_range(value["from"], value["to"])
-                    )
-                ]
+                self.valueList = [SummaryRowItemValue(get_format_date_range(value["from"], value["to"]))]
             else:
                 self.valueList = [SummaryRowItemValue(get_format_date(value))]
         elif answer_type == "duration":
@@ -536,18 +486,12 @@ class SummaryRowItem:
         elif answer_type == "textarea":
             self.valueList = [SummaryRowItemValue(get_format_multilined_string(value))]
         elif answer_type == "unit":
-            self.valueList = [
-                SummaryRowItemValue(
-                    format_unit(answer["unit"], value, answer["unit_length"])
-                )
-            ]
+            self.valueList = [SummaryRowItemValue(format_unit(answer["unit"], value, answer["unit_length"]))]
         else:
             self.valueList = [SummaryRowItemValue(value)]
 
         if answers_are_editable:
-            self.actions = [
-                SummaryAction(answer, self.title, edit_link_text, item_name)
-            ]
+            self.actions = [SummaryAction(answer, self.title, edit_link_text, item_name)]
 
 
 class SummaryRow:
@@ -694,11 +638,7 @@ def map_list_collector_config(
         remove_link_hidden_text = None
 
         if edit_link_text and editable:
-            url = (
-                f'{list_item.get("edit_link")}{item_anchor}'
-                if item_anchor
-                else list_item.get("edit_link")
-            )
+            url = f'{list_item.get("edit_link")}{item_anchor}' if item_anchor else list_item.get("edit_link")
 
             edit_link = {
                 "text": edit_link_text,
@@ -715,9 +655,7 @@ def map_list_collector_config(
 
         if not list_item.get("primary_person") and remove_link_text and editable:
             if remove_link_aria_label:
-                remove_link_hidden_text = remove_link_aria_label.format(
-                    item_name=item_name
-                )
+                remove_link_hidden_text = remove_link_aria_label.format(item_name=item_name)
 
             actions.append(
                 {
@@ -728,13 +666,7 @@ def map_list_collector_config(
                 }
             )
 
-        icon = (
-            "check"
-            if render_icon
-            and list_item.get("repeating_blocks")
-            and list_item.get("is_complete")
-            else None
-        )
+        icon = "check" if render_icon and list_item.get("repeating_blocks") and list_item.get("is_complete") else None
 
         row_item = {
             "iconType": icon,

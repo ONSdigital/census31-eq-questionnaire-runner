@@ -70,10 +70,7 @@ class Block:
         so the block id, as well as any other ids (e.g. question, answer) need suffixing with list_item_id to ensure the HTML rendered is valid and doesn't
         have duplicate div ids
         """
-        if (
-            self.location.list_item_id
-            and not self.schema.is_block_in_repeating_section(self.id)
-        ):
+        if self.location.list_item_id and not self.schema.is_block_in_repeating_section(self.id):
             for pointer in find_pointers_containing(block, "id"):
                 data = resolve_pointer(block, pointer)
                 data["id"] = f"{data['id']}-{self.location.list_item_id}"

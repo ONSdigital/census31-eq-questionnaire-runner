@@ -41,9 +41,7 @@ def test_convert_answers_v2_to_payload_0_0_1_with_key_error():
 
     questionnaire = make_schema("0.0.1", "section-1", "group-1", "block-1", question)
 
-    full_routing_path = [
-        RoutingPath(block_ids=["block-1"], section_id="section-1", list_item_id=None)
-    ]
+    full_routing_path = [RoutingPath(block_ids=["block-1"], section_id="section-1", list_item_id=None)]
     answer_object = convert_answers_to_payload_0_0_1(
         data_stores=questionnaire_store.data_stores,
         schema=QuestionnaireSchema(questionnaire),
@@ -56,9 +54,7 @@ def test_convert_answers_v2_to_payload_0_0_1_with_key_error():
 def test_answer_with_zero():
     questionnaire_store = get_questionnaire_store()
 
-    questionnaire_store.data_stores.answer_store = AnswerStore(
-        [Answer("GHI", 0).to_dict()]
-    )
+    questionnaire_store.data_stores.answer_store = AnswerStore([Answer("GHI", 0).to_dict()])
 
     question = {
         "id": "question-2",
@@ -68,9 +64,7 @@ def test_answer_with_zero():
 
     questionnaire = make_schema("0.0.1", "section-1", "group-1", "block-1", question)
 
-    full_routing_path = [
-        RoutingPath(block_ids=["block-1"], section_id="section-1", list_item_id=None)
-    ]
+    full_routing_path = [RoutingPath(block_ids=["block-1"], section_id="section-1", list_item_id=None)]
 
     schema = QuestionnaireSchema(questionnaire)
 
@@ -86,9 +80,7 @@ def test_answer_with_zero():
 def test_answer_with_float():
     questionnaire_store = get_questionnaire_store()
 
-    questionnaire_store.data_stores.answer_store = AnswerStore(
-        [Answer("GHI", 10.02).to_dict()]
-    )
+    questionnaire_store.data_stores.answer_store = AnswerStore([Answer("GHI", 10.02).to_dict()])
 
     question = {
         "id": "question-2",
@@ -98,9 +90,7 @@ def test_answer_with_float():
 
     questionnaire = make_schema("0.0.1", "section-1", "group-1", "block-1", question)
 
-    full_routing_path = [
-        RoutingPath(block_ids=["block-1"], section_id="section-1", list_item_id=None)
-    ]
+    full_routing_path = [RoutingPath(block_ids=["block-1"], section_id="section-1", list_item_id=None)]
 
     schema = QuestionnaireSchema(questionnaire)
 
@@ -117,9 +107,7 @@ def test_answer_with_float():
 def test_answer_with_string():
     questionnaire_store = get_questionnaire_store()
 
-    questionnaire_store.data_stores.answer_store = AnswerStore(
-        [Answer("GHI", "String test + !").to_dict()]
-    )
+    questionnaire_store.data_stores.answer_store = AnswerStore([Answer("GHI", "String test + !").to_dict()])
 
     question = {
         "id": "question-2",
@@ -129,9 +117,7 @@ def test_answer_with_string():
 
     questionnaire = make_schema("0.0.1", "section-1", "group-1", "block-1", question)
 
-    full_routing_path = [
-        RoutingPath(block_ids=["block-1"], section_id="section-1", list_item_id=None)
-    ]
+    full_routing_path = [RoutingPath(block_ids=["block-1"], section_id="section-1", list_item_id=None)]
 
     schema = QuestionnaireSchema(questionnaire)
 
@@ -148,9 +134,7 @@ def test_answer_with_string():
 def test_answer_without_qcode():
     questionnaire_store = get_questionnaire_store()
 
-    questionnaire_store.data_stores.answer_store = AnswerStore(
-        [Answer("GHI", "String test + !").to_dict()]
-    )
+    questionnaire_store.data_stores.answer_store = AnswerStore([Answer("GHI", "String test + !").to_dict()])
 
     question = {
         "id": "question-2",
@@ -160,9 +144,7 @@ def test_answer_without_qcode():
 
     questionnaire = make_schema("0.0.1", "section-1", "group-1", "block-1", question)
 
-    full_routing_path = [
-        RoutingPath(block_ids=["block-1"], section_id="section-1", list_item_id=None)
-    ]
+    full_routing_path = [RoutingPath(block_ids=["block-1"], section_id="section-1", list_item_id=None)]
 
     schema = QuestionnaireSchema(questionnaire)
 
@@ -215,9 +197,7 @@ def test_converter_checkboxes_with_q_codes():
         ],
     }
 
-    questionnaire = make_schema(
-        "0.0.1", "section-1", "favourite-food", "crisps", question
-    )
+    questionnaire = make_schema("0.0.1", "section-1", "favourite-food", "crisps", question)
 
     # When
     schema = QuestionnaireSchema(questionnaire)
@@ -241,9 +221,7 @@ def test_converter_checkboxes_with_q_codes():
         ({}, 2),
     ],
 )
-def test_converter_checkboxes_with_q_codes_and_other_value(
-    detail_answer_q_code_field, expected_data_length
-):
+def test_converter_checkboxes_with_q_codes_and_other_value(detail_answer_q_code_field, expected_data_length):
     questionnaire_store = get_questionnaire_store()
 
     full_routing_path = [RoutingPath(block_ids=["crisps"], section_id="food")]
@@ -288,9 +266,7 @@ def test_converter_checkboxes_with_q_codes_and_other_value(
         ],
     }
 
-    questionnaire = make_schema(
-        "0.0.1", "section-1", "favourite-food", "crisps", question
-    )
+    questionnaire = make_schema("0.0.1", "section-1", "favourite-food", "crisps", question)
 
     # When
     schema = QuestionnaireSchema(questionnaire)
@@ -354,9 +330,7 @@ def test_converter_checkboxes_with_missing_detail_answer_value_in_answer_store()
         ],
     }
 
-    questionnaire = make_schema(
-        "0.0.1", "section-1", "favourite-food", "crisps", question
-    )
+    questionnaire = make_schema("0.0.1", "section-1", "favourite-food", "crisps", question)
 
     # When
     schema = QuestionnaireSchema(questionnaire)
@@ -415,9 +389,7 @@ def test_converter_checkboxes_with_missing_q_codes_uses_answer_q_code():
         ],
     }
 
-    questionnaire = make_schema(
-        "0.0.1", "section-1", "favourite-food", "crisps", question
-    )
+    questionnaire = make_schema("0.0.1", "section-1", "favourite-food", "crisps", question)
 
     # When
     schema = QuestionnaireSchema(questionnaire)
@@ -458,9 +430,7 @@ def test_converter_q_codes_for_empty_strings():
         ],
     }
 
-    questionnaire = make_schema(
-        "0.0.1", "section-1", "favourite-food", "crisps", question
-    )
+    questionnaire = make_schema("0.0.1", "section-1", "favourite-food", "crisps", question)
 
     # When
     schema = QuestionnaireSchema(questionnaire)
@@ -479,11 +449,7 @@ def test_converter_q_codes_for_empty_strings():
 def test_radio_answer():
     questionnaire_store = get_questionnaire_store()
 
-    full_routing_path = [
-        RoutingPath(
-            block_ids=["radio-block"], section_id="section-1", list_item_id=None
-        )
-    ]
+    full_routing_path = [RoutingPath(block_ids=["radio-block"], section_id="section-1", list_item_id=None)]
     questionnaire_store.data_stores.answer_store = AnswerStore(
         [
             Answer("radio-answer", "Coffee").to_dict(),
@@ -517,9 +483,7 @@ def test_radio_answer():
             }
         ],
     }
-    questionnaire = make_schema(
-        "0.0.1", "section-1", "radio-block", "radio-block", question
-    )
+    questionnaire = make_schema("0.0.1", "section-1", "radio-block", "radio-block", question)
 
     # When
     schema = QuestionnaireSchema(questionnaire)
@@ -539,14 +503,8 @@ def test_radio_answer():
 def test_number_answer():
     questionnaire_store = get_questionnaire_store()
 
-    full_routing_path = [
-        RoutingPath(
-            block_ids=["number-block"], section_id="section-1", list_item_id=None
-        )
-    ]
-    questionnaire_store.data_stores.answer_store = AnswerStore(
-        [Answer("number-answer", 0.9999).to_dict()]
-    )
+    full_routing_path = [RoutingPath(block_ids=["number-block"], section_id="section-1", list_item_id=None)]
+    questionnaire_store.data_stores.answer_store = AnswerStore([Answer("number-answer", 0.9999).to_dict()])
 
     question = {
         "id": "number-question",
@@ -554,9 +512,7 @@ def test_number_answer():
         "answers": [{"id": "number-answer", "type": "Number", "q_code": "1"}],
     }
 
-    questionnaire = make_schema(
-        "0.0.1", "section-1", "number-block", "number-block", question
-    )
+    questionnaire = make_schema("0.0.1", "section-1", "number-block", "number-block", question)
 
     # When
     schema = QuestionnaireSchema(questionnaire)
@@ -575,14 +531,8 @@ def test_number_answer():
 def test_percentage_answer():
     questionnaire_store = get_questionnaire_store()
 
-    full_routing_path = [
-        RoutingPath(
-            block_ids=["percentage-block"], section_id="section-1", list_item_id=None
-        )
-    ]
-    questionnaire_store.data_stores.answer_store = AnswerStore(
-        [Answer("percentage-answer", 100).to_dict()]
-    )
+    full_routing_path = [RoutingPath(block_ids=["percentage-block"], section_id="section-1", list_item_id=None)]
+    questionnaire_store.data_stores.answer_store = AnswerStore([Answer("percentage-answer", 100).to_dict()])
 
     question = {
         "id": "percentage-question",
@@ -590,9 +540,7 @@ def test_percentage_answer():
         "answers": [{"id": "percentage-answer", "type": "Percentage", "q_code": "1"}],
     }
 
-    questionnaire = make_schema(
-        "0.0.1", "section-1", "percentage-block", "percentage-block", question
-    )
+    questionnaire = make_schema("0.0.1", "section-1", "percentage-block", "percentage-block", question)
 
     # When
     schema = QuestionnaireSchema(questionnaire)
@@ -611,14 +559,8 @@ def test_percentage_answer():
 def test_textarea_answer():
     questionnaire_store = get_questionnaire_store()
 
-    full_routing_path = [
-        RoutingPath(
-            block_ids=["textarea-block"], section_id="section-1", list_item_id=None
-        )
-    ]
-    questionnaire_store.data_stores.answer_store = AnswerStore(
-        [Answer("textarea-answer", "example text.").to_dict()]
-    )
+    full_routing_path = [RoutingPath(block_ids=["textarea-block"], section_id="section-1", list_item_id=None)]
+    questionnaire_store.data_stores.answer_store = AnswerStore([Answer("textarea-answer", "example text.").to_dict()])
 
     question = {
         "id": "textarea-question",
@@ -626,9 +568,7 @@ def test_textarea_answer():
         "answers": [{"id": "textarea-answer", "q_code": "1", "type": "TextArea"}],
     }
 
-    questionnaire = make_schema(
-        "0.0.1", "section-1", "textarea-block", "textarea-block", question
-    )
+    questionnaire = make_schema("0.0.1", "section-1", "textarea-block", "textarea-block", question)
 
     # When
     schema = QuestionnaireSchema(questionnaire)
@@ -647,14 +587,8 @@ def test_textarea_answer():
 def test_currency_answer():
     questionnaire_store = get_questionnaire_store()
 
-    full_routing_path = [
-        RoutingPath(
-            block_ids=["currency-block"], section_id="section-1", list_item_id=None
-        )
-    ]
-    questionnaire_store.data_stores.answer_store = AnswerStore(
-        [Answer("currency-answer", 99.99).to_dict()]
-    )
+    full_routing_path = [RoutingPath(block_ids=["currency-block"], section_id="section-1", list_item_id=None)]
+    questionnaire_store.data_stores.answer_store = AnswerStore([Answer("currency-answer", 99.99).to_dict()])
 
     question = {
         "id": "currency-question",
@@ -662,9 +596,7 @@ def test_currency_answer():
         "answers": [{"id": "currency-answer", "type": "Currency", "q_code": "1"}],
     }
 
-    questionnaire = make_schema(
-        "0.0.1", "section-1", "currency-block", "currency-block", question
-    )
+    questionnaire = make_schema("0.0.1", "section-1", "currency-block", "currency-block", question)
 
     # When
     schema = QuestionnaireSchema(questionnaire)
@@ -683,14 +615,8 @@ def test_currency_answer():
 def test_dropdown_answer():
     questionnaire_store = get_questionnaire_store()
 
-    full_routing_path = [
-        RoutingPath(
-            block_ids=["dropdown-block"], section_id="section-1", list_item_id=None
-        )
-    ]
-    questionnaire_store.data_stores.answer_store = AnswerStore(
-        [Answer("dropdown-answer", "Liverpool").to_dict()]
-    )
+    full_routing_path = [RoutingPath(block_ids=["dropdown-block"], section_id="section-1", list_item_id=None)]
+    questionnaire_store.data_stores.answer_store = AnswerStore([Answer("dropdown-answer", "Liverpool").to_dict()])
 
     question = {
         "id": "dropdown-question",
@@ -709,9 +635,7 @@ def test_dropdown_answer():
         ],
     }
 
-    questionnaire = make_schema(
-        "0.0.1", "section-1", "dropdown-block", "dropdown-block", question
-    )
+    questionnaire = make_schema("0.0.1", "section-1", "dropdown-block", "dropdown-block", question)
 
     # When
     schema = QuestionnaireSchema(questionnaire)
@@ -748,9 +672,7 @@ def test_date_answer():
         ],
     }
 
-    questionnaire = make_schema(
-        "0.0.1", "section-1", "date-block", "date-block", question
-    )
+    questionnaire = make_schema("0.0.1", "section-1", "date-block", "date-block", question)
 
     # When
     schema = QuestionnaireSchema(questionnaire)
@@ -771,9 +693,7 @@ def test_unit_answer():
     questionnaire_store = get_questionnaire_store()
 
     full_routing_path = [RoutingPath(block_ids=["unit-block"], section_id="section-1")]
-    questionnaire_store.data_stores.answer_store = AnswerStore(
-        [Answer("unit-answer", 10).to_dict()]
-    )
+    questionnaire_store.data_stores.answer_store = AnswerStore([Answer("unit-answer", 10).to_dict()])
 
     question = {
         "id": "unit-question",
@@ -781,9 +701,7 @@ def test_unit_answer():
         "answers": [{"id": "unit-answer", "type": "Unit", "q_code": "1"}],
     }
 
-    questionnaire = make_schema(
-        "0.0.1", "section-1", "unit-block", "unit-block", question
-    )
+    questionnaire = make_schema("0.0.1", "section-1", "unit-block", "unit-block", question)
 
     # When
     schema = QuestionnaireSchema(questionnaire)

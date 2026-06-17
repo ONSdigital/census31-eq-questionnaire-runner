@@ -17,9 +17,7 @@ from app.forms import error_messages
 from app.forms.field_handlers import DateHandler, FieldHandler, get_field_handler
 from app.forms.validators import DateRangeCheck, MutuallyExclusiveCheck, SumCheck
 from app.questionnaire import Location, QuestionnaireSchema, QuestionSchemaType
-from app.questionnaire.dependencies import (
-    get_routing_path_block_ids_by_section_for_calculation_summary_dependencies,
-)
+from app.questionnaire.dependencies import get_routing_path_block_ids_by_section_for_calculation_summary_dependencies
 from app.questionnaire.path_finder import PathFinder
 from app.questionnaire.relationship_location import RelationshipLocation
 from app.questionnaire.rules.rule_evaluator import RuleEvaluator
@@ -67,9 +65,7 @@ class QuestionnaireForm(FlaskForm):
 
         super().__init__(**kwargs)
 
-    def validate(
-        self, extra_validators: QuestionnaireExtraValidators | None = None
-    ) -> bool:
+    def validate(self, extra_validators: QuestionnaireExtraValidators | None = None) -> bool:
         """
         Validate this form as usual and check for any form-level validation errors based on question type
         :return: boolean
@@ -85,21 +81,10 @@ class QuestionnaireForm(FlaskForm):
                 valid_date_range_form = self.validate_date_range_question(self.question)
             elif self.question["type"] == "Calculated" and valid_calculated_form:
                 valid_calculated_form = self.validate_calculated_question(self.question)
-            elif (
-                self.question["type"] == "MutuallyExclusive"
-                and valid_mutually_exclusive_form
-                and valid_fields
-            ):
-                valid_mutually_exclusive_form = (
-                    self.validate_mutually_exclusive_question(self.question)
-                )
+            elif self.question["type"] == "MutuallyExclusive" and valid_mutually_exclusive_form and valid_fields:
+                valid_mutually_exclusive_form = self.validate_mutually_exclusive_question(self.question)
 
-        return (
-            valid_fields
-            and valid_date_range_form
-            and valid_calculated_form
-            and valid_mutually_exclusive_form
-        )
+        return valid_fields and valid_date_range_form and valid_calculated_form and valid_mutually_exclusive_form
 
     def validate_date_range_question(self, question: QuestionSchemaType) -> bool:
         date_from = question["answers"][0]
@@ -113,12 +98,8 @@ class QuestionnaireForm(FlaskForm):
                 )
             else:
                 # Check every field on each form has populated data
-                if self.is_date_form_populated(
-                    getattr(self, date_from["id"]), getattr(self, date_to["id"])
-                ):
-                    self.validate_date_range_with_single_date_limits(
-                        question["id"], period_range
-                    )
+                if self.is_date_form_populated(getattr(self, date_from["id"]), getattr(self, date_to["id"])):
+                    self.validate_date_range_with_single_date_limits(question["id"], period_range)
 
         period_from_id = date_from["id"]
         period_to_id = date_to["id"]
@@ -142,9 +123,7 @@ class QuestionnaireForm(FlaskForm):
     def validate_calculated_question(self, question: QuestionSchemaType) -> bool:
         for calculation in question["calculations"]:
             if result := self._get_target_total_and_currency(calculation, question):
-                if self.answers_all_valid(
-                    calculation["answers_to_calculate"]
-                ) and self._validate_calculated_question(
+                if self.answers_all_valid(calculation["answers_to_calculate"]) and self._validate_calculated_question(
                     calculation=calculation,
                     question=question,
                     target_total=result["target_total"],
@@ -158,17 +137,11 @@ class QuestionnaireForm(FlaskForm):
 
         return False
 
-    def validate_mutually_exclusive_question(
-        self, question: QuestionSchemaType
-    ) -> bool:
+    def validate_mutually_exclusive_question(self, question: QuestionSchemaType) -> bool:
         is_mandatory: bool = question["mandatory"]
-        messages = (
-            question["validation"].get("messages") if "validation" in question else None
-        )
+        messages = question["validation"].get("messages") if "validation" in question else None
         answers = (getattr(self, answer["id"]).data for answer in question["answers"])
-        is_only_checkboxes_or_radios = all(
-            answer["type"] in {"Checkbox", "Radio"} for answer in question["answers"]
-        )
+        is_only_checkboxes_or_radios = all(answer["type"] in {"Checkbox", "Radio"} for answer in question["answers"])
         validator = MutuallyExclusiveCheck(
             messages=messages,
             question_title=self.question_title,
@@ -187,9 +160,7 @@ class QuestionnaireForm(FlaskForm):
         calculation: Calculation,
         question: QuestionSchemaType,
     ) -> dict:
-        decimal_places = self.schema.get_decimal_limit(
-            calculation["answers_to_calculate"]
-        )
+        decimal_places = self.schema.get_decimal_limit(calculation["answers_to_calculate"])
         currency = question.get("currency")
 
         if "value" in calculation:
@@ -198,9 +169,7 @@ class QuestionnaireForm(FlaskForm):
             else:
                 target_total = calculation["value"]
         else:
-            target_answer = self.schema.get_answers_by_answer_id(
-                calculation["answer_id"]
-            )[0]
+            target_answer = self.schema.get_answers_by_answer_id(calculation["answer_id"])[0]
             target_total = self.data_stores.answer_store.get_answer(
                 calculation["answer_id"]
             ).value  # type: ignore # expect not None
@@ -230,9 +199,7 @@ class QuestionnaireForm(FlaskForm):
             raise ValueError(exception)
 
     @staticmethod
-    def validate_date_range_with_single_date_limits(
-        question_id: str, period_range: timedelta
-    ) -> None:
+    def validate_date_range_with_single_date_limits(question_id: str, period_range: timedelta) -> None:
         # Exception to be raised if range from answers are smaller than
         # minimum or larger than maximum period_limits
         exception = f"The schema has invalid date answer limits for {question_id}"
@@ -251,9 +218,7 @@ class QuestionnaireForm(FlaskForm):
         period_from = getattr(self, period_from_id)
         period_to = getattr(self, period_to_id)
         period_min, period_max = self._get_period_limits(period_limits)
-        validator = DateRangeCheck(
-            messages=messages, period_min=period_min, period_max=period_max
-        )
+        validator = DateRangeCheck(messages=messages, period_min=period_min, period_max=period_max)
 
         # Check every field on each form has populated data
         if self.is_date_form_populated(period_from, period_to):
@@ -279,17 +244,11 @@ class QuestionnaireForm(FlaskForm):
 
         validator = SumCheck(messages=messages, currency=currency)
 
-        calculation_type = ValueSourceResolver.get_calculation_operator(
-            calculation["calculation_type"]
-        )
+        calculation_type = ValueSourceResolver.get_calculation_operator(calculation["calculation_type"])
 
-        formatted_values = self._get_formatted_calculation_values(
-            calculation["answers_to_calculate"]
-        )
+        formatted_values = self._get_formatted_calculation_values(calculation["answers_to_calculate"])
 
-        calculation_total = self._get_calculation_total(
-            calculation_type, formatted_values
-        )
+        calculation_total = self._get_calculation_total(calculation_type, formatted_values)
 
         # Validate grouped answers meet calculation_type criteria
         try:
@@ -326,17 +285,11 @@ class QuestionnaireForm(FlaskForm):
             location=self.location,
         )
 
-        handler = DateHandler(
-            date_from, value_source_resolver, rule_evaluator, error_messages
-        )
+        handler = DateHandler(date_from, value_source_resolver, rule_evaluator, error_messages)
 
-        min_period_date = handler.get_date_value("minimum") or handler.get_date_value(
-            "maximum"
-        )
+        min_period_date = handler.get_date_value("minimum") or handler.get_date_value("maximum")
         handler.answer_schema = date_to
-        max_period_date = handler.get_date_value("maximum") or handler.get_date_value(
-            "minimum"
-        )
+        max_period_date = handler.get_date_value("maximum") or handler.get_date_value("minimum")
 
         if not min_period_date or not max_period_date:
             raise ValueError(QuestionnaireForm.PERIOD_RANGE_ERROR_MESSAGE)
@@ -355,9 +308,7 @@ class QuestionnaireForm(FlaskForm):
         date_from: Mapping[str, Mapping],
         date_to: Mapping[str, Mapping],
     ) -> bool:
-        return ("minimum" in date_from or "maximum" in date_from) and (
-            "minimum" in date_to or "maximum" in date_to
-        )
+        return ("minimum" in date_from or "maximum" in date_from) and ("minimum" in date_to or "maximum" in date_to)
 
     @staticmethod
     def _get_offset_value(period_object: Mapping[str, int]) -> timedelta:
@@ -382,9 +333,7 @@ class QuestionnaireForm(FlaskForm):
                 maximum = limits["maximum"]
         return minimum, maximum
 
-    def _get_formatted_calculation_values(
-        self, answers_sequence: Sequence[str]
-    ) -> list[str]:
+    def _get_formatted_calculation_values(self, answers_sequence: Sequence[str]) -> list[str]:
         answers_list: list[str] = []
         block_id = self.location.block_id if self.location else None
         if block_id and block_id in self.schema.dynamic_answers_parent_block_ids:
@@ -392,23 +341,16 @@ class QuestionnaireForm(FlaskForm):
             list_item_ids = self.data_stores.list_store[list_name]
             for answer_id in answers_sequence:
                 if self.schema.is_answer_dynamic(answer_id):
-                    answers_list.extend(
-                        f"{answer_id}-{list_item_id}" for list_item_id in list_item_ids
-                    )
+                    answers_list.extend(f"{answer_id}-{list_item_id}" for list_item_id in list_item_ids)
                 else:
                     answers_list.append(answer_id)
         else:
             answers_list = list(answers_sequence)
 
-        return [
-            self.get_data(answer_id).replace(" ", "").replace(",", "")
-            for answer_id in answers_list
-        ]
+        return [self.get_data(answer_id).replace(" ", "").replace(",", "") for answer_id in answers_list]
 
     @staticmethod
-    def _get_calculation_total(
-        calculation_type: Callable, values: Sequence[float | int | Decimal | str]
-    ) -> Decimal:
+    def _get_calculation_total(calculation_type: Callable, values: Sequence[float | int | Decimal | str]) -> Decimal:
         result: Decimal = calculation_type(Decimal(value or 0) for value in values)
         return result
 
@@ -468,15 +410,13 @@ def get_answer_fields(
     block_ids_by_section: dict[SectionKey, tuple[str, ...]] = {}
 
     if location and data_stores.progress_store:
-        block_ids_by_section = (
-            get_routing_path_block_ids_by_section_for_calculation_summary_dependencies(
-                location=location,
-                progress_store=data_stores.progress_store,
-                path_finder=PathFinder(schema=schema, data_stores=data_stores),
-                data=question,
-                ignore_keys=["when"],
-                schema=schema,
-            )
+        block_ids_by_section = get_routing_path_block_ids_by_section_for_calculation_summary_dependencies(
+            location=location,
+            progress_store=data_stores.progress_store,
+            path_finder=PathFinder(schema=schema, data_stores=data_stores),
+            data=question,
+            ignore_keys=["when"],
+            schema=schema,
         )
     block_ids = None
     if block_ids_by_section:
@@ -580,15 +520,11 @@ def _clear_detail_answer_field(
     """
     Clears the detail answer field if the parent option is not selected
     """
-    mutable_form_data = (
-        MultiDict(form_data) if isinstance(form_data, ImmutableMultiDict) else form_data
-    )
+    mutable_form_data = MultiDict(form_data) if isinstance(form_data, ImmutableMultiDict) else form_data
 
     for answer in question_schema.get("answers", []):
         for option in answer.get("options", []):
-            if "detail_answer" in option and option["value"] not in form_data.getlist(
-                answer["id"]
-            ):
+            if "detail_answer" in option and option["value"] not in form_data.getlist(answer["id"]):
                 mutable_form_data[option["detail_answer"]["id"]] = ""
 
     return mutable_form_data

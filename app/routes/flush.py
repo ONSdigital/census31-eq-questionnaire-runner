@@ -73,9 +73,7 @@ def _submit_data(user: User) -> bool:
         # Type ignore: The presence of an answer_store implicitly verifies that there must be metadata populated and thus can safely be used non-optionally.
         metadata: MetadataProxy = questionnaire_store.data_stores.metadata  # type: ignore
         submitted_at = datetime.now(timezone.utc)
-        schema = load_schema_from_metadata(
-            metadata=metadata, language_code=metadata.language_code
-        )
+        schema = load_schema_from_metadata(metadata=metadata, language_code=metadata.language_code)
 
         router = Router(
             schema=schema,

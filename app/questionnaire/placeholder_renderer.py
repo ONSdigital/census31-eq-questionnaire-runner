@@ -6,9 +6,7 @@ from jsonpointer import resolve_pointer, set_pointer
 from app.data_models.answer import AnswerValueTypes
 from app.data_models.data_stores import DataStores
 from app.questionnaire import QuestionnaireSchema
-from app.questionnaire.placeholder_parser import (  # pylint: disable=cyclic-import
-    PlaceholderParser,
-)
+from app.questionnaire.placeholder_parser import PlaceholderParser  # pylint: disable=cyclic-import
 from app.questionnaire.plural_forms import get_plural_form_key
 from app.questionnaire.schema_utils import find_pointers_containing
 from app.utilities.types import LocationType
@@ -48,9 +46,7 @@ class PlaceholderRenderer:
 
         return self.render_placeholder(pointer_data, list_item_id, placeholder_parser)
 
-    def get_plural_count(
-        self, schema_partial: Mapping[str, str]
-    ) -> AnswerValueTypes | None:
+    def get_plural_count(self, schema_partial: Mapping[str, str]) -> AnswerValueTypes | None:
         source = schema_partial["source"]
         source_id = schema_partial["identifier"]
 
@@ -60,11 +56,7 @@ class PlaceholderRenderer:
         if source == "list":
             return len(self._data_stores.list_store[source_id])
 
-        return (
-            self._data_stores.metadata[source_id]
-            if self._data_stores.metadata
-            else None
-        )
+        return self._data_stores.metadata[source_id] if self._data_stores.metadata else None
 
     def render_placeholder(
         self,
@@ -89,9 +81,7 @@ class PlaceholderRenderer:
             plural_schema: Mapping[str, dict] = placeholder_data["text_plural"]
             # Type ignore: For a valid schema the plural count will return an integer
             count: int = (
-                0  # type: ignore
-                if self._placeholder_preview_mode
-                else self.get_plural_count(plural_schema["count"])
+                0 if self._placeholder_preview_mode else self.get_plural_count(plural_schema["count"])  # type: ignore
             )
 
             plural_form_key = get_plural_form_key(count, self._language)
@@ -102,9 +92,7 @@ class PlaceholderRenderer:
             raise ValueError(self.PLACEHOLDER_ERROR_MESSAGE)
 
         transformed_values = placeholder_parser(placeholder_data["placeholders"])
-        formatted_placeholder_data: str = placeholder_data["text"].format(
-            **transformed_values
-        )
+        formatted_placeholder_data: str = placeholder_data["text"].format(**transformed_values)
 
         return formatted_placeholder_data
 
@@ -117,9 +105,7 @@ class PlaceholderRenderer:
         """
         Transform the current schema json to a fully rendered dictionary
         """
-        data_to_render_mutable: dict = QuestionnaireSchema.get_mutable_deepcopy(
-            data_to_render
-        )
+        data_to_render_mutable: dict = QuestionnaireSchema.get_mutable_deepcopy(data_to_render)
 
         self._handle_and_resolve_dynamic_answers(data_to_render_mutable)
 

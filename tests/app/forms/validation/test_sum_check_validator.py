@@ -21,17 +21,13 @@ from app.forms.validators import SumCheck, format_playback_value
     ),
 )
 @pytest.mark.usefixtures("gb_locale")
-def test_sum_check_invalid_raises_ValidationError(
-    conditions, calculation_total, target_total, error_type, mock_form
-):
+def test_sum_check_invalid_raises_ValidationError(conditions, calculation_total, target_total, error_type, mock_form):
     validator = SumCheck()
 
     with pytest.raises(ValidationError) as exc:
         validator(mock_form, conditions, calculation_total, target_total)
 
-    assert error_messages[error_type] % {
-        "total": format_playback_value(target_total)
-    } == str(exc.value)
+    assert error_messages[error_type] % {"total": format_playback_value(target_total)} == str(exc.value)
 
 
 @pytest.mark.usefixtures("gb_locale")
@@ -46,9 +42,7 @@ def test_currency_playback(mock_form):
         validator(mock_form, conditions, calculation_total, target_total)
 
     assert error_messages["TOTAL_SUM_NOT_EQUALS"] % {
-        "total": format_playback_value(
-            value=target_total, currency="EUR", decimal_limit=1
-        ),
+        "total": format_playback_value(value=target_total, currency="EUR", decimal_limit=1),
     } == str(exc.value)
 
 
@@ -78,10 +72,7 @@ def test_invalid_multiple_conditions(mock_form):
     with pytest.raises(Exception) as exc:
         validator(mock_form, conditions, calculation_total, target_total)
 
-    assert (
-        "There are multiple conditions, but equals is not one of them. We only support <= and >="
-        == str(exc.value)
-    )
+    assert "There are multiple conditions, but equals is not one of them. We only support <= and >=" == str(exc.value)
 
 
 # pylint: disable=protected-access

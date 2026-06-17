@@ -3,11 +3,7 @@ from typing import Mapping
 
 from app.questionnaire.rules.operator import Operator
 from app.questionnaire.rules.rule_evaluator import RuleEvaluator, RuleEvaluatorTypes
-from app.questionnaire.value_source_resolver import (
-    ValueSourceEscapedTypes,
-    ValueSourceResolver,
-    ValueSourceTypes,
-)
+from app.questionnaire.value_source_resolver import ValueSourceEscapedTypes, ValueSourceResolver, ValueSourceTypes
 
 
 @dataclass

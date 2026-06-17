@@ -3,9 +3,7 @@ from time import sleep
 from freezegun import freeze_time
 
 from app import settings
-from tests.integration.routes.test_view_submitted_response import (
-    ViewSubmittedResponseBase,
-)
+from tests.integration.routes.test_view_submitted_response import ViewSubmittedResponseBase
 
 
 class TestViewSubmissionResponsePDF(ViewSubmittedResponseBase):

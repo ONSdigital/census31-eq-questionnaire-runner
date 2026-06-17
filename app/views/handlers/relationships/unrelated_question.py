@@ -49,9 +49,7 @@ class UnrelatedQuestion(RelationshipQuestion):
         if answer_action := self._get_answer_action():
             self.handle_answer_action(answer_action["type"])
 
-        self.questionnaire_store_updater.update_answers(
-            self.form.data, list_item_id=self.current_location.list_item_id
-        )
+        self.questionnaire_store_updater.update_answers(self.form.data, list_item_id=self.current_location.list_item_id)
         self.questionnaire_store_updater.save()
 
     def handle_answer_action(self, answer_action_type: str) -> None:
@@ -65,12 +63,9 @@ class UnrelatedQuestion(RelationshipQuestion):
                     to_list_item_id,
                 )
                 if relationship and (
-                    relationship.relationship
-                    == self.relationship_router.UNRELATED_RELATIONSHIP_VALUE
+                    relationship.relationship == self.relationship_router.UNRELATED_RELATIONSHIP_VALUE
                 ):
-                    self.relationship_store.remove_relationship(
-                        from_list_item_id, to_list_item_id  # type: ignore
-                    )
+                    self.relationship_store.remove_relationship(from_list_item_id, to_list_item_id)  # type: ignore
 
         elif answer_action_type == "AddUnrelatedRelationships":
             for to_list_item_id in self.get_remaining_relationships_for_individual():

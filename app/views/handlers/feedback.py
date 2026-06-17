@@ -14,10 +14,7 @@ from app.data_models.session_data import SessionData
 from app.data_models.session_store import SessionStore
 from app.forms.questionnaire_form import QuestionnaireForm, generate_form
 from app.keys import KEY_PURPOSE_SUBMISSION
-from app.questionnaire.questionnaire_schema import (
-    DEFAULT_LANGUAGE_CODE,
-    QuestionnaireSchema,
-)
+from app.questionnaire.questionnaire_schema import DEFAULT_LANGUAGE_CODE, QuestionnaireSchema
 from app.submitter import GCSFeedbackSubmitter, LogFeedbackSubmitter, converter_v2
 from app.views.contexts.feedback_form_context import build_feedback_context
 from app.views.handlers.submission import get_receipting_metadata
@@ -70,9 +67,7 @@ class Feedback:
 
     def get_page_title(self) -> str:
         if self.form.errors:
-            title: str = gettext("Error: {page_title}").format(
-                page_title=self.PAGE_TITLE
-            )
+            title: str = gettext("Error: {page_title}").format(page_title=self.PAGE_TITLE)
             return title
         return self.PAGE_TITLE
 
@@ -104,9 +99,7 @@ class Feedback:
 
         additional_metadata = get_receipting_metadata(metadata)
 
-        feedback_metadata = FeedbackMetadata(
-            tx_id=tx_id, case_id=case_id, **additional_metadata
-        )
+        feedback_metadata = FeedbackMetadata(tx_id=tx_id, case_id=case_id, **additional_metadata)
 
         submitter: GCSFeedbackSubmitter | LogFeedbackSubmitter = current_app.eq["feedback_submitter"]  # type: ignore
         if not submitter.upload(feedback_metadata(), encrypted_message):
@@ -139,21 +132,11 @@ class Feedback:
                             "value": lazy_gettext("Page design and structure"),
                         },
                         {
-                            "label": lazy_gettext(
-                                "General feedback about this service"
-                            ),
-                            "value": lazy_gettext(
-                                "General feedback about this service"
-                            ),
+                            "label": lazy_gettext("General feedback about this service"),
+                            "value": lazy_gettext("General feedback about this service"),
                         },
                     ],
-                    "validation": {
-                        "messages": {
-                            "MANDATORY_RADIO": lazy_gettext(
-                                "Select what your feedback is about"
-                            )
-                        }
-                    },
+                    "validation": {"messages": {"MANDATORY_RADIO": lazy_gettext("Select what your feedback is about")}},
                 },
                 {
                     "id": "feedback-text",
@@ -165,11 +148,7 @@ class Feedback:
                     "mandatory": True,
                     "type": "TextArea",
                     "max_length": 1000,
-                    "validation": {
-                        "messages": {
-                            "MANDATORY_TEXTAREA": lazy_gettext("Enter your feedback")
-                        }
-                    },
+                    "validation": {"messages": {"MANDATORY_TEXTAREA": lazy_gettext("Enter your feedback")}},
                 },
             ],
         }
@@ -246,11 +225,8 @@ class FeedbackPayloadV2:
             "origin": "uk.gov.ons.edc.eq",
             "flushed": False,
             "submitted_at": datetime.now(tz=timezone.utc).isoformat(),
-            "launch_language_code": self.metadata.language_code
-            or DEFAULT_LANGUAGE_CODE,
-            "submission_language_code": (
-                self.submission_language_code or DEFAULT_LANGUAGE_CODE
-            ),
+            "launch_language_code": self.metadata.language_code or DEFAULT_LANGUAGE_CODE,
+            "submission_language_code": (self.submission_language_code or DEFAULT_LANGUAGE_CODE),
             "collection_exercise_sid": self.metadata.collection_exercise_sid,
             "schema_name": self.metadata.schema_name,
             "case_id": self.case_id,
@@ -260,9 +236,7 @@ class FeedbackPayloadV2:
         if self.metadata.survey_metadata:
             payload["survey_metadata"] |= self.metadata.survey_metadata.data
 
-        optional_properties = converter_v2.get_optional_payload_properties(
-            self.metadata, self.response_metadata
-        )
+        optional_properties = converter_v2.get_optional_payload_properties(self.metadata, self.response_metadata)
 
         payload["data"] = {
             "feedback_text": self.feedback_text,

@@ -3,9 +3,7 @@ from typing import Iterable, Mapping
 from werkzeug.datastructures import ImmutableDict
 
 from app.questionnaire.location import SectionKey
-from app.questionnaire.questionnaire_schema import (
-    get_calculated_summary_ids_for_grand_calculated_summary,
-)
+from app.questionnaire.questionnaire_schema import get_calculated_summary_ids_for_grand_calculated_summary
 from app.questionnaire.return_location import ReturnLocation
 from app.views.contexts.calculated_summary_context import CalculatedSummaryContext
 from app.views.contexts.summary.group import Group
@@ -21,38 +19,24 @@ class GrandCalculatedSummaryContext(CalculatedSummaryContext):
             self.current_location.block_id  # type: ignore
         )
 
-        calculated_summary_ids = (
-            get_calculated_summary_ids_for_grand_calculated_summary(self.rendered_block)
-        )
-        blocks_to_calculate = [
-            self._schema.get_block(block_id) for block_id in calculated_summary_ids
-        ]
+        calculated_summary_ids = get_calculated_summary_ids_for_grand_calculated_summary(self.rendered_block)
+        blocks_to_calculate = [self._schema.get_block(block_id) for block_id in calculated_summary_ids]
 
         return {
             "id": self.current_location.section_id,
-            "groups": [
-                {"id": calculated_summary_group["id"], "blocks": blocks_to_calculate}
-            ],
+            "groups": [{"id": calculated_summary_group["id"], "blocks": blocks_to_calculate}],
         }
 
-    def _blocks_on_routing_path(
-        self, calculated_summary_ids: Iterable[str]
-    ) -> list[str]:
+    def _blocks_on_routing_path(self, calculated_summary_ids: Iterable[str]) -> list[str]:
         """
         Find all blocks on the routing path for each of the calculated summaries
         """
         # Type ignore: each block must have a section id
         section_ids: set[str] = {
-            self._schema.get_section_id_for_block_id(block_id)  # type: ignore
-            for block_id in calculated_summary_ids
+            self._schema.get_section_id_for_block_id(block_id) for block_id in calculated_summary_ids  # type: ignore
         }
         # find any sections involved in the grand calculated summary (but only if they have started, to avoid evaluating the path if not necessary)
-        started_sections = [
-            key
-            for key, _ in self._data_stores.progress_store.started_section_keys(
-                section_ids
-            )
-        ]
+        started_sections = [key for key, _ in self._data_stores.progress_store.started_section_keys(section_ids)]
         routing_path_block_ids: list[str] = []
 
         for section_id in started_sections:
@@ -95,9 +79,7 @@ class GrandCalculatedSummaryContext(CalculatedSummaryContext):
         Build summary section with formatted total and change links for each calculated summary
         """
         calculation = self.rendered_block["calculation"]
-        calculated_summary_ids = (
-            get_calculated_summary_ids_for_grand_calculated_summary(self.rendered_block)
-        )
+        calculated_summary_ids = get_calculated_summary_ids_for_grand_calculated_summary(self.rendered_block)
         routing_path_block_ids = self._blocks_on_routing_path(calculated_summary_ids)
 
         calculated_section = self._build_grand_calculated_summary_section()
@@ -112,13 +94,9 @@ class GrandCalculatedSummaryContext(CalculatedSummaryContext):
         )
 
         # validator ensures all calculated summaries are of the same type, so the first can be used for the format
-        answer_format = self._schema.get_answer_format_for_calculated_summary(
-            calculated_summary_ids[0]
-        )
-        answer_format["decimal_places"] = (
-            self._schema.get_decimal_limit_from_calculated_summaries(
-                calculated_summary_ids
-            )
+        answer_format = self._schema.get_answer_format_for_calculated_summary(calculated_summary_ids[0])
+        answer_format["decimal_places"] = self._schema.get_decimal_limit_from_calculated_summaries(
+            calculated_summary_ids
         )
         formatted_total = self._format_total(answer_format=answer_format, total=total)
 

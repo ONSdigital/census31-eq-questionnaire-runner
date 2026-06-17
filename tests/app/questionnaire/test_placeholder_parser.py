@@ -72,9 +72,7 @@ def test_previous_answer_transform_placeholder(mock_renderer, mock_location):
 
     retail_turnover = "1000"
 
-    answer_store = AnswerStore(
-        [{"answer_id": "total-retail-turnover-answer", "value": retail_turnover}]
-    )
+    answer_store = AnswerStore([{"answer_id": "total-retail-turnover-answer", "value": retail_turnover}])
 
     parser = PlaceholderParser(
         language="en",
@@ -121,9 +119,7 @@ def test_metadata_transform_placeholder(mock_renderer, mock_schema, mock_locatio
     assert placeholders["start_date"] == "Monday 11 February 2019"
 
 
-def test_response_metadata_transform_placeholder(
-    mock_renderer, mock_schema, mock_location
-):
+def test_response_metadata_transform_placeholder(mock_renderer, mock_schema, mock_location):
     # This test should use ISO format dates when they become supported
     placeholder_list = [
         {
@@ -158,9 +154,7 @@ def test_response_metadata_transform_placeholder(
     assert placeholders["start_date"] == "Monday 11 February 2019"
 
 
-def test_multiple_answer_transform_placeholder(
-    mock_renderer, mock_schema, mock_location
-):
+def test_multiple_answer_transform_placeholder(mock_renderer, mock_schema, mock_location):
     placeholder_list = [
         {
             "placeholder": "persons_name",
@@ -199,9 +193,7 @@ def test_multiple_answer_transform_placeholder(
     assert placeholders["persons_name"] == "Joe Bloggs"
 
 
-def test_first_non_empty_item_transform_placeholder(
-    mock_renderer, mock_schema, mock_location
-):
+def test_first_non_empty_item_transform_placeholder(mock_renderer, mock_schema, mock_location):
     placeholder_list = [
         {
             "placeholder": "company_name",
@@ -234,9 +226,7 @@ def test_first_non_empty_item_transform_placeholder(
     assert placeholders["company_name"] == "ru_name"
 
 
-def test_format_list_answer_transform_placeholder(
-    mock_renderer, mock_schema, mock_location
-):
+def test_format_list_answer_transform_placeholder(mock_renderer, mock_schema, mock_location):
     placeholder_list = [
         {
             "placeholder": "toppings",
@@ -254,9 +244,7 @@ def test_format_list_answer_transform_placeholder(
         }
     ]
 
-    answer_store = AnswerStore(
-        [{"answer_id": "checkbox-answer", "value": ["Ham", "Cheese"]}]
-    )
+    answer_store = AnswerStore([{"answer_id": "checkbox-answer", "value": ["Ham", "Cheese"]}])
 
     parser = PlaceholderParser(
         language="en",
@@ -314,9 +302,7 @@ def test_placeholder_parser_escapes_answers(mock_renderer, mock_schema, mock_loc
     )
 
 
-def test_multiple_metadata_transform_placeholder(
-    mock_renderer, mock_schema, mock_location
-):
+def test_multiple_metadata_transform_placeholder(mock_renderer, mock_schema, mock_location):
     placeholder_list = [
         {
             "placeholder": "start_date",
@@ -357,9 +343,7 @@ def test_multiple_metadata_transform_placeholder(
     assert placeholders["start_date"] == "11/02/2019"
 
 
-def test_multiple_metadata_list_transform_placeholder(
-    mock_renderer, mock_schema, mock_location
-):
+def test_multiple_metadata_list_transform_placeholder(mock_renderer, mock_schema, mock_location):
     placeholder_list = [
         {
             "placeholder": "dates",
@@ -405,9 +389,7 @@ def test_checkbox_transform_placeholder(mock_renderer, mock_schema, mock_locatio
                 {
                     "transform": "concatenate_list",
                     "arguments": {
-                        "list_to_concatenate": [
-                            {"source": "answers", "identifier": "checkbox-answer"}
-                        ],
+                        "list_to_concatenate": [{"source": "answers", "identifier": "checkbox-answer"}],
                         "delimiter": ", ",
                     },
                 }
@@ -456,9 +438,7 @@ def test_mixed_transform_placeholder(mock_renderer, mock_schema, mock_location):
         }
     ]
 
-    answer_store = AnswerStore(
-        [{"answer_id": "date-of-birth-answer", "value": "1999-01-01"}]
-    )
+    answer_store = AnswerStore([{"answer_id": "date-of-birth-answer", "value": "1999-01-01"}])
     metadata = get_metadata(extra_metadata={"second-date": "2019-02-02"})
 
     parser = PlaceholderParser(
@@ -492,9 +472,7 @@ def test_mixed_transform_placeholder_value(mock_renderer, mock_schema, mock_loca
         }
     ]
 
-    answer_store = AnswerStore(
-        [{"answer_id": "date-of-birth-answer", "value": "1999-01-01"}]
-    )
+    answer_store = AnswerStore([{"answer_id": "date-of-birth-answer", "value": "1999-01-01"}])
 
     parser = PlaceholderParser(
         language="en",
@@ -609,9 +587,7 @@ def test_chain_transform_placeholder(mock_renderer, mock_schema, mock_location):
     assert placeholders["persons_name"] == "Joe Bloggs’"
 
 
-def test_placeholder_resolves_answer_value_based_on_first_item_in_list(
-    mock_renderer, mock_schema, mock_location
-):
+def test_placeholder_resolves_answer_value_based_on_first_item_in_list(mock_renderer, mock_schema, mock_location):
     placeholder_list = [
         {
             "placeholder": "answer",
@@ -651,9 +627,7 @@ def test_placeholder_resolves_answer_value_based_on_first_item_in_list(
     assert str(placeholders["answer"]) == "Coffee"
 
 
-def test_placeholder_resolves_list_item_value_based_on_first_item_in_list(
-    mock_renderer, mock_schema, mock_location
-):
+def test_placeholder_resolves_list_item_value_based_on_first_item_in_list(mock_renderer, mock_schema, mock_location):
     placeholder_list = [
         {
             "placeholder": "first_person_list_item_id",
@@ -680,9 +654,7 @@ def test_placeholder_resolves_list_item_value_based_on_first_item_in_list(
     assert str(placeholders["first_person_list_item_id"]) == list_store["people"].first
 
 
-def test_placeholder_resolves_same_name_items(
-    mock_renderer, mock_schema, mock_location
-):
+def test_placeholder_resolves_same_name_items(mock_renderer, mock_schema, mock_location):
     list_store = ListStore(
         [
             {
@@ -717,9 +689,7 @@ def test_placeholder_resolves_same_name_items(
     assert placeholders["answer"] == ["abc123", "fgh789"]
 
 
-def test_placeholder_resolves_name_is_duplicate_chain(
-    mock_schema, mock_renderer, mock_location
-):
+def test_placeholder_resolves_name_is_duplicate_chain(mock_schema, mock_renderer, mock_location):
     list_store = ListStore(
         [
             {
@@ -832,9 +802,7 @@ def test_placeholder_resolves_name_is_duplicate_chain(
     assert placeholders["persons_name"] == "Marie Smith"
 
 
-def test_placeholder_resolves_list_has_items_chain(
-    mock_schema, mock_renderer, mock_location
-):
+def test_placeholder_resolves_list_has_items_chain(mock_schema, mock_renderer, mock_location):
     list_store = ListStore(
         [
             {
@@ -950,9 +918,7 @@ def test_placeholder_default_value(default_placeholder_value_schema, mock_render
             "transforms": [
                 {
                     "transform": "format_number",
-                    "arguments": {
-                        "number": {"source": "answers", "identifier": "employees-no"}
-                    },
+                    "arguments": {"number": {"source": "answers", "identifier": "employees-no"}},
                 }
             ],
         }
@@ -972,9 +938,7 @@ def test_placeholder_default_value(default_placeholder_value_schema, mock_render
     assert placeholders["answer_employee"] == "0"
 
 
-def test_placeholder_parser_calculated_summary_dependencies_cache(
-    mocker, mock_renderer
-):
+def test_placeholder_parser_calculated_summary_dependencies_cache(mocker, mock_renderer):
     """
     Tests Calculated Summaries fetches the dependencies using the routing path cache
     Mocker patch the routing_path function in the Path Finder class to check the number of calls
@@ -1041,9 +1005,7 @@ def test_placeholder_parser_calculated_summary_dependencies_cache(
 
     placeholder_parser = PlaceholderParser(
         language="en",
-        data_stores=DataStores(
-            answer_store=answer_store, progress_store=progress_store
-        ),
+        data_stores=DataStores(answer_store=answer_store, progress_store=progress_store),
         schema=schema,
         renderer=mock_renderer,
         location=location,

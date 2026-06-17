@@ -49,26 +49,18 @@ class TestQuestionnaireCalculatedSummary(QuestionnaireTestCase):
         self.launchSurveyV2(schema_name="test_calculated_summary")
         self._complete_calculated_summary_path_with_skip()
 
-        self.assertInBody(
-            "We calculate the total of currency values entered to be £80.00"
-        )
-        self.assertEqual(
-            "Yes, I confirm this is correct", self.getSubmitButton().text.strip()
-        )
+        self.assertInBody("We calculate the total of currency values entered to be £80.00")
+        self.assertEqual("Yes, I confirm this is correct", self.getSubmitButton().text.strip())
 
     def test_calculated_summary_no_skip(self):
         self.launchSurveyV2(schema_name="test_calculated_summary")
         self._complete_calculated_summary_path_no_skip()
-        self.assertInBody(
-            "We calculate the total of currency values entered to be £180.00"
-        )
+        self.assertInBody("We calculate the total of currency values entered to be £180.00")
 
     def test_new_calculated_summary(self):
         self.launchSurveyV2(schema_name="test_new_calculated_summary")
         self._complete_calculated_summary_path_with_skip()
-        self.assertInBody(
-            "We calculate the total of currency values entered to be £80.00"
-        )
+        self.assertInBody("We calculate the total of currency values entered to be £80.00")
 
     def test_calculated_summary_total_playback(self):
         self.launchSurveyV2(schema_name="test_new_calculated_summary")
@@ -82,9 +74,7 @@ class TestQuestionnaireCalculatedSummary(QuestionnaireTestCase):
     def test_new_calculated_summary_no_skip(self):
         self.launchSurveyV2(schema_name="test_new_calculated_summary")
         self._complete_calculated_summary_path_no_skip()
-        self.assertInBody(
-            "We calculate the total of currency values entered to be £180.00"
-        )
+        self.assertInBody("We calculate the total of currency values entered to be £180.00")
 
     def test_new_calculated_summary_repeating_section(self):
         self.launchSurveyV2(schema_name="test_new_calculated_summary_repeating_section")
@@ -92,9 +82,7 @@ class TestQuestionnaireCalculatedSummary(QuestionnaireTestCase):
         self.post()
 
         self._complete_calculated_summary_path_with_skip()
-        self.assertInBody(
-            "We calculate the total of currency values entered to be £80.00"
-        )
+        self.assertInBody("We calculate the total of currency values entered to be £80.00")
 
     def test_new_calculated_summary_no_skip_repeating_section(self):
         self.launchSurveyV2(schema_name="test_new_calculated_summary_repeating_section")
@@ -102,14 +90,10 @@ class TestQuestionnaireCalculatedSummary(QuestionnaireTestCase):
         self.post()
 
         self._complete_calculated_summary_path_no_skip()
-        self.assertInBody(
-            "We calculate the total of currency values entered to be £180.00"
-        )
+        self.assertInBody("We calculate the total of currency values entered to be £180.00")
 
     def test_calculated_summary_value_sources_across_sections(self):
-        self.launchSurveyV2(
-            schema_name="test_calculated_summary_cross_section_dependencies"
-        )
+        self.launchSurveyV2(schema_name="test_calculated_summary_cross_section_dependencies")
 
         # Complete the first section
         self.post()
@@ -117,9 +101,7 @@ class TestQuestionnaireCalculatedSummary(QuestionnaireTestCase):
         self.post({"first-number-answer": "10"})
         self.post({"first-and-a-half-number-answer-also-in-total": "20"})
         self.post({"second-number-answer-also-in-total": "30"})
-        self.assertInBody(
-            "We calculate the total of currency values entered to be £60.00"
-        )
+        self.assertInBody("We calculate the total of currency values entered to be £60.00")
         self.post()
         self.post()
         self.post()
@@ -131,9 +113,7 @@ class TestQuestionnaireCalculatedSummary(QuestionnaireTestCase):
                 "third-number-answer-also-in-total": "20",
             }
         )
-        self.assertInBody(
-            "We calculate the total of currency values entered to be £40.00"
-        )
+        self.assertInBody("We calculate the total of currency values entered to be £40.00")
 
         # Check calculated summary value sources are displayed correctly for both the current and previous
         # sections
@@ -142,9 +122,7 @@ class TestQuestionnaireCalculatedSummary(QuestionnaireTestCase):
         self.assertInBody("40 - calculated summary answer (current section)")
         self.post()
 
-        self.assertInBody(
-            "Set minimum and maximum values based on your calculated summary total of £60"
-        )
+        self.assertInBody("Set minimum and maximum values based on your calculated summary total of £60")
         self.post(
             {
                 "set-minimum-answer": "40",
@@ -154,9 +132,7 @@ class TestQuestionnaireCalculatedSummary(QuestionnaireTestCase):
         self.assertInBody("Enter an answer more than or equal to £60.00")
 
     def test_calculated_summary_value_sources_across_sections_repeating(self):
-        self.launchSurveyV2(
-            schema_name="test_new_calculated_summary_cross_section_dependencies_repeating"
-        )
+        self.launchSurveyV2(schema_name="test_new_calculated_summary_cross_section_dependencies_repeating")
 
         # Add  household members
         self._add_list_items()
@@ -166,9 +142,7 @@ class TestQuestionnaireCalculatedSummary(QuestionnaireTestCase):
         self.post({"first-number-answer": "10"})
         self.post({"first-and-a-half-number-answer-also-in-total": "20"})
         self.post({"second-number-answer-also-in-total": "30"})
-        self.assertInBody(
-            "We calculate the total of currency values entered to be £60.00"
-        )
+        self.assertInBody("We calculate the total of currency values entered to be £60.00")
         self.post()
         self.post()
         self.post()
@@ -180,9 +154,7 @@ class TestQuestionnaireCalculatedSummary(QuestionnaireTestCase):
                 "third-number-answer-also-in-total": "20",
             }
         )
-        self.assertInBody(
-            "We calculate the total of currency values entered to be £40.00"
-        )
+        self.assertInBody("We calculate the total of currency values entered to be £40.00")
 
         # Check calculated summary value sources are displayed correctly for both the current and previous
         # sections
@@ -191,9 +163,7 @@ class TestQuestionnaireCalculatedSummary(QuestionnaireTestCase):
         self.assertInBody("40 - calculated summary answer (current section)")
         self.post()
 
-        self.assertInBody(
-            "Set minimum and maximum values based on your calculated summary total of £60"
-        )
+        self.assertInBody("Set minimum and maximum values based on your calculated summary total of £60")
         self.post(
             {
                 "set-minimum-answer": "40",
@@ -206,9 +176,7 @@ class TestQuestionnaireCalculatedSummary(QuestionnaireTestCase):
         """
         Tests a calculated summary with a dynamic answer source resolving to a list of repeating answers
         """
-        self.launchSurveyV2(
-            schema_name="test_new_calculated_summary_repeating_answers_only"
-        )
+        self.launchSurveyV2(schema_name="test_new_calculated_summary_repeating_answers_only")
 
         self.post({"any-transport-answer": "Yes"})
         self.post({"transport-name": "Bus"})
@@ -226,9 +194,7 @@ class TestQuestionnaireCalculatedSummary(QuestionnaireTestCase):
                 f"cost-of-transport-{list_item_ids[1]}": "200",
             }
         )
-        self.assertInBody(
-            "We calculate the total monthly spending on public transport to be £300.00. Is this correct?"
-        )
+        self.assertInBody("We calculate the total monthly spending on public transport to be £300.00. Is this correct?")
 
     def test_new_calculated_summary_repeating_blocks(self):
         """
@@ -259,24 +225,16 @@ class TestQuestionnaireCalculatedSummary(QuestionnaireTestCase):
         self.post({"transport-count": "2"})
         list_item_ids = self.get_list_item_ids()
         self.post({"list-collector-answer": "No"})
-        self.assertInBody(
-            "We calculate the total monthly expenditure on transport to be £400.00. Is this correct?"
-        )
+        self.assertInBody("We calculate the total monthly expenditure on transport to be £400.00. Is this correct?")
         self.post()
-        self.assertInBody(
-            "We calculate the total journeys made per month to be 12. Is this correct?"
-        )
+        self.assertInBody("We calculate the total journeys made per month to be 12. Is this correct?")
 
         # check that using a change link and editing an answer takes you straight back to the relevant calculated summary
-        change_link = self.get_list_item_change_link(
-            "transport-count", list_item_ids[1]
-        )
+        change_link = self.get_list_item_change_link("transport-count", list_item_ids[1])
         self.get(change_link)
         self.post({"transport-count": "4"})
         self.assertInUrl("/calculated-summary-count/")
-        self.assertInBody(
-            "We calculate the total journeys made per month to be 14. Is this correct?"
-        )
+        self.assertInBody("We calculate the total journeys made per month to be 14. Is this correct?")
         self.previous()
 
         # likewise for the other calculated summary
@@ -290,9 +248,7 @@ class TestQuestionnaireCalculatedSummary(QuestionnaireTestCase):
             }
         )
         self.assertInUrl("/calculated-summary-spending/")
-        self.assertInBody(
-            "We calculate the total monthly expenditure on transport to be £715.00. Is this correct?"
-        )
+        self.assertInBody("We calculate the total monthly expenditure on transport to be £715.00. Is this correct?")
 
         # check that removing the list collector from the path updates the calculated summary correctly
         self.previous()
@@ -301,9 +257,7 @@ class TestQuestionnaireCalculatedSummary(QuestionnaireTestCase):
 
         # calculated summary count should now not be on the path
         self.assertInUrl("/calculated-summary-spending/")
-        self.assertInBody(
-            "We calculate the total monthly expenditure on transport to be £100.00. Is this correct?"
-        )
+        self.assertInBody("We calculate the total monthly expenditure on transport to be £100.00. Is this correct?")
         # no list items should be there
         self.assertNotInBody("Give details of your expenditure travelling by")
         self.post()
@@ -317,9 +271,7 @@ class TestQuestionnaireCalculatedSummary(QuestionnaireTestCase):
         are entered then we should default to two decimal places on the calculated summary page
         and the playback page
         """
-        self.launchSurveyV2(
-            schema_name="test_calculated_and_grand_calculated_summary_decimals"
-        )
+        self.launchSurveyV2(schema_name="test_calculated_and_grand_calculated_summary_decimals")
         self.post({"first-number-answer": "10"})
         self.post(
             {
@@ -329,9 +281,7 @@ class TestQuestionnaireCalculatedSummary(QuestionnaireTestCase):
         )
         self.post({"third-number-answer": "30"})
         self.post({"fourth-number-answer": "40"})
-        self.assertInBody(
-            "We calculate the total of currency values entered to be £120.00"
-        )
+        self.assertInBody("We calculate the total of currency values entered to be £120.00")
         self.post()
         self.assertInBody("Total currency values: <strong>£120.00</strong>")
 
@@ -341,9 +291,7 @@ class TestQuestionnaireCalculatedSummary(QuestionnaireTestCase):
         places are entered then we should use the largest number of decimal places that are below the decimal limit
         on the calculated summary page and the playback page
         """
-        self.launchSurveyV2(
-            schema_name="test_calculated_and_grand_calculated_summary_decimals"
-        )
+        self.launchSurveyV2(schema_name="test_calculated_and_grand_calculated_summary_decimals")
         self.post({"first-number-answer": "10.1"})
         self.post(
             {
@@ -353,9 +301,7 @@ class TestQuestionnaireCalculatedSummary(QuestionnaireTestCase):
         )
         self.post({"third-number-answer": "30.1234"})
         self.post({"fourth-number-answer": "40.12345"})
-        self.assertInBody(
-            "We calculate the total of currency values entered to be £120.58985"
-        )
+        self.assertInBody("We calculate the total of currency values entered to be £120.58985")
         self.post()
         self.assertInBody("Total currency values: <strong>£120.58985</strong>")
 
@@ -365,13 +311,9 @@ class TestQuestionnaireCalculatedSummary(QuestionnaireTestCase):
         using the answer values that are on the path. In this instance it is the happy path where the user has entered
         their own reporting dates which should be reflected on the calcualted summary label.
         """
-        self.launchSurveyV2(
-            schema_name="test_placeholder_dependencies_with_calculation_summaries"
-        )
+        self.launchSurveyV2(schema_name="test_placeholder_dependencies_with_calculation_summaries")
 
-        self.post(
-            {"reporting-date-answer": "No, I need to report for a different period"}
-        )
+        self.post({"reporting-date-answer": "No, I need to report for a different period"})
         self.post(
             {
                 "date-from-day": "1",
@@ -397,14 +339,10 @@ class TestQuestionnaireCalculatedSummary(QuestionnaireTestCase):
         their own reporting dates, but has then gone back to the first section and changed their answer. In this instance
         the dates displayed in the label should come from metadata rather than the dates entered by the user (which are no longer on the path)
         """
-        self.launchSurveyV2(
-            schema_name="test_placeholder_dependencies_with_calculation_summaries"
-        )
+        self.launchSurveyV2(schema_name="test_placeholder_dependencies_with_calculation_summaries")
 
         # Happy path journey
-        self.post(
-            {"reporting-date-answer": "No, I need to report for a different period"}
-        )
+        self.post({"reporting-date-answer": "No, I need to report for a different period"})
         self.post(
             {
                 "date-from-day": "1",
@@ -466,9 +404,7 @@ class TestQuestionnaireCalculatedSummary(QuestionnaireTestCase):
         self.post({"any-other-additional-sites-answer": "No"})
         self.post()
         self.assertInUrl("/number-of-employees-working-at-this-additional-site")
-        self.post(
-            {"number-full-time-employees": "1", "number-part-time-employees": "1"}
-        )
+        self.post({"number-full-time-employees": "1", "number-part-time-employees": "1"})
         self.post()
         self.get("/questionnaire/sections/list-collector-section/")
         self.post({"any-other-additional-sites-answer": "No"})

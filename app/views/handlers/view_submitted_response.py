@@ -6,9 +6,7 @@ from app.data_models import QuestionnaireStore
 from app.globals import has_view_submitted_response_expired
 from app.helpers.template_helpers import get_survey_type, render_template
 from app.questionnaire import QuestionnaireSchema
-from app.views.contexts.view_submitted_response_context import (
-    build_view_submitted_response_context,
-)
+from app.views.contexts.view_submitted_response_context import build_view_submitted_response_context
 
 
 class ViewSubmittedResponseNotEnabled(Exception):
@@ -36,9 +34,7 @@ class ViewSubmittedResponse:
     @property
     def has_expired(self) -> bool:
         if self._questionnaire_store.submitted_at:
-            return has_view_submitted_response_expired(
-                self._questionnaire_store.submitted_at
-            )
+            return has_view_submitted_response_expired(self._questionnaire_store.submitted_at)
         return False
 
     def get_context(self) -> dict[str, str | datetime | dict]:

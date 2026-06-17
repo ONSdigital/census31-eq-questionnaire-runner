@@ -40,9 +40,7 @@ class SectionSummaryContext(Context):
         summary = self.build_summary(return_to, view_submitted_response)
         title_for_location = self.title_for_location()
         title = (
-            self._placeholder_renderer.render_placeholder(
-                title_for_location, self.current_location.list_item_id
-            )
+            self._placeholder_renderer.render_placeholder(title_for_location, self.current_location.list_item_id)
             if isinstance(title_for_location, dict)
             else title_for_location
         )
@@ -78,10 +76,8 @@ class SectionSummaryContext(Context):
         return section
 
     def get_page_title(self, title_for_location: Mapping | str) -> str:
-        section_repeating_page_title = (
-            self._schema.get_repeating_page_title_for_section(
-                self.current_location.section_id
-            )
+        section_repeating_page_title = self._schema.get_repeating_page_title_for_section(
+            self.current_location.section_id
         )
         page_title = self._schema.get_custom_page_title_for_section(
             self.current_location.section_id
@@ -155,9 +151,7 @@ class SectionSummaryContext(Context):
             or self._schema.get_title_for_section(section_id)
         )
 
-    def _custom_summary_elements(
-        self, section_summary: Iterable[Mapping]
-    ) -> Generator[dict[str, Any], Any]:
+    def _custom_summary_elements(self, section_summary: Iterable[Mapping]) -> Generator[dict[str, Any], Any]:
         for summary_element in section_summary:
             if summary_element["type"] == "List":
                 list_collector_block = ListCollectorBlock(
@@ -171,9 +165,7 @@ class SectionSummaryContext(Context):
                 yield list_collector_block.list_summary_element(summary_element)
 
     def _get_safe_page_title(self, title: Mapping | str) -> str:
-        return (
-            safe_content(self._schema.get_single_string_value(title)) if title else ""
-        )
+        return safe_content(self._schema.get_single_string_value(title)) if title else ""
 
     @staticmethod
     def _get_refactored_groups(original_groups: dict) -> list[dict[str, Any]]:

@@ -63,9 +63,7 @@ class ListContext(Context):
         list_item_ids = self._data_stores.list_store[for_list]
         if for_list_item_ids:
             list_item_ids = [
-                list_item_id  # type: ignore
-                for list_item_id in list_item_ids
-                if list_item_id in for_list_item_ids
+                list_item_id for list_item_id in list_item_ids if list_item_id in for_list_item_ids  # type: ignore
             ]
         primary_person = self._data_stores.list_store[for_list].primary_person
 
@@ -81,9 +79,7 @@ class ListContext(Context):
             is_primary = list_item_id == primary_person
 
             list_item_context = {
-                "item_title": self._get_item_title(
-                    summary_definition, list_item_id, is_primary
-                ),
+                "item_title": self._get_item_title(summary_definition, list_item_id, is_primary),
                 "primary_person": is_primary,
                 "list_item_id": list_item_id,
                 "is_complete": self._data_stores.progress_store.is_section_complete(
@@ -94,9 +90,7 @@ class ListContext(Context):
 
             if edit_block_id:
                 block_id = (
-                    primary_person_edit_block_id
-                    if is_primary and primary_person_edit_block_id
-                    else edit_block_id
+                    primary_person_edit_block_id if is_primary and primary_person_edit_block_id else edit_block_id
                 )
                 # return to answer id is used to snap back to the appropriate list item when editing from a summary page
                 # unlike other repeating answers that use answer_id-list_item_id, the edit-block is linked to item-label and anchored by list item id
@@ -106,9 +100,7 @@ class ListContext(Context):
                 )
 
             if remove_block_id:
-                list_item_context["remove_link"] = partial_url_for(
-                    block_id=remove_block_id
-                )
+                list_item_context["remove_link"] = partial_url_for(block_id=remove_block_id)
 
             yield list_item_context
 

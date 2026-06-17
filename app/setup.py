@@ -39,13 +39,7 @@ from app.routes.session import session_blueprint
 from app.secrets import SecretStore, validate_required_secrets
 from app.settings import DEFAULT_LOCALE
 from app.storage import Datastore, Dynamodb, Redis
-from app.submitter import (
-    GCSFeedbackSubmitter,
-    GCSSubmitter,
-    LogFeedbackSubmitter,
-    LogSubmitter,
-    RabbitMQSubmitter,
-)
+from app.submitter import GCSFeedbackSubmitter, GCSSubmitter, LogFeedbackSubmitter, LogSubmitter, RabbitMQSubmitter
 from app.utilities.json import json_dumps
 from app.utilities.schema import cache_questionnaire_schemas
 
@@ -183,12 +177,8 @@ def create_app(  # noqa: C901  pylint: disable=too-complex, too-many-statements
 
     application.eq["id_generator"] = UserIDGenerator(
         application.config["EQ_SERVER_SIDE_STORAGE_USER_ID_ITERATIONS"],
-        application.eq["secret_store"].get_secret_by_name(
-            "EQ_SERVER_SIDE_STORAGE_USER_ID_SALT"
-        ),
-        application.eq["secret_store"].get_secret_by_name(
-            "EQ_SERVER_SIDE_STORAGE_USER_IK_SALT"
-        ),
+        application.eq["secret_store"].get_secret_by_name("EQ_SERVER_SIDE_STORAGE_USER_ID_SALT"),
+        application.eq["secret_store"].get_secret_by_name("EQ_SERVER_SIDE_STORAGE_USER_IK_SALT"),
     )
 
     cache_questionnaire_schemas()
@@ -228,10 +218,7 @@ def create_app(  # noqa: C901  pylint: disable=too-complex, too-many-statements
         """
         minify html response to decrease site traffic
         """
-        if (
-            application.config["EQ_ENABLE_HTML_MINIFY"]
-            and response.content_type == "text/html; charset=utf-8"
-        ):
+        if application.config["EQ_ENABLE_HTML_MINIFY"] and response.content_type == "text/html; charset=utf-8":
             response.set_data(
                 minify(
                     response.get_data(as_text=True),
@@ -364,12 +351,8 @@ def setup_submitter(application):
             secondary_host=secondary_host,
             port=application.config["EQ_RABBITMQ_PORT"],
             queue=application.config["EQ_RABBITMQ_QUEUE_NAME"],
-            username=application.eq["secret_store"].get_secret_by_name(
-                "EQ_RABBITMQ_USERNAME"
-            ),
-            password=application.eq["secret_store"].get_secret_by_name(
-                "EQ_RABBITMQ_PASSWORD"
-            ),
+            username=application.eq["secret_store"].get_secret_by_name("EQ_RABBITMQ_USERNAME"),
+            password=application.eq["secret_store"].get_secret_by_name("EQ_RABBITMQ_PASSWORD"),
         )
 
     elif application.config["EQ_SUBMISSION_BACKEND"] == "log":
@@ -426,9 +409,7 @@ def setup_feedback(application):
         if not (bucket_name := application.config.get("EQ_GCS_FEEDBACK_BUCKET_ID")):
             raise MissingEnvironmentVariable(FEEDBACK_BUCKET_ID_ERROR_MESSAGE)
 
-        application.eq["feedback_submitter"] = GCSFeedbackSubmitter(
-            bucket_name=bucket_name
-        )
+        application.eq["feedback_submitter"] = GCSFeedbackSubmitter(bucket_name=bucket_name)
 
     elif application.config["EQ_FEEDBACK_BACKEND"] == "log":
         application.eq["feedback_submitter"] = LogFeedbackSubmitter()
@@ -480,9 +461,7 @@ def setup_babel(application):
     application.babel = Babel(application)
     application.jinja_env.add_extension("jinja2.ext.i18n")
 
-    application.babel.init_app(
-        application, locale_selector=get_locale, timezone_selector=get_timezone
-    )
+    application.babel.init_app(application, locale_selector=get_locale, timezone_selector=get_timezone)
 
 
 def setup_compression(application):
@@ -512,11 +491,7 @@ def get_minimized_asset(filename):
 
 
 def get_locale():
-    return (
-        DEFAULT_LOCALE
-        if cookie_session.get("language_code") == "en"
-        else cookie_session.get("language_code")
-    )
+    return DEFAULT_LOCALE if cookie_session.get("language_code") == "en" else cookie_session.get("language_code")
 
 
 def get_timezone():

@@ -4,10 +4,7 @@ from werkzeug.datastructures import ImmutableDict
 
 from app.data_models.data_stores import DataStores
 from app.jinja_filters import format_number, format_percentage, format_unit
-from app.questionnaire.questionnaire_schema import (
-    QuestionnaireSchema,
-    get_calculated_summary_answer_ids,
-)
+from app.questionnaire.questionnaire_schema import QuestionnaireSchema, get_calculated_summary_answer_ids
 from app.questionnaire.return_location import ReturnLocation
 from app.questionnaire.routing_path import RoutingPath
 from app.questionnaire.rules.rule_evaluator import RuleEvaluator
@@ -84,9 +81,7 @@ class CalculatedSummaryContext(Context):
         ]
 
     def build_view_context(self) -> dict[str, dict]:
-        calculated_section: dict = self._build_calculated_summary_section(
-            self.rendered_block
-        )
+        calculated_section: dict = self._build_calculated_summary_section(self.rendered_block)
         calculation = self.rendered_block["calculation"]
 
         groups = self.build_groups_for_section(
@@ -97,17 +92,13 @@ class CalculatedSummaryContext(Context):
         formatted_total = self._get_formatted_total(
             groups=groups or [],
             calculation=(
-                ValueSourceResolver.get_calculation_operator(
-                    calculation["calculation_type"]
-                )
+                ValueSourceResolver.get_calculation_operator(calculation["calculation_type"])
                 if calculation.get("answers_to_calculate")
                 else calculation["operation"]
             ),
         )
 
-        return self._build_formatted_summary(
-            groups=groups, calculation=calculation, formatted_total=formatted_total
-        )
+        return self._build_formatted_summary(groups=groups, calculation=calculation, formatted_total=formatted_total)
 
     def _build_formatted_summary(
         self,
@@ -155,25 +146,17 @@ class CalculatedSummaryContext(Context):
             for answer_id in answers_to_calculate
         ]
 
-        unique_blocks = list(
-            {block["id"]: block for block in blocks_to_calculate}.values()
-        )
+        unique_blocks = list({block["id"]: block for block in blocks_to_calculate}.values())
 
         for block in unique_blocks:
             if QuestionnaireSchema.is_question_block_type(block["type"]):
-                transformed_block = self._remove_unwanted_questions_answers(
-                    block, answers_to_calculate
-                )
-                if set(get_answer_ids_in_block(transformed_block)) & set(
-                    answers_to_calculate
-                ):
+                transformed_block = self._remove_unwanted_questions_answers(block, answers_to_calculate)
+                if set(get_answer_ids_in_block(transformed_block)) & set(answers_to_calculate):
                     blocks.append(transformed_block)
 
         return {"id": section_id, "groups": [{"id": group["id"], "blocks": blocks}]}
 
-    def _remove_unwanted_questions_answers(
-        self, block: ImmutableDict, answer_ids_to_keep: Iterable[str]
-    ) -> dict:
+    def _remove_unwanted_questions_answers(self, block: ImmutableDict, answer_ids_to_keep: Iterable[str]) -> dict:
         """
         Evaluates questions in a block and removes any questions not containing a relevant answer
         """
@@ -183,30 +166,22 @@ class CalculatedSummaryContext(Context):
             self._data_stores,
             self.current_location,
         )
-        transformed_block: dict = QuestionnaireSchema.get_mutable_deepcopy(
-            block_to_transform
-        )
+        transformed_block: dict = QuestionnaireSchema.get_mutable_deepcopy(block_to_transform)
         block_question = transformed_block["question"]
 
         matching_answers = []
         for answer_id in answer_ids_to_keep:
             matching_answers.extend(self._schema.get_answers_by_answer_id(answer_id))
 
-        questions_to_keep = [
-            self._schema.parent_id_map[answer["id"]] for answer in matching_answers
-        ]
+        questions_to_keep = [self._schema.parent_id_map[answer["id"]] for answer in matching_answers]
 
         if block_question["id"] in questions_to_keep:
             if answers := block_question.get("answers"):
-                answers_to_keep = [
-                    answer for answer in answers if answer["id"] in answer_ids_to_keep
-                ]
+                answers_to_keep = [answer for answer in answers if answer["id"] in answer_ids_to_keep]
                 block_question["answers"] = answers_to_keep
             if dynamic_answers := block_question.get("dynamic_answers"):
                 dynamic_answers_to_keep = [
-                    answer
-                    for answer in dynamic_answers["answers"]
-                    if answer["id"] in answer_ids_to_keep
+                    answer for answer in dynamic_answers["answers"] if answer["id"] in answer_ids_to_keep
                 ]
                 block_question["dynamic_answers"]["answers"] = dynamic_answers_to_keep
 
@@ -231,9 +206,7 @@ class CalculatedSummaryContext(Context):
         calculated_total: NumericType = evaluate_calculated_summary.evaluate(calculation)  # type: ignore
         return calculated_total
 
-    def _get_formatted_total(
-        self, groups: list, calculation: Callable | ImmutableDict
-    ) -> str:
+    def _get_formatted_total(self, groups: list, calculation: Callable | ImmutableDict) -> str:
         answer_format, values_to_calculate = self._get_answer_format(groups)
 
         if isinstance(calculation, Mapping):
@@ -300,9 +273,7 @@ class CalculatedSummaryContext(Context):
 
         return format_number(total)
 
-    def _get_calculated_question(
-        self, *, calculation_question: Mapping, formatted_total: str
-    ) -> dict:
+    def _get_calculated_question(self, *, calculation_question: Mapping, formatted_total: str) -> dict:
         calculation_title = calculation_question["title"]
         block_type = pascal_case_to_hyphenated_lowercase(self.rendered_block["type"])
 

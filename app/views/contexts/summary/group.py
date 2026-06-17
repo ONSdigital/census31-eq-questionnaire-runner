@@ -15,9 +15,7 @@ from app.utilities.types import LocationType
 from app.views.contexts.summary.block import Block
 from app.views.contexts.summary.calculated_summary_block import CalculatedSummaryBlock
 from app.views.contexts.summary.list_collector_block import ListCollectorBlock
-from app.views.contexts.summary.list_collector_content_block import (
-    ListCollectorContentBlock,
-)
+from app.views.contexts.summary.list_collector_content_block import ListCollectorContentBlock
 
 
 class Group:
@@ -86,9 +84,7 @@ class Group:
                 if parent_list_collector_block_id not in routing_path_block_ids:
                     continue
 
-                list_collector_block_class: type[
-                    ListCollectorBlock | ListCollectorContentBlock
-                ] = (
+                list_collector_block_class: type[ListCollectorBlock | ListCollectorContentBlock] = (
                     ListCollectorBlock
                     if is_list_collector_block_editable(
                         # Type ignore: return types differ
@@ -105,11 +101,7 @@ class Group:
                     language=language,
                     return_location=return_location,
                 )
-                repeating_answer_blocks = (
-                    list_collector_block.get_repeating_block_related_answer_blocks(
-                        block
-                    )
-                )
+                repeating_answer_blocks = list_collector_block.get_repeating_block_related_answer_blocks(block)
                 blocks.extend(repeating_answer_blocks)
 
             if block["id"] not in routing_path_block_ids:
@@ -156,9 +148,7 @@ class Group:
                     list_name=block["for_list"],
                 ):
                     list_collector_block_class = (
-                        ListCollectorBlock
-                        if is_list_collector_block_editable(block)
-                        else ListCollectorContentBlock
+                        ListCollectorBlock if is_list_collector_block_editable(block) else ListCollectorContentBlock
                     )
                     list_collector_block = list_collector_block_class(
                         data_stores=self.data_stores,
@@ -168,15 +158,10 @@ class Group:
                         language=language,
                         return_location=return_location,
                     )
-                    list_summary_element = list_collector_block.list_summary_element(
-                        summary_item
-                    )
+                    list_summary_element = list_collector_block.list_summary_element(summary_item)
                     blocks.extend([list_summary_element])
 
-                    if (
-                        not view_submitted_response
-                        and is_list_collector_block_editable(block)
-                    ):
+                    if not view_submitted_response and is_list_collector_block_editable(block):
                         self.links["add_link"] = Link(
                             target="_self",
                             text=list_summary_element["add_link_text"],

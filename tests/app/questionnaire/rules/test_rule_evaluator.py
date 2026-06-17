@@ -4,12 +4,7 @@ import pytest
 from freezegun import freeze_time
 from mock import MagicMock, Mock
 
-from app.data_models import (
-    AnswerStore,
-    ListStore,
-    ProgressStore,
-    SupplementaryDataStore,
-)
+from app.data_models import AnswerStore, ListStore, ProgressStore, SupplementaryDataStore
 from app.data_models.answer import Answer
 from app.data_models.data_stores import DataStores
 from app.data_models.progress import CompletionStatus, ProgressDict
@@ -46,9 +41,7 @@ def get_rule_evaluator(
     language="en",
     schema: QuestionnaireSchema = None,
     data_stores: DataStores = None,
-    location: Location | RelationshipLocation = Location(
-        section_id="test-section", block_id="test-block"
-    ),
+    location: Location | RelationshipLocation = Location(section_id="test-section", block_id="test-block"),
     routing_path_block_ids: list | None = None,
 ):
     if not schema:
@@ -109,19 +102,11 @@ def test_boolean_operators_as_rule(rule, expected_result):
 )
 def test_answer_source(answer_value, expected_result):
     rule_evaluator = get_rule_evaluator(
-        data_stores=DataStores(
-            answer_store=AnswerStore(
-                [{"answer_id": "some-answer", "value": answer_value}]
-            )
-        ),
+        data_stores=DataStores(answer_store=AnswerStore([{"answer_id": "some-answer", "value": answer_value}])),
     )
 
     assert (
-        rule_evaluator.evaluate(
-            rule={
-                Operator.EQUAL: [{"source": "answers", "identifier": "some-answer"}, 3]
-            }
-        )
+        rule_evaluator.evaluate(rule={Operator.EQUAL: [{"source": "answers", "identifier": "some-answer"}, 3]})
         is expected_result
     )
 
@@ -143,9 +128,7 @@ def test_answer_source_with_list_item_selector_location(answer_value, expected_r
                 ]
             )
         ),
-        location=Location(
-            section_id="some-section", block_id="some-block", list_item_id="item-1"
-        ),
+        location=Location(section_id="some-section", block_id="some-block", list_item_id="item-1"),
     )
 
     assert (
@@ -172,9 +155,7 @@ def test_answer_source_with_list_item_selector_location(answer_value, expected_r
     "answer_value, expected_result",
     [(3, True), (7, False)],
 )
-def test_answer_source_with_list_item_selector_list_first_item(
-    answer_value, expected_result
-):
+def test_answer_source_with_list_item_selector_list_first_item(answer_value, expected_result):
     rule_evaluator = get_rule_evaluator(
         data_stores=DataStores(
             answer_store=AnswerStore(
@@ -252,9 +233,7 @@ def test_answer_source_with_dict_answer_selector(answer_value, expected_result):
 )
 def test_metadata_source(metadata_value, expected_result):
     rule_evaluator = get_rule_evaluator(
-        data_stores=DataStores(
-            metadata=get_metadata(extra_metadata={"some_key": metadata_value})
-        )
+        data_stores=DataStores(metadata=get_metadata(extra_metadata={"some_key": metadata_value}))
     )
 
     assert (
@@ -343,9 +322,7 @@ def test_response_metadata_source(response_metadata_value, expected_result):
 def test_list_source(list_count, expected_result):
     rule_evaluator = get_rule_evaluator(
         data_stores=DataStores(
-            list_store=ListStore(
-                [{"name": "some-list", "items": get_list_items(list_count)}]
-            ),
+            list_store=ListStore([{"name": "some-list", "items": get_list_items(list_count)}]),
         )
     )
 
@@ -430,9 +407,7 @@ def test_list_source_with_id_selector_same_name_items(list_item_id, expected_res
     "primary_person_list_item_id, expected_result",
     [("item-1", True), ("item-2", False)],
 )
-def test_list_source_id_selector_primary_person(
-    primary_person_list_item_id, expected_result
-):
+def test_list_source_id_selector_primary_person(primary_person_list_item_id, expected_result):
     location = RelationshipLocation(
         section_id="some-section",
         block_id="some-block",
@@ -479,9 +454,7 @@ def test_list_source_id_selector_primary_person(
 )
 def test_current_location_source(list_item_id, expected_result):
     rule_evaluator = get_rule_evaluator(
-        location=Location(
-            section_id="some-section", block_id="some-block", list_item_id=list_item_id
-        ),
+        location=Location(section_id="some-section", block_id="some-block", list_item_id=list_item_id),
         data_stores=DataStores(),
     )
 
@@ -586,9 +559,7 @@ def test_nested_rules(operator, operands, expected_result):
                     },
                 ]
             ),
-            metadata=get_metadata(
-                extra_metadata={"region_code": "GB-NIR", "language_code": "en"}
-            ),
+            metadata=get_metadata(extra_metadata={"region_code": "GB-NIR", "language_code": "en"}),
             list_store=ListStore(
                 [
                     {
@@ -599,9 +570,7 @@ def test_nested_rules(operator, operands, expected_result):
                 ],
             ),
         ),
-        location=Location(
-            section_id="some-section", block_id="some-block", list_item_id="item-1"
-        ),
+        location=Location(section_id="some-section", block_id="some-block", list_item_id="item-1"),
     )
 
     assert rule_evaluator.evaluate(rule={operator: operands}) is expected_result
@@ -643,9 +612,7 @@ def test_comparison_operator_rule_with_nonetype_operands(operator_name, operands
         [["Yes"], {"source": "metadata", "identifier": "some-metadata"}],
     ],
 )
-@pytest.mark.parametrize(
-    "operator_name", [Operator.ALL_IN, Operator.ANY_IN, Operator.IN]
-)
+@pytest.mark.parametrize("operator_name", [Operator.ALL_IN, Operator.ANY_IN, Operator.IN])
 def test_array_operator_rule_with_nonetype_operands(operator_name, operands):
     rule_evaluator = get_rule_evaluator(
         data_stores=DataStores(metadata=get_metadata()),
@@ -781,9 +748,7 @@ def test_date_value(rule, expected_result):
                     }
                 ]
             ),
-            metadata=get_metadata(
-                extra_metadata={"some-metadata": current_date_as_yyyy_mm_dd}
-            ),
+            metadata=get_metadata(extra_metadata={"some-metadata": current_date_as_yyyy_mm_dd}),
         ),
     )
 
@@ -804,9 +769,7 @@ def test_answer_source_outside_of_repeating_section():
     rule_evaluator = get_rule_evaluator(
         schema=schema,
         data_stores=DataStores(answer_store=answer_store),
-        location=Location(
-            section_id="some-section", block_id="some-block", list_item_id="item-1"
-        ),
+        location=Location(section_id="some-section", block_id="some-block", list_item_id="item-1"),
     )
 
     assert (
@@ -863,9 +826,7 @@ def test_answer_source_not_on_path_non_repeating_section(is_answer_on_path):
 def test_answer_source_not_on_path_repeating_section(is_answer_on_path):
     schema = get_mock_schema()
     schema.get_list_name_for_answer_id = Mock(return_value="mock-list")
-    location = Location(
-        section_id="test-section", block_id="test-block", list_item_id="item-1"
-    )
+    location = Location(section_id="test-section", block_id="test-block", list_item_id="item-1")
 
     if is_answer_on_path:
         schema.get_block_for_answer_id = Mock(return_value={"id": "block-on-path"})
@@ -899,19 +860,13 @@ def test_answer_source_not_on_path_repeating_section(is_answer_on_path):
 
 
 @pytest.mark.parametrize("comparison_value, expected_result", [(3, True), (7, False)])
-def test_answer_source_default_answer_used_when_no_answer(
-    comparison_value, expected_result
-):
+def test_answer_source_default_answer_used_when_no_answer(comparison_value, expected_result):
     schema = get_mock_schema()
-    schema.get_default_answer = Mock(
-        return_value=Answer(answer_id="answer-that-does-not-exist", value=3)
-    )
+    schema.get_default_answer = Mock(return_value=Answer(answer_id="answer-that-does-not-exist", value=3))
 
     rule_evaluator = get_rule_evaluator(
         schema=schema,
-        data_stores=DataStores(
-            answer_store=AnswerStore([{"answer_id": "some-answer", "value": "No"}])
-        ),
+        data_stores=DataStores(answer_store=AnswerStore([{"answer_id": "some-answer", "value": "No"}])),
     )
 
     assert (
@@ -939,11 +894,7 @@ def test_raises_exception_when_bad_operand_type():
         (
             {
                 Operator.EQUAL: [
-                    {
-                        Operator.COUNT: [
-                            {"source": "answers", "identifier": "some-answer"}
-                        ]
-                    },
+                    {Operator.COUNT: [{"source": "answers", "identifier": "some-answer"}]},
                     2,
                 ]
             },
@@ -1098,9 +1049,7 @@ def test_map_with_nested_date_operator(offset, expected_result):
         ("products", ["name"], "Articles and equipment for sports or outdoor games"),
     ],
 )
-def test_supplementary_data_source(
-    supplementary_data_store_with_data, identifier, selectors, value
-):
+def test_supplementary_data_source(supplementary_data_store_with_data, identifier, selectors, value):
     """Tests rule evaluation of repeating and non-repeating supplementary data source inside a repeat"""
     schema = get_mock_schema()
     schema.get_list_name_for_answer_id = Mock(return_value=None)
@@ -1112,9 +1061,7 @@ def test_supplementary_data_source(
             answer_store=answer_store,
             supplementary_data_store=supplementary_data_store_with_data,
         ),
-        location=Location(
-            section_id="some-section", block_id="some-block", list_item_id="item-1"
-        ),
+        location=Location(section_id="some-section", block_id="some-block", list_item_id="item-1"),
     )
 
     assert (

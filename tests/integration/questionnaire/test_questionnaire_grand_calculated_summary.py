@@ -17,25 +17,17 @@ class TestQuestionnaireGrandCalculatedSummary(QuestionnaireTestCase):
         self.post()
         self.post()
         # check the two grand calculated summaries
-        self.assertInBody(
-            "We calculate the grand total weekly distance travelled to be 170 mi. Is this correct?"
-        )
+        self.assertInBody("We calculate the grand total weekly distance travelled to be 170 mi. Is this correct?")
         self.post()
-        self.assertInBody(
-            "We calculate the grand total journeys per week to be 13. Is this correct?"
-        )
+        self.assertInBody("We calculate the grand total journeys per week to be 13. Is this correct?")
         # check the submit button text
-        self.assertEqual(
-            "Yes, I confirm this is correct", self.getSubmitButton().text.strip()
-        )
+        self.assertEqual("Yes, I confirm this is correct", self.getSubmitButton().text.strip())
 
     def test_grand_calculated_summary_multiple_sections(self):
         """
         Use the repeating answers schema to test the grand calculated summary which uses calculated summaries in multiple different sections
         """
-        self.launchSurveyV2(
-            schema_name="test_grand_calculated_summary_repeating_answers"
-        )
+        self.launchSurveyV2(schema_name="test_grand_calculated_summary_repeating_answers")
         # section 1
         self.post()
         self.post({"q1-a1": 10, "q1-a2": 20})
@@ -44,9 +36,7 @@ class TestQuestionnaireGrandCalculatedSummary(QuestionnaireTestCase):
         self.post({"q3-a1": 50, "q3-a2": 60})
         self.post()
         # confirm calculated and grand calculated summary
-        self.assertInBody(
-            "Calculated summary for food and clothing is calculated to be £210.00. Is this correct?"
-        )
+        self.assertInBody("Calculated summary for food and clothing is calculated to be £210.00. Is this correct?")
         self.post()
         self.assertInBody(
             "Grand Calculated Summary which should match the previous calculated summary is calculated to be £210.00. Is this correct?"
@@ -82,9 +72,7 @@ class TestQuestionnaireGrandCalculatedSummary(QuestionnaireTestCase):
         self.post({"third-number-answer-part-a": "70"})
 
     def test_grand_calculated_summary_cross_section_dependencies_with_skip(self):
-        self.launchSurveyV2(
-            schema_name="test_grand_calculated_summary_cross_section_dependencies"
-        )
+        self.launchSurveyV2(schema_name="test_grand_calculated_summary_cross_section_dependencies")
         self._complete_upto_grand_calculated_summary_cross_section_dependencies()
 
         # skip the calculated summary
@@ -94,14 +82,10 @@ class TestQuestionnaireGrandCalculatedSummary(QuestionnaireTestCase):
 
         # grand calculated summary which doesn't include skipped calculated summary
         self.post()
-        self.assertInBody(
-            "The grand calculated summary is calculated to be £90.00. Is this correct?"
-        )
+        self.assertInBody("The grand calculated summary is calculated to be £90.00. Is this correct?")
 
     def test_grand_calculated_summary_cross_section_dependencies_no_skip(self):
-        self.launchSurveyV2(
-            schema_name="test_grand_calculated_summary_cross_section_dependencies"
-        )
+        self.launchSurveyV2(schema_name="test_grand_calculated_summary_cross_section_dependencies")
         self._complete_upto_grand_calculated_summary_cross_section_dependencies()
 
         # don't skip calculated summary, confirm it, and go to section summary
@@ -112,21 +96,15 @@ class TestQuestionnaireGrandCalculatedSummary(QuestionnaireTestCase):
 
         # grand calculated summary will now include the previous calculated summary
         self.post()
-        self.assertInBody(
-            "The grand calculated summary is calculated to be £160.00. Is this correct?"
-        )
+        self.assertInBody("The grand calculated summary is calculated to be £160.00. Is this correct?")
 
     def test_grand_calculated_summary_cross_section_dependencies_extra_question(self):
-        self.launchSurveyV2(
-            schema_name="test_grand_calculated_summary_cross_section_dependencies"
-        )
+        self.launchSurveyV2(schema_name="test_grand_calculated_summary_cross_section_dependencies")
         self._complete_upto_grand_calculated_summary_cross_section_dependencies()
 
         # edit question to unlock the extra one
         self.previous()
-        self.post(
-            {"third-number-answer-part-a": "70", "third-number-answer-part-b": "20"}
-        )
+        self.post({"third-number-answer-part-a": "70", "third-number-answer-part-b": "20"})
         self.post({"fourth-number-answer": "40"})
         self.post({"skip-answer-2": "No"})
         self.post()
@@ -135,13 +113,9 @@ class TestQuestionnaireGrandCalculatedSummary(QuestionnaireTestCase):
 
         # grand calculated summary will now include the extra question answer
         self.post()
-        self.assertInBody(
-            "The grand calculated summary is calculated to be £220.00. Is this correct?"
-        )
+        self.assertInBody("The grand calculated summary is calculated to be £220.00. Is this correct?")
 
-    def _complete_upto_grand_calculated_summary_overlapping_answers(
-        self, radio_answer: str
-    ):
+    def _complete_upto_grand_calculated_summary_overlapping_answers(self, radio_answer: str):
         self.post()
         self.post()
         self.post({"q1-a1": "100", "q1-a2": "200"})
@@ -156,44 +130,26 @@ class TestQuestionnaireGrandCalculatedSummary(QuestionnaireTestCase):
         self.post()
 
     def test_grand_calculated_summary_overlapping_answers_full_overlap(self):
-        self.launchSurveyV2(
-            schema_name="test_grand_calculated_summary_overlapping_answers"
-        )
-        self._complete_upto_grand_calculated_summary_overlapping_answers(
-            "Yes, I am going to buy two of everything"
-        )
-        self.assertInBody(
-            "Grand Calculated Summary of purchases this week comes to £660.00. Is this correct?"
-        )
+        self.launchSurveyV2(schema_name="test_grand_calculated_summary_overlapping_answers")
+        self._complete_upto_grand_calculated_summary_overlapping_answers("Yes, I am going to buy two of everything")
+        self.assertInBody("Grand Calculated Summary of purchases this week comes to £660.00. Is this correct?")
 
     def test_grand_calculated_summary_overlapping_answers_partial_overlap(self):
-        self.launchSurveyV2(
-            schema_name="test_grand_calculated_summary_overlapping_answers"
-        )
-        self._complete_upto_grand_calculated_summary_overlapping_answers(
-            "Yes, extra bread and cheese"
-        )
-        self.assertInBody(
-            "Grand Calculated Summary of purchases this week comes to £360.00. Is this correct?"
-        )
+        self.launchSurveyV2(schema_name="test_grand_calculated_summary_overlapping_answers")
+        self._complete_upto_grand_calculated_summary_overlapping_answers("Yes, extra bread and cheese")
+        self.assertInBody("Grand Calculated Summary of purchases this week comes to £360.00. Is this correct?")
 
     def test_grand_calculated_summary_overlapping_answers_no_overlap(self):
-        self.launchSurveyV2(
-            schema_name="test_grand_calculated_summary_overlapping_answers"
-        )
+        self.launchSurveyV2(schema_name="test_grand_calculated_summary_overlapping_answers")
         self._complete_upto_grand_calculated_summary_overlapping_answers("No")
-        self.assertInBody(
-            "Grand Calculated Summary of purchases this week comes to £330.00. Is this correct?"
-        )
+        self.assertInBody("Grand Calculated Summary of purchases this week comes to £330.00. Is this correct?")
 
     def test_grand_calculated_summary_default_decimal_places(self):
         """
         When multiple decimal limits are set in the schema but no decimals
         are entered then we should default to two decimal places on the grand calculated summary page
         """
-        self.launchSurveyV2(
-            schema_name="test_calculated_and_grand_calculated_summary_decimals"
-        )
+        self.launchSurveyV2(schema_name="test_calculated_and_grand_calculated_summary_decimals")
         self.post({"first-number-answer": "10"})
         self.post(
             {
@@ -207,9 +163,7 @@ class TestQuestionnaireGrandCalculatedSummary(QuestionnaireTestCase):
         self.post()
         self.post({"fifth-number-answer": "50"})
         self.post({"sixth-number-answer": "60"})
-        self.assertInBody(
-            "We calculate the total of currency values entered to be £110.00. Is this correct?"
-        )
+        self.assertInBody("We calculate the total of currency values entered to be £110.00. Is this correct?")
 
     def test_grand_calculated_summary_with_varying_decimal_places(self):
         """
@@ -217,9 +171,7 @@ class TestQuestionnaireGrandCalculatedSummary(QuestionnaireTestCase):
         places are entered then we should use the largest number of decimal places that are below the decimal limit
         on the grand calculated summary page
         """
-        self.launchSurveyV2(
-            schema_name="test_calculated_and_grand_calculated_summary_decimals"
-        )
+        self.launchSurveyV2(schema_name="test_calculated_and_grand_calculated_summary_decimals")
         self.post({"first-number-answer": "10.1"})
         self.post(
             {
@@ -234,17 +186,13 @@ class TestQuestionnaireGrandCalculatedSummary(QuestionnaireTestCase):
         self.post({"fifth-number-answer": "50"})
         self.post({"sixth-number-answer": "60"})
         self.post()
-        self.assertInBody(
-            "We calculate the grand total to be £230.58985. Is this correct?"
-        )
+        self.assertInBody("We calculate the grand total to be £230.58985. Is this correct?")
 
     def test_grand_calculated_summary_inside_repeating_section(self):
         """
         Happy path for a grand calculated summary inside a repeating section
         """
-        self.launchSurveyV2(
-            schema_name="test_grand_calculated_summary_inside_repeating_section"
-        )
+        self.launchSurveyV2(schema_name="test_grand_calculated_summary_inside_repeating_section")
         self.post()
         self.post({"any-cost-answer": "No"})
         self.post({"finance-cost-answer": "150"})
@@ -261,13 +209,9 @@ class TestQuestionnaireGrandCalculatedSummary(QuestionnaireTestCase):
         self.post()
         self.post({"vehicle-maintenance-cost": "100"})
         self.post({"vehicle-fuel-cost": "80"})
-        self.assertInBody(
-            "We calculate the monthly running costs of your Car to be £180.00. Is this correct?"
-        )
+        self.assertInBody("We calculate the monthly running costs of your Car to be £180.00. Is this correct?")
         self.post()
-        self.assertInBody(
-            "The total cost of owning and running your Car is calculated to be £330.00. Is this correct?"
-        )
+        self.assertInBody("The total cost of owning and running your Car is calculated to be £330.00. Is this correct?")
         self.post()
         self.post({"pay-debit": "110", "pay-credit": "120", "pay-other": "100"})
         self.assertInBody("Monthly maintenance cost: <strong>£100.00</strong>")
@@ -283,9 +227,7 @@ class TestQuestionnaireGrandCalculatedSummary(QuestionnaireTestCase):
         self.post()
         self.post({"vehicle-maintenance-cost": "40"})
         self.post({"vehicle-fuel-cost": "35"})
-        self.assertInBody(
-            "We calculate the monthly running costs of your Motorbike to be £75.00. Is this correct?"
-        )
+        self.assertInBody("We calculate the monthly running costs of your Motorbike to be £75.00. Is this correct?")
         self.post()
         self.assertInBody(
             "The total cost of owning and running your Motorbike is calculated to be £225.00. Is this correct?"

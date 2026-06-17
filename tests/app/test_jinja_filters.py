@@ -212,17 +212,13 @@ def test_get_currency_symbol(currency, symbol):
 
 
 @pytest.mark.parametrize(*TEST_FORMAT_CURRENCY_PARAMS)
-def test_get_custom_currency(
-    mocker, value, currency, locale_string, decimal_limit, expected_result, app
-):
+def test_get_custom_currency(mocker, value, currency, locale_string, decimal_limit, expected_result, app):
     with app.app_context():
         mocker.patch(
             "app.jinja_filters.flask_babel.get_locale",
             mocker.Mock(return_value=locale_string),
         )
-        result = get_formatted_currency(
-            value=value, currency=currency, decimal_limit=decimal_limit
-        )
+        result = get_formatted_currency(value=value, currency=currency, decimal_limit=decimal_limit)
 
         assert unicodedata.normalize("NFKD", result) == expected_result
 
@@ -266,15 +262,10 @@ def test_format_date_time_in_bst(mock_autoescape_context, app):
         ),
     ),
 )
-def test_format_date_time_in_gmt(
-    app, mock_autoescape_context, date_time, formatted_datetime
-):
+def test_format_date_time_in_gmt(app, mock_autoescape_context, date_time, formatted_datetime):
     date_time = date_time.replace(tzinfo=timezone.utc)
     with app.test_request_context("/"):
-        assert (
-            format_datetime(mock_autoescape_context, date_time)
-            == f"<span class='date'>{formatted_datetime}</span>"
-        )
+        assert format_datetime(mock_autoescape_context, date_time) == f"<span class='date'>{formatted_datetime}</span>"
 
 
 @pytest.mark.parametrize(
@@ -291,9 +282,7 @@ def test_format_percentage(percentage, formatted_percentage):
 
 @pytest.mark.usefixtures("app")
 @pytest.mark.parametrize(*TEST_FORMAT_UNIT_PARAMS)
-def test_format_unit(
-    value, measurement_unit, locale_string, length, expected_result, mocker
-):
+def test_format_unit(value, measurement_unit, locale_string, length, expected_result, mocker):
     mocker.patch(
         "app.jinja_filters.flask_babel.get_locale",
         mocker.Mock(return_value=locale_string),
@@ -303,12 +292,8 @@ def test_format_unit(
 
 @pytest.mark.usefixtures("app")
 @pytest.mark.parametrize(*TEST_FORMAT_UNIT_LANGUAGE_PARAMS)
-def test_format_unit_non_gb_locale(
-    unit, value, length, formatted_unit, language, mocker
-):
-    mocker.patch(
-        "app.jinja_filters.flask_babel.get_locale", mocker.Mock(return_value=language)
-    )
+def test_format_unit_non_gb_locale(unit, value, length, formatted_unit, language, mocker):
+    mocker.patch("app.jinja_filters.flask_babel.get_locale", mocker.Mock(return_value=language))
     assert format_unit(unit, value, length=length) == formatted_unit
 
 
@@ -359,9 +344,7 @@ def test_format_unit_non_gb_locale(
     ),
 )
 def test_format_unit_input_label(unit, length, formatted_unit, language, mocker):
-    mocker.patch(
-        "app.jinja_filters.flask_babel.get_locale", mocker.Mock(return_value=language)
-    )
+    mocker.patch("app.jinja_filters.flask_babel.get_locale", mocker.Mock(return_value=language))
     assert format_unit_input_label(unit, unit_length=length) == formatted_unit
 
 
@@ -494,9 +477,7 @@ def test_get_width_for_number_recursive(answer, width, app):
                 "answers": [
                     {
                         "type": "Currency",
-                        "minimum": {
-                            "value": {"identifier": "set-minimum", "source": "answers"}
-                        },
+                        "minimum": {"value": {"identifier": "set-minimum", "source": "answers"}},
                     }
                 ],
             },
@@ -508,9 +489,7 @@ def test_get_width_for_number_recursive(answer, width, app):
                 "answers": [
                     {
                         "type": "Currency",
-                        "maximum": {
-                            "value": {"identifier": "set-maximum", "source": "answers"}
-                        },
+                        "maximum": {"value": {"identifier": "set-maximum", "source": "answers"}},
                     }
                 ],
             },
@@ -829,9 +808,7 @@ def test_get_formatted_address(address_fields, formatted_address):
         (123123123123, 15),
     ],
 )
-def test_other_config_numeric_input_class(
-    answer_schema_number, max_value, expected_width
-):
+def test_other_config_numeric_input_class(answer_schema_number, max_value, expected_width):
     if max_value:
         answer_schema_number["maximum"] = {"value": max_value}
 
@@ -869,9 +846,7 @@ def test_other_config_non_dropdown_has_value_attribute(answer_schema_textfield, 
         (None, False),
     ],
 )
-def test_other_config_visibility(
-    answer_schema_textfield, is_visible, expected_visibility
-):
+def test_other_config_visibility(answer_schema_textfield, is_visible, expected_visibility):
     if is_visible is not None:
         answer_schema_textfield["visible"] = is_visible
 
@@ -1194,8 +1169,7 @@ def test_summary_item_config_with_list_collector_and_one_related_answer():
                 {
                     "actions": [
                         {
-                            "visuallyHiddenText": "Change answer for Company A: "
-                            "Registration number",
+                            "visuallyHiddenText": "Change answer for Company A: " "Registration number",
                             "attributes": {
                                 "data-ga": "click",
                                 "data-ga-action": "Edit",

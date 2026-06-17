@@ -61,9 +61,7 @@ class GCSSubmitter:
             if "storage.objects.delete" not in e.message:
                 raise
 
-            logger.info(
-                "Questionnaire submission exists, ignoring delete operation error"
-            )
+            logger.info("Questionnaire submission exists, ignoring delete operation error")
         return True
 
 
@@ -80,18 +78,14 @@ class RabbitMQSubmitter:
         self.queue = queue
         if username and password:
             self.rabbitmq_url = f"amqp://{username}:{password}@{host}:{port}/%2F"
-            self.rabbitmq_secondary_url = (
-                f"amqp://{username}:{password}@{secondary_host}:{port}/%2F"
-            )
+            self.rabbitmq_secondary_url = f"amqp://{username}:{password}@{secondary_host}:{port}/%2F"
         else:
             self.rabbitmq_url = f"amqp://{host}:{port}/%2F"
             self.rabbitmq_secondary_url = f"amqp://{secondary_host}:{port}/%2F"
 
     def _connect(self) -> BlockingConnection:
         try:
-            logger.info(
-                "attempt to open connection", server="primary", category="rabbitmq"
-            )
+            logger.info("attempt to open connection", server="primary", category="rabbitmq")
             return BlockingConnection(URLParameters(self.rabbitmq_url))
         except AMQPError as e:
             logger.error(

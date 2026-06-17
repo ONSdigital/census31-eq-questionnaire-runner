@@ -61,9 +61,7 @@ def get_questionnaire_store():
     store.data_stores.answer_store.add_or_update(user_answer)
     store.data_stores.metadata = METADATA_V2
 
-    store.data_stores.response_metadata = {
-        "started_at": "2018-07-04T14:49:33.448608+00:00"
-    }
+    store.data_stores.response_metadata = {"started_at": "2018-07-04T14:49:33.448608+00:00"}
 
     return store
 
@@ -99,9 +97,7 @@ def fake_questionnaire_schema():
 
 @pytest.fixture
 def rabbitmq_submitter():
-    return RabbitMQSubmitter(
-        host="host1", secondary_host="host2", port=5672, queue="test_queue"
-    )
+    return RabbitMQSubmitter(host="host1", secondary_host="host2", port=5672, queue="test_queue")
 
 
 @pytest.fixture
@@ -127,17 +123,13 @@ def gcs_blob_with_retry(mocker):
     response_503.status_code = 503
 
     response_200 = Response()
-    response_200._content = (  # pylint: disable=protected-access
-        b'{"some-key":"some-value"}'
-    )
+    response_200._content = b'{"some-key":"some-value"}'  # pylint: disable=protected-access
     response_200.status_code = 200
 
     mock_transport_request = mocker.Mock(side_effect=[response_503, response_200])
     mock_transport = mocker.Mock()
     mock_transport.request = mock_transport_request
-    blob._get_transport = mocker.Mock(  # pylint: disable=protected-access
-        return_value=mock_transport
-    )
+    blob._get_transport = mocker.Mock(return_value=mock_transport)  # pylint: disable=protected-access
 
     return blob
 

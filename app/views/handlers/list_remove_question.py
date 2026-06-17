@@ -33,9 +33,7 @@ class ListRemoveQuestion(ListAction):
                 self._current_location.list_item_id,  # type: ignore
             )
             # This will result in any list collector content blocks using this list to require revisiting. This is currently the expected behaviour.
-            self.questionnaire_store_updater.capture_dependencies_for_list_change(
-                list_name
-            )
+            self.questionnaire_store_updater.capture_dependencies_for_list_change(list_name)
 
         return super().handle_post()
 

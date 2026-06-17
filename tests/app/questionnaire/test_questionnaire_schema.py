@@ -770,9 +770,7 @@ def test_list_dependencies_for_calculated_summary_with_repeating_answers():
     Tests list dependencies for list value sources, calculated summaries involving a repeat
     and calculated summary value sources where the calculated summary includes a repeating answer.
     """
-    schema = load_schema_from_name(
-        "test_new_calculated_summary_repeating_and_static_answers"
-    )
+    schema = load_schema_from_name("test_new_calculated_summary_repeating_and_static_answers")
 
     assert schema.list_dependencies == {
         "supermarkets": {
@@ -886,9 +884,7 @@ def test_progress_block_and_section_dependencies_are_ordered(
         ImmutableDict(
             {
                 "section-1": OrderedSet(["section-4"]),
-                "section-2": OrderedSet(
-                    ["section-7", "section-8", "section-9", "section-10"]
-                ),
+                "section-2": OrderedSet(["section-7", "section-8", "section-9", "section-10"]),
                 "section-4": OrderedSet(["section-6"]),
                 "section-5": OrderedSet(["section-7"]),
                 "section-7": OrderedSet(["section-8"]),
@@ -972,16 +968,12 @@ def test_progress_dependencies_for_when_rules(
 
 
 def test_get_blocks_with_repeating_blocks():
-    schema = load_schema_from_name(
-        "test_list_collector_repeating_blocks_section_summary"
-    )
+    schema = load_schema_from_name("test_list_collector_repeating_blocks_section_summary")
     assert len(schema.get_blocks()) == 9
 
 
 def test_get_block_with_repeating_blocks():
-    schema = load_schema_from_name(
-        "test_list_collector_repeating_blocks_section_summary"
-    )
+    schema = load_schema_from_name("test_list_collector_repeating_blocks_section_summary")
     block1 = schema.get_block("companies-repeating-block-1")
     block2 = schema.get_block("companies-repeating-block-2")
 
@@ -990,9 +982,7 @@ def test_get_block_with_repeating_blocks():
 
 
 def test_get_block_for_answer_id_returns_repeating_block_for_repeating_block_answer_id():
-    schema = load_schema_from_name(
-        "test_list_collector_repeating_blocks_section_summary"
-    )
+    schema = load_schema_from_name("test_list_collector_repeating_blocks_section_summary")
 
     block1 = schema.get_block_for_answer_id("registration-number")
     block2 = schema.get_block_for_answer_id("authorised-trader-eu-radio")
@@ -1019,9 +1009,7 @@ def test_grand_calculated_summary_dependencies():
     Ensures that both the grand calculated summary, and the breakdown depending on it appear in
     the list dependencies of the two lists involved in the grand calculated summary, and each answer id
     """
-    schema = load_schema_from_name(
-        "test_grand_calculated_summary_inside_repeating_section"
-    )
+    schema = load_schema_from_name("test_grand_calculated_summary_inside_repeating_section")
 
     gcs_dependent = Dependent(
         section_id="vehicle-details-section",
@@ -1049,12 +1037,8 @@ def test_grand_calculated_summary_path_dependencies():
     For this schema, the grand calculated summary, breakdown depending on it, and page it is piped into,
     all need the routing path block ids from both sections to display the correct total
     """
-    schema = load_schema_from_name(
-        "test_grand_calculated_summary_inside_repeating_section"
-    )
-    calculation_deps = schema.calculation_summary_section_dependencies_by_block[
-        "vehicle-details-section"
-    ]
+    schema = load_schema_from_name("test_grand_calculated_summary_inside_repeating_section")
+    calculation_deps = schema.calculation_summary_section_dependencies_by_block["vehicle-details-section"]
     for block_id in [
         "grand-calculated-summary-vehicle",
         "gcs-breakdown-block",
@@ -1092,9 +1076,7 @@ def test_placeholder_transform_section_dependencies_by_block_for_calculation_sum
     In this schema the calculation summaries use placeholder transforms based on other blocks that have dependencies in the
     reporting-period-section
     """
-    schema = load_schema_from_name(
-        "test_placeholder_dependencies_with_calculation_summaries"
-    )
+    schema = load_schema_from_name("test_placeholder_dependencies_with_calculation_summaries")
 
     assert schema.placeholder_transform_section_dependencies_by_block == {
         "questions-section": {

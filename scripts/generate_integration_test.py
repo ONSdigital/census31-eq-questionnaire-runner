@@ -65,10 +65,7 @@ def process_get(request: Request, file: IO) -> None:
         - the very first GET action of a survey journey, after schema is loaded
         - tokens/authentication
     """
-    has_journey_started = (
-        not survey_journey["in_progress"]
-        and request.url == f"{RUNNER_ROOT_URL}/questionnaire/"
-    )
+    has_journey_started = not survey_journey["in_progress"] and request.url == f"{RUNNER_ROOT_URL}/questionnaire/"
     if has_journey_started:
         survey_journey["in_progress"] = True
         return
@@ -128,9 +125,7 @@ def request_handler(request: Request) -> None:
 
 def run(pw: Playwright) -> None:
     chromium = pw.chromium
-    browser = chromium.launch(
-        headless=False, args=["--start-maximized"], channel="chrome"
-    )
+    browser = chromium.launch(headless=False, args=["--start-maximized"], channel="chrome")
     page = browser.new_page(no_viewport=True)
     page.goto(LAUNCHER_ROOT_URL)
 

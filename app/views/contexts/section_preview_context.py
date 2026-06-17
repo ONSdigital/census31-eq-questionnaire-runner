@@ -28,9 +28,7 @@ class SectionPreviewContext(Context):
         # Type ignore: The section has to exist at this point
         section = self._placeholder_renderer.render(data_to_render=self._schema.get_section(self._section_id), list_item_id=None)  # type: ignore
 
-        groups = [
-            PreviewGroup(group_schema=group).serialize() for group in section["groups"]
-        ]
+        groups = [PreviewGroup(group_schema=group).serialize() for group in section["groups"]]
         section_dict: dict = {
             "title": section["title"],
             "id": section["id"],

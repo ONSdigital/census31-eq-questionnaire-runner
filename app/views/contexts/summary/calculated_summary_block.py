@@ -66,11 +66,7 @@ class CalculatedSummaryBlock:
 
     def _build_link(self) -> str:
         # not required if the calculated summary is in the repeat alongside the GCS
-        return_to_list_item_id = (
-            self._return_location.return_to_list_item_id
-            if not self._list_item_id
-            else None
-        )
+        return_to_list_item_id = self._return_location.return_to_list_item_id if not self._list_item_id else None
         return url_for(
             "questionnaire.block",
             block_id=self.id,

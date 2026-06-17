@@ -75,10 +75,7 @@ def test_create_answer(
     assert answer.value == "An answer"
     assert answer.type == "date"
 
-    assert (
-        answer.link
-        == f"/questionnaire/answer-list/answer-item-id/house-type/{query_string}#{answer.id}"
-    )
+    assert answer.link == f"/questionnaire/answer-list/answer-item-id/house-type/{query_string}#{answer.id}"
 
 
 @pytest.mark.usefixtures("app")

@@ -1,3 +1,6 @@
+[tool.black]
+line-length = 120
+
 [tool.djlint]
 blank_line_after_tag="load,extends,import,from"
 blank_line_before_tag="load,extends,block"

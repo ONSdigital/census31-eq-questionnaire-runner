@@ -4,10 +4,7 @@ import uuid
 from httmock import HTTMock, urlmatch
 from mock import patch
 
-from app.utilities.schema import (
-    CIR_RETRIEVE_COLLECTION_INSTRUMENT_URL,
-    get_schema_path_map,
-)
+from app.utilities.schema import CIR_RETRIEVE_COLLECTION_INSTRUMENT_URL, get_schema_path_map
 from tests.app.parser.conftest import get_response_expires_at
 from tests.integration.integration_test_case import IntegrationTestCase
 
@@ -57,10 +54,7 @@ class TestFlushData(IntegrationTestCase):
             return json_data.read()
 
     def test_flush_data_successful(self):
-        self.post(
-            url="/flush?token="
-            + self.token_generator.generate_token(self.get_payload())
-        )
+        self.post(url="/flush?token=" + self.token_generator.generate_token(self.get_payload()))
         self.assertStatusOK()
 
     def test_no_data_to_flush(self):
@@ -88,17 +82,11 @@ class TestFlushData(IntegrationTestCase):
         self.assertStatusForbidden()
 
     def test_double_flush(self):
-        self.post(
-            url="/flush?token="
-            + self.token_generator.generate_token(self.get_payload())
-        )
+        self.post(url="/flush?token=" + self.token_generator.generate_token(self.get_payload()))
 
         # Once the data has been flushed it is wiped.
         # It can't be flushed again and should return 404 no data on second flush
-        self.post(
-            url="/flush?token="
-            + self.token_generator.generate_token(self.get_payload())
-        )
+        self.post(url="/flush?token=" + self.token_generator.generate_token(self.get_payload()))
         self.assertStatusCode(404)
 
     def test_no_token_passed_to_flush(self):
@@ -112,17 +100,11 @@ class TestFlushData(IntegrationTestCase):
     def test_flush_errors_when_submission_fails(self):
         self.submitter_instance.send_message.return_value = False
 
-        self.post(
-            url="/flush?token="
-            + self.token_generator.generate_token(self.get_payload())
-        )
+        self.post(url="/flush?token=" + self.token_generator.generate_token(self.get_payload()))
         self.assertStatusCode(500)
 
     def test_flush_sets_flushed_flag_to_true(self):
-        self.post(
-            url="/flush?token="
-            + self.token_generator.generate_token(self.get_payload())
-        )
+        self.post(url="/flush?token=" + self.token_generator.generate_token(self.get_payload()))
 
         self.encrypt_instance.assert_called_once()
         args = self.encrypt_instance.call_args[0]
@@ -173,10 +155,7 @@ class TestFlushData(IntegrationTestCase):
         form_data = {"name-answer": "Joe Bloggs"}
         self.post(form_data)
         mock_convert_answers_v2.return_value = mock_convert_answer_payload
-        self.post(
-            url="/flush?token="
-            + self.token_generator.generate_token(self.get_payload())
-        )
+        self.post(url="/flush?token=" + self.token_generator.generate_token(self.get_payload()))
         self.assertStatusOK()
         mock_convert_answers_v2.assert_called_once()
 
@@ -220,11 +199,9 @@ class TestFlushData(IntegrationTestCase):
             self.get(url=f"/session?token={token}")
             self.assertStatusOK()
             with self.assertLogs() as logs:
-                token_with_flush_role = (
-                    self.token_generator.create_token_with_cir_instrument_id(
-                        cir_instrument_id="f0519981-426c-8b93-75c0-bfc40c66fe25",
-                        payload=self.get_payload(),
-                    )
+                token_with_flush_role = self.token_generator.create_token_with_cir_instrument_id(
+                    cir_instrument_id="f0519981-426c-8b93-75c0-bfc40c66fe25",
+                    payload=self.get_payload(),
                 )
                 self.post(url=f"/flush?token={token_with_flush_role}")
 

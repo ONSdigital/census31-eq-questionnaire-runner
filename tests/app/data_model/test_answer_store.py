@@ -116,12 +116,8 @@ def test_list_serialisation(store_to_serialize):
     serialized_store = list(store_to_serialize)
 
     assert serialized_store == [
-        Answer.from_dict(
-            {"answer_id": "answer1", "value": 10, "list_item_id": "abc123"}
-        ),
-        Answer.from_dict(
-            {"answer_id": "answer2", "value": 20, "list_item_id": "xyz987"}
-        ),
+        Answer.from_dict({"answer_id": "answer1", "value": 10, "list_item_id": "abc123"}),
+        Answer.from_dict({"answer_id": "answer2", "value": 20, "list_item_id": "xyz987"}),
         Answer.from_dict({"answer_id": "answer3", "value": 30, "list_item_id": None}),
     ]
 

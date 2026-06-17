@@ -110,9 +110,7 @@ class TestMultipleLogin(MultipleClientTestCase):
         """
 
         # user A launches the test language questionnaire in English
-        self.launchSurvey(
-            self.client_a, schema_name="test_language", language_code="en"
-        )
+        self.launchSurvey(self.client_a, schema_name="test_language", language_code="en")
         self.post(self.client_a)
         last_response_a = self.cache[self.client_a]["last_response"]
         self.assertIn("Please enter a name", last_response_a.get_data(True))
@@ -129,9 +127,7 @@ class TestMultipleLogin(MultipleClientTestCase):
         self.assertIn("Please enter a name", last_response_a.get_data(True))
 
         # user B launches the same questionnaire but in Welsh
-        self.launchSurvey(
-            self.client_b, schema_name="test_language", language_code="cy"
-        )
+        self.launchSurvey(self.client_b, schema_name="test_language", language_code="cy")
         self.post(self.client_b)
         last_response_b = self.cache[self.client_b]["last_response"]
         self.assertIn("Rhowch enw", last_response_b.get_data(True))
@@ -139,9 +135,7 @@ class TestMultipleLogin(MultipleClientTestCase):
         # user B posts an answer and the questionnaire language is still Welsh
         self.post(self.client_b, {"first-name": "John", "last-name": "Smith"})
         last_response_b = self.cache[self.client_b]["last_response"]
-        self.assertIn(
-            "Beth yw dyddiad geni John Smith?", last_response_b.get_data(True)
-        )
+        self.assertIn("Beth yw dyddiad geni John Smith?", last_response_b.get_data(True))
 
         # user A refreshes the page and sees the answers from B
         self.get(self.client_a, "/questionnaire/name-block/")
@@ -173,9 +167,7 @@ class TestCollectionMetadataStorage(MultipleClientTestCase):
         Ensure that started_at is retained between collections
         """
         # User A starts a survey
-        self.launchSurvey(
-            self.client_a, schema_name="test_introduction", roles=["dumper"]
-        )
+        self.launchSurvey(self.client_a, schema_name="test_introduction", roles=["dumper"])
         # And starts the questionnaire
         self.post(self.client_a, action="start_questionnaire")
 
@@ -183,9 +175,7 @@ class TestCollectionMetadataStorage(MultipleClientTestCase):
         a_submission = self.dumpSubmission(self.client_a)["submission"]
 
         # User B loads the survey
-        self.launchSurvey(
-            self.client_b, schema_name="test_introduction", roles=["dumper"]
-        )
+        self.launchSurvey(self.client_b, schema_name="test_introduction", roles=["dumper"])
         # And we dump their submission
         b_submission = self.dumpSubmission(self.client_b)["submission"]
 
@@ -193,8 +183,8 @@ class TestCollectionMetadataStorage(MultipleClientTestCase):
         # it is the same for both users
         self.assertEqual(a_submission["started_at"], b_submission["started_at"])
 
-        started_at_datetime = datetime.strptime(
-            a_submission["started_at"], "%Y-%m-%dT%H:%M:%S.%f%z"
-        ).replace(tzinfo=timezone.utc)
+        started_at_datetime = datetime.strptime(a_submission["started_at"], "%Y-%m-%dT%H:%M:%S.%f%z").replace(
+            tzinfo=timezone.utc
+        )
 
         self.assertIsNotNone(started_at_datetime)

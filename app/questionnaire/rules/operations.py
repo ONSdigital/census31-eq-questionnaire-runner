@@ -2,15 +2,7 @@ from collections.abc import Sized
 from copy import deepcopy
 from datetime import date
 from decimal import Decimal
-from typing import (
-    TYPE_CHECKING,
-    Iterable,
-    Mapping,
-    Sequence,
-    TypeAlias,
-    TypedDict,
-    TypeVar,
-)
+from typing import TYPE_CHECKING, Iterable, Mapping, Sequence, TypeAlias, TypedDict, TypeVar
 
 from babel.dates import format_datetime
 from dateutil.relativedelta import relativedelta
@@ -23,9 +15,7 @@ from app.questionnaire.value_source_resolver import ValueSourceTypes
 from app.settings import DEFAULT_LOCALE
 
 if TYPE_CHECKING:
-    from app.questionnaire.placeholder_renderer import (
-        PlaceholderRenderer,  # pragma: no cover
-    )
+    from app.questionnaire.placeholder_renderer import PlaceholderRenderer  # pragma: no cover
 
 ComparableValue = TypeVar("ComparableValue", str, int, float, Decimal, date)
 NonArrayPrimitiveTypes: TypeAlias = str | int | float | Decimal | None
@@ -55,7 +45,9 @@ class Operations:
     A class to group the operations
     """
 
-    NEGATIVE_DAYS_OFFSET_ERROR_MESSAGE = "Negative days offset must be less than or equal to -7 when used with `day_of_week` offset"
+    NEGATIVE_DAYS_OFFSET_ERROR_MESSAGE = (
+        "Negative days offset must be less than or equal to -7 when used with `day_of_week` offset"
+    )
 
     def __init__(
         self,
@@ -83,9 +75,7 @@ class Operations:
         return lhs > rhs
 
     @staticmethod
-    def evaluate_greater_than_or_equal(
-        lhs: ComparableValue, rhs: ComparableValue
-    ) -> bool:
+    def evaluate_greater_than_or_equal(lhs: ComparableValue, rhs: ComparableValue) -> bool:
         return lhs >= rhs
 
     @staticmethod
@@ -150,14 +140,10 @@ class Operations:
                 if 0 > days_offset > -7:
                     raise ValueError(Operations.NEGATIVE_DAYS_OFFSET_ERROR_MESSAGE)
 
-                days_difference = (
-                    value_as_date.weekday() - DAYS_OF_WEEK[day_of_week_offset]
-                )
+                days_difference = value_as_date.weekday() - DAYS_OF_WEEK[day_of_week_offset]
                 days_to_reduce = days_difference % 7
 
-                if not offset_by_full_weeks and (
-                    days_offset < 0 and days_difference < 0
-                ):
+                if not offset_by_full_weeks and (days_offset < 0 and days_difference < 0):
                     # A negative day difference means that the `day_of_week` offset went back to the previous week;
                     # therefore, if we also have a negative days offset,
                     # then the no. of days we reduce the offset by must be adjusted by 7 to prevent going back two weeks.
@@ -178,9 +164,7 @@ class Operations:
         return [(start_date + relativedelta(days=i)) for i in range(days_in_range)]
 
     def format_date(self, date_to_format: date, date_format: str) -> str:
-        formatted_date: str = format_datetime(
-            date_to_format, date_format, locale=self._locale
-        )
+        formatted_date: str = format_datetime(date_to_format, date_format, locale=self._locale)
         return formatted_date
 
     def _resolve_self_reference(
@@ -192,16 +176,10 @@ class Operations:
         for operand in operands:
             if isinstance(operand, dict) and QuestionnaireSchema.has_operator(operand):
                 operator_name = next(iter(operand))
-                resolved_nested_operands = self._resolve_self_reference(
-                    self_reference_value, operand[operator_name]
-                )
-                resolved_value = getattr(self, OPERATION_MAPPING[operator_name])(
-                    *resolved_nested_operands
-                )
+                resolved_nested_operands = self._resolve_self_reference(self_reference_value, operand[operator_name])
+                resolved_value = getattr(self, OPERATION_MAPPING[operator_name])(*resolved_nested_operands)
             else:
-                resolved_value = (
-                    self_reference_value if operand == SELF_REFERENCE_KEY else operand
-                )
+                resolved_value = self_reference_value if operand == SELF_REFERENCE_KEY else operand
 
             resolved_operands.append(resolved_value)
 
@@ -219,19 +197,14 @@ class Operations:
         for item in iterables:
             resolved_operands = self._resolve_self_reference(item, function_operands)
 
-            results.append(
-                getattr(self, OPERATION_MAPPING[function_operator])(*resolved_operands)
-            )
+            results.append(getattr(self, OPERATION_MAPPING[function_operator])(*resolved_operands))
 
         return results
 
     def evaluate_option_label_from_value(self, value: str, answer_id: str) -> str:
         answers = self.schema.get_answers_by_answer_id(answer_id)
         label_options: str | dict = [
-            options["label"]
-            for answer in answers
-            for options in answer["options"]
-            if value == options["value"]
+            options["label"] for answer in answers for options in answer["options"] if value == options["value"]
         ][0]
 
         if isinstance(label_options, str):
