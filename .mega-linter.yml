@@ -23,5 +23,8 @@ FLAVOR_SUGGESTIONS: false
 # Keep flake8 aligned with repository linting settings.
 PYTHON_FLAKE8_ARGUMENTS: "--max-line-length=120 --extend-ignore=E203"
 
+# Keep Bandit focused on application code; test asserts are expected.
+PYTHON_BANDIT_ARGUMENTS: "-x tests,node_modules"
+
 ACTION_ZIZMOR_UNSECURED_ENV_VARIABLES:
   - GITHUB_TOKEN

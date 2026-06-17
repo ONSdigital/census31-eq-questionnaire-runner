@@ -83,14 +83,14 @@ HOST_ERROR_MESSAGE = "Setting EQ_RABBITMQ_HOST Missing"
 SECONDARY_HOST_ERROR_MESSAGE = "Setting EQ_RABBITMQ_HOST_SECONDARY Missing"
 SDS_CLIENT_ID_ERROR_MESSAGE = "Setting SDS_OAUTH2_CLIENT_ID Missing"
 CIR_CLIENT_ID_ERROR_MESSAGE = "Setting CIR_OAUTH2_CLIENT_ID Missing"
-TOKEN_BACKEND_ERROR_MESSAGE = "Setting OIDC_TOKEN_BACKEND Missing"
+TOKEN_BACKEND_ERROR_MESSAGE = "Setting OIDC_TOKEN_BACKEND Missing"  # nosec B105
 FEEDBACK_BUCKET_ID_ERROR_MESSAGE = "Setting EQ_GCS_FEEDBACK_BUCKET_ID Missing"
-SECRET_KEY_ERROR_MESSAGE = "Application secret key does not exist"
+SECRET_KEY_ERROR_MESSAGE = "Application secret key does not exist"  # nosec B105
 
 STORAGE_BACKEND_ERROR_MESSAGE = "Unknown EQ_STORAGE_BACKEND"
 SUBMISSION_ERROR_MESSAGE = "Unknown EQ_SUBMISSION_BACKEND"
 SUBMIT_CONFIRMATION_ERROR_MESSAGE = "Unknown EQ_SUBMISSION_CONFIRMATION_BACKEND"
-TOKEN_BACKEND_UNKNOWN_ERROR_MESSAGE = "Unknown OIDC_TOKEN_BACKEND"
+TOKEN_BACKEND_UNKNOWN_ERROR_MESSAGE = "Unknown OIDC_TOKEN_BACKEND"  # nosec B105
 PUBLISHER_BACKEND_ERROR_MESSAGE = "Unknown EQ_PUBLISHER_BACKEND"
 FEEDBACK_BACKEND_ERROR_MESSAGE = "Unknown EQ_FEEDBACK_BACKEND"
 
@@ -382,11 +382,11 @@ def setup_oidc(application):
     if not (oidc_token_backend := application.config.get("OIDC_TOKEN_BACKEND")):
         raise MissingEnvironmentVariable(TOKEN_BACKEND_ERROR_MESSAGE)
 
-    if oidc_token_backend == "gcp":
+    if oidc_token_backend == "gcp":  # nosec B105
         client_ids_exist()
         application.eq["oidc_credentials_service"] = OIDCCredentialsServiceGCP()
 
-    elif oidc_token_backend == "local":
+    elif oidc_token_backend == "local":  # nosec B105
         application.eq["oidc_credentials_service"] = OIDCCredentialsServiceLocal()
 
     else:
