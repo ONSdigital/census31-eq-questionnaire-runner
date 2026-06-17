@@ -32,7 +32,6 @@ AnswerType = Mapping[str, Any]
 UnitLengthType: TypeAlias = Literal["short", "long", "narrow"]
 
 
-@pass_context
 def mark_safe(context: Context, value: str) -> Markup | str:
     return Markup(value) if context.environment.autoescape else value  # noqa: S704
 
