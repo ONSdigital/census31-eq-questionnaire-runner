@@ -34,7 +34,6 @@ describe("List Collector", () => {
       await $(ListCollectorAddPage.lastName()).setValue("Twin");
       await click(ListCollectorAddPage.submit());
       await $(ListCollectorPage.yes()).click();
-      // eslint-disable-next-line no-undef
       await click(ListCollectorPage.submit());
       await $(ListCollectorAddPage.firstName()).setValue("Samuel");
       await $(ListCollectorAddPage.lastName()).setValue("Clemens");
