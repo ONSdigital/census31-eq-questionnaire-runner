@@ -149,7 +149,7 @@ jobs:
     runs-on: ubuntu-22.04
     timeout-minutes: 35
     strategy:
-      max-parallel: 4
+      fail-fast: false
       matrix:
         suite: ['components', 'timeout_modal', 'features', 'journeys']
     env:
