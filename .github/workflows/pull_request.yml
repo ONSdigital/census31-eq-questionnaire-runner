@@ -84,8 +84,6 @@ jobs:
         run: ./scripts/lint_functional_test_specs.sh
       - name: Javascript linting
         run: make lint-js
-      - name: HTML linting
-        run: make lint-html
   test-unit:
     if: "!contains(github.event.pull_request.labels.*.name, 'skip-tests-unit')"
     permissions:

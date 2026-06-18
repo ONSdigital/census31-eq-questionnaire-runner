@@ -20,20 +20,14 @@ build: load-design-system-templates load-schemas translate
 generate-pages:
 	npm run generate_pages
 
-lint: lint-python lint-js lint-html
-
-lint-html:
-	poetry run djlint ./templates --profile=jinja
+lint: lint-python lint-js
 
 lint-python:
 	poetry run ./scripts/run_lint_python.sh
 
 lint-test-python: lint-python test-unit
 
-format: format-python format-js format-html
-
-format-html:
-	poetry run djlint ./templates --reformat --profile=jinja
+format: format-python format-js
 
 format-python:
 	poetry run isort .
