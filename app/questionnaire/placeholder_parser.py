@@ -62,8 +62,8 @@ class PlaceholderParser:
 
         if routing_path_block_ids_map := (
             self._get_routing_path_block_ids_by_section_for_calculated_summary_dependencies(
-            data=placeholder_list,
-            sections_to_ignore=sections_to_ignore,
+                data=placeholder_list,
+                sections_to_ignore=sections_to_ignore,
             )
         ):
             self._routing_path_block_ids_by_section_key.update(routing_path_block_ids_map)

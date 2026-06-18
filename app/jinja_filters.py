@@ -252,6 +252,7 @@ def get_width_for_number(answer: AnswerType) -> int | None:
     for allowable_width in allowable_widths:
         if width <= allowable_width:
             return allowable_width
+    return None
 
 
 @blueprint.app_context_processor

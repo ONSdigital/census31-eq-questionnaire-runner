@@ -22,6 +22,19 @@ FORMATTERS_DISABLE_ERRORS: false
 SHOW_ELAPSED_TIME: true
 FLAVOR_SUGGESTIONS: false
 
+# Install Python project dependencies for type checkers and linters
+PYTHON_MYPY_PRE_COMMANDS:
+  - command: poetry install --no-root
+    cwd: workspace
+
+PYTHON_PYRIGHT_PRE_COMMANDS:
+  - command: poetry install --no-root
+    cwd: workspace
+
+PYTHON_PYLINT_PRE_COMMANDS:
+  - command: poetry install --no-root
+    cwd: workspace
+
 # Keep flake8 aligned with repository linting settings.
 PYTHON_FLAKE8_ARGUMENTS: "--max-line-length=120 --extend-ignore=E203"
 

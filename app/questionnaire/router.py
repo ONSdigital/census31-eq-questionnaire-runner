@@ -293,8 +293,8 @@ class Router:
                 _anchor=return_location.return_to_answer_id,
             )
         # since the above may define a different routing_path,
-            # retrieval of the next incomplete block needs to be here instead of
-            # returning None and allowing default behaviour.
+        # retrieval of the next incomplete block needs to be here instead of
+        # returning None and allowing default behaviour.
         return self._get_return_url_for_inaccessible_location(
             is_for_previous=is_for_previous,
             return_location=return_location,
