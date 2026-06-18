@@ -11,12 +11,12 @@ describe("Component: Mutually Exclusive Day Month Year Date With Multiple Radio 
   describe("Given the user has entered a value for the non-exclusive month year date answer", () => {
     beforeEach(async () => {
       // Given
-      await $(DatePage.dateday()).setValue("17");
-      await $(DatePage.datemonth()).setValue("3");
-      await $(DatePage.dateyear()).setValue("2018");
-      await expect(await $(DatePage.dateday()).getValue()).toBe("17");
-      await expect(await $(DatePage.datemonth()).getValue()).toBe("3");
-      await expect(await $(DatePage.dateyear()).getValue()).toBe("2018");
+      await $(DatePage.dateDay()).setValue("17");
+      await $(DatePage.dateMonth()).setValue("3");
+      await $(DatePage.dateYear()).setValue("2018");
+      await expect(await $(DatePage.dateDay()).getValue()).toBe("17");
+      await expect(await $(DatePage.dateMonth()).getValue()).toBe("3");
+      await expect(await $(DatePage.dateYear()).getValue()).toBe("2018");
     });
     it("When then user clicks the first mutually exclusive radio answer, Then only the first mutually exclusive radio should be answered.", async () => {
       // When
@@ -25,9 +25,9 @@ describe("Component: Mutually Exclusive Day Month Year Date With Multiple Radio 
       // Then
       await expect(await $(DatePage.dateExclusiveIPreferNotToSay()).isSelected()).toBe(true);
       await expect(await $(DatePage.dateExclusiveIHaveNeverWorked()).isSelected()).toBe(false);
-      await expect(await $(DatePage.dateday()).getValue()).toBe("");
-      await expect(await $(DatePage.datemonth()).getValue()).toBe("");
-      await expect(await $(DatePage.dateyear()).getValue()).toBe("");
+      await expect(await $(DatePage.dateDay()).getValue()).toBe("");
+      await expect(await $(DatePage.dateMonth()).getValue()).toBe("");
+      await expect(await $(DatePage.dateYear()).getValue()).toBe("");
 
       await click(DatePage.submit());
 
@@ -43,9 +43,9 @@ describe("Component: Mutually Exclusive Day Month Year Date With Multiple Radio 
       // Then
       await expect(await $(DatePage.dateExclusiveIHaveNeverWorked()).isSelected()).toBe(true);
       await expect(await $(DatePage.dateExclusiveIPreferNotToSay()).isSelected()).toBe(false);
-      await expect(await $(DatePage.dateday()).getValue()).toBe("");
-      await expect(await $(DatePage.datemonth()).getValue()).toBe("");
-      await expect(await $(DatePage.dateyear()).getValue()).toBe("");
+      await expect(await $(DatePage.dateDay()).getValue()).toBe("");
+      await expect(await $(DatePage.dateMonth()).getValue()).toBe("");
+      await expect(await $(DatePage.dateYear()).getValue()).toBe("");
 
       await click(DatePage.submit());
 
@@ -66,14 +66,14 @@ describe("Component: Mutually Exclusive Day Month Year Date With Multiple Radio 
       await expect(await $(DatePage.dateExclusiveIHaveNeverWorked()).isSelected()).toBe(false);
 
       // When
-      await $(DatePage.dateday()).setValue("17");
-      await $(DatePage.datemonth()).setValue("3");
-      await $(DatePage.dateyear()).setValue("2018");
+      await $(DatePage.dateDay()).setValue("17");
+      await $(DatePage.dateMonth()).setValue("3");
+      await $(DatePage.dateYear()).setValue("2018");
 
       // Then
-      await expect(await $(DatePage.dateday()).getValue()).toBe("17");
-      await expect(await $(DatePage.datemonth()).getValue()).toBe("3");
-      await expect(await $(DatePage.dateyear()).getValue()).toBe("2018");
+      await expect(await $(DatePage.dateDay()).getValue()).toBe("17");
+      await expect(await $(DatePage.dateMonth()).getValue()).toBe("3");
+      await expect(await $(DatePage.dateYear()).getValue()).toBe("2018");
 
       await expect(await $(DatePage.dateExclusiveIPreferNotToSay()).isSelected()).toBe(false);
 
@@ -97,14 +97,14 @@ describe("Component: Mutually Exclusive Day Month Year Date With Multiple Radio 
       await expect(await $(DatePage.dateExclusiveIPreferNotToSay()).isSelected()).toBe(false);
 
       // When
-      await $(DatePage.dateday()).setValue("17");
-      await $(DatePage.datemonth()).setValue("3");
-      await $(DatePage.dateyear()).setValue("2018");
+      await $(DatePage.dateDay()).setValue("17");
+      await $(DatePage.dateMonth()).setValue("3");
+      await $(DatePage.dateYear()).setValue("2018");
 
       // Then
-      await expect(await $(DatePage.dateday()).getValue()).toBe("17");
-      await expect(await $(DatePage.datemonth()).getValue()).toBe("3");
-      await expect(await $(DatePage.dateyear()).getValue()).toBe("2018");
+      await expect(await $(DatePage.dateDay()).getValue()).toBe("17");
+      await expect(await $(DatePage.dateMonth()).getValue()).toBe("3");
+      await expect(await $(DatePage.dateYear()).getValue()).toBe("2018");
 
       await expect(await $(DatePage.dateExclusiveIHaveNeverWorked()).isSelected()).toBe(false);
 
@@ -127,14 +127,14 @@ describe("Component: Mutually Exclusive Day Month Year Date With Multiple Radio 
       await expect(await $(DatePage.dateExclusiveIHaveNeverWorked()).isSelected()).toBe(false);
 
       // When
-      await $(DatePage.dateday()).setValue("17");
-      await $(DatePage.datemonth()).setValue("3");
-      await $(DatePage.dateyear()).setValue("2018");
+      await $(DatePage.dateDay()).setValue("17");
+      await $(DatePage.dateMonth()).setValue("3");
+      await $(DatePage.dateYear()).setValue("2018");
 
       // Then
-      await expect(await $(DatePage.dateday()).getValue()).toBe("17");
-      await expect(await $(DatePage.datemonth()).getValue()).toBe("3");
-      await expect(await $(DatePage.dateyear()).getValue()).toBe("2018");
+      await expect(await $(DatePage.dateDay()).getValue()).toBe("17");
+      await expect(await $(DatePage.dateMonth()).getValue()).toBe("3");
+      await expect(await $(DatePage.dateYear()).getValue()).toBe("2018");
       await expect(await $(DatePage.dateExclusiveIPreferNotToSay()).isSelected()).toBe(false);
       await expect(await $(DatePage.dateExclusiveIHaveNeverWorked()).isSelected()).toBe(false);
 
@@ -149,9 +149,9 @@ describe("Component: Mutually Exclusive Day Month Year Date With Multiple Radio 
   describe("Given the user has not answered the non-exclusive month year date answer", () => {
     beforeEach(async () => {
       // Given
-      await expect(await $(DatePage.dateday()).getValue()).toBe("");
-      await expect(await $(DatePage.datemonth()).getValue()).toBe("");
-      await expect(await $(DatePage.dateyear()).getValue()).toBe("");
+      await expect(await $(DatePage.dateDay()).getValue()).toBe("");
+      await expect(await $(DatePage.dateMonth()).getValue()).toBe("");
+      await expect(await $(DatePage.dateYear()).getValue()).toBe("");
     });
     it("When the user clicks the first mutually exclusive radio answer, Then only the first exclusive radio should be answered.", async () => {
       // When
@@ -185,9 +185,9 @@ describe("Component: Mutually Exclusive Day Month Year Date With Multiple Radio 
   describe("Given the user has not answered the question and the question is optional", () => {
     it("When the user clicks the Continue button, Then it should display `No answer provided`", async () => {
       // Given
-      await expect(await $(DatePage.dateday()).getValue()).toBe("");
-      await expect(await $(DatePage.datemonth()).getValue()).toBe("");
-      await expect(await $(DatePage.dateyear()).getValue()).toBe("");
+      await expect(await $(DatePage.dateDay()).getValue()).toBe("");
+      await expect(await $(DatePage.dateMonth()).getValue()).toBe("");
+      await expect(await $(DatePage.dateYear()).getValue()).toBe("");
       await expect(await $(DatePage.dateExclusiveIPreferNotToSay()).isSelected()).toBe(false);
       await expect(await $(DatePage.dateExclusiveIHaveNeverWorked()).isSelected()).toBe(false);
 

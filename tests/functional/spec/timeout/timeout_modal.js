@@ -36,7 +36,8 @@ class TestCase {
         "Then my session will be extended",
       async () => {
       await this.checkTimeoutModal();
-      await browser.newWindow("");
+      // WebdriverIO v9 (BiDi) requires a valid URL when opening a new window.
+      await browser.newWindow("about:blank");
       await browser.switchWindow(await page.pageName);
       await browser.refresh();
       await browser.pause(65000); // Waiting 65 seconds to sanity check that it hasn’t expired

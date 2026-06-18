@@ -27,8 +27,8 @@ describe("Difference check (months and years)", () => {
   });
 
   it("Given a month and year answer is provided for a date question then the difference in years should be calculated and displayed on the page ", async () => {
-    await $(AgeBlockMonthYearPage.Month()).setValue(1);
-    await $(AgeBlockMonthYearPage.Year()).setValue(1990);
+    await $(AgeBlockMonthYearPage.month()).setValue(1);
+    await $(AgeBlockMonthYearPage.year()).setValue(1990);
 
     await click(AgeBlockMonthYearPage.submit());
 
@@ -68,13 +68,13 @@ describe("Difference check (years range)", () => {
     "Given a day, month and year answers 'from' and 'to' are provided for a date question " +
       "then the difference in years should be calculated and displayed on the page ",
     async () => {
-    await $(AgeBlockDayMonthYearRangePage.periodFromday()).setValue(1);
-    await $(AgeBlockDayMonthYearRangePage.periodFrommonth()).setValue(1);
-    await $(AgeBlockDayMonthYearRangePage.periodFromyear()).setValue(1990);
+    await $(AgeBlockDayMonthYearRangePage.periodFromDay()).setValue(1);
+    await $(AgeBlockDayMonthYearRangePage.periodFromMonth()).setValue(1);
+    await $(AgeBlockDayMonthYearRangePage.periodFromYear()).setValue(1990);
 
-    await $(AgeBlockDayMonthYearRangePage.periodToday()).setValue(1);
-    await $(AgeBlockDayMonthYearRangePage.periodTomonth()).setValue(1);
-    await $(AgeBlockDayMonthYearRangePage.periodToyear()).setValue(1991);
+    await $(AgeBlockDayMonthYearRangePage.periodToDay()).setValue(1);
+    await $(AgeBlockDayMonthYearRangePage.periodToMonth()).setValue(1);
+    await $(AgeBlockDayMonthYearRangePage.periodToYear()).setValue(1991);
 
     await click(AgeBlockDayMonthYearRangePage.submit());
 

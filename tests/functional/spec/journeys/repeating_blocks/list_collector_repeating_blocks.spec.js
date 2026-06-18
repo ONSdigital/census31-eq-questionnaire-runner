@@ -18,6 +18,42 @@ import { expect } from "@wdio/globals";
 import ThankYouPage from "../../../base_pages/thank-you.page";
 
 const summaryValues = 'dd[class="ons-summary__values"]';
+
+const waitForThankYouAfterSubmit = async () => {
+  const submitRedirectAttempts = 2;
+  const submitRedirectTimeoutMs = parseInt(process.env.EQ_SUBMIT_REDIRECT_TIMEOUT_MS || "10000", 10);
+  let waitError;
+
+  for (let attempt = 1; attempt <= submitRedirectAttempts; attempt += 1) {
+    try {
+      await browser.waitUntil(
+        async () => {
+          const currentUrl = await browser.getUrl();
+          return currentUrl.includes(ThankYouPage.pageName);
+        },
+        {
+          timeout: submitRedirectTimeoutMs,
+          interval: 100,
+          timeoutMsg: `Expected redirect to ${ThankYouPage.pageName} after submit`,
+        },
+      );
+
+      return;
+    } catch (error) {
+      waitError = error;
+
+      if (attempt < submitRedirectAttempts) {
+        const currentUrl = await browser.getUrl();
+        if (currentUrl.includes(SubmitPage.pageName)) {
+          await click(SubmitPage.submit());
+        }
+      }
+    }
+  }
+
+  throw waitError;
+};
+
 async function proceedToListCollector() {
   await $(ResponsiblePartyPage.yes()).click();
   await click(AnyCompaniesOrBranchesPage.submit());
@@ -37,9 +73,9 @@ async function addCompany(
   await $(AddCompanyPage.companyOrBranchName()).setValue(companyOrBranchName);
   await click(AddCompanyPage.submit());
   await $(CompaniesRepeatingBlock1Page.registrationNumber()).setValue(registrationNumber);
-  await $(CompaniesRepeatingBlock1Page.registrationDateday()).setValue(registrationDateDay);
-  await $(CompaniesRepeatingBlock1Page.registrationDatemonth()).setValue(registrationDateMonth);
-  await $(CompaniesRepeatingBlock1Page.registrationDateyear()).setValue(registrationDateYear);
+  await $(CompaniesRepeatingBlock1Page.registrationDateDay()).setValue(registrationDateDay);
+  await $(CompaniesRepeatingBlock1Page.registrationDateMonth()).setValue(registrationDateMonth);
+  await $(CompaniesRepeatingBlock1Page.registrationDateYear()).setValue(registrationDateYear);
   await click(CompaniesRepeatingBlock1Page.submit());
   if (authorisedTraderUk) {
     await $(CompaniesRepeatingBlock2Page.authorisedTraderUkRadioYes()).click();
@@ -74,6 +110,7 @@ describe("List Collector Repeating Blocks", () => {
       await click(AnyOtherTradingDetailsPage.submit());
       await click(SectionCompaniesPage.submit());
       await click(SubmitPage.submit());
+      await waitForThankYouAfterSubmit();
       await verifyUrlContains(ThankYouPage.pageName);
     });
   });
@@ -127,6 +164,7 @@ describe("List Collector Repeating Blocks", () => {
       await click(AnyOtherTradingDetailsPage.submit());
       await click(SectionCompaniesPage.submit());
       await click(SubmitPage.submit());
+      await waitForThankYouAfterSubmit();
       await verifyUrlContains(ThankYouPage.pageName);
     });
   });
@@ -154,9 +192,9 @@ describe("List Collector Repeating Blocks", () => {
       await $(AddCompanyPage.companyOrBranchName()).setValue("MOD");
       await click(AddCompanyPage.submit());
       await $(CompaniesRepeatingBlock1Page.registrationNumber()).setValue("789");
-      await $(CompaniesRepeatingBlock1Page.registrationDateday()).setValue("3");
-      await $(CompaniesRepeatingBlock1Page.registrationDatemonth()).setValue("3");
-      await $(CompaniesRepeatingBlock1Page.registrationDateyear()).setValue("2023");
+      await $(CompaniesRepeatingBlock1Page.registrationDateDay()).setValue("3");
+      await $(CompaniesRepeatingBlock1Page.registrationDateMonth()).setValue("3");
+      await $(CompaniesRepeatingBlock1Page.registrationDateYear()).setValue("2023");
       await click(CompaniesRepeatingBlock1Page.submit());
       await $(CompaniesRepeatingBlock2Page.cancelAndReturn()).click();
       await $(CompaniesRepeatingBlock1Page.cancelAndReturn()).click();
@@ -191,9 +229,9 @@ describe("List Collector Repeating Blocks", () => {
       async () => {
       // Complete the first incomplete list item
       await $(CompaniesRepeatingBlock1Page.registrationNumber()).setValue("456");
-      await $(CompaniesRepeatingBlock1Page.registrationDateday()).setValue("2");
-      await $(CompaniesRepeatingBlock1Page.registrationDatemonth()).setValue("2");
-      await $(CompaniesRepeatingBlock1Page.registrationDateyear()).setValue("2023");
+      await $(CompaniesRepeatingBlock1Page.registrationDateDay()).setValue("2");
+      await $(CompaniesRepeatingBlock1Page.registrationDateMonth()).setValue("2");
+      await $(CompaniesRepeatingBlock1Page.registrationDateYear()).setValue("2023");
       await click(CompaniesRepeatingBlock1Page.submit());
       await $(CompaniesRepeatingBlock2Page.authorisedTraderUkRadioNo()).click();
       await $(CompaniesRepeatingBlock2Page.authorisedTraderEuRadioNo()).click();
@@ -338,9 +376,9 @@ describe("List Collector Repeating Blocks", () => {
         "Then the completed items should display the checkmark icon",
       async () => {
       await $(CompaniesRepeatingBlock1Page.registrationNumber()).setValue("456");
-      await $(CompaniesRepeatingBlock1Page.registrationDateday()).setValue("2");
-      await $(CompaniesRepeatingBlock1Page.registrationDatemonth()).setValue("2");
-      await $(CompaniesRepeatingBlock1Page.registrationDateyear()).setValue("2023");
+      await $(CompaniesRepeatingBlock1Page.registrationDateDay()).setValue("2");
+      await $(CompaniesRepeatingBlock1Page.registrationDateMonth()).setValue("2");
+      await $(CompaniesRepeatingBlock1Page.registrationDateYear()).setValue("2023");
       await click(CompaniesRepeatingBlock1Page.submit());
       await $(CompaniesRepeatingBlock2Page.authorisedTraderUkRadioNo()).click();
       await click(CompaniesRepeatingBlock2Page.submit());
@@ -373,9 +411,9 @@ describe("List Collector Repeating Blocks", () => {
       await $(AnyOtherCompaniesOrBranchesPage.no()).click();
       await click(AnyOtherCompaniesOrBranchesPage.submit());
       await $(CompaniesRepeatingBlock1Page.registrationNumber()).setValue("789");
-      await $(CompaniesRepeatingBlock1Page.registrationDateday()).setValue("3");
-      await $(CompaniesRepeatingBlock1Page.registrationDatemonth()).setValue("3");
-      await $(CompaniesRepeatingBlock1Page.registrationDateyear()).setValue("2023");
+      await $(CompaniesRepeatingBlock1Page.registrationDateDay()).setValue("3");
+      await $(CompaniesRepeatingBlock1Page.registrationDateMonth()).setValue("3");
+      await $(CompaniesRepeatingBlock1Page.registrationDateYear()).setValue("2023");
       await click(CompaniesRepeatingBlock1Page.submit());
       await $(CompaniesRepeatingBlock2Page.authorisedTraderUkRadioYes()).click();
       await click(CompaniesRepeatingBlock2Page.submit());
@@ -391,9 +429,9 @@ describe("List Collector Repeating Blocks", () => {
       await $(AddCompanyPage.companyOrBranchName()).setValue("MOJ");
       await click(AddCompanyPage.submit());
       await $(CompaniesRepeatingBlock1Page.registrationNumber()).setValue("789");
-      await $(CompaniesRepeatingBlock1Page.registrationDateday()).setValue("3");
-      await $(CompaniesRepeatingBlock1Page.registrationDatemonth()).setValue("3");
-      await $(CompaniesRepeatingBlock1Page.registrationDateyear()).setValue("2023");
+      await $(CompaniesRepeatingBlock1Page.registrationDateDay()).setValue("3");
+      await $(CompaniesRepeatingBlock1Page.registrationDateMonth()).setValue("3");
+      await $(CompaniesRepeatingBlock1Page.registrationDateYear()).setValue("2023");
       await click(CompaniesRepeatingBlock1Page.submit());
       await $(CompaniesRepeatingBlock2Page.authorisedTraderUkRadioYes()).click();
       await click(CompaniesRepeatingBlock2Page.submit());

@@ -31,13 +31,13 @@ describe("Date checks", () => {
     await click(DateQuestionPage.submit());
     await click(DaysQuestionBlockPage.submit());
 
-    await $(Block0Page.ref0day()).setValue(1);
-    await $(Block0Page.ref0month()).setValue(5);
-    await $(Block0Page.ref0year()).setValue(2019);
+    await $(Block0Page.ref0Day()).setValue(1);
+    await $(Block0Page.ref0Month()).setValue(5);
+    await $(Block0Page.ref0Year()).setValue(2019);
 
-    await $(Block0Page.ref1day()).setValue(19);
-    await $(Block0Page.ref1month()).setValue(5);
-    await $(Block0Page.ref1year()).setValue(2019);
+    await $(Block0Page.ref1Day()).setValue(19);
+    await $(Block0Page.ref1Month()).setValue(5);
+    await $(Block0Page.ref1Year()).setValue(2019);
 
     await click(Block0Page.submit());
 

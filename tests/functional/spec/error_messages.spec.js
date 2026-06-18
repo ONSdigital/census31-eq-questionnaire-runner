@@ -4,9 +4,9 @@ import { click } from "../helpers";
 
 async function answerAllButOne() {
   await $(AboutYou.textfield()).setValue("John Doe");
-  await $(AboutYou.dateday()).setValue("1");
-  await $(AboutYou.datemonth()).setValue("1");
-  await $(AboutYou.dateyear()).setValue("1995");
+  await $(AboutYou.dateDay()).setValue("1");
+  await $(AboutYou.dateMonth()).setValue("1");
+  await $(AboutYou.dateYear()).setValue("1995");
   await $(AboutYou.checkboxBmw()).click();
   await $(AboutYou.radioYes()).click();
   await $(AboutYou.currency()).setValue("50000");
@@ -98,7 +98,7 @@ describe("Error Messages", () => {
     await expect(await $(AboutYou.textfield()).isFocused()).toBe(true);
 
     await $(AboutYou.errorNumber(2)).click();
-    await expect(await $(AboutYou.dateday()).isFocused()).toBe(true);
+    await expect(await $(AboutYou.dateDay()).isFocused()).toBe(true);
 
     await $(AboutYou.errorNumber(3)).click();
     await expect(await $(AboutYou.checkboxBmw()).isFocused()).toBe(true);

@@ -1,4 +1,4 @@
-import AccomodationDetailsSummaryBlockPage from "../../generated_pages/hub_and_spoke/accommodation-section-summary.page.js";
+import AccommodationDetailsSummaryBlockPage from "../../generated_pages/hub_and_spoke/accommodation-section-summary.page.js";
 import AnyoneRelated from "../../generated_pages/hub_and_spoke/anyone-related.page.js";
 import DoesAnyoneLiveHere from "../../generated_pages/hub_and_spoke/does-anyone-live-here.page.js";
 import EmploymentStatusBlockPage from "../../generated_pages/hub_and_spoke/employment-status.page.js";
@@ -201,7 +201,7 @@ describe("Feature: Hub and Spoke", () => {
       await click(HubPage.submit());
       await $(ProxyPage.yes()).click();
       await click(ProxyPage.submit());
-      await click(AccomodationDetailsSummaryBlockPage.submit());
+      await click(AccommodationDetailsSummaryBlockPage.submit());
       await click(HubPage.submit());
       await $(DoesAnyoneLiveHere.no()).click();
       await click(DoesAnyoneLiveHere.submit());
