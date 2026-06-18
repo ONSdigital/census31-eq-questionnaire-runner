@@ -10,7 +10,6 @@ import flask_babel
 from babel import numbers
 from flask import current_app, g
 from jinja2 import nodes, pass_eval_context
-from jinja2.runtime import Context
 from markupsafe import Markup, escape
 from wtforms import SelectFieldBase
 
@@ -32,7 +31,7 @@ AnswerType = Mapping[str, Any]
 UnitLengthType: TypeAlias = Literal["short", "long", "narrow"]
 
 
-def mark_safe(context: Context, value: str) -> Markup | str:
+def mark_safe(context: nodes.EvalContext, value: str) -> Markup | str:
     return Markup(value) if context.environment.autoescape else value  # noqa: S704
 
 
