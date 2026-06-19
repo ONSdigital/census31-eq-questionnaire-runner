@@ -7,6 +7,8 @@
 
 # If you use ENABLE variable, all other languages/formats/tooling-formats will
 # be disabled by default
+# Have decided not to enable the Python linter as has been recommended in point 7
+# in the [python template readme](https://github.com/ONSdigital/ons-python-template#3-megalinter)
 ENABLE:
   - ACTION
   - DOCKERFILE
@@ -15,7 +17,6 @@ ENABLE:
   # - JAVASCRIPT
   - JSON
   - MARKDOWN
-  # - PYTHON
   - YAML
 
 FORMATTERS_DISABLE_ERRORS: false

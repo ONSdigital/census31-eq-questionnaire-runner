@@ -32,7 +32,7 @@ UnitLengthType: TypeAlias = Literal["short", "long", "narrow"]
 
 
 def mark_safe(context: nodes.EvalContext, value: str) -> Markup | str:
-    return Markup(value) if context.autoescape else value  # noqa: S704
+    return Markup(value) if context.environment.autoescape else value  # noqa: S704
 
 
 def strip_tags(value: str) -> Markup:
