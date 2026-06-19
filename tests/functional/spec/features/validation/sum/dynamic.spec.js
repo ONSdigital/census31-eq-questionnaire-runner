@@ -11,7 +11,7 @@ import HubPage from "../../../../base_pages/hub.page";
 import TotalBlockOtherPage from "../../../../generated_pages/validation_sum_against_total_dynamic_answers/total-block-other.page";
 import { click, verifyUrlContains } from "../../../../helpers";
 
-describe("Feature: Sum of dynamic answers based on list and optional static answers equal to validation against total ", () => {
+describe("Feature: Sum of dynamic answers based on list and optional static answers equal to validation against total", () => {
   const summaryTitles = 'dt[class="ons-summary__item-title"]';
   beforeEach(async () => {
     await browser.openQuestionnaire("test_validation_sum_against_total_dynamic_answers.json");
