@@ -28,8 +28,6 @@ JAVASCRIPT_ES_CLI_EXECUTABLE:
 JAVASCRIPT_ES_PRE_COMMANDS:
   - command: npm ci --include=dev
     cwd: workspace
-  - command: npm run generate_pages
-    cwd: workspace
 
 FORMATTERS_DISABLE_ERRORS: false
 SHOW_ELAPSED_TIME: true
