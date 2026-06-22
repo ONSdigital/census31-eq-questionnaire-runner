@@ -10,7 +10,7 @@ permissions:
   contents: read
 
 env:
-  GITHUB_STATUS_REPORTER: true
+  GITHUB_STATUS_REPORTER: false
   GITHUB_COMMENT_REPORTER: false
 
 concurrency:
