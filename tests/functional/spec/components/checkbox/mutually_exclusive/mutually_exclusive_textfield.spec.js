@@ -34,21 +34,21 @@ describe("Component: Mutually Exclusive Textfield With Single Checkbox Override"
       "When the user enters a value for the non-exclusive textfield answer and removes focus, " +
         "Then only the non-exclusive textfield answer should be answered.",
       async () => {
-      // Given
-      await $(TextFieldPage.textfieldExclusiveIPreferNotToSay()).click();
-      await expect(await $(TextFieldPage.textfieldExclusiveIPreferNotToSay()).isSelected()).toBe(true);
+        // Given
+        await $(TextFieldPage.textfieldExclusiveIPreferNotToSay()).click();
+        await expect(await $(TextFieldPage.textfieldExclusiveIPreferNotToSay()).isSelected()).toBe(true);
 
-      // When
-      await $(TextFieldPage.textfield()).setValue("Blue");
+        // When
+        await $(TextFieldPage.textfield()).setValue("Blue");
 
-      // Then
-      await expect(await $(TextFieldPage.textfield()).getValue()).toBe("Blue");
-      await expect(await $(TextFieldPage.textfieldExclusiveIPreferNotToSay()).isSelected()).toBe(false);
+        // Then
+        await expect(await $(TextFieldPage.textfield()).getValue()).toBe("Blue");
+        await expect(await $(TextFieldPage.textfieldExclusiveIPreferNotToSay()).isSelected()).toBe(false);
 
-      await click(TextFieldPage.submit());
+        await click(TextFieldPage.submit());
 
-      await expect(await $(SummaryPage.textfieldAnswer()).getText()).toBe("Blue");
-      await expect(await $(SummaryPage.textfieldAnswer()).getText()).not.toBe("I prefer not to say");
+        await expect(await $(SummaryPage.textfieldAnswer()).getText()).toBe("Blue");
+        await expect(await $(SummaryPage.textfieldAnswer()).getText()).not.toBe("I prefer not to say");
       },
     );
   });

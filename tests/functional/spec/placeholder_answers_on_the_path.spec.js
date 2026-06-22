@@ -41,34 +41,34 @@ describe("First Non Empty Item Transform Cross Section", () => {
     await click(HubPage.submit());
   });
 
-    it(
-      "Given a custom date range is entered, " +
-        "When the answer is changed back to metadata range, Then the metadata date should be displayed for both sections",
-      async () => {
-    // Set the date
-    await $(DateQuestionBlockPage.noINeedToReportForADifferentPeriod()).click();
-    await click(DateQuestionBlockPage.submit());
-    await $(DateEntryBlockPage.dateEntryFromDay()).setValue("5");
-    await $(DateEntryBlockPage.dateEntryFromMonth()).setValue("01");
-    await $(DateEntryBlockPage.dateEntryFromYear()).setValue("2017");
-    await $(DateEntryBlockPage.dateEntryToDay()).setValue("25");
-    await $(DateEntryBlockPage.dateEntryToMonth()).setValue("01");
-    await $(DateEntryBlockPage.dateEntryToYear()).setValue("2017");
-    await click(DateEntryBlockPage.submit());
+  it(
+    "Given a custom date range is entered, " +
+      "When the answer is changed back to metadata range, Then the metadata date should be displayed for both sections",
+    async () => {
+      // Set the date
+      await $(DateQuestionBlockPage.noINeedToReportForADifferentPeriod()).click();
+      await click(DateQuestionBlockPage.submit());
+      await $(DateEntryBlockPage.dateEntryFromDay()).setValue("5");
+      await $(DateEntryBlockPage.dateEntryFromMonth()).setValue("01");
+      await $(DateEntryBlockPage.dateEntryFromYear()).setValue("2017");
+      await $(DateEntryBlockPage.dateEntryToDay()).setValue("25");
+      await $(DateEntryBlockPage.dateEntryToMonth()).setValue("01");
+      await $(DateEntryBlockPage.dateEntryToYear()).setValue("2017");
+      await click(DateEntryBlockPage.submit());
 
-    // Check date changed and then change to original dates
-    await click(HubPage.submit());
-    expect(await $(FoodQuestionBlockPage.questionTitle()).getText()).toContain("5 January 2017 to 25 January 2017");
-    await $(FoodQuestionBlockPage.previous()).click();
-    await $(HubPage.summaryRowLink("default-section")).click();
-    await $(DateQuestionBlockPage.yesICanReportForThisPeriod()).click();
-    await click(DateQuestionBlockPage.submit());
-    // Check the next section if the metadata date is shown
-    await click(HubPage.submit());
-    await verifyUrlContains(FoodQuestionBlockPage.pageName);
-    expect(await $(FoodQuestionBlockPage.questionTitle()).getText()).toContain("1 January 2017 to 1 February 2017");
-      },
-    );
+      // Check date changed and then change to original dates
+      await click(HubPage.submit());
+      expect(await $(FoodQuestionBlockPage.questionTitle()).getText()).toContain("5 January 2017 to 25 January 2017");
+      await $(FoodQuestionBlockPage.previous()).click();
+      await $(HubPage.summaryRowLink("default-section")).click();
+      await $(DateQuestionBlockPage.yesICanReportForThisPeriod()).click();
+      await click(DateQuestionBlockPage.submit());
+      // Check the next section if the metadata date is shown
+      await click(HubPage.submit());
+      await verifyUrlContains(FoodQuestionBlockPage.pageName);
+      expect(await $(FoodQuestionBlockPage.questionTitle()).getText()).toContain("1 January 2017 to 1 February 2017");
+    },
+  );
 });
 
 describe("First Non Empty Item Transform Repeating Sections", () => {
@@ -76,44 +76,44 @@ describe("First Non Empty Item Transform Repeating Sections", () => {
     await browser.openQuestionnaire("test_placeholder_first_non_empty_item_repeating_sections.json");
     await click(HubPage.submit());
   });
-    it(
-      "Given a custom date range is entered, " +
-        "When the answer is changed back to metadata range, Then the metadata date should be displayed for the repeating section title",
-      async () => {
-    // Set the date
-    await $(DateQuestionBlockPage.noINeedToReportForADifferentPeriod()).click();
-    await click(DateQuestionBlockPage.submit());
-    await $(DateEntryBlockPage.dateEntryFromDay()).setValue("5");
-    await $(DateEntryBlockPage.dateEntryFromMonth()).setValue("01");
-    await $(DateEntryBlockPage.dateEntryFromYear()).setValue("2017");
-    await $(DateEntryBlockPage.dateEntryToDay()).setValue("25");
-    await $(DateEntryBlockPage.dateEntryToMonth()).setValue("01");
-    await $(DateEntryBlockPage.dateEntryToYear()).setValue("2017");
-    await click(DateEntryBlockPage.submit());
-    await click(HubPage.submit());
+  it(
+    "Given a custom date range is entered, " +
+      "When the answer is changed back to metadata range, Then the metadata date should be displayed for the repeating section title",
+    async () => {
+      // Set the date
+      await $(DateQuestionBlockPage.noINeedToReportForADifferentPeriod()).click();
+      await click(DateQuestionBlockPage.submit());
+      await $(DateEntryBlockPage.dateEntryFromDay()).setValue("5");
+      await $(DateEntryBlockPage.dateEntryFromMonth()).setValue("01");
+      await $(DateEntryBlockPage.dateEntryFromYear()).setValue("2017");
+      await $(DateEntryBlockPage.dateEntryToDay()).setValue("25");
+      await $(DateEntryBlockPage.dateEntryToMonth()).setValue("01");
+      await $(DateEntryBlockPage.dateEntryToYear()).setValue("2017");
+      await click(DateEntryBlockPage.submit());
+      await click(HubPage.submit());
 
-    // Add a person to the list collector
-    await $(ListCollectorPage.yes()).click();
-    await click(ListCollectorPage.submit());
-    await $(AddPersonPage.firstName()).setValue("Paul");
-    await $(AddPersonPage.lastName()).setValue("Pogba");
-    await click(AddPersonPage.submit());
-    await $(ListCollectorPage.no()).click();
-    await click(ListCollectorPage.submit());
-    await click(ListCollectorPage.submit());
-    // Check Repeating Section has the set dates
-    await click(HubPage.submit());
-    await verifyUrlContains(PersonalDetailsBlockPage.pageName);
-    expect(await $(PersonalDetailsBlockPage.questionTitle()).getText()).toContain("5 January 2017 to 25 January 2017");
-    await $(PersonalDetailsBlockPage.previous()).click();
-    // Change to original dates
-    await $(HubPage.summaryRowLink("date-section")).click();
-    await $(DateQuestionBlockPage.yesICanReportForThisPeriod()).click();
-    await click(DateQuestionBlockPage.submit());
-    await click(HubPage.submit());
-    // Check the list collector has metadata dates in the title
-    await verifyUrlContains(PersonalDetailsBlockPage.pageName);
-    expect(await $(PersonalDetailsBlockPage.questionTitle()).getText()).toContain("1 January 2017 to 1 February 2017");
-      },
-    );
+      // Add a person to the list collector
+      await $(ListCollectorPage.yes()).click();
+      await click(ListCollectorPage.submit());
+      await $(AddPersonPage.firstName()).setValue("Paul");
+      await $(AddPersonPage.lastName()).setValue("Pogba");
+      await click(AddPersonPage.submit());
+      await $(ListCollectorPage.no()).click();
+      await click(ListCollectorPage.submit());
+      await click(ListCollectorPage.submit());
+      // Check Repeating Section has the set dates
+      await click(HubPage.submit());
+      await verifyUrlContains(PersonalDetailsBlockPage.pageName);
+      expect(await $(PersonalDetailsBlockPage.questionTitle()).getText()).toContain("5 January 2017 to 25 January 2017");
+      await $(PersonalDetailsBlockPage.previous()).click();
+      // Change to original dates
+      await $(HubPage.summaryRowLink("date-section")).click();
+      await $(DateQuestionBlockPage.yesICanReportForThisPeriod()).click();
+      await click(DateQuestionBlockPage.submit());
+      await click(HubPage.submit());
+      // Check the list collector has metadata dates in the title
+      await verifyUrlContains(PersonalDetailsBlockPage.pageName);
+      expect(await $(PersonalDetailsBlockPage.questionTitle()).getText()).toContain("1 January 2017 to 1 February 2017");
+    },
+  );
 });

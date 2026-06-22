@@ -54,10 +54,10 @@ describe("Feature: Validation - Sum of grouped answers to equal total (Total in 
       "When I start the breakdown section and enter an answer that is not equal to the total for the turnover question, " +
         "Then I should see a validation error",
       async () => {
-      await click(HubPage.submit());
-      await answerAndSubmitTurnoverBreakdownQuestion(1000, 250, 250);
+        await click(HubPage.submit());
+        await answerAndSubmitTurnoverBreakdownQuestion(1000, 250, 250);
 
-      await expect(await $(TurnoverBreakdownPage.errorNumber(1)).getText()).toBe("Enter answers that add up to £1,000.00");
+        await expect(await $(TurnoverBreakdownPage.errorNumber(1)).getText()).toBe("Enter answers that add up to £1,000.00");
       },
     );
 
@@ -65,13 +65,13 @@ describe("Feature: Validation - Sum of grouped answers to equal total (Total in 
       "When I start the breakdown section and enter answers that are equal the total, " +
         "Then I should be able to get to the section summary and the breakdown section should be marked as 'Completed'",
       async () => {
-      await answerAndSubmitTurnoverBreakdownQuestion(500, 250, 250);
-      await answerAndSubmitEmployeeBreakdownQuestion(5, 5);
+        await answerAndSubmitTurnoverBreakdownQuestion(500, 250, 250);
+        await answerAndSubmitEmployeeBreakdownQuestion(5, 5);
 
-      await verifyUrlContains(BreakdownSectionSummary.pageName);
-      await click(BreakdownSectionSummary.submit());
+        await verifyUrlContains(BreakdownSectionSummary.pageName);
+        await click(BreakdownSectionSummary.submit());
 
-      await expect(await $(HubPage.summaryRowState(breakdownSectionId)).getText()).toBe("Completed");
+        await expect(await $(HubPage.summaryRowState(breakdownSectionId)).getText()).toBe("Completed");
       },
     );
   });
@@ -107,11 +107,11 @@ describe("Feature: Validation - Sum of grouped answers to equal total (Total in 
       "When I click 'Continue with section' on the breakdown section, " +
         "Then I should be taken to the turnover breakdown question and my previous answers should be prefilled",
       async () => {
-      await $(HubPage.summaryRowLink(breakdownSectionId)).click();
+        await $(HubPage.summaryRowLink(breakdownSectionId)).click();
 
-      await expect(await $(TurnoverBreakdownPage.turnoverBreakdown1()).getValue()).toBe("500.00");
-      await expect(await $(TurnoverBreakdownPage.turnoverBreakdown2()).getValue()).toBe("250.00");
-      await expect(await $(TurnoverBreakdownPage.turnoverBreakdown3()).getValue()).toBe("250.00");
+        await expect(await $(TurnoverBreakdownPage.turnoverBreakdown1()).getValue()).toBe("500.00");
+        await expect(await $(TurnoverBreakdownPage.turnoverBreakdown2()).getValue()).toBe("250.00");
+        await expect(await $(TurnoverBreakdownPage.turnoverBreakdown3()).getValue()).toBe("250.00");
       },
     );
 
@@ -125,11 +125,11 @@ describe("Feature: Validation - Sum of grouped answers to equal total (Total in 
       "When I update my answers to equal the new total turnover, " +
         "Then I should be able to get to the section summary and the breakdown section should be marked as 'Completed'",
       async () => {
-      await answerAndSubmitTurnoverBreakdownQuestion(500, 500, 500);
+        await answerAndSubmitTurnoverBreakdownQuestion(500, 500, 500);
 
-      await verifyUrlContains(BreakdownSectionSummary.pageName);
-      await click(BreakdownSectionSummary.submit());
-      await expect(await $(HubPage.summaryRowState(breakdownSectionId)).getText()).toBe("Completed");
+        await verifyUrlContains(BreakdownSectionSummary.pageName);
+        await click(BreakdownSectionSummary.submit());
+        await expect(await $(HubPage.summaryRowState(breakdownSectionId)).getText()).toBe("Completed");
       },
     );
 

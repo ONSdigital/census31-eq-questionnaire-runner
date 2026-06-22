@@ -33,11 +33,11 @@ describe("Feature: Confirmation Question", () => {
       "When I don't answer the number of employees question and go to summary, " +
         "Then default value should be displayed for the the number of employees question",
       async () => {
-      await browser.openQuestionnaire("test_confirmation_question.json");
-      await click(NumberOfEmployeesTotalBlockPage.submit());
-      await $(ConfirmZeroEmployeesBlockPage.yesThisIsCorrect()).click();
-      await click(ConfirmZeroEmployeesBlockPage.submit());
-      await expect(await $(SubmitPage.numberOfEmployeesTotal()).getText()).toBe("0");
+        await browser.openQuestionnaire("test_confirmation_question.json");
+        await click(NumberOfEmployeesTotalBlockPage.submit());
+        await $(ConfirmZeroEmployeesBlockPage.yesThisIsCorrect()).click();
+        await click(ConfirmZeroEmployeesBlockPage.submit());
+        await expect(await $(SubmitPage.numberOfEmployeesTotal()).getText()).toBe("0");
       },
     );
   });

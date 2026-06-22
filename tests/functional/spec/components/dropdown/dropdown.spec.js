@@ -27,10 +27,10 @@ describe("Component: Dropdown", () => {
       "When I have selected a dropdown option and I try to select a default (disabled) dropdown option, " +
         "Then the already selected option should be displayed in summary",
       async () => {
-      await $(DropdownMandatoryPage.answer()).selectByAttribute("value", "Liverpool");
-      await $(DropdownMandatoryPage.answer()).selectByAttribute("value", "");
-      await click(DropdownMandatoryPage.submit());
-      await expect(await $(DropdownMandatorySummary.dropdownMandatoryAnswer()).getText()).toBe("Liverpool");
+        await $(DropdownMandatoryPage.answer()).selectByAttribute("value", "Liverpool");
+        await $(DropdownMandatoryPage.answer()).selectByAttribute("value", "");
+        await click(DropdownMandatoryPage.submit());
+        await expect(await $(DropdownMandatorySummary.dropdownMandatoryAnswer()).getText()).toBe("Liverpool");
       },
     );
 
@@ -91,16 +91,15 @@ describe("Component: Dropdown", () => {
     });
 
     it(
-      'When I have selected a dropdown option and I reselect the default option (Select an answer), ' +
-        'Then the summary should display "No answer provided"',
+      "When I have selected a dropdown option and I reselect the default option (Select an answer), " + 'Then the summary should display "No answer provided"',
       async () => {
-      await $(DropdownOptionalPage.answer()).selectByAttribute("value", "Chelsea");
-      await click(DropdownOptionalPage.submit());
-      await expect(await $(DropdownOptionalSummary.dropdownOptionalAnswer()).getText()).toBe("Chelsea");
-      await $(DropdownOptionalSummary.dropdownOptionalAnswerEdit()).click();
-      await $(DropdownOptionalPage.answer()).selectByAttribute("value", "");
-      await click(DropdownOptionalPage.submit());
-      await expect(await $(DropdownOptionalSummary.dropdownOptionalAnswer()).getText()).toBe("No answer provided");
+        await $(DropdownOptionalPage.answer()).selectByAttribute("value", "Chelsea");
+        await click(DropdownOptionalPage.submit());
+        await expect(await $(DropdownOptionalSummary.dropdownOptionalAnswer()).getText()).toBe("Chelsea");
+        await $(DropdownOptionalSummary.dropdownOptionalAnswerEdit()).click();
+        await $(DropdownOptionalPage.answer()).selectByAttribute("value", "");
+        await click(DropdownOptionalPage.submit());
+        await expect(await $(DropdownOptionalSummary.dropdownOptionalAnswer()).getText()).toBe("No answer provided");
       },
     );
   });

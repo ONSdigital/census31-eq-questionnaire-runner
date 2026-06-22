@@ -31,31 +31,30 @@ describe('Checkbox with multiple "detail_answer" options', () => {
     "Given a selected checkbox answer with an error for a mandatory detail answer, " +
       "When I enter valid value and submit the page, Then the error is cleared and I navigate to next page.",
     async () => {
-    // Given
-    await browser.openQuestionnaire(checkboxSchema);
-    await $(MandatoryCheckboxPage.yourChoice()).click();
-    await click(MandatoryCheckboxPage.submit());
-    await expect(await $(MandatoryCheckboxPage.error()).isDisplayed()).toBe(true);
+      // Given
+      await browser.openQuestionnaire(checkboxSchema);
+      await $(MandatoryCheckboxPage.yourChoice()).click();
+      await click(MandatoryCheckboxPage.submit());
+      await expect(await $(MandatoryCheckboxPage.error()).isDisplayed()).toBe(true);
 
-    // When
-    await $(MandatoryCheckboxPage.yourChoiceDetail()).setValue("Bacon");
-    await click(MandatoryCheckboxPage.submit());
-    await verifyUrlContains(SubmitPage.pageName);
+      // When
+      await $(MandatoryCheckboxPage.yourChoiceDetail()).setValue("Bacon");
+      await click(MandatoryCheckboxPage.submit());
+      await verifyUrlContains(SubmitPage.pageName);
     },
   );
 
   it(
-    "Given a non-mandatory detail answer, When the user does not provide any text, " +
-      "Then just the option value should be displayed on the summary screen",
+    "Given a non-mandatory detail answer, When the user does not provide any text, " + "Then just the option value should be displayed on the summary screen",
     async () => {
-    // Given
-    await browser.openQuestionnaire(checkboxSchema);
-    // When
-    await $(MandatoryCheckboxPage.cheese()).click();
-    await expect(await $(MandatoryCheckboxPage.cheeseDetail()).isDisplayed()).toBe(true);
-    await click(MandatoryCheckboxPage.submit());
-    // Then
-    await expect(await $(SubmitPage.mandatoryCheckboxAnswer()).getText()).toBe("Cheese");
+      // Given
+      await browser.openQuestionnaire(checkboxSchema);
+      // When
+      await $(MandatoryCheckboxPage.cheese()).click();
+      await expect(await $(MandatoryCheckboxPage.cheeseDetail()).isDisplayed()).toBe(true);
+      await click(MandatoryCheckboxPage.submit());
+      // Then
+      await expect(await $(SubmitPage.mandatoryCheckboxAnswer()).getText()).toBe("Cheese");
     },
   );
 
@@ -88,20 +87,20 @@ describe('Checkbox with multiple "detail_answer" options', () => {
       "When I uncheck the detail answer option and select a different checkbox, " +
       "Then the text entered in the detail answer field should be empty.",
     async () => {
-    // Given
-    await browser.openQuestionnaire(checkboxSchema);
-    // When
-    await $(MandatoryCheckboxPage.cheese()).click();
-    await $(MandatoryCheckboxPage.cheeseDetail()).setValue("Mozzarella");
-    await click(MandatoryCheckboxPage.submit());
-    await $(SubmitPage.previous()).click();
-    await $(MandatoryCheckboxPage.cheese()).click();
-    await $(MandatoryCheckboxPage.ham()).click();
-    await click(MandatoryCheckboxPage.submit());
-    await $(SubmitPage.previous()).click();
-    // Then
-    await $(MandatoryCheckboxPage.cheese()).click();
-    await expect(await $(MandatoryCheckboxPage.cheeseDetail()).getValue()).toBe("");
+      // Given
+      await browser.openQuestionnaire(checkboxSchema);
+      // When
+      await $(MandatoryCheckboxPage.cheese()).click();
+      await $(MandatoryCheckboxPage.cheeseDetail()).setValue("Mozzarella");
+      await click(MandatoryCheckboxPage.submit());
+      await $(SubmitPage.previous()).click();
+      await $(MandatoryCheckboxPage.cheese()).click();
+      await $(MandatoryCheckboxPage.ham()).click();
+      await click(MandatoryCheckboxPage.submit());
+      await $(SubmitPage.previous()).click();
+      // Then
+      await $(MandatoryCheckboxPage.cheese()).click();
+      await expect(await $(MandatoryCheckboxPage.cheeseDetail()).getValue()).toBe("");
     },
   );
 });

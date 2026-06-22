@@ -55,7 +55,9 @@
                                         "type": "TextField"
                                     }
                                 ],
-                                "description": ["If entered, only one of the text fields will be used for the description as the next question uses the first_non_empty_item placeholder"],
+                                "description": [
+                                    "If entered, only one of the text fields will be used for the description as the next question uses the first_non_empty_item placeholder"
+                                ],
                                 "id": "description-question",
                                 "title": "Do not enter anything here so you get an empty question description and question guidance on the following pages!",
                                 "type": "General"

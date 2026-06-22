@@ -82,29 +82,29 @@ describe("List Collector Section Summary and Summary Items", () => {
       "When I complete both sections then add another item, " +
         "The list collector content block reverts to in progress and the new repeating blocks need completing",
       async () => {
-      await completeBothSections();
-      await expect(await $(HubPage.summaryRowState("section-list-collector-contents")).getText()).toBe("Completed");
-      await $(HubPage.summaryRowLink("section-companies")).click();
-      await verifyUrlContains(CompaniesSummaryPage.pageName);
-      await $(CompaniesSummaryPage.companiesListAddLink()).click();
-      await addCompany("Company C", "789", false);
-      await anyMoreCompaniesNo();
-      await $(ConfirmationCheckboxPage.yes()).click();
-      await click(ConfirmationCheckboxPage.submit());
-      await click(CompaniesSummaryPage.submit());
-      await expect(await $(HubPage.summaryRowState("section-list-collector-contents")).getText()).toBe("Partially completed");
-      await click(HubPage.submit());
-      await verifyUrlContains(ListCollectorContentPage.pageName);
-      await listItemComplete(`li[data-qa="list-item-1-label"]`, true);
-      await listItemComplete(`li[data-qa="list-item-2-label"]`, true);
-      await listItemComplete(`li[data-qa="list-item-3-label"]`, false);
-      await click(ListCollectorContentPage.submit());
-      await verifyUrlContains(ListCollectorFirstRepeatingBlockPage.pageName);
-      await completeRepeatingBlocks(666, 2, 5, 1995, true, true);
-      await listItemComplete(`li[data-qa="list-item-3-label"]`, true);
-      await click(ListCollectorContentPage.submit());
-      await click(ListCollectorContentSectionSummaryPage.submit());
-      await expect(await $(HubPage.summaryRowState("section-list-collector-contents")).getText()).toBe("Completed");
+        await completeBothSections();
+        await expect(await $(HubPage.summaryRowState("section-list-collector-contents")).getText()).toBe("Completed");
+        await $(HubPage.summaryRowLink("section-companies")).click();
+        await verifyUrlContains(CompaniesSummaryPage.pageName);
+        await $(CompaniesSummaryPage.companiesListAddLink()).click();
+        await addCompany("Company C", "789", false);
+        await anyMoreCompaniesNo();
+        await $(ConfirmationCheckboxPage.yes()).click();
+        await click(ConfirmationCheckboxPage.submit());
+        await click(CompaniesSummaryPage.submit());
+        await expect(await $(HubPage.summaryRowState("section-list-collector-contents")).getText()).toBe("Partially completed");
+        await click(HubPage.submit());
+        await verifyUrlContains(ListCollectorContentPage.pageName);
+        await listItemComplete(`li[data-qa="list-item-1-label"]`, true);
+        await listItemComplete(`li[data-qa="list-item-2-label"]`, true);
+        await listItemComplete(`li[data-qa="list-item-3-label"]`, false);
+        await click(ListCollectorContentPage.submit());
+        await verifyUrlContains(ListCollectorFirstRepeatingBlockPage.pageName);
+        await completeRepeatingBlocks(666, 2, 5, 1995, true, true);
+        await listItemComplete(`li[data-qa="list-item-3-label"]`, true);
+        await click(ListCollectorContentPage.submit());
+        await click(ListCollectorContentSectionSummaryPage.submit());
+        await expect(await $(HubPage.summaryRowState("section-list-collector-contents")).getText()).toBe("Completed");
       },
     );
     // :TODO: Currently, this is expected behaviour, if list collector content blocks no longer need revisiting after removing items, this test needs updating.
@@ -112,21 +112,22 @@ describe("List Collector Section Summary and Summary Items", () => {
       "When I complete both sections then remove a list item item, " +
         "Then the list collector content block reverts to in progress the list summary is revisited",
       async () => {
-      await completeBothSections();
-      await expect(await $(HubPage.summaryRowState("section-list-collector-contents")).getText()).toBe("Completed");
-      await $(HubPage.summaryRowLink("section-companies")).click();
-      await $(CompaniesSummaryPage.companiesListRemoveLink(1)).click();
-      await $(AnyCompaniesOrBranchesRemovePage.yes()).click();
-      await click(AnyCompaniesOrBranchesRemovePage.submit());
-      await click(CompaniesSummaryPage.submit());
-      await expect(await $(HubPage.summaryRowState("section-list-collector-contents")).getText()).toBe("Partially completed");
-      await click(HubPage.submit());
-      await listItemComplete(`li[data-qa="list-item-1-label"]`, true);
-      await click(ListCollectorContentPage.submit());
-      await verifyUrlContains(ListCollectorContentSectionSummaryPage.pageName);
-      await click(ListCollectorContentSectionSummaryPage.submit());
-      await expect(await $(HubPage.summaryRowState("section-list-collector-contents")).getText()).toBe("Completed");
-    });
+        await completeBothSections();
+        await expect(await $(HubPage.summaryRowState("section-list-collector-contents")).getText()).toBe("Completed");
+        await $(HubPage.summaryRowLink("section-companies")).click();
+        await $(CompaniesSummaryPage.companiesListRemoveLink(1)).click();
+        await $(AnyCompaniesOrBranchesRemovePage.yes()).click();
+        await click(AnyCompaniesOrBranchesRemovePage.submit());
+        await click(CompaniesSummaryPage.submit());
+        await expect(await $(HubPage.summaryRowState("section-list-collector-contents")).getText()).toBe("Partially completed");
+        await click(HubPage.submit());
+        await listItemComplete(`li[data-qa="list-item-1-label"]`, true);
+        await click(ListCollectorContentPage.submit());
+        await verifyUrlContains(ListCollectorContentSectionSummaryPage.pageName);
+        await click(ListCollectorContentSectionSummaryPage.submit());
+        await expect(await $(HubPage.summaryRowState("section-list-collector-contents")).getText()).toBe("Completed");
+      },
+    );
   });
 });
 const fillInListCollectorSection = async () => {

@@ -168,31 +168,32 @@ describe("Date checks", () => {
     "Given the test_dates survey is selected when an error message is shown then when it is corrected, " +
       "it goes to the summary page and the information is correct",
     async () => {
-    await $(DateRangePage.dateRangeFromDay()).setValue(1);
-    await $(DateRangePage.dateRangeFromMonth()).setValue(1);
-    await $(DateRangePage.dateRangeFromYear()).setValue(2016);
-    await $(DateRangePage.dateRangeToDay()).setValue(1);
-    await $(DateRangePage.dateRangeToMonth()).setValue(1);
-    await $(DateRangePage.dateRangeToYear()).setValue(2017);
-    await click(DateRangePage.submit());
+      await $(DateRangePage.dateRangeFromDay()).setValue(1);
+      await $(DateRangePage.dateRangeFromMonth()).setValue(1);
+      await $(DateRangePage.dateRangeFromYear()).setValue(2016);
+      await $(DateRangePage.dateRangeToDay()).setValue(1);
+      await $(DateRangePage.dateRangeToMonth()).setValue(1);
+      await $(DateRangePage.dateRangeToYear()).setValue(2017);
+      await click(DateRangePage.submit());
 
-    await $(DateMonthYearPage.month()).setValue(1);
-    await $(DateMonthYearPage.year()).setValue(2016);
-    await click(DateMonthYearPage.submit());
+      await $(DateMonthYearPage.month()).setValue(1);
+      await $(DateMonthYearPage.year()).setValue(2016);
+      await click(DateMonthYearPage.submit());
 
-    await $(DateSinglePage.day()).setValue(1);
-    await $(DateSinglePage.month()).setValue(1);
-    await $(DateSinglePage.year()).setValue(2016);
-    await click(DateMonthYearPage.submit());
+      await $(DateSinglePage.day()).setValue(1);
+      await $(DateSinglePage.month()).setValue(1);
+      await $(DateSinglePage.year()).setValue(2016);
+      await click(DateMonthYearPage.submit());
 
-    // When non-mandatory is partially completed
-    await $(DateNonMandatoryPage.day()).setValue(4);
-    await $(DateNonMandatoryPage.month()).setValue(1);
-    await click(DateNonMandatoryPage.submit());
+      // When non-mandatory is partially completed
+      await $(DateNonMandatoryPage.day()).setValue(4);
+      await $(DateNonMandatoryPage.month()).setValue(1);
+      await click(DateNonMandatoryPage.submit());
 
-    // Then an error message is shown
-    await expect(await $(DateNonMandatoryPage.errorNumber(1)).getText()).toBe("Enter a valid date");
-  });
+      // Then an error message is shown
+      await expect(await $(DateNonMandatoryPage.errorNumber(1)).getText()).toBe("Enter a valid date");
+    },
+  );
 
   it("Given the test_dates survey is selected, when a user clicks the day label then the day subfield should gain the focus", async () => {
     await $(DateRangePage.dateRangeFromDay()).setValue(1);

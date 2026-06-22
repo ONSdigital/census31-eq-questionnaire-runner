@@ -453,7 +453,12 @@
                                             "source": "answers",
                                             "identifier": "entertainment-spending-answer"
                                         },
-                                        "answers_to_calculate": ["second-spending-breakdown-1", "second-spending-breakdown-2", "second-spending-breakdown-3", "second-spending-breakdown-4"],
+                                        "answers_to_calculate": [
+                                            "second-spending-breakdown-1",
+                                            "second-spending-breakdown-2",
+                                            "second-spending-breakdown-3",
+                                            "second-spending-breakdown-4"
+                                        ],
                                         "conditions": ["equals"]
                                     }
                                 ],

@@ -15,11 +15,11 @@ describe("Hub and spoke section required and enabled", () => {
     "Given a relationship question in household, When I answer 'No', " +
       "Then I am redirected to the hub and can submit my answers without completing the other section",
     async () => {
-    await $(HouseholdRelationshipsBlockPage.no()).click();
-    await click(HouseholdRelationshipsBlockPage.submit());
-    await expect(await $("body").getText()).toContain("Submit survey");
-    await click(SubmitPage.submit());
-    await verifyUrlContains("thank-you");
+      await $(HouseholdRelationshipsBlockPage.no()).click();
+      await click(HouseholdRelationshipsBlockPage.submit());
+      await expect(await $("body").getText()).toContain("Submit survey");
+      await click(SubmitPage.submit());
+      await verifyUrlContains("thank-you");
     },
   );
 });

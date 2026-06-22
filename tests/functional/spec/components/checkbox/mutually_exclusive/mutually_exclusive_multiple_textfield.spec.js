@@ -52,24 +52,24 @@ describe("Component: Mutually Exclusive Textfield With Multiple Radio Override",
       "When the user enters a value for the non-exclusive textfield answer and removes focus, " +
         "Then only the non-exclusive textfield answer should be answered.",
       async () => {
-      // Given
-      await $(TextFieldPage.textfieldExclusiveIPreferNotToSay()).click();
-      await expect(await $(TextFieldPage.textfieldExclusiveIPreferNotToSay()).isSelected()).toBe(true);
-      await expect(await $(TextFieldPage.textfieldExclusiveIDontHaveAFavoriteColour()).isSelected()).toBe(false);
+        // Given
+        await $(TextFieldPage.textfieldExclusiveIPreferNotToSay()).click();
+        await expect(await $(TextFieldPage.textfieldExclusiveIPreferNotToSay()).isSelected()).toBe(true);
+        await expect(await $(TextFieldPage.textfieldExclusiveIDontHaveAFavoriteColour()).isSelected()).toBe(false);
 
-      // When
-      await $(TextFieldPage.textfield()).setValue("Blue");
+        // When
+        await $(TextFieldPage.textfield()).setValue("Blue");
 
-      // Then
-      await expect(await $(TextFieldPage.textfield()).getValue()).toBe("Blue");
-      await expect(await $(TextFieldPage.textfieldExclusiveIPreferNotToSay()).isSelected()).toBe(false);
-      await expect(await $(TextFieldPage.textfieldExclusiveIDontHaveAFavoriteColour()).isSelected()).toBe(false);
+        // Then
+        await expect(await $(TextFieldPage.textfield()).getValue()).toBe("Blue");
+        await expect(await $(TextFieldPage.textfieldExclusiveIPreferNotToSay()).isSelected()).toBe(false);
+        await expect(await $(TextFieldPage.textfieldExclusiveIDontHaveAFavoriteColour()).isSelected()).toBe(false);
 
-      await click(TextFieldPage.submit());
+        await click(TextFieldPage.submit());
 
-      await expect(await $(SummaryPage.textfieldAnswer()).getText()).toBe("Blue");
-      await expect(await $(SummaryPage.textfieldAnswer()).getText()).not.toBe("I prefer not to say");
-      await expect(await $(SummaryPage.textfieldAnswer()).getText()).not.toBe("I dont have a favorite colour");
+        await expect(await $(SummaryPage.textfieldAnswer()).getText()).toBe("Blue");
+        await expect(await $(SummaryPage.textfieldAnswer()).getText()).not.toBe("I prefer not to say");
+        await expect(await $(SummaryPage.textfieldAnswer()).getText()).not.toBe("I dont have a favorite colour");
       },
     );
   });
@@ -79,24 +79,24 @@ describe("Component: Mutually Exclusive Textfield With Multiple Radio Override",
       "When the user enters a value for the non-exclusive textfield answer and removes focus, " +
         "Then only the non-exclusive textfield answer should be answered.",
       async () => {
-      // Given
-      await $(TextFieldPage.textfieldExclusiveIDontHaveAFavoriteColour()).click();
-      await expect(await $(TextFieldPage.textfieldExclusiveIPreferNotToSay()).isSelected()).toBe(false);
-      await expect(await $(TextFieldPage.textfieldExclusiveIDontHaveAFavoriteColour()).isSelected()).toBe(true);
+        // Given
+        await $(TextFieldPage.textfieldExclusiveIDontHaveAFavoriteColour()).click();
+        await expect(await $(TextFieldPage.textfieldExclusiveIPreferNotToSay()).isSelected()).toBe(false);
+        await expect(await $(TextFieldPage.textfieldExclusiveIDontHaveAFavoriteColour()).isSelected()).toBe(true);
 
-      // When
-      await $(TextFieldPage.textfield()).setValue("Blue");
+        // When
+        await $(TextFieldPage.textfield()).setValue("Blue");
 
-      // Then
-      await expect(await $(TextFieldPage.textfield()).getValue()).toBe("Blue");
-      await expect(await $(TextFieldPage.textfieldExclusiveIPreferNotToSay()).isSelected()).toBe(false);
-      await expect(await $(TextFieldPage.textfieldExclusiveIDontHaveAFavoriteColour()).isSelected()).toBe(false);
+        // Then
+        await expect(await $(TextFieldPage.textfield()).getValue()).toBe("Blue");
+        await expect(await $(TextFieldPage.textfieldExclusiveIPreferNotToSay()).isSelected()).toBe(false);
+        await expect(await $(TextFieldPage.textfieldExclusiveIDontHaveAFavoriteColour()).isSelected()).toBe(false);
 
-      await click(TextFieldPage.submit());
+        await click(TextFieldPage.submit());
 
-      await expect(await $(SummaryPage.textfieldAnswer()).getText()).toBe("Blue");
-      await expect(await $(SummaryPage.textfieldAnswer()).getText()).not.toBe("I prefer not to say");
-      await expect(await $(SummaryPage.textfieldAnswer()).getText()).not.toBe("I dont have a favorite colour");
+        await expect(await $(SummaryPage.textfieldAnswer()).getText()).toBe("Blue");
+        await expect(await $(SummaryPage.textfieldAnswer()).getText()).not.toBe("I prefer not to say");
+        await expect(await $(SummaryPage.textfieldAnswer()).getText()).not.toBe("I dont have a favorite colour");
       },
     );
   });

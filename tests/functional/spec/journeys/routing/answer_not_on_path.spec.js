@@ -10,31 +10,31 @@ describe("Answers not on path are not considered when routing", () => {
   });
 
   it(
-    "Given the user enters an answer on the first path, when they return to the second path, " +
-      "they should be routed to the valid path interstitial",
+    "Given the user enters an answer on the first path, when they return to the second path, " + "they should be routed to the valid path interstitial",
     async () => {
-    await $(InitialChoicePage.goHereFirst()).click();
-    await click(InitialChoicePage.submit());
+      await $(InitialChoicePage.goHereFirst()).click();
+      await click(InitialChoicePage.submit());
 
-    await verifyUrlContains(InvalidPathPage.pageName);
-    await $(InvalidPathPage.answer()).setValue(123);
-    await click(InvalidPathPage.submit());
+      await verifyUrlContains(InvalidPathPage.pageName);
+      await $(InvalidPathPage.answer()).setValue(123);
+      await click(InvalidPathPage.submit());
 
-    // We now have an answer in the store on the 'invalid' path
+      // We now have an answer in the store on the 'invalid' path
 
-    await verifyUrlContains(InvalidPathInterstitialPage.pageName);
-    await $(InvalidPathInterstitialPage.previous()).click();
-    await $(InvalidPathPage.previous()).click();
+      await verifyUrlContains(InvalidPathInterstitialPage.pageName);
+      await $(InvalidPathInterstitialPage.previous()).click();
+      await $(InvalidPathPage.previous()).click();
 
-    // Take the second route
+      // Take the second route
 
-    await $(InitialChoicePage.goHereSecond()).click();
-    await click(InitialChoicePage.submit());
+      await $(InitialChoicePage.goHereSecond()).click();
+      await click(InitialChoicePage.submit());
 
-    await $(ValidPathPage.answer()).setValue(321);
-    await click(ValidPathPage.submit());
+      await $(ValidPathPage.answer()).setValue(321);
+      await click(ValidPathPage.submit());
 
-    // We should be routed to the valid interstitial page since the invalid path answer should not be considered whilst routing.
-    await verifyUrlContains(ValidFinalInterstitialPage.pageName);
-  });
+      // We should be routed to the valid interstitial page since the invalid path answer should not be considered whilst routing.
+      await verifyUrlContains(ValidFinalInterstitialPage.pageName);
+    },
+  );
 });

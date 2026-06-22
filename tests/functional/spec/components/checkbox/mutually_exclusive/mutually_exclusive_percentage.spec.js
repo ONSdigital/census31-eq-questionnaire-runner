@@ -34,22 +34,22 @@ describe("Component: Mutually Exclusive Percentage With Single Checkbox Override
       "When the user enters a value for the non-exclusive percentage answer and removes focus, " +
         "Then only the non-exclusive percentage answer should be answered.",
       async () => {
-      // Given
-      await browser.url("/questionnaire/mutually-exclusive-percentage");
-      await $(PercentagePage.percentageExclusiveIPreferNotToSay()).click();
-      await expect(await $(PercentagePage.percentageExclusiveIPreferNotToSay()).isSelected()).toBe(true);
+        // Given
+        await browser.url("/questionnaire/mutually-exclusive-percentage");
+        await $(PercentagePage.percentageExclusiveIPreferNotToSay()).click();
+        await expect(await $(PercentagePage.percentageExclusiveIPreferNotToSay()).isSelected()).toBe(true);
 
-      // When
-      await $(PercentagePage.percentage()).setValue("99");
+        // When
+        await $(PercentagePage.percentage()).setValue("99");
 
-      // Then
-      await expect(await $(PercentagePage.percentage()).getValue()).toBe("99");
-      await expect(await $(PercentagePage.percentageExclusiveIPreferNotToSay()).isSelected()).toBe(false);
+        // Then
+        await expect(await $(PercentagePage.percentage()).getValue()).toBe("99");
+        await expect(await $(PercentagePage.percentageExclusiveIPreferNotToSay()).isSelected()).toBe(false);
 
-      await click(PercentagePage.submit());
+        await click(PercentagePage.submit());
 
-      await expect(await $(SummaryPage.percentageAnswer()).getText()).toBe("99%");
-      await expect(await $(SummaryPage.percentageAnswer()).getText()).not.toBe("I prefer not to say");
+        await expect(await $(SummaryPage.percentageAnswer()).getText()).toBe("99%");
+        await expect(await $(SummaryPage.percentageAnswer()).getText()).not.toBe("I prefer not to say");
       },
     );
   });

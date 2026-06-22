@@ -138,7 +138,11 @@
                                     "id": "use-of-information",
                                     "contents": [
                                         {
-                                            "list": ["Data should relate to all sites in England, Scotland and Wales unless otherwise stated.", "You can provide informed estimates if actual figures aren’t available.", "We will treat your data securely and confidentially."]
+                                            "list": [
+                                                "Data should relate to all sites in England, Scotland and Wales unless otherwise stated.",
+                                                "You can provide informed estimates if actual figures aren’t available.",
+                                                "We will treat your data securely and confidentially."
+                                            ]
                                         },
                                         {
                                             "description": "To take part, all you need to do is check that you have the information you need to answer the survey questions."
@@ -163,7 +167,10 @@
                                         "question": "Employee pay frequency",
                                         "contents": [
                                             {
-                                                "list": ["You will need to indicate how frequently employees are paid i.e weekly, fortnightly, calendar monthly, four weekly or five weekly.", "You will be asked to answer the questions below for all of your selected pay patterns."]
+                                                "list": [
+                                                    "You will need to indicate how frequently employees are paid i.e weekly, fortnightly, calendar monthly, four weekly or five weekly.",
+                                                    "You will be asked to answer the questions below for all of your selected pay patterns."
+                                                ]
                                             }
                                         ]
                                     },
@@ -172,7 +179,10 @@
                                         "question": "What you need to know",
                                         "contents": [
                                             {
-                                                "list": ["You can provide informed estimates if actual figures aren’t available", "All information you provide is strictly confidential"]
+                                                "list": [
+                                                    "You can provide informed estimates if actual figures aren’t available",
+                                                    "All information you provide is strictly confidential"
+                                                ]
                                             }
                                         ]
                                     },
@@ -232,7 +242,11 @@
                                     "contents": [
                                         {
                                             "title": "How we use your data",
-                                            "list": ["You cannot appeal your selection. Your business was selected to give us a comprehensive view of the UK economy", "The data from you business is essential is it helps us calculate the GDP of the UK", "Our surveys inform government decisions. For example, past statistics from our surveys led to the introduction of business grants"]
+                                            "list": [
+                                                "You cannot appeal your selection. Your business was selected to give us a comprehensive view of the UK economy",
+                                                "The data from you business is essential is it helps us calculate the GDP of the UK",
+                                                "Our surveys inform government decisions. For example, past statistics from our surveys led to the introduction of business grants"
+                                            ]
                                         }
                                     ]
                                 }
@@ -323,7 +337,9 @@
                             "question": {
                                 "id": "projects-checkbox-question",
                                 "title": "What dates will you be reporting for?",
-                                "description": ["<p>If figures are not available for the calendar year 2021, your return should relate to a 12 month business year that ends between 6 April 2021 and 5 April 2022.</p>"],
+                                "description": [
+                                    "<p>If figures are not available for the calendar year 2021, your return should relate to a 12 month business year that ends between 6 April 2021 and 5 April 2022.</p>"
+                                ],
                                 "type": "DateRange",
                                 "answers": [
                                     {
@@ -525,13 +541,27 @@
                                                     "description": "<strong>Include:</strong>"
                                                 },
                                                 {
-                                                    "list": ["exports", "payments for work in progress", "costs incurred and passed on to customers", "income from sub-contracted activities", "commission", "sales of goods purchased for resale", "revenue earned from other parts of the business not named, please supply at fair value"]
+                                                    "list": [
+                                                        "exports",
+                                                        "payments for work in progress",
+                                                        "costs incurred and passed on to customers",
+                                                        "income from sub-contracted activities",
+                                                        "commission",
+                                                        "sales of goods purchased for resale",
+                                                        "revenue earned from other parts of the business not named, please supply at fair value"
+                                                    ]
                                                 },
                                                 {
                                                     "description": "<strong>Exclude:</strong>"
                                                 },
                                                 {
-                                                    "list": ["VAT", "income from the sale of fixed capital assets", "grants and subsidies", "insurance claims", "interest received"]
+                                                    "list": [
+                                                        "VAT",
+                                                        "income from the sale of fixed capital assets",
+                                                        "grants and subsidies",
+                                                        "insurance claims",
+                                                        "interest received"
+                                                    ]
                                                 }
                                             ]
                                         },

@@ -3,10 +3,8 @@ import AnyCompaniesOrBranchesPage from "../../../generated_pages/list_collector_
 import AddCompanyPage from "../../../generated_pages/list_collector_repeating_blocks_section_summary/any-other-companies-or-branches-add.page";
 import EditCompanyPage from "../../../generated_pages/list_collector_repeating_blocks_section_summary/any-other-companies-or-branches-edit.page";
 import RemoveCompanyPage from "../../../generated_pages/list_collector_repeating_blocks_section_summary/any-other-companies-or-branches-remove.page";
-import CompaniesRepeatingBlock1Page from "../../../generated_pages/list_collector_repeating_blocks_section_summary/" +
-  "companies-repeating-block-1-repeating-block.page";
-import CompaniesRepeatingBlock2Page from "../../../generated_pages/list_collector_repeating_blocks_section_summary/" +
-  "companies-repeating-block-2-repeating-block.page";
+import CompaniesRepeatingBlock1Page from "../../../generated_pages/list_collector_repeating_blocks_section_summary/companies-repeating-block-1-repeating-block.page";
+import CompaniesRepeatingBlock2Page from "../../../generated_pages/list_collector_repeating_blocks_section_summary/companies-repeating-block-2-repeating-block.page";
 import AnyOtherCompaniesOrBranchesPage from "../../../generated_pages/list_collector_repeating_blocks_section_summary/any-other-companies-or-branches.page";
 import SectionCompaniesPage from "../../../generated_pages/list_collector_repeating_blocks_section_summary/section-companies-summary.page";
 import AnyOtherTradingDetailsPage from "../../../generated_pages/list_collector_repeating_blocks_section_summary/any-other-trading-details.page";
@@ -120,18 +118,17 @@ describe("List Collector Repeating Blocks", () => {
       await browser.openQuestionnaire("test_list_collector_repeating_blocks_section_summary.json");
     });
     it(
-      "When the user adds items to the list and completes the repeating blocks, " +
-        "Then the completed items are displayed on the list collector page.",
+      "When the user adds items to the list and completes the repeating blocks, " + "Then the completed items are displayed on the list collector page.",
       async () => {
-      await proceedToListCollector();
-      await addCompany("ONS", "123", "1", "1", "2023", true, true);
-      await $(AnyOtherCompaniesOrBranchesPage.yes()).click();
-      await click(AnyOtherCompaniesOrBranchesPage.submit());
-      await addCompany("GOV", "456", "2", "2", "2023", false, false);
-      await $(AnyOtherCompaniesOrBranchesPage.yes()).click();
-      await click(AnyOtherCompaniesOrBranchesPage.submit());
-      await addCompany("MOD", "789", "3", "3", "2023", true);
-      await checkItemsInList(["ONS", "GOV", "MOD"], AnyOtherCompaniesOrBranchesPage.listLabel);
+        await proceedToListCollector();
+        await addCompany("ONS", "123", "1", "1", "2023", true, true);
+        await $(AnyOtherCompaniesOrBranchesPage.yes()).click();
+        await click(AnyOtherCompaniesOrBranchesPage.submit());
+        await addCompany("GOV", "456", "2", "2", "2023", false, false);
+        await $(AnyOtherCompaniesOrBranchesPage.yes()).click();
+        await click(AnyOtherCompaniesOrBranchesPage.submit());
+        await addCompany("MOD", "789", "3", "3", "2023", true);
+        await checkItemsInList(["ONS", "GOV", "MOD"], AnyOtherCompaniesOrBranchesPage.listLabel);
       },
     );
 
@@ -177,39 +174,39 @@ describe("List Collector Repeating Blocks", () => {
       "When the user only completes some of the repeating blocks and leaves others incomplete, " +
         "Then on the list collector page only completed items should display the completed checkmark icon.",
       async () => {
-      await proceedToListCollector();
+        await proceedToListCollector();
 
-      await addCompany("ONS", "123", "1", "1", "2023", true, true);
-      await $(AnyOtherCompaniesOrBranchesPage.yes()).click();
-      await click(AnyOtherCompaniesOrBranchesPage.submit());
-      await $(AddCompanyPage.companyOrBranchName()).setValue("GOV");
-      await click(AddCompanyPage.submit());
-      await $(CompaniesRepeatingBlock1Page.cancelAndReturn()).click();
-      await $(EditCompanyPage.cancelAndReturn()).click();
+        await addCompany("ONS", "123", "1", "1", "2023", true, true);
+        await $(AnyOtherCompaniesOrBranchesPage.yes()).click();
+        await click(AnyOtherCompaniesOrBranchesPage.submit());
+        await $(AddCompanyPage.companyOrBranchName()).setValue("GOV");
+        await click(AddCompanyPage.submit());
+        await $(CompaniesRepeatingBlock1Page.cancelAndReturn()).click();
+        await $(EditCompanyPage.cancelAndReturn()).click();
 
-      await $(AnyOtherCompaniesOrBranchesPage.yes()).click();
-      await click(AnyOtherCompaniesOrBranchesPage.submit());
-      await $(AddCompanyPage.companyOrBranchName()).setValue("MOD");
-      await click(AddCompanyPage.submit());
-      await $(CompaniesRepeatingBlock1Page.registrationNumber()).setValue("789");
-      await $(CompaniesRepeatingBlock1Page.registrationDateDay()).setValue("3");
-      await $(CompaniesRepeatingBlock1Page.registrationDateMonth()).setValue("3");
-      await $(CompaniesRepeatingBlock1Page.registrationDateYear()).setValue("2023");
-      await click(CompaniesRepeatingBlock1Page.submit());
-      await $(CompaniesRepeatingBlock2Page.cancelAndReturn()).click();
-      await $(CompaniesRepeatingBlock1Page.cancelAndReturn()).click();
-      await $(EditCompanyPage.cancelAndReturn()).click();
+        await $(AnyOtherCompaniesOrBranchesPage.yes()).click();
+        await click(AnyOtherCompaniesOrBranchesPage.submit());
+        await $(AddCompanyPage.companyOrBranchName()).setValue("MOD");
+        await click(AddCompanyPage.submit());
+        await $(CompaniesRepeatingBlock1Page.registrationNumber()).setValue("789");
+        await $(CompaniesRepeatingBlock1Page.registrationDateDay()).setValue("3");
+        await $(CompaniesRepeatingBlock1Page.registrationDateMonth()).setValue("3");
+        await $(CompaniesRepeatingBlock1Page.registrationDateYear()).setValue("2023");
+        await click(CompaniesRepeatingBlock1Page.submit());
+        await $(CompaniesRepeatingBlock2Page.cancelAndReturn()).click();
+        await $(CompaniesRepeatingBlock1Page.cancelAndReturn()).click();
+        await $(EditCompanyPage.cancelAndReturn()).click();
 
-      await $(AnyOtherCompaniesOrBranchesPage.yes()).click();
-      await click(AnyOtherCompaniesOrBranchesPage.submit());
-      await addCompany("NAV", "101", "4", "4", "2023", true, true);
+        await $(AnyOtherCompaniesOrBranchesPage.yes()).click();
+        await click(AnyOtherCompaniesOrBranchesPage.submit());
+        await addCompany("NAV", "101", "4", "4", "2023", true, true);
 
-      // Only the ONS and NAV items should be complete
-      await checkItemsInList(["ONS", "GOV", "MOD", "NAV"], AnyOtherCompaniesOrBranchesPage.listLabel);
-      await summaryItemComplete(`dt[data-qa="list-item-1-label"]`, true);
-      await summaryItemComplete(`dt[data-qa="list-item-2-label"]`, false);
-      await summaryItemComplete(`dt[data-qa="list-item-3-label"]`, false);
-      await summaryItemComplete(`dt[data-qa="list-item-1-label"]`, true);
+        // Only the ONS and NAV items should be complete
+        await checkItemsInList(["ONS", "GOV", "MOD", "NAV"], AnyOtherCompaniesOrBranchesPage.listLabel);
+        await summaryItemComplete(`dt[data-qa="list-item-1-label"]`, true);
+        await summaryItemComplete(`dt[data-qa="list-item-2-label"]`, false);
+        await summaryItemComplete(`dt[data-qa="list-item-3-label"]`, false);
+        await summaryItemComplete(`dt[data-qa="list-item-1-label"]`, true);
       },
     );
 
@@ -217,9 +214,9 @@ describe("List Collector Repeating Blocks", () => {
       "When an item has incomplete repeating blocks, " +
         "Then using submit on the list collector page will navigate the user to the first incomplete repeating block.",
       async () => {
-      await $(AnyOtherCompaniesOrBranchesPage.no()).click();
-      await click(AnyOtherCompaniesOrBranchesPage.submit());
-      await verifyUrlContains(CompaniesRepeatingBlock1Page.pageName);
+        await $(AnyOtherCompaniesOrBranchesPage.no()).click();
+        await click(AnyOtherCompaniesOrBranchesPage.submit());
+        await verifyUrlContains(CompaniesRepeatingBlock1Page.pageName);
       },
     );
 
@@ -227,21 +224,21 @@ describe("List Collector Repeating Blocks", () => {
       "When there are multiple incomplete items and only the first incomplete item is completed, " +
         "Then attempting using Submit on the list collector page will navigate the user to the next incomplete item.",
       async () => {
-      // Complete the first incomplete list item
-      await $(CompaniesRepeatingBlock1Page.registrationNumber()).setValue("456");
-      await $(CompaniesRepeatingBlock1Page.registrationDateDay()).setValue("2");
-      await $(CompaniesRepeatingBlock1Page.registrationDateMonth()).setValue("2");
-      await $(CompaniesRepeatingBlock1Page.registrationDateYear()).setValue("2023");
-      await click(CompaniesRepeatingBlock1Page.submit());
-      await $(CompaniesRepeatingBlock2Page.authorisedTraderUkRadioNo()).click();
-      await $(CompaniesRepeatingBlock2Page.authorisedTraderEuRadioNo()).click();
-      await click(CompaniesRepeatingBlock2Page.submit());
+        // Complete the first incomplete list item
+        await $(CompaniesRepeatingBlock1Page.registrationNumber()).setValue("456");
+        await $(CompaniesRepeatingBlock1Page.registrationDateDay()).setValue("2");
+        await $(CompaniesRepeatingBlock1Page.registrationDateMonth()).setValue("2");
+        await $(CompaniesRepeatingBlock1Page.registrationDateYear()).setValue("2023");
+        await click(CompaniesRepeatingBlock1Page.submit());
+        await $(CompaniesRepeatingBlock2Page.authorisedTraderUkRadioNo()).click();
+        await $(CompaniesRepeatingBlock2Page.authorisedTraderEuRadioNo()).click();
+        await click(CompaniesRepeatingBlock2Page.submit());
 
-      await $(AnyOtherCompaniesOrBranchesPage.no()).click();
-      await click(AnyOtherCompaniesOrBranchesPage.submit());
+        await $(AnyOtherCompaniesOrBranchesPage.no()).click();
+        await click(AnyOtherCompaniesOrBranchesPage.submit());
 
-      // The user is taken to the next incomplete repeating block
-      await verifyUrlContains(CompaniesRepeatingBlock2Page.pageName);
+        // The user is taken to the next incomplete repeating block
+        await verifyUrlContains(CompaniesRepeatingBlock2Page.pageName);
       },
     );
 
@@ -258,17 +255,17 @@ describe("List Collector Repeating Blocks", () => {
       "When the user clicks a change link from the section summary and submits without changing an answer, " +
         "Then the user is returned to the section summary anchored to the answer they clicked on",
       async () => {
-      await $(AnyOtherCompaniesOrBranchesPage.no()).click();
-      await click(AnyOtherCompaniesOrBranchesPage.submit());
-      await click(AnyOtherTradingDetailsPage.submit());
+        await $(AnyOtherCompaniesOrBranchesPage.no()).click();
+        await click(AnyOtherCompaniesOrBranchesPage.submit());
+        await click(AnyOtherTradingDetailsPage.submit());
 
-      await $(SectionCompaniesPage.anyOtherTradingDetailsAnswerEdit()).click();
-      await click(AnyOtherTradingDetailsPage.submit());
-      await verifyUrlContains("section-companies/#any-other-trading-details-answer");
+        await $(SectionCompaniesPage.anyOtherTradingDetailsAnswerEdit()).click();
+        await click(AnyOtherTradingDetailsPage.submit());
+        await verifyUrlContains("section-companies/#any-other-trading-details-answer");
 
-      await $(SectionCompaniesPage.anyOtherTradingDetailsAnswerEdit()).click();
-      await $(AnyOtherTradingDetailsPage.previous()).click();
-      await verifyUrlContains("section-companies/#any-other-trading-details-answer");
+        await $(SectionCompaniesPage.anyOtherTradingDetailsAnswerEdit()).click();
+        await $(AnyOtherTradingDetailsPage.previous()).click();
+        await verifyUrlContains("section-companies/#any-other-trading-details-answer");
       },
     );
 
@@ -276,10 +273,10 @@ describe("List Collector Repeating Blocks", () => {
       "When an answer is edited from the section summary which does not affect progress, " +
         "Then pressing continue returns the user to the section summary anchored to the answer they edited",
       async () => {
-      await $(SectionCompaniesPage.anyOtherTradingDetailsAnswerEdit()).click();
-      await $(AnyOtherTradingDetailsPage.answer()).setValue("No");
-      await click(AnyOtherTradingDetailsPage.submit());
-      await verifyUrlContains("section-companies/#any-other-trading-details-answer");
+        await $(SectionCompaniesPage.anyOtherTradingDetailsAnswerEdit()).click();
+        await $(AnyOtherTradingDetailsPage.answer()).setValue("No");
+        await click(AnyOtherTradingDetailsPage.submit());
+        await verifyUrlContains("section-companies/#any-other-trading-details-answer");
       },
     );
 
@@ -287,15 +284,15 @@ describe("List Collector Repeating Blocks", () => {
       "When a user clicks a change link from the final summary and submits without changing an answer, " +
         "Then the user is returned to the final summary anchored to the answer they clicked on",
       async () => {
-      await click(SectionCompaniesPage.submit());
+        await click(SectionCompaniesPage.submit());
 
-      await $(SubmitPage.anyOtherTradingDetailsAnswerEdit()).click();
-      await click(AnyOtherTradingDetailsPage.submit());
-      await verifyUrlContains("submit/#any-other-trading-details-answer");
+        await $(SubmitPage.anyOtherTradingDetailsAnswerEdit()).click();
+        await click(AnyOtherTradingDetailsPage.submit());
+        await verifyUrlContains("submit/#any-other-trading-details-answer");
 
-      await $(SubmitPage.anyOtherTradingDetailsAnswerEdit()).click();
-      await $(AnyOtherTradingDetailsPage.previous()).click();
-      await verifyUrlContains("submit/#any-other-trading-details-answer");
+        await $(SubmitPage.anyOtherTradingDetailsAnswerEdit()).click();
+        await $(AnyOtherTradingDetailsPage.previous()).click();
+        await verifyUrlContains("submit/#any-other-trading-details-answer");
       },
     );
 
@@ -303,10 +300,10 @@ describe("List Collector Repeating Blocks", () => {
       "When an an answer is edited from the final summary which does not affect progress, " +
         "Then pressing continue returns the user to the final summary anchored to the answer they edited",
       async () => {
-      await $(SectionCompaniesPage.anyOtherTradingDetailsAnswerEdit()).click();
-      await $(AnyOtherTradingDetailsPage.answer()).setValue("Yes");
-      await click(AnyOtherTradingDetailsPage.submit());
-      await verifyUrlContains("submit/#any-other-trading-details-answer");
+        await $(SectionCompaniesPage.anyOtherTradingDetailsAnswerEdit()).click();
+        await $(AnyOtherTradingDetailsPage.answer()).setValue("Yes");
+        await click(AnyOtherTradingDetailsPage.submit());
+        await verifyUrlContains("submit/#any-other-trading-details-answer");
       },
     );
 
@@ -355,36 +352,35 @@ describe("List Collector Repeating Blocks", () => {
       "When the user adds complete and incomplete items and returns to the hub, " +
         "Then the user should be taken to first incomplete repeating block when pressing Continue.",
       async () => {
-      await proceedToListCollector();
+        await proceedToListCollector();
 
-      await addCompany("ONS", "123", "1", "1", "2023", true, true);
-      await $(AnyOtherCompaniesOrBranchesPage.yes()).click();
-      await click(AnyOtherCompaniesOrBranchesPage.submit());
-      await $(AddCompanyPage.companyOrBranchName()).setValue("GOV");
-      await click(AddCompanyPage.submit());
-      await $(CompaniesRepeatingBlock1Page.cancelAndReturn()).click();
-      await browser.url("questionnaire/");
-      await click(HubPage.submit());
-      await $(AnyOtherCompaniesOrBranchesPage.no()).click();
-      await click(AnyOtherCompaniesOrBranchesPage.submit());
-      await verifyUrlContains(CompaniesRepeatingBlock1Page.pageName);
+        await addCompany("ONS", "123", "1", "1", "2023", true, true);
+        await $(AnyOtherCompaniesOrBranchesPage.yes()).click();
+        await click(AnyOtherCompaniesOrBranchesPage.submit());
+        await $(AddCompanyPage.companyOrBranchName()).setValue("GOV");
+        await click(AddCompanyPage.submit());
+        await $(CompaniesRepeatingBlock1Page.cancelAndReturn()).click();
+        await browser.url("questionnaire/");
+        await click(HubPage.submit());
+        await $(AnyOtherCompaniesOrBranchesPage.no()).click();
+        await click(AnyOtherCompaniesOrBranchesPage.submit());
+        await verifyUrlContains(CompaniesRepeatingBlock1Page.pageName);
       },
     );
 
     it(
-      "When the user completes the incomplete blocks and returns to the list collector Page, " +
-        "Then the completed items should display the checkmark icon",
+      "When the user completes the incomplete blocks and returns to the list collector Page, " + "Then the completed items should display the checkmark icon",
       async () => {
-      await $(CompaniesRepeatingBlock1Page.registrationNumber()).setValue("456");
-      await $(CompaniesRepeatingBlock1Page.registrationDateDay()).setValue("2");
-      await $(CompaniesRepeatingBlock1Page.registrationDateMonth()).setValue("2");
-      await $(CompaniesRepeatingBlock1Page.registrationDateYear()).setValue("2023");
-      await click(CompaniesRepeatingBlock1Page.submit());
-      await $(CompaniesRepeatingBlock2Page.authorisedTraderUkRadioNo()).click();
-      await click(CompaniesRepeatingBlock2Page.submit());
-      await verifyUrlContains(AnyOtherCompaniesOrBranchesPage.pageName);
-      await summaryItemComplete(`dt[data-qa="list-item-1-label"]`, true);
-      await summaryItemComplete(`dt[data-qa="list-item-2-label"]`, true);
+        await $(CompaniesRepeatingBlock1Page.registrationNumber()).setValue("456");
+        await $(CompaniesRepeatingBlock1Page.registrationDateDay()).setValue("2");
+        await $(CompaniesRepeatingBlock1Page.registrationDateMonth()).setValue("2");
+        await $(CompaniesRepeatingBlock1Page.registrationDateYear()).setValue("2023");
+        await click(CompaniesRepeatingBlock1Page.submit());
+        await $(CompaniesRepeatingBlock2Page.authorisedTraderUkRadioNo()).click();
+        await click(CompaniesRepeatingBlock2Page.submit());
+        await verifyUrlContains(AnyOtherCompaniesOrBranchesPage.pageName);
+        await summaryItemComplete(`dt[data-qa="list-item-1-label"]`, true);
+        await summaryItemComplete(`dt[data-qa="list-item-2-label"]`, true);
       },
     );
 
@@ -392,18 +388,18 @@ describe("List Collector Repeating Blocks", () => {
       "When another incomplete item is added via the section summary, " +
         "Then navigating to the submit page of the section will redirect to the list collector page.",
       async () => {
-      // Add another item and partially complete
-      await $(AnyOtherCompaniesOrBranchesPage.no()).click();
-      await click(AnyOtherCompaniesOrBranchesPage.submit());
-      await click(AnyOtherTradingDetailsPage.submit());
-      await $(SectionCompaniesPage.companiesListAddLink()).click();
-      await $(AddCompanyPage.companyOrBranchName()).setValue("MOD");
-      await click(AddCompanyPage.submit());
-      await $(CompaniesRepeatingBlock1Page.cancelAndReturn()).click();
+        // Add another item and partially complete
+        await $(AnyOtherCompaniesOrBranchesPage.no()).click();
+        await click(AnyOtherCompaniesOrBranchesPage.submit());
+        await click(AnyOtherTradingDetailsPage.submit());
+        await $(SectionCompaniesPage.companiesListAddLink()).click();
+        await $(AddCompanyPage.companyOrBranchName()).setValue("MOD");
+        await click(AddCompanyPage.submit());
+        await $(CompaniesRepeatingBlock1Page.cancelAndReturn()).click();
 
-      // Navigating to the section summary will redirect to the list collector page
-      await browser.url("questionnaire/sections/section-companies/");
-      await verifyUrlContains(AnyOtherCompaniesOrBranchesPage.pageName);
+        // Navigating to the section summary will redirect to the list collector page
+        await browser.url("questionnaire/sections/section-companies/");
+        await verifyUrlContains(AnyOtherCompaniesOrBranchesPage.pageName);
       },
     );
 
@@ -442,11 +438,10 @@ describe("List Collector Repeating Blocks", () => {
     });
 
     it(
-      "When the user has completed the list collector section and uses Submit on the hub page, " +
-        "Then the user will be redirected to the next section.",
+      "When the user has completed the list collector section and uses Submit on the hub page, " + "Then the user will be redirected to the next section.",
       async () => {
-      await click(HubPage.submit());
-      await verifyUrlContains(ResponsiblePartyHubPage.pageName);
+        await click(HubPage.submit());
+        await verifyUrlContains(ResponsiblePartyHubPage.pageName);
       },
     );
   });

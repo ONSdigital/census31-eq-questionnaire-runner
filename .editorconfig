@@ -38,7 +38,7 @@ insert_final_newline = false
 [*.{py}]
 max_line_length = 120
 
-[*.{md,po,json}]
+[*.{md,po}]
 max_line_length = off
 
 [tests/{integration/routes/test_session.py,app/services/conftest.py}]

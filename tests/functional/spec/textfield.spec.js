@@ -9,16 +9,15 @@ describe("Textfield", () => {
   });
 
   it(
-    "Given a text entered in textfield , " +
-      "When user submits and revisits the textfield, Then the textfield must contain the text entered previously",
+    "Given a text entered in textfield , " + "When user submits and revisits the textfield, Then the textfield must contain the text entered previously",
     async () => {
-    await browser.openQuestionnaire("test_textfield.json");
-    await $(TextFieldPage.name()).setValue("'Twenty><&Five'");
-    await click(TextFieldPage.submit());
-    await verifyUrlContains(SubmitPage.pageName);
-    await expect(await $(SubmitPage.nameAnswer()).getText()).toBe("'Twenty><&Five'");
-    await $(SubmitPage.nameAnswerEdit()).click();
-    await $(TextFieldPage.name()).getValue();
+      await browser.openQuestionnaire("test_textfield.json");
+      await $(TextFieldPage.name()).setValue("'Twenty><&Five'");
+      await click(TextFieldPage.submit());
+      await verifyUrlContains(SubmitPage.pageName);
+      await expect(await $(SubmitPage.nameAnswer()).getText()).toBe("'Twenty><&Five'");
+      await $(SubmitPage.nameAnswerEdit()).click();
+      await $(TextFieldPage.name()).getValue();
     },
   );
 

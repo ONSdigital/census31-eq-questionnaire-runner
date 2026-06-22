@@ -40,13 +40,12 @@ describe("Unrelated Relationships", () => {
       });
 
       it(
-        "When I return to the 'related to anyone else' question and select 'Yes', " +
-          "Then I will be taken to the next relationship for the first person",
+        "When I return to the 'related to anyone else' question and select 'Yes', " + "Then I will be taken to the next relationship for the first person",
         async () => {
-        await click(RelationshipsPage.submit());
-        await $(RelatedToAnyoneElsePage.yes()).click();
-        await click(RelatedToAnyoneElsePage.submit());
-        await expect(await $(RelationshipsPage.questionText()).getText()).toContain("Thinking about Andrew Austin, Daniel Davis is their");
+          await click(RelationshipsPage.submit());
+          await $(RelatedToAnyoneElsePage.yes()).click();
+          await click(RelatedToAnyoneElsePage.submit());
+          await expect(await $(RelationshipsPage.questionText()).getText()).toContain("Thinking about Andrew Austin, Daniel Davis is their");
         },
       );
 

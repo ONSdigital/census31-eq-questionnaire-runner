@@ -47,14 +47,14 @@ describe("Difference check (months and years range)", () => {
     "Given a month and year answers 'from' and 'to' are provided for a date question " +
       "then the difference in years should be calculated and displayed on the page ",
     async () => {
-    await $(AgeBlockMonthYearRangePage.periodFromMonth()).setValue(1);
-    await $(AgeBlockMonthYearRangePage.periodFromYear()).setValue(1990);
-    await $(AgeBlockMonthYearRangePage.periodToMonth()).setValue(1);
-    await $(AgeBlockMonthYearRangePage.periodToYear()).setValue(1991);
+      await $(AgeBlockMonthYearRangePage.periodFromMonth()).setValue(1);
+      await $(AgeBlockMonthYearRangePage.periodFromYear()).setValue(1990);
+      await $(AgeBlockMonthYearRangePage.periodToMonth()).setValue(1);
+      await $(AgeBlockMonthYearRangePage.periodToYear()).setValue(1991);
 
-    await click(AgeBlockMonthYearRangePage.submit());
+      await click(AgeBlockMonthYearRangePage.submit());
 
-    await expect(await $(AgeTestMonthYearRangePage.heading()).getText()).toBe("You were out of the UK for 1 year. Is this correct?");
+      await expect(await $(AgeTestMonthYearRangePage.heading()).getText()).toBe("You were out of the UK for 1 year. Is this correct?");
     },
   );
 });
@@ -68,17 +68,17 @@ describe("Difference check (years range)", () => {
     "Given a day, month and year answers 'from' and 'to' are provided for a date question " +
       "then the difference in years should be calculated and displayed on the page ",
     async () => {
-    await $(AgeBlockDayMonthYearRangePage.periodFromDay()).setValue(1);
-    await $(AgeBlockDayMonthYearRangePage.periodFromMonth()).setValue(1);
-    await $(AgeBlockDayMonthYearRangePage.periodFromYear()).setValue(1990);
+      await $(AgeBlockDayMonthYearRangePage.periodFromDay()).setValue(1);
+      await $(AgeBlockDayMonthYearRangePage.periodFromMonth()).setValue(1);
+      await $(AgeBlockDayMonthYearRangePage.periodFromYear()).setValue(1990);
 
-    await $(AgeBlockDayMonthYearRangePage.periodToDay()).setValue(1);
-    await $(AgeBlockDayMonthYearRangePage.periodToMonth()).setValue(1);
-    await $(AgeBlockDayMonthYearRangePage.periodToYear()).setValue(1991);
+      await $(AgeBlockDayMonthYearRangePage.periodToDay()).setValue(1);
+      await $(AgeBlockDayMonthYearRangePage.periodToMonth()).setValue(1);
+      await $(AgeBlockDayMonthYearRangePage.periodToYear()).setValue(1991);
 
-    await click(AgeBlockDayMonthYearRangePage.submit());
+      await click(AgeBlockDayMonthYearRangePage.submit());
 
-    await expect(await $(AgeTestDayMonthYearRangePage.heading()).getText()).toBe("You were out of the UK for 1 year. Is this correct?");
+      await expect(await $(AgeTestDayMonthYearRangePage.heading()).getText()).toBe("You were out of the UK for 1 year. Is this correct?");
     },
   );
 });

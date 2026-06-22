@@ -9,17 +9,16 @@ describe("Date checks", () => {
   });
 
   it(
-    "Given a reference date is provided, when I get to the next page, " +
-      "then the placeholder contains a formatted date range based on the reference date",
+    "Given a reference date is provided, when I get to the next page, " + "then the placeholder contains a formatted date range based on the reference date",
     async () => {
-    await $(DateQuestionPage.day()).setValue(8);
-    await $(DateQuestionPage.month()).setValue(9);
-    await $(DateQuestionPage.year()).setValue(2021);
+      await $(DateQuestionPage.day()).setValue(8);
+      await $(DateQuestionPage.month()).setValue(9);
+      await $(DateQuestionPage.year()).setValue(2021);
 
-    await click(DateQuestionPage.submit());
+      await click(DateQuestionPage.submit());
 
-    await expect(await $(DaysQuestionBlockPage.questionText()).getText()).toContain("Monday 30 August to Monday 13 September 2021");
-    await click(DaysQuestionBlockPage.submit());
+      await expect(await $(DaysQuestionBlockPage.questionText()).getText()).toContain("Monday 30 August to Monday 13 September 2021");
+      await click(DaysQuestionBlockPage.submit());
     },
   );
 

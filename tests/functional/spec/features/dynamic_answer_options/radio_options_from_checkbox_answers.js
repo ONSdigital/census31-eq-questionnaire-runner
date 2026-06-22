@@ -9,16 +9,16 @@ describe("Dynamic radio options from checkbox answers", () => {
       "When the respondent answers the checkbox question and submits, Then the radio question should show " +
         "the answers from that checkbox as options, as well as a static option",
       async () => {
-      await browser.openQuestionnaire("test_dynamic_radio_options_from_checkbox.json");
-      await $(InjurySustainedPage.head()).click();
-      await $(InjurySustainedPage.body()).click();
-      await click(InjurySustainedPage.submit());
+        await browser.openQuestionnaire("test_dynamic_radio_options_from_checkbox.json");
+        await $(InjurySustainedPage.head()).click();
+        await $(InjurySustainedPage.body()).click();
+        await click(InjurySustainedPage.submit());
 
-      await verifyUrlContains(MostSeriousInjuryPage.pageName);
-      await expect(await $(MostSeriousInjuryPage.answerLabelByIndex(0)).getText()).toBe("Head");
-      await expect(await $(MostSeriousInjuryPage.answerLabelByIndex(1)).getText()).toBe("Body");
-      await expect(await $(MostSeriousInjuryPage.answerLabelByIndex(2)).getText()).toBe("They were of equal severity (static option)");
-      await expect(await $(MostSeriousInjuryPage.answerLabelByIndex(3)).isExisting()).toBe(false);
+        await verifyUrlContains(MostSeriousInjuryPage.pageName);
+        await expect(await $(MostSeriousInjuryPage.answerLabelByIndex(0)).getText()).toBe("Head");
+        await expect(await $(MostSeriousInjuryPage.answerLabelByIndex(1)).getText()).toBe("Body");
+        await expect(await $(MostSeriousInjuryPage.answerLabelByIndex(2)).getText()).toBe("They were of equal severity (static option)");
+        await expect(await $(MostSeriousInjuryPage.answerLabelByIndex(3)).isExisting()).toBe(false);
       },
     );
 
@@ -26,13 +26,13 @@ describe("Dynamic radio options from checkbox answers", () => {
       "When the respondent answers the radio question and submits, " +
         "Then the next radio question should show only the answers from the first checkbox as options",
       async () => {
-      await $(MostSeriousInjuryPage.answerLabelByIndex(0)).click();
-      await click(MostSeriousInjuryPage.submit());
+        await $(MostSeriousInjuryPage.answerLabelByIndex(0)).click();
+        await click(MostSeriousInjuryPage.submit());
 
-      await verifyUrlContains(HealedTheQuickestPage.pageName);
-      await expect(await $(HealedTheQuickestPage.answerLabelByIndex(0)).getText()).toBe("Head");
-      await expect(await $(HealedTheQuickestPage.answerLabelByIndex(1)).getText()).toBe("Body");
-      await expect(await $(HealedTheQuickestPage.answerLabelByIndex(2)).isExisting()).toBe(false);
+        await verifyUrlContains(HealedTheQuickestPage.pageName);
+        await expect(await $(HealedTheQuickestPage.answerLabelByIndex(0)).getText()).toBe("Head");
+        await expect(await $(HealedTheQuickestPage.answerLabelByIndex(1)).getText()).toBe("Body");
+        await expect(await $(HealedTheQuickestPage.answerLabelByIndex(2)).isExisting()).toBe(false);
       },
     );
 

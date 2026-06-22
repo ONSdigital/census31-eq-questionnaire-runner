@@ -48,7 +48,11 @@
                                     "contents": [
                                         {
                                             "title": "Outcomes",
-                                            "list": ["“I think so” is <strong>checked</strong> and list <strong>is</strong> empty - Takes you to the list collector‘s <strong>add</strong> question.", "“I think so” is <strong>checked</strong> and list is <strong>not</strong> empty - Takes you directly to the list collector.", "“No” - Takes you directly to the list collector."]
+                                            "list": [
+                                                "“I think so” is <strong>checked</strong> and list <strong>is</strong> empty - Takes you to the list collector‘s <strong>add</strong> question.",
+                                                "“I think so” is <strong>checked</strong> and list is <strong>not</strong> empty - Takes you directly to the list collector.",
+                                                "“No” - Takes you directly to the list collector."
+                                            ]
                                         }
                                     ]
                                 },
@@ -118,7 +122,10 @@
                                         "contents": [
                                             {
                                                 "title": "Previous link",
-                                                "list": ["If a valid <strong>return_to</strong> is in the URL and list <strong>is</strong> empty - Returns you back to the question you just came from.", "If the list is <strong>not</strong> empty - Go back to the list collector."]
+                                                "list": [
+                                                    "If a valid <strong>return_to</strong> is in the URL and list <strong>is</strong> empty - Returns you back to the question you just came from.",
+                                                    "If the list is <strong>not</strong> empty - Go back to the list collector."
+                                                ]
                                             }
                                         ]
                                     },

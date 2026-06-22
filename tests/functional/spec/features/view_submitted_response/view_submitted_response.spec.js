@@ -18,8 +18,7 @@ import ThirdNumberBlockPageSectionTwo from "../../../generated_pages/view_submit
 import CalculatedSummarySectionTwo from "../../../generated_pages/view_submitted_response_repeating_sections/currency-total-playback-2.page";
 import DependencyQuestionSectionTwo from "../../../generated_pages/view_submitted_response_repeating_sections/mutually-exclusive-checkbox.page";
 import SkippableBlockSectionTwo from "../../../generated_pages/view_submitted_response_repeating_sections/skippable-block.page";
-import SectionSummarySectionTwo from
-  "../../../generated_pages/new_calculated_summary_cross_section_dependencies_repeating/calculated-summary-section-summary.page";
+import SectionSummarySectionTwo from "../../../generated_pages/new_calculated_summary_cross_section_dependencies_repeating/calculated-summary-section-summary.page";
 import ListCollectorAddPage from "../../../generated_pages/view_submitted_response_repeating_sections//list-collector-add.page";
 import { click, verifyUrlContains } from "../../../helpers";
 
@@ -41,24 +40,22 @@ describe("View Submitted Response", () => {
     "Given I have completed a questionnaire with view submitted response enabled, " +
       "When I am on the view submitted response page within 45 minutes of submission, Then the summary is displayed correctly",
     async () => {
-    await expect(await $(ViewSubmittedResponsePage.informationPanel()).isDisplayed()).toBe(false);
-    await expect(await $(ViewSubmittedResponsePage.printButton()).isDisplayed()).toBe(true);
-    await expect(await $(ViewSubmittedResponsePage.heading()).getText()).toBe("Answers submitted for Apple (Apple)");
-    await expect(await $(ViewSubmittedResponsePage.metadataTerm(1)).getText()).toBe("Submitted on:");
-    await expect(await $(ViewSubmittedResponsePage.metadataTerm(2)).getText()).toBe("Submission reference:");
-    await expect(await $(ViewSubmittedResponsePage.personalDetailsGroupTitle()).getText()).toBe("Personal Details");
-    await expect(await $(ViewSubmittedResponsePage.nameQuestion()).getText()).toBe("What is your name?");
-    await expect(await $(ViewSubmittedResponsePage.nameAnswer()).getText()).toBe("John Smith");
-    await expect(await $(ViewSubmittedResponsePage.addressDetailsGroupTitle()).getText()).toBe("Address Details");
-    await expect(await $(ViewSubmittedResponsePage.addressQuestion()).getText()).toBe("What is your address?");
-    await expect(await $(ViewSubmittedResponsePage.addressAnswer()).getText()).toBe("NP10 8XG");
+      await expect(await $(ViewSubmittedResponsePage.informationPanel()).isDisplayed()).toBe(false);
+      await expect(await $(ViewSubmittedResponsePage.printButton()).isDisplayed()).toBe(true);
+      await expect(await $(ViewSubmittedResponsePage.heading()).getText()).toBe("Answers submitted for Apple (Apple)");
+      await expect(await $(ViewSubmittedResponsePage.metadataTerm(1)).getText()).toBe("Submitted on:");
+      await expect(await $(ViewSubmittedResponsePage.metadataTerm(2)).getText()).toBe("Submission reference:");
+      await expect(await $(ViewSubmittedResponsePage.personalDetailsGroupTitle()).getText()).toBe("Personal Details");
+      await expect(await $(ViewSubmittedResponsePage.nameQuestion()).getText()).toBe("What is your name?");
+      await expect(await $(ViewSubmittedResponsePage.nameAnswer()).getText()).toBe("John Smith");
+      await expect(await $(ViewSubmittedResponsePage.addressDetailsGroupTitle()).getText()).toBe("Address Details");
+      await expect(await $(ViewSubmittedResponsePage.addressQuestion()).getText()).toBe("What is your address?");
+      await expect(await $(ViewSubmittedResponsePage.addressAnswer()).getText()).toBe("NP10 8XG");
     },
   );
 
   describe("Given I am on the view submitted response page and I submitted over 45 minutes ago", () => {
-    it(
-      "When I click the Download as PDF button, Then I should be redirected to a page informing me that I can no longer view or get a copy of my answers",
-      async () => {
+    it("When I click the Download as PDF button, Then I should be redirected to a page informing me that I can no longer view or get a copy of my answers", async () => {
       await browser.pause(40000); // Waiting 40 seconds for timeout expiry (45-minute timeout set to 35 seconds via
       // VIEW_SUBMITTED_RESPONSE_EXPIRATION_IN_SECONDS for this functional test).
       await $(ViewSubmittedResponsePage.downloadButton()).click();
@@ -66,8 +63,7 @@ describe("View Submitted Response", () => {
       await expect(await $(ViewSubmittedResponsePage.informationPanel()).getHTML()).toContain(
         "For security, you can no longer view or get a copy of your answers",
       );
-      },
-    );
+    });
   });
 });
 
@@ -142,26 +138,26 @@ describe("View Submitted Response Summary Page With Repeating Sections", () => {
     "Given I have completed a questionnaire with a repeating section and view submitted response enabled, " +
       "When I am on the view submitted response page within 45 minutes of submission, Then the summary is displayed correctly",
     async () => {
-    await expect(await $(ViewSubmittedResponseRepeatingPage.informationPanel()).isDisplayed()).toBe(false);
-    await expect(await $(ViewSubmittedResponseRepeatingPage.printButton()).isDisplayed()).toBe(true);
-    await expect(await $(ViewSubmittedResponseRepeatingPage.heading()).getText()).toBe("Answers submitted for Apple (Apple)");
-    await expect(await $(ViewSubmittedResponseRepeatingPage.metadataTerm(1)).getText()).toBe("Submitted on:");
-    await expect(await $(ViewSubmittedResponseRepeatingPage.metadataTerm(2)).getText()).toBe("Submission reference:");
-    await expect(await $(ViewSubmittedResponseRepeatingPage.personalDetailsGroupTitle()).getText()).toBe("Personal Details");
-    await expect(await $(ViewSubmittedResponseRepeatingPage.nameQuestion()).getText()).toBe("What is your name?");
-    await expect(await $(ViewSubmittedResponseRepeatingPage.nameAnswer()).getText()).toBe("John Smith");
-    await expect(await $(ViewSubmittedResponseRepeatingPage.addressDetailsGroupTitle()).getText()).toBe("Address Details");
-    await expect(await $(ViewSubmittedResponseRepeatingPage.addressQuestion()).getText()).toBe("What is your address?");
-    await expect(await $(ViewSubmittedResponseRepeatingPage.addressAnswer()).getText()).toBe("NP10 8XG");
-    await expect(await $("body").getHTML()).toContain("Marcus Twin");
-    await expect(await $(firstGroup).$$(groupTitle)[0].getText()).toBe("Calculated Summary Group");
-    await expect(await $(firstGroup).$$(repeatingSectionAnswer)[0].getText()).toBe("40 - calculated summary answer (current section)");
-    await expect(await $("body").getHTML()).toContain("How much did Marcus Twin spend on fruit?");
-    await expect(await $(firstGroup).$$(skippableRepeatingSectionAnswer)[0].getText()).toBe("£100");
-    await expect(await $("body").getHTML()).toContain("John Doe");
-    await expect(await $(secondGroup).$$(groupTitle)[0].getText()).toBe("Calculated Summary Group");
-    await expect(await $(secondGroup).$$(repeatingSectionAnswer)[0].getText()).toBe("80 - calculated summary answer (current section)");
-    await expect(await $("body").getHTML()).not.toContain("How much did John Doe spend on fruit?");
+      await expect(await $(ViewSubmittedResponseRepeatingPage.informationPanel()).isDisplayed()).toBe(false);
+      await expect(await $(ViewSubmittedResponseRepeatingPage.printButton()).isDisplayed()).toBe(true);
+      await expect(await $(ViewSubmittedResponseRepeatingPage.heading()).getText()).toBe("Answers submitted for Apple (Apple)");
+      await expect(await $(ViewSubmittedResponseRepeatingPage.metadataTerm(1)).getText()).toBe("Submitted on:");
+      await expect(await $(ViewSubmittedResponseRepeatingPage.metadataTerm(2)).getText()).toBe("Submission reference:");
+      await expect(await $(ViewSubmittedResponseRepeatingPage.personalDetailsGroupTitle()).getText()).toBe("Personal Details");
+      await expect(await $(ViewSubmittedResponseRepeatingPage.nameQuestion()).getText()).toBe("What is your name?");
+      await expect(await $(ViewSubmittedResponseRepeatingPage.nameAnswer()).getText()).toBe("John Smith");
+      await expect(await $(ViewSubmittedResponseRepeatingPage.addressDetailsGroupTitle()).getText()).toBe("Address Details");
+      await expect(await $(ViewSubmittedResponseRepeatingPage.addressQuestion()).getText()).toBe("What is your address?");
+      await expect(await $(ViewSubmittedResponseRepeatingPage.addressAnswer()).getText()).toBe("NP10 8XG");
+      await expect(await $("body").getHTML()).toContain("Marcus Twin");
+      await expect(await $(firstGroup).$$(groupTitle)[0].getText()).toBe("Calculated Summary Group");
+      await expect(await $(firstGroup).$$(repeatingSectionAnswer)[0].getText()).toBe("40 - calculated summary answer (current section)");
+      await expect(await $("body").getHTML()).toContain("How much did Marcus Twin spend on fruit?");
+      await expect(await $(firstGroup).$$(skippableRepeatingSectionAnswer)[0].getText()).toBe("£100");
+      await expect(await $("body").getHTML()).toContain("John Doe");
+      await expect(await $(secondGroup).$$(groupTitle)[0].getText()).toBe("Calculated Summary Group");
+      await expect(await $(secondGroup).$$(repeatingSectionAnswer)[0].getText()).toBe("80 - calculated summary answer (current section)");
+      await expect(await $("body").getHTML()).not.toContain("How much did John Doe spend on fruit?");
     },
   );
 });

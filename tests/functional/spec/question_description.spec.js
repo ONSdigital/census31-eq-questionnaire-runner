@@ -11,9 +11,10 @@ describe("Question description", () => {
     "Given a question description has been set in the schema as an array, " +
       "When it is rendered, Then it is displayed correctly as multiple paragraph attributes",
     async () => {
-    await browser.openQuestionnaire("test_question_description.json");
-    await expect(normalizeHtml(await $(NameBlockPage.questionTitle()).getHTML())).toContain(normalizeHtml("<p>Answer the question</p><p>Go on</p>"));
-  });
+      await browser.openQuestionnaire("test_question_description.json");
+      await expect(normalizeHtml(await $(NameBlockPage.questionTitle()).getHTML())).toContain(normalizeHtml("<p>Answer the question</p><p>Go on</p>"));
+    },
+  );
 });
 
 describe("Optional question description and guidance", () => {

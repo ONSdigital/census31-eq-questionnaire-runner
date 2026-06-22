@@ -22,15 +22,15 @@ describe("Feature: Sum of dynamic answers based on list and optional static answ
       "When I continue and enter numbers on dynamic and static answers page that don't add up to that total, " +
         "Then validation error should be displayed with appropriate message",
       async () => {
-      await $(TotalBlockPage.acceptCookies()).click();
-      await addTwoSupermarkets();
-      await verifyUrlContains(DynamicAnswerPage.pageName);
-      await expect(await $$(DynamicAnswerPage.labels()).length).toBe(3);
-      await $$(DynamicAnswerPage.inputs())[0].setValue(33);
-      await $$(DynamicAnswerPage.inputs())[1].setValue(33);
-      await $(DynamicAnswerPage.percentageOfShoppingElsewhere()).setValue(33);
-      await click(DynamicAnswerPage.submit());
-      await expect(await $(DynamicAnswerPage.errorNumber(1)).getText()).toBe("Enter answers that add up to 100");
+        await $(TotalBlockPage.acceptCookies()).click();
+        await addTwoSupermarkets();
+        await verifyUrlContains(DynamicAnswerPage.pageName);
+        await expect(await $$(DynamicAnswerPage.labels()).length).toBe(3);
+        await $$(DynamicAnswerPage.inputs())[0].setValue(33);
+        await $$(DynamicAnswerPage.inputs())[1].setValue(33);
+        await $(DynamicAnswerPage.percentageOfShoppingElsewhere()).setValue(33);
+        await click(DynamicAnswerPage.submit());
+        await expect(await $(DynamicAnswerPage.errorNumber(1)).getText()).toBe("Enter answers that add up to 100");
       },
     );
   });
@@ -39,14 +39,14 @@ describe("Feature: Sum of dynamic answers based on list and optional static answ
       "When I continue and enter numbers on dynamic and static answers page that add up to that total, " +
         "Then I should be able to get to the subsequent question",
       async () => {
-      await addTwoSupermarkets();
-      await verifyUrlContains(DynamicAnswerPage.pageName);
-      await expect(await $$(DynamicAnswerPage.labels()).length).toBe(3);
-      await $$(DynamicAnswerPage.inputs())[0].setValue(34);
-      await $$(DynamicAnswerPage.inputs())[1].setValue(33);
-      await $(DynamicAnswerPage.percentageOfShoppingElsewhere()).setValue(33);
-      await click(DynamicAnswerPage.submit());
-      await verifyUrlContains(TotalBlockOtherPage.pageName);
+        await addTwoSupermarkets();
+        await verifyUrlContains(DynamicAnswerPage.pageName);
+        await expect(await $$(DynamicAnswerPage.labels()).length).toBe(3);
+        await $$(DynamicAnswerPage.inputs())[0].setValue(34);
+        await $$(DynamicAnswerPage.inputs())[1].setValue(33);
+        await $(DynamicAnswerPage.percentageOfShoppingElsewhere()).setValue(33);
+        await click(DynamicAnswerPage.submit());
+        await verifyUrlContains(TotalBlockOtherPage.pageName);
       },
     );
   });
@@ -55,20 +55,20 @@ describe("Feature: Sum of dynamic answers based on list and optional static answ
       "When I continue and enter numbers on dynamic answers only page that don't add up to that total, " +
         "Then validation error should be displayed with appropriate message",
       async () => {
-      await addTwoSupermarkets();
-      await verifyUrlContains(DynamicAnswerPage.pageName);
-      await expect(await $$(DynamicAnswerPage.labels()).length).toBe(3);
-      await $$(DynamicAnswerPage.inputs())[0].setValue(34);
-      await $$(DynamicAnswerPage.inputs())[1].setValue(33);
-      await $(DynamicAnswerPage.percentageOfShoppingElsewhere()).setValue(33);
-      await click(DynamicAnswerPage.submit());
-      await $(TotalBlockOtherPage.totalOther()).setValue(100);
-      await click(TotalBlockOtherPage.submit());
-      await verifyUrlContains(DynamicAnswerOnlyPage.pageName);
-      await $$(DynamicAnswerOnlyPage.inputs())[0].setValue(50);
-      await $$(DynamicAnswerOnlyPage.inputs())[1].setValue(0);
-      await click(DynamicAnswerOnlyPage.submit());
-      await expect(await $(DynamicAnswerOnlyPage.errorNumber(1)).getText()).toBe("Enter answers that add up to £100.00");
+        await addTwoSupermarkets();
+        await verifyUrlContains(DynamicAnswerPage.pageName);
+        await expect(await $$(DynamicAnswerPage.labels()).length).toBe(3);
+        await $$(DynamicAnswerPage.inputs())[0].setValue(34);
+        await $$(DynamicAnswerPage.inputs())[1].setValue(33);
+        await $(DynamicAnswerPage.percentageOfShoppingElsewhere()).setValue(33);
+        await click(DynamicAnswerPage.submit());
+        await $(TotalBlockOtherPage.totalOther()).setValue(100);
+        await click(TotalBlockOtherPage.submit());
+        await verifyUrlContains(DynamicAnswerOnlyPage.pageName);
+        await $$(DynamicAnswerOnlyPage.inputs())[0].setValue(50);
+        await $$(DynamicAnswerOnlyPage.inputs())[1].setValue(0);
+        await click(DynamicAnswerOnlyPage.submit());
+        await expect(await $(DynamicAnswerOnlyPage.errorNumber(1)).getText()).toBe("Enter answers that add up to £100.00");
       },
     );
   });
@@ -96,16 +96,15 @@ describe("Feature: Sum of dynamic answers based on list and optional static answ
   });
   describe("Given I add list items and fill all the dynamic answers", () => {
     it(
-      "When I continue and remove existing list item, " +
-        "Then I should be revisiting dynamic answers which should be updated to reflect the changes",
+      "When I continue and remove existing list item, " + "Then I should be revisiting dynamic answers which should be updated to reflect the changes",
       async () => {
-      await addTwoSupermarkets();
-      await fillDynamicAnswers();
-      await $(SectionSummaryPage.supermarketsListRemoveLink(1)).click();
-      await $(ListCollectorRemovePage.yes()).click();
-      await click(ListCollectorRemovePage.submit());
-      await verifyUrlContains(DynamicAnswerPage.pageName);
-      await expect(await $$(DynamicAnswerPage.labels()).length).toBe(2);
+        await addTwoSupermarkets();
+        await fillDynamicAnswers();
+        await $(SectionSummaryPage.supermarketsListRemoveLink(1)).click();
+        await $(ListCollectorRemovePage.yes()).click();
+        await click(ListCollectorRemovePage.submit());
+        await verifyUrlContains(DynamicAnswerPage.pageName);
+        await expect(await $$(DynamicAnswerPage.labels()).length).toBe(2);
       },
     );
   });
@@ -114,13 +113,13 @@ describe("Feature: Sum of dynamic answers based on list and optional static answ
       "When I continue and edit existing list item, Then I should return straight to the summary " +
         "because the dynamic answers do not depend on the supermarket name",
       async () => {
-      await addTwoSupermarkets();
-      await fillDynamicAnswers();
-      await $(SectionSummaryPage.supermarketsListEditLink(1)).click();
-      await $(ListCollectorEditPage.supermarketName()).setValue("Aldi");
-      await click(ListCollectorEditPage.submit());
-      await verifyUrlContains(SectionSummaryPage.pageName);
-      await expect(await $(SectionSummaryPage.groupContent(2)).$$(summaryTitles)[0].getText()).toBe("Percentage of shopping at Aldi");
+        await addTwoSupermarkets();
+        await fillDynamicAnswers();
+        await $(SectionSummaryPage.supermarketsListEditLink(1)).click();
+        await $(ListCollectorEditPage.supermarketName()).setValue("Aldi");
+        await click(ListCollectorEditPage.submit());
+        await verifyUrlContains(SectionSummaryPage.pageName);
+        await expect(await $(SectionSummaryPage.groupContent(2)).$$(summaryTitles)[0].getText()).toBe("Percentage of shopping at Aldi");
       },
     );
   });

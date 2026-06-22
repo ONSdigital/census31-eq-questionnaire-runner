@@ -11,12 +11,12 @@ describe("Submit with custom submission text", () => {
     "Given a questionnaire with custom submission content has been started, " +
       "when it is completed to the submit page, then the correct submission content should be displayed",
     async () => {
-    await $(IntroductionPage.getStarted()).click();
-    await $(BreakfastPage.answer()).setValue("Eggs");
-    await click(BreakfastPage.submit());
-    await expect(await $(SubmitPage.heading()).getText()).toBe("Submit your questionnaire");
-    await expect(await $(SubmitPage.warning()).getText()).toBe("You cannot view your answers after submission");
-    await expect(await $(SubmitPage.guidance()).getText()).toBe("Thank you for your answers, submit this to complete it");
+      await $(IntroductionPage.getStarted()).click();
+      await $(BreakfastPage.answer()).setValue("Eggs");
+      await click(BreakfastPage.submit());
+      await expect(await $(SubmitPage.heading()).getText()).toBe("Submit your questionnaire");
+      await expect(await $(SubmitPage.warning()).getText()).toBe("You cannot view your answers after submission");
+      await expect(await $(SubmitPage.guidance()).getText()).toBe("Thank you for your answers, submit this to complete it");
     },
   );
 });

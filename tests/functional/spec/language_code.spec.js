@@ -213,39 +213,40 @@ describe("Language Code", () => {
     "Given a launch language of English and a question with plural forms, " +
       "When I select switch languages, Then the plural forms are displayed correctly for the chosen language",
     () => {
-    for (const dataSet of PLURAL_TEST_DATA_SETS) {
-      const numberOfPeople = dataSet.count;
+      for (const dataSet of PLURAL_TEST_DATA_SETS) {
+        const numberOfPeople = dataSet.count;
 
-      it(`Test plural count: ${numberOfPeople}`, async () => {
-        await browser.openQuestionnaire("test_language.json", {
-          language: "en",
+        it(`Test plural count: ${numberOfPeople}`, async () => {
+          await browser.openQuestionnaire("test_language.json", {
+            language: "en",
+          });
+
+          await click(HubPage.submit());
+          await expect(await $(NamePage.questionText()).getText()).toBe("Please enter a name");
+          await $(NamePage.firstName()).setValue("Catherine");
+          await $(NamePage.lastName()).setValue("Zeta-Jones");
+          await click(NamePage.submit());
+
+          await $(DobPage.day()).setValue(25);
+          await $(DobPage.month()).setValue(9);
+          await $(DobPage.year()).setValue(1969);
+          await click(DobPage.submit());
+
+          await $(NumberOfPeoplePage.numberOfPeople()).setValue(numberOfPeople);
+          await click(NumberOfPeoplePage.submit());
+
+          await expect(await $(ConfirmNumberOfPeoplePage.questionText()).getText()).toEqual(dataSet.question_title.en);
+          await expect(await $(ConfirmNumberOfPeoplePage.yesLabel()).getText()).toEqual(dataSet.answer.en);
+
+          await $(ConfirmNumberOfPeoplePage.switchLanguage("cy")).click();
+
+          await expect(await $(ConfirmNumberOfPeoplePage.questionText()).getText()).toEqual(dataSet.question_title.cy);
+          await expect(await $(ConfirmNumberOfPeoplePage.yesLabel()).getText()).toEqual(dataSet.answer.cy);
+
+          await $(ConfirmNumberOfPeoplePage.yes()).click();
+          await click(ConfirmNumberOfPeoplePage.submit());
         });
-
-        await click(HubPage.submit());
-        await expect(await $(NamePage.questionText()).getText()).toBe("Please enter a name");
-        await $(NamePage.firstName()).setValue("Catherine");
-        await $(NamePage.lastName()).setValue("Zeta-Jones");
-        await click(NamePage.submit());
-
-        await $(DobPage.day()).setValue(25);
-        await $(DobPage.month()).setValue(9);
-        await $(DobPage.year()).setValue(1969);
-        await click(DobPage.submit());
-
-        await $(NumberOfPeoplePage.numberOfPeople()).setValue(numberOfPeople);
-        await click(NumberOfPeoplePage.submit());
-
-        await expect(await $(ConfirmNumberOfPeoplePage.questionText()).getText()).toEqual(dataSet.question_title.en);
-        await expect(await $(ConfirmNumberOfPeoplePage.yesLabel()).getText()).toEqual(dataSet.answer.en);
-
-        await $(ConfirmNumberOfPeoplePage.switchLanguage("cy")).click();
-
-        await expect(await $(ConfirmNumberOfPeoplePage.questionText()).getText()).toEqual(dataSet.question_title.cy);
-        await expect(await $(ConfirmNumberOfPeoplePage.yesLabel()).getText()).toEqual(dataSet.answer.cy);
-
-        await $(ConfirmNumberOfPeoplePage.yes()).click();
-        await click(ConfirmNumberOfPeoplePage.submit());
-      });
-    }
-  });
+      }
+    },
+  );
 });

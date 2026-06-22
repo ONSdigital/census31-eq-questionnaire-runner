@@ -31,23 +31,23 @@ describe("Feature: Sum of grouped answers equal to validation against total ", (
       "When I go back from the summary and change the total, " +
         "Then I must reconfirm the breakdown question with valid answers before I can get to the summary",
       async () => {
-      await $(TotalAnswerPage.total()).setValue("12");
-      await click(TotalAnswerPage.submit());
-      await answerAndSubmitBreakdownQuestion("3", "3", "3", "3");
+        await $(TotalAnswerPage.total()).setValue("12");
+        await click(TotalAnswerPage.submit());
+        await answerAndSubmitBreakdownQuestion("3", "3", "3", "3");
 
-      await $(SubmitPage.totalAnswerEdit()).click();
-      await $(TotalAnswerPage.total()).setValue("15");
-      await click(TotalAnswerPage.submit());
+        await $(SubmitPage.totalAnswerEdit()).click();
+        await $(TotalAnswerPage.total()).setValue("15");
+        await click(TotalAnswerPage.submit());
 
-      await browser.url(SubmitPage.url());
-      await verifyUrlContains(BreakdownAnswerPage.pageName);
+        await browser.url(SubmitPage.url());
+        await verifyUrlContains(BreakdownAnswerPage.pageName);
 
-      await click(BreakdownAnswerPage.submit());
-      await expect(await $(BreakdownAnswerPage.errorNumber(1)).getText()).toBe("Enter answers that add up to 15");
+        await click(BreakdownAnswerPage.submit());
+        await expect(await $(BreakdownAnswerPage.errorNumber(1)).getText()).toBe("Enter answers that add up to 15");
 
-      await answerAndSubmitBreakdownQuestion("6", "3", "3", "3");
+        await answerAndSubmitBreakdownQuestion("6", "3", "3", "3");
 
-      await verifyUrlContains(SubmitPage.pageName);
+        await verifyUrlContains(SubmitPage.pageName);
       },
     );
   });

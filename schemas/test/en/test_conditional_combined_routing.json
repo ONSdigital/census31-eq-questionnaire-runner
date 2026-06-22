@@ -90,7 +90,10 @@
                                     "when": {
                                         "not": [
                                             {
-                                                "in": [{ "identifier": "conditional-routing-answer", "source": "answers" }, ["Yes", "Sometimes", "I don’t like coffee", "No, I don’t drink any hot drinks"]]
+                                                "in": [
+                                                    { "identifier": "conditional-routing-answer", "source": "answers" },
+                                                    ["Yes", "Sometimes", "I don’t like coffee", "No, I don’t drink any hot drinks"]
+                                                ]
                                             }
                                         ]
                                     }
