@@ -13,7 +13,7 @@
 
 Install [Docker](https://www.docker.com/) for your system. Make sure that you've installed both docker and docker-compose packages, preferably using Homebrew:
 
-``` shell
+```shell
 brew install docker
 brew install docker-compose
 ```
@@ -30,7 +30,7 @@ colima start
 
 To get eq-questionnaire-runner running the following command will build and run the containers
 
-``` shell
+```shell
 RUNNER_ENV_FILE=.development.env docker compose up -d
 ```
 
@@ -41,13 +41,13 @@ However, any new dependencies that are added would require a re-build.
 
 To rebuild the eq-questionnaire-runner container, the following command can be used.
 
-``` shell
+```shell
 RUNNER_ENV_FILE=.development.env docker compose build
 ```
 
 If you need to rebuild the container from scratch to re-load any dependencies then you can run the following
 
-``` shell
+```shell
 RUNNER_ENV_FILE=.development.env docker compose build --no-cache
 ```
 
@@ -55,7 +55,7 @@ RUNNER_ENV_FILE=.development.env docker compose build --no-cache
 
 ### Clone the repository
 
-``` shell
+```shell
 git clone git@github.com:ONSdigital/census31-eq-questionnaire-runner.git
 ```
 
@@ -63,7 +63,7 @@ git clone git@github.com:ONSdigital/census31-eq-questionnaire-runner.git
 
 In order to run locally you'll need Node.js, snappy, pyenv, jq and wkhtmltopdf installed
 
-``` shell
+```shell
 brew install snappy npm pyenv jq wkhtmltopdf
 ```
 
@@ -77,7 +77,7 @@ This file is automatically created and populated with the git revision id during
 but the file is absent when the repo is first cloned and is required for running the app locally. Setting the contents
 to `local` removes the implication that any particular revision is used when run locally.
 
-``` shell
+```shell
 echo "local" > .application-version
 ```
 #### Python version
@@ -101,20 +101,20 @@ command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
 
 eval "$(pyenv init -)"
 ```
-Python versions can be changed with the `pyenv local` or `pyenv global` commands suffixed with the desired version (e.g. 3.13.5). Different versions of Python can be installed first with the `pyenv install` command. Refer to the pyenv project Readme [here](https://github.com/pyenv/pyenv). To avoid confusion, check the current Python version at any given time using `python --version` or `python3 --version`.
+Python versions can be changed with the `pyenv local` or `pyenv global` commands suffixed with the desired version (e.g. 3.13.5). Different versions of Python can be installed first with the `pyenv install` command. Refer to the [pyenv project README](https://github.com/pyenv/pyenv). To avoid confusion, check the current Python version at any given time using `python --version` or `python3 --version`.
 
 #### Python & dependencies
 
 Inside the project directory install python version, upgrade pip:
 
-``` shell
+```shell
 pyenv install
 pip install --upgrade pip setuptools
 ```
 
 Install poetry, poetry dotenv plugin and install dependencies:
 
-``` shell
+```shell
 curl -sSL https://install.python-poetry.org | python3 - --version 2.1.2
 poetry self add poetry-plugin-dotenv
 poetry install
@@ -122,7 +122,7 @@ poetry install
 
 We use [poetry-plugin-up](https://github.com/MousaZeidBaker/poetry-plugin-up) to update dependencies in the `pyproject.toml` file:
 
-``` shell
+```shell
 poetry self add poetry-plugin-up
 ```
 
@@ -130,7 +130,7 @@ poetry self add poetry-plugin-up
 
 To update the design system templates run:
 
-``` shell
+```shell
 make load-design-system-templates
 ```
 
@@ -138,7 +138,7 @@ make load-design-system-templates
 
 To download the latest schemas from the [Questionnaire Registry](https://github.com/ONSdigital/eq-questionnaire-schemas):
 
-``` shell
+```shell
 make load-schemas
 ```
 
@@ -146,7 +146,7 @@ make load-schemas
 
 Run the server inside the virtual env created by Poetry with:
 
-``` shell
+```shell
 make run
 ```
 
@@ -163,13 +163,13 @@ gcloud auth login
 
 To run the app locally, but the supporting services in Docker, make sure you have Docker and Colima installed [from this step](#run-with-docker), then run:
 
-``` shell
+```shell
 make dev-compose-up
 ```
 
 Note that on Linux you will need to use:
 
-``` shell
+```shell
 make dev-compose-up-linux
 ```
 
@@ -177,19 +177,19 @@ make dev-compose-up-linux
 
 ##### [Questionnaire launcher](https://github.com/ONSDigital/eq-questionnaire-launcher)
 
-``` shell
+```shell
 docker run -e SURVEY_RUNNER_SCHEMA_URL=http://host.docker.internal:5000 -e SDS_API_BASE_URL=http://host.docker.internal:5003 -e CIR_API_BASE_URL=http://host.docker.internal:5004 -it -p 8000:8000 europe-west2-docker.pkg.dev/ons-eq-ci/docker-images/eq-questionnaire-launcher:latest
 ```
 
 ##### [Mock Supplementary data service](https://github.com/ONSDigital/eq-runner-mock-sds)
 
-``` shell
+```shell
 docker run -it -p 5003:5003 europe-west2-docker.pkg.dev/ons-eq-ci/docker-images/sds:latest
 ```
 
 ##### [Mock Collection Instrument Registry](https://github.com/ONSDigital/eq-runner-mock-cir)
 
-``` shell
+```shell
 docker run -it -p 5004:5004 europe-west2-docker.pkg.dev/ons-eq-ci/docker-images/cir:latest
 ```
 
@@ -197,7 +197,7 @@ docker run -it -p 5004:5004 europe-west2-docker.pkg.dev/ons-eq-ci/docker-images/
 
 [DynamoDB](https://github.com/ONSDigital/eq-docker-dynamodb)
 
-``` shell
+```shell
 docker run -it -p 6060:8000 onsdigital/eq-docker-dynamodb:latest
 ```
 
@@ -219,7 +219,7 @@ docker run -it -p 6379:6379 redis:4
 
 To use `EQ_STORAGE_BACKEND` as `datastore` or `EQ_SUBMISSION_BACKEND` as `gcs` directly on GCP and not a docker image, you need to set the GCP project using the following command:
 
-``` shell
+```shell
 gcloud config set project <gcp_project_id>
 ```
 
@@ -235,27 +235,27 @@ the script.
 ## Frontend Tests
 
 The frontend tests use NodeJS to run. To handle different versions of NodeJS it is recommended to install `Node Version Manager` (`nvm`). It is similar to pyenv but for Node versions.
-To install `nvm` use the command below (make sure to replace "v0.39.5" with the current latest version in [releases](https://github.com/nvm-sh/nvm/releases/):
-``` shell
+To install `nvm` use the command below (make sure to replace "v0.39.5" with the current latest version in [releases](https://github.com/nvm-sh/nvm/releases/)):
+```shell
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash
 ```
 You will need to have the correct node version installed to run the tests. To do this, use the following commands:
 
-``` shell
+```shell
 nvm install
 nvm use
 ```
 
 Fetch npm dependencies:
 
-``` shell
+```shell
 npm install
 ```
 
 Available commands:
 
 | Command                | Task                                                                                                      |
-|------------------------| --------------------------------------------------------------------------------------------------------- |
+|------------------------|-----------------------------------------------------------------------------------------------------------|
 | `make test-functional` | Runs the functional tests through Webdriver (requires app running on localhost:5000 and generated pages). |
 | `make generate-pages`  | Generates the functional test pages.                                                                      |
 | `make lint-js`         | Lints the JS, reporting errors/warnings.                                                                  |
@@ -273,7 +273,7 @@ The functional tests use a set of selectors that are generated from each of the 
 
 To run the functional tests first runner needs to be spin up with:
 
-``` shell
+```shell
 RUNNER_ENV_FILE=.functional-tests.env make run
 ```
 
@@ -281,12 +281,12 @@ This will set the correct environment variables for running the functional tests
 
 Then you can run either:
 
-``` shell
+```shell
 make test-functional
 ```
 or
 
-``` shell
+```shell
 make test-functional-headless
 ```
 
@@ -294,24 +294,24 @@ This will delete the `tests/functional/generated_pages` directory and regenerate
 
 To generate the pages manually you can run the `generate_pages` scripts with the schema directory. Run it from the `tests/functional` directory as follows:
 
-``` shell
+```shell
 ./generate_pages.py ../../schemas/test/en/ ./generated_pages -r "../../base_pages"
 ```
 
 To generate a spec file with the imports included, you can pass the schema name as an argument without the file extension, e.g. `SCHEMA=test_address`:
-``` shell
+```shell
 make generate-spec SCHEMA=<schema-name>
 ```
 
 If you have already built the generated pages, then the functional tests can be executed with:
 
-``` shell
+```shell
 make test-functional
 ```
 
 This can be limited to a single spec where argument needed is the remainder of the path after `./tests/functional/spec/` (which is included in the command):
 
-``` shell
+```shell
 make test-functional-spec SPEC=<spec>
 ```
 
@@ -330,13 +330,13 @@ An individual test suite can be run using the suite names as the argument to thi
 * general
 * components
 
-``` shell
+```shell
 make test-functional-suite SUITE=<suite>
 ```
 
 To run the tests against a remote deployment you will need to specify the environment variable of EQ_FUNCTIONAL_TEST_ENV eg:
 
-``` shell
+```shell
 EQ_FUNCTIONAL_TEST_ENV=https://staging-new-surveys.dev.eq.ons.digital/ npm run test_functional
 ```
 
@@ -354,7 +354,7 @@ When deploying with gcloud the environment variables specified in [Deploying the
 
 Then call the following command with environment variables set:
 
-``` shell
+```shell
 ./ci/deploy_app.sh
 ```
 
@@ -362,13 +362,13 @@ Then call the following command with environment variables set:
 
 Before deploying the app to GCP you need to create the application credentials. Run the following command to provision the credentials:
 
-``` shell
+```shell
 PROJECT_ID=PROJECT_ID EQ_KEYS_FILE=PATH_TO_KEYS_FILE EQ_SECRETS_FILE=PATH_TO_SECRETS_FILE ./ci/deploy_credentials.sh
 ```
 
 For example:
 
-``` shell
+```shell
 PROJECT_ID=eq-test EQ_KEYS_FILE=dev-keys.yml EQ_SECRETS_FILE=dev-secrets.yml ./ci/deploy_credentials.sh
 ```
 
@@ -377,7 +377,7 @@ PROJECT_ID=eq-test EQ_KEYS_FILE=dev-keys.yml EQ_SECRETS_FILE=dev-secrets.yml ./c
 The following environment variables must be set when deploying the app.
 
 | Variable Name   | Description                            |
-| --------------- | -------------------------------------- |
+|-----------------|----------------------------------------|
 | PROJECT_ID      | The ID of the GCP target project       |
 | DOCKER_REGISTRY | The FQDN of the target Docker registry |
 | IMAGE_TAG       |                                        |
@@ -385,7 +385,7 @@ The following environment variables must be set when deploying the app.
 The following environment variables are optional:
 
 | Variable Name                | Default          | Description                                                                                                    |
-|------------------------------| ---------------- |----------------------------------------------------------------------------------------------------------------|
+|------------------------------|------------------|----------------------------------------------------------------------------------------------------------------|
 | REGION                       | europe-west2     | The region that will be used for your Cloud Run service                                                        |
 | CONCURRENCY                  | 80               | The maximum number of requests that can be processed simultaneously by a given container instance              |
 | MIN_INSTANCES                | 1                | The minimum number of container instances that can be used for your Cloud Run service                          |
@@ -401,7 +401,7 @@ The following environment variables are optional:
 
 To deploy the app, run the following command:
 
-``` shell
+```shell
 ./ci/deploy_app.sh
 ```
 
@@ -411,7 +411,7 @@ To deploy the app, run the following command:
 
 We use flask-babel to do internationalisation. To extract messages from source and create the messages.pot file, in the project root run the following command.
 
-``` shell
+```shell
 make translation-templates
 ```
 
@@ -419,7 +419,7 @@ make translation-templates
 
 This will extract messages and place them in the .pot files ready for translation.
 
-These .pot files will then need to be translated. The translation process is documented in Confluence [here](https://collaborate2.ons.gov.uk/confluence/display/SDC/Translation+Process)
+These .pot files will then need to be translated. The translation process is documented in Confluence in the [Translation Process guide](https://collaborate2.ons.gov.uk/confluence/display/SDC/Translation+Process)
 
 Once we have the translated .po files they can be added to the source code and used by the application
 
@@ -474,7 +474,7 @@ The following env variables can be used
 
 The following env variables can be used when running tests
 
-``` shell
+```text
 EQ_FUNCTIONAL_TEST_ENV - the pre-configured environment [local, docker, preprod] or the url of the environment that should be targeted
 ```
 
@@ -508,7 +508,7 @@ This parameter must be set to a valid JWE encrypted JWT token. Only encrypted to
 
 There is a python script for generating tokens for use in development, to run:
 
-``` shell
+```shell
 python token_generator.py
 ```
 
@@ -524,7 +524,7 @@ Refer to our [profiling document](doc/profiling.md).
 
 ### Python
 To add a new dependency, use:
-``` shell
+```shell
 poetry add [package-name]
 ```
 This will add the required packages to your pyproject.toml and install them
@@ -564,7 +564,7 @@ you will also need to install gulp.
 
 Then in the terminal run:
 
-``` shell
+```shell
 yarn cdn-bundle
 cd build
 browser-sync start --cwd -s --http --port 5678
@@ -580,14 +580,14 @@ Checkout the runner branch you want to test on
 
 Edit your .development.env with following:
 
-``` shell
+```text
 CDN_URL=http://localhost:5678
 CDN_ASSETS_PATH=
 ```
 
 Edit the Makefile to remove `load-design-system-templates` from the build command. Should now look like this:
 
-``` shell
+```text
 build: load-schemas translate
 ```
 
@@ -595,10 +595,25 @@ Run `make load-design-system-templates` in the terminal to make sure you have th
 
 Then edit the first line in the `templates/layout/_template.njk` file to remove the version number. Should now look like this:
 
-``` shell
+```jinja2
 {% set release_version = '' %}
 ```
 
 Then spin up launcher and runner with `make dev-compose-up` and `make run`
 
 Now when navigating to localhost:8000 and launching a schema, this will now be using the local cdn with the changes from the Design System branch
+
+## Code Linting/Formatting
+
+We use [Megalinter](https://megalinter.io/latest/mega-linter-runner/) to maintain our code by running various linters over the different file types we have. This is run against PRs using the `mega-linter` GitHub action but can also be run locally. To run the linter locally you can run:
+
+```shell
+make megalint
+```
+
+This command will run all the linters enabled in the `mega-linter.yml` config file in the root of the repo against the all the files in the repo and report back any issues. This is run via docker and may take some time to run first time.
+We also have another command which will also run Megalinter locally but this one will attempt to fix any issues it can rather than just report them.
+
+```shell
+make megalint-apply
+```
