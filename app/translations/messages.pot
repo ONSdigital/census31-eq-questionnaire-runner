@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-01-05 11:41+0000\n"
+"POT-Creation-Date: 2026-06-22 12:13+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -81,7 +81,7 @@ msgstr ""
 msgid "Enter a date"
 msgstr ""
 
-#: app/forms/error_messages.py:23 templates/partials/answers/address.html:55
+#: app/forms/error_messages.py:23 templates/partials/answers/address.html:60
 msgid "Enter an address"
 msgstr ""
 
@@ -300,7 +300,7 @@ msgid "You can try to <a href='{retry_url}'>send the email again</a>."
 msgstr ""
 
 #: app/routes/errors.py:286 templates/errors/403.html:3
-#: templates/errors/403.html:9 templates/errors/submission-failed.html:4
+#: templates/errors/403.html:19 templates/errors/submission-failed.html:4
 #: templates/errors/submission-failed.html:11
 msgid "Sorry, there is a problem"
 msgstr ""
@@ -710,7 +710,7 @@ msgstr ""
 msgid "View Submitted Response"
 msgstr ""
 
-#: templates/confirm-email.html:14 templates/partials/answers/address.html:54
+#: templates/confirm-email.html:14 templates/partials/answers/address.html:59
 #: templates/question.html:10
 #, python-format
 msgid "There is a problem with your answer"
@@ -736,9 +736,9 @@ msgstr ""
 msgid "Didn’t receive an email?"
 msgstr ""
 
-#: templates/confirmation-email-sent.html:41
+#: templates/confirmation-email-sent.html:42
 msgid ""
-"It can take a few minutes for the email to arrive. If it doesn’t arrive, "
+"It can take a few minutes for the email to arrive. If it doesn't arrive, "
 "check your junk mail, or you can <a "
 "href=\"{send_confirmation_email_url}\" id=\"send-another-email\">send "
 "another confirmation email</a>."
@@ -916,37 +916,37 @@ msgstr ""
 msgid "We may contact you to query your answers."
 msgstr ""
 
-#: templates/thank-you.html:78
+#: templates/thank-you.html:79
 msgid ""
 "If you need a copy for your records, <a href=\"{url}\" id=\"view-"
 "submitted-response-link\">save or print your answers</a>."
 msgstr ""
 
-#: templates/layouts/_base.html:147 templates/thank-you.html:84
+#: templates/layouts/_base.html:156 templates/thank-you.html:91
 msgid "minute"
 msgstr ""
 
-#: templates/layouts/_base.html:148 templates/thank-you.html:85
+#: templates/layouts/_base.html:157 templates/thank-you.html:92
 msgid "minutes"
 msgstr ""
 
-#: templates/layouts/_base.html:149 templates/thank-you.html:86
+#: templates/layouts/_base.html:158 templates/thank-you.html:93
 msgid "second"
 msgstr ""
 
-#: templates/layouts/_base.html:150 templates/thank-you.html:87
+#: templates/layouts/_base.html:159 templates/thank-you.html:94
 msgid "seconds"
 msgstr ""
 
-#: templates/thank-you.html:89
+#: templates/thank-you.html:96
 msgid "For security, your answers will only be available to view for 45 minutes"
 msgstr ""
 
-#: templates/thank-you.html:99
+#: templates/thank-you.html:106
 msgid "Get confirmation email"
 msgstr ""
 
-#: templates/thank-you.html:101
+#: templates/thank-you.html:108
 msgid ""
 "If you would like to be sent confirmation that you have completed your "
 "survey, enter your email address"
@@ -974,48 +974,48 @@ msgid ""
 "code</a>."
 msgstr ""
 
-#: templates/errors/401.html:6
+#: templates/errors/401.html:7
 msgid ""
 "If you are completing a business survey, you need to sign back in to <a "
 "href='{url}'>your account</a>."
 msgstr ""
 
-#: templates/errors/401.html:7
+#: templates/errors/401.html:13
 msgid ""
 "If you started your survey using an access code, you need to <a "
 "href='{url}'>re-enter your code</a>."
 msgstr ""
 
-#: templates/errors/401.html:10
+#: templates/errors/401.html:20
 msgid "Sorry, you need to sign in again"
 msgstr ""
 
-#: templates/errors/401.html:11
+#: templates/errors/401.html:21
 msgid "This is because you have either:"
 msgstr ""
 
-#: templates/errors/401.html:13
+#: templates/errors/401.html:23
 msgid ""
 "been inactive for 45 minutes and your session has timed out to protect "
 "your information"
 msgstr ""
 
-#: templates/errors/401.html:14
+#: templates/errors/401.html:24
 msgid "followed a link to a page you are not signed in to"
 msgstr ""
 
-#: templates/errors/401.html:15
+#: templates/errors/401.html:25
 msgid "followed a link to a survey that has already been submitted"
 msgstr ""
 
-#: templates/errors/401.html:22 templates/errors/403.html:15
-#: templates/errors/404.html:16 templates/errors/500.html:21
+#: templates/errors/401.html:32 templates/errors/403.html:25
+#: templates/errors/404.html:21 templates/errors/500.html:38
 #: templates/errors/submission-failed.html:17
 msgid "Business surveys"
 msgstr ""
 
-#: templates/errors/401.html:24 templates/errors/403.html:17
-#: templates/errors/404.html:18 templates/errors/500.html:24
+#: templates/errors/401.html:34 templates/errors/403.html:27
+#: templates/errors/404.html:23 templates/errors/500.html:41
 #: templates/errors/submission-failed.html:19
 msgid "All other surveys"
 msgstr ""
@@ -1024,57 +1024,57 @@ msgstr ""
 msgid "For further help, please <a href='{url}'>contact us</a>."
 msgstr ""
 
-#: templates/errors/403.html:5
+#: templates/errors/403.html:6
 msgid ""
 "If you are completing a business survey and you need further help, please"
 " <a href='{url}'>contact us</a>."
 msgstr ""
 
-#: templates/errors/403.html:6
+#: templates/errors/403.html:12
 msgid ""
 "If you started your survey using an access code and you need further "
 "help, please <a href='{url}'>contact us</a>."
 msgstr ""
 
-#: templates/errors/403.html:10
+#: templates/errors/403.html:20
 msgid "You may need to update your browser to a newer version."
 msgstr ""
 
-#: templates/errors/403.html:11
+#: templates/errors/403.html:21
 msgid "If the problem still occurs, try using a different browser or device."
 msgstr ""
 
-#: templates/errors/404.html:3 templates/errors/404.html:9
+#: templates/errors/404.html:3 templates/errors/404.html:14
 msgid "Page not found"
 msgstr ""
 
-#: templates/errors/404.html:4
+#: templates/errors/404.html:5
 msgid ""
 "If the web address is correct or you selected a link or button, <a "
 "href='{url}'>contact us</a> for more help."
 msgstr ""
 
-#: templates/errors/404.html:5 templates/errors/submission-failed.html:7
+#: templates/errors/404.html:10 templates/errors/submission-failed.html:7
 msgid ""
 "If you are completing a business survey, please <a href='{url}'>contact "
 "us</a>."
 msgstr ""
 
-#: templates/errors/404.html:6 templates/errors/submission-failed.html:8
+#: templates/errors/404.html:11 templates/errors/submission-failed.html:8
 msgid ""
 "If you started your survey using an access code, please <a "
 "href='{url}'>contact us</a>."
 msgstr ""
 
-#: templates/errors/404.html:10
+#: templates/errors/404.html:15
 msgid "If you entered a web address, check it is correct."
 msgstr ""
 
-#: templates/errors/404.html:11
+#: templates/errors/404.html:16
 msgid "If you pasted the web address, check you copied the whole address."
 msgstr ""
 
-#: templates/errors/404.html:15
+#: templates/errors/404.html:20
 msgid ""
 "If the web address is correct or you selected a link or button, please "
 "see the following help links."
@@ -1084,44 +1084,44 @@ msgstr ""
 msgid "An error has occurred"
 msgstr ""
 
-#: templates/errors/500.html:4
+#: templates/errors/500.html:5
 msgid ""
 "If you have attempted to submit your survey, you should check that this "
 "was successful. To do this, <a href='{url}'>sign in to your business "
 "survey account</a>."
 msgstr ""
 
-#: templates/errors/500.html:5
+#: templates/errors/500.html:11
 msgid "If you need more help, <a href='{url}'>contact us</a>."
 msgstr ""
 
-#: templates/errors/500.html:6
+#: templates/errors/500.html:13
 msgid ""
 "If you have attempted to submit your survey, you should check that this "
 "was successful. To do this, <a href='{url}'>re-enter your code</a>."
 msgstr ""
 
-#: templates/errors/500.html:7
+#: templates/errors/500.html:20
 msgid ""
 "If you need more help, <a href='{url}'>contact us about business "
 "surveys</a>."
 msgstr ""
 
-#: templates/errors/500.html:8
+#: templates/errors/500.html:25
 msgid ""
 "If you need more help, <a href='{url}'>contact us about all other "
 "surveys</a>."
 msgstr ""
 
-#: templates/errors/500.html:11
+#: templates/errors/500.html:28
 msgid "Sorry, there is a problem with this service"
 msgstr ""
 
-#: templates/errors/500.html:12
+#: templates/errors/500.html:29
 msgid "Try again later."
 msgstr ""
 
-#: templates/errors/500.html:13
+#: templates/errors/500.html:30
 msgid "If you have started a survey, your answers have been saved."
 msgstr ""
 
@@ -1199,7 +1199,7 @@ msgstr ""
 msgid "Request separate census"
 msgstr ""
 
-#: templates/individual_response/question.html:10
+#: templates/individual_response/question.html:11
 msgid ""
 "To request a census in a different format or for further help, please <a "
 "href='{contact_us_url}'>contact us</a>"
@@ -1220,48 +1220,48 @@ msgid ""
 "website work as well as possible and improve our services."
 msgstr ""
 
-#: templates/layouts/_base.html:62
+#: templates/layouts/_base.html:67
 msgid ""
 "You’ve accepted all cookies. You can <a "
 "href='{cookie_settings_url}'>change your cookie preferences</a> at any "
 "time."
 msgstr ""
 
-#: templates/layouts/_base.html:63
+#: templates/layouts/_base.html:72
 msgid "Accept all cookies"
 msgstr ""
 
-#: templates/layouts/_base.html:64
+#: templates/layouts/_base.html:73
 msgid "Set cookie preferences"
 msgstr ""
 
-#: templates/layouts/_base.html:65
+#: templates/layouts/_base.html:74
 msgid "Hide"
 msgstr ""
 
-#: templates/layouts/_base.html:114
+#: templates/layouts/_base.html:123
 msgid "Skip to main content"
 msgstr ""
 
-#: templates/layouts/_base.html:142
+#: templates/layouts/_base.html:151
 msgid "You will be signed out soon"
 msgstr ""
 
-#: templates/layouts/_base.html:143
+#: templates/layouts/_base.html:152
 msgid "It appears you have been inactive for a while."
 msgstr ""
 
-#: templates/layouts/_base.html:144
+#: templates/layouts/_base.html:153
 msgid ""
 "To protect your information, your progress will be saved and you will be "
 "signed out in"
 msgstr ""
 
-#: templates/layouts/_base.html:145
+#: templates/layouts/_base.html:154
 msgid "You are being signed out"
 msgstr ""
 
-#: templates/layouts/_base.html:146
+#: templates/layouts/_base.html:155
 msgid "Continue survey"
 msgstr ""
 
@@ -1311,7 +1311,7 @@ msgid ""
 " you live with so they can complete their own sections."
 msgstr ""
 
-#: templates/partials/individual-response-guidance.html:22
+#: templates/partials/individual-response-guidance.html:23
 msgid ""
 "If this is not possible, there are <a href={url}>other ways each person "
 "can complete their own census.</a>"
@@ -1321,7 +1321,7 @@ msgstr ""
 msgid "This is the last viewed question in this section"
 msgstr ""
 
-#: templates/partials/last_viewed_question_guidance.html:12
+#: templates/partials/last_viewed_question_guidance.html:13
 msgid ""
 "You can also <a id='section-start-link' href='{url}'>go back to the start"
 " of the section</a>"
@@ -1387,65 +1387,65 @@ msgid ""
 "users, explore by touch or with swipe gestures."
 msgstr ""
 
-#: templates/partials/answers/address.html:41
+#: templates/partials/answers/address.html:46
 msgid "You have selected"
 msgstr ""
 
-#: templates/partials/answers/address.html:42
+#: templates/partials/answers/address.html:47
 msgid "Enter 3 or more characters for suggestions."
 msgstr ""
 
-#: templates/partials/answers/address.html:43
+#: templates/partials/answers/address.html:48
 msgid "There is one suggestion available."
 msgstr ""
 
-#: templates/partials/answers/address.html:44
+#: templates/partials/answers/address.html:49
 msgid "There are {n} suggestions available."
 msgstr ""
 
-#: templates/partials/answers/address.html:45
+#: templates/partials/answers/address.html:50
 msgid ""
 "Results have been limited to 10 suggestions. Type more characters to "
 "improve your search"
 msgstr ""
 
-#: templates/partials/answers/address.html:46
+#: templates/partials/answers/address.html:51
 msgid "There are {n} for {x}"
 msgstr ""
 
-#: templates/partials/answers/address.html:47
+#: templates/partials/answers/address.html:52
 msgid "{n} addresses"
 msgstr ""
 
-#: templates/partials/answers/address.html:48
+#: templates/partials/answers/address.html:53
 msgid "Enter more of the address to improve results"
 msgstr ""
 
-#: templates/partials/answers/address.html:49
+#: templates/partials/answers/address.html:54
 msgid "Select an address"
 msgstr ""
 
-#: templates/partials/answers/address.html:50
+#: templates/partials/answers/address.html:55
 msgid "No results found. Try entering a different part of the address"
 msgstr ""
 
-#: templates/partials/answers/address.html:51
+#: templates/partials/answers/address.html:56
 msgid "{n} results found. Enter more of the address to improve results"
 msgstr ""
 
-#: templates/partials/answers/address.html:52
+#: templates/partials/answers/address.html:57
 msgid "Enter more of the address to get results"
 msgstr ""
 
-#: templates/partials/answers/address.html:56
+#: templates/partials/answers/address.html:61
 msgid "Select or manually enter an address"
 msgstr ""
 
-#: templates/partials/answers/address.html:57
+#: templates/partials/answers/address.html:62
 msgid "Sorry, there was a problem loading addresses"
 msgstr ""
 
-#: templates/partials/answers/address.html:58
+#: templates/partials/answers/address.html:63
 msgid "Enter address manually"
 msgstr ""
 
@@ -1470,12 +1470,12 @@ msgid "Clear selection"
 msgstr ""
 
 #: templates/partials/answers/textarea.html:20
-#: templates/partials/answers/textfield.html:44
+#: templates/partials/answers/textfield.html:49
 msgid "You have {x} character remaining"
 msgstr ""
 
 #: templates/partials/answers/textarea.html:21
-#: templates/partials/answers/textfield.html:45
+#: templates/partials/answers/textfield.html:50
 msgid "You have {x} characters remaining"
 msgstr ""
 
@@ -1486,27 +1486,27 @@ msgid ""
 "users, explore by touch or with swipe gestures."
 msgstr ""
 
-#: templates/partials/answers/textfield.html:25
+#: templates/partials/answers/textfield.html:30
 msgid "Continue entering to improve suggestions"
 msgstr ""
 
-#: templates/partials/answers/textfield.html:26
+#: templates/partials/answers/textfield.html:31
 msgid "Suggestions"
 msgstr ""
 
-#: templates/partials/answers/textfield.html:27
+#: templates/partials/answers/textfield.html:32
 msgid "No results found"
 msgstr ""
 
-#: templates/partials/answers/textfield.html:28
+#: templates/partials/answers/textfield.html:33
 msgid "Continue entering to get suggestions"
 msgstr ""
 
-#: templates/partials/answers/textfield.html:42
+#: templates/partials/answers/textfield.html:47
 msgid "{x} character too many"
 msgstr ""
 
-#: templates/partials/answers/textfield.html:43
+#: templates/partials/answers/textfield.html:48
 msgid "{x} characters too many"
 msgstr ""
 
