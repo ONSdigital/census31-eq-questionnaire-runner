@@ -30,7 +30,7 @@ The api url will then be passed to the frontend component to retrieve suggestion
 
 ### REST Service
 
-The api to query is a service that takes an input string and returns a single flat array of suggestion strings. 
+The api to query is a service that takes an input string and returns a single flat array of suggestion strings.
 
 Initially there will be no authentication.
 

@@ -117,3 +117,5 @@ tests/functional/logs/
 
 # Ignore Pylance custom type stub folder
 typing/
+
+megalinter-reports/

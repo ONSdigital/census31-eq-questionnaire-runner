@@ -1,0 +1,27 @@
+---
+# Configuration file for MegaLinter
+#
+# See all available variables at https://megalinter.io/latest/config-file/ and in
+# linters documentation
+# all, none, or list of linter keys
+
+# If you use ENABLE variable, all other languages/formats/tooling-formats will
+# be disabled by default
+# Have decided not to enable the Python linter as has been recommended in point 7
+# in the [python template readme](https://github.com/ONSdigital/ons-python-template#3-megalinter)
+ENABLE:
+  - ACTION
+  - DOCKERFILE
+  # - EDITORCONFIG
+  # - HTML
+  # - JAVASCRIPT
+  - JSON
+  - MARKDOWN
+  - YAML
+
+FORMATTERS_DISABLE_ERRORS: false
+SHOW_ELAPSED_TIME: true
+FLAVOR_SUGGESTIONS: false
+
+ACTION_ZIZMOR_UNSECURED_ENV_VARIABLES:
+  - GITHUB_TOKEN
