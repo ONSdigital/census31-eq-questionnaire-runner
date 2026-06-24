@@ -46,7 +46,8 @@ class GrandCalculatedSummaryContext(CalculatedSummaryContext):
             self._schema.get_section_id_for_block_id(block_id)  # type: ignore
             for block_id in calculated_summary_ids
         }
-        # find any sections involved in the grand calculated summary (but only if they have started, to avoid evaluating the path if not necessary)
+        # find any sections involved in the grand calculated summary
+        # (but only if they have started, to avoid evaluating the path if not necessary)
         started_sections = [
             key
             for key, _ in self._data_stores.progress_store.started_section_keys(

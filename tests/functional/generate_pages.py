@@ -256,7 +256,6 @@ LIST_SECTION_SUMMARY_ADD_LINK_GETTER = Template(
 """
 )
 
-# pylint: disable=line-too-long
 LIST_SECTION_SUMMARY_EDIT_LINK_GETTER = Template(
     r"""  ${list_name}ListEditLink(listItemInstance) { return `div[data-qa="${list_name}-list-summary"] """
     r"""a[data-qa="list-item-change-` + listItemInstance + `-link"]`; }

@@ -24,7 +24,8 @@ class ProgressStore:
             - Repeating Blocks for List Items are keyed by the Section ID for the Section in which their List Collector
                 appears, and the List Item ID. Repeating Blocks progress is only tracked if the List Collector
                 that created the List Item has Repeating Blocks, and progress of the Repeating Blocks for a List Item
-                indicates if all required Repeating Blocks from the List Collector have been completed for the List Item.
+                indicates if all required Repeating Blocks from the List Collector
+                have been completed for the List Item.
         Args:
             progress: A list of hierarchical dict containing the completion status
                 and completed blocks of Sections, Repeating Sections and List Items
@@ -116,7 +117,8 @@ class ProgressStore:
         self, status: CompletionStatus, section_key: SectionKey
     ) -> bool:
         """
-        Updates the status of the Section or Repeating Blocks for a list item specified by the key based on the given section id and list item id.
+        Updates the status of the Section or Repeating Blocks for a list item specified by
+        the key based on the given section id and list item id.
         """
         updated = False
         if section_key in self._progress:

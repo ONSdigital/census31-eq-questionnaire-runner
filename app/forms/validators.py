@@ -410,7 +410,10 @@ class DateRangeCheck:
 
 
 class SumCheck:
-    MULTIPLE_CONDITION_ERROR_MESSAGE = "There are multiple conditions, but equals is not one of them. We only support <= and >="
+    MULTIPLE_CONDITION_ERROR_MESSAGE = (
+        "There are multiple conditions, but equals is not one of them. "
+        "We only support <= and >="
+    )
 
     def __init__(self, messages: OptionalMessage = None, currency: str | None = None):
         self.messages = {**error_messages, **(messages or {})}

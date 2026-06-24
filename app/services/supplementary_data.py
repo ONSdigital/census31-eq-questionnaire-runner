@@ -16,7 +16,8 @@ from app.utilities.request_session import get_retryable_session
 from app.utilities.supplementary_data_parser import validate_supplementary_data_v1
 
 SUPPLEMENTARY_DATA_REQUEST_BACKOFF_FACTOR = 0.2
-SUPPLEMENTARY_DATA_REQUEST_MAX_RETRIES = 2  # Totals no. of request should be 3. The initial request + SUPPLEMENTARY_DATA_REQUEST_MAX_RETRIES
+SUPPLEMENTARY_DATA_REQUEST_MAX_RETRIES = 2  # Totals no. of request should be 3.
+# The initial request + SUPPLEMENTARY_DATA_REQUEST_MAX_RETRIES
 SUPPLEMENTARY_DATA_REQUEST_TIMEOUT = 3
 SUPPLEMENTARY_DATA_REQUEST_RETRY_STATUS_CODES = [
     408,

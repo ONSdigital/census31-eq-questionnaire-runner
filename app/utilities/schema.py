@@ -142,7 +142,10 @@ def load_schema_from_instrument_id(
     *, cir_instrument_id: str, language_code: str | None
 ) -> QuestionnaireSchema:
     parameters = {"guid": cir_instrument_id}
-    cir_url = f"{current_app.config['CIR_API_BASE_URL']}{CIR_RETRIEVE_COLLECTION_INSTRUMENT_URL}?{urlencode(parameters)}"
+    cir_url = (
+        f"{current_app.config['CIR_API_BASE_URL']}{CIR_RETRIEVE_COLLECTION_INSTRUMENT_URL}"
+        f"?{urlencode(parameters)}"
+    )
     return load_schema_from_url(url=cir_url, language_code=language_code, is_cir=True)
 
 

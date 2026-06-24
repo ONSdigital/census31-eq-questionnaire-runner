@@ -98,8 +98,10 @@ class ListContext(Context):
                     if is_primary and primary_person_edit_block_id
                     else edit_block_id
                 )
-                # return to answer id is used to snap back to the appropriate list item when editing from a summary page
-                # unlike other repeating answers that use answer_id-list_item_id, the edit-block is linked to item-label and anchored by list item id
+                # return to answer id is used to snap back to the appropriate
+                # list item when editing from a summary page
+                # unlike other repeating answers that use answer_id-list_item_id, the
+                # edit-block is linked to item-label and anchored by list item id
                 return_to_answer_id = list_item_id if return_to else None
                 list_item_context["edit_link"] = partial_url_for(
                     block_id=block_id, return_to_answer_id=return_to_answer_id

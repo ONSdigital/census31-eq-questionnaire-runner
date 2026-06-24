@@ -247,8 +247,10 @@ def get_min_max_value_width(
     This function gets the minimum and maximum value accepted for a question.
     Which then allows us to use that value to set the width of the textbox to suit that min and max.
 
-    If the min or max for the answer is a value source but not an "answers" source, such as a calculated or grand calculated summary,
-    use the length of the default value for the min and max width, as the actual min and max width cannot currently be determined
+    If the min or max for the answer is a value source but not an "answers" source,
+    such as a calculated or grand calculated summary,
+    use the length of the default value for the min and max width,
+    as the actual min and max width cannot currently be determined
     """
     min_max_value = answer.get(min_max, {})
     if min_max_value and isinstance(answer[min_max]["value"], Mapping):
@@ -753,7 +755,8 @@ def map_list_collector_config(
         title = item_label or item_name
 
         if related_answers:
-            # List summaries driven by List Collector Content pages don't use the row_item created above, as they are not editable
+            # List summaries driven by List Collector Content pages don't use
+            # the row_item created above, as they are not editable
             row_items_related: list = [row_item] if editable else []
 
             for block in related_answers[list_item["list_item_id"]]:
@@ -767,7 +770,8 @@ def map_list_collector_config(
                     item_name=item_name,
                 )
                 row_items_related.extend(summary_row.itemsList)
-            # Again, List Collector Content list summaries don't use the row_item with "title" and are structured differently
+            # Again, List Collector Content list summaries don't use
+            # the row_item with "title" and are structured differently
             if editable:
                 row_item["title"] = title
                 rows.append({"itemsList": row_items_related})

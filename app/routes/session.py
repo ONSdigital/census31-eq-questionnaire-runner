@@ -145,11 +145,15 @@ def _set_questionnaire_supplementary_data(
     schema: QuestionnaireSchema,
 ) -> None:
     """
-    If the survey metadata has an sds dataset id, and it either doesn't match what it stored, or there is no stored supplementary data
-    then fetch it, verify any schema supplementary lists are included in the fetched data, and add it to the questionnaire store
+    If the survey metadata has an sds dataset id, and it either doesn't match
+    what it stored, or there is no stored supplementary data then fetch it, verify
+    any schema supplementary lists are included in the fetched data, and add it to
+    the questionnaire store
 
-    Validation of the supplementary lists must be performed every time a survey launches, not just when the supplementary data is fetched
-    as it is possible that the survey has changed but the dataset hasn't so the validity could have changed.
+    Validation of the supplementary lists must be performed every time a survey
+    launches, not just when the supplementary data is fetched as it is possible
+    that the survey has changed but the dataset hasn't so the validity could have
+    changed.
     """
     existing_sds_dataset_id = (
         questionnaire_store.data_stores.metadata.survey_metadata["sds_dataset_id"]
@@ -232,7 +236,10 @@ def _validate_supplementary_data_lists(
     """
     supplementary_lists = supplementary_data.get("items", {}).keys()
     if missing := schema.supplementary_lists - supplementary_lists:
-        missing_schema_lists_error_message = f"Supplementary data does not include the following lists required for the schema: {', '.join(missing)}"
+        missing_schema_lists_error_message = (
+            f"Supplementary data does not include the following lists required for "
+            f"the schema: {', '.join(missing)}"
+        )
         raise ValidationError(missing_schema_lists_error_message)
 
 

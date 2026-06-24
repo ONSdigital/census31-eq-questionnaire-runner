@@ -233,7 +233,8 @@ def individual_response_fulfilment_request_publication_failed(
     title = lazy_gettext("Sorry, there was a problem sending the access code")
     retry_url = url_for(
         blueprint_method,
-        # Type ignore: Request will be not None as this function will only run when a request handle raises and exception
+        # Type ignore: Request will be not None as this function will only
+        # run when a request handle raises an exception
         list_item_id=request.view_args["list_item_id"],  # type: ignore
         **request.args,  # type: ignore
     )

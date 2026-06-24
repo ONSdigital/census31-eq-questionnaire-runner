@@ -56,9 +56,11 @@ class PlaceholderTransforms:
         currency: str = "GBP",
     ) -> str:
         """
-        The raw arguments for the transform are required here, in addition to the formatted number, as custom logic is required
-        to calculate the correct number of decimals based on the source of the transform. The decimal only takes into account if the source is
-        an answer or a calculated summary without any previous transform.
+        The raw arguments for the transform are required here, in addition to the
+        formatted number, as custom logic is required to calculate the correct
+        number of decimals based on the source of the transform. The decimal only
+        takes into account if the source is an answer or a calculated summary
+        without any previous transform.
         """
         formatted_currency: str = get_formatted_currency(
             value=number,

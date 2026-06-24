@@ -52,7 +52,8 @@ class CalculatedSummaryContext(Context):
     ) -> list[Mapping]:
         """
         If the calculated summary is being edited from a grand calculated summary
-        the details of the grand calculated summary to return to needs to be passed down to the calculated summary answer links
+        the details of the grand calculated summary to return to needs to be
+        passed down to the calculated summary answer links
         """
         return_to = "calculated-summary"
         # Type ignore: safe to assume block_id is not None
@@ -219,7 +220,8 @@ class CalculatedSummaryContext(Context):
         routing_path_block_ids: Iterable[str],
     ) -> NumericType:
         """
-        For a calculation in the new style and the list of involved block ids (possibly across sections) evaluate the total
+        For a calculation in the new style and the list of involved block ids
+        (possibly across sections) evaluate the total
         """
         evaluate_calculated_summary = RuleEvaluator(
             data_stores=self._data_stores,

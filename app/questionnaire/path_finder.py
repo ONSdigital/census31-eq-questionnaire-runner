@@ -50,9 +50,12 @@ class PathFinder:
         )
 
     def get_when_rules_block_dependencies(self, section_id: str) -> list[str]:
-        """NB: At present when rules block dependencies does not fully support repeating sections.
-        It is supported when the section is dependent i.e. the current section is repeating and building the routing path for sections that are not,
-        It isn't supported if it needs to build the path for repeating sections"""
+        """NB: At present when rules block dependencies does not fully support
+        repeating sections. It is supported when the section is dependent i.e. the
+        current section is repeating and building the routing path for sections that
+        are not. It isn't supported if it needs to build the path for repeating
+        sections.
+        """
         dependencies_for_section = (
             self.schema.get_all_when_rules_section_dependencies_for_section(section_id)
         )
@@ -175,7 +178,8 @@ class PathFinder:
         routing_path_block_ids: list[str],
         when_rules_block_dependencies: list[str],
     ) -> int | None:
-        # Use `list` to create a shallow copy since routing_path_block_ids is mutated hence we don't want to update its memory reference
+        # Use `list` to create a shallow copy since routing_path_block_ids is
+        # mutated hence we don't want to update its memory reference
         block_ids_for_dependencies = (
             list(routing_path_block_ids) + when_rules_block_dependencies
         )

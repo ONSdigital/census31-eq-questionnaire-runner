@@ -461,7 +461,8 @@ class QuestionnaireSchema:  # pylint: disable=too-many-public-methods
             if block["type"] == "ListCollectorContent" and block.get(
                 "repeating_blocks"
             ):
-                # Editable list collectors don't need this because the add/remove handlers manage revisiting repeating blocks
+                # Editable list collectors don't need this because the add/remove
+                # handlers manage revisiting repeating blocks
                 self._list_dependencies_map[block["for_list"]].add(
                     self._get_dependent_for_block_id(block_id=block["id"])
                 )
@@ -497,7 +498,8 @@ class QuestionnaireSchema:  # pylint: disable=too-many-public-methods
         self, *, calculated_summary_block: ImmutableDict, dependent_block: ImmutableDict
     ) -> None:
         """
-        For a block that depends on a calculated summary block, add the block as a dependency of each of the calculated summary answers
+        For a block that depends on a calculated summary block, add the block as a
+        dependency of each of the calculated summary answers
         Similarly if the calculated summary depends on a list, then add the block as a dependency of the list
         """
         calculated_summary_answer_ids = get_calculated_summary_answer_ids(
@@ -508,7 +510,8 @@ class QuestionnaireSchema:  # pylint: disable=too-many-public-methods
             if list_name := self.get_list_name_for_answer_id(
                 answer_id, value_source_update=False
             ):
-                # dynamic/repeating answers means the calculated summary also depends on the list those answers loop over
+                # dynamic/repeating answers means the calculated summary also depends
+                # on the list those answers loop over
                 self._list_dependencies_map[list_name].add(dependent)
             self._answer_dependencies_map[answer_id].add(dependent)
 
@@ -865,8 +868,9 @@ class QuestionnaireSchema:  # pylint: disable=too-many-public-methods
         self, answer_id: str, value_source_update: bool = True
     ) -> str | None:
         """
-        if the answer is updated for calculated summary value source, return the name of the list, if updated for calculated summary dependency and the answer
-        is part of a repeating section, return None.
+        If the answer is updated for calculated summary value source, return the
+        name of the list. If updated for calculated summary dependency and the
+        answer is part of a repeating section, return None.
         """
         # Type ignore: safe to assume block exists, same for section below.
         block: ImmutableDict = self.get_block_for_answer_id(answer_id)  # type: ignore

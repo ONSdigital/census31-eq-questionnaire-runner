@@ -140,7 +140,8 @@ class QuestionnaireStoreUpdaterBase:
         return new_list_item_id
 
     def remove_list_item_data(self, list_name: str, list_item_id: str) -> None:
-        """Remove answers from the answer store, remove list item progress from the progress store and update the list store to remove it.
+        """Remove answers from the answer store, remove list item progress from
+        the progress store and update the list store to remove it.
         Any related relationship answers are re-evaluated for completeness.
         """
         self._list_store.delete_list_item(list_name, list_item_id)
@@ -174,8 +175,10 @@ class QuestionnaireStoreUpdaterBase:
         )
 
         for section_key in self.started_section_keys(section_ids=section_ids):
-            # Only add sections which are repeated sections for this list, or the section in which this list is collected
-            # Prevents list item progresses being added as dependants as these are captured by started_section_keys(section_ids=section_ids)
+            # Only add sections which are repeated sections for this list, or the
+            # section in which this list is collected
+            # Prevents list item progresses being added as dependents as these are
+            # captured by started_section_keys(section_ids=section_ids)
             if section_key.list_item_id and not self._schema.get_repeat_for_section(
                 section_key.section_id
             ):
@@ -299,11 +302,13 @@ class QuestionnaireStoreUpdaterBase:
         self, dependent: Dependent, list_item_ids: Sequence[str] | Sequence[None]
     ) -> None:
         """
-        The block_id is mapped to the section key. Dependents in a repeating section should be passed in with the list items
-        for the repeating list for creating the section key.
+        The block_id is mapped to the section key. Dependents in a repeating
+        section should be passed in with the list items for the repeating list for
+        creating the section key.
 
-        Blocks are captured regardless of whether they are complete. This avoids fetching the completed blocks
-        multiples times, as you may have multiple dependencies for one block which may also apply to each item in the list.
+        Blocks are captured regardless of whether they are complete. This avoids
+        fetching the completed blocks multiple times, as you may have multiple
+        dependencies for one block which may also apply to each item in the list.
         However, when updating the progress store, the block ids are checked to ensure they exist in the progress store.
         """
         for list_item_id in list_item_ids:
@@ -678,7 +683,8 @@ class QuestionnaireStoreUpdater(QuestionnaireStoreUpdaterBase):
 
     def capture_progress_section_dependencies(self) -> None:
         """
-        Captures a unique list of section ids that are dependents of the current section or block, for progress value sources.
+        Captures a unique list of section ids that are dependents of the current
+        section or block, for progress value sources.
         """
         self._capture_section_dependencies_progress_value_source_for_section(
             self._current_location.section_id

@@ -177,9 +177,12 @@ class SectionSummaryContext(Context):
 
     @staticmethod
     def _get_refactored_groups(original_groups: dict) -> list[dict[str, Any]]:
-        """original schema groups are refactored into groups based on block types, it follows the order/sequence of blocks in the original groups, all the
-        non list collector blocks are put together into groups, list collectors are put into separate groups, this way summary groups are displayed correctly
-        on section summary"""
+        """Original schema groups are refactored into groups based on block types,
+        it follows the order/sequence of blocks in the original groups. All the
+        non list collector blocks are put together into groups, list collectors are
+        put into separate groups, this way summary groups are displayed correctly
+        on section summary.
+        """
         refactored_groups = []
         group_number = 0
 
@@ -189,13 +192,15 @@ class SectionSummaryContext(Context):
             list_collector_blocks: list[dict[str, str]] = []
             for block in group["blocks"]:
                 if block["type"] in LIST_COLLECTORS_WITH_REPEATING_BLOCKS:
-                    # if list collector block encountered, close the previously started non list collector blocks list if exists
+                    # if list collector block encountered, close the previously
+                    # started non list collector blocks list if exists
                     if non_list_collector_blocks:
                         previously_started_group = {
                             "id": f"{group_name}-{group_number}",
                             "blocks": non_list_collector_blocks,
                         }
-                        # add previous non list collector blocks group to all groups and increase the group number for the list collector group
+                        # add previous non list collector blocks group to all
+                        # groups and increase the group number for the list collector group
                         # that you handle next
                         refactored_groups.append(previously_started_group)
                         group_number += 1
@@ -212,7 +217,8 @@ class SectionSummaryContext(Context):
                     non_list_collector_blocks = []
 
                 else:
-                    # if list collector not encountered keep adding blocks or add first one to an empty non list collector blocks list
+                    # if list collector not encountered keep adding blocks or add
+                    # first one to an empty non list collector blocks list
                     non_list_collector_blocks.append(block)
 
             # on exiting the loop, accumulated list of blocks gets added as a group
