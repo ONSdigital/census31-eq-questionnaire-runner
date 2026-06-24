@@ -79,7 +79,7 @@ class RunnerMetadataSchema(Schema, StripWhitespaceMixin):
     """Metadata which is required for the operation of runner itself"""
 
     METADATA_OPTION_ERROR_MESSAGE = (
-        "Neither schema_name, schema_url or cir_instrument_id has been set in metadata"
+        "Neither schema_name or schema_url has been set in metadata"
     )
 
     jti = VALIDATORS["uuid"]()
@@ -91,7 +91,6 @@ class RunnerMetadataSchema(Schema, StripWhitespaceMixin):
     )
     schema_name = VALIDATORS["string"](required=False)
     schema_url = VALIDATORS["url"](required=False)
-    cir_instrument_id = VALIDATORS["uuid"](required=False)
     response_id = VALIDATORS["string"](required=True)
     account_service_url = VALIDATORS["url"](required=True)
 
@@ -113,14 +112,14 @@ class RunnerMetadataSchema(Schema, StripWhitespaceMixin):
         if data:
             options = [
                 option
-                for option in ["schema_name", "schema_url", "cir_instrument_id"]
+                for option in ["schema_name", "schema_url"]
                 if data.get(option)
             ]
             if len(options) == 0:
                 raise ValidationError(self.METADATA_OPTION_ERROR_MESSAGE)
             if len(options) > 1:
                 metadata_combination_error_message = (
-                    "Only one of schema_name, schema_url or cir_instrument_id should be specified "
+                    "Only one of schema_name or schema_url should be specified "
                     f"in metadata, but {', '.join(options)} were provided"
                 )
                 raise ValidationError(metadata_combination_error_message)
