@@ -111,9 +111,7 @@ class RunnerMetadataSchema(Schema, StripWhitespaceMixin):
     ) -> None:
         if data:
             options = [
-                option
-                for option in ["schema_name", "schema_url"]
-                if data.get(option)
+                option for option in ["schema_name", "schema_url"] if data.get(option)
             ]
             if len(options) == 0:
                 raise ValidationError(self.METADATA_OPTION_ERROR_MESSAGE)

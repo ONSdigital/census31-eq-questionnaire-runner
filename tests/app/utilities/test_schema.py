@@ -8,7 +8,6 @@ from requests import RequestException
 from urllib3.connectionpool import HTTPConnectionPool
 from urllib3.response import HTTPResponse
 
-from app.oidc.gcp_oidc import OIDCCredentialsServiceGCP
 from app.questionnaire import QuestionnaireSchema
 from app.setup import create_app
 from app.utilities.schema import (

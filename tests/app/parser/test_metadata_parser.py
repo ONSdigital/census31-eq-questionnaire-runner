@@ -229,10 +229,7 @@ def test_empty_schema_name_and_schema_url_not_valid_v2():
     with pytest.raises(ValidationError) as exc:
         validate_runner_claims_v2(metadata)
 
-    assert (
-        "Neither schema_name or schema_url has been set in metadata"
-        in str(exc)
-    )
+    assert "Neither schema_name or schema_url has been set in metadata" in str(exc)
 
 
 @pytest.mark.parametrize(

@@ -3,9 +3,7 @@ from functools import lru_cache
 from glob import glob
 from pathlib import Path
 from typing import Any
-from urllib.parse import urlencode
 
-from flask import current_app
 from requests import RequestException
 from structlog import get_logger
 
@@ -180,8 +178,7 @@ def _load_schema_file(schema_name: str, language_code: str) -> Any:
 
 
 @lru_cache(maxsize=None)
-def load_schema_from_url(
-    url: str, *, language_code: str | None) -> QuestionnaireSchema:
+def load_schema_from_url(url: str, *, language_code: str | None) -> QuestionnaireSchema:
     """
     Fetches a schema from the provided url.
     The caller is responsible for including any required query parameters in the url
