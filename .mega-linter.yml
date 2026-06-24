@@ -25,10 +25,6 @@ DISABLE_LINTERS:
 JAVASCRIPT_ES_CLI_EXECUTABLE:
   - node_modules/.bin/eslint
 
-JAVASCRIPT_ES_PRE_COMMANDS:
-  - command: npm ci --include=dev
-    cwd: workspace
-
 FORMATTERS_DISABLE_ERRORS: false
 SHOW_ELAPSED_TIME: true
 FLAVOR_SUGGESTIONS: false
