@@ -1,16 +1,16 @@
 from typing import TYPE_CHECKING, NamedTuple, TypeAlias, TypedDict, Union
 
 if TYPE_CHECKING:
-    from app.forms.validators import (  # pragma: no cover
+    from app.forms.validators import (
         DateCheck,
         DateRequired,
         OptionalForm,
         SingleDatePeriodCheck,
-    )
+    )  # pragma: no cover
     from app.questionnaire.location import Location  # pragma: no cover
     from app.questionnaire.relationship_location import (
-        RelationshipLocation,  # pragma: no cover
-    )
+        RelationshipLocation,
+    )  # pragma: no cover
 
 LocationType: TypeAlias = Union["Location", "RelationshipLocation"]  # noqa: UP007
 SupplementaryDataKeyType: TypeAlias = tuple[str, str | None]

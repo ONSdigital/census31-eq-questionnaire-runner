@@ -32,9 +32,9 @@ from app.utilities.mappings import get_flattened_mapping_values, get_values_for_
 from app.utilities.types import LocationType, SectionKey
 
 if TYPE_CHECKING:
-    from app.questionnaire.placeholder_renderer import (  # pragma: no cover
+    from app.questionnaire.placeholder_renderer import (
         PlaceholderRenderer,
-    )
+    )  # pragma: no cover
 
 
 TransformedValueTypes: TypeAlias = None | str | int | Decimal | bool

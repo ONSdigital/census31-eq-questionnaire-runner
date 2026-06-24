@@ -25,8 +25,8 @@ from app.utilities.decimal_places import (
 
 if TYPE_CHECKING:
     from app.questionnaire.placeholder_renderer import (
-        PlaceholderRenderer,  # pragma: no cover
-    )
+        PlaceholderRenderer,
+    )  # pragma: no cover
 
 
 # pylint: disable=too-many-public-methods

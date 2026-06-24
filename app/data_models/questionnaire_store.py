@@ -13,9 +13,9 @@ from app.questionnaire.rules.utils import parse_iso_8601_datetime
 from app.utilities.json import json_dumps, json_loads
 
 if TYPE_CHECKING:
-    from app.storage.encrypted_questionnaire_storage import (  # pragma: no cover
+    from app.storage.encrypted_questionnaire_storage import (
         EncryptedQuestionnaireStorage,
-    )
+    )  # pragma: no cover
 
 
 class QuestionnaireStore:

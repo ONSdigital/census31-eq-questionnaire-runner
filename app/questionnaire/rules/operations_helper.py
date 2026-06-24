@@ -12,8 +12,8 @@ from app.questionnaire.rules.operations import DateOffset, Operations
 
 if TYPE_CHECKING:
     from app.questionnaire.placeholder_renderer import (
-        PlaceholderRenderer,  # pragma: no cover
-    )
+        PlaceholderRenderer,
+    )  # pragma: no cover
 
 
 class OperationHelper:

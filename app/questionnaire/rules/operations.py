@@ -24,8 +24,8 @@ from app.settings import DEFAULT_LOCALE
 
 if TYPE_CHECKING:
     from app.questionnaire.placeholder_renderer import (
-        PlaceholderRenderer,  # pragma: no cover
-    )
+        PlaceholderRenderer,
+    )  # pragma: no cover
 
 ComparableValue = TypeVar("ComparableValue", str, int, float, Decimal, date)
 NonArrayPrimitiveTypes: TypeAlias = str | int | float | Decimal | None
