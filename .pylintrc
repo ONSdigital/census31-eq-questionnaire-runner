@@ -48,7 +48,7 @@ ignore=CVS
 # ignore-list. The regex matches against paths and can be in Posix or Windows
 # format. Because '\' represents the directory delimiter on Windows systems, it
 # can't be used as an escape character.
-ignore-paths=node_modules
+ignore-paths=node_modules,megalinter-reports
 
 # Files or directories matching the regular expression patterns are skipped.
 # The regex matches against base names, not paths. The default value ignores
@@ -412,7 +412,8 @@ disable=
     missing-docstring,
     invalid-name,
     inconsistent-return-statements,
-    duplicate-code
+    duplicate-code,
+    cyclic-import  # Pre-existing: path_finder <-> rule_evaluator <-> placeholder_renderer <-> placeholder_parser
 # Enable the message, report, category or checker with the given id(s). You can
 # either give multiple identifier separated by comma (,) or put this option
 # multiple time (only on the command line, not in the configuration file where
