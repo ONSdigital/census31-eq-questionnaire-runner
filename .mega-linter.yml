@@ -20,7 +20,7 @@ ENABLE:
   - YAML
 
 DISABLE_LINTERS:
-  - JAVASCRIPT_STANDARD
+  - JAVASCRIPT_STANDARD # Disabled because its rules conflict with our rules set up in eslint
 
 JAVASCRIPT_ES_CLI_EXECUTABLE:
   - node_modules/.bin/eslint
