@@ -161,7 +161,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        suite: ['components', 'timeout_modal', 'features', 'journeys']
+        suite: ["components", "timeout_modal", "features", "journeys"]
     env:
       EQ_RUN_FUNCTIONAL_TESTS_HEADLESS: True
       EQ_OPEN_QUESTIONNAIRE_ATTEMPTS: 2
