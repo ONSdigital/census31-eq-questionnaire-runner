@@ -262,7 +262,7 @@ class TestErrors(IntegrationTestCase):  # pylint: disable=too-many-public-method
         self.assertInBody(
             (
                 f"<p>If the web address is correct or you selected a link or button, "
-                f'<a href="{DEFAULT_URL}/contact-us/">contact us</a> for more help.</p>'
+                f'please <a href="{DEFAULT_URL}/contact-us/">contact us</a> for more help.</p>'
             )
         )
 
@@ -283,7 +283,7 @@ class TestErrors(IntegrationTestCase):  # pylint: disable=too-many-public-method
         self.assertInBody(
             (
                 f"<p>If the web address is correct or you selected a link or button, "
-                f'<a href="{ONS_URL}/aboutus/contactus/surveyenquiries/">contact us</a> for more '
+                f'please <a href="{ONS_URL}/aboutus/contactus/surveyenquiries/">contact us</a> for more '
                 "help.</p>"
             )
         )
