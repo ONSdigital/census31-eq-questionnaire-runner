@@ -2116,18 +2116,18 @@ referencing = ">=0.31.0"
 
 [[package]]
 name = "jwcrypto"
-version = "1.5.7"
+version = "1.5.8"
 description = "Implementation of JOSE Web standards"
 optional = false
 python-versions = ">=3.8"
 groups = ["main"]
 files = [
-    {file = "jwcrypto-1.5.7-py3-none-any.whl", hash = "sha256:729463fefe28b6de5cf1ebfda3e94f1a1b41d2799148ef98a01cb9678ebe2bb0"},
-    {file = "jwcrypto-1.5.7.tar.gz", hash = "sha256:70204d7cca406eda8c82352e3c41ba2d946610dafd19e54403f0a1f4f18633c6"},
+    {file = "jwcrypto-1.5.8-py3-none-any.whl", hash = "sha256:85aeb475f808d56bbc2f2ed1f6f73e6a317c4011a4321505f02f0aed695a3742"},
+    {file = "jwcrypto-1.5.8.tar.gz", hash = "sha256:c3d7114b6f6e65b52f6b7da817eb8cb8423e1da31e1ef13508447c81ecbdcc34"},
 ]
 
 [package.dependencies]
-cryptography = ">=3.4"
+cryptography = ">=39.0.0"
 typing_extensions = ">=4.5.0"
 
 [[package]]
@@ -2616,23 +2616,6 @@ files = [
     {file = "pep8-1.7.1-py2.py3-none-any.whl", hash = "sha256:b22cfae5db09833bb9bd7c8463b53e1a9c9b39f12e304a8d0bba729c501827ee"},
     {file = "pep8-1.7.1.tar.gz", hash = "sha256:fe249b52e20498e59e0b5c5256aa52ee99fc295b26ec9eaa85776ffdb9fe6374"},
 ]
-
-[[package]]
-name = "pika"
-version = "1.4.1"
-description = "Pika Python AMQP Client Library"
-optional = false
-python-versions = ">=3.7"
-groups = ["main"]
-files = [
-    {file = "pika-1.4.1-py3-none-any.whl", hash = "sha256:2daae7bd422a0fc4f4879fd48c9a1932ed74a0bc7172e1e5f9bde63a101ed074"},
-    {file = "pika-1.4.1.tar.gz", hash = "sha256:e851f3e4992adfbf8eb64e9b86d94e3382f92ba0200055abedbb29676b8e713b"},
-]
-
-[package.extras]
-gevent = ["gevent"]
-tornado = ["tornado"]
-twisted = ["twisted"]
 
 [[package]]
 name = "platformdirs"
@@ -4178,4 +4161,4 @@ testing = ["coverage[toml]", "zope.event", "zope.testing"]
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.13.5"
-content-hash = "8bf81fa4b15e18f02e3872e9a136bd22f211581b78a6757db91fe55b7b66f9c6"
+content-hash = "854cf674b209deabb3949feac8e150811ca187ecd2f445cceacec6e2af3d4fd5"
