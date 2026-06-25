@@ -229,7 +229,8 @@ class TestQuestionnaireListCollectorRepeatingBlocks(IntegrationTestCase):
         self.assert_company_incomplete(3, 3)
         self.assert_company_completed(4, 4)
 
-        # Attempt to move along path after list collector - will route to first incomplete block of first incomplete item
+        # Attempt to move along path after list collector -
+        # will route to first incomplete block of first incomplete item
         self.post({"any-other-companies-or-branches-answer": "No"})
 
         # Should be routed to incomplete block 2 of item 1

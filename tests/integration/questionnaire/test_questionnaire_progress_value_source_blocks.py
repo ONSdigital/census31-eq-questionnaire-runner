@@ -107,7 +107,8 @@ class TestQuestionnaireProgressValueSourceBlocks(IntegrationTestCase):
 
     def test_block_value_source_dependencies_removed_from_path(self):
         """
-        Test that the block value source dependencies are updated when a dependent block progress changes and gets removed from path
+        Test that the block value source dependencies are updated
+        when a dependent block progress changes and gets removed from path
         """
 
         self.launchSurveyV2(schema_name="test_progress_value_source_blocks")
@@ -145,14 +146,16 @@ class TestQuestionnaireProgressValueSourceBlocks(IntegrationTestCase):
         # Redirects to the hub
         self.assertInUrl(SUBMIT_URL_PATH)
 
-        # Questions 2, 4 and 6 are not visible because they aren't on the path anymore although they've been answered earlier
+        # Questions 2, 4 and 6 are not visible because they aren't on
+        # the path anymore although they've been answered earlier
         self.assertNotInBody("Section 1 Question 2")
         self.assertNotInBody("Section 1 Question 4")
         self.assertNotInBody("Section 1 Question 6")
 
     def test_block_value_source_cross_section_dependencies_removed_from_path(self):
         """
-        Test that the block value source dependencies are updated when a dependent block progress changes and gets removed from path
+        Test that the block value source dependencies are updated when a
+        dependent block progress changes and gets removed from path
         """
 
         self.launchSurveyV2(

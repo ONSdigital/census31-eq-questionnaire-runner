@@ -979,7 +979,8 @@ def test_placeholder_parser_calculated_summary_dependencies_cache(
     Tests Calculated Summaries fetches the dependencies using the routing path cache
     Mocker patch the routing_path function in the Path Finder class to check the number of calls
     Both placeholders lists use the calculated summary placeholder that requires the Path.
-    The first and second placeholder list is from the same section so when we call the second list, it should use the cache from the first call.
+    The first and second placeholder list is from the same section so when we call the second list,
+    it should use the cache from the first call.
     Set Location to the BlockId where the transform is required and the values have already been set
     Set Answer Store with values to check if the transform is working as expected in the Schema.
     With calculated summaries we check the two values in the answer source sum to the expected number
@@ -1063,7 +1064,8 @@ def test_placeholder_dependencies_cache(mocker, mock_renderer):
     Tests Placeholder Parser fetches the placeholder dependencies using the routing path cache
     Mocker patch the routing_path function in the Path Finder class to check the number of calls
     Both placeholders lists use the first_non_empty_item transform that requires the Path.
-    The first and second placeholder list is from the same section so when we call the second list, it should use the cache from the first call.
+    The first and second placeholder list is from the same section so when we call the second list,
+    it should use the cache from the first call.
     Set Location to the BlockId where the transform is required and the values have already been set
     Set Answer Store with values to check if the transform is working as expected in the Schema.
     """

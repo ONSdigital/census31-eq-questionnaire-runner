@@ -1068,8 +1068,9 @@ def test_grand_calculated_summary_path_dependencies():
 
 def test_grand_calculated_summary_when_rule_dependencies():
     """
-    Tests that for a section enabled only when a grand calculated summary is a specific value, the schema when rules
-    have the section depending on each answer making up the GCS and depending on the sections containing the answers and GCS
+    Tests that for a section enabled only when a grand calculated summary is a specific value,
+    the schema when rules have the section depending on each answer making up the GCS and
+    depending on the sections containing the answers and GCS
     """
     schema = load_schema_from_name("test_grand_calculated_summary_overlapping_answers")
     assert schema.when_rules_section_dependencies_by_section["section-4"] == {
@@ -1089,8 +1090,8 @@ def test_grand_calculated_summary_when_rule_dependencies():
 def test_placeholder_transform_section_dependencies_by_block_for_calculation_summaries():
     """
     Ensures that dependencies are captured correctly for calculation summary blocks using transforms.
-    In this schema the calculation summaries use placeholder transforms based on other blocks that have dependencies in the
-    reporting-period-section
+    In this schema the calculation summaries use placeholder transforms
+    based on other blocks that have dependencies in the reporting-period-section
     """
     schema = load_schema_from_name(
         "test_placeholder_dependencies_with_calculation_summaries"
