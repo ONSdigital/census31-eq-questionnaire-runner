@@ -85,10 +85,10 @@ class TestIntroduction(IntegrationTestCase):
         self.launchSurveyV2(schema_name="test_introduction")
         self.assertInBody(
             (
-                'If the company details or structure have changed contact us on '
+                "If the company details or structure have changed contact us on "
                 '<a href="tel:03001234931">0300 1234 931</a> '
                 'or email <a href="mailto:surveys@ons.gov.uk?subject='
                 'Change%20of%20details%20reference%2012345678901A">'
-                'surveys@ons.gov.uk</a>'
+                "surveys@ons.gov.uk</a>"
             )
         )

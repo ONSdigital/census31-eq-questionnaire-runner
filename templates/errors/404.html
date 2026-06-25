@@ -1,12 +1,12 @@
 {% extends "errors/_base.html" %}
 
 {% set page_title = _("Page not found") %}
-{% set all_contact_us =
-    _(
+{# djlint:off #}
+{% set all_contact_us = _(
         "If the web address is correct or you selected a link or button, "
-        "<a href='{url}'>contact us</a> for more help."
-    ).format(url=contact_us_url)
-%}
+        "please <a href='{url}'>contact us</a> for more help."
+    ).format(url=contact_us_url) %}
+{# djlint:on #}
 {% set business_contact_us = _("If you are completing a business survey, please <a href='{url}'>contact us</a>.").format(url=business_contact_us_url) %}
 {% set other_contact_us = _("If you started your survey using an access code, please <a href='{url}'>contact us</a>.").format(url=other_contact_us_url) %}
 

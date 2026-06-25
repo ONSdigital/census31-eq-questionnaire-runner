@@ -178,7 +178,7 @@ class TestErrors(IntegrationTestCase):  # pylint: disable=too-many-public-method
         self.assertEqual(cookie.get("theme"), "social")
         self.assertInBody(
             (
-                f'<p>To access this page you need to '
+                f"<p>To access this page you need to "
                 f'<a href="{SOCIAL_URL}/{DEFAULT_LANGUAGE_CODE}/start/">re-enter your access code</a>.</p>'
             )
         )
@@ -198,11 +198,11 @@ class TestErrors(IntegrationTestCase):  # pylint: disable=too-many-public-method
         self.assertInBody(
             [
                 (
-                    f'<p>If you are completing a business survey, you need to sign back in to '
+                    f"<p>If you are completing a business survey, you need to sign back in to "
                     f'<a href="{BUSINESS_URL}/sign-in/logout">your account</a>.</p>'
                 ),
                 (
-                    f'<p>If you started your survey using an access code, you need to '
+                    f"<p>If you started your survey using an access code, you need to "
                     f'<a href="{SOCIAL_URL}/{DEFAULT_LANGUAGE_CODE}/start/">re-enter your code</a>.'
                     "</p>"
                 ),
@@ -253,11 +253,11 @@ class TestErrors(IntegrationTestCase):  # pylint: disable=too-many-public-method
         self.assertInBody(
             [
                 (
-                    f'<p>If you are completing a business survey and you need further help, '
+                    f"<p>If you are completing a business survey and you need further help, "
                     f'please <a href="{BUSINESS_URL}/contact-us/">contact us</a>.</p>'
                 ),
                 (
-                    f'<p>If you started your survey using an access code and you need further help, please '
+                    f"<p>If you started your survey using an access code and you need further help, please "
                     f'<a href="{ONS_URL}/aboutus/contactus/surveyenquiries/">contact us</a>.</p>'
                 ),
             ]
@@ -275,7 +275,7 @@ class TestErrors(IntegrationTestCase):  # pylint: disable=too-many-public-method
         self.assertStatusNotFound()
         self.assertInBody(
             (
-                f'<p>If the web address is correct or you selected a link or button, '
+                f"<p>If the web address is correct or you selected a link or button, "
                 f'<a href="{DEFAULT_URL}/contact-us/">contact us</a> for more help.</p>'
             )
         )
@@ -296,7 +296,7 @@ class TestErrors(IntegrationTestCase):  # pylint: disable=too-many-public-method
         self.assertStatusNotFound()
         self.assertInBody(
             (
-                f'<p>If the web address is correct or you selected a link or button, '
+                f"<p>If the web address is correct or you selected a link or button, "
                 f'<a href="{ONS_URL}/aboutus/contactus/surveyenquiries/">contact us</a> for more '
                 "help.</p>"
             )
@@ -318,11 +318,11 @@ class TestErrors(IntegrationTestCase):  # pylint: disable=too-many-public-method
                     "please see the following help links.</p>"
                 ),
                 (
-                    f'<p>If you are completing a business survey, please '
+                    f"<p>If you are completing a business survey, please "
                     f'<a href="{BUSINESS_URL}/contact-us/">contact us</a>.</p>'
                 ),
                 (
-                    f'<p>If you started your survey using an access code, please '
+                    f"<p>If you started your survey using an access code, please "
                     f'<a href="{ONS_URL}/aboutus/contactus/surveyenquiries/">contact us</a>.</p>'
                 ),
             ]
@@ -345,11 +345,11 @@ class TestErrors(IntegrationTestCase):  # pylint: disable=too-many-public-method
                     "please see the following help links.</p>"
                 ),
                 (
-                    f'<p>If you are completing a business survey, please '
+                    f"<p>If you are completing a business survey, please "
                     f'<a href="{BUSINESS_URL}/contact-us/">contact us</a>.</p>'
                 ),
                 (
-                    f'<p>If you started your survey using an access code, please '
+                    f"<p>If you started your survey using an access code, please "
                     f'<a href="{ONS_URL}/aboutus/contactus/surveyenquiries/">contact us</a>.</p>'
                 ),
             ]
@@ -429,7 +429,7 @@ class TestErrors(IntegrationTestCase):  # pylint: disable=too-many-public-method
         self.assertStatusCode(500)
         self.assertInBody(
             (
-                f'<p>If this problem keeps happening, please '
+                f"<p>If this problem keeps happening, please "
                 f'<a href="{DEFAULT_URL}/contact-us/">contact us</a> for help.</p>'
             )
         )

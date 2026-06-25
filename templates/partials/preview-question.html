@@ -8,9 +8,7 @@
     {% if question.descriptions %}
         {% set descriptions = question.descriptions %}
         {% set descriptions_length = descriptions | length %}
-        {% for description in descriptions %}
-            <div class="ons-question__description ons-u-mb-m">{{- description | safe -}}</div>
-        {% endfor %}
+        {% for description in descriptions %}<div class="ons-question__description ons-u-mb-m">{{- description | safe -}}</div>{% endfor %}
     {% endif %}
     {%- if question.guidance -%}
         {% set contents = question.guidance.contents %}
@@ -47,9 +45,7 @@
                     <strong>{{- answer.label | safe -}}</strong>
                 </p>
             {% endif %}
-            {% if answer.max_length %}
-                <p>{{ _("{max_characters} characters can be added.").format(max_characters = answer.max_length) }}</p>
-            {% endif %}
+            {% if answer.max_length %}<p>{{ _("{max_characters} characters can be added.").format(max_characters = answer.max_length) }}</p>{% endif %}
         {% endif %}
         {# answer guidance not implemented yet due to some work that needs to be done in the DS will be implemented in iteration 2 #}
         {# {% if answer.guidance %}

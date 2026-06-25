@@ -2,6 +2,7 @@
 
 {% set page_title = _("Sorry, there is a problem") %}
 {% set all_contact_us = _("For further help, please <a href='{url}'>contact us</a>.").format(url=contact_us_url) %}
+{# djlint:off #}
 {% set business_contact_us =
     _(
         "If you are completing a business survey and you need further help, "
@@ -14,6 +15,7 @@
         "help, please <a href='{url}'>contact us</a>."
     ).format(url=other_contact_us_url)
 %}
+{# djlint:on #}
 
 {% block main %}
     <h1>{{ _("Sorry, there is a problem") }}</h1>

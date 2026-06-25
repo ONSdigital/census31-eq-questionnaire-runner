@@ -50,9 +50,7 @@
         {% set contents = content.guidance.contents %}
         {% include "partials/contents.html" %}
     {% else %}
-        <p class="ons-u-mb-s">
-            {{ _("Your response will help inform decision-makers how best to support the UK population and economy.") }}
-        </p>
+        <p class="ons-u-mb-s">{{ _("Your response will help inform decision-makers how best to support the UK population and economy.") }}</p>
         <p class="ons-u-mb-s">
             <a href="https://www.ons.gov.uk/surveys">{{ _("Learn more about how we use this data") }}</a>
         </p>
@@ -69,21 +67,16 @@
             %}
                 {{ countdown_expired_text }}
             {% endcall %}
-            {# djlint:on #}
         {% else %}
             {% set countdown_text = _("For security, your answers will only be available to view for another ") %}
             <h2 data-qa="view-submitted-response-title">{{ _("Get a copy of your answers") }}</h2>
             <p class="ons-u-mb-s">{{ _("We may contact you to query your answers.") }}</p>
             <p class="ons-u-mb-s">
-                {{
-                    _(
-                        "If you need a copy for your records, "
-                        "<a href=\"{url}\" id=\"view-submitted-response-link\">"
-                        "save or print your answers</a>."
-                    ).format(url = content.view_submitted_response.url)
+                {{ _("If you need a copy for your records, "
+                    "<a href=\"{url}\" id=\"view-submitted-response-link\">"
+                    "save or print your answers</a>.").format(url = content.view_submitted_response.url)
                 }}
             </p>
-            {# djlint:off #}
             {{
                 onsTimeoutPanel ({
                     "id": "view-submitted-response-countdown",
@@ -104,9 +97,7 @@
     {% if content.confirmation_email_form %}
         <hr class="ons-u-mt-no">
         <h2 class="ons-u-mt-m">{{ _("Get confirmation email") }}</h2>
-        <p>
-            {{ _("If you would like to be sent confirmation that you have completed your survey, enter your email address") }}
-        </p>
+        <p>{{ _("If you would like to be sent confirmation that you have completed your survey, enter your email address") }}</p>
         {% with form=content.confirmation_email_form %}
             {% include "partials/confirmation-email-form.html" %}
         {% endwith %}

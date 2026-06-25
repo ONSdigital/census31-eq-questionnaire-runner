@@ -19,7 +19,6 @@
         }
     })
 }}
-{# djlint:on #}
 
 {% block form_content %}
     {% if content.summary.custom_summary %}
@@ -46,7 +45,6 @@
 {% endblock form_content %}
 
 {% block submit_button %}
-    {# djlint:off #}
     {{
         onsButton({
             "text": continue_button_text | default(_("Continue")),
@@ -62,5 +60,5 @@
             }
         })
     }}
-    {# djlint:on #}
+{# djlint:on #}
 {% endblock submit_button %}

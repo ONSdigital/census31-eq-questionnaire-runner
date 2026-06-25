@@ -15,11 +15,7 @@ from app.publisher import LogPublisher, PubSubPublisher
 from app.setup import MissingEnvironmentVariable, create_app
 from app.storage.datastore import Datastore
 from app.storage.dynamodb import Dynamodb
-from app.submitter.submitter import (
-    GCSFeedbackSubmitter,
-    GCSSubmitter,
-    LogSubmitter,
-)
+from app.submitter.submitter import GCSFeedbackSubmitter, GCSSubmitter, LogSubmitter
 
 
 class TestCreateApp(unittest.TestCase):  # pylint: disable=too-many-public-methods

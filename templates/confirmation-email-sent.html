@@ -38,6 +38,7 @@
             <strong>{{ _("Didn’t receive an email?") }}</strong>
         </p>
         <p class="ons-u-mb-l">
+            {# djlint:off #}
             {{
                 _(
                     "It can take a few minutes for the email to arrive. "
@@ -47,6 +48,7 @@
                 )
                 .format(send_confirmation_email_url = content.send_confirmation_email_url)
             }}
+            {# djlint:on #}
         </p>
     {% endif %}
     {% if content.show_feedback_call_to_action %}
