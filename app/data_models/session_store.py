@@ -96,9 +96,9 @@ class SessionStore:
         logger.debug(
             "finding eq_session_id in database", eq_session_id=self.eq_session_id
         )
-        self._eq_session: EQSession | None = (
-            current_app.eq["storage"].get(EQSession, self.eq_session_id)
-        )  # type: ignore
+        self._eq_session: EQSession | None = (  # type: ignore[no-redef]
+            current_app.eq["storage"].get(EQSession, self.eq_session_id)  # type: ignore[attr-defined]
+        )
 
         if self._eq_session and self._eq_session.session_data:
             self.user_id = self._eq_session.user_id
