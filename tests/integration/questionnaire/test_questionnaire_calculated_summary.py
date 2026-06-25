@@ -267,7 +267,8 @@ class TestQuestionnaireCalculatedSummary(QuestionnaireTestCase):
             "We calculate the total journeys made per month to be 12. Is this correct?"
         )
 
-        # check that using a change link and editing an answer takes you straight back to the relevant calculated summary
+        # check that using a change link and editing an answer
+        # takes you straight back to the relevant calculated summary
         change_link = self.get_list_item_change_link(
             "transport-count", list_item_ids[1]
         )
@@ -393,9 +394,10 @@ class TestQuestionnaireCalculatedSummary(QuestionnaireTestCase):
     def test_placeholders_rendering_in_calculated_summary_unhappy_path(self):
         """
         Tests that a placeholder using the first_non_empty_item is rendered correctly on the calculated summary page
-        using the answer values that are on the path. In this instance it is the unhappy path where the user has entered
-        their own reporting dates, but has then gone back to the first section and changed their answer. In this instance
-        the dates displayed in the label should come from metadata rather than the dates entered by the user (which are no longer on the path)
+        using the answer values that are on the path. In this instance it is the unhappy path where the user has
+        entered their own reporting dates, but has then gone back to the first section and changed their answer.
+        In this instance the dates displayed in the label should come from metadata rather than the dates entered
+        by the user (which are no longer on the path)
         """
         self.launchSurveyV2(
             schema_name="test_placeholder_dependencies_with_calculation_summaries"
@@ -420,11 +422,16 @@ class TestQuestionnaireCalculatedSummary(QuestionnaireTestCase):
         self.post({"civil-research": "10", "defence": "10"})
         self.assertInUrl("/questionnaire/calc-summary-1/")
         self.assertInBody(
-            "For the period 1 January 2000 to 1 April 2000 what was the expenditure on R&amp;D for Integration Testing?"
+            (
+                "For the period 1 January 2000 to 1 April 2000 what was the expenditure on R&amp;D for Integration "
+                "Testing?"
+            )
         )
         self.assertInBody(
-            "We have calculated your total in-house expenditure on R&amp;D for Integration Testing for the period 1 January 2000 to 1 April 2000 to be £20. "
-            "Is this correct?"
+            (
+                "We have calculated your total in-house expenditure on R&amp;D for Integration Testing for the period "
+                "1 January 2000 to 1 April 2000 to be £20. Is this correct?"
+            )
         )
 
         # Complete the rest of the survey
@@ -447,8 +454,10 @@ class TestQuestionnaireCalculatedSummary(QuestionnaireTestCase):
             "For the period 1 April 2016 to 30 April 2016 what was the expenditure on R&amp;D for Integration Testing?"
         )
         self.assertInBody(
-            "We have calculated your total in-house expenditure on R&amp;D for Integration Testing for the period 1 April 2016 to 30 April 2016 to be £110. "
-            "Is this correct?"
+            (
+                "We have calculated your total in-house expenditure on R&amp;D for Integration Testing for the period "
+                "1 April 2016 to 30 April 2016 to be £110. Is this correct?"
+            )
         )
 
     def test_calculated_summary_repeating_sections_complete_after_adding_list_item(
