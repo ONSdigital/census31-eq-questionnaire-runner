@@ -1725,6 +1725,7 @@ class TestRouterPreviousLocation(RouterTestCase):
 
         assert expected_previous_url == previous_location_url
 
+    # pylint: disable=line-too-long
     @pytest.mark.parametrize(
         "return_to, current_block, return_to_block_id, expected_url",
         [

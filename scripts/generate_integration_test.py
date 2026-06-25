@@ -61,7 +61,8 @@ def is_recordable_survey_navigation(request: Request) -> bool:
 
 def process_get(request: Request, file: IO) -> None:
     """
-    We only want to record GET requests in Runner for actions like navigating back in a survey journey. Therefore, we exclude the following:
+    We only want to record GET requests in Runner for actions
+    like navigating back in a survey journey. Therefore, we exclude the following:
         - the very first GET action of a survey journey, after schema is loaded
         - tokens/authentication
     """
@@ -78,7 +79,8 @@ def process_get(request: Request, file: IO) -> None:
         file.write(generate_method_request(method="get", data=path))
 
     elif survey_journey["in_progress"]:
-        # ensure the request method is captured - allows us to record Runner GET navigation actions on the next pass through
+        # ensure the request method is captured - allows us
+        # to record Runner GET navigation actions on the next pass through
         survey_journey["previous_request_method"] = request.method
 
 

@@ -198,7 +198,10 @@ def test_concatenate_textfield_answers(
     # Then
     assert (
         question.answers[0]["value"]
-        == f"Main Building{concatenation_character}Cardiff Rd{concatenation_character}Newport{concatenation_character}NP10 8XG"
+        == (
+            f"Main Building{concatenation_character}Cardiff Rd"
+            f"{concatenation_character}Newport{concatenation_character}NP10 8XG"
+        )
     )
     assert len(question.answers) == 1
 
@@ -232,7 +235,10 @@ def test_concatenate_textfield_answers_default(
     # Then
     assert (
         question.answers[0]["value"]
-        == f"Government Buildings{concatenation_character}Cardiff Rd{concatenation_character}Newport{concatenation_character}NP10 8XG"
+        == (
+            f"Government Buildings{concatenation_character}Cardiff Rd"
+            f"{concatenation_character}Newport{concatenation_character}NP10 8XG"
+        )
     )
     assert len(question.answers) == 1
 

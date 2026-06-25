@@ -67,10 +67,16 @@ class TestSession(IntegrationTestCase):
         self.get("/session-expired")
         self.assertInBody("Sorry, you need to sign in again")
         self.assertInBody(
-            f'<p>If you are completing a business survey, you need to sign back in to <a href="{BUSINESS_URL}/sign-in/logout">your account</a>.</p>'
+            (
+                f'<p>If you are completing a business survey, you need to sign back in to '
+                f'<a href="{BUSINESS_URL}/sign-in/logout">your account</a>.</p>'
+            )
         )
         self.assertInBody(
-            f'<p>If you started your survey using an access code, you need to <a href="{SOCIAL_URL}/{DEFAULT_LANGUAGE_CODE}/start/">re-enter your code</a>.</p>'
+            (
+                f'<p>If you started your survey using an access code, you need to '
+                f'<a href="{SOCIAL_URL}/{DEFAULT_LANGUAGE_CODE}/start/">re-enter your code</a>.</p>'
+            )
         )
 
     def test_session_jti_token_expired(self):

@@ -19,7 +19,7 @@ from tests.app.views.contexts import assert_summary_context
     (
         (
             "distance-grand-calculated-summary",
-            "We calculate the grand total weekly distance travelled to be 100 mi. Is this correct?",
+            "We calculate the grand total weekly distance traveled to be 100 mi. Is this correct?",
             "100 mi",
             "distance-calculated-summary-1",
         ),

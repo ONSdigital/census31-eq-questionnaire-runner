@@ -183,7 +183,10 @@ class TestFlushData(IntegrationTestCase):
     def test_flush_logs_output(self):
         with self.assertLogs() as logs:
             self.post(
-                url=f"/flush?token={self.token_generator.create_token_v2(schema_name='test_textfield', **self.get_payload())}"
+                url=(
+                    f"/flush?token="
+                    f"{self.token_generator.create_token_v2(schema_name='test_textfield', **self.get_payload())}"
+                )
             )
 
             flush_log = logs.output[6]
@@ -201,8 +204,12 @@ class TestFlushData(IntegrationTestCase):
             self.get(url=f"/session?token={token}")
             self.assertStatusOK()
             with self.assertLogs() as logs:
+                # pylint: disable=line-too-long
                 self.post(
-                    url=f"/flush?token={self.token_generator.create_token_with_schema_url(schema_url=schema_url, **self.get_payload())}"
+                    url=(
+                        f"/flush?token="
+                        f"{self.token_generator.create_token_with_schema_url(schema_url=schema_url, **self.get_payload())}"
+                    )
                 )
 
                 flush_log = logs.output[6]

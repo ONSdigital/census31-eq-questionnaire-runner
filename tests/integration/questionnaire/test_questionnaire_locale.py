@@ -15,7 +15,8 @@ class TestSession(IntegrationTestCase):
         self.post()
         self.post()
 
-        # Then the cookie_session[language_code] will have defaulted to DEFAULT_LANGUAGE_CODE (en), and the tooltip will show "tonnes" not "metric tons"
+        # Then the cookie_session[language_code] will have defaulted to DEFAULT_LANGUAGE_CODE (en),
+        # and the tooltip will show "tonnes" not "metric tons"
         self.assertInBody("Weight Units")
         self.assertInSelector("tonnes", "[id='mass-tonne-type']")
         self.assertNotInSelector("metric tons", "[id='mass-tonne-type']")

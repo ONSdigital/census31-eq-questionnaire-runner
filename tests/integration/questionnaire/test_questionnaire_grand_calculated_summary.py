@@ -18,7 +18,7 @@ class TestQuestionnaireGrandCalculatedSummary(QuestionnaireTestCase):
         self.post()
         # check the two grand calculated summaries
         self.assertInBody(
-            "We calculate the grand total weekly distance travelled to be 170 mi. Is this correct?"
+            "We calculate the grand total weekly distance traveled to be 170 mi. Is this correct?"
         )
         self.post()
         self.assertInBody(
@@ -31,7 +31,8 @@ class TestQuestionnaireGrandCalculatedSummary(QuestionnaireTestCase):
 
     def test_grand_calculated_summary_multiple_sections(self):
         """
-        Use the repeating answers schema to test the grand calculated summary which uses calculated summaries in multiple different sections
+        Use the repeating answers schema to test the grand calculated summary
+        which uses calculated summaries in multiple different sections
         """
         self.launchSurveyV2(
             schema_name="test_grand_calculated_summary_repeating_answers"
@@ -49,7 +50,10 @@ class TestQuestionnaireGrandCalculatedSummary(QuestionnaireTestCase):
         )
         self.post()
         self.assertInBody(
-            "Grand Calculated Summary which should match the previous calculated summary is calculated to be £210.00. Is this correct?"
+            (
+                "Grand Calculated Summary which should match the previous calculated "
+                "summary is calculated to be £210.00. Is this correct?"
+            )
         )
         self.post()
         self.post()

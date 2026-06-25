@@ -1279,7 +1279,8 @@ class TestIndividualResponseHow(IndividualResponseTestCase):
         self.get(self.individual_response_link)
         self.get(self.individual_response_start_link)
 
-        # Then 'Post' should not be one of my radio box options, and I should have a message telling me it's no longer possible
+        # Then 'Post' should not be one of my radio box options,
+        # and I should have a message telling me it's no longer possible
         self.assertNotInBody("Post")
         self.assertNotInBody(
             "We can only send this to an unnamed resident at the registered household address"
