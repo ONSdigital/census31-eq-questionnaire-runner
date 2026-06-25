@@ -149,7 +149,7 @@ class TestQuestionnaireHtmlEscaping(IntegrationTestCase):
         )
         expected_error_message = (
             f'Select an answer <span class="ons-u-vh">to '
-            f"'Are you sure {ESCAPED_CONTENT} is your favourite?'</span>"
+            f"\u2018Are you sure {ESCAPED_CONTENT} is your favourite?\u2019</span>"
         )
         assert expected_question_text in self.getResponseData()
         assert expected_error_message in self.getResponseData()
