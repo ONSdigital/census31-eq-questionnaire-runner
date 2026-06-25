@@ -483,7 +483,8 @@ class TestQuestionnaireCalculatedSummary(QuestionnaireTestCase):
         self.post({"any-other-additional-sites-answer": "No"})
         self.assertInBody("Completed")
         self.get(
-            "/questionnaire/additional_sites_name/add-block-business-name-trading-style-and-address-for-this-additional-site/"
+            "/questionnaire/additional_sites_name/"
+            "add-block-business-name-trading-style-and-address-for-this-additional-site/"
         )
         self.post({"business-name": "Amazon"})
         self.post({"any-other-additional-sites-answer": "No"})

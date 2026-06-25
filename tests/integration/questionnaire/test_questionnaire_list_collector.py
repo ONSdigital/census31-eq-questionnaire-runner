@@ -490,7 +490,7 @@ class TestQuestionnaireListCollector(QuestionnaireTestCase):
 
         self.assertInUrl("?return_to=section-summary")
 
-    def test_adding_from_the_summary_page_and_then_clicking_previous_link_from_edit_question_block_persists_return_to_url_param(
+    def test_adding_from_the_summary_page_and_then_clicking_previous_link_from_edit_question_block_persists_return_to_url_param(  # pylint: disable=line-too-long
         self,
     ):
         self.launchSurveyV2(schema_name="test_list_collector")
@@ -529,7 +529,7 @@ class TestQuestionnaireListCollector(QuestionnaireTestCase):
 
         self.assertInUrl("?return_to=section-summary")
 
-    def test_adding_from_the_summary_page_and_then_clicking_previous_link_from_remove_question_block_persists_return_to_url_param(
+    def test_adding_from_the_summary_page_and_then_clicking_previous_link_from_remove_question_block_persists_return_to_url_param(  # pylint: disable=line-too-long
         self,
     ):
         self.launchSurveyV2(schema_name="test_list_collector")

@@ -21,7 +21,10 @@ from app.views.contexts.summary.answer import Answer
             "total",
             False,
             "answer-id",
-            "?return_to=calculated-summary&return_to_answer_id=answer-id-answer-item-id,answer-id&return_to_block_id=total",
+            (
+                "?return_to=calculated-summary&return_to_answer_id=answer-id-answer-item-id,answer-id"
+                "&return_to_block_id=total"
+            ),
         ),
         (
             "section-summary",
@@ -36,7 +39,10 @@ from app.views.contexts.summary.answer import Answer
             "total",
             True,
             "answer-id-answer-item-id",
-            "?return_to=calculated-summary&return_to_answer_id=answer-id,answer-id-answer-item-id&return_to_block_id=total",
+            (
+                "?return_to=calculated-summary&return_to_answer_id=answer-id,answer-id-answer-item-id"
+                "&return_to_block_id=total"
+            ),
         ),
         (
             "calculated-summary",
