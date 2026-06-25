@@ -159,7 +159,10 @@ def test_context_for_section_list_summary(people_answer_store):
                         "editable": True,
                         "list_items": [
                             {
-                                "edit_link": "/questionnaire/people/PlwgoG/edit-person/?return_to=section-summary&return_to_answer_id=PlwgoG",
+                                "edit_link": (
+                                    "/questionnaire/people/PlwgoG/edit-person/"
+                                    "?return_to=section-summary&return_to_answer_id=PlwgoG"
+                                ),
                                 "item_title": "Toni Morrison",
                                 "list_item_id": "PlwgoG",
                                 "primary_person": False,
@@ -168,7 +171,10 @@ def test_context_for_section_list_summary(people_answer_store):
                                 "repeating_blocks": False,
                             },
                             {
-                                "edit_link": "/questionnaire/people/UHPLbX/edit-person/?return_to=section-summary&return_to_answer_id=UHPLbX",
+                                "edit_link": (
+                                    "/questionnaire/people/UHPLbX/edit-person/"
+                                    "?return_to=section-summary&return_to_answer_id=UHPLbX"
+                                ),
                                 "item_title": "Barry Pheloung",
                                 "list_item_id": "UHPLbX",
                                 "primary_person": False,
@@ -193,11 +199,17 @@ def test_context_for_section_list_summary(people_answer_store):
                         "editable": True,
                         "list_items": [
                             {
-                                "edit_link": "/questionnaire/visitors/gTrlio/edit-visitor-person/?return_to=section-summary&return_to_answer_id=gTrlio",
+                                "edit_link": (
+                                    "/questionnaire/visitors/gTrlio/edit-visitor-person/"
+                                    "?return_to=section-summary&return_to_answer_id=gTrlio"
+                                ),
                                 "item_title": "",
                                 "list_item_id": "gTrlio",
                                 "primary_person": False,
-                                "remove_link": "/questionnaire/visitors/gTrlio/remove-visitor/?return_to=section-summary",
+                                "remove_link": (
+                                    "/questionnaire/visitors/gTrlio/remove-visitor/"
+                                    "?return_to=section-summary"
+                                ),
                                 "is_complete": False,
                                 "repeating_blocks": False,
                             }
