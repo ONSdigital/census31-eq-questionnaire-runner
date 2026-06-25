@@ -83,13 +83,13 @@ load-plugins=pylint.extensions.mccabe,pylint.extensions.no_self_use,pylint_absol
 persistent=yes
 
 # Minimum Python version to use for version dependent checks. Will default to
-# the version used to run pylint.
+# the version used to run Pylint.
 py-version=3.13
 
 # Discover python modules and packages in the file system subtree.
 recursive=no
 
-# When enabled, pylint would attempt to guess common misconfiguration and emit
+# When enabled, Pylint would attempt to guess common misconfiguration and emit
 # user-friendly hints instead of false-positive error messages.
 suggestion-mode=yes
 

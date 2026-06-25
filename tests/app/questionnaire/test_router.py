@@ -657,12 +657,14 @@ class TestRouterNextLocation(RouterTestCase):
     )
     def test_return_to_calculated_summary(self, schema):
         """
-        This tests that when you hit continue on an edited answer for a calculated summary and all other dependent answers are complete
+        This tests that when you hit continue on an edited answer for a calculated
+        summary and all other dependent answers are complete,
         you are routed to the calculated summary, anchored to the answer that you edited
         """
         self.schema = load_schema_from_name(schema)
-        # for the purposes of this test, assume the routing path consists only of the first two blocks and the calculated summary
-        # and that those two blocks are complete - this will be a sufficient condition to return to the calculated summary
+        # For the purposes of this test, assume the routing path consists only
+        # of the first two blocks and the calculated summary, and those two
+        # blocks are complete.
         self.data_stores.progress_store = ProgressStore(
             [
                 ProgressDict(
@@ -863,8 +865,9 @@ class TestRouterNextLocation(RouterTestCase):
             current_location, routing_path, return_location
         )
 
-        # return_to_block_id is still passed here as although it is not currently on the path it may be in future once incomplete questions are
-        # answered so needs to be preserved
+        # return_to_block_id is still passed here because although it is not
+        # currently on the path, it may be in future once incomplete questions
+        # are answered and therefore needs to be preserved.
         assert (
             "/questionnaire/sixth-number-block/?return_to=calculated-summary&return_to_block_id=fourth-number-block"
             == next_location_url
@@ -875,7 +878,8 @@ class TestRouterNextLocation(RouterTestCase):
         self, grand_calculated_summary_progress_store, grand_calculated_summary_schema
     ):
         """
-        If going from GCS ->  CS -> answer -> CS -> GCS this tests going from CS -> GCS having just come from an answer
+        If going from GCS -> CS -> answer -> CS -> GCS, this tests going from
+        CS -> GCS having just come from an answer.
         """
         self.schema = grand_calculated_summary_schema
         self.data_stores.progress_store = grand_calculated_summary_progress_store
@@ -913,7 +917,8 @@ class TestRouterNextLocation(RouterTestCase):
     @pytest.mark.usefixtures("app")
     def test_return_to_calculated_summary_from_answer_when_multiple_answers(self):
         """
-        If going from GCS ->  CS -> answer -> CS -> GCS this tests going from CS -> GCS having just come from an answer
+        If going from GCS -> CS -> answer -> CS -> GCS, this tests going from
+        CS -> GCS having just come from an answer.
         """
         self.schema = load_schema_from_name(
             "test_grand_calculated_summary_overlapping_answers"
@@ -1040,7 +1045,8 @@ class TestRouterNextLocation(RouterTestCase):
         self, grand_calculated_summary_progress_store, grand_calculated_summary_schema
     ):
         """
-        If going from GCS ->  CS -> GCS this tests going from CS -> GCS having just come from the grand calculated summary
+        If going from GCS -> CS -> GCS, this tests going from CS -> GCS having
+        just come from the grand calculated summary.
         """
         self.schema = grand_calculated_summary_schema
         self.data_stores.progress_store = grand_calculated_summary_progress_store
@@ -1227,8 +1233,9 @@ class TestRouterNextLocation(RouterTestCase):
             return_location,
         )
 
-        # because calculated summary 3 isn't done, should go there before jumping to the grand calculated summary
-        # test from grand-calculated-summary-1 which is in the same section, and grand-calculated-summary-2 which is in another
+        # Because calculated summary 3 is not done, route there before jumping
+        # to the grand calculated summary. Test both grand-calculated-summary-1
+        # in the same section and grand-calculated-summary-2 in another section.
         expected_next_url = url_for(
             "questionnaire.block",
             return_to="grand-calculated-summary",
@@ -1597,12 +1604,14 @@ class TestRouterPreviousLocation(RouterTestCase):
         self, grand_calculated_summary_schema
     ):
         """
-        This tests that if you are on a calculated summary, and your return_to_block_id is another calculated summary that you cannot reach yet
-        if you click previous, then you are taken to the previous block in the section
-        (rather than the first incomplete block of the section which is what next location would return)
+        This tests that if you are on a calculated summary and your
+        return_to_block_id is another calculated summary you cannot reach yet,
+        clicking previous takes you to the previous block in the section rather
+        than the first incomplete block of the section.
         """
         self.schema = grand_calculated_summary_schema
-        # trying to go to number-calculated-summary-1 but distance-calculated-summary-1 which comes before is not complete yet
+        # Trying to go to number-calculated-summary-1, but
+        # distance-calculated-summary-1 comes before and is not complete yet.
         self.data_stores.progress_store = ProgressStore(
             [
                 ProgressDict(
@@ -1641,7 +1650,8 @@ class TestRouterPreviousLocation(RouterTestCase):
             routing_path,
             return_location,
         )
-        # return to can't go to the distance calculated summary, so go to previous block with return params preserved
+        # Return to cannot go to the distance calculated summary, so go to the
+        # previous block with return params preserved.
         expected_previous_url = url_for(
             "questionnaire.block",
             return_to="calculated-summary,grand-calculated-summary",
@@ -1657,9 +1667,10 @@ class TestRouterPreviousLocation(RouterTestCase):
         self, grand_calculated_summary_schema
     ):
         """
-        This tests that if you are on a calculated summary, and your return_to_block_id is a grand calculated summary
-        if you click previous, then you are taken to the previous block in the section
-        (rather than the first incomplete block of the section which is what next location would return)
+        This tests that if you are on a calculated summary and your
+        return_to_block_id is a grand calculated summary, clicking previous
+        takes you to the previous block in the section rather than the first
+        incomplete block of the section.
         """
         self.schema = grand_calculated_summary_schema
         # number calculated summary is not complete, so the section is not complete
@@ -1776,7 +1787,8 @@ class TestRouterPreviousLocation(RouterTestCase):
         grand_calculated_summary_repeating_answers_schema,
     ):
         """
-        Test returning to a calculated summary from a list repeating question as part of a grand calculated summary change link
+        Test returning to a calculated summary from a list repeating question
+        as part of a grand calculated summary change link.
         """
         self.schema = grand_calculated_summary_repeating_answers_schema
         self.data_stores.progress_store = (
