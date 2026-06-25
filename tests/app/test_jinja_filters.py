@@ -894,7 +894,10 @@ def test_calculated_summary_config():
                         "value": 1,
                         "type": "currency",
                         "currency": "GBP",
-                        "link": "/questionnaire/first-number-block/?return_to=final-summary&return_to_answer_id=first-number-answer#first-number-answer",
+                        "link": (
+                            "/questionnaire/first-number-block/?return_to=final-summary"
+                            "&return_to_answer_id=first-number-answer#first-number-answer"
+                        ),
                         "decimal_places": 2,
                     }
                 ],
@@ -916,7 +919,10 @@ def test_calculated_summary_config():
                         "value": 1,
                         "type": "currency",
                         "currency": "GBP",
-                        "link": "/questionnaire/second-number-block/?return_to=final-summary&return_to_answer_id=second-number-answer#second-number-answer",
+                        "link": (
+                            "/questionnaire/second-number-block/?return_to=final-summary"
+                            "&return_to_answer_id=second-number-answer#second-number-answer"
+                        ),
                         "decimal_places": 2,
                     }
                 ],
@@ -1237,7 +1243,10 @@ def test_summary_item_config_with_list_collector_and_one_related_answer():
                                 "question": {
                                     "id": "add-question",
                                     "type": "General",
-                                    "title": "Give details about the company or branch that undertakes general insurance business",
+                                    "title": (
+                                        "Give details about the company or branch that "
+                                        "undertakes general insurance business"
+                                    ),
                                     "number": None,
                                     "answers": [
                                         {
