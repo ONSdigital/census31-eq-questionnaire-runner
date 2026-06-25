@@ -19,7 +19,6 @@ from app.submitter.submitter import (
     GCSFeedbackSubmitter,
     GCSSubmitter,
     LogSubmitter,
-    RabbitMQSubmitter,
 )
 
 
@@ -209,43 +208,6 @@ class TestCreateApp(unittest.TestCase):  # pylint: disable=too-many-public-metho
 
         # Then
         assert "Setting EQ_GCS_SUBMISSION_BUCKET_ID Missing" in str(ex.exception)
-
-    def test_adds_rabbit_submitter_to_the_application(self):
-        # Given
-        self._setting_overrides["EQ_SUBMISSION_BACKEND"] = "rabbitmq"
-        self._setting_overrides["EQ_RABBITMQ_HOST"] = "host-1"
-        self._setting_overrides["EQ_RABBITMQ_HOST_SECONDARY"] = "host-2"
-
-        # When
-        application = create_app(self._setting_overrides)
-
-        # Then
-        assert isinstance(application.eq["submitter"], RabbitMQSubmitter)
-
-    def test_rabbit_submitter_host_not_set_raises_exception(self):
-        # Given
-        self._setting_overrides["EQ_SUBMISSION_BACKEND"] = "rabbitmq"
-        self._setting_overrides["EQ_RABBITMQ_HOST"] = ""
-
-        # When
-        with self.assertRaises(Exception) as ex:
-            create_app(self._setting_overrides)
-
-        # Then
-        assert "Setting EQ_RABBITMQ_HOST Missing" in str(ex.exception)
-
-    def test_rabbit_submitter_secondary_host_not_set_raises_exception(self):
-        # Given
-        self._setting_overrides["EQ_SUBMISSION_BACKEND"] = "rabbitmq"
-        self._setting_overrides["EQ_RABBITMQ_HOST"] = "host-1"
-        self._setting_overrides["EQ_RABBITMQ_HOST_SECONDARY"] = ""
-
-        # When
-        with self.assertRaises(Exception) as ex:
-            create_app(self._setting_overrides)
-
-        # Then
-        assert "Setting EQ_RABBITMQ_HOST_SECONDARY Missing" in str(ex.exception)
 
     def test_defaults_to_adding_the_log_submitter_to_the_application(self):
         # When

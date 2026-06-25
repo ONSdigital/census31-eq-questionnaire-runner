@@ -3,7 +3,6 @@ from app.submitter.submitter import (
     GCSSubmitter,
     LogFeedbackSubmitter,
     LogSubmitter,
-    RabbitMQSubmitter,
 )
 
 __all__ = [
@@ -11,5 +10,4 @@ __all__ = [
     "GCSSubmitter",
     "LogFeedbackSubmitter",
     "LogSubmitter",
-    "RabbitMQSubmitter",
 ]
