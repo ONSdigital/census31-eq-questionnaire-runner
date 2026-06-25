@@ -20,7 +20,8 @@ def oidc_credentials_service():
     oidc_credentials_service = OIDCCredentialsServiceGCP()
     yield oidc_credentials_service
 
-    # the get credentials method is static, and other tests are affected by the cache, so ensure it is cleared in the fixture teardown
+    # the get credentials method is static, and other tests are affected by the cache,
+    # so ensure it is cleared in the fixture teardown
     oidc_credentials_service.get_credentials.cache.clear()
 
 

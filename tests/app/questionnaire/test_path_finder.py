@@ -495,7 +495,8 @@ def test_remove_answer_and_block_if_routing_backwards():
         ),
         (
             # Answering 'Yes' to the skip age question but not answering the skip-confirmation question
-            # means in primary-person you will not be asked your age, but will be asked your name and why you didn't confirm skipping
+            # means in primary-person you will not be asked your age,
+            # but will be asked your name and why you didn't confirm skipping
             "Yes",
             None,
             "primary-person",
@@ -534,8 +535,10 @@ def test_remove_answer_and_block_if_routing_backwards():
             ["name-block", "age"],
         ),
         (
-            # Answering 'Yes' to the skip age question and the skip-confirmation question, but then changing you answer for the skip age question to 'No'
-            # means because confirmation is not longer on the path in primary-person you will be asked your age, name and why you didn't confirm skipping
+            # Answering 'Yes' to the skip age question and the skip-confirmation question,
+            # but then changing you answer for the skip age question to 'No'
+            # means because confirmation is not longer on the path in primary-person you will be asked your age,
+            # name and why you didn't confirm skipping
             "No",
             "Yes",
             "primary-person",

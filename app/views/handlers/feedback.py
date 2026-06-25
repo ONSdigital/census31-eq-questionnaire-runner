@@ -198,6 +198,7 @@ class FeedbackMetadata:
         return vars(self)
 
 
+# pylint: disable=line-too-long
 class FeedbackPayloadV2:
     """
     Create the feedback payload object for down stream processing in the following format:

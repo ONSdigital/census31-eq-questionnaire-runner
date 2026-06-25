@@ -265,7 +265,10 @@ def test_too_many_of_schema_name_schema_url_and_cir_instrument_id_not_valid_v2(o
         validate_runner_claims_v2(metadata)
 
     assert (
-        f"Only one of schema_name, schema_url or cir_instrument_id should be specified in metadata, but {provided} were provided"
+        (
+            f"Only one of schema_name, schema_url or cir_instrument_id should be "
+            f"specified in metadata, but {provided} were provided"
+        )
         in str(exc)
     )
 

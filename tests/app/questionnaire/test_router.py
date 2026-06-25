@@ -973,8 +973,11 @@ class TestRouterNextLocation(RouterTestCase):
 
         assert (
             next_location_url
-            == "/questionnaire/calculated-summary-1/?return_to=grand-calculated-summary&return_to_block_id=grand-calculated-summary-shopping&"
-            "return_to_answer_id=calculated-summary-1#q1-a1"
+            == (
+                "/questionnaire/calculated-summary-1/?return_to=grand-calculated-summary"
+                "&return_to_block_id=grand-calculated-summary-shopping"
+                "&return_to_answer_id=calculated-summary-1#q1-a1"
+            )
         )
 
     @pytest.mark.usefixtures("app")
@@ -1710,7 +1713,8 @@ class TestRouterPreviousLocation(RouterTestCase):
         previous_location_url = self.router.get_previous_location_url(
             current_location, routing_path, return_location
         )
-        # return to can't go to the grand calculated summary, so routing is just to the previous block in the section with return params preserved
+        # return to can't go to the grand calculated summary,
+        # so routing is just to the previous block in the section with return params preserved
         expected_previous_url = url_for(
             "questionnaire.block",
             return_to="grand-calculated-summary",
