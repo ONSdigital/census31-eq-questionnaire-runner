@@ -125,6 +125,7 @@ class ConfirmEmail:
             self._session_store.session_data.confirmation_email_count += 1  # type: ignore
             self._session_store.save()
 
+    # pylint: disable=line-too-long
     def _publish_fulfilment_request(self) -> Task | None:
         fulfilment_request = ConfirmationEmailFulfilmentRequest(
             self._email,
@@ -137,9 +138,9 @@ class ConfirmEmail:
 
         try:
             # Type ignore: mypy not aware of eq attribute but it is a cloud task publisher
-            cloud_task_publisher: CloudTaskPublisher | LogCloudTaskPublisher = current_app.eq[
+            cloud_task_publisher: CloudTaskPublisher | LogCloudTaskPublisher = current_app.eq[  # type: ignore[attr-defined]
                 "cloud_tasks"
-            ]  # type: ignore[attr-defined]
+            ]
             return cloud_task_publisher.create_task(
                 body=fulfilment_request.message,
                 queue_name=EQ_SUBMISSION_CONFIRMATION_QUEUE,

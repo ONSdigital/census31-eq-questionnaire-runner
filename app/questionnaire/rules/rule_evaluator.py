@@ -49,7 +49,7 @@ class RuleEvaluator:
         operator = Operator(operator_name, self.operations)
         operands = rule[operator_name]
         operands_rule_error_message = (
-            f"The rule is invalid, operands should be of type Sequence and not " f"{type(operands)}"
+            f"The rule is invalid, operands should be of type Sequence and not {type(operands)}"
         )
 
         if not isinstance(operands, Sequence):

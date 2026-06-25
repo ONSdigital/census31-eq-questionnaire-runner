@@ -1,5 +1,3 @@
-# pylint: disable=too-many-lines
-
 import pytest
 from mock import MagicMock, Mock
 

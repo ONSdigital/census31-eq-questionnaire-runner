@@ -73,7 +73,7 @@ def test_format_list(transformer):
 
     format_value = transform.format_list(names)
 
-    expected_result = "<ul>" "<li>Alice Aardvark</li>" "<li>Bob Berty Brown</li>" "<li>Dave Dixon Davies</li>" "</ul>"
+    expected_result = "<ul><li>Alice Aardvark</li><li>Bob Berty Brown</li><li>Dave Dixon Davies</li></ul>"
 
     assert expected_result == format_value
 

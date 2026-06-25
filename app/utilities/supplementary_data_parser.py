@@ -49,7 +49,7 @@ class SupplementaryDataMetadataSchema(Schema, StripWhitespaceMixin):
     DATASET_ID_ERROR_MESSAGE = "Supplementary data did not return the specified Dataset ID"
     SURVEY_ID_ERROR_MESSAGE = "Supplementary data did not return the specified Survey ID"
     SDS_VERSION_ERROR_MESSAGE = (
-        "The Supplementary Dataset Schema Version does not match the version set " "in the Questionnaire Schema"
+        "The Supplementary Dataset Schema Version does not match the version set in the Questionnaire Schema"
     )
 
     dataset_id = VALIDATORS["uuid"]()

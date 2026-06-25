@@ -46,7 +46,7 @@ class Operations:
     """
 
     NEGATIVE_DAYS_OFFSET_ERROR_MESSAGE = (
-        "Negative days offset must be less than or equal to -7 when used with " "`day_of_week` offset"
+        "Negative days offset must be less than or equal to -7 when used with `day_of_week` offset"
     )
 
     def __init__(
