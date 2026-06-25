@@ -253,11 +253,12 @@ class TestErrors(IntegrationTestCase):  # pylint: disable=too-many-public-method
         self.assertInBody(
             [
                 (
-                    f'<p>If you are completing a business survey and you need further help, please <a href="{BUSINESS_URL}/contact-us/">contact us</a>.</p>'
+                    f'<p>If you are completing a business survey and you need further help, '
+                    f'please <a href="{BUSINESS_URL}/contact-us/">contact us</a>.</p>'
                 ),
                 (
-                    f'<p>If you started your survey using an access code and you need further help, please <a href="{ONS_URL}/aboutus/contactus/surveyenquiries'
-                    '/">contact us</a>.</p>'
+                    f'<p>If you started your survey using an access code and you need further help, please '
+                    f'<a href="{ONS_URL}/aboutus/contactus/surveyenquiries/">contact us</a>.</p>'
                 ),
             ]
         )
@@ -273,7 +274,10 @@ class TestErrors(IntegrationTestCase):  # pylint: disable=too-many-public-method
         self.assertEqual(cookie.get("theme"), "default")
         self.assertStatusNotFound()
         self.assertInBody(
-            f'<p>If the web address is correct or you selected a link or button, <a href="{DEFAULT_URL}/contact-us/">contact us</a> for more help.</p>'
+            (
+                f'<p>If the web address is correct or you selected a link or button, '
+                f'<a href="{DEFAULT_URL}/contact-us/">contact us</a> for more help.</p>'
+            )
         )
 
     def test_404_theme_social_cookie_exists(self):
