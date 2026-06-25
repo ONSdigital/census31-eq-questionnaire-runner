@@ -206,7 +206,8 @@ def test_build_view_context_for_return_to_calculated_summary(
     return_to_block_id,
 ):
     """
-    Tests the change answer links for a calculated summary that has been reached by a change link on a grand calculated summary
+    Tests the change answer links for a calculated summary that
+    has been reached by a change link on a grand calculated summary
     """
     mocker.patch(
         "app.jinja_filters.flask_babel.get_locale",
@@ -356,10 +357,14 @@ def test_build_view_context_for_calculated_summary_with_dynamic_answers(
     answer_ids = [answer["id"] for answer in answers_to_keep]
     assert answer_ids == expected_answer_ids
 
-    # blocks with dynamic answers show each answer suffixed with the list item id, so the anchor needs to also include it
+    # blocks with dynamic answers show each answer suffixed with the
+    # list item id, so the anchor needs to also include it
     assert all(
         answer["link"].endswith(
-            f"return_to=calculated-summary&return_to_answer_id={answer['id']}&return_to_block_id={block_id}#{answer['id']}"
+            (
+                f"return_to=calculated-summary&return_to_answer_id="
+                f"{answer['id']}&return_to_block_id={block_id}#{answer['id']}"
+            )
         )
         for answer in answers_to_keep
     )

@@ -19,7 +19,10 @@ class TestIntroduction(IntegrationTestCase):
         # When on the introduction page
         # Then description should be displayed
         self.assertInBody(
-            "To take part, all you need to do is check that you have the information you need to answer the survey questions."
+            (
+                "To take part, all you need to do is check that you have the "
+                "information you need to answer the survey questions."
+            )
         )
 
     def test_intro_description_not_displayed(self):
@@ -81,6 +84,11 @@ class TestIntroduction(IntegrationTestCase):
     def test_contact_links(self):
         self.launchSurveyV2(schema_name="test_introduction")
         self.assertInBody(
-            'If the company details or structure have changed contact us on <a href="tel:03001234931">0300 1234 931</a> '
-            'or email <a href="mailto:surveys@ons.gov.uk?subject=Change%20of%20details%20reference%2012345678901A">surveys@ons.gov.uk</a>'
+            (
+                'If the company details or structure have changed contact us on '
+                '<a href="tel:03001234931">0300 1234 931</a> '
+                'or email <a href="mailto:surveys@ons.gov.uk?subject='
+                'Change%20of%20details%20reference%2012345678901A">'
+                'surveys@ons.gov.uk</a>'
+            )
         )

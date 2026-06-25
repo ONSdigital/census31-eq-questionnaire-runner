@@ -394,7 +394,10 @@ def test_remove_completed_relationship_locations_for_list_name(
         mock_location, mock_empty_schema, mock_questionnaire_store, mock_router, None
     )
 
-    patch_method = "app.questionnaire.questionnaire_store_updater.QuestionnaireStoreUpdater._get_relationship_collectors_by_list_name"
+    patch_method = (
+        "app.questionnaire.questionnaire_store_updater."
+        "QuestionnaireStoreUpdater._get_relationship_collectors_by_list_name"
+    )
     patched = mocker.patch(patch_method)
     patched.return_value = [{"id": "test-relationship-collector"}]
     questionnaire_store_updater.remove_completed_relationship_locations_for_list_name(
@@ -672,7 +675,8 @@ def test_update_answers_captures_answer_dependencies(
     "answer_dependent_answer_id, updated_answer_value, expected_output",
     [
         (
-            # when the answer dependent has an answer_id, then the dependent answer should be removed from the answer store
+            # when the answer dependent has an answer_id,
+            # then the dependent answer should be removed from the answer store
             "second-answer",
             "answer updated",
             AnswerStore(
@@ -681,7 +685,8 @@ def test_update_answers_captures_answer_dependencies(
                 ]
             ),
         ),
-        (  # when the answer dependent does not have an answer_id, then no answers should be removed from the store
+        (  # when the answer dependent does not have an answer_id,
+            # then no answers should be removed from the store
             None,
             "answer updated",
             AnswerStore(
@@ -692,7 +697,8 @@ def test_update_answers_captures_answer_dependencies(
             ),
         ),
         (
-            # When the answer dependent has an answer_id, but the answer dependency value is not changed, then the answer store should not change
+            # When the answer dependent has an answer_id, but the answer dependency value is not changed,
+            # then the answer store should not change
             "second-answer",
             "original answer",
             AnswerStore(
@@ -854,14 +860,16 @@ def test_update_repeating_answers_with_answer_dependents(
     "section_status, updated_answer_value, is_path_complete, expected_status",
     [
         (
-            # When an answer is changed which causes the path of a dependent section to be incomplete, Then that sections is update to IN_PROGRESS
+            # When an answer is changed which causes the path of a dependent section to be incomplete,
+            # Then that sections is update to IN_PROGRESS
             CompletionStatus.COMPLETED,
             "answer updated",
             False,
             CompletionStatus.IN_PROGRESS,
         ),
         (
-            # When an answer is changed which causes the path of a dependent section to be complete, Then that sections is update to COMPLETED
+            # When an answer is changed which causes the path of a dependent section to be complete,
+            # Then that sections is update to COMPLETED
             CompletionStatus.IN_PROGRESS,
             "answer updated",
             True,
@@ -938,10 +946,12 @@ def test_answer_id_section_dependents(
 
 @pytest.mark.parametrize(
     "list_item_1_section_status, list_item_2_section_status, updated_answer_value, "
-    "is_list_item_1_path_complete, is_list_item_2_path_complete, expected_list_item_1_status, expected_list_item_2_status",
+    "is_list_item_1_path_complete, is_list_item_2_path_complete, expected_list_item_1_status, "
+    "expected_list_item_2_status",
     [
         (
-            # When an answer is changed which causes repeating dependent section to be incomplete, Then those repeating sections are updated to IN_PROGRESS
+            # When an answer is changed which causes repeating dependent section to be incomplete,
+            # Then those repeating sections are updated to IN_PROGRESS
             CompletionStatus.COMPLETED,
             CompletionStatus.COMPLETED,
             "answer updated",
@@ -951,7 +961,8 @@ def test_answer_id_section_dependents(
             CompletionStatus.IN_PROGRESS,
         ),
         (
-            # When an answer is changed which causes repeating dependent section to be complete, Then those repeating sections are updated to COMPLETED
+            # When an answer is changed which causes repeating dependent section to be complete,
+            # Then those repeating sections are updated to COMPLETED
             CompletionStatus.IN_PROGRESS,
             CompletionStatus.IN_PROGRESS,
             "answer updated",
@@ -961,7 +972,8 @@ def test_answer_id_section_dependents(
             CompletionStatus.COMPLETED,
         ),
         (
-            # When an answer is changed which causes repeating section paths to change, Then those repeating sections statuses are updated correctly
+            # When an answer is changed which causes repeating section paths to change,
+            # Then those repeating sections statuses are updated correctly
             CompletionStatus.COMPLETED,
             CompletionStatus.IN_PROGRESS,
             "answer updated",
@@ -1530,8 +1542,8 @@ def test_questionnaire_store_updater_dependency_capture(
 ):
     """
     This test is intended to ensure that the order in which dependencies are captured and evaluated is correct.
-    We should only call the routing path for a given section once and need to ensure that only the necessary paths are evaluated
-    i.e. only sections in which the status has changed should be evaluated.
+    We should only call the routing path for a given section once and need to ensure that
+    only the necessary paths are evaluated i.e. only sections in which the status has changed should be evaluated.
     """
     current_location = Location(section_id="section-1", block_id="block-2")
     mock_dependencies = defaultdict(OrderedSet) | {
