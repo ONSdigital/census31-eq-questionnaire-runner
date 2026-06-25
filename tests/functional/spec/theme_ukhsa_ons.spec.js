@@ -10,8 +10,8 @@ describe("Theme UKHSA-ONS", () => {
 
     it("When I navigate to the radio page, Then I should see UKHSA-ONS theme content", async () => {
       await verifyUrlContains(RadioPage.pageName);
-      await expect(await $("#ons-logo-stacked-en-alt").getHTML()).toContain("Office for National Statistics");
-      await expect(await $("#ukhsa-logo-alt").getHTML()).toContain("UK Health Security Agency");
+      await expect(await $("#ons-logo-stacked-en-alt").getProperty("textContent")).toContain("Office for National Statistics");
+      await expect(await $("#ukhsa-logo-alt").getProperty("textContent")).toContain("UK Health Security Agency");
     });
   });
 });

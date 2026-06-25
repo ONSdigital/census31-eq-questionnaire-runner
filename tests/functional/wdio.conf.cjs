@@ -1,3 +1,10 @@
+const isHeadless = String(process.env.EQ_RUN_FUNCTIONAL_TESTS_HEADLESS).toLowerCase() === "true";
+// Per-attempt wait for session redirect; with retries the total worst-case is attempts * this value.
+const sessionRedirectTimeoutMs = parseInt(process.env.EQ_SESSION_REDIRECT_TIMEOUT_MS || "15000", 10);
+const openQuestionnaireAttempts = parseInt(process.env.EQ_OPEN_QUESTIONNAIRE_ATTEMPTS || "2", 10);
+// Mocha timeout must cover worst-case launch (all attempts) plus headroom for the test itself.
+const mochaTimeoutMs = parseInt(process.env.EQ_FUNCTIONAL_TEST_MOCHA_TIMEOUT_MS || "60000", 10);
+
 exports.config = {
   //
   // ====================
@@ -7,6 +14,8 @@ exports.config = {
   // WebdriverIO allows it to run your tests in arbitrary locations (e.g. locally or
   // on a remote machine).
   runner: "local",
+  // Avoid spawning xvfb-run in headless CI runs where a virtual display is unnecessary.
+  autoXvfb: !isHeadless,
   //
   // ==================
   // Specify Test Files
@@ -58,7 +67,7 @@ exports.config = {
       // excludeDriverLogs: ['bugreport', 'server'],
       "goog:chromeOptions": {
         args: [
-          process.env.EQ_RUN_FUNCTIONAL_TESTS_HEADLESS ? "--headless" : "--start-maximized",
+          isHeadless ? "--headless" : "--start-maximized",
           "--window-size=3840,2160",
           "--no-sandbox",
           "--disable-gpu",
@@ -140,7 +149,8 @@ exports.config = {
   // See the full list at http://mochajs.org/
   mochaOpts: {
     ui: "bdd",
-    timeout: 60000,
+    // Ensure hook timeout always allows for slow session redirects under CI load.
+    timeout: mochaTimeoutMs,
     compilers: ["js:@babel/register"],
   },
   //
@@ -216,24 +226,53 @@ exports.config = {
           booleanFlag = false,
         } = {},
       ) {
-        const token = await JwtHelper.generateToken(schema, {
-          launchVersion,
-          theme,
-          userId,
-          collectionId,
-          responseId,
-          surveyId,
-          periodId,
-          periodStr,
-          ruRef,
-          sdsDatasetId,
-          regionCode: region,
-          languageCode: language,
-          includeLogoutUrl,
-          cirInstrumentId,
-          booleanFlag,
-        });
-        this.url(`/session?token=${token}`);
+        let launchError;
+
+        for (let attempt = 1; attempt <= openQuestionnaireAttempts; attempt += 1) {
+          const token = await JwtHelper.generateToken(schema, {
+            launchVersion,
+            theme,
+            userId,
+            collectionId,
+            responseId,
+            surveyId,
+            periodId,
+            periodStr,
+            ruRef,
+            sdsDatasetId,
+            regionCode: region,
+            languageCode: language,
+            includeLogoutUrl,
+            cirInstrumentId,
+            booleanFlag,
+          });
+
+          await this.url(`/session?token=${token}`);
+
+          try {
+            await browser.waitUntil(
+              async () => {
+                const currentUrl = await browser.getUrl();
+                return !currentUrl.includes("/session?token=");
+              },
+              {
+                timeout: sessionRedirectTimeoutMs,
+                interval: 100,
+                timeoutMsg: `Session failed to redirect away from /session page within ${sessionRedirectTimeoutMs}ms`,
+              },
+            );
+
+            return;
+          } catch (error) {
+            launchError = error;
+
+            if (attempt < openQuestionnaireAttempts) {
+              await this.url("/");
+            }
+          }
+        }
+
+        throw launchError;
       },
     );
   },

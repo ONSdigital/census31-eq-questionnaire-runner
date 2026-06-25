@@ -2,20 +2,19 @@
 set -exo pipefail
 
 if [[ -z "$PROJECT_ID" ]]; then
-  echo "PROJECT_ID not provided"
-  exit 1
+    echo "PROJECT_ID not provided"
+    exit 1
 fi
 
 if [[ -z "$DOCKER_REGISTRY" ]]; then
-  echo "DOCKER_REGISTRY not provided"
-  exit 1
+    echo "DOCKER_REGISTRY not provided"
+    exit 1
 fi
 
 if [[ -z "$IMAGE_TAG" ]]; then
-  echo "IMAGE_TAG not provided"
-  exit 1
+    echo "IMAGE_TAG not provided"
+    exit 1
 fi
-
 
 REGION="${REGION:=europe-west2}"
 
@@ -62,7 +61,6 @@ CONFIRMATION_EMAIL_LIMIT="${CONFIRMATION_EMAIL_LIMIT:=10}"
 VIEW_SUBMITTED_RESPONSE_EXPIRATION_IN_SECONDS="${VIEW_SUBMITTED_RESPONSE_EXPIRATION_IN_SECONDS:=2700}"
 
 GOOGLE_TAG_ID="${GOOGLE_TAG_ID:=}"
-
 
 gcloud beta run deploy eq-questionnaire-runner \
     --project="${PROJECT_ID}" --region="${REGION}" --concurrency="${CONCURRENCY}" --min-instances="${MIN_INSTANCES}" --max-instances="${MAX_INSTANCES}" \

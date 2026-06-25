@@ -10,8 +10,8 @@ and outputs this formatted in the style of an integration test.
 ### Overview
 
 * All POSTs are recorded. To ensure only the necessary GET requests are recorded, additional logic excludes the following GET requests:
-    * Session tokens
-    * Initial URL requests for each page load
+  * Session tokens
+  * Initial URL requests for each page load
 * Additional logic is in place to ensure that, when navigating backwards in a journey after following links (e.g. 'previous' link), it is recorded correctly.
   This is achieved by storing the previous request method at module-level so that it can be used in deciding whether to record or disregard the GET request.
 * You will need to manually add your assertions in the generated test file
