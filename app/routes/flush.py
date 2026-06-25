@@ -16,7 +16,7 @@ from app.keys import KEY_PURPOSE_AUTHENTICATION, KEY_PURPOSE_SUBMISSION
 from app.questionnaire import QuestionnaireSchema
 from app.questionnaire.router import Router
 from app.questionnaire.routing_path import RoutingPath
-from app.submitter import GCSSubmitter, LogSubmitter, RabbitMQSubmitter
+from app.submitter import GCSSubmitter, LogSubmitter
 from app.submitter.converter_v2 import convert_answers_v2
 from app.submitter.submission_failed import SubmissionFailedException
 from app.utilities.bind_context import bind_contextvars_schema_from_metadata
@@ -28,7 +28,7 @@ flush_blueprint = Blueprint("flush", __name__)
 
 logger = get_logger()
 
-Submitter: TypeAlias = GCSSubmitter | LogSubmitter | RabbitMQSubmitter
+Submitter: TypeAlias = GCSSubmitter | LogSubmitter
 
 
 @flush_blueprint.route("/flush", methods=["POST"])
@@ -94,7 +94,7 @@ def _submit_data(user: User) -> bool:
 
         additional_metadata = get_receipting_metadata(metadata)
 
-        # Type ignore: Instance attribute 'eq' is a dict with key "submitter" with value of type GCSSubmitter, LogSubmitter or RabbitMQSubmitter
+        # Type ignore: Instance attribute 'eq' is a dict with key "submitter" with value of type GCSSubmitter or LogSubmitter
         submitter: Submitter = current_app.eq["submitter"]  # type: ignore
 
         sent = submitter.send_message(
