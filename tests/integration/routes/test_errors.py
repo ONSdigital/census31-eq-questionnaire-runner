@@ -291,8 +291,11 @@ class TestErrors(IntegrationTestCase):  # pylint: disable=too-many-public-method
         self.assertEqual(cookie.get("theme"), "social")
         self.assertStatusNotFound()
         self.assertInBody(
-            f'<p>If the web address is correct or you selected a link or button, <a href="{ONS_URL}/aboutus/contactus/surveyenquiries/">contact us</a> for more'
-            " help.</p>"
+            (
+                f'<p>If the web address is correct or you selected a link or button, '
+                f'<a href="{ONS_URL}/aboutus/contactus/surveyenquiries/">contact us</a> for more '
+                "help.</p>"
+            )
         )
 
     def test_404_no_cookie(self):
@@ -306,9 +309,18 @@ class TestErrors(IntegrationTestCase):  # pylint: disable=too-many-public-method
         self.assertStatusNotFound()
         self.assertInBody(
             [
-                "<p>If the web address is correct or you selected a link or button, please see the following help links.</p>",
-                f'<p>If you are completing a business survey, please <a href="{BUSINESS_URL}/contact-us/">contact us</a>.</p>',
-                f'<p>If you started your survey using an access code, please <a href="{ONS_URL}/aboutus/contactus/surveyenquiries/">contact us</a>.</p>',
+                (
+                    "<p>If the web address is correct or you selected a link or button, "
+                    "please see the following help links.</p>"
+                ),
+                (
+                    f'<p>If you are completing a business survey, please '
+                    f'<a href="{BUSINESS_URL}/contact-us/">contact us</a>.</p>'
+                ),
+                (
+                    f'<p>If you started your survey using an access code, please '
+                    f'<a href="{ONS_URL}/aboutus/contactus/surveyenquiries/">contact us</a>.</p>'
+                ),
             ]
         )
 
@@ -324,9 +336,18 @@ class TestErrors(IntegrationTestCase):  # pylint: disable=too-many-public-method
         self.assertStatusNotFound()
         self.assertInBody(
             [
-                "<p>If the web address is correct or you selected a link or button, please see the following help links.</p>",
-                f'<p>If you are completing a business survey, please <a href="{BUSINESS_URL}/contact-us/">contact us</a>.</p>',
-                f'<p>If you started your survey using an access code, please <a href="{ONS_URL}/aboutus/contactus/surveyenquiries/">contact us</a>.</p>',
+                (
+                    "<p>If the web address is correct or you selected a link or button, "
+                    "please see the following help links.</p>"
+                ),
+                (
+                    f'<p>If you are completing a business survey, please '
+                    f'<a href="{BUSINESS_URL}/contact-us/">contact us</a>.</p>'
+                ),
+                (
+                    f'<p>If you started your survey using an access code, please '
+                    f'<a href="{ONS_URL}/aboutus/contactus/surveyenquiries/">contact us</a>.</p>'
+                ),
             ]
         )
 
@@ -403,7 +424,10 @@ class TestErrors(IntegrationTestCase):  # pylint: disable=too-many-public-method
         # Then
         self.assertStatusCode(500)
         self.assertInBody(
-            f'<p>If this problem keeps happening, please <a href="{DEFAULT_URL}/contact-us/">contact us</a> for help.</p>'
+            (
+                f'<p>If this problem keeps happening, please '
+                f'<a href="{DEFAULT_URL}/contact-us/">contact us</a> for help.</p>'
+            )
         )
 
     def test_submission_failed_theme_social_cookie_exists(self):
@@ -424,7 +448,10 @@ class TestErrors(IntegrationTestCase):  # pylint: disable=too-many-public-method
         # Then
         self.assertStatusCode(500)
         self.assertInBody(
-            f'<p>If this problem keeps happening, please <a href="{ONS_URL}/aboutus/contactus/surveyenquiries/">contact us</a> for help.</p>'
+            (
+                f'<p>If this problem keeps happening, please <a href="{ONS_URL}/'
+                f'aboutus/contactus/surveyenquiries/">contact us</a> for help.</p>'
+            )
         )
 
     def test_preview_not_enabled_results_in_404(self):
