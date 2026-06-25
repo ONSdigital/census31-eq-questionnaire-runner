@@ -32,9 +32,7 @@ def test_date_field_created_with_guidance(value_source_resolver, rule_evaluator)
         },
     }
 
-    handler = DateHandler(
-        date_json, value_source_resolver, rule_evaluator, error_messages
-    )
+    handler = DateHandler(date_json, value_source_resolver, rule_evaluator, error_messages)
 
     class TestForm(Form):
         test_field = handler.get_field()
@@ -46,9 +44,7 @@ def test_date_field_created_with_guidance(value_source_resolver, rule_evaluator)
     assert form.test_field.description == date_json["guidance"]
 
 
-def test_generate_date_form_validates_single_date_period(
-    app, value_source_resolver, rule_evaluator
-):
+def test_generate_date_form_validates_single_date_period(app, value_source_resolver, rule_evaluator):
     schema = load_schema_from_name("test_date_validation_single")
     value_source_resolver.schema = schema
     value_source_resolver.data_stores.metadata = {"ref_p_start_date": "2017-02-20"}
@@ -86,9 +82,7 @@ def test_generate_date_form_validates_single_date_period_with_bespoke_message(
     assert hasattr(form, "year")
 
 
-def test_get_referenced_offset_value_for_value(
-    app, value_source_resolver, rule_evaluator
-):
+def test_get_referenced_offset_value_for_value(app, value_source_resolver, rule_evaluator):
     answer = {"minimum": {"value": "2017-06-11"}}
 
     handler = DateHandler(answer, value_source_resolver, rule_evaluator, error_messages)
@@ -98,23 +92,17 @@ def test_get_referenced_offset_value_for_value(
     assert minimum_date == parse_datetime("2017-06-21")
 
 
-def test_get_referenced_offset_value_for_now_value(
-    app, value_source_resolver, rule_evaluator
-):
+def test_get_referenced_offset_value_for_now_value(app, value_source_resolver, rule_evaluator):
     answer = {"minimum": {"value": "now"}}
 
     handler = DateHandler(answer, value_source_resolver, rule_evaluator, error_messages)
     minimum_date = handler.get_date_value("minimum")
     minimum_date = handler.transform_date_by_offset(minimum_date, {"days": 10})
 
-    assert datetime.date(minimum_date) == (
-        datetime.now(tz=timezone.utc).date() + relativedelta(days=10)
-    )
+    assert datetime.date(minimum_date) == (datetime.now(tz=timezone.utc).date() + relativedelta(days=10))
 
 
-def test_get_referenced_offset_value_for_meta(
-    app, value_source_resolver, rule_evaluator
-):
+def test_get_referenced_offset_value_for_meta(app, value_source_resolver, rule_evaluator):
     value_source_resolver.data_stores.metadata = {"date": "2018-02-20"}
     answer = {"minimum": {"value": {"identifier": "date", "source": "metadata"}}}
 
@@ -125,12 +113,8 @@ def test_get_referenced_offset_value_for_meta(
     assert minimum_date == parse_datetime("2018-02-10")
 
 
-@patch(
-    "app.utilities.schema.load_schema_from_name", return_value=QuestionnaireSchema({})
-)
-def test_get_referenced_offset_value_for_answer_id(
-    app, value_source_resolver, rule_evaluator
-):
+@patch("app.utilities.schema.load_schema_from_name", return_value=QuestionnaireSchema({}))
+def test_get_referenced_offset_value_for_answer_id(app, value_source_resolver, rule_evaluator):
     answer_store = AnswerStore()
 
     test_answer_id = Answer(answer_id="date", value="2018-03-20")
@@ -149,14 +133,10 @@ def test_get_referenced_offset_value_for_answer_id(
     "app.questionnaire.questionnaire_schema.QuestionnaireSchema.get_list_name_for_answer_id",
     return_value="list",
 )
-def test_get_referenced_offset_value_with_list_item_id(
-    app, value_source_resolver, rule_evaluator
-):
+def test_get_referenced_offset_value_with_list_item_id(app, value_source_resolver, rule_evaluator):
     list_item_id = "abcde"
 
-    test_answer_id = Answer(
-        answer_id="date", value="2018-03-20", list_item_id=list_item_id
-    )
+    test_answer_id = Answer(answer_id="date", value="2018-03-20", list_item_id=list_item_id)
 
     location = Location(section_id="test", list_item_id=list_item_id)
 
@@ -179,9 +159,7 @@ def test_get_referenced_offset_value_with_list_item_id(
     assert maximum_date == parse_datetime("2018-04-20")
 
 
-def test_get_referenced_offset_value_with_no_offset(
-    app, value_source_resolver, rule_evaluator
-):
+def test_get_referenced_offset_value_with_no_offset(app, value_source_resolver, rule_evaluator):
     answer = {"minimum": {"value": "2017-06-11"}}
 
     handler = DateHandler(answer, value_source_resolver, rule_evaluator, error_messages)
@@ -191,9 +169,7 @@ def test_get_referenced_offset_value_with_no_offset(
     assert minimum_date == parse_datetime("2017-06-11")
 
 
-@patch(
-    "app.utilities.schema.load_schema_from_name", return_value=QuestionnaireSchema({})
-)
+@patch("app.utilities.schema.load_schema_from_name", return_value=QuestionnaireSchema({}))
 def test_minimum_and_maximum_offset_dates(app, value_source_resolver, rule_evaluator):
     value_source_resolver.data_stores.metadata = {"date": "2018-02-20"}
     answer_store = AnswerStore()
@@ -222,9 +198,7 @@ def test_minimum_and_maximum_offset_dates(app, value_source_resolver, rule_evalu
     assert maximum_date == parse_datetime("2019-03-20")
 
 
-def test_greater_minimum_date_than_maximum_date(
-    app, value_source_resolver, rule_evaluator
-):
+def test_greater_minimum_date_than_maximum_date(app, value_source_resolver, rule_evaluator):
     answer = {
         "id": "date_answer",
         "type": "Date",
@@ -237,10 +211,7 @@ def test_greater_minimum_date_than_maximum_date(
     with pytest.raises(Exception) as ite:
         handler.get_date_value("minimum")
 
-        assert (
-            str(ite.exception)
-            == "The minimum offset date is greater than the maximum offset date for date-answer."
-        )
+        assert str(ite.exception) == "The minimum offset date is greater than the maximum offset date for date-answer."
 
 
 def test_validate_mandatory_date(app, value_source_resolver, rule_evaluator):

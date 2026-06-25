@@ -1,14 +1,6 @@
 from typing import Any, Mapping, TypedDict
 
-from marshmallow import (
-    INCLUDE,
-    Schema,
-    ValidationError,
-    fields,
-    validate,
-    validates,
-    validates_schema,
-)
+from marshmallow import INCLUDE, Schema, ValidationError, fields, validate, validates, validates_schema
 from marshmallow.experimental.context import Context
 
 from app.utilities.metadata_parser_v2 import VALIDATORS, StripWhitespaceMixin
@@ -26,18 +18,14 @@ SupplementaryDataMetadataSchemaContext = Context[SupplementaryDataMetadataContex
 
 class ItemsSchema(Schema):
     identifier: fields.Field = fields.Field(required=True)
-    ITEM_IDENTIFIER_ERROR_MESSAGE = (
-        "Item {data_key} must be a non-empty string or non-negative integer"
-    )
+    ITEM_IDENTIFIER_ERROR_MESSAGE = "Item {data_key} must be a non-empty string or non-negative integer"
 
     @validates("identifier")
     def validate_identifier(self, identifier: fields.Field, data_key: str) -> None:
         if not (isinstance(identifier, str) and identifier.strip()) and not (
             isinstance(identifier, int) and identifier >= 0
         ):
-            raise ValidationError(
-                self.ITEM_IDENTIFIER_ERROR_MESSAGE.format(data_key=data_key)
-            )
+            raise ValidationError(self.ITEM_IDENTIFIER_ERROR_MESSAGE.format(data_key=data_key))
 
 
 class ItemsData(Schema, StripWhitespaceMixin):
@@ -45,36 +33,23 @@ class ItemsData(Schema, StripWhitespaceMixin):
 
 
 class SupplementaryData(Schema, StripWhitespaceMixin):
-    SDS_IDENTIFIER_ERROR_MESSAGE = (
-        "Supplementary data did not return the specified Identifier"
-    )
+    SDS_IDENTIFIER_ERROR_MESSAGE = "Supplementary data did not return the specified Identifier"
 
     identifier = VALIDATORS["string"](validate=validate.Length(min=1))
     items = fields.Nested(ItemsData, required=False, unknown=INCLUDE)
 
     @validates_schema()
-    def validate_identifier(  # pylint: disable=unused-argument
-        self, data: Mapping, **kwargs: Any
-    ) -> None:
-        if (
-            data
-            and data["identifier"]
-            != SupplementaryDataMetadataSchemaContext.get()["identifier"]
-        ):
+    def validate_identifier(self, data: Mapping, **kwargs: Any) -> None:  # pylint: disable=unused-argument
+        if data and data["identifier"] != SupplementaryDataMetadataSchemaContext.get()["identifier"]:
             raise ValidationError(self.SDS_IDENTIFIER_ERROR_MESSAGE)
 
 
 class SupplementaryDataMetadataSchema(Schema, StripWhitespaceMixin):
 
-    DATASET_ID_ERROR_MESSAGE = (
-        "Supplementary data did not return the specified Dataset ID"
-    )
-    SURVEY_ID_ERROR_MESSAGE = (
-        "Supplementary data did not return the specified Survey ID"
-    )
+    DATASET_ID_ERROR_MESSAGE = "Supplementary data did not return the specified Dataset ID"
+    SURVEY_ID_ERROR_MESSAGE = "Supplementary data did not return the specified Survey ID"
     SDS_VERSION_ERROR_MESSAGE = (
-        "The Supplementary Dataset Schema Version does not match the version set "
-        "in the Questionnaire Schema"
+        "The Supplementary Dataset Schema Version does not match the version set " "in the Questionnaire Schema"
     )
 
     dataset_id = VALIDATORS["uuid"]()
@@ -87,25 +62,16 @@ class SupplementaryDataMetadataSchema(Schema, StripWhitespaceMixin):
     )
 
     @validates_schema()
-    def validate_payload(  # pylint: disable=unused-argument
-        self, payload: Mapping, **kwargs: Any
-    ) -> None:
+    def validate_payload(self, payload: Mapping, **kwargs: Any) -> None:  # pylint: disable=unused-argument
         if payload:
-            if (
-                payload["dataset_id"]
-                != SupplementaryDataMetadataSchemaContext.get()["dataset_id"]
-            ):
+            if payload["dataset_id"] != SupplementaryDataMetadataSchemaContext.get()["dataset_id"]:
                 raise ValidationError(self.DATASET_ID_ERROR_MESSAGE)
 
-            if (
-                payload["survey_id"]
-                != SupplementaryDataMetadataSchemaContext.get()["survey_id"]
-            ):
+            if payload["survey_id"] != SupplementaryDataMetadataSchemaContext.get()["survey_id"]:
                 raise ValidationError(self.SURVEY_ID_ERROR_MESSAGE)
 
             if SupplementaryDataMetadataSchemaContext.get()["sds_schema_version"] and (
-                payload["data"]["schema_version"]
-                != SupplementaryDataMetadataSchemaContext.get()["sds_schema_version"]
+                payload["data"]["schema_version"] != SupplementaryDataMetadataSchemaContext.get()["sds_schema_version"]
             ):
                 raise ValidationError(self.SDS_VERSION_ERROR_MESSAGE)
 
@@ -118,9 +84,7 @@ def validate_supplementary_data_v1(
     sds_schema_version: str | None = None,
 ) -> dict[str, str | dict | int | list]:
     """Validate claims required for supplementary data"""
-    supplementary_data_metadata_schema = SupplementaryDataMetadataSchema(
-        unknown=INCLUDE
-    )
+    supplementary_data_metadata_schema = SupplementaryDataMetadataSchema(unknown=INCLUDE)
     with SupplementaryDataMetadataSchemaContext(
         {
             "dataset_id": dataset_id,
@@ -129,9 +93,7 @@ def validate_supplementary_data_v1(
             "sds_schema_version": sds_schema_version,
         }
     ):
-        validated_supplementary_data = supplementary_data_metadata_schema.load(
-            supplementary_data
-        )
+        validated_supplementary_data = supplementary_data_metadata_schema.load(supplementary_data)
     if supplementary_data_items := supplementary_data.get("data", {}).get("items"):
         for key, values in supplementary_data_items.items():
             items = [ItemsSchema(unknown=INCLUDE).load(value) for value in values]

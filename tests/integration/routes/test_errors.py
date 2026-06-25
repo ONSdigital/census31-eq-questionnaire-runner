@@ -1,11 +1,7 @@
 from mock import Mock, patch
 
 from app.questionnaire.questionnaire_schema import DEFAULT_LANGUAGE_CODE
-from app.settings import (
-    ACCOUNT_SERVICE_BASE_URL,
-    ACCOUNT_SERVICE_BASE_URL_SOCIAL,
-    ONS_URL,
-)
+from app.settings import ACCOUNT_SERVICE_BASE_URL, ACCOUNT_SERVICE_BASE_URL_SOCIAL, ONS_URL
 from tests.app.parser.conftest import get_response_expires_at
 from tests.integration.create_token import ACCOUNT_SERVICE_URL
 from tests.integration.integration_test_case import IntegrationTestCase
@@ -60,9 +56,7 @@ class TestErrors(IntegrationTestCase):  # pylint: disable=too-many-public-method
             )
         )
 
-    def _assert_social_theme_500_page_content(
-        self, has_header=False, contact_us_text="contact us"
-    ):
+    def _assert_social_theme_500_page_content(self, has_header=False, contact_us_text="contact us"):
         header_text = "<h2>All other surveys</h2>\n" if has_header else ""
 
         self.assertInBody(
@@ -85,9 +79,7 @@ class TestErrors(IntegrationTestCase):  # pylint: disable=too-many-public-method
         self.assertNotInBody("Sign out")
 
     def test_errors_404_with_payload(self):
-        with patch(
-            "tests.integration.create_token.PAYLOAD_V2_BUSINESS", self.example_payload
-        ):
+        with patch("tests.integration.create_token.PAYLOAD_V2_BUSINESS", self.example_payload):
             self.launchSurveyV2(schema_name="test_percentage")
             self.get("/hfjdskahfjdkashfsa")
             self.assertStatusNotFound()
@@ -102,9 +94,7 @@ class TestErrors(IntegrationTestCase):  # pylint: disable=too-many-public-method
 
     def test_errors_500_with_payload(self):
         # Given
-        with patch(
-            "tests.integration.create_token.PAYLOAD_V2_BUSINESS", self.example_payload
-        ):
+        with patch("tests.integration.create_token.PAYLOAD_V2_BUSINESS", self.example_payload):
             self.launchSurveyV2(schema_name="test_percentage")
             # When / Then
             # Patch out a class in post to raise an exception so that the application error handler
@@ -118,9 +108,7 @@ class TestErrors(IntegrationTestCase):  # pylint: disable=too-many-public-method
 
     def test_errors_500_exception_during_error_handling(self):
         # Given
-        with patch(
-            "tests.integration.create_token.PAYLOAD_V2_BUSINESS", self.example_payload
-        ):
+        with patch("tests.integration.create_token.PAYLOAD_V2_BUSINESS", self.example_payload):
             self.launchSurveyV2(schema_name="test_percentage")
             # When
 
@@ -219,9 +207,7 @@ class TestErrors(IntegrationTestCase):  # pylint: disable=too-many-public-method
         # Then
         self.assertEqual(cookie.get("theme"), "default")
         self.assertStatusForbidden()
-        self.assertInBody(
-            f'<p>For further help, please <a href="{DEFAULT_URL}/contact-us/">contact us</a>.</p>'
-        )
+        self.assertInBody(f'<p>For further help, please <a href="{DEFAULT_URL}/contact-us/">contact us</a>.</p>')
 
     def test_403_theme_social_cookie_exists(self):
         # Given

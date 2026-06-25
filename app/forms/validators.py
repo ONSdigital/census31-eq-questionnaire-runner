@@ -15,11 +15,7 @@ from structlog import get_logger
 from wtforms import Field, StringField, validators
 
 from app.forms import error_messages
-from app.forms.fields import (
-    DateField,
-    DecimalFieldWithSeparator,
-    IntegerFieldWithSeparator,
-)
+from app.forms.fields import DateField, DecimalFieldWithSeparator, IntegerFieldWithSeparator
 from app.helpers.form_helpers import (
     format_message_with_title,
     format_playback_value,
@@ -34,9 +30,7 @@ if TYPE_CHECKING:
 
 logger = get_logger()
 
-tld_part_regex = re.compile(
-    r"^([a-z]{2,63}|xn--([a-z0-9]+-)*[a-z0-9]+)$", re.IGNORECASE
-)
+tld_part_regex = re.compile(r"^([a-z]{2,63}|xn--([a-z0-9]+-)*[a-z0-9]+)$", re.IGNORECASE)
 email_regex = re.compile(r"^.+@([^.@][^@\s]+)$")
 
 OptionalMessage = Mapping[str, str] | None
@@ -83,11 +77,7 @@ class ResponseRequired:
             self.string_check = lambda s: s
 
     def __call__(self, form: "QuestionnaireForm", field: Field) -> None:
-        if (
-            not field.raw_data
-            or not field.raw_data[0]
-            or not self.string_check(field.raw_data[0])
-        ):
+        if not field.raw_data or not field.raw_data[0] or not self.string_check(field.raw_data[0]):
             field.errors[:] = []
             raise validators.StopValidation(self.message)
 
@@ -130,18 +120,14 @@ class NumberRange:
         value: int | Decimal | None = field.data
 
         if value is not None:
-            decimal_limit = (
-                field.places if isinstance(field, DecimalFieldWithSeparator) else None
-            )
+            decimal_limit = field.places if isinstance(field, DecimalFieldWithSeparator) else None
 
             if error_message := self.validate_minimum(
                 value=value, decimal_limit=decimal_limit
             ) or self.validate_maximum(value=value, decimal_limit=decimal_limit):
                 raise validators.ValidationError(error_message)
 
-    def validate_minimum(
-        self, *, value: NumType, decimal_limit: int | None
-    ) -> str | None:
+    def validate_minimum(self, *, value: NumType, decimal_limit: int | None) -> str | None:
         if self.minimum is None:
             return None
 
@@ -159,9 +145,7 @@ class NumberRange:
 
         return None
 
-    def validate_maximum(
-        self, *, value: NumType, decimal_limit: int | None
-    ) -> str | None:
+    def validate_maximum(self, *, value: NumType, decimal_limit: int | None) -> str | None:
         if self.maximum is None:
             return None
 
@@ -192,18 +176,14 @@ class DecimalPlaces:
         self.max_decimals = max_decimals
         self.messages = {**error_messages, **(messages or {})}
 
-    def __call__(
-        self, form: "QuestionnaireForm", field: DecimalFieldWithSeparator
-    ) -> None:
+    def __call__(self, form: "QuestionnaireForm", field: DecimalFieldWithSeparator) -> None:
         data = sanitise_number(field.raw_data[0])
         decimal_symbol = numbers.get_decimal_symbol(flask_babel.get_locale())
         if data and decimal_symbol in data:
             if self.max_decimals == 0:
                 raise validators.ValidationError(self.messages["INVALID_INTEGER"])
             if len(data.split(decimal_symbol)[1]) > self.max_decimals:
-                raise validators.ValidationError(
-                    self.messages["INVALID_DECIMAL"] % {"max": self.max_decimals}
-                )
+                raise validators.ValidationError(self.messages["INVALID_DECIMAL"] % {"max": self.max_decimals})
 
 
 class OptionalForm:
@@ -299,21 +279,13 @@ class SingleDatePeriodCheck:
         if self.minimum_date and date and date < self.minimum_date:
             raise validators.ValidationError(
                 self.messages["SINGLE_DATE_PERIOD_TOO_EARLY"]
-                % {
-                    "min": self._format_playback_date(
-                        self.minimum_date + relativedelta(days=-1), self.date_format
-                    )
-                }
+                % {"min": self._format_playback_date(self.minimum_date + relativedelta(days=-1), self.date_format)}
             )
 
         if self.maximum_date and date and date > self.maximum_date:
             raise validators.ValidationError(
                 self.messages["SINGLE_DATE_PERIOD_TOO_LATE"]
-                % {
-                    "max": self._format_playback_date(
-                        self.maximum_date + relativedelta(days=+1), self.date_format
-                    )
-                }
+                % {"max": self._format_playback_date(self.maximum_date + relativedelta(days=+1), self.date_format)}
             )
 
     @staticmethod
@@ -333,9 +305,7 @@ class DateRangeCheck:
         self.period_min = period_min
         self.period_max = period_max
 
-    def __call__(
-        self, form: "QuestionnaireForm", from_field: DateField, to_field: DateField
-    ) -> None:
+    def __call__(self, form: "QuestionnaireForm", from_field: DateField, to_field: DateField) -> None:
         from_date = parse_datetime(from_field.data)
         to_date = parse_datetime(to_field.data)
 
@@ -347,22 +317,16 @@ class DateRangeCheck:
 
         if self.period_min:
             min_range = self._return_relative_delta(self.period_min)
-            if self._is_first_relative_delta_largest(
-                min_range, answered_range_relative
-            ):
+            if self._is_first_relative_delta_largest(min_range, answered_range_relative):
                 raise validators.ValidationError(
-                    self.messages["DATE_PERIOD_TOO_SMALL"]
-                    % {"min": self._build_range_length_error(self.period_min)}
+                    self.messages["DATE_PERIOD_TOO_SMALL"] % {"min": self._build_range_length_error(self.period_min)}
                 )
 
         if self.period_max:
             max_range = self._return_relative_delta(self.period_max)
-            if self._is_first_relative_delta_largest(
-                answered_range_relative, max_range
-            ):
+            if self._is_first_relative_delta_largest(answered_range_relative, max_range):
                 raise validators.ValidationError(
-                    self.messages["DATE_PERIOD_TOO_LARGE"]
-                    % {"max": self._build_range_length_error(self.period_max)}
+                    self.messages["DATE_PERIOD_TOO_LARGE"] % {"max": self._build_range_length_error(self.period_max)}
                 )
 
     @staticmethod
@@ -374,12 +338,8 @@ class DateRangeCheck:
         )
 
     @staticmethod
-    def _is_first_relative_delta_largest(
-        relativedelta1: relativedelta, relativedelta2: relativedelta
-    ) -> bool:
-        epoch = datetime.min.replace(
-            tzinfo=timezone.utc
-        )  # generic epoch for comparison purposes only
+    def _is_first_relative_delta_largest(relativedelta1: relativedelta, relativedelta2: relativedelta) -> bool:
+        epoch = datetime.min.replace(tzinfo=timezone.utc)  # generic epoch for comparison purposes only
         date1 = epoch + relativedelta1
         date2 = epoch + relativedelta2
         return date1 > date2
@@ -388,31 +348,20 @@ class DateRangeCheck:
     def _build_range_length_error(period_object: PeriodType) -> str:
         error_message = ""
         if "years" in period_object:
-            error_message = ngettext(
-                "%(num)s year", "%(num)s years", period_object["years"]
-            )
+            error_message = ngettext("%(num)s year", "%(num)s years", period_object["years"])
         if "months" in period_object:
-            message_addition = ngettext(
-                "%(num)s month", "%(num)s months", period_object["months"]
-            )
-            error_message += (
-                message_addition if error_message == "" else ", " + message_addition
-            )
+            message_addition = ngettext("%(num)s month", "%(num)s months", period_object["months"])
+            error_message += message_addition if error_message == "" else ", " + message_addition
         if "days" in period_object:
-            message_addition = ngettext(
-                "%(num)s day", "%(num)s days", period_object["days"]
-            )
-            error_message += (
-                message_addition if error_message == "" else ", " + message_addition
-            )
+            message_addition = ngettext("%(num)s day", "%(num)s days", period_object["days"])
+            error_message += message_addition if error_message == "" else ", " + message_addition
 
         return error_message
 
 
 class SumCheck:
     MULTIPLE_CONDITION_ERROR_MESSAGE = (
-        "There are multiple conditions, but equals is not one of them. "
-        "We only support <= and >="
+        "There are multiple conditions, but equals is not one of them. " "We only support <= and >="
     )
 
     def __init__(self, messages: OptionalMessage = None, currency: str | None = None):
@@ -441,9 +390,7 @@ class SumCheck:
 
         if not is_valid:
             decimal_limit = decimal_limit or (
-                None
-                if isinstance(target_total, int)
-                else str(target_total)[::-1].find(".")
+                None if isinstance(target_total, int) else str(target_total)[::-1].find(".")
             )
             raise validators.ValidationError(
                 self.messages[message]
@@ -473,9 +420,7 @@ class SumCheck:
         if condition == "less than or equals":
             return total <= target_total, "TOTAL_SUM_NOT_LESS_THAN_OR_EQUALS"
 
-        unimplemented_condition_error_message = (
-            f"Condition '{condition}' is not implemented"
-        )
+        unimplemented_condition_error_message = f"Condition '{condition}' is not implemented"
         raise NotImplementedError(unimplemented_condition_error_message)
 
 
@@ -490,10 +435,7 @@ class MutuallyExclusiveCheck:
         is_mandatory: bool,
         is_only_checkboxes_or_radios: bool,
     ) -> None:
-        total_answered = sum(
-            value not in QuestionnaireStoreUpdater.EMPTY_ANSWER_VALUES
-            for value in answer_values
-        )
+        total_answered = sum(value not in QuestionnaireStoreUpdater.EMPTY_ANSWER_VALUES for value in answer_values)
 
         if total_answered > 1:
             raise validators.ValidationError(self.messages["MUTUALLY_EXCLUSIVE"])

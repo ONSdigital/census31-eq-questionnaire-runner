@@ -12,9 +12,7 @@ from app.forms.validators import DecimalPlaces
     ([None], [""], ["a"], ["2E2"], ["NaN"], [",NaN_"]),
 )
 @pytest.mark.usefixtures("gb_locale")
-def test_number_validator_raises_StopValidation(
-    number_check, value, mock_form, mock_field
-):
+def test_number_validator_raises_StopValidation(number_check, value, mock_form, mock_field):
     mock_field.raw_data = value
 
     with pytest.raises(StopValidation) as exc:
@@ -31,9 +29,7 @@ def test_number_validator_raises_StopValidation(
     ),
 )
 @pytest.mark.usefixtures("gb_locale")
-def test_decimal_validator_raises_StopValidation(
-    decimals, error, mock_form, mock_field
-):
+def test_decimal_validator_raises_StopValidation(decimals, error, mock_form, mock_field):
     validator = DecimalPlaces(decimals)
     mock_field.raw_data = ["1.234"]
 

@@ -10,25 +10,14 @@ from markupsafe import escape
 from werkzeug.datastructures import MultiDict
 from werkzeug.exceptions import BadRequest
 
-from app.cloud_tasks.cloud_task_publishers import (
-    CloudTaskPublisher,
-    LogCloudTaskPublisher,
-)
+from app.cloud_tasks.cloud_task_publishers import CloudTaskPublisher, LogCloudTaskPublisher
 from app.cloud_tasks.exceptions import CloudTaskCreationFailed
-from app.data_models import (
-    FulfilmentRequest,
-    QuestionnaireStore,
-    SessionData,
-    SessionStore,
-)
+from app.data_models import FulfilmentRequest, QuestionnaireStore, SessionData, SessionStore
 from app.data_models.metadata_proxy import MetadataProxy
 from app.forms.questionnaire_form import QuestionnaireForm, generate_form
 from app.helpers import url_safe_serializer
 from app.questionnaire import QuestionnaireSchema, QuestionSchemaType
-from app.settings import (
-    EQ_SUBMISSION_CONFIRMATION_CLOUD_FUNCTION_NAME,
-    EQ_SUBMISSION_CONFIRMATION_QUEUE,
-)
+from app.settings import EQ_SUBMISSION_CONFIRMATION_CLOUD_FUNCTION_NAME, EQ_SUBMISSION_CONFIRMATION_QUEUE
 from app.views.contexts.confirm_email_context import build_confirm_email_context
 from app.views.handlers.confirmation_email import (
     ConfirmationEmail,
@@ -125,9 +114,7 @@ class ConfirmEmail:
 
     def get_page_title(self) -> str:
         if self.form.errors:
-            formatted_errors: str = gettext("Error: {page_title}").format(
-                page_title=self.page_title
-            )
+            formatted_errors: str = gettext("Error: {page_title}").format(page_title=self.page_title)
             return formatted_errors
         return self.page_title
 
@@ -150,9 +137,9 @@ class ConfirmEmail:
 
         try:
             # Type ignore: mypy not aware of eq attribute but it is a cloud task publisher
-            cloud_task_publisher: CloudTaskPublisher | LogCloudTaskPublisher = (
-                current_app.eq["cloud_tasks"]  # type: ignore[attr-defined]
-            )
+            cloud_task_publisher: CloudTaskPublisher | LogCloudTaskPublisher = current_app.eq[
+                "cloud_tasks"
+            ]  # type: ignore[attr-defined]
             return cloud_task_publisher.create_task(
                 body=fulfilment_request.message,
                 queue_name=EQ_SUBMISSION_CONFIRMATION_QUEUE,

@@ -70,9 +70,7 @@ class TestQuestionnaireProgressValueSourceBlocks(IntegrationTestCase):
         self.assertInBody("Check your answers and submit")
 
         # Change block 1 answer to 1
-        self.get(
-            "/questionnaire/s1-b1/?return_to=final-summary&return_to_answer_id=s1-b1-q1-a1#s1-b1-q1-a1"
-        )
+        self.get("/questionnaire/s1-b1/?return_to=final-summary&return_to_answer_id=s1-b1-q1-a1#s1-b1-q1-a1")
         self.assertInBody("Section 1 Question 1")
         self.post({"s1-b1-q1-a1": 1})
 
@@ -137,9 +135,7 @@ class TestQuestionnaireProgressValueSourceBlocks(IntegrationTestCase):
         self.assertInBody("Check your answers and submit")
 
         # Change block 1 answer to 0
-        self.get(
-            "/questionnaire/s1-b1/?return_to=final-summary&return_to_answer_id=s1-b1-q1-a1#s1-b1-q1-a1"
-        )
+        self.get("/questionnaire/s1-b1/?return_to=final-summary&return_to_answer_id=s1-b1-q1-a1#s1-b1-q1-a1")
         self.assertInBody("Section 1 Question 1")
         self.post({"s1-b1-q1-a1": 0})
 
@@ -158,9 +154,7 @@ class TestQuestionnaireProgressValueSourceBlocks(IntegrationTestCase):
         dependent block progress changes and gets removed from path
         """
 
-        self.launchSurveyV2(
-            schema_name="test_progress_value_source_blocks_cross_section"
-        )
+        self.launchSurveyV2(schema_name="test_progress_value_source_blocks_cross_section")
 
         self.post()
 

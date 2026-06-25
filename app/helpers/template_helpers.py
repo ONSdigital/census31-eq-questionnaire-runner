@@ -48,17 +48,11 @@ class ContextHelper:
         self._survey_config = survey_config
         self._survey_title = cookie_session.get("title", lazy_gettext("ONS Surveys"))
         self._sign_out_url = url_for("session.get_sign_out")
-        self._cdn_url = (
-            f'{current_app.config["CDN_URL"]}{current_app.config["CDN_ASSETS_PATH"]}'
-        )
+        self._cdn_url = f'{current_app.config["CDN_URL"]}{current_app.config["CDN_ASSETS_PATH"]}'
         self._address_lookup_api = current_app.config["ADDRESS_LOOKUP_API_URL"]
         self._google_tag_id = current_app.config.get("EQ_GOOGLE_TAG_ID")
         self._survey_type = cookie_session.get("theme")
-        self._preview_enabled = (
-            self._survey_config.schema.preview_enabled
-            if self._survey_config.schema
-            else False
-        )
+        self._preview_enabled = self._survey_config.schema.preview_enabled if self._survey_config.schema else False
 
     @property
     def context(self) -> dict[str, Any]:
@@ -96,9 +90,7 @@ class ContextHelper:
     def service_links_context(
         self,
     ) -> dict[str, dict[str, str] | list[dict]] | None:
-        ru_ref = (
-            metadata["ru_ref"] if (metadata := get_metadata(current_user)) else None
-        )
+        ru_ref = metadata["ru_ref"] if (metadata := get_metadata(current_user)) else None
 
         if service_links := self._survey_config.get_service_links(
             sign_out_url=self._sign_out_url,
@@ -120,14 +112,8 @@ class ContextHelper:
     def data_layer_context(
         self,
     ) -> dict[str, str]:
-        tx_id_context = (
-            {"tx_id": metadata.tx_id}
-            if (metadata := get_metadata(current_user))
-            else {}
-        )
-        schema_context = {
-            key: value for key in DATA_LAYER_KEYS if (value := cookie_session.get(key))
-        }
+        tx_id_context = {"tx_id": metadata.tx_id} if (metadata := get_metadata(current_user)) else {}
+        schema_context = {key: value for key in DATA_LAYER_KEYS if (value := cookie_session.get(key))}
         return tx_id_context | schema_context
 
     @property
@@ -189,9 +175,7 @@ def survey_config_mapping(
         SurveyType.ONS_NHS: ONSNHSSocialSurveyConfig,
     }
 
-    return survey_type_to_config[theme](
-        base_url=base_url, schema=schema, language_code=language
-    )
+    return survey_type_to_config[theme](base_url=base_url, schema=schema, language_code=language)
 
 
 def get_survey_config(
@@ -210,9 +194,7 @@ def get_survey_config(
 
     survey_theme = theme or get_survey_type()
 
-    base_url = base_url or (
-        cookie_session.get("account_service_base_url") or ACCOUNT_SERVICE_BASE_URL
-    )
+    base_url = base_url or (cookie_session.get("account_service_base_url") or ACCOUNT_SERVICE_BASE_URL)
 
     return survey_config_mapping(
         theme=survey_theme,
@@ -232,15 +214,9 @@ def render_template(template: str, **kwargs: Any) -> str:
     survey_config = get_survey_config()
 
     is_post_submission = request.blueprint == "post_submission"
-    include_csrf_token = bool(
-        request.url_rule
-        and request.url_rule.methods
-        and "POST" in request.url_rule.methods
-    )
+    include_csrf_token = bool(request.url_rule and request.url_rule.methods and "POST" in request.url_rule.methods)
 
-    context = ContextHelper(
-        language, is_post_submission, include_csrf_token, survey_config
-    ).context
+    context = ContextHelper(language, is_post_submission, include_csrf_token, survey_config).context
 
     template = f"{template.lower()}.html"
 

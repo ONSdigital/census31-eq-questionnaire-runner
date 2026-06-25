@@ -31,9 +31,7 @@ class SectionPreviewContext(Context):
             list_item_id=None,
         )
 
-        groups = [
-            PreviewGroup(group_schema=group).serialize() for group in section["groups"]
-        ]
+        groups = [PreviewGroup(group_schema=group).serialize() for group in section["groups"]]
         section_dict: dict = {
             "title": section["title"],
             "id": section["id"],

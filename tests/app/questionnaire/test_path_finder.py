@@ -24,16 +24,12 @@ def test_simple_path():
             )
         ]
     )
-    path_finder = PathFinder(
-        schema, data_stores=DataStores(progress_store=progress_store)
-    )
+    path_finder = PathFinder(schema, data_stores=DataStores(progress_store=progress_store))
 
     section_id = schema.get_section_id_for_block_id("name-block")
     routing_path = path_finder.routing_path(SectionKey(section_id))
 
-    assumed_routing_path = RoutingPath(
-        block_ids=["name-block"], section_id="default-section"
-    )
+    assumed_routing_path = RoutingPath(block_ids=["name-block"], section_id="default-section")
 
     assert routing_path == assumed_routing_path
 
@@ -109,9 +105,7 @@ def test_routing_path_with_complete_introduction():
         section_id="introduction-section",
     )
 
-    path_finder = PathFinder(
-        schema, data_stores=DataStores(progress_store=progress_store)
-    )
+    path_finder = PathFinder(schema, data_stores=DataStores(progress_store=progress_store))
     routing_path = path_finder.routing_path(SectionKey(section_id))
 
     assert routing_path == expected_routing_path
@@ -140,9 +134,7 @@ def test_routing_path():
             }
         ]
     )
-    path_finder = PathFinder(
-        schema, data_stores=DataStores(progress_store=progress_store)
-    )
+    path_finder = PathFinder(schema, data_stores=DataStores(progress_store=progress_store))
     routing_path = path_finder.routing_path(SectionKey(section_id))
 
     assert routing_path == expected_path
@@ -165,9 +157,7 @@ def test_routing_path_with_repeating_sections():
             }
         ]
     )
-    path_finder = PathFinder(
-        schema, data_stores=DataStores(progress_store=progress_store)
-    )
+    path_finder = PathFinder(schema, data_stores=DataStores(progress_store=progress_store))
 
     repeating_section_id = "personal-details-section"
     routing_path = path_finder.routing_path(SectionKey(repeating_section_id, "abc123"))
@@ -211,9 +201,7 @@ def test_routing_path_empty_routing_rules(answer_store):
 
     path_finder = PathFinder(
         schema,
-        data_stores=DataStores(
-            progress_store=progress_store, answer_store=answer_store
-        ),
+        data_stores=DataStores(progress_store=progress_store, answer_store=answer_store),
     )
     routing_path = path_finder.routing_path(SectionKey(section_id))
 
@@ -223,9 +211,7 @@ def test_routing_path_empty_routing_rules(answer_store):
 def test_routing_path_with_conditional_value_not_in_metadata(answer_store):
     schema = load_schema_from_name("test_metadata_routing")
     section_id = schema.get_section_id_for_block_id("block1")
-    expected_path = RoutingPath(
-        block_ids=["block1", "block2", "block3"], section_id="default-section"
-    )
+    expected_path = RoutingPath(block_ids=["block1", "block2", "block3"], section_id="default-section")
 
     progress_store = ProgressStore(
         [
@@ -256,9 +242,7 @@ def test_routing_path_should_skip_block(answer_store):
     # Given
     schema = load_schema_from_name("test_skip_condition_block")
     section_id = schema.get_section_id_for_block_id("should-skip")
-    answer_store.add_or_update(
-        Answer(answer_id="do-you-want-to-skip-answer", value="Yes")
-    )
+    answer_store.add_or_update(Answer(answer_id="do-you-want-to-skip-answer", value="Yes"))
 
     progress_store = ProgressStore(
         [
@@ -274,9 +258,7 @@ def test_routing_path_should_skip_block(answer_store):
     # When
     path_finder = PathFinder(
         schema,
-        data_stores=DataStores(
-            progress_store=progress_store, answer_store=answer_store
-        ),
+        data_stores=DataStores(progress_store=progress_store, answer_store=answer_store),
     )
     routing_path = path_finder.routing_path(SectionKey(section_id))
 
@@ -295,9 +277,7 @@ def test_routing_path_should_skip_group(answer_store):
     schema = load_schema_from_name("test_skip_condition_group")
 
     section_id = schema.get_section_id_for_block_id("do-you-want-to-skip")
-    answer_store.add_or_update(
-        Answer(answer_id="do-you-want-to-skip-answer", value="Yes")
-    )
+    answer_store.add_or_update(Answer(answer_id="do-you-want-to-skip-answer", value="Yes"))
     progress_store = ProgressStore(
         [
             ProgressDict(
@@ -312,9 +292,7 @@ def test_routing_path_should_skip_group(answer_store):
     # When
     path_finder = PathFinder(
         schema,
-        data_stores=DataStores(
-            progress_store=progress_store, answer_store=answer_store
-        ),
+        data_stores=DataStores(progress_store=progress_store, answer_store=answer_store),
     )
     routing_path = path_finder.routing_path(SectionKey(section_id))
 
@@ -332,9 +310,7 @@ def test_routing_path_should_not_skip_group(answer_store):
     schema = load_schema_from_name("test_skip_condition_group")
 
     section_id = schema.get_section_id_for_block_id("do-you-want-to-skip")
-    answer_store.add_or_update(
-        Answer(answer_id="do-you-want-to-skip-answer", value="No")
-    )
+    answer_store.add_or_update(Answer(answer_id="do-you-want-to-skip-answer", value="No"))
     progress_store = ProgressStore(
         [
             ProgressDict(
@@ -349,9 +325,7 @@ def test_routing_path_should_not_skip_group(answer_store):
     # When
     path_finder = PathFinder(
         schema,
-        data_stores=DataStores(
-            progress_store=progress_store, answer_store=answer_store
-        ),
+        data_stores=DataStores(progress_store=progress_store, answer_store=answer_store),
     )
     routing_path = path_finder.routing_path(SectionKey(section_id))
 
@@ -369,9 +343,7 @@ def test_get_routing_path_when_first_block_in_group_skipped(
 ):
     # Given
     schema = load_schema_from_name("test_skip_condition_group")
-    answer_store.add_or_update(
-        Answer(answer_id="do-you-want-to-skip-answer", value="Yes")
-    )
+    answer_store.add_or_update(Answer(answer_id="do-you-want-to-skip-answer", value="Yes"))
 
     # When
     path_finder = PathFinder(schema, data_stores=DataStores(answer_store=answer_store))
@@ -431,28 +403,17 @@ def test_remove_answer_and_block_if_routing_backwards():
     answer_store = AnswerStore()
     route_backwards_answer = Answer(answer_id="route-backwards-answer", value="Yes")
     number_of_employees_answer = Answer(answer_id="number-of-employees-total", value=0)
-    confirm_zero_answer = Answer(
-        answer_id="confirm-zero-employees-answer", value="No I need to correct this"
-    )
+    confirm_zero_answer = Answer(answer_id="confirm-zero-employees-answer", value="No I need to correct this")
     answer_store.add_or_update(route_backwards_answer)
     answer_store.add_or_update(number_of_employees_answer)
     answer_store.add_or_update(confirm_zero_answer)
 
     path_finder = PathFinder(
         schema,
-        data_stores=DataStores(
-            progress_store=progress_store, answer_store=answer_store
-        ),
+        data_stores=DataStores(progress_store=progress_store, answer_store=answer_store),
     )
 
-    assert (
-        len(
-            path_finder.data_stores.progress_store.get_completed_block_ids(
-                SectionKey("section-2")
-            )
-        )
-        == 2
-    )
+    assert len(path_finder.data_stores.progress_store.get_completed_block_ids(SectionKey("section-2"))) == 2
     assert len(path_finder.data_stores.answer_store) == 3
 
     routing_path = path_finder.routing_path(SectionKey(section_id))
@@ -471,13 +432,9 @@ def test_remove_answer_and_block_if_routing_backwards():
     ) == progress_store.get_completed_block_ids(SectionKey("section-2"))
 
     assert len(path_finder.data_stores.answer_store) == 2
-    assert not path_finder.data_stores.answer_store.get_answer(
-        "confirm-zero-employees-answer"
-    )
+    assert not path_finder.data_stores.answer_store.get_answer("confirm-zero-employees-answer")
     assert (
-        path_finder.data_stores.progress_store.get_section_status(
-            SectionKey("section-2")
-        )
+        path_finder.data_stores.progress_store.get_section_status(SectionKey("section-2"))
         == CompletionStatus.IN_PROGRESS
     )
 
@@ -555,9 +512,7 @@ def test_routing_path_block_ids_dependent_on_other_sections_when_rules(
 ):
     # Given a schema which has when rules in a section which has dependencies on other sections answers
     schema = load_schema_from_name("test_routing_and_skipping_section_dependencies")
-    answer_store.add_or_update(
-        Answer(answer_id="skip-age-answer", value=skip_age_answer)
-    )
+    answer_store.add_or_update(Answer(answer_id="skip-age-answer", value=skip_age_answer))
 
     progress = [
         ProgressDict(
@@ -569,9 +524,7 @@ def test_routing_path_block_ids_dependent_on_other_sections_when_rules(
     ]
 
     if skip_confirmation_answer:
-        answer_store.add_or_update(
-            Answer(answer_id="skip-confirmation-answer", value=skip_confirmation_answer)
-        )
+        answer_store.add_or_update(Answer(answer_id="skip-confirmation-answer", value=skip_confirmation_answer))
         answer_store.add_or_update(Answer(answer_id="security-answer", value="Yes"))
 
         progress.append(
@@ -588,9 +541,7 @@ def test_routing_path_block_ids_dependent_on_other_sections_when_rules(
     # When I build the path
     path_finder = PathFinder(
         schema,
-        data_stores=DataStores(
-            progress_store=progress_store, answer_store=answer_store
-        ),
+        data_stores=DataStores(progress_store=progress_store, answer_store=answer_store),
     )
     routing_path = path_finder.routing_path(SectionKey(section_id))
 
@@ -629,15 +580,9 @@ def test_routing_path_block_ids_dependent_on_other_sections_when_rules_repeating
 ):
     # Given a schema with repeating sections which has when rules dependent on another section
     schema = load_schema_from_name("test_routing_and_skipping_section_dependencies")
-    answer_store.add_or_update(
-        Answer(answer_id="skip-age-answer", value=skip_age_answer)
-    )
-    answer_store.add_or_update(
-        Answer(answer_id="first-name", value="John", list_item_id="lCIZsS")
-    )
-    answer_store.add_or_update(
-        Answer(answer_id="last-name", value="Smith", list_item_id="lCIZsS")
-    )
+    answer_store.add_or_update(Answer(answer_id="skip-age-answer", value=skip_age_answer))
+    answer_store.add_or_update(Answer(answer_id="first-name", value="John", list_item_id="lCIZsS"))
+    answer_store.add_or_update(Answer(answer_id="last-name", value="Smith", list_item_id="lCIZsS"))
 
     answer_store.add_or_update(Answer(answer_id="anyone-else", value="No"))
 
@@ -670,9 +615,7 @@ def test_routing_path_block_ids_dependent_on_other_sections_when_rules_repeating
         ),
     )
     routing_path = path_finder.routing_path(
-        SectionKey(
-            section_id="household-personal-details-section", list_item_id="lCIZsS"
-        )
+        SectionKey(section_id="household-personal-details-section", list_item_id="lCIZsS")
     )
 
     # Then the path is built correctly

@@ -64,9 +64,7 @@ def get_supplementary_data_v1(
     parameters = {"dataset_id": dataset_id, "identifier": identifier}
 
     encoded_parameters = urlencode(parameters)
-    constructed_supplementary_data_url = (
-        f"{supplementary_data_url}?{encoded_parameters}"
-    )
+    constructed_supplementary_data_url = f"{supplementary_data_url}?{encoded_parameters}"
 
     session = get_retryable_session(
         max_retries=SUPPLEMENTARY_DATA_REQUEST_MAX_RETRIES,
@@ -113,21 +111,15 @@ def get_supplementary_data_v1(
     raise SupplementaryDataRequestFailed
 
 
-def decrypt_supplementary_data(
-    *, key_store: KeyStore, supplementary_data: MutableMapping
-) -> Mapping:
+def decrypt_supplementary_data(*, key_store: KeyStore, supplementary_data: MutableMapping) -> Mapping:
     if encrypted_data := supplementary_data.get("data"):
         try:
-            decrypted_data = JWEHelper.decrypt(
-                encrypted_data, key_store=key_store, purpose=KEY_PURPOSE_SDS
-            )
+            decrypted_data = JWEHelper.decrypt(encrypted_data, key_store=key_store, purpose=KEY_PURPOSE_SDS)
             supplementary_data["data"] = json.loads(decrypted_data)
             return supplementary_data
         except InvalidTokenException as e:
             raise InvalidSupplementaryData from e
-    raise ValidationError(
-        SupplementaryDataRequestFailed.SUPPLEMENTARY_DATA_EMPTY_ERROR_MESSAGE
-    )
+    raise ValidationError(SupplementaryDataRequestFailed.SUPPLEMENTARY_DATA_EMPTY_ERROR_MESSAGE)
 
 
 def validate_supplementary_data(
@@ -146,6 +138,4 @@ def validate_supplementary_data(
             sds_schema_version=sds_schema_version,
         )
     except ValidationError as e:
-        raise ValidationError(
-            SupplementaryDataRequestFailed.SUPPLEMENTARY_DATA_ERROR_MESSAGE
-        ) from e
+        raise ValidationError(SupplementaryDataRequestFailed.SUPPLEMENTARY_DATA_ERROR_MESSAGE) from e

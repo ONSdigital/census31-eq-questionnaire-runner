@@ -138,9 +138,7 @@ class TestEmailConfirmation(IntegrationTestCase):
         # When I am on the thank you page, Then there is an confirmation email form
         self.assertInUrl("/submitted/thank-you/")
         self.assertInBody("Get confirmation email")
-        self.assertEqualPageTitle(
-            "We’ve received your answers - Test Confirmation Email"
-        )
+        self.assertEqualPageTitle("We’ve received your answers - Test Confirmation Email")
 
     def test_default_themed_schema_with_confirmation_email_not_set(self):
         # Given I launch the test_checkbox questionnaire, which doesn't have email confirmation set in the schema
@@ -165,9 +163,7 @@ class TestEmailConfirmation(IntegrationTestCase):
         self.post()
 
         # Then I get an error on the confirm email page
-        self.assertEqualPageTitle(
-            "Error: Confirm your email address - Test Confirmation Email"
-        )
+        self.assertEqualPageTitle("Error: Confirm your email address - Test Confirmation Email")
         self.assertInBody("There is a problem with your answer")
         self.assertInBody("Select an answer")
 
@@ -311,9 +307,7 @@ class TestEmailConfirmation(IntegrationTestCase):
         # Then I get an error message on the confirmation email page
         self.assertInUrl("/submitted/confirmation-email/send/")
         self.assertInBody("There is a problem with this page")
-        self.assertInBody(
-            "Enter an email address in a valid format, for example name@example.com"
-        )
+        self.assertInBody("Enter an email address in a valid format, for example name@example.com")
         self.assertEqualPageTitle("Error: Confirmation email - Test Confirmation Email")
 
     def test_confirmation_email_page(self):
@@ -459,9 +453,7 @@ class TestEmailConfirmation(IntegrationTestCase):
         self.post({"confirm-email": "Yes, send the confirmation email"})
 
         # Then an error page is shown
-        self.assertEqualPageTitle(
-            "Sorry, there was a problem sending the confirmation email - Test Confirmation Email"
-        )
+        self.assertEqualPageTitle("Sorry, there was a problem sending the confirmation email - Test Confirmation Email")
         self.assertInSelector(self.last_url, "p[data-qa=retry]")
 
     def test_attempting_to_deserialize_email_hash_from_different_session_fails(self):

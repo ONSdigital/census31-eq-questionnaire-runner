@@ -22,9 +22,7 @@ def get_template_content(filename, ignore_context=False):
     with open(filename, encoding="UTF-8") as file:
         return list(
             filter(
-                lambda line: all(
-                    not line.startswith(param) for param in line_beginnings_to_ignore
-                ),
+                lambda line: all(not line.startswith(param) for param in line_beginnings_to_ignore),
                 file.readlines(),
             )
         )
@@ -68,9 +66,7 @@ def compare_files(source_dir, target_dir, filename):
     contents_match = source_contents == target_contents
 
     if not contents_match:
-        diff_results = difflib.unified_diff(
-            source_contents, target_contents, fromfile=source_file, tofile=target_file
-        )
+        diff_results = difflib.unified_diff(source_contents, target_contents, fromfile=source_file, tofile=target_file)
         logger.info("".join(list(diff_results)))
 
     print_filename_results(f"{source_file}", contents_match)
@@ -79,12 +75,8 @@ def compare_files(source_dir, target_dir, filename):
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(
-        description="Extract translation templates from runner"
-    )
-    parser.add_argument(
-        "--test", help="Test the templates without making changes", action="store_true"
-    )
+    parser = argparse.ArgumentParser(description="Extract translation templates from runner")
+    parser.add_argument("--test", help="Test the templates without making changes", action="store_true")
 
     args = parser.parse_args()
 
@@ -95,9 +87,7 @@ if __name__ == "__main__":
             static_success = compare_files("app/translations", temp_dir, "messages.pot")
 
             if not static_success:
-                logger.error(
-                    "Translation templates are not up to date. Run make translation-templates to fix this"
-                )
+                logger.error("Translation templates are not up to date. Run make translation-templates to fix this")
                 sys.exit(1)
 
             logger.debug("Translation templates are up to date.")

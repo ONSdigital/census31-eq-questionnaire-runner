@@ -59,9 +59,9 @@ class TestIntroduction(IntegrationTestCase):
         # Then started_at should be set in response_metadata (and payload)
         actual = self.dumpSubmission()["submission"]
 
-        started_at_datetime = datetime.strptime(
-            actual["started_at"], "%Y-%m-%dT%H:%M:%S.%f%z"
-        ).replace(tzinfo=timezone.utc)
+        started_at_datetime = datetime.strptime(actual["started_at"], "%Y-%m-%dT%H:%M:%S.%f%z").replace(
+            tzinfo=timezone.utc
+        )
 
         self.assertIsNotNone(started_at_datetime)
 

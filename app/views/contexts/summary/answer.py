@@ -8,9 +8,7 @@ from app.questionnaire.return_location import ReturnLocation
 RadioCheckboxTypes = dict[str, str | AnswerValueEscapedTypes | None]
 DateRangeTypes = dict[str, AnswerValueEscapedTypes | None]
 
-InferredAnswerValueTypes = (
-    None | DateRangeTypes | str | AnswerValueEscapedTypes | RadioCheckboxTypes
-)
+InferredAnswerValueTypes = None | DateRangeTypes | str | AnswerValueEscapedTypes | RadioCheckboxTypes
 
 
 class Answer:

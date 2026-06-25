@@ -14,14 +14,7 @@ ListAnswerEscaped = list[Markup]
 ListDictAnswerEscaped = list[DictAnswerEscaped]
 
 AnswerValueTypes = str | int | Decimal | DictAnswer | ListAnswer | ListDictAnswer
-AnswerValueEscapedTypes = (
-    Markup
-    | int
-    | Decimal
-    | DictAnswerEscaped
-    | ListAnswerEscaped
-    | ListDictAnswerEscaped
-)
+AnswerValueEscapedTypes = Markup | int | Decimal | DictAnswerEscaped | ListAnswerEscaped | ListDictAnswerEscaped
 
 
 class AnswerDict(TypedDict, total=False):
@@ -85,9 +78,6 @@ def escape_answer_value(
         return [escape(item) for item in value]
 
     if isinstance(value, dict):
-        return {
-            key: escape(val) if isinstance(val, str) else val
-            for key, val in value.items()
-        }
+        return {key: escape(val) if isinstance(val, str) else val for key, val in value.items()}
 
     return escape(value) if isinstance(value, str) else value

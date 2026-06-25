@@ -27,9 +27,7 @@ class OIDCCredentialsServiceGCP(OIDCCredentialsService):
 
         request = Request()
 
-        credentials = fetch_id_token_credentials(
-            audience=iap_client_id, request=request
-        )
+        credentials = fetch_id_token_credentials(audience=iap_client_id, request=request)
 
         # Refresh the credential to obtain an ID token.
         credentials.refresh(request)

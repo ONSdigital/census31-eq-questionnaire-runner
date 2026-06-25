@@ -60,9 +60,7 @@ class SummaryContext(Context):
         list_name: str | None = None,
         list_item_id: str | None = None,
     ) -> None:
-        location = Location(
-            section_id=section_id, list_name=list_name, list_item_id=list_item_id
-        )
+        location = Location(section_id=section_id, list_name=list_name, list_item_id=list_item_id)
         section_summary_context = SectionSummaryContext(
             language=self._language,
             schema=self._schema,
@@ -71,9 +69,9 @@ class SummaryContext(Context):
             routing_path=self._router.routing_path(location.section_key),
         )
 
-        summary = section_summary_context(
-            view_submitted_response=self.view_submitted_response, return_to=return_to
-        )["summary"]
+        summary = section_summary_context(view_submitted_response=self.view_submitted_response, return_to=return_to)[
+            "summary"
+        ]
 
         for section in summary.get("sections", []):
             if any(group["blocks"] for group in section["groups"]):

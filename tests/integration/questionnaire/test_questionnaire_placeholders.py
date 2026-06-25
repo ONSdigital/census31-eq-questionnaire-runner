@@ -21,13 +21,9 @@ class TestPlaceholders(IntegrationTestCase):
             }
         )
 
-        self.post(
-            {"confirm-date-of-birth-answer-proxy": "Yes, {person_name} is {age} old."}
-        )
+        self.post({"confirm-date-of-birth-answer-proxy": "Yes, {person_name} is {age} old."})
 
-        self.post(
-            {"checkbox-answer": ["{household_address}", "7 Evelyn Street, Barry"]}
-        )
+        self.post({"checkbox-answer": ["{household_address}", "7 Evelyn Street, Barry"]})
 
         self.assertInUrl(SUBMIT_URL_PATH)
         self.assertInBody("What is Kevin Bacon’s date of birth?")
@@ -35,9 +31,7 @@ class TestPlaceholders(IntegrationTestCase):
 
     def test_placeholders_rendered_in_pages(self):
         self.launchSurveyV2(schema_name="test_placeholder_transform")
-        self.assertInBody(
-            "For Integration Testing (Integration Tests), please enter the total retail turnover"
-        )
+        self.assertInBody("For Integration Testing (Integration Tests), please enter the total retail turnover")
         self.post({"total-retail-turnover-answer": 2000})
 
         self.assertInBody(
@@ -61,22 +55,16 @@ class TestPlaceholders(IntegrationTestCase):
         self.post()
 
         self.assertInUrl(SUBMIT_URL_PATH)
-        self.assertInBody(
-            "For Integration Testing (Integration Tests), please enter the total retail turnover"
-        )
+        self.assertInBody("For Integration Testing (Integration Tests), please enter the total retail turnover")
         self.assertInBody("Please enter the value of internet sales")
         self.assertInBody("Please enter the number of items")
         self.assertInBody("Do you want to add a 3rd item?")
 
     def test_conditional_trad_as_without_trad_as_in_token(self):
-        token = self.token_generator.create_token_without_trad_as(
-            "test_placeholder_transform"
-        )
+        token = self.token_generator.create_token_without_trad_as("test_placeholder_transform")
         self.post(url=f"/session?token={token}")
 
-        self.assertInBody(
-            "For Integration Testing, please enter the total retail turnover"
-        )
+        self.assertInBody("For Integration Testing, please enter the total retail turnover")
         self.post({"total-retail-turnover-answer": 1000})
 
         self.post({"total-retail-turnover-internet-sales-answer": 1000})
@@ -94,9 +82,7 @@ class TestPlaceholders(IntegrationTestCase):
         self.post()
 
         self.assertInUrl(SUBMIT_URL_PATH)
-        self.assertInBody(
-            "For Integration Testing, please enter the total retail turnover"
-        )
+        self.assertInBody("For Integration Testing, please enter the total retail turnover")
 
     def test_placeholder_address_selector_rendered_in_page(self):
         self.launchSurveyV2(schema_name="test_address")
@@ -109,6 +95,4 @@ class TestPlaceholders(IntegrationTestCase):
         )
         self.post({})
 
-        self.assertInBody(
-            "Please confirm the first line of your address is 7 Evelyn Street"
-        )
+        self.assertInBody("Please confirm the first line of your address is 7 Evelyn Street")

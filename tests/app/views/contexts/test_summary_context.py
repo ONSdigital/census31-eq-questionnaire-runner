@@ -1,12 +1,7 @@
 import pytest
 from markupsafe import Markup
 
-from app.data_models import (
-    AnswerStore,
-    ListStore,
-    ProgressStore,
-    SupplementaryDataStore,
-)
+from app.data_models import AnswerStore, ListStore, ProgressStore, SupplementaryDataStore
 from app.data_models.data_stores import DataStores
 from app.data_models.progress import CompletionStatus, ProgressDict
 from app.questionnaire.questionnaire_schema import DEFAULT_LANGUAGE_CODE
@@ -18,9 +13,7 @@ from app.views.contexts.summary_context import SummaryContext
 def test_context_for_summary():
     schema = load_schema_from_name("test_view_submitted_response_repeating_sections")
 
-    list_store = ListStore(
-        [{"items": ["jufPpX", "fjWZET"], "name": "people", "primary_person": "jufPpX"}]
-    )
+    list_store = ListStore([{"items": ["jufPpX", "fjWZET"], "name": "people", "primary_person": "jufPpX"}])
 
     answer_store = AnswerStore(
         [

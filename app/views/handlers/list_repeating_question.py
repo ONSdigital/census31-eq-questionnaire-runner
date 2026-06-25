@@ -28,9 +28,7 @@ class ListRepeatingQuestion(ListEditQuestion):
             self.current_location.block_id  # type: ignore
         )
         if repeating_block_index != 0:
-            previous_repeating_block_id = self.repeating_block_ids[
-                repeating_block_index - 1
-            ]
+            previous_repeating_block_id = self.repeating_block_ids[repeating_block_index - 1]
             return url_for(
                 "questionnaire.block",
                 list_name=self.current_location.list_name,
@@ -39,9 +37,7 @@ class ListRepeatingQuestion(ListEditQuestion):
                 **self.return_location.to_dict(),
             )
 
-        if edit_block := self._schema.get_edit_block_for_list_collector(
-            self.parent_block["id"]
-        ):
+        if edit_block := self._schema.get_edit_block_for_list_collector(self.parent_block["id"]):
             return url_for(
                 "questionnaire.block",
                 list_name=self.current_location.list_name,

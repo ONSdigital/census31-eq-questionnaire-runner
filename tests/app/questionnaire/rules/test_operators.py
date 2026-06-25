@@ -366,9 +366,7 @@ def test_operation_date_day_of_week_offsets_with_invalid_days_offset(get_operato
         Operator.LESS_THAN_OR_EQUAL,
     ],
 )
-def test_nonetype_operands_for_comparison_operators(
-    operator_name, operands, get_operator
-):
+def test_nonetype_operands_for_comparison_operators(operator_name, operands, get_operator):
     operator = get_operator(operator_name)
     assert operator.evaluate(operands) is False
 
@@ -434,10 +432,7 @@ def test_date_range(get_operator):
 def test_format_date(date_format, expected_result, get_operator):
     operator = get_operator(Operator.FORMAT_DATE)
 
-    assert (
-        operator.evaluate([datetime.now(timezone.utc).date(), date_format])
-        == expected_result
-    )
+    assert operator.evaluate([datetime.now(timezone.utc).date(), date_format]) == expected_result
 
 
 def test_map_without_nested_date_operator(get_operator):

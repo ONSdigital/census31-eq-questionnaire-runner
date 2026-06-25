@@ -66,9 +66,7 @@ def test_get_schema_path_map():
 def test_get_schema_list():
     expected_output = {
         survey_type: list(schemas_by_language["en"])
-        for survey_type, schemas_by_language in get_schema_path_map(
-            include_test_schemas=True
-        ).items()
+        for survey_type, schemas_by_language in get_schema_path_map(include_test_schemas=True).items()
     }
     assert get_schema_list() == expected_output
 
@@ -129,9 +127,7 @@ def test_schema_cache_on_app_start_up():
 
     total_schemas = sum(
         len(schemas)
-        for schemas_by_language in get_schema_path_map(
-            include_test_schemas=True
-        ).values()
+        for schemas_by_language in get_schema_path_map(include_test_schemas=True).values()
         for schemas in schemas_by_language.values()
     )
     cache_info = _load_schema_from_name.cache_info()
@@ -172,9 +168,7 @@ def test_load_schema_from_url_200():
 def test_load_schema_from_url_non_200(status_code):
     load_schema_from_url.cache_clear()
     mock_schema = QuestionnaireSchema({})
-    responses.add(
-        responses.GET, TEST_SCHEMA_URL, json=mock_schema.json, status=status_code
-    )
+    responses.add(responses.GET, TEST_SCHEMA_URL, json=mock_schema.json, status=status_code)
 
     with pytest.raises(SchemaRequestFailed) as exc:
         load_schema_from_url(url=TEST_SCHEMA_URL, language_code="en")
@@ -240,25 +234,19 @@ def test_load_schema_from_metadata_with_schema_url_and_override_language_code():
     load_schema_from_url.cache_clear()
     language_code = "en"
 
-    metadata = get_metadata(
-        extra_metadata={"schema_url": TEST_SCHEMA_URL, "language_code": "cy"}
-    )
+    metadata = get_metadata(extra_metadata={"schema_url": TEST_SCHEMA_URL, "language_code": "cy"})
 
     mock_schema = QuestionnaireSchema({}, language_code="cy")
     responses.add(responses.GET, TEST_SCHEMA_URL, json=mock_schema.json, status=200)
 
-    loaded_schema = load_schema_from_metadata(
-        metadata=metadata, language_code=language_code
-    )
+    loaded_schema = load_schema_from_metadata(metadata=metadata, language_code=language_code)
 
     assert loaded_schema.json == mock_schema.json
     assert loaded_schema.language_code == language_code
 
 
 @responses.activate
-def test_load_schema_from_metadata_with_cir_instrument_id_200(
-    app, metadata_with_cir_instrument_id
-):
+def test_load_schema_from_metadata_with_cir_instrument_id_200(app, metadata_with_cir_instrument_id):
     load_schema_from_url.cache_clear()
     mock_schema = QuestionnaireSchema({}, language_code="cy")
     responses.add(
@@ -270,18 +258,14 @@ def test_load_schema_from_metadata_with_cir_instrument_id_200(
 
     with app.app_context():
         app.config["CIR_API_BASE_URL"] = TEST_CIR_URL
-        loaded_schema = load_schema_from_metadata(
-            metadata=metadata_with_cir_instrument_id, language_code="cy"
-        )
+        loaded_schema = load_schema_from_metadata(metadata=metadata_with_cir_instrument_id, language_code="cy")
 
     assert loaded_schema.json == mock_schema.json
     assert loaded_schema.language_code == mock_schema.language_code
 
 
 @responses.activate
-def test_load_schema_from_metadata_with_cir_instrument_id_request_failed(
-    app, metadata_with_cir_instrument_id
-):
+def test_load_schema_from_metadata_with_cir_instrument_id_request_failed(app, metadata_with_cir_instrument_id):
     load_schema_from_url.cache_clear()
     responses.add(
         responses.GET,
@@ -291,9 +275,7 @@ def test_load_schema_from_metadata_with_cir_instrument_id_request_failed(
     with app.app_context():
         with pytest.raises(SchemaRequestFailed):
             app.config["CIR_API_BASE_URL"] = TEST_CIR_URL
-            load_schema_from_metadata(
-                metadata=metadata_with_cir_instrument_id, language_code="cy"
-            )
+            load_schema_from_metadata(metadata=metadata_with_cir_instrument_id, language_code="cy")
 
 
 @pytest.mark.parametrize(
@@ -301,9 +283,7 @@ def test_load_schema_from_metadata_with_cir_instrument_id_request_failed(
     [401, 403, 404, 501, 511],
 )
 @responses.activate
-def test_load_schema_from_metadata_with_cir_instrument_id_non_200(
-    app, status_code, metadata_with_cir_instrument_id
-):
+def test_load_schema_from_metadata_with_cir_instrument_id_non_200(app, status_code, metadata_with_cir_instrument_id):
     load_schema_from_url.cache_clear()
     mock_schema = QuestionnaireSchema({}, language_code="cy")
     responses.add(
@@ -315,9 +295,7 @@ def test_load_schema_from_metadata_with_cir_instrument_id_non_200(
     with app.app_context():
         with pytest.raises(SchemaRequestFailed) as exc:
             app.config["CIR_API_BASE_URL"] = TEST_CIR_URL
-            load_schema_from_metadata(
-                metadata=metadata_with_cir_instrument_id, language_code="cy"
-            )
+            load_schema_from_metadata(metadata=metadata_with_cir_instrument_id, language_code="cy")
     assert str(exc.value) == "schema request failed"
 
 
@@ -367,9 +345,7 @@ def test_load_schema_from_url_retries_transient_error(mocker):
 
 
 def test_load_schema_from_url_max_retries(mocker):
-    mocked_make_request = get_mocked_make_request(
-        mocker, status_codes=[500, 500, 500, 500]
-    )
+    mocked_make_request = get_mocked_make_request(mocker, status_codes=[500, 500, 500, 500])
     load_schema_from_url.cache_clear()
 
     with pytest.raises(SchemaRequestFailed) as exc:
@@ -380,9 +356,7 @@ def test_load_schema_from_url_max_retries(mocker):
 
 
 @responses.activate
-def test_load_schema_from_metadata_cir_with_gcp_authentication(
-    app, metadata_with_cir_instrument_id, mocker
-):
+def test_load_schema_from_metadata_cir_with_gcp_authentication(app, metadata_with_cir_instrument_id, mocker):
     load_schema_from_url.cache_clear()
     mock_schema = QuestionnaireSchema({}, language_code="cy")
 
@@ -401,13 +375,9 @@ def test_load_schema_from_metadata_cir_with_gcp_authentication(
 
     with app.app_context():
         app.config["CIR_API_BASE_URL"] = TEST_CIR_URL
-        loaded_schema = load_schema_from_metadata(
-            metadata=metadata_with_cir_instrument_id, language_code="cy"
-        )
+        loaded_schema = load_schema_from_metadata(metadata=metadata_with_cir_instrument_id, language_code="cy")
 
-        mock_oidc_service.get_credentials.assert_called_once_with(
-            iap_client_id=app.config["CIR_OAUTH2_CLIENT_ID"]
-        )
+        mock_oidc_service.get_credentials.assert_called_once_with(iap_client_id=app.config["CIR_OAUTH2_CLIENT_ID"])
 
         assert loaded_schema.json == mock_schema.json
         assert loaded_schema.language_code == mock_schema.language_code

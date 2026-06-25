@@ -85,9 +85,7 @@ def address_questionnaire_schema(concatenation_type):
                                                 "type": "TextField",
                                             },
                                         ],
-                                        "summary": {
-                                            "concatenation_type": concatenation_type
-                                        },
+                                        "summary": {"concatenation_type": concatenation_type},
                                     },
                                 },
                             ],
@@ -211,9 +209,7 @@ def test_concatenate_textfield_answers(
         ("Space", " "),
     ),
 )
-def test_concatenate_textfield_answers_default(
-    concatenation_type, concatenation_character, answer_store
-):
+def test_concatenate_textfield_answers_default(concatenation_type, concatenation_character, answer_store):
     # Given
     schema = address_questionnaire_schema(concatenation_type)
     for answer in (
@@ -253,9 +249,7 @@ def test_concatenate_number_and_checkbox_answers(
 ):
     # Given
     answer_store.add_or_update(Answer(answer_id="age", value=7))
-    answer_store.add_or_update(
-        Answer(answer_id="estimate", value=["This age is an estimate"])
-    )
+    answer_store.add_or_update(Answer(answer_id="estimate", value=["This age is an estimate"]))
 
     age_answer_schema = {
         "id": "age",
@@ -295,10 +289,7 @@ def test_concatenate_number_and_checkbox_answers(
     )
 
     # Then
-    assert (
-        question.answers[0]["value"]
-        == f"7{concatenation_character}This age is an estimate"
-    )
+    assert question.answers[0]["value"] == f"7{concatenation_character}This age is an estimate"
     assert len(question.answers) == 1
 
 
@@ -428,9 +419,7 @@ def test_checkbox_button_options(
     mock_schema,
 ):
     # Given
-    answer_store.add_or_update(
-        Answer(answer_id="answer_1", value=["Light Side", "Dark Side"])
-    )
+    answer_store.add_or_update(Answer(answer_id="answer_1", value=["Light Side", "Dark Side"]))
 
     question_schema = {
         "id": "question_id",
@@ -598,9 +587,7 @@ def test_checkbox_button_other_option_text(
     mock_schema,
 ):
     # Given
-    answer_store.add_or_update(
-        Answer(answer_id="answer_1", value=["Light Side", "other"])
-    )
+    answer_store.add_or_update(Answer(answer_id="answer_1", value=["Light Side", "other"]))
     answer_store.add_or_update(Answer(answer_id="child_answer", value="Neither"))
 
     question_schema = {
@@ -821,9 +808,7 @@ def test_dynamic_checkbox_answer_options(
     # When
     question = Question(
         question_schema,
-        data_stores=DataStores(
-            answer_store=answer_store, response_metadata=response_metadata
-        ),
+        data_stores=DataStores(answer_store=answer_store, response_metadata=response_metadata),
         schema=mock_schema,
         location=None,
         block_id="house-type",
@@ -889,9 +874,7 @@ def test_dynamic_answer_options(
     # When
     question = Question(
         question_schema,
-        data_stores=DataStores(
-            answer_store=answer_store, response_metadata=response_metadata
-        ),
+        data_stores=DataStores(answer_store=answer_store, response_metadata=response_metadata),
         schema=mock_schema,
         location=None,
         block_id="house-type",
@@ -922,9 +905,7 @@ def test_dynamic_answer_options(
                 "label": "Building",
                 "type": "TextField",
             },
-            AnswerStore(
-                [{"answer_id": "building", "value": "<p>Government Buildings</p>"}]
-            ),
+            AnswerStore([{"answer_id": "building", "value": "<p>Government Buildings</p>"}]),
             "&lt;p&gt;Government Buildings&lt;/p&gt;",
         ),
         (

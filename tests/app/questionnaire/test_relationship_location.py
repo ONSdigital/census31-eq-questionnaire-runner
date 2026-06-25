@@ -41,6 +41,4 @@ def test_create_location_from_dict():
     assert location.block_id == "relationships"
     assert location.list_item_id == "id1"
     assert location.to_list_item_id == "id2"
-    assert location.section_key == SectionKey(
-        section_id=location.section_id, list_item_id=location.list_item_id
-    )
+    assert location.section_key == SectionKey(section_id=location.section_id, list_item_id=location.list_item_id)

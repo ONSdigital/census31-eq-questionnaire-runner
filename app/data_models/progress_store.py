@@ -32,9 +32,7 @@ class ProgressStore:
         """
         self._is_dirty: bool = False
         self._is_routing_backwards: bool = False
-        self._progress: MutableMapping[SectionKey, Progress] = self._build_map(
-            progress or []
-        )
+        self._progress: MutableMapping[SectionKey, Progress] = self._build_map(progress or [])
 
     def __contains__(self, section_key: SectionKey) -> bool:
         return section_key in self._progress
@@ -61,9 +59,7 @@ class ProgressStore:
         """
 
         return {
-            SectionKey(
-                section["section_id"], section.get("list_item_id")
-            ): Progress.from_dict(section)
+            SectionKey(section["section_id"], section.get("list_item_id")): Progress.from_dict(section)
             for section in section_list
         }
 
@@ -113,9 +109,7 @@ class ProgressStore:
             if any(section_id in progress_key for section_id in section_ids)
         ]
 
-    def update_section_status(
-        self, status: CompletionStatus, section_key: SectionKey
-    ) -> bool:
+    def update_section_status(self, status: CompletionStatus, section_key: SectionKey) -> bool:
         """
         Updates the status of the Section or Repeating Blocks for a list item specified by
         the key based on the given section id and list item id.
@@ -128,9 +122,7 @@ class ProgressStore:
                 self._is_dirty = True
 
         elif status == CompletionStatus.INDIVIDUAL_RESPONSE_REQUESTED:
-            self._progress[section_key] = Progress(
-                block_ids=[], status=status, **section_key.to_dict()
-            )
+            self._progress[section_key] = Progress(block_ids=[], status=status, **section_key.to_dict())
             self._is_dirty = True
 
         return updated
@@ -146,9 +138,7 @@ class ProgressStore:
 
         return CompletionStatus.NOT_STARTED
 
-    def get_block_status(
-        self, *, block_id: str, section_key: SectionKey
-    ) -> CompletionStatus:
+    def get_block_status(self, *, block_id: str, section_key: SectionKey) -> CompletionStatus:
         """
         Return the completion status of the block specified by the given block_id,
         if it is part of the progress of the given Section or Repeating Blocks for list item
@@ -198,10 +188,7 @@ class ProgressStore:
         section id and list item id within the Location if it exists in the store.
         """
         progress_key = location.section_key
-        if (
-            progress_key in self._progress
-            and location.block_id in self._progress[progress_key].block_ids
-        ):
+        if progress_key in self._progress and location.block_id in self._progress[progress_key].block_ids:
             self._progress[progress_key].block_ids.remove(location.block_id)
 
             if not self._progress[progress_key].block_ids:
@@ -240,9 +227,7 @@ class ProgressStore:
         self._progress.clear()
         self._is_dirty = True
 
-    def started_section_keys(
-        self, section_ids: Iterable[str] | None = None
-    ) -> list[SectionKey]:
+    def started_section_keys(self, section_ids: Iterable[str] | None = None) -> list[SectionKey]:
         return self.section_keys(
             statuses={CompletionStatus.COMPLETED, CompletionStatus.IN_PROGRESS},
             section_ids=section_ids,

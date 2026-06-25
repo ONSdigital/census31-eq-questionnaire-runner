@@ -23,12 +23,8 @@ class TestQuestionnaireHtmlEscaping(IntegrationTestCase):
         assert ESCAPED_CONTENT in self.getResponseData()
 
     def test_quotes_in_detail_answer(self):
-        self.launchSurveyV2(
-            schema_name="test_radio_mandatory_with_detail_answer_mandatory"
-        )
-        self.post(
-            {"radio-mandatory-answer": "Other", "other-answer-mandatory": HTML_CONTENT}
-        )
+        self.launchSurveyV2(schema_name="test_radio_mandatory_with_detail_answer_mandatory")
+        self.post({"radio-mandatory-answer": "Other", "other-answer-mandatory": HTML_CONTENT})
 
         self.get("/questionnaire/radio-mandatory")
 
@@ -74,8 +70,7 @@ class TestQuestionnaireHtmlEscaping(IntegrationTestCase):
         # pylint: disable=line-too-long
         assert (
             'data-title="Thinking of &amp;#34;&amp;gt;&amp;lt;b&amp;gt;some html&amp;lt;/b&amp;gt; Jones, '
-            'Dave Jones is their &lt;strong&gt;brother or sister&lt;/strong&gt;"'
-            in self.getResponseData()
+            'Dave Jones is their &lt;strong&gt;brother or sister&lt;/strong&gt;"' in self.getResponseData()
         )
         assert (
             'data-playback="Dave Jones is &amp;#34;&amp;gt;&amp;lt;b&amp;gt;some html&amp;lt;/b&amp;gt; Jones’ &lt;strong&gt;brother or sister&lt;/strong&gt;"'
@@ -92,9 +87,7 @@ class TestQuestionnaireHtmlEscaping(IntegrationTestCase):
         )
         self.post({})
         self.assertInUrl("/address-confirmation")
-        self.assertInBody(
-            "Please confirm the first line of your address is &lt;p&gt;7 Evelyn Street&lt;/p&gt;</h1>"
-        )
+        self.assertInBody("Please confirm the first line of your address is &lt;p&gt;7 Evelyn Street&lt;/p&gt;</h1>")
 
     def test_composite_address_summary(self):
         self.launchSurveyV2(schema_name="test_address")
@@ -132,9 +125,7 @@ class TestQuestionnaireHtmlEscaping(IntegrationTestCase):
         self.post()
 
         expected_question_text = f">Are you sure {ESCAPED_CONTENT} is your favourite?"
-        expected_change_aria_label = (
-            f"Change your answer for: Are you sure {ESCAPED_CONTENT} is your favourite?"
-        )
+        expected_change_aria_label = f"Change your answer for: Are you sure {ESCAPED_CONTENT} is your favourite?"
         assert expected_question_text in self.getResponseData()
         assert expected_change_aria_label in self.getResponseData()
 
@@ -144,9 +135,7 @@ class TestQuestionnaireHtmlEscaping(IntegrationTestCase):
         self.post({"dessert-answer": HTML_CONTENT})
         self.post()
 
-        expected_question_text = (
-            f"Are you sure <strong>{ESCAPED_CONTENT}</strong> is your favourite?"
-        )
+        expected_question_text = f"Are you sure <strong>{ESCAPED_CONTENT}</strong> is your favourite?"
         expected_error_message = (
             f'Select an answer <span class="ons-u-vh">to '
             f"\u2018Are you sure {ESCAPED_CONTENT} is your favourite?\u2019</span>"

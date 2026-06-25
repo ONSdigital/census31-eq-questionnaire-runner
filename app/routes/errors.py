@@ -7,17 +7,9 @@ from flask_login import current_user
 from flask_wtf.csrf import CSRFError
 from sdc.crypto.exceptions import InvalidTokenException
 from structlog import contextvars, get_logger
-from werkzeug.exceptions import (
-    BadRequest,
-    Forbidden,
-    MethodNotAllowed,
-    NotFound,
-    Unauthorized,
-)
+from werkzeug.exceptions import BadRequest, Forbidden, MethodNotAllowed, NotFound, Unauthorized
 
-from app.authentication.no_questionnaire_state_exception import (
-    NoQuestionnaireStateException,
-)
+from app.authentication.no_questionnaire_state_exception import NoQuestionnaireStateException
 from app.authentication.no_token_exception import NoTokenException
 from app.globals import get_metadata
 from app.helpers.language_helper import handle_language
@@ -31,9 +23,7 @@ from app.settings import ACCOUNT_SERVICE_BASE_URL_SOCIAL
 from app.submitter.previously_submitted_exception import PreviouslySubmittedException
 from app.submitter.submission_failed import SubmissionFailedException
 from app.survey_config.survey_type import SurveyType
-from app.views.handlers.confirm_email import (
-    ConfirmationEmailFulfilmentRequestPublicationFailed,
-)
+from app.views.handlers.confirm_email import ConfirmationEmailFulfilmentRequestPublicationFailed
 from app.views.handlers.feedback import FeedbackLimitReached, FeedbackUploadFailed
 from app.views.handlers.individual_response import (
     IndividualResponseFulfilmentRequestPublicationFailed,
@@ -59,14 +49,10 @@ def log_exception(exception: Exception, status_code: int) -> None:
     )
 
 
-def _render_error_page(
-    status_code: int, template: str | int | None = None, **kwargs: Any
-) -> tuple[str, int]:
+def _render_error_page(status_code: int, template: str | int | None = None, **kwargs: Any) -> tuple[str, int]:
     handle_language()
     business_survey_config = get_survey_config(theme=SurveyType.BUSINESS)
-    other_survey_config = get_survey_config(
-        theme=SurveyType.SOCIAL, base_url=ACCOUNT_SERVICE_BASE_URL_SOCIAL
-    )
+    other_survey_config = get_survey_config(theme=SurveyType.SOCIAL, base_url=ACCOUNT_SERVICE_BASE_URL_SOCIAL)
 
     business_logout_url = business_survey_config.account_service_log_out_url
     other_logout_url = other_survey_config.account_service_log_out_url
@@ -102,9 +88,7 @@ def bad_request(
 @errors_blueprint.app_errorhandler(NoQuestionnaireStateException)
 @errors_blueprint.app_errorhandler(Unauthorized)
 def unauthorized(
-    exception: (
-        CSRFError | NoTokenException | NoQuestionnaireStateException | Unauthorized
-    ),
+    exception: CSRFError | NoTokenException | NoQuestionnaireStateException | Unauthorized,
 ) -> tuple[str, int]:
     log_exception(exception, 401)
     return _render_error_page(401, template="401")
@@ -156,9 +140,7 @@ def too_many_individual_response_requests(
     exception: IndividualResponseLimitReached,
 ) -> tuple[str, int]:
     log_exception(exception, 429)
-    title = lazy_gettext(
-        "You have reached the maximum number of individual access codes"
-    )
+    title = lazy_gettext("You have reached the maximum number of individual access codes")
     contact_us_message = lazy_gettext(
         "If you need more individual access codes, please <a href='{contact_us_url}'>contact us</a>."
     )
@@ -177,9 +159,7 @@ def too_many_feedback_requests(
     exception: FeedbackLimitReached,
 ) -> tuple[str, int]:
     log_exception(exception, 429)
-    title = lazy_gettext(
-        "You have reached the maximum number of times for submitting feedback"
-    )
+    title = lazy_gettext("You have reached the maximum number of times for submitting feedback")
     contact_us_message = lazy_gettext(
         "If you need to give more feedback, please <a href='{contact_us_url}'>contact us</a>."
     )
@@ -197,11 +177,7 @@ def too_many_feedback_requests(
 @errors_blueprint.app_errorhandler(MissingSupplementaryDataKey)
 @errors_blueprint.app_errorhandler(InvalidSupplementaryData)
 def supplementary_data_request_failed(
-    exception: (
-        SupplementaryDataRequestFailed
-        | MissingSupplementaryDataKey
-        | InvalidSupplementaryData
-    ),
+    exception: SupplementaryDataRequestFailed | MissingSupplementaryDataKey | InvalidSupplementaryData,
 ) -> tuple[str, int]:
     log_exception(exception, 500)
     return _render_error_page(500, template=500)
@@ -222,13 +198,9 @@ def individual_response_fulfilment_request_publication_failed(
     log_exception(exception, 500)
 
     if "mobile_number" in request.args:
-        blueprint_method = (
-            "individual_response.individual_response_text_message_confirm"
-        )
+        blueprint_method = "individual_response.individual_response_text_message_confirm"
     else:
-        blueprint_method = (
-            "individual_response.individual_response_post_address_confirm"
-        )
+        blueprint_method = "individual_response.individual_response_post_address_confirm"
 
     title = lazy_gettext("Sorry, there was a problem sending the access code")
     retry_url = url_for(
@@ -238,9 +210,7 @@ def individual_response_fulfilment_request_publication_failed(
         list_item_id=request.view_args["list_item_id"],  # type: ignore
         **request.args,  # type: ignore
     )
-    retry_message = lazy_gettext(
-        "You can try to <a href='{retry_url}'>request a new access code again</a>."
-    )
+    retry_message = lazy_gettext("You can try to <a href='{retry_url}'>request a new access code again</a>.")
     contact_us_message = lazy_gettext(
         "If this problem keeps happening, please <a href='{contact_us_url}'>contact us</a> for help."
     )
@@ -263,9 +233,7 @@ def confirmation_email_fulfilment_request_publication_failed(
     log_exception(exception, 500)
 
     title = lazy_gettext("Sorry, there was a problem sending the confirmation email")
-    retry_message = lazy_gettext(
-        "You can try to <a href='{retry_url}'>send the email again</a>."
-    )
+    retry_message = lazy_gettext("You can try to <a href='{retry_url}'>send the email again</a>.")
     contact_us_message = lazy_gettext(
         "If this problem keeps happening, please <a href='{contact_us_url}'>contact us</a> for help."
     )
@@ -285,9 +253,7 @@ def confirmation_email_fulfilment_request_publication_failed(
 def feedback_upload_failed(exception: FeedbackUploadFailed) -> tuple[str, int]:
     log_exception(exception, 500)
     title = lazy_gettext("Sorry, there is a problem")
-    retry_message = lazy_gettext(
-        "You can try to <a href='{retry_url}'>submit your feedback again</a>."
-    )
+    retry_message = lazy_gettext("You can try to <a href='{retry_url}'>submit your feedback again</a>.")
     contact_us_message = lazy_gettext(
         "If this problem keeps happening, please <a href='{contact_us_url}'>contact us</a> for help."
     )

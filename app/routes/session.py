@@ -11,30 +11,20 @@ from structlog import contextvars, get_logger
 from werkzeug.exceptions import Unauthorized
 from werkzeug.wrappers.response import Response
 
-from app.authentication.authenticator import (
-    create_session_questionnaire_store,
-    decrypt_token,
-)
+from app.authentication.authenticator import create_session_questionnaire_store, decrypt_token
 from app.authentication.jti_claim_storage import JtiTokenUsed, use_jti_claim
 from app.data_models import QuestionnaireStore
 from app.data_models.metadata_proxy import MetadataProxy
 from app.globals import get_session_store, get_session_timeout_in_seconds
 from app.helpers.metadata_helpers import get_ru_ref_without_check_letter
-from app.helpers.template_helpers import (
-    DATA_LAYER_KEYS,
-    get_survey_config,
-    render_template,
-)
+from app.helpers.template_helpers import DATA_LAYER_KEYS, get_survey_config, render_template
 from app.questionnaire import QuestionnaireSchema
 from app.questionnaire.questionnaire_schema import DEFAULT_LANGUAGE_CODE
 from app.questionnaire.questionnaire_store_updater import QuestionnaireStoreUpdaterBase
 from app.questionnaire.router import Router
 from app.routes.errors import _render_error_page
 from app.services.supplementary_data import get_supplementary_data_v1
-from app.utilities.metadata_parser_v2 import (
-    validate_questionnaire_claims,
-    validate_runner_claims_v2,
-)
+from app.utilities.metadata_parser_v2 import validate_questionnaire_claims, validate_runner_claims_v2
 from app.utilities.schema import load_schema_from_metadata
 
 logger = get_logger()
@@ -103,14 +93,10 @@ def login() -> Response:
 
     metadata = MetadataProxy.from_dict(runner_claims)
 
-    g.schema = load_schema_from_metadata(
-        metadata=metadata, language_code=metadata.language_code
-    )
+    g.schema = load_schema_from_metadata(metadata=metadata, language_code=metadata.language_code)
     schema_metadata = g.schema.json["metadata"]
 
-    questionnaire_claims = get_questionnaire_claims(
-        decrypted_token=decrypted_token, schema_metadata=schema_metadata
-    )
+    questionnaire_claims = get_questionnaire_claims(decrypted_token=decrypted_token, schema_metadata=schema_metadata)
 
     runner_claims["survey_metadata"]["data"] = questionnaire_claims
 
@@ -157,15 +143,11 @@ def _set_questionnaire_supplementary_data(
     """
     existing_sds_dataset_id = (
         questionnaire_store.data_stores.metadata.survey_metadata["sds_dataset_id"]
-        if questionnaire_store.data_stores.metadata
-        and questionnaire_store.data_stores.metadata.survey_metadata
+        if questionnaire_store.data_stores.metadata and questionnaire_store.data_stores.metadata.survey_metadata
         else None
     )
 
-    if (
-        not (new_sds_dataset_id := metadata["sds_dataset_id"])
-        or existing_sds_dataset_id == new_sds_dataset_id
-    ):
+    if not (new_sds_dataset_id := metadata["sds_dataset_id"]) or existing_sds_dataset_id == new_sds_dataset_id:
         sds_dataset_id = existing_sds_dataset_id or new_sds_dataset_id
         if sds_dataset_id:
             logger.info(
@@ -179,11 +161,7 @@ def _set_questionnaire_supplementary_data(
             )
         return
 
-    identifier = (
-        get_ru_ref_without_check_letter(metadata["ru_ref"])
-        if metadata["ru_ref"]
-        else metadata["qid"]
-    )
+    identifier = get_ru_ref_without_check_letter(metadata["ru_ref"]) if metadata["ru_ref"] else metadata["qid"]
 
     supplementary_data = get_supplementary_data_v1(
         # Type ignore: survey_id and either ru_ref or qid are required for schemas that use supplementary data
@@ -197,9 +175,7 @@ def _set_questionnaire_supplementary_data(
         survey_id=metadata["survey_id"],
         sds_dataset_id=new_sds_dataset_id,
     )
-    _validate_supplementary_data_lists(
-        supplementary_data=supplementary_data["data"], schema=schema
-    )
+    _validate_supplementary_data_lists(supplementary_data=supplementary_data["data"], schema=schema)
     _set_supplementary_data(
         questionnaire_store=questionnaire_store,
         schema=schema,
@@ -227,9 +203,7 @@ def _set_supplementary_data(
     base_questionnaire_store_updater.update_progress_for_dependent_sections()
 
 
-def _validate_supplementary_data_lists(
-    *, supplementary_data: dict, schema: QuestionnaireSchema
-) -> None:
+def _validate_supplementary_data_lists(*, supplementary_data: dict, schema: QuestionnaireSchema) -> None:
     """
     Validates that any lists the schema requires (which are those in the supplementary_data.lists property)
     are included in the supplementary data
@@ -237,8 +211,7 @@ def _validate_supplementary_data_lists(
     supplementary_lists = supplementary_data.get("items", {}).keys()
     if missing := schema.supplementary_lists - supplementary_lists:
         missing_schema_lists_error_message = (
-            f"Supplementary data does not include the following lists required for "
-            f"the schema: {', '.join(missing)}"
+            f"Supplementary data does not include the following lists required for " f"the schema: {', '.join(missing)}"
         )
         raise ValidationError(missing_schema_lists_error_message)
 
@@ -305,10 +278,7 @@ def get_signed_out() -> Response | str:
         return redirect(url_for("session.get_session_expired"))
 
     survey_config = get_survey_config()
-    redirect_url = (
-        survey_config.account_service_todo_url
-        or survey_config.account_service_log_out_url
-    )
+    redirect_url = survey_config.account_service_todo_url or survey_config.account_service_log_out_url
     return render_template(
         template="signed-out",
         redirect_url=redirect_url,
@@ -323,9 +293,7 @@ def get_runner_claims(decrypted_token: Mapping[str, Any]) -> dict:
         raise InvalidTokenException(RUNNER_CLAIMS_ERROR_MESSAGE) from e
 
 
-def get_questionnaire_claims(
-    decrypted_token: Mapping, schema_metadata: Iterable[Mapping[str, str]]
-) -> dict:
+def get_questionnaire_claims(decrypted_token: Mapping, schema_metadata: Iterable[Mapping[str, str]]) -> dict:
 
     try:
         claims = decrypted_token.get("survey_metadata", {}).get("data", {})

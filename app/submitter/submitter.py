@@ -61,9 +61,7 @@ class GCSSubmitter:
             if "storage.objects.delete" not in e.message:
                 raise
 
-            logger.info(
-                "Questionnaire submission exists, ignoring delete operation error"
-            )
+            logger.info("Questionnaire submission exists, ignoring delete operation error")
         return True
 
 

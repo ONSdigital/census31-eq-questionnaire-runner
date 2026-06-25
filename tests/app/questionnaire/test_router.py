@@ -44,9 +44,7 @@ class TestRouter(RouterTestCase):
                 )
             ]
         )
-        self.data_stores.answer_store = AnswerStore(
-            [{"answer_id": "section-1-answer", "value": ["Section 2"]}]
-        )
+        self.data_stores.answer_store = AnswerStore([{"answer_id": "section-1-answer", "value": ["Section 2"]}])
 
         expected_section_ids = ["section-1", "section-2"]
 
@@ -70,9 +68,7 @@ class TestRouter(RouterTestCase):
         assert expected_path == routing_path
 
     def test_full_routing_path_with_repeating_sections(self):
-        self.schema = load_schema_from_name(
-            "test_repeating_sections_with_hub_and_spoke"
-        )
+        self.schema = load_schema_from_name("test_repeating_sections_with_hub_and_spoke")
         self.data_stores.list_store = ListStore(
             [
                 {
@@ -113,9 +109,7 @@ class TestRouter(RouterTestCase):
         assert expected_path == routing_path
 
     def test_can_access_hub(self):
-        self.schema = load_schema_from_name(
-            "test_repeating_sections_with_hub_and_spoke"
-        )
+        self.schema = load_schema_from_name("test_repeating_sections_with_hub_and_spoke")
 
         assert self.router.can_access_hub()
 
@@ -287,9 +281,7 @@ class TestRouterQuestionnaireCompletion(RouterTestCase):
         assert not is_questionnaire_complete
 
     def test_is_complete_with_repeating_sections(self):
-        self.schema = load_schema_from_name(
-            "test_repeating_sections_with_hub_and_spoke"
-        )
+        self.schema = load_schema_from_name("test_repeating_sections_with_hub_and_spoke")
         self.data_stores.progress_store = ProgressStore(
             [
                 {
@@ -310,18 +302,14 @@ class TestRouterQuestionnaireCompletion(RouterTestCase):
                 },
             ]
         )
-        self.data_stores.list_store = ListStore(
-            [{"items": ["abc123"], "name": "people", "primary_person": "abc123"}]
-        )
+        self.data_stores.list_store = ListStore([{"items": ["abc123"], "name": "people", "primary_person": "abc123"}])
 
         is_questionnaire_complete = self.router.is_questionnaire_complete
 
         assert is_questionnaire_complete
 
     def test_is_not_complete_with_repeating_sections(self):
-        self.schema = load_schema_from_name(
-            "test_repeating_sections_with_hub_and_spoke"
-        )
+        self.schema = load_schema_from_name("test_repeating_sections_with_hub_and_spoke")
         self.data_stores.progress_store = ProgressStore(
             [
                 {
@@ -351,12 +339,8 @@ class TestRouterLocationValidity(RouterTestCase):
         self.schema = load_schema_from_name("test_textfield")
 
         current_location = Location(section_id="default-section", block_id="name-block")
-        routing_path = RoutingPath(
-            block_ids=["name-block"], section_id="default-section"
-        )
-        can_access_location = self.router.can_access_location(
-            current_location, routing_path
-        )
+        routing_path = RoutingPath(block_ids=["name-block"], section_id="default-section")
+        can_access_location = self.router.can_access_location(current_location, routing_path)
 
         assert can_access_location
 
@@ -369,19 +353,13 @@ class TestRouterLocationValidity(RouterTestCase):
             list_name="default-list",
             list_item_id="default-list-id",
         )
-        routing_path = RoutingPath(
-            block_ids=["name-block"], section_id="default-section"
-        )
-        can_access_location = self.router.can_access_location(
-            current_location, routing_path
-        )
+        routing_path = RoutingPath(block_ids=["name-block"], section_id="default-section")
+        can_access_location = self.router.can_access_location(current_location, routing_path)
 
         assert not can_access_location
 
     def test_cant_access(self):
-        self.schema = load_schema_from_name(
-            "test_repeating_sections_with_hub_and_spoke"
-        )
+        self.schema = load_schema_from_name("test_repeating_sections_with_hub_and_spoke")
 
         self.data_stores.list_store = ListStore(
             [
@@ -398,21 +376,15 @@ class TestRouterLocationValidity(RouterTestCase):
             block_id="proxy",
             list_item_id="invalid-list-item-id",
         )
-        can_access_location = self.router.can_access_location(
-            current_location, routing_path=[]
-        )
+        can_access_location = self.router.can_access_location(current_location, routing_path=[])
 
         assert not can_access_location
 
     def test_cant_access_section_disabled(self):
         self.schema = load_schema_from_name("test_section_enabled_checkbox")
 
-        current_location = Location(
-            section_id="section-2", block_id="section-2-block", list_item_id=None
-        )
-        can_access_location = self.router.can_access_location(
-            current_location, routing_path=[]
-        )
+        current_location = Location(section_id="section-2", block_id="section-2-block", list_item_id=None)
+        can_access_location = self.router.can_access_location(current_location, routing_path=[])
 
         assert not can_access_location
 
@@ -420,18 +392,14 @@ class TestRouterLocationValidity(RouterTestCase):
         self.schema = load_schema_from_name("test_textfield")
 
         current_location = Location(section_id="default-section", block_id="name-block")
-        can_access_location = self.router.can_access_location(
-            current_location, routing_path=[]
-        )
+        can_access_location = self.router.can_access_location(current_location, routing_path=[])
 
         assert not can_access_location
 
     def test_cant_access_not_on_allowable_path(self):
         self.schema = load_schema_from_name("test_unit_patterns")
 
-        current_location = Location(
-            section_id="default-section", block_id="set-duration-units-block"
-        )
+        current_location = Location(section_id="default-section", block_id="set-duration-units-block")
         routing_path = RoutingPath(
             block_ids=[
                 "set-length-units-block",
@@ -441,9 +409,7 @@ class TestRouterLocationValidity(RouterTestCase):
             ],
             section_id="default-section",
         )
-        can_access_location = self.router.can_access_location(
-            current_location, routing_path
-        )
+        can_access_location = self.router.can_access_location(current_location, routing_path)
 
         assert not can_access_location
 
@@ -463,9 +429,7 @@ class TestRouterNextLocation(RouterTestCase):
             ]
         )
 
-        current_location = Location(
-            section_id="default-section", block_id="mandatory-checkbox"
-        )
+        current_location = Location(section_id="default-section", block_id="mandatory-checkbox")
         routing_path = RoutingPath(
             block_ids=[
                 "mandatory-checkbox",
@@ -482,9 +446,7 @@ class TestRouterNextLocation(RouterTestCase):
             return_location,
         )
 
-        expected_location = Location(
-            section_id="default-section", block_id="non-mandatory-checkbox"
-        ).url()
+        expected_location = Location(section_id="default-section", block_id="non-mandatory-checkbox").url()
 
         assert expected_location == next_location
 
@@ -506,9 +468,7 @@ class TestRouterNextLocation(RouterTestCase):
         )
         current_location = Location(section_id="section-1", block_id="block-1")
         # Simulates routing backwards. Last block in section does not mean section is complete.
-        routing_path = RoutingPath(
-            block_ids=["block-1", "block-2", "block-1"], section_id="section-1"
-        )
+        routing_path = RoutingPath(block_ids=["block-1", "block-2", "block-1"], section_id="section-1")
         return_location = ReturnLocation()
 
         next_location = self.router.get_next_location_url(
@@ -537,18 +497,14 @@ class TestRouterNextLocation(RouterTestCase):
             ]
         )
 
-        current_location = Location(
-            section_id="property-details-section", block_id="insurance-type"
-        )
+        current_location = Location(section_id="property-details-section", block_id="insurance-type")
         routing_path = RoutingPath(
             block_ids=["insurance-type", "insurance-address", "listed"],
             section_id="property-details-section",
         )
         return_location = ReturnLocation(return_to="section-summary")
 
-        next_location = self.router.get_next_location_url(
-            current_location, routing_path, return_location
-        )
+        next_location = self.router.get_next_location_url(current_location, routing_path, return_location)
 
         assert "/questionnaire/sections/property-details-section/" in next_location
 
@@ -572,9 +528,7 @@ class TestRouterNextLocation(RouterTestCase):
                 )
             ]
         )
-        current_location = Location(
-            section_id="property-details-section", block_id="insurance-address"
-        )
+        current_location = Location(section_id="property-details-section", block_id="insurance-address")
         routing_path = RoutingPath(
             block_ids=[
                 "insurance-type",
@@ -586,14 +540,9 @@ class TestRouterNextLocation(RouterTestCase):
         )
         return_location = ReturnLocation(return_to="section-summary")
 
-        next_location = self.router.get_next_location_url(
-            current_location, routing_path, return_location
-        )
+        next_location = self.router.get_next_location_url(current_location, routing_path, return_location)
 
-        assert (
-            "/questionnaire/address-duration/?return_to=section-summary"
-            in next_location
-        )
+        assert "/questionnaire/address-duration/?return_to=section-summary" in next_location
 
     @pytest.mark.usefixtures("app")
     def test_section_summary_on_completion_true(self):
@@ -608,16 +557,12 @@ class TestRouterNextLocation(RouterTestCase):
                 )
             ]
         )
-        current_location = Location(
-            section_id="accommodation-section", block_id="proxy"
-        )
+        current_location = Location(section_id="accommodation-section", block_id="proxy")
         routing_path = RoutingPath(block_ids=["proxy"], section_id="default-section")
 
         return_location = ReturnLocation()
 
-        next_location = self.router.get_next_location_url(
-            current_location, routing_path, return_location
-        )
+        next_location = self.router.get_next_location_url(current_location, routing_path, return_location)
 
         assert "questionnaire/sections/accommodation-section/" in next_location
 
@@ -634,18 +579,14 @@ class TestRouterNextLocation(RouterTestCase):
                 )
             ]
         )
-        current_location = Location(
-            section_id="employment-section", block_id="employment-type"
-        )
+        current_location = Location(section_id="employment-section", block_id="employment-type")
         routing_path = RoutingPath(
             block_ids=["employment-status", "employment-type"],
             section_id="employment-section",
         )
         return_location = ReturnLocation()
 
-        next_location = self.router.get_next_location_url(
-            current_location, routing_path, return_location
-        )
+        next_location = self.router.get_next_location_url(current_location, routing_path, return_location)
         expected_location_url = url_for("questionnaire.get_questionnaire")
 
         assert expected_location_url == next_location
@@ -678,9 +619,7 @@ class TestRouterNextLocation(RouterTestCase):
             ]
         )
 
-        current_location = Location(
-            section_id="default-section", block_id="second-number-block"
-        )
+        current_location = Location(section_id="default-section", block_id="second-number-block")
 
         routing_path = RoutingPath(
             block_ids=[
@@ -697,9 +636,7 @@ class TestRouterNextLocation(RouterTestCase):
             return_to_block_id="currency-total-playback",
         )
 
-        next_location_url = self.router.get_next_location_url(
-            current_location, routing_path, return_location
-        )
+        next_location_url = self.router.get_next_location_url(current_location, routing_path, return_location)
 
         expected_location = Location(
             section_id="default-section",
@@ -795,9 +732,7 @@ class TestRouterNextLocation(RouterTestCase):
             ),
         ],
     )
-    def test_return_to_calculated_summary_invalid_return_to_block_id(
-        self, schema, return_to_block_id, expected_url
-    ):
+    def test_return_to_calculated_summary_invalid_return_to_block_id(self, schema, return_to_block_id, expected_url):
         self.schema = load_schema_from_name(schema)
         self.data_stores.progress_store = ProgressStore(
             [
@@ -809,9 +744,7 @@ class TestRouterNextLocation(RouterTestCase):
             ]
         )
 
-        current_location = Location(
-            section_id="default-section", block_id="fifth-number-block"
-        )
+        current_location = Location(section_id="default-section", block_id="fifth-number-block")
 
         routing_path = RoutingPath(
             block_ids=["fifth-number-block", "sixth-number-block"],
@@ -847,9 +780,7 @@ class TestRouterNextLocation(RouterTestCase):
             ]
         )
 
-        current_location = Location(
-            section_id="default-section", block_id="fifth-number-block"
-        )
+        current_location = Location(section_id="default-section", block_id="fifth-number-block")
 
         routing_path = RoutingPath(
             block_ids=["fifth-number-block", "sixth-number-block"],
@@ -861,9 +792,7 @@ class TestRouterNextLocation(RouterTestCase):
             return_to_block_id="fourth-number-block",
         )
 
-        next_location_url = self.router.get_next_location_url(
-            current_location, routing_path, return_location
-        )
+        next_location_url = self.router.get_next_location_url(current_location, routing_path, return_location)
 
         # return_to_block_id is still passed here because although it is not
         # currently on the path, it may be in future once incomplete questions
@@ -884,9 +813,7 @@ class TestRouterNextLocation(RouterTestCase):
         self.schema = grand_calculated_summary_schema
         self.data_stores.progress_store = grand_calculated_summary_progress_store
 
-        current_location = Location(
-            section_id="section-1", block_id="first-number-block"
-        )
+        current_location = Location(section_id="section-1", block_id="first-number-block")
 
         routing_path = RoutingPath(
             block_ids=["distance-calculated-summary-1"],
@@ -899,9 +826,7 @@ class TestRouterNextLocation(RouterTestCase):
             return_to_block_id="distance-calculated-summary-1,distance-grand-calculated-summary",
         )
 
-        next_location_url = self.router.get_next_location_url(
-            current_location, routing_path, return_location
-        )
+        next_location_url = self.router.get_next_location_url(current_location, routing_path, return_location)
 
         expected_previous_url = url_for(
             "questionnaire.block",
@@ -920,9 +845,7 @@ class TestRouterNextLocation(RouterTestCase):
         If going from GCS -> CS -> answer -> CS -> GCS, this tests going from
         CS -> GCS having just come from an answer.
         """
-        self.schema = load_schema_from_name(
-            "test_grand_calculated_summary_overlapping_answers"
-        )
+        self.schema = load_schema_from_name("test_grand_calculated_summary_overlapping_answers")
         self.data_stores.progress_store = ProgressStore(
             [
                 ProgressDict(
@@ -967,9 +890,7 @@ class TestRouterNextLocation(RouterTestCase):
             return_to_block_id="calculated-summary-1,grand-calculated-summary-shopping",
         )
 
-        next_location_url = self.router.get_next_location_url(
-            current_location, routing_path, return_location
-        )
+        next_location_url = self.router.get_next_location_url(current_location, routing_path, return_location)
 
         assert next_location_url == (
             "/questionnaire/calculated-summary-1/?return_to=grand-calculated-summary"
@@ -982,9 +903,7 @@ class TestRouterNextLocation(RouterTestCase):
         """
         If going from GCS ->  CS -> answer -> CS -> GCS this tests going from CS -> GCS having just come from an answer
         """
-        self.schema = load_schema_from_name(
-            "test_grand_calculated_summary_overlapping_answers"
-        )
+        self.schema = load_schema_from_name("test_grand_calculated_summary_overlapping_answers")
         self.data_stores.progress_store = ProgressStore(
             [
                 ProgressDict(
@@ -1009,9 +928,7 @@ class TestRouterNextLocation(RouterTestCase):
             ]
         )
 
-        current_location = Location(
-            section_id="section-1", block_id="calculated-summary-1"
-        )
+        current_location = Location(section_id="section-1", block_id="calculated-summary-1")
 
         routing_path = RoutingPath(
             block_ids=[
@@ -1031,14 +948,9 @@ class TestRouterNextLocation(RouterTestCase):
             return_to_block_id="grand-calculated-summary-shopping",
         )
 
-        next_location_url = self.router.get_next_location_url(
-            current_location, routing_path, return_location
-        )
+        next_location_url = self.router.get_next_location_url(current_location, routing_path, return_location)
 
-        assert (
-            next_location_url
-            == "/questionnaire/grand-calculated-summary-shopping/#calculated-summary-1"
-        )
+        assert next_location_url == "/questionnaire/grand-calculated-summary-shopping/#calculated-summary-1"
 
     @pytest.mark.usefixtures("app")
     def test_return_to_grand_calculated_summary_from_calculated_summary(
@@ -1051,9 +963,7 @@ class TestRouterNextLocation(RouterTestCase):
         self.schema = grand_calculated_summary_schema
         self.data_stores.progress_store = grand_calculated_summary_progress_store
 
-        current_location = Location(
-            section_id="section-1", block_id="distance-calculated-summary-1"
-        )
+        current_location = Location(section_id="section-1", block_id="distance-calculated-summary-1")
 
         routing_path = RoutingPath(
             block_ids=["distance-calculated-summary-1"],
@@ -1114,9 +1024,7 @@ class TestRouterNextLocation(RouterTestCase):
         the continue button for the CS has a next location url of the original repeating GCS.
         """
         self.schema = grand_calculated_summary_in_repeating_section_schema
-        self.data_stores.list_store = ListStore(
-            [{"items": ["ZIrqqR"], "name": "vehicles"}]
-        )
+        self.data_stores.list_store = ListStore([{"items": ["ZIrqqR"], "name": "vehicles"}])
 
         self.data_stores.progress_store = ProgressStore(
             [
@@ -1164,9 +1072,7 @@ class TestRouterNextLocation(RouterTestCase):
             return_to_block_id="grand-calculated-summary-vehicle",
             return_to_list_item_id=return_to_list_item_id,
         )
-        next_location_url = self.router.get_next_location_url(
-            current_location, routing_path, return_location
-        )
+        next_location_url = self.router.get_next_location_url(current_location, routing_path, return_location)
         expected_next_url = url_for(
             "questionnaire.block",
             list_name="vehicles",
@@ -1181,17 +1087,13 @@ class TestRouterNextLocation(RouterTestCase):
         ("grand-calculated-summary-1", "grand-calculated-summary-2"),
     )
     @pytest.mark.usefixtures("app")
-    def test_return_to_grand_calculated_summary_from_incomplete_section(
-        self, return_to_block_id
-    ):
+    def test_return_to_grand_calculated_summary_from_incomplete_section(self, return_to_block_id):
         """
         This tests that if you try to return to a grand calculated summary from an incomplete section
         (or the same section but before the dependencies of the grand calculated summary are complete)
         you are routed to the next block in the incomplete section rather than the grand calculated summary
         """
-        self.schema = load_schema_from_name(
-            "test_grand_calculated_summary_repeating_answers"
-        )
+        self.schema = load_schema_from_name("test_grand_calculated_summary_repeating_answers")
         # calculated summary 3 is not complete yet
         self.data_stores.progress_store = ProgressStore(
             [
@@ -1247,9 +1149,7 @@ class TestRouterNextLocation(RouterTestCase):
         assert expected_next_url == next_location_url
 
     @pytest.mark.usefixtures("app")
-    def test_return_to_calculated_summary_from_incomplete_section(
-        self, grand_calculated_summary_schema
-    ):
+    def test_return_to_calculated_summary_from_incomplete_section(self, grand_calculated_summary_schema):
         """
         This tests that if you try to return to a calculated summary section from an incomplete section
         you are routed to the next block in the incomplete section rather than the calculated summary
@@ -1269,9 +1169,7 @@ class TestRouterNextLocation(RouterTestCase):
             ]
         )
 
-        current_location = Location(
-            section_id="section-1", block_id="first-number-block"
-        )
+        current_location = Location(section_id="section-1", block_id="first-number-block")
         routing_path = RoutingPath(
             block_ids=[
                 "first-number-block",
@@ -1408,9 +1306,7 @@ class TestRouterNextLocation(RouterTestCase):
             return_to_block_id=return_to_block_id,
         )
 
-        next_location_url = self.router.get_next_location_url(
-            current_location, routing_path, return_location
-        )
+        next_location_url = self.router.get_next_location_url(current_location, routing_path, return_location)
 
         expected_next_url = url_for(
             "questionnaire.block",
@@ -1440,21 +1336,15 @@ class TestRouterNextLocationLinearFlow(RouterTestCase):
         )
 
         current_location = Location(section_id="default-section", block_id="name-block")
-        routing_path = RoutingPath(
-            block_ids=["name-block"], section_id="default-section"
-        )
+        routing_path = RoutingPath(block_ids=["name-block"], section_id="default-section")
         return_location = ReturnLocation()
-        next_location = self.router.get_next_location_url(
-            current_location, routing_path, return_location
-        )
+        next_location = self.router.get_next_location_url(current_location, routing_path, return_location)
 
         assert url_for("questionnaire.submit_questionnaire") == next_location
 
     @pytest.mark.usefixtures("app")
     def test_return_to_final_summary_questionnaire_and_section_is_complete(self):
-        self.schema = load_schema_from_name(
-            "test_routing_to_questionnaire_end_single_section"
-        )
+        self.schema = load_schema_from_name("test_routing_to_questionnaire_end_single_section")
         self.data_stores.progress_store = ProgressStore(
             [
                 ProgressDict(
@@ -1468,9 +1358,7 @@ class TestRouterNextLocationLinearFlow(RouterTestCase):
         current_location = Location(section_id="test-section", block_id="test-forced")
         routing_path = RoutingPath(block_ids=["test-forced"], section_id="test-section")
         return_location = ReturnLocation(return_to="final-summary")
-        next_location = self.router.get_next_location_url(
-            current_location, routing_path, return_location
-        )
+        next_location = self.router.get_next_location_url(current_location, routing_path, return_location)
 
         assert url_for("questionnaire.submit_questionnaire") == next_location
 
@@ -1487,28 +1375,20 @@ class TestRouterNextLocationLinearFlow(RouterTestCase):
                 )
             ]
         )
-        current_location = Location(
-            section_id="default-section", block_id="dessert-confirmation"
-        )
+        current_location = Location(section_id="default-section", block_id="dessert-confirmation")
         routing_path = RoutingPath(
             block_ids=["radio", "dessert", "dessert-confirmation", "numbers"],
             section_id="default-section",
         )
         return_location = ReturnLocation(return_to="final-summary")
-        next_location = self.router.get_next_location_url(
-            current_location, routing_path, return_location
-        )
+        next_location = self.router.get_next_location_url(current_location, routing_path, return_location)
 
         assert "/questionnaire/numbers/?return_to=final-summary" in next_location
 
     @pytest.mark.usefixtures("app")
     def test_return_to_final_summary_questionnaire_is_not_complete(self):
-        self.schema = load_schema_from_name(
-            "test_routing_to_questionnaire_end_multiple_sections"
-        )
-        self.data_stores.answer_store = AnswerStore(
-            [{"answer_id": "test-answer", "value": "Yes"}]
-        )
+        self.schema = load_schema_from_name("test_routing_to_questionnaire_end_multiple_sections")
+        self.data_stores.answer_store = AnswerStore([{"answer_id": "test-answer", "value": "Yes"}])
         self.data_stores.progress_store = ProgressStore(
             [
                 ProgressDict(
@@ -1523,9 +1403,7 @@ class TestRouterNextLocationLinearFlow(RouterTestCase):
         current_location = Location(section_id="test-section", block_id="test-forced")
         routing_path = RoutingPath(block_ids=["test-forced"], section_id="test-section")
         return_location = ReturnLocation(return_to="final-summary")
-        next_location = self.router.get_next_location_url(
-            current_location, routing_path, return_location
-        )
+        next_location = self.router.get_next_location_url(current_location, routing_path, return_location)
         expected_location = Location(
             section_id="test-section-2",
             block_id="test-optional",
@@ -1540,21 +1418,15 @@ class TestRouterPreviousLocation(RouterTestCase):
     def test_within_section(self):
         self.schema = load_schema_from_name("test_checkbox")
 
-        current_location = Location(
-            section_id="default-section", block_id="non-mandatory-checkbox"
-        )
+        current_location = Location(section_id="default-section", block_id="non-mandatory-checkbox")
 
         routing_path = RoutingPath(
             block_ids=["mandatory-checkbox", "non-mandatory-checkbox"],
             section_id="default-section",
         )
         return_location = ReturnLocation()
-        previous_location_url = self.router.get_previous_location_url(
-            current_location, routing_path, return_location
-        )
-        expected_location_url = Location(
-            section_id="default-section", block_id="mandatory-checkbox"
-        ).url()
+        previous_location_url = self.router.get_previous_location_url(current_location, routing_path, return_location)
+        expected_location_url = Location(section_id="default-section", block_id="mandatory-checkbox").url()
 
         assert expected_location_url == previous_location_url
 
@@ -1562,9 +1434,7 @@ class TestRouterPreviousLocation(RouterTestCase):
     def test_return_to_calculated_summary(self):
         self.schema = load_schema_from_name("test_calculated_summary")
 
-        current_location = Location(
-            section_id="default-section", block_id="second-number-block"
-        )
+        current_location = Location(section_id="default-section", block_id="second-number-block")
 
         routing_path = RoutingPath(
             block_ids=[
@@ -1600,9 +1470,7 @@ class TestRouterPreviousLocation(RouterTestCase):
         assert expected_location_url == previous_location_url
 
     @pytest.mark.usefixtures("app")
-    def test_return_to_grand_calculated_summary_from_answer_incomplete_section(
-        self, grand_calculated_summary_schema
-    ):
+    def test_return_to_grand_calculated_summary_from_answer_incomplete_section(self, grand_calculated_summary_schema):
         """
         This tests that if you are on a calculated summary and your
         return_to_block_id is another calculated summary you cannot reach yet,
@@ -1626,9 +1494,7 @@ class TestRouterPreviousLocation(RouterTestCase):
             ]
         )
 
-        current_location = Location(
-            section_id="section-1", block_id="second-number-block"
-        )
+        current_location = Location(section_id="section-1", block_id="second-number-block")
 
         routing_path = RoutingPath(
             block_ids=[
@@ -1688,9 +1554,7 @@ class TestRouterPreviousLocation(RouterTestCase):
             ]
         )
 
-        current_location = Location(
-            section_id="section-1", block_id="distance-calculated-summary-1"
-        )
+        current_location = Location(section_id="section-1", block_id="distance-calculated-summary-1")
 
         routing_path = RoutingPath(
             block_ids=[
@@ -1707,9 +1571,7 @@ class TestRouterPreviousLocation(RouterTestCase):
             return_to_answer_id="distance-calculated-summary-1",
             return_to_block_id="distance-grand-calculated-summary",
         )
-        previous_location_url = self.router.get_previous_location_url(
-            current_location, routing_path, return_location
-        )
+        previous_location_url = self.router.get_previous_location_url(current_location, routing_path, return_location)
         # return to can't go to the grand calculated summary,
         # so routing is just to the previous block in the section with return params preserved
         expected_previous_url = url_for(
@@ -1793,9 +1655,7 @@ class TestRouterPreviousLocation(RouterTestCase):
         as part of a grand calculated summary change link.
         """
         self.schema = grand_calculated_summary_repeating_answers_schema
-        self.data_stores.progress_store = (
-            grand_calculated_summary_repeating_answers_progress_store
-        )
+        self.data_stores.progress_store = grand_calculated_summary_repeating_answers_progress_store
 
         parent_location = Location(
             section_id="section-5",
@@ -1843,9 +1703,7 @@ class TestRouterPreviousLocation(RouterTestCase):
             ]
         )
 
-        current_location = Location(
-            section_id="property-details-section", block_id="insurance-type"
-        )
+        current_location = Location(section_id="property-details-section", block_id="insurance-type")
         routing_path = RoutingPath(
             block_ids=["insurance-type", "insurance-address", "listed"],
             section_id="default-section",
@@ -1860,10 +1718,7 @@ class TestRouterPreviousLocation(RouterTestCase):
             return_location,
         )
 
-        assert (
-            "/questionnaire/sections/property-details-section/#insurance-address-answer"
-            in previous_location_url
-        )
+        assert "/questionnaire/sections/property-details-section/#insurance-address-answer" in previous_location_url
 
     @pytest.mark.usefixtures("app")
     def test_return_to_section_summary_section_is_in_progress(self):
@@ -1879,9 +1734,7 @@ class TestRouterPreviousLocation(RouterTestCase):
             ]
         )
 
-        current_location = Location(
-            section_id="property-details-section", block_id="insurance-address"
-        )
+        current_location = Location(section_id="property-details-section", block_id="insurance-address")
         routing_path = RoutingPath(
             block_ids=["insurance-type", "insurance-address", "listed"],
             section_id="default-section",
@@ -1897,8 +1750,7 @@ class TestRouterPreviousLocation(RouterTestCase):
         )
 
         assert (
-            "/questionnaire/insurance-type/?return_to=section-summary#insurance-address-answer"
-            in previous_location_url
+            "/questionnaire/insurance-type/?return_to=section-summary#insurance-address-answer" in previous_location_url
         )
 
     @pytest.mark.usefixtures("app")
@@ -1971,10 +1823,7 @@ class TestRouterPreviousLocation(RouterTestCase):
             return_location,
         )
 
-        assert (
-            "/questionnaire/radio/?return_to=final-summary#dessert-answer"
-            in previous_location
-        )
+        assert "/questionnaire/radio/?return_to=final-summary#dessert-answer" in previous_location
 
 
 class TestRouterPreviousLocationLinearFlow(RouterTestCase):
@@ -2000,9 +1849,7 @@ class TestRouterPreviousLocationLinearFlow(RouterTestCase):
             section_id="default-section",
         )
 
-        current_location = Location(
-            section_id="default-section", block_id="mandatory-checkbox"
-        )
+        current_location = Location(section_id="default-section", block_id="mandatory-checkbox")
         return_location = ReturnLocation()
 
         previous_location_url = self.router.get_previous_location_url(
@@ -2031,12 +1878,8 @@ class TestRouterPreviousLocationLinearFlow(RouterTestCase):
             ]
         )
 
-        current_location = Location(
-            section_id="house-details-section", block_id="house-type"
-        )
-        routing_path = RoutingPath(
-            block_ids=["house-type"], section_id="house-details-section"
-        )
+        current_location = Location(section_id="house-details-section", block_id="house-type")
+        routing_path = RoutingPath(block_ids=["house-type"], section_id="house-details-section")
         return_location = ReturnLocation()
 
         previous_location_url = self.router.get_previous_location_url(
@@ -2053,9 +1896,7 @@ class TestRouterPreviousLocationHubFlow(RouterTestCase):
     def test_is_not_none_on_first_block_in_section(self):
         self.schema = load_schema_from_name("test_hub_and_spoke")
 
-        current_location = Location(
-            section_id="employment-section", block_id="employment-status"
-        )
+        current_location = Location(section_id="employment-section", block_id="employment-status")
 
         routing_path = RoutingPath(
             block_ids=["employment-status", "employment-type"],
@@ -2099,9 +1940,7 @@ class TestRouterLastLocationLinearFlow(RouterTestCase):
 
     @pytest.mark.usefixtures("app")
     def test_last_block_not_on_path(self):
-        self.schema = load_schema_from_name(
-            "test_routing_to_questionnaire_end_multiple_sections"
-        )
+        self.schema = load_schema_from_name("test_routing_to_questionnaire_end_multiple_sections")
         self.data_stores.answer_store = AnswerStore(
             [
                 {"answer_id": "test-answer", "value": "No"},
@@ -2130,11 +1969,9 @@ class TestRouterLastLocationLinearFlow(RouterTestCase):
             list_item_id=None,
         ).url()
 
-        last_completed_block_in_progress_store = (
-            self.data_stores.progress_store.get_completed_block_ids(
-                SectionKey(section_id)
-            )[-1]
-        )
+        last_completed_block_in_progress_store = self.data_stores.progress_store.get_completed_block_ids(
+            SectionKey(section_id)
+        )[-1]
 
         last_location_url = self.router.get_last_location_in_questionnaire_url()
 
@@ -2186,9 +2023,7 @@ class TestRouterSectionResume(RouterTestCase):
             section_id="property-details-section",
         )
 
-        section_resume_url = self.router.get_section_resume_url(
-            routing_path=section_routing_path
-        )
+        section_resume_url = self.router.get_section_resume_url(routing_path=section_routing_path)
 
         assert "questionnaire/insurance-address/?resume=True" in section_resume_url
 
@@ -2212,9 +2047,7 @@ class TestRouterSectionResume(RouterTestCase):
             section_id="employment-section",
         )
 
-        section_resume_url = self.router.get_section_resume_url(
-            routing_path=routing_path
-        )
+        section_resume_url = self.router.get_section_resume_url(routing_path=routing_path)
 
         assert "questionnaire/employment-status/" in section_resume_url
 
@@ -2235,9 +2068,7 @@ class TestRouterSectionResume(RouterTestCase):
             ]
         )
 
-        current_location = Location(
-            section_id="default-section", block_id="second-breakdown-block"
-        )
+        current_location = Location(section_id="default-section", block_id="second-breakdown-block")
 
         routing_path = RoutingPath(
             block_ids=[

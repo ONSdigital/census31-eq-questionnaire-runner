@@ -128,9 +128,7 @@ def test_context_for_section_list_summary(people_answer_store):
                     {"items": ["gTrlio"], "name": "visitors"},
                 ]
             ),
-            metadata=get_metadata(
-                extra_metadata={"display_address": "70 Abingdon Road, Goathill"}
-            ),
+            metadata=get_metadata(extra_metadata={"display_address": "70 Abingdon Road, Goathill"}),
         ),
         current_location=Location(section_id="section"),
         routing_path=RoutingPath(
@@ -207,8 +205,7 @@ def test_context_for_section_list_summary(people_answer_store):
                                 "list_item_id": "gTrlio",
                                 "primary_person": False,
                                 "remove_link": (
-                                    "/questionnaire/visitors/gTrlio/remove-visitor/"
-                                    "?return_to=section-summary"
+                                    "/questionnaire/visitors/gTrlio/remove-visitor/" "?return_to=section-summary"
                                 ),
                                 "is_complete": False,
                                 "repeating_blocks": False,
@@ -477,15 +474,9 @@ def test_context_for_driving_question_summary_empty_list():
     summary_context = SectionSummaryContext(
         DEFAULT_LANGUAGE_CODE,
         schema,
-        DataStores(
-            answer_store=AnswerStore(
-                [{"answer_id": "anyone-usually-live-at-answer", "value": "No"}]
-            )
-        ),
+        DataStores(answer_store=AnswerStore([{"answer_id": "anyone-usually-live-at-answer", "value": "No"}])),
         current_location=Location(section_id="section"),
-        routing_path=RoutingPath(
-            block_ids=["anyone-usually-live-at"], section_id="section"
-        ),
+        routing_path=RoutingPath(block_ids=["anyone-usually-live-at"], section_id="section"),
     )
 
     context = summary_context()
@@ -652,9 +643,7 @@ def test_primary_only_links_for_section_summary(people_answer_store):
                 }
             ]
         ),
-        metadata=get_metadata(
-            extra_metadata={"display_address": "70 Abingdon Road, Goathill"}
-        ),
+        metadata=get_metadata(extra_metadata={"display_address": "70 Abingdon Road, Goathill"}),
         response_metadata={},
     )
 
@@ -695,9 +684,7 @@ def test_primary_links_for_section_summary(people_answer_store):
                 }
             ]
         ),
-        metadata=get_metadata(
-            extra_metadata={"display_address": "70 Abingdon Road, Goathill"}
-        ),
+        metadata=get_metadata(extra_metadata={"display_address": "70 Abingdon Road, Goathill"}),
     )
 
     summary_context = SectionSummaryContext(

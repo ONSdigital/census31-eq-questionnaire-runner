@@ -12,10 +12,7 @@ from app.data_models.progress_store import ProgressStore
 from app.questionnaire import QuestionnaireSchema
 from app.questionnaire.location import Location
 from app.questionnaire.placeholder_parser import PlaceholderParser
-from app.questionnaire.placeholder_renderer import (
-    PlaceholderRenderer,
-    find_pointers_containing,
-)
+from app.questionnaire.placeholder_renderer import PlaceholderRenderer, find_pointers_containing
 from app.questionnaire.placeholder_transforms import PlaceholderTransforms
 from app.questionnaire.router import Router
 from app.questionnaire.routing_path import RoutingPath
@@ -266,9 +263,7 @@ def list_collector_variant_schema():
                                                     "id": "answer1",
                                                     "label": "Collector Answer 1 Variant Yes",
                                                     "type": "General",
-                                                    "action": {
-                                                        "type": "RedirectToListAddBlock"
-                                                    },
+                                                    "action": {"type": "RedirectToListAddBlock"},
                                                 }
                                             ],
                                         },
@@ -418,9 +413,7 @@ def list_collector_variant_schema():
                                                     {
                                                         "id": "answer1",
                                                         "label": "Answer 1 Variant Yes",
-                                                        "action": {
-                                                            "type": "RemoveListItemAndAnswers"
-                                                        },
+                                                        "action": {"type": "RemoveListItemAndAnswers"},
                                                     }
                                                 ],
                                             },
@@ -477,9 +470,7 @@ def list_collector_variant_schema():
                                         "content": {
                                             "title": "Household Occupancy",
                                             "contents": [
-                                                {
-                                                    "description": "According to your answer this household is occupied"
-                                                }
+                                                {"description": "According to your answer this household is occupied"}
                                             ],
                                         },
                                         "when": {
@@ -497,9 +488,7 @@ def list_collector_variant_schema():
                                         "content": {
                                             "title": "Household Occupancy",
                                             "contents": [
-                                                {
-                                                    "description": "According to your answer this household is unoccupied"
-                                                }
+                                                {"description": "According to your answer this household is unoccupied"}
                                             ],
                                         },
                                         "when": {
@@ -589,9 +578,7 @@ def sections_dependent_on_list_schema():
                                         "content": {
                                             "title": "Household Occupance",
                                             "contents": [
-                                                {
-                                                    "description": "According to your answer this household is occupied"
-                                                }
+                                                {"description": "According to your answer this household is occupied"}
                                             ],
                                         },
                                         "when": {
@@ -612,9 +599,7 @@ def sections_dependent_on_list_schema():
                                         "content": {
                                             "title": "Household Occupance",
                                             "contents": [
-                                                {
-                                                    "description": "According to your answer this household is unoccupied"
-                                                }
+                                                {"description": "According to your answer this household is unoccupied"}
                                             ],
                                         },
                                         "when": {
@@ -1112,9 +1097,7 @@ def mock_schema(mocker):
         )
     )
     schema.is_answer_dynamic = mocker.MagicMock(return_value=False)
-    schema.is_answer_in_list_collector_repeating_block = mocker.MagicMock(
-        return_value=False
-    )
+    schema.is_answer_in_list_collector_repeating_block = mocker.MagicMock(return_value=False)
     return schema
 
 
@@ -1159,9 +1142,7 @@ def default_placeholder_value_schema():
 @pytest.fixture
 def transformer(mock_renderer, mock_schema, locale_string="en_GB"):
     def _transform(language=locale_string):
-        return PlaceholderTransforms(
-            language=language, schema=mock_schema, renderer=mock_renderer
-        )
+        return PlaceholderTransforms(language=language, schema=mock_schema, renderer=mock_renderer)
 
     return _transform
 
@@ -1201,11 +1182,7 @@ def placholder_transform_question_json():
                                             "transform": "concatenate_list",
                                         },
                                         {
-                                            "arguments": {
-                                                "string_to_format": {
-                                                    "source": "previous_transform"
-                                                }
-                                            },
+                                            "arguments": {"string_to_format": {"source": "previous_transform"}},
                                             "transform": "format_possessive",
                                         },
                                     ],
@@ -1242,9 +1219,7 @@ def placholder_transform_question_json():
 
 @pytest.fixture
 def placholder_transform_pointers(placholder_transform_question_json):
-    return list(
-        find_pointers_containing(placholder_transform_question_json, "placeholders")
-    )
+    return list(find_pointers_containing(placholder_transform_question_json, "placeholders"))
 
 
 @pytest.fixture
@@ -1336,12 +1311,8 @@ def answers():
         "medium": Answer(answer_id="medium", value=5),
         "high": Answer(answer_id="high", value=10),
         "list_answer": Answer(answer_id="list_answer", value=["a", "abc", "cba"]),
-        "other_list_answer": Answer(
-            answer_id="other_list_answer", value=["x", "y", "z"]
-        ),
-        "other_list_answer_2": Answer(
-            answer_id="other_list_answer_2", value=["a", "abc", "cba"]
-        ),
+        "other_list_answer": Answer(answer_id="other_list_answer", value=["x", "y", "z"]),
+        "other_list_answer_2": Answer(answer_id="other_list_answer_2", value=["a", "abc", "cba"]),
         "text_answer": Answer(answer_id="small_string", value="abc"),
         "other_text_answer": Answer(answer_id="other_string", value="xyz"),
         "missing_answer": Answer(answer_id="missing", value=1),
@@ -1369,16 +1340,12 @@ def questionnaire_store_get_relationship_collectors_by_list_name_patch(mocker):
 
 @pytest.fixture
 def calculated_question_with_dependent_sections_schema_non_repeating():
-    return load_schema_from_name(
-        "test_validation_sum_against_total_hub_with_dependent_section"
-    )
+    return load_schema_from_name("test_validation_sum_against_total_hub_with_dependent_section")
 
 
 @pytest.fixture
 def calculated_question_with_dependent_sections_schema_repeating():
-    return load_schema_from_name(
-        "test_validation_sum_against_total_repeating_with_dependent_section"
-    )
+    return load_schema_from_name("test_validation_sum_against_total_repeating_with_dependent_section")
 
 
 @pytest.fixture
@@ -1413,16 +1380,12 @@ def skipping_section_dependencies_schema():
 
 @pytest.fixture
 def section_dependencies_calculated_summary_schema():
-    return load_schema_from_name(
-        "test_routing_and_skipping_section_dependencies_calculated_summary"
-    )
+    return load_schema_from_name("test_routing_and_skipping_section_dependencies_calculated_summary")
 
 
 @pytest.fixture
 def section_dependencies_new_calculated_summary_schema():
-    return load_schema_from_name(
-        "test_routing_and_skipping_section_dependencies_new_calculated_summary"
-    )
+    return load_schema_from_name("test_routing_and_skipping_section_dependencies_new_calculated_summary")
 
 
 @pytest.fixture
@@ -1432,16 +1395,12 @@ def progress_block_dependencies_schema():
 
 @pytest.fixture
 def progress_section_dependencies_schema():
-    return load_schema_from_name(
-        "test_progress_value_source_section_enabled_hub_complex"
-    )
+    return load_schema_from_name("test_progress_value_source_section_enabled_hub_complex")
 
 
 @pytest.fixture
 def progress_dependencies_schema():
-    return load_schema_from_name(
-        "test_progress_value_source_calculated_summary_extended"
-    )
+    return load_schema_from_name("test_progress_value_source_calculated_summary_extended")
 
 
 @pytest.fixture
@@ -1451,9 +1410,7 @@ def grand_calculated_summary_schema():
 
 @pytest.fixture
 def grand_calculated_summary_in_repeating_section_schema():
-    return load_schema_from_name(
-        "test_grand_calculated_summary_inside_repeating_section"
-    )
+    return load_schema_from_name("test_grand_calculated_summary_inside_repeating_section")
 
 
 @pytest.fixture

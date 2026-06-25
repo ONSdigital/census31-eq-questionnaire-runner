@@ -14,9 +14,7 @@ class ListCollector(Question):
 
     @cached_property
     def repeating_block_ids(self) -> list[str]:
-        return [
-            block["id"] for block in self.rendered_block.get("repeating_blocks", [])
-        ]
+        return [block["id"] for block in self.rendered_block.get("repeating_blocks", [])]
 
     @cached_property
     def list_name(self) -> str:
