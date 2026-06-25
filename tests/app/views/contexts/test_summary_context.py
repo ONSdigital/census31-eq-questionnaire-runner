@@ -232,7 +232,10 @@ def test_context_for_summary():
                                             "currency": "GBP",
                                             "id": "second-number-answer-also-in-total",
                                             "label": "Second answer label also in total (optional)",
-                                            "link": "/questionnaire/second-number-block/#second-number-answer-also-in-total",
+                                            "link": (
+                                                "/questionnaire/second-number-block/"
+                                                "#second-number-answer-also-in-total"
+                                            ),
                                             "type": "currency",
                                             "unit": None,
                                             "unit_length": None,
@@ -269,7 +272,10 @@ def test_context_for_summary():
                                             "currency": "GBP",
                                             "id": "third-number-answer",
                                             "label": "Third answer in currency label",
-                                            "link": "/questionnaire/people/jufPpX/third-number-block/#third-number-answer",
+                                            "link": (
+                                                "/questionnaire/people/jufPpX/third-number-block/"
+                                                "#third-number-answer"
+                                            ),
                                             "type": "currency",
                                             "unit": None,
                                             "unit_length": None,
@@ -280,7 +286,10 @@ def test_context_for_summary():
                                             "currency": "GBP",
                                             "id": "third-number-answer-also-in-total",
                                             "label": "Third answer label also in currency total (optional)",
-                                            "link": "/questionnaire/people/jufPpX/third-number-block/#third-number-answer-also-in-total",
+                                            "link": (
+                                                "/questionnaire/people/jufPpX/third-number-block/"
+                                                "#third-number-answer-also-in-total"
+                                            ),
                                             "type": "currency",
                                             "unit": None,
                                             "unit_length": None,
@@ -304,7 +313,10 @@ def test_context_for_summary():
                                             "currency": None,
                                             "id": "checkbox-answer",
                                             "label": None,
-                                            "link": "/questionnaire/people/jufPpX/mutually-exclusive-checkbox/#checkbox-answer",
+                                            "link": (
+                                                "/questionnaire/people/jufPpX/mutually-exclusive-checkbox/"
+                                                "#checkbox-answer"
+                                            ),
                                             "type": "checkbox",
                                             "unit": None,
                                             "unit_length": None,
@@ -370,7 +382,10 @@ def test_context_for_summary():
                                             "currency": "GBP",
                                             "id": "third-number-answer",
                                             "label": "Third answer in currency label",
-                                            "link": "/questionnaire/people/fjWZET/third-number-block/#third-number-answer",
+                                            "link": (
+                                                "/questionnaire/people/fjWZET/third-number-block/"
+                                                "#third-number-answer"
+                                            ),
                                             "type": "currency",
                                             "unit": None,
                                             "unit_length": None,
@@ -381,7 +396,10 @@ def test_context_for_summary():
                                             "currency": "GBP",
                                             "id": "third-number-answer-also-in-total",
                                             "label": "Third answer label also in currency total (optional)",
-                                            "link": "/questionnaire/people/fjWZET/third-number-block/#third-number-answer-also-in-total",
+                                            "link": (
+                                                "/questionnaire/people/fjWZET/third-number-block/"
+                                                "#third-number-answer-also-in-total"
+                                            ),
                                             "type": "currency",
                                             "unit": None,
                                             "unit_length": None,
@@ -405,7 +423,10 @@ def test_context_for_summary():
                                             "currency": None,
                                             "id": "checkbox-answer",
                                             "label": None,
-                                            "link": "/questionnaire/people/fjWZET/mutually-exclusive-checkbox/#checkbox-answer",
+                                            "link": (
+                                                "/questionnaire/people/fjWZET/mutually-exclusive-checkbox/"
+                                                "#checkbox-answer"
+                                            ),
                                             "type": "checkbox",
                                             "unit": None,
                                             "unit_length": None,

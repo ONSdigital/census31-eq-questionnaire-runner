@@ -283,7 +283,8 @@ class TestEmailConfirmation(IntegrationTestCase):
         self.assertNotInBody('data-qa="error-link-2"')
 
     def test_confirmation_email_page_missing_email(self):
-        # Given I launch and complete the test_confirmation_email questionnaire and submit with a valid email from the thank you page
+        # Given I launch and complete the test_confirmation_email questionnaire
+        # and submit with a valid email from the thank you page
         self._launch_and_complete_questionnaire()
         self.post({"email": "email@example.com"})
 
@@ -298,7 +299,8 @@ class TestEmailConfirmation(IntegrationTestCase):
         self.assertEqualPageTitle("Error: Confirmation email - Test Confirmation Email")
 
     def test_confirmation_email_page_incorrect_email_format(self):
-        # Given I launch and complete the test_confirmation_email questionnaire and submit with a valid email from the thank you page
+        # Given I launch and complete the test_confirmation_email questionnaire
+        # and submit with a valid email from the thank you page
         self._launch_and_complete_questionnaire()
         self.post({"email": "email@example.com"})
 
@@ -315,7 +317,8 @@ class TestEmailConfirmation(IntegrationTestCase):
         self.assertEqualPageTitle("Error: Confirmation email - Test Confirmation Email")
 
     def test_confirmation_email_page(self):
-        # Given I launch and complete the test_confirmation_email questionnaire and submit with a valid email from the thank you page
+        # Given I launch and complete the test_confirmation_email questionnaire
+        # and submit with a valid email from the thank you page
         self._launch_and_complete_questionnaire()
         self.post({"email": "email@example.com"})
         self.post({"confirm-email": "Yes, send the confirmation email"})
@@ -330,12 +333,14 @@ class TestEmailConfirmation(IntegrationTestCase):
         self.assertInBody("A confirmation email has been sent to email@example.com")
 
     def test_confirmation_email_page_white_space(self):
-        # Given I launch and complete the test_confirmation_email questionnaire and submit with a valid email from the thank you page
+        # Given I launch and complete the test_confirmation_email questionnaire
+        # and submit with a valid email from the thank you page
         self._launch_and_complete_questionnaire()
         self.post({"email": "email@example.com"})
         self.post({"confirm-email": "Yes, send the confirmation email"})
 
-        # When I go to the confirmation email page and submit with a valid email which has leading and trailing whitespace
+        # When I go to the confirmation email page and submit with a valid email
+        # which has leading and trailing whitespace
         self.get("/submitted/confirmation-email/send/")
         self.post({"email": " email@example.com "})
         self.post({"confirm-email": "Yes, send the confirmation email"})
@@ -347,7 +352,8 @@ class TestEmailConfirmation(IntegrationTestCase):
     def test_send_another_email_link_is_not_present_on_thank_you_page_when_confirmation_limit_hit(
         self,
     ):
-        # Given I launch and complete the test_confirmation_email questionnaire and submit with a valid email from the thank you page
+        # Given I launch and complete the test_confirmation_email questionnaire
+        # and submit with a valid email from the thank you page
         self._launch_and_complete_questionnaire()
         self.post({"email": "email@example.com"})
         self.post({"confirm-email": "Yes, send the confirmation email"})
@@ -365,7 +371,8 @@ class TestEmailConfirmation(IntegrationTestCase):
     def test_send_another_email_link_is_not_present_on_confirmation_sent_page_when_confirmation_limit_hit(
         self,
     ):
-        # Given I launch and complete the test_confirmation_email questionnaire and submit with a valid email from the thank you page
+        # Given I launch and complete the test_confirmation_email questionnaire
+        # and submit with a valid email from the thank you page
         self._launch_and_complete_questionnaire()
         self.post({"email": "email@example.com"})
         self.post({"confirm-email": "Yes, send the confirmation email"})
@@ -443,7 +450,8 @@ class TestEmailConfirmation(IntegrationTestCase):
         publisher = self._application.eq["cloud_tasks"]
         publisher.create_task = MagicMock(side_effect=CloudTaskCreationFailed)
 
-        # Given I launch and complete the test_confirmation_email questionnaire and submit with a valid email from the thank you page
+        # Given I launch and complete the test_confirmation_email questionnaire
+        # and submit with a valid email from the thank you page
         self._launch_and_complete_questionnaire()
 
         # When the email fulfilment request fails to publish

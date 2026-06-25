@@ -56,7 +56,10 @@ def test_build_preview_context(
                                     "guidance": {
                                         "contents": [
                                             {
-                                                "description": "For example select `yes` if you can report for this period"
+                                                "description": (
+                                                    "For example select `yes` if you can "
+                                                    "report for this period"
+                                                )
                                             }
                                         ],
                                         "hide_guidance": "Additional guidance",
@@ -74,7 +77,10 @@ def test_build_preview_context(
                             "guidance": {
                                 "contents": [
                                     {
-                                        "description": "Please provide figures for the period in which you were trading."
+                                        "description": (
+                                            "Please provide figures for the period "
+                                            "in which you were trading."
+                                        )
                                     }
                                 ]
                             },
@@ -91,7 +97,8 @@ def test_build_preview_context(
                             ],
                             "descriptions": [
                                 "<p>If figures are not available for the calendar year 2021, your return should "
-                                "relate to a 12 month business year that ends between 6 April 2021 and 5 April 2022.</p>"
+                                "relate to a 12 month business year that ends between "
+                                "6 April 2021 and 5 April 2022.</p>"
                             ],
                             "guidance": {
                                 "contents": [
@@ -99,21 +106,30 @@ def test_build_preview_context(
                                         "description": "<p><strong>Only traded for a part of the year?</strong></p>"
                                     },
                                     {
-                                        "description": "<p>Please provide figures for the period in which you were trading.</p>"
+                                        "description": (
+                                            "<p>Please provide figures for the period "
+                                            "in which you were trading.</p>"
+                                        )
                                     },
                                     {
                                         "description": "<p><strong>Only commenced trading during 2021?</strong></p>"
                                     },
                                     {
-                                        "description": "<p>Your return should cover the period from the commencement of "
-                                        "your business until 31 December 2021 or, alternatively, any date up to 5 April 2022.</p>"
+                                        "description": (
+                                            "<p>Your return should cover the period from the commencement of "
+                                            "your business until 31 December 2021 or, alternatively, any "
+                                            "date up to 5 April 2022.</p>"
+                                        )
                                     },
                                     {
                                         "description": "<p><strong>Ceased trading during 2021?</strong></p>"
                                     },
                                     {
-                                        "description": "<p>Your return should cover the period 1 January 2021 to the date "
-                                        "you ceased to trade or, alternatively, from the beginning of your last business year up to the cessation date.</p>"
+                                        "description": (
+                                            "<p>Your return should cover the period 1 January 2021 to the date "
+                                            "you ceased to trade or, alternatively, from the beginning of "
+                                            "your last business year up to the cessation date.</p>"
+                                        )
                                     },
                                 ]
                             },
@@ -137,7 +153,10 @@ def test_build_preview_context(
                             ],
                             "guidance": None,
                             "id": "report-radio-second",
-                            "title": "Are you sure you are able to report for the calendar month {calendar_start_date} to {calendar_end_date}?",
+                            "title": (
+                                "Are you sure you are able to report for the calendar month "
+                                "{calendar_start_date} to {calendar_end_date}?"
+                            ),
                             "type": "General",
                         }
                     },
@@ -188,7 +207,10 @@ def test_build_preview_context(
                                             "income from sub-contracted activities",
                                             "commission",
                                             "sales of goods purchased for resale",
-                                            "revenue earned from other parts of the business not named, please supply at fair value",
+                                            (
+                                                "revenue earned from other parts of the business "
+                                                "not named, please supply at fair value"
+                                            ),
                                         ]
                                     },
                                     {"description": "<strong>Exclude:</strong>"},
