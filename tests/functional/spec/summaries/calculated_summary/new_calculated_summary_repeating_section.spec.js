@@ -193,7 +193,7 @@ describe("Feature: Calculated Summary Repeating Section", () => {
     });
 
     it(
-      "Given the calculated summary has a custom title, " + "When I am on the unit calculated summary, Then the page title should use the custom title",
+      "Given the calculated summary has a custom title, When I am on the unit calculated summary, Then the page title should use the custom title",
       async () => {
         await expect(await browser.getTitle()).toBe("Total Unit Values - Test New Calculated Summary Repeating Section");
       },
@@ -271,7 +271,7 @@ describe("Feature: Calculated Summary Repeating Section", () => {
     );
 
     it(
-      "Given I have an answer minimum based on a calculated summary total, " + "When I enter an invalid answer, Then I should see an error message on the page",
+      "Given I have an answer minimum based on a calculated summary total, When I enter an invalid answer, Then I should see an error message on the page",
       async () => {
         await click(CalculatedSummaryTotalConfirmation.submit());
         await verifyUrlContains(SetMinMaxBlockPage.pageName);
@@ -283,7 +283,7 @@ describe("Feature: Calculated Summary Repeating Section", () => {
     );
 
     it(
-      "Given I have an answer maximum based on a calculated summary total, " + "When I enter an invalid answer, Then I should see an error message on the page",
+      "Given I have an answer maximum based on a calculated summary total, When I enter an invalid answer, Then I should see an error message on the page",
       async () => {
         await $(SetMinMaxBlockPage.setMaximum()).setValue(10.0);
         await click(SetMinMaxBlockPage.submit());

@@ -118,7 +118,7 @@ describe("List Collector Repeating Blocks", () => {
       await browser.openQuestionnaire("test_list_collector_repeating_blocks_section_summary.json");
     });
     it(
-      "When the user adds items to the list and completes the repeating blocks, " + "Then the completed items are displayed on the list collector page.",
+      "When the user adds items to the list and completes the repeating blocks, Then the completed items are displayed on the list collector page.",
       async () => {
         await proceedToListCollector();
         await addCompany("ONS", "123", "1", "1", "2023", true, true);
@@ -369,7 +369,7 @@ describe("List Collector Repeating Blocks", () => {
     );
 
     it(
-      "When the user completes the incomplete blocks and returns to the list collector Page, " + "Then the completed items should display the checkmark icon",
+      "When the user completes the incomplete blocks and returns to the list collector Page, Then the completed items should display the checkmark icon",
       async () => {
         await $(CompaniesRepeatingBlock1Page.registrationNumber()).setValue("456");
         await $(CompaniesRepeatingBlock1Page.registrationDateDay()).setValue("2");
@@ -438,7 +438,7 @@ describe("List Collector Repeating Blocks", () => {
     });
 
     it(
-      "When the user has completed the list collector section and uses Submit on the hub page, " + "Then the user will be redirected to the next section.",
+      "When the user has completed the list collector section and uses Submit on the hub page, Then the user will be redirected to the next section.",
       async () => {
         await click(HubPage.submit());
         await verifyUrlContains(ResponsiblePartyHubPage.pageName);

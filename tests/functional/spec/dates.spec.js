@@ -141,7 +141,7 @@ describe("Date checks", () => {
     await expect(await $(DateMonthYearPage.errorNumber(1)).getText()).toBe("Enter a valid date");
   });
 
-  it("Given the test_dates survey is selected, " + "When an error message is shown and it is corrected, " + "Then the next question is displayed", async () => {
+  it("Given the test_dates survey is selected, When an error message is shown and it is corrected, Then the next question is displayed", async () => {
     await $(DateRangePage.dateRangeFromDay()).setValue(1);
     await $(DateRangePage.dateRangeFromMonth()).setValue(1);
     await $(DateRangePage.dateRangeFromYear()).setValue(2016);
@@ -195,7 +195,7 @@ describe("Date checks", () => {
     },
   );
 
-  it("Given the test_dates survey is selected, when a user clicks the day label then the day subfield should gain the focus", async () => {
+  it("Given the test_dates survey is selected, When a user clicks the day label then the day subfield should gain the focus", async () => {
     await $(DateRangePage.dateRangeFromDay()).setValue(1);
     await $(DateRangePage.dateRangeFromMonth()).setValue(1);
     await $(DateRangePage.dateRangeFromYear()).setValue(2016);

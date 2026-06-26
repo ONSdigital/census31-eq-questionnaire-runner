@@ -119,7 +119,7 @@ describe("Component: Mutually Exclusive Day Month Year Date With Multiple Radio 
 
   describe("Given the user has not clicked the mutually exclusive checkbox answer", () => {
     it(
-      "When the user enters a value for the non-exclusive month year date answer, " + "Then only the non-exclusive month year date answer should be answered.",
+      "When the user enters a value for the non-exclusive month year date answer, Then only the non-exclusive month year date answer should be answered.",
       async () => {
         // Given
         await expect(await $(DatePage.dateExclusiveIPreferNotToSay()).isSelected()).toBe(false);

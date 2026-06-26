@@ -46,7 +46,7 @@ describe("Introduction preview questions", () => {
   }
 
   it(
-    "Given I start a survey, When I view the preview page, " + "Then all preview elements should be visible and any metadata piped answers are resolved",
+    "Given I start a survey, When I view the preview page, Then all preview elements should be visible and any metadata piped answers are resolved",
     async () => {
       await testPreview(introductionSchemaHub, IntroductionPageHub);
       await testPreview(introductionSchemaLinear, IntroductionPageLinear);
@@ -54,7 +54,7 @@ describe("Introduction preview questions", () => {
   );
 
   it(
-    "Given I complete some of a survey and the piped answers should be being populated, " + "Then preview answers should still be showing placeholders",
+    "Given I complete some of a survey and the piped answers should be being populated, Then preview answers should still be showing placeholders",
     async () => {
       await browser.openQuestionnaire(introductionSchemaLinear);
       await $(startSurveyButton).click();

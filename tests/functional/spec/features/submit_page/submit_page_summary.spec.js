@@ -94,8 +94,8 @@ describe("Submit Page with Summary", () => {
   });
 
   it(
-    "Given a questionnaire with a summary has been completed, when submission content has not been set in the schema, " +
-      "then the default content should be displayed",
+    "Given a questionnaire with a summary has been completed, When submission content has not been set in the schema, " +
+      "Then the default content should be displayed",
     async () => {
       await completeAllQuestions();
 

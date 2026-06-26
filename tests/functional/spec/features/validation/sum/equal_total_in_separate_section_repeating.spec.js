@@ -90,7 +90,7 @@ const assertRepeatingSectionOnChange = (repeatIndex, currentBreakdown1, currentB
 
 describe("Feature: Validation - Sum of grouped answers to equal total (Repeating section) (Total in separate section)", () => {
   describe(
-    "Given I start a repeating grouped answer validation with dependent sections and add 2 householders " + "and complete the household overview section",
+    "Given I start a repeating grouped answer validation with dependent sections and add 2 householdersand complete the household overview section",
     () => {
       before(async () => {
         await browser.openQuestionnaire("test_validation_sum_against_total_repeating_with_dependent_section.json");
@@ -211,7 +211,7 @@ describe("Feature: Validation - Sum of grouped answers to equal total (Repeating
       assertRepeatingSectionOnChange(2, "1000.00", "500.00", "0.00", "2,500.00");
 
       it(
-        "When I edit and resubmit the total spending question without changing the value, " + "Then the repeating section's status should stay as 'Completed'",
+        "When I edit and resubmit the total spending question without changing the value, Then the repeating section's status should stay as 'Completed'",
         async () => {
           await $(HubPage.summaryRowLink(householdOverviewSectionId)).click();
           await $(HouseholdOverviewSectionSummary.totalSpendingAnswerEdit()).click();

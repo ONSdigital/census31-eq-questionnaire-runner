@@ -32,7 +32,7 @@ class TestCase {
 
   testCaseExtendedNewWindow(page) {
     it(
-      "When the timeout modal is displayed, but I open a new window and then focus back on the timeout modal window, " + "Then my session will be extended",
+      "When the timeout modal is displayed, but I open a new window and then focus back on the timeout modal window, Then my session will be extended",
       async () => {
         await this.checkTimeoutModal();
         // WebdriverIO v9 (BiDi) requires a valid URL when opening a new window.

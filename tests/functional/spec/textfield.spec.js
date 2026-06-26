@@ -9,7 +9,7 @@ describe("Textfield", () => {
   });
 
   it(
-    "Given a text entered in textfield , " + "When user submits and revisits the textfield, Then the textfield must contain the text entered previously",
+    "Given a text entered in textfield , When user submits and revisits the textfield, Then the textfield must contain the text entered previously",
     async () => {
       await browser.openQuestionnaire("test_textfield.json");
       await $(TextFieldPage.name()).setValue("'Twenty><&Five'");

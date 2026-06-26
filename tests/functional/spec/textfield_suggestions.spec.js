@@ -3,7 +3,7 @@ import MultipleSuggestionsPage from "../generated_pages/textfield_suggestions/mu
 import SubmitPage from "../generated_pages/textfield_suggestions/submit.page.js";
 import { click, verifyUrlContains } from "../helpers";
 describe("Suggestions", () => {
-  it("Given I open a textfield with a suggestions url, when I have entered text, then it will show suggestions", async () => {
+  it("Given I open a textfield with a suggestions url, When I have entered text, Then it will show suggestions", async () => {
     await browser.openQuestionnaire("test_textfield_suggestions.json");
     await $(SuggestionsPage.country()).setValue("Uni");
     $("#country-answer-listbox li").waitForDisplayed();

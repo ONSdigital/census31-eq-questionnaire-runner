@@ -30,7 +30,7 @@ describe("Using supplementary data", () => {
     });
   });
   it(
-    "Given I have a list collector content block using a supplementary list, " + "When I start the section, I see the supplementary list items in the list",
+    "Given I have a list collector content block using a supplementary list, When I start the section, I see the supplementary list items in the list",
     async () => {
       await click(HubPage.submit());
       await expect(await $(ListCollectorEmployeesPage.listLabel(1)).getText()).toBe("Harry Potter");
@@ -75,7 +75,7 @@ describe("Using supplementary data", () => {
   );
 
   it(
-    "Given I have validation on the start date in the repeating section, " + "When I enter a date before the incorporation date, Then I see an error message",
+    "Given I have validation on the start date in the repeating section, When I enter a date before the incorporation date, Then I see an error message",
     async () => {
       await $(LengthOfEmploymentPage.day()).setValue(1);
       await $(LengthOfEmploymentPage.month()).setValue(1);

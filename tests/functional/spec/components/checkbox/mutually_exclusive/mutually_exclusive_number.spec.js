@@ -31,7 +31,7 @@ describe("Component: Mutually Exclusive Number With Single Checkbox Override", (
 
   describe("Given the user has clicked the mutually exclusive checkbox answer", () => {
     it(
-      "When the user enters a value for the non-exclusive number answer and removes focus, " + "Then only the non-exclusive number answer should be answered.",
+      "When the user enters a value for the non-exclusive number answer and removes focus, Then only the non-exclusive number answer should be answered.",
       async () => {
         // Given
         await $(NumberPage.numberExclusiveIPreferNotToSay()).click();

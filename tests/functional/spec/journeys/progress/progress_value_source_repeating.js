@@ -63,7 +63,7 @@ describe("Feature: Routing rules based on progress value sources in repeating se
 
   describe("Given I have routing in a repeating section based on the completeness of a block", () => {
     it(
-      "When the status of the block changes from incomplete to complete, " + "then the dependent question should be on the path in the repeating sections",
+      "When the status of the block changes from incomplete to complete, Then the dependent question should be on the path in the repeating sections",
       async () => {
         await click(HubPage.submit());
         await $(ListCollectorPage.yes()).click();

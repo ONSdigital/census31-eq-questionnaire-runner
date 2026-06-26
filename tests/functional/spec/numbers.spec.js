@@ -120,7 +120,7 @@ describe("Number validation", () => {
     });
 
     it(
-      "When I edit and change the minimum value, " + "Then I must re-validate and submit any dependent answers again before I can return to the summary",
+      "When I edit and change the minimum value, Then I must re-validate and submit any dependent answers again before I can return to the summary",
       async () => {
         await $(SubmitPage.setMinimumEdit()).click();
         await $(SetMinMax.setMinimum()).setValue("11");

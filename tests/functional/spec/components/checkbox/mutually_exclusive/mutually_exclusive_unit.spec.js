@@ -31,7 +31,7 @@ describe("Component: Mutually Exclusive Unit With Single Checkbox Override", () 
 
   describe("Given the user has clicked the mutually exclusive checkbox answer", () => {
     it(
-      "When the user enters a value for the non-exclusive unit answer and removes focus, " + "Then only the non-exclusive unit answer should be answered.",
+      "When the user enters a value for the non-exclusive unit answer and removes focus, Then only the non-exclusive unit answer should be answered.",
       async () => {
         // Given
         await $(UnitPage.unitExclusiveIPreferNotToSay()).click();

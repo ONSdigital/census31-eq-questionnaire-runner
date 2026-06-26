@@ -201,7 +201,7 @@ class TestCase {
     });
 
     it(
-      "Given the calculated summary has a custom title, " + "When I am on the unit calculated summary, Then the page title should use the custom title",
+      "Given the calculated summary has a custom title, When I am on the unit calculated summary, Then the page title should use the custom title",
       async () => {
         await expect(await browser.getTitle()).toContain("Total Unit Values - ");
       },
@@ -262,7 +262,7 @@ class TestCase {
     );
 
     it(
-      "Given I have an answer minimum based on a calculated summary total, " + "When I enter an invalid answer, Then I should see an error message on the page",
+      "Given I have an answer minimum based on a calculated summary total, When I enter an invalid answer, Then I should see an error message on the page",
       async () => {
         await click(CalculatedSummaryTotalConfirmation.submit());
         await verifyUrlContains(SetMinMaxBlockPage.pageName);
@@ -275,7 +275,7 @@ class TestCase {
     );
 
     it(
-      "Given I have an answer maximum based on a calculated summary total, " + "When I enter an invalid answer, Then I should see an error message on the page",
+      "Given I have an answer maximum based on a calculated summary total, When I enter an invalid answer, Then I should see an error message on the page",
       async () => {
         await click(SubmitPage.submit());
         await verifyUrlContains(SetMinMaxBlockPage.pageName);

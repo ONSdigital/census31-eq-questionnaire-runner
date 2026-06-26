@@ -104,7 +104,7 @@ describe("List Collector Section Summary and Summary Items", () => {
       await expect(await $(SectionSummaryPage.companiesListAddLink()).isExisting()).toBe(true);
     });
     it(
-      "When I add an item and relevant data and answer Yes on the additional items page, " + "Then I should be able to and add a new item and relevant data.",
+      "When I add an item and relevant data and answer Yes on the additional items page, Then I should be able to and add a new item and relevant data.",
       async () => {
         await drivingQuestionYes();
         await addCompany("Company A", "123", true);

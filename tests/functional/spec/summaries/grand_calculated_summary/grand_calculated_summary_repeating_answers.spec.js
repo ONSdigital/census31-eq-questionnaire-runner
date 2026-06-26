@@ -128,7 +128,7 @@ describe("Feature: Grand Calculated Summary", () => {
     );
 
     it(
-      "Given I go back to another calculated summary and edit multiple answers, " + "I am still correctly routed back to the grand calculated summary",
+      "Given I go back to another calculated summary and edit multiple answers,I am still correctly routed back to the grand calculated summary",
       async () => {
         await $(GrandCalculatedSummary2Page.calculatedSummary1Edit()).click();
         await expect(await $(CalculatedSummary1Page.calculatedSummaryTitle()).getText()).toBe(
@@ -194,7 +194,7 @@ describe("Feature: Grand Calculated Summary", () => {
     );
 
     it(
-      "Given I confirm the calculated summary, " + "When I return to the Hub, Then I see the grand calculated summary come back marked as partially completed",
+      "Given I confirm the calculated summary, When I return to the Hub, Then I see the grand calculated summary come back marked as partially completed",
       async () => {
         await $(HubPage.summaryRowLink("section-2")).click();
         await click(CalculatedSummary4Page.submit());
@@ -604,7 +604,7 @@ describe("Feature: Grand Calculated Summary", () => {
     });
 
     it(
-      "Given I display multiple grand calculated summaries on an Interstitial page, " + "When I reach the page, Then I see the correct values piped in",
+      "Given I display multiple grand calculated summaries on an Interstitial page, When I reach the page, Then I see the correct values piped in",
       async () => {
         await $(PersonalExpenditureBlockPage.personalExpenditure()).setValue(1100);
         await click(PersonalExpenditureBlockPage.submit());

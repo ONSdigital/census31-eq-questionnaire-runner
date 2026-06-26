@@ -153,7 +153,7 @@ describe("Feature: Grand Calculated Summary", () => {
     );
 
     it(
-      "Given I complete the calculated and grand calculated summaries, " + "When I return to the Hub, Then I see a new conditional section has opened up",
+      "Given I complete the calculated and grand calculated summaries, When I return to the Hub, Then I see a new conditional section has opened up",
       async () => {
         await click(HubPage.submit());
         await click(CalculatedSummary4Page.submit());

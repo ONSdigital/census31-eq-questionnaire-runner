@@ -50,7 +50,7 @@ describe("Optional Radio with a Dropdown detail answer", () => {
     );
 
     it(
-      "When the user selects the default dropdown option after submitting a detail answer, " + "Then the summary should not display the detail answer",
+      "When the user selects the default dropdown option after submitting a detail answer, Then the summary should not display the detail answer",
       async () => {
         await $(RadioDropdownPage.fruit()).click();
         await $(RadioDropdownPage.fruitDetail()).selectByAttribute("value", "Mango");

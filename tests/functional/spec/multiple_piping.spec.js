@@ -12,7 +12,7 @@ describe("Piping", () => {
     });
 
     it(
-      "Given I enter multiple fields in one question, " + "When I navigate to the multiple piping answer, Then I should see all values piped into an answer",
+      "Given I enter multiple fields in one question, When I navigate to the multiple piping answer, Then I should see all values piped into an answer",
       async () => {
         await $(AddressPage.addressLine1()).setValue("1 The ONS");
         await $(AddressPage.townCity()).setValue("Newport");
@@ -27,7 +27,7 @@ describe("Piping", () => {
     );
 
     it(
-      "Given I enter values in multiple questions, " + "When I navigate to the multiple piping question, Then I should see both values piped into the question",
+      "Given I enter values in multiple questions, When I navigate to the multiple piping question, Then I should see both values piped into the question",
       async () => {
         await $(AddressPage.addressLine1()).setValue("1 The ONS");
         await click(AddressPage.submit());

@@ -33,7 +33,7 @@ describe(`Feature: Dynamically generated mandatory answer options driven by a fu
       await expect(await $(DynamicRadioPage.questionErrorPanel()).isExisting()).toBe(true);
     });
 
-    it("When I do not answer the Dropdown question and submit, then an error message and the question error panel should be displayed.", async () => {
+    it("When I do not answer the Dropdown question and submit, Then an error message and the question error panel should be displayed.", async () => {
       // Get to Dropdown question
       await $(DynamicRadioPage.answerByIndex(0)).click();
       await click(DynamicRadioPage.submit());
@@ -45,7 +45,7 @@ describe(`Feature: Dynamically generated mandatory answer options driven by a fu
     });
 
     it(
-      "When I do not answer the Mutually Exclusive Checkbox question and submit, " + "then an error message and the question error panel should be displayed.",
+      "When I do not answer the Mutually Exclusive Checkbox question and submit, Then an error message and the question error panel should be displayed.",
       async () => {
         // Get to Mutually Exclusive question
         await $(DynamicDropdownPage.answer()).selectByAttribute("value", "2021-01-02");

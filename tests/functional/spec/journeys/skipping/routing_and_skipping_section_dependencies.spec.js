@@ -28,7 +28,7 @@ describe("Routing and skipping section dependencies", () => {
     });
 
     it(
-      "When I answer 'No' to skipping the age question, " + "Then in the Primary Person section I am asked my name, age and why I didn't confirm skipping",
+      "When I answer 'No' to skipping the age question, Then in the Primary Person section I am asked my name, age and why I didn't confirm skipping",
       async () => {
         await answerNoToSkipAgeQuestion();
 
@@ -44,7 +44,7 @@ describe("Routing and skipping section dependencies", () => {
     );
 
     it(
-      "When I answer 'Yes' to skipping the age question, " + "Then in the Primary Person section I am only asked my name and why I didn't confirm skipping",
+      "When I answer 'Yes' to skipping the age question, Then in the Primary Person section I am only asked my name and why I didn't confirm skipping",
       async () => {
         await answerYesToSkipAgeQuestion();
 
@@ -378,7 +378,7 @@ describe("Routing and skipping section dependencies", () => {
     );
 
     it(
-      "When I answer 'Yes' to skipping the age question and populate the household, " + "Then in each repeating section I am not asked if they are smoker",
+      "When I answer 'Yes' to skipping the age question and populate the household, Then in each repeating section I am not asked if they are smoker",
       async () => {
         await answerYesToSkipAgeQuestion();
 

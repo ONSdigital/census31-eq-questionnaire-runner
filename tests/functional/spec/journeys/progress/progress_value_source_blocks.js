@@ -16,7 +16,7 @@ describe("Feature: Routing  based on progress value sources using block identifi
 
   describe("Given I have routing based on the completeness of a block", () => {
     it(
-      "When the block being evaluated is incomplete (Q2), " + "Then the dependent question (Q4) should not be on the path or displayed on the summary",
+      "When the block being evaluated is incomplete (Q2), Then the dependent question (Q4) should not be on the path or displayed on the summary",
       async () => {
         await $(FirstQuestionPage.q1A1()).setValue("0");
         await click(FirstQuestionPage.submit());
@@ -40,7 +40,7 @@ describe("Feature: Routing  based on progress value sources using block identifi
 
   describe("Given I have routing based on the completeness of a block", () => {
     it(
-      "When the blocks being evaluated are complete (Q2 + Q5), " + "Then the dependent questions (Q4 + Q6) should be on the path and displayed on the summary",
+      "When the blocks being evaluated are complete (Q2 + Q5), Then the dependent questions (Q4 + Q6) should be on the path and displayed on the summary",
       async () => {
         await $(FirstQuestionPage.q1A1()).setValue("1");
         await click(FirstQuestionPage.submit());

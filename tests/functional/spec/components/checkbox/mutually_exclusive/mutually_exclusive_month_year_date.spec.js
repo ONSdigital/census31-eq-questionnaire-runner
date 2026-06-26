@@ -61,7 +61,7 @@ describe("Component: Mutually Exclusive Month Year Date With Single Checkbox Ove
 
   describe("Given the user has not clicked the mutually exclusive checkbox answer", () => {
     it(
-      "When the user enters a value for the non-exclusive month year date answer, " + "Then only the non-exclusive month year date answer should be answered.",
+      "When the user enters a value for the non-exclusive month year date answer, Then only the non-exclusive month year date answer should be answered.",
       async () => {
         // Given
         await expect(await $(MonthYearDatePage.monthYearDateExclusiveIPreferNotToSay()).isSelected()).toBe(false);

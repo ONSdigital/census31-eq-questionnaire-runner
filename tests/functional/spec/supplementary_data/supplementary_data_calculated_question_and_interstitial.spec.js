@@ -89,7 +89,7 @@ describe("Using supplementary data", () => {
   );
 
   it(
-    "Given I have an interstitial block with all answers and supplementary data, " + "When I reach this block, Then I see the placeholders rendered correctly",
+    "Given I have an interstitial block with all answers and supplementary data, When I reach this block, Then I see the placeholders rendered correctly",
     async () => {
       await click(CalculatedSummarySalesPage.submit());
       await expect(await $(Section1InterstitialPage.questionText()).getText()).toContain("Summary of information provided for Tesco");

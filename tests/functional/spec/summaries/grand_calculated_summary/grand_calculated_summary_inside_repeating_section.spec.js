@@ -323,7 +323,7 @@ describe("Grand Calculated Summary inside a repeating section", () => {
   );
 
   it(
-    "Given I've completed the first repeating section, " + "When I press continue, I am taken straight to the grand calculated summary of the second repeat",
+    "Given I've completed the first repeating section, When I press continue, I am taken straight to the grand calculated summary of the second repeat",
     async () => {
       await click(HubPage.submit());
       await verifyUrlContains(GrandCalculatedSummaryVehiclePage.pageName);
@@ -365,7 +365,7 @@ describe("Grand Calculated Summary inside a repeating section", () => {
   );
 
   it(
-    "Given I edit a dynamic answer from the non-repeating calculated summary, " + "When I return to the Grand Calculated Summary, Then I see the correct total",
+    "Given I edit a dynamic answer from the non-repeating calculated summary, When I return to the Grand Calculated Summary, Then I see the correct total",
     async () => {
       await $(GrandCalculatedSummaryVehiclePage.calculatedSummaryBaseCostEdit()).click();
       await dynamicAnswerChangeLink(3).click();

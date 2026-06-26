@@ -24,7 +24,7 @@ describe("Component: Radio", () => {
     );
 
     it(
-      "When I clear a previously saved voluntary radio option and submit, " + "Then when returning to the page the radio option is no longer selected",
+      "When I clear a previously saved voluntary radio option and submit, Then when returning to the page the radio option is no longer selected",
       async () => {
         await $(RadioVoluntaryTruePage.coffee()).click();
         await click(RadioVoluntaryTruePage.submit());

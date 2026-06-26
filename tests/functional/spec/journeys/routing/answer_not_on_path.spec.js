@@ -10,7 +10,7 @@ describe("Answers not on path are not considered when routing", () => {
   });
 
   it(
-    "Given the user enters an answer on the first path, when they return to the second path, " + "they should be routed to the valid path interstitial",
+    "Given the user enters an answer on the first path, When they return to the second path, They should be routed to the valid path interstitial",
     async () => {
       await $(InitialChoicePage.goHereFirst()).click();
       await click(InitialChoicePage.submit());

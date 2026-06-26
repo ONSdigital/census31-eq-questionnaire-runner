@@ -36,7 +36,7 @@ describe("Placeholder default value check", () => {
     },
   );
   it(
-    "Given a training budget question with default answer, " + "When I enter an amount and click submit, Then the interstitial page shows amount entered",
+    "Given a training budget question with default answer, When I enter an amount and click submit, Then the interstitial page shows amount entered",
     async () => {
       await click(EmployeesNumberBlockPage.submit());
       await click(EmployeesNumberInterstitialPage.submit());

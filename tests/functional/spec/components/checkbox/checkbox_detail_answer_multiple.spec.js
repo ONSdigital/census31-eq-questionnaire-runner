@@ -45,7 +45,7 @@ describe('Checkbox with multiple "detail_answer" options', () => {
   );
 
   it(
-    "Given a non-mandatory detail answer, When the user does not provide any text, " + "Then just the option value should be displayed on the summary screen",
+    "Given a non-mandatory detail answer, When the user does not provide any text, Then just the option value should be displayed on the summary screen",
     async () => {
       // Given
       await browser.openQuestionnaire(checkboxSchema);

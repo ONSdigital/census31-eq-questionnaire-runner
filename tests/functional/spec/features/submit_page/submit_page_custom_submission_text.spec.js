@@ -7,7 +7,7 @@ describe("Summary Screen", () => {
   });
 
   it(
-    "Given a questionnaire with a summary and custom submission content has been completed, " + "then the correct submission content should be displayed",
+    "Given a questionnaire with a summary and custom submission content has been completed, Then the correct submission content should be displayed",
     async () => {
       await $(DessertBlockPage.dessert()).setValue("Crème Brûlée");
       await click(DessertBlockPage.submit());

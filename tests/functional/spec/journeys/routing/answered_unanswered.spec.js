@@ -73,7 +73,7 @@ describe("Test routing question answered/unanswered", () => {
     });
 
     it(
-      "When I do not answer the question or answer `0` and submit, " + "Then I should see a page saying I did not answer the question or that I chose `0`",
+      "When I do not answer the question or answer `0` and submit, Then I should see a page saying I did not answer the question or that I chose `0`",
       async () => {
         await click(QuestionThree.submit());
         await expect(await $(QuestionThreeUnansweredOrAnswerZero.heading()).getText()).toBe("You did not answer the question or chose 0 slices");

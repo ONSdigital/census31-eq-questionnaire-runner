@@ -9,7 +9,7 @@ describe("Routing Checkbox Contains Condition.", () => {
   });
 
   it(
-    'Given a list of checkbox options, when I have don\'t select "Liechtenstein" and select the option "India" ' +
+    'Given a list of checkbox options, When I have don\'t select "Liechtenstein" and select the option "India" ' +
       'or the option "Azerbaijan" or both then I should be routed to the "contains any" condition page',
     async () => {
       // When
@@ -44,7 +44,7 @@ describe("Routing Checkbox Contains Condition.", () => {
   );
 
   it(
-    'Given a list of checkbox options, when I select the option "Malta" or the option "Liechtenstein" ' +
+    'Given a list of checkbox options, When I select the option "Malta" or the option "Liechtenstein" ' +
       "or both then I should be routed to the summary condition page",
     async () => {
       // When
@@ -77,8 +77,8 @@ describe("Routing Checkbox Contains Condition.", () => {
   );
 
   it(
-    'Given a list of checkbox options, when I select the options "India", "Azerbaijan" and "Liechtenstein" ' +
-      'then I should be routed to the "contains all" condition page',
+    'Given a list of checkbox options, When I select the options "India", "Azerbaijan" and "Liechtenstein" ' +
+      'Then I should be routed to the "contains all" condition page',
     async () => {
       // When
       await $(RoutingCheckboxContains.india()).click();

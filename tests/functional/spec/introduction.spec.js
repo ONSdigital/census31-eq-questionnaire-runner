@@ -19,7 +19,7 @@ describe("Introduction page", () => {
     );
   });
   it(
-    "Given I start a survey, When preview content is set on the introduction page, " + "Then the content headings should be displayed at the correct level",
+    "Given I start a survey, When preview content is set on the introduction page, Then the content headings should be displayed at the correct level",
     async () => {
       await browser.openQuestionnaire(introductionSchema);
       const introQuestionH3Selector = `${IntroductionPage.introQuestion()} h3`;
@@ -28,7 +28,7 @@ describe("Introduction page", () => {
     },
   );
   it(
-    "Given I start a survey with introduction guidance set, " + "When I view the introduction page, Then I should be able to see introduction guidance",
+    "Given I start a survey with introduction guidance set, When I view the introduction page, Then I should be able to see introduction guidance",
     async () => {
       await browser.openQuestionnaire(introductionSchema);
       await expect(await $(IntroductionPage.guidancePanel(1)).isDisplayed()).toBe(true);

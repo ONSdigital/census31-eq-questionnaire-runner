@@ -61,7 +61,7 @@ describe("Calculated summary with repeating answers", () => {
     },
   );
 
-  it("Given I click on a change link, when I use the previous button, I return to the calculated summary", async () => {
+  it("Given I click on a change link, When I use the previous button, I return to the calculated summary", async () => {
     await dynamicAnswerChangeLink(1).click();
     await verifyUrlContains(DynamicAnswerPage.pageName);
     await $(DynamicAnswerPage.previous()).click();

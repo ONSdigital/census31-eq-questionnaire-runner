@@ -7,8 +7,8 @@ import SubmitPage from "../../generated_pages/unit_patterns/submit.page.js";
 import { click } from "../../helpers";
 describe("Units", () => {
   it(
-    "Given we do not set a language code and run the questionnaire, when we enter values for durations, " +
-      "they should be displayed on the summary with their units.",
+    "Given we do not set a language code and run the questionnaire, When we enter values for durations, " +
+      "Then they should be displayed on the summary with their units.",
     async () => {
       await browser.openQuestionnaire("test_unit_patterns.json", { language: "en" });
       await click(SetLengthUnitsBlockPage.submit());
@@ -26,8 +26,8 @@ describe("Units", () => {
   );
 
   it(
-    "Given we set a language code for welsh and run the questionnaire, when we enter values for durations, " +
-      "they should be displayed on the summary with their units.",
+    "Given we set a language code for welsh and run the questionnaire, When we enter values for durations, " +
+      "Then they should be displayed on the summary with their units.",
     async () => {
       await browser.openQuestionnaire("test_unit_patterns.json", { language: "cy" });
       await $(SetLengthUnitsBlockPage.submit()).scrollIntoView();
@@ -47,7 +47,7 @@ describe("Units", () => {
   );
 
   it(
-    "Given we open a questionnaire with unit labels, when the label is highlighted by the tooltip, " + "then the long unit label should be displayed.",
+    "Given we open a questionnaire with unit labels, When the label is highlighted by the tooltip, Then the long unit label should be displayed.",
     async () => {
       await browser.openQuestionnaire("test_unit_patterns.json", { language: "en" });
       await expect(await $(SetLengthUnitsBlockPage.centimetresUnit()).getAttribute("title")).toBe("centimetres");
@@ -58,8 +58,8 @@ describe("Units", () => {
   );
 
   it(
-    "Given we open a questionnaire with unit labels, when the weight unit label is highlighted by the tooltip, " +
-      "then the correct unit label should be displayed.",
+    "Given we open a questionnaire with unit labels, When the weight unit label is highlighted by the tooltip, " +
+      "Then the correct unit label should be displayed.",
     async () => {
       await browser.openQuestionnaire("test_unit_patterns.json", { language: "en" });
       await click(SetLengthUnitsBlockPage.submit());
@@ -71,8 +71,8 @@ describe("Units", () => {
   );
 
   it(
-    "Given we open a questionnaire with unit inputs, when the unit allows a maximum of 6 decimal places, " +
-      "then the correct number of decimal places should be displayed on the summary.",
+    "Given we open a questionnaire with unit inputs, When the unit allows a maximum of 6 decimal places, " +
+      "Then the correct number of decimal places should be displayed on the summary.",
     async () => {
       await browser.openQuestionnaire("test_unit_patterns.json", { language: "en" });
       await $(SetLengthUnitsBlockPage.submit()).click();

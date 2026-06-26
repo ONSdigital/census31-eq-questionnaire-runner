@@ -7,7 +7,7 @@ describe("Test skip condition answer comparisons", () => {
     await browser.openQuestionnaire("test_skip_condition_answer_comparison.json");
   });
 
-  it("Given we start the skip condition survey, when we enter the same answers, then the interstitial should show that the answers are the same", async () => {
+  it("Given we start the skip condition survey, When we enter the same answers, Then the interstitial should show that the answers are the same", async () => {
     await $(Comparison1Page.answer()).setValue(1);
     await click(Comparison1Page.submit());
     await $(Comparison2Page.answer()).setValue(1);
@@ -15,8 +15,8 @@ describe("Test skip condition answer comparisons", () => {
     await expect(await $("#main-content > p").getText()).toBe("Your second number was equal to your first number");
   });
   it(
-    "Given we start the skip condition survey, when we enter a high number then a low number, " +
-      "then the interstitial should show that the answers are low then high",
+    "Given we start the skip condition survey, When we enter a high number then a low number, " +
+      "Then the interstitial should show that the answers are low then high",
     async () => {
       await $(Comparison1Page.answer()).setValue(3);
       await click(Comparison1Page.submit());
@@ -26,8 +26,8 @@ describe("Test skip condition answer comparisons", () => {
     },
   );
   it(
-    "Given we start the skip condition survey, when we enter a low number then a high number, " +
-      "then the interstitial should show that the answers are high then low",
+    "Given we start the skip condition survey, When we enter a low number then a high number, " +
+      "Then the interstitial should show that the answers are high then low",
     async () => {
       await $(Comparison1Page.answer()).setValue(1);
       await click(Comparison1Page.submit());

@@ -50,7 +50,7 @@ describe("Optional Checkbox with a Dropdown detail answer", () => {
     );
 
     it(
-      "When the user selects the default dropdown option after submitting a detail answer, " + "Then the summary should not display the detail answer",
+      "When the user selects the default dropdown option after submitting a detail answer, Then the summary should not display the detail answer",
       async () => {
         await $(CheckboxDropdownPage.fruit()).click();
         await $(CheckboxDropdownPage.fruitDetail()).selectByAttribute("value", "Mango");

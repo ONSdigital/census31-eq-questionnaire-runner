@@ -12,7 +12,7 @@ describe('Radio with a numeric "detail_answer" option', () => {
   });
 
   it(
-    "Given a numeric detail answer, When the user does not provide any text, " + "Then just the option value should be displayed on the summary screen",
+    "Given a numeric detail answer, When the user does not provide any text, Then just the option value should be displayed on the summary screen",
     async () => {
       // When
       await expect(await $(RadioNumericDetailPage.otherDetail()).isDisplayed()).toBe(true);
