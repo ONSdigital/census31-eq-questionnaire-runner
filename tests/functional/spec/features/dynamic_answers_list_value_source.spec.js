@@ -208,7 +208,9 @@ async function addTwoSupermarkets() {
 }
 
 async function addTwoSupermarketsAndGetToNextSection() {
+  await $(DriverPage.yes()).click();
   await click(DriverPage.submit());
+  await $(ListCollectorAddPage.supermarketName()).waitForDisplayed();
   await $(ListCollectorAddPage.supermarketName()).setValue("Tesco");
   await $(ListCollectorAddPage.setMaximum()).setValue(10000);
   await click(ListCollectorAddPage.submit());
