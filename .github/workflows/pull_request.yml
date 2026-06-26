@@ -21,7 +21,7 @@ jobs:
           persist-credentials: false
       - run: |
           echo "PYTHON_VERSION=$(cat .python-version)" >> "$GITHUB_ENV"
-      - uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
         with:
           python-version: ${{ env.PYTHON_VERSION }}
       - name: Install Poetry
@@ -62,7 +62,7 @@ jobs:
           node-version-file: ".nvmrc"
       - name: Write app version
         run: printf "${{ github.event.pull_request.head.sha }}" > .application-version
-      - uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
         with:
           python-version: ${{ env.PYTHON_VERSION }}
       - name: Install Poetry
@@ -98,7 +98,7 @@ jobs:
           persist-credentials: false
       - run: |
           echo "PYTHON_VERSION=$(cat .python-version)" >> "$GITHUB_ENV"
-      - uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
         with:
           python-version: ${{ env.PYTHON_VERSION }}
       - name: Install Poetry
@@ -139,7 +139,7 @@ jobs:
           echo "PYTHON_VERSION=$(cat .python-version)" >> "$GITHUB_ENV"
       - name: Run validator
         run: ./scripts/run_validator.sh
-      - uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
         with:
           python-version: ${{ env.PYTHON_VERSION }}
       - name: Install Poetry
@@ -174,7 +174,7 @@ jobs:
           node-version-file: ".nvmrc"
       - run: |
           echo "PYTHON_VERSION=$(cat .python-version)" >> "$GITHUB_ENV"
-      - uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
         with:
           python-version: ${{ env.PYTHON_VERSION }}
       - name: Install Poetry
