@@ -44,19 +44,16 @@ describe('Checkbox with multiple "detail_answer" options', () => {
     },
   );
 
-  it(
-    "Given a non-mandatory detail answer, When the user does not provide any text, Then just the option value should be displayed on the summary screen",
-    async () => {
-      // Given
-      await browser.openQuestionnaire(checkboxSchema);
-      // When
-      await $(MandatoryCheckboxPage.cheese()).click();
-      await expect(await $(MandatoryCheckboxPage.cheeseDetail()).isDisplayed()).toBe(true);
-      await click(MandatoryCheckboxPage.submit());
-      // Then
-      await expect(await $(SubmitPage.mandatoryCheckboxAnswer()).getText()).toBe("Cheese");
-    },
-  );
+  it("Given a non-mandatory detail answer, When the user does not provide any text, Then just the option value should be displayed on the summary screen", async () => {
+    // Given
+    await browser.openQuestionnaire(checkboxSchema);
+    // When
+    await $(MandatoryCheckboxPage.cheese()).click();
+    await expect(await $(MandatoryCheckboxPage.cheeseDetail()).isDisplayed()).toBe(true);
+    await click(MandatoryCheckboxPage.submit());
+    // Then
+    await expect(await $(SubmitPage.mandatoryCheckboxAnswer()).getText()).toBe("Cheese");
+  });
 
   it("Given multiple detail answers, When the user provides text for all, Then that text should be displayed on the summary screen", async () => {
     // Given

@@ -44,18 +44,15 @@ describe(`Feature: Dynamically generated mandatory answer options driven by a fu
       await expect(await $(DynamicDropdownPage.questionErrorPanel()).isExisting()).toBe(true);
     });
 
-    it(
-      "When I do not answer the Mutually Exclusive Checkbox question and submit, Then an error message and the question error panel should be displayed.",
-      async () => {
-        // Get to Mutually Exclusive question
-        await $(DynamicDropdownPage.answer()).selectByAttribute("value", "2021-01-02");
-        await click(DynamicDropdownPage.submit());
+    it("When I do not answer the Mutually Exclusive Checkbox question and submit, Then an error message and the question error panel should be displayed.", async () => {
+      // Get to Mutually Exclusive question
+      await $(DynamicDropdownPage.answer()).selectByAttribute("value", "2021-01-02");
+      await click(DynamicDropdownPage.submit());
 
-        await click(DynamicMutuallyExclusivePage.submit());
-        await expect(await $(DynamicMutuallyExclusivePage.errorHeader()).getText()).toBe("There is a problem with your answer");
-        await expect(await $(DynamicMutuallyExclusivePage.errorNumber(1)).getText()).toContain("Select at least one answer");
-        await expect(await $(DynamicMutuallyExclusivePage.questionErrorPanel()).isExisting()).toBe(true);
-      },
-    );
+      await click(DynamicMutuallyExclusivePage.submit());
+      await expect(await $(DynamicMutuallyExclusivePage.errorHeader()).getText()).toBe("There is a problem with your answer");
+      await expect(await $(DynamicMutuallyExclusivePage.errorNumber(1)).getText()).toContain("Select at least one answer");
+      await expect(await $(DynamicMutuallyExclusivePage.questionErrorPanel()).isExisting()).toBe(true);
+    });
   });
 });

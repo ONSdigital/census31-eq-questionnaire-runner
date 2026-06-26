@@ -30,26 +30,23 @@ describe("Component: Mutually Exclusive Number With Single Checkbox Override", (
   });
 
   describe("Given the user has clicked the mutually exclusive checkbox answer", () => {
-    it(
-      "When the user enters a value for the non-exclusive number answer and removes focus, Then only the non-exclusive number answer should be answered.",
-      async () => {
-        // Given
-        await $(NumberPage.numberExclusiveIPreferNotToSay()).click();
-        await expect(await $(NumberPage.numberExclusiveIPreferNotToSay()).isSelected()).toBe(true);
+    it("When the user enters a value for the non-exclusive number answer and removes focus, Then only the non-exclusive number answer should be answered.", async () => {
+      // Given
+      await $(NumberPage.numberExclusiveIPreferNotToSay()).click();
+      await expect(await $(NumberPage.numberExclusiveIPreferNotToSay()).isSelected()).toBe(true);
 
-        // When
-        await $(NumberPage.number()).setValue("123");
+      // When
+      await $(NumberPage.number()).setValue("123");
 
-        // Then
-        await expect(await $(NumberPage.number()).getValue()).toBe("123");
-        await expect(await $(NumberPage.numberExclusiveIPreferNotToSay()).isSelected()).toBe(false);
+      // Then
+      await expect(await $(NumberPage.number()).getValue()).toBe("123");
+      await expect(await $(NumberPage.numberExclusiveIPreferNotToSay()).isSelected()).toBe(false);
 
-        await click(NumberPage.submit());
+      await click(NumberPage.submit());
 
-        await expect(await $(SummaryPage.numberAnswer()).getText()).toBe("123");
-        await expect(await $(SummaryPage.numberAnswer()).getText()).not.toBe("I prefer not to say");
-      },
-    );
+      await expect(await $(SummaryPage.numberAnswer()).getText()).toBe("123");
+      await expect(await $(SummaryPage.numberAnswer()).getText()).not.toBe("I prefer not to say");
+    });
   });
 
   describe("Given the user has not clicked the mutually exclusive checkbox answer", () => {

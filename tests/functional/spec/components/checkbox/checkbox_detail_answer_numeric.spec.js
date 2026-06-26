@@ -11,16 +11,13 @@ describe('Checkbox with a numeric "detail_answer" option', () => {
     await expect(await $(CheckboxNumericDetailPage.otherDetail()).isDisplayed()).toBe(true);
   });
 
-  it(
-    "Given a numeric detail answer, When the user does not provide any text, Then just the option value should be displayed on the summary screen",
-    async () => {
-      // When
-      await expect(await $(CheckboxNumericDetailPage.otherDetail()).isDisplayed()).toBe(true);
-      await click(CheckboxNumericDetailPage.submit());
-      // Then
-      await expect(await $(SubmitPage.checkboxNumericDetailAnswer()).getText()).toBe("Other");
-    },
-  );
+  it("Given a numeric detail answer, When the user does not provide any text, Then just the option value should be displayed on the summary screen", async () => {
+    // When
+    await expect(await $(CheckboxNumericDetailPage.otherDetail()).isDisplayed()).toBe(true);
+    await click(CheckboxNumericDetailPage.submit());
+    // Then
+    await expect(await $(SubmitPage.checkboxNumericDetailAnswer()).getText()).toBe("Other");
+  });
 
   it("Given a numeric detail answer, When the user provides text, Then that text should be displayed on the summary screen", async () => {
     // When

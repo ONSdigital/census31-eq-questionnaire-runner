@@ -118,31 +118,28 @@ describe("Component: Mutually Exclusive Day Month Year Date With Multiple Radio 
   });
 
   describe("Given the user has not clicked the mutually exclusive checkbox answer", () => {
-    it(
-      "When the user enters a value for the non-exclusive month year date answer, Then only the non-exclusive month year date answer should be answered.",
-      async () => {
-        // Given
-        await expect(await $(DatePage.dateExclusiveIPreferNotToSay()).isSelected()).toBe(false);
-        await expect(await $(DatePage.dateExclusiveIHaveNeverWorked()).isSelected()).toBe(false);
+    it("When the user enters a value for the non-exclusive month year date answer, Then only the non-exclusive month year date answer should be answered.", async () => {
+      // Given
+      await expect(await $(DatePage.dateExclusiveIPreferNotToSay()).isSelected()).toBe(false);
+      await expect(await $(DatePage.dateExclusiveIHaveNeverWorked()).isSelected()).toBe(false);
 
-        // When
-        await $(DatePage.dateDay()).setValue("17");
-        await $(DatePage.dateMonth()).setValue("3");
-        await $(DatePage.dateYear()).setValue("2018");
+      // When
+      await $(DatePage.dateDay()).setValue("17");
+      await $(DatePage.dateMonth()).setValue("3");
+      await $(DatePage.dateYear()).setValue("2018");
 
-        // Then
-        await expect(await $(DatePage.dateDay()).getValue()).toBe("17");
-        await expect(await $(DatePage.dateMonth()).getValue()).toBe("3");
-        await expect(await $(DatePage.dateYear()).getValue()).toBe("2018");
-        await expect(await $(DatePage.dateExclusiveIPreferNotToSay()).isSelected()).toBe(false);
-        await expect(await $(DatePage.dateExclusiveIHaveNeverWorked()).isSelected()).toBe(false);
+      // Then
+      await expect(await $(DatePage.dateDay()).getValue()).toBe("17");
+      await expect(await $(DatePage.dateMonth()).getValue()).toBe("3");
+      await expect(await $(DatePage.dateYear()).getValue()).toBe("2018");
+      await expect(await $(DatePage.dateExclusiveIPreferNotToSay()).isSelected()).toBe(false);
+      await expect(await $(DatePage.dateExclusiveIHaveNeverWorked()).isSelected()).toBe(false);
 
-        await click(DatePage.submit());
-        await expect(await $(SummaryPage.dateAnswer()).getText()).toBe("17 March 2018");
-        await expect(await $(SummaryPage.dateAnswer()).getText()).not.toBe("I prefer not to say");
-        await expect(await $(SummaryPage.dateAnswer()).getText()).not.toBe("I have never worked");
-      },
-    );
+      await click(DatePage.submit());
+      await expect(await $(SummaryPage.dateAnswer()).getText()).toBe("17 March 2018");
+      await expect(await $(SummaryPage.dateAnswer()).getText()).not.toBe("I prefer not to say");
+      await expect(await $(SummaryPage.dateAnswer()).getText()).not.toBe("I have never worked");
+    });
   });
 
   describe("Given the user has not answered the non-exclusive month year date answer", () => {

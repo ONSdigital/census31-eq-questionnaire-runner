@@ -119,22 +119,19 @@ describe("Number validation", () => {
       await verifyUrlContains(SubmitPage.pageName);
     });
 
-    it(
-      "When I edit and change the minimum value, Then I must re-validate and submit any dependent answers again before I can return to the summary",
-      async () => {
-        await $(SubmitPage.setMinimumEdit()).click();
-        await $(SetMinMax.setMinimum()).setValue("11");
-        await click(SetMinMax.submit());
-        await click(TestMinMax.submit());
+    it("When I edit and change the minimum value, Then I must re-validate and submit any dependent answers again before I can return to the summary", async () => {
+      await $(SubmitPage.setMinimumEdit()).click();
+      await $(SetMinMax.setMinimum()).setValue("11");
+      await click(SetMinMax.submit());
+      await click(TestMinMax.submit());
 
-        await expect(await $(TestMinMax.errorNumber(1)).getText()).toBe("Enter an answer more than 11");
+      await expect(await $(TestMinMax.errorNumber(1)).getText()).toBe("Enter an answer more than 11");
 
-        await $(TestMinMax.testRangeExclusive()).setValue("12");
-        await click(TestMinMax.submit());
+      await $(TestMinMax.testRangeExclusive()).setValue("12");
+      await click(TestMinMax.submit());
 
-        await verifyUrlContains(SubmitPage.pageName);
-      },
-    );
+      await verifyUrlContains(SubmitPage.pageName);
+    });
 
     it("When a number with more than 3 decimal places has been entered, Then it should be displayed correctly on the summary", async () => {
       await expect(await $(SubmitPage.testDecimal()).getText()).toBe("£11.10000");

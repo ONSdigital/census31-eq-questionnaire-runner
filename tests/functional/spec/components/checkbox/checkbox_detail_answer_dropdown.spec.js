@@ -49,19 +49,16 @@ describe("Optional Checkbox with a Dropdown detail answer", () => {
       },
     );
 
-    it(
-      "When the user selects the default dropdown option after submitting a detail answer, Then the summary should not display the detail answer",
-      async () => {
-        await $(CheckboxDropdownPage.fruit()).click();
-        await $(CheckboxDropdownPage.fruitDetail()).selectByAttribute("value", "Mango");
-        await click(CheckboxDropdownPage.submit());
-        await $(SubmitPage.previous()).click();
-        await $(CheckboxDropdownPage.fruitDetail()).selectByVisibleText("Select fruit");
-        await click(CheckboxDropdownPage.submit());
+    it("When the user selects the default dropdown option after submitting a detail answer, Then the summary should not display the detail answer", async () => {
+      await $(CheckboxDropdownPage.fruit()).click();
+      await $(CheckboxDropdownPage.fruitDetail()).selectByAttribute("value", "Mango");
+      await click(CheckboxDropdownPage.submit());
+      await $(SubmitPage.previous()).click();
+      await $(CheckboxDropdownPage.fruitDetail()).selectByVisibleText("Select fruit");
+      await click(CheckboxDropdownPage.submit());
 
-        await expect(await $(SubmitPage.optionalCheckboxWithDropdownDetailAnswer()).getText()).toBe("Fruit");
-      },
-    );
+      await expect(await $(SubmitPage.optionalCheckboxWithDropdownDetailAnswer()).getText()).toBe("Fruit");
+    });
 
     it(
       "When the user selects an option with an mandatory detail answer but does not provide a detail answer, " +

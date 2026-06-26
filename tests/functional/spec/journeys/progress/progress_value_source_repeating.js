@@ -62,41 +62,38 @@ describe("Feature: Routing rules based on progress value sources in repeating se
   });
 
   describe("Given I have routing in a repeating section based on the completeness of a block", () => {
-    it(
-      "When the status of the block changes from incomplete to complete, Then the dependent question should be on the path in the repeating sections",
-      async () => {
-        await click(HubPage.submit());
-        await $(ListCollectorPage.yes()).click();
-        await click(ListCollectorPage.submit());
-        await $(ListCollectorAddPage.firstName()).setValue("John");
-        await $(ListCollectorAddPage.lastName()).setValue("Doe");
-        await click(ListCollectorAddPage.submit());
-        await $(ListCollectorPage.yes()).click();
-        await click(ListCollectorPage.submit());
-        await $(ListCollectorAddPage.firstName()).setValue("Joe");
-        await $(ListCollectorAddPage.lastName()).setValue("Bloggs");
-        await click(ListCollectorAddPage.submit());
-        await $(ListCollectorPage.no()).click();
-        await click(ListCollectorPage.submit());
-        await browser.url(HubPage.url());
-        await expect(await $(HubPage.summaryRowState("section-2-1")).getText()).toBe("Not started");
-        await expect(await $(HubPage.summaryRowState("section-2-2")).getText()).toBe("Not started");
+    it("When the status of the block changes from incomplete to complete, Then the dependent question should be on the path in the repeating sections", async () => {
+      await click(HubPage.submit());
+      await $(ListCollectorPage.yes()).click();
+      await click(ListCollectorPage.submit());
+      await $(ListCollectorAddPage.firstName()).setValue("John");
+      await $(ListCollectorAddPage.lastName()).setValue("Doe");
+      await click(ListCollectorAddPage.submit());
+      await $(ListCollectorPage.yes()).click();
+      await click(ListCollectorPage.submit());
+      await $(ListCollectorAddPage.firstName()).setValue("Joe");
+      await $(ListCollectorAddPage.lastName()).setValue("Bloggs");
+      await click(ListCollectorAddPage.submit());
+      await $(ListCollectorPage.no()).click();
+      await click(ListCollectorPage.submit());
+      await browser.url(HubPage.url());
+      await expect(await $(HubPage.summaryRowState("section-2-1")).getText()).toBe("Not started");
+      await expect(await $(HubPage.summaryRowState("section-2-2")).getText()).toBe("Not started");
 
-        await $(HubPage.summaryRowLink("section-2-1")).click();
-        await click(DOBQuestionBlockPage.submit());
-        await click(SectionTwoSummaryPage.submit());
-        await expect(await $(HubPage.summaryRowState("section-2-1")).getText()).toBe("Completed");
-        await expect(await $(HubPage.summaryRowState("section-2-2")).getText()).toBe("Not started");
+      await $(HubPage.summaryRowLink("section-2-1")).click();
+      await click(DOBQuestionBlockPage.submit());
+      await click(SectionTwoSummaryPage.submit());
+      await expect(await $(HubPage.summaryRowState("section-2-1")).getText()).toBe("Completed");
+      await expect(await $(HubPage.summaryRowState("section-2-2")).getText()).toBe("Not started");
 
-        await click(HubPage.submit());
-        await click(QuestionBlockPage.submit());
-        await $(RandomQuestionEnablerBlockPage.randomQuestionEnabler()).setValue(1);
-        await click(RandomQuestionEnablerBlockPage.submit());
+      await click(HubPage.submit());
+      await click(QuestionBlockPage.submit());
+      await $(RandomQuestionEnablerBlockPage.randomQuestionEnabler()).setValue(1);
+      await click(RandomQuestionEnablerBlockPage.submit());
 
-        await expect(await $(HubPage.summaryRowState("section-2-1")).getText()).toBe("Partially completed");
-        await expect(await $(HubPage.summaryRowState("section-2-2")).getText()).toBe("Not started");
-      },
-    );
+      await expect(await $(HubPage.summaryRowState("section-2-1")).getText()).toBe("Partially completed");
+      await expect(await $(HubPage.summaryRowState("section-2-2")).getText()).toBe("Not started");
+    });
   });
 });
 

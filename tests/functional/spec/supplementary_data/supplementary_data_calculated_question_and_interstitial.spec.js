@@ -88,26 +88,23 @@ describe("Using supplementary data", () => {
     },
   );
 
-  it(
-    "Given I have an interstitial block with all answers and supplementary data, When I reach this block, Then I see the placeholders rendered correctly",
-    async () => {
-      await click(CalculatedSummarySalesPage.submit());
-      await expect(await $(Section1InterstitialPage.questionText()).getText()).toContain("Summary of information provided for Tesco");
-      await expect(await $("body").getText()).toContain("Telephone Number: 01171231231");
-      await expect(await $("body").getText()).toContain("Email: contact@tesco.org");
-      await expect(await $("body").getText()).toContain("Note Title: Value of total sales");
-      await expect(await $("body").getText()).toContain("Note Description: Total value of goods sold during the period of the return");
-      await expect(await $("body").getText()).toContain("Note Example Title: Including");
-      await expect(await $("body").getText()).toContain("Note Example Description: Sales across all UK stores");
-      await expect(await $("body").getText()).toContain("Incorporation Date: 27 November 1947");
-      await expect(await $("body").getText()).toContain("Trading start date: 30 November 1947");
-      await expect(await $("body").getText()).toContain("Guidance: Some supplementary guidance about the survey");
-      await expect(await $("body").getText()).toContain("Total Uk Sales: £555,000.00");
-      await expect(await $("body").getText()).toContain("Bristol sales: £333,000.00");
-      await expect(await $("body").getText()).toContain("London sales: £111,000.00");
-      await expect(await $("body").getText()).toContain("Sum of Bristol and London sales: £444,000.00");
-    },
-  );
+  it("Given I have an interstitial block with all answers and supplementary data, When I reach this block, Then I see the placeholders rendered correctly", async () => {
+    await click(CalculatedSummarySalesPage.submit());
+    await expect(await $(Section1InterstitialPage.questionText()).getText()).toContain("Summary of information provided for Tesco");
+    await expect(await $("body").getText()).toContain("Telephone Number: 01171231231");
+    await expect(await $("body").getText()).toContain("Email: contact@tesco.org");
+    await expect(await $("body").getText()).toContain("Note Title: Value of total sales");
+    await expect(await $("body").getText()).toContain("Note Description: Total value of goods sold during the period of the return");
+    await expect(await $("body").getText()).toContain("Note Example Title: Including");
+    await expect(await $("body").getText()).toContain("Note Example Description: Sales across all UK stores");
+    await expect(await $("body").getText()).toContain("Incorporation Date: 27 November 1947");
+    await expect(await $("body").getText()).toContain("Trading start date: 30 November 1947");
+    await expect(await $("body").getText()).toContain("Guidance: Some supplementary guidance about the survey");
+    await expect(await $("body").getText()).toContain("Total Uk Sales: £555,000.00");
+    await expect(await $("body").getText()).toContain("Bristol sales: £333,000.00");
+    await expect(await $("body").getText()).toContain("London sales: £111,000.00");
+    await expect(await $("body").getText()).toContain("Sum of Bristol and London sales: £444,000.00");
+  });
 
   it("Given I have a section summary enabled, When I reach the section summary, Then I see it rendered correctly with supplementary data", async () => {
     await click(Section1InterstitialPage.submit());

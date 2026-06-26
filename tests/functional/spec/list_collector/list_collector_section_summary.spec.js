@@ -103,20 +103,17 @@ describe("List Collector Section Summary and Summary Items", () => {
       await verifyUrlContains(SectionSummaryPage.url());
       await expect(await $(SectionSummaryPage.companiesListAddLink()).isExisting()).toBe(true);
     });
-    it(
-      "When I add an item and relevant data and answer Yes on the additional items page, Then I should be able to and add a new item and relevant data.",
-      async () => {
-        await drivingQuestionYes();
-        await addCompany("Company A", "123", true);
-        await anyMoreCompaniesYes();
-        await expect(await $(AnyCompaniesOrBranchesAddPage.companyOrBranchName()).isExisting()).toBe(true);
-        await expect(await $(AnyCompaniesOrBranchesAddPage.registrationNumber()).isExisting()).toBe(true);
-        await expect(await $(AnyCompaniesOrBranchesAddPage.authorisedInsurerRadioYes()).isExisting()).toBe(true);
-        await expect(await $(AnyCompaniesOrBranchesAddPage.heading()).getText()).toBe(
-          "Give details about the company or branch that undertakes general insurance business",
-        );
-      },
-    );
+    it("When I add an item and relevant data and answer Yes on the additional items page, Then I should be able to and add a new item and relevant data.", async () => {
+      await drivingQuestionYes();
+      await addCompany("Company A", "123", true);
+      await anyMoreCompaniesYes();
+      await expect(await $(AnyCompaniesOrBranchesAddPage.companyOrBranchName()).isExisting()).toBe(true);
+      await expect(await $(AnyCompaniesOrBranchesAddPage.registrationNumber()).isExisting()).toBe(true);
+      await expect(await $(AnyCompaniesOrBranchesAddPage.authorisedInsurerRadioYes()).isExisting()).toBe(true);
+      await expect(await $(AnyCompaniesOrBranchesAddPage.heading()).getText()).toBe(
+        "Give details about the company or branch that undertakes general insurance business",
+      );
+    });
     it("When I add an item and relevant data, Then I should be able to edit that item from the section summary page.", async () => {
       await drivingQuestionYes();
       await addCompany("Company A", "123", true);

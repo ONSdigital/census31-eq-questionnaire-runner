@@ -31,18 +31,15 @@ class TestCase {
   }
 
   testCaseExtendedNewWindow(page) {
-    it(
-      "When the timeout modal is displayed, but I open a new window and then focus back on the timeout modal window, Then my session will be extended",
-      async () => {
-        await this.checkTimeoutModal();
-        // WebdriverIO v9 (BiDi) requires a valid URL when opening a new window.
-        await browser.newWindow("about:blank");
-        await browser.switchWindow(await page.pageName);
-        await browser.refresh();
-        await browser.pause(65000); // Waiting 65 seconds to sanity check that it hasn’t expired
-        await verifyUrlContains(await page.pageName);
-      },
-    ).timeout(140000);
+    it("When the timeout modal is displayed, but I open a new window and then focus back on the timeout modal window, Then my session will be extended", async () => {
+      await this.checkTimeoutModal();
+      // WebdriverIO v9 (BiDi) requires a valid URL when opening a new window.
+      await browser.newWindow("about:blank");
+      await browser.switchWindow(await page.pageName);
+      await browser.refresh();
+      await browser.pause(65000); // Waiting 65 seconds to sanity check that it hasn’t expired
+      await verifyUrlContains(await page.pageName);
+    }).timeout(140000);
   }
 
   async checkTimeoutModal() {

@@ -89,147 +89,141 @@ const assertRepeatingSectionOnChange = (repeatIndex, currentBreakdown1, currentB
 };
 
 describe("Feature: Validation - Sum of grouped answers to equal total (Repeating section) (Total in separate section)", () => {
-  describe(
-    "Given I start a repeating grouped answer validation with dependent sections and add 2 householdersand complete the household overview section",
-    () => {
-      before(async () => {
-        await browser.openQuestionnaire("test_validation_sum_against_total_repeating_with_dependent_section.json");
+  describe("Given I start a repeating grouped answer validation with dependent sections and add 2 householdersand complete the household overview section", () => {
+    before(async () => {
+      await browser.openQuestionnaire("test_validation_sum_against_total_repeating_with_dependent_section.json");
 
-        // Add 2 householders
-        await addPersonToHousehold("John", "Doe");
-        await addPersonToHousehold("Jane", "Doe");
-        await $(ListCollectorPage.no()).click();
-        await $(ListCollectorPage.submit()).scrollIntoView();
-        await click(ListCollectorPage.submit());
-        await click(ListCollectorSummaryPage.submit());
+      // Add 2 householders
+      await addPersonToHousehold("John", "Doe");
+      await addPersonToHousehold("Jane", "Doe");
+      await $(ListCollectorPage.no()).click();
+      await $(ListCollectorPage.submit()).scrollIntoView();
+      await click(ListCollectorPage.submit());
+      await click(ListCollectorSummaryPage.submit());
 
-        // Complete household overview section
-        await answerAndSubmitTotalSpendingQuestion(1000);
-        await answerAndSubmitEntertainmentSpendingQuestion(500);
-        await click(HouseholdOverviewSectionSummary.submit());
+      // Complete household overview section
+      await answerAndSubmitTotalSpendingQuestion(1000);
+      await answerAndSubmitEntertainmentSpendingQuestion(500);
+      await click(HouseholdOverviewSectionSummary.submit());
 
-        await expect(await $(HubPage.summaryRowState(householderSectionId)).getText()).toBe("Completed");
-        await expect(await $(HubPage.summaryRowState(householdOverviewSectionId)).getText()).toBe("Completed");
-      });
+      await expect(await $(HubPage.summaryRowState(householderSectionId)).getText()).toBe("Completed");
+      await expect(await $(HubPage.summaryRowState(householdOverviewSectionId)).getText()).toBe("Completed");
+    });
 
-      it("When I am on the hub, Then the two repeating breakdown sections should be marked as 'Not Started'", async () => {
-        await expect(await $(HubPage.summaryRowState(repeatingSectionId(1))).getText()).toBe("Not started");
-        await expect(await $(HubPage.summaryRowState(repeatingSectionId(2))).getText()).toBe("Not started");
-      });
+    it("When I am on the hub, Then the two repeating breakdown sections should be marked as 'Not Started'", async () => {
+      await expect(await $(HubPage.summaryRowState(repeatingSectionId(1))).getText()).toBe("Not started");
+      await expect(await $(HubPage.summaryRowState(repeatingSectionId(2))).getText()).toBe("Not started");
+    });
 
-      it(
-        "When I start a repeating section and don't skip the calculated question, and enter an answer that is not equal " +
-          "to the total for the spending question, Then I should see a validation error",
-        async () => {
-          await $(HubPage.summaryRowLink(repeatingSectionId(1))).click();
-          await $(BreakdownDrivingPage.yes()).click();
-          await click(BreakdownDrivingPage.submit());
+    it(
+      "When I start a repeating section and don't skip the calculated question, and enter an answer that is not equal " +
+        "to the total for the spending question, Then I should see a validation error",
+      async () => {
+        await $(HubPage.summaryRowLink(repeatingSectionId(1))).click();
+        await $(BreakdownDrivingPage.yes()).click();
+        await click(BreakdownDrivingPage.submit());
 
-          await answerAndSubmitSpendingBreakdownQuestion(500, 500, 500);
+        await answerAndSubmitSpendingBreakdownQuestion(500, 500, 500);
 
-          await expect(await $(SpendingBreakdownPage.errorNumber(1)).getText()).toBe("Enter answers that add up to £1,000.00");
-        },
-      );
+        await expect(await $(SpendingBreakdownPage.errorNumber(1)).getText()).toBe("Enter answers that add up to £1,000.00");
+      },
+    );
 
-      it(
-        "When I enter an answer that is equal to the total for the spending question, " +
-          "Then I should be able to get to the section summary and the repeating section should be marked as 'Completed'",
-        async () => {
-          await answerAndSubmitSpendingBreakdownQuestion(500, 250, 250);
-          await answerAndSubmitEntertainmentBreakdownQuestion(250, 150, 100);
+    it(
+      "When I enter an answer that is equal to the total for the spending question, " +
+        "Then I should be able to get to the section summary and the repeating section should be marked as 'Completed'",
+      async () => {
+        await answerAndSubmitSpendingBreakdownQuestion(500, 250, 250);
+        await answerAndSubmitEntertainmentBreakdownQuestion(250, 150, 100);
 
-          await verifyUrlContains(BreakdownSectionSummary.pageName);
-          await click(BreakdownSectionSummary.submit());
+        await verifyUrlContains(BreakdownSectionSummary.pageName);
+        await click(BreakdownSectionSummary.submit());
 
-          await expect(await $(HubPage.summaryRowState(repeatingSectionId(1))).getText()).toBe("Completed");
-        },
-      );
+        await expect(await $(HubPage.summaryRowState(repeatingSectionId(1))).getText()).toBe("Completed");
+      },
+    );
 
-      it(
-        "When I start another repeating section and answer 'No' to the driving question, " +
-          "Then I should not have to answer the breakdown question and the section is marked as 'Completed'",
-        async () => {
-          await $(HubPage.summaryRowLink(repeatingSectionId(2))).click();
-          await $(BreakdownDrivingPage.no()).click();
-          await click(BreakdownDrivingPage.submit());
+    it(
+      "When I start another repeating section and answer 'No' to the driving question, " +
+        "Then I should not have to answer the breakdown question and the section is marked as 'Completed'",
+      async () => {
+        await $(HubPage.summaryRowLink(repeatingSectionId(2))).click();
+        await $(BreakdownDrivingPage.no()).click();
+        await click(BreakdownDrivingPage.submit());
 
-          await verifyUrlContains(BreakdownSectionSummary.pageName);
-          await click(BreakdownSectionSummary.submit());
+        await verifyUrlContains(BreakdownSectionSummary.pageName);
+        await click(BreakdownSectionSummary.submit());
 
-          await expect(await $(HubPage.summaryRowState(repeatingSectionId(2))).getText()).toBe("Completed");
-        },
-      );
+        await expect(await $(HubPage.summaryRowState(repeatingSectionId(2))).getText()).toBe("Completed");
+      },
+    );
 
-      it(
-        "When I change my answer for the total spending question, Then the first repeating section should be marked as " +
-          "'Partially completed' and section repeating section should stay as 'Completed'",
-        async () => {
-          await $(HubPage.summaryRowLink(householdOverviewSectionId)).click();
-          await $(HouseholdOverviewSectionSummary.totalSpendingAnswerEdit()).click();
-
-          await answerAndSubmitTotalSpendingQuestion(1500);
-          await click(HouseholdOverviewSectionSummary.submit());
-          await expect(await $(HubPage.summaryRowState(repeatingSectionId(1))).getText()).toBe("Partially completed");
-
-          // The 2nd repeating section skipped the breakdown question, therefore progress should updated for sections that have
-          // calculated questions on the path.
-          await expect(await $(HubPage.summaryRowState(repeatingSectionId(2))).getText()).toBe("Completed");
-        },
-      );
-
-      assertRepeatingSectionOnChange(1, "500.00", "250.00", "250.00", "1,500.00");
-
-      it(
-        "When I change my answer to the driving question to 'Yes' for the 2nd repeating section, " +
-          "Then I am able to answer the breakdown question and complete the section",
-        async () => {
-          await $(HubPage.summaryRowLink(repeatingSectionId(2))).click();
-          await $(BreakdownSectionSummary.breakdownDrivingAnswerEdit()).click();
-          await $(BreakdownDrivingPage.yes()).click();
-          await click(BreakdownDrivingPage.submit());
-
-          await answerAndSubmitSpendingBreakdownQuestion(1000, 500, 0);
-          await answerAndSubmitEntertainmentBreakdownQuestion(250, 150, 100);
-          await click(BreakdownSectionSummary.submit());
-          await expect(await $(HubPage.summaryRowState(repeatingSectionId(2))).getText()).toBe("Completed");
-        },
-      );
-
-      it("When I change my answer for the total spending question, Then both repeating section should be marked as 'Partially completed'", async () => {
+    it(
+      "When I change my answer for the total spending question, Then the first repeating section should be marked as " +
+        "'Partially completed' and section repeating section should stay as 'Completed'",
+      async () => {
         await $(HubPage.summaryRowLink(householdOverviewSectionId)).click();
         await $(HouseholdOverviewSectionSummary.totalSpendingAnswerEdit()).click();
 
-        await answerAndSubmitTotalSpendingQuestion(2500);
+        await answerAndSubmitTotalSpendingQuestion(1500);
         await click(HouseholdOverviewSectionSummary.submit());
         await expect(await $(HubPage.summaryRowState(repeatingSectionId(1))).getText()).toBe("Partially completed");
 
-        // The 2nd repeating section is now on the path, therefore, its status should have been updated.
-        await expect(await $(HubPage.summaryRowState(repeatingSectionId(2))).getText()).toBe("Partially completed");
-      });
+        // The 2nd repeating section skipped the breakdown question, therefore progress should updated for sections that have
+        // calculated questions on the path.
+        await expect(await $(HubPage.summaryRowState(repeatingSectionId(2))).getText()).toBe("Completed");
+      },
+    );
 
-      assertRepeatingSectionOnChange(1, "1500.00", "0.00", "0.00", "2,500.00");
-      assertRepeatingSectionOnChange(2, "1000.00", "500.00", "0.00", "2,500.00");
+    assertRepeatingSectionOnChange(1, "500.00", "250.00", "250.00", "1,500.00");
 
-      it(
-        "When I edit and resubmit the total spending question without changing the value, Then the repeating section's status should stay as 'Completed'",
-        async () => {
-          await $(HubPage.summaryRowLink(householdOverviewSectionId)).click();
-          await $(HouseholdOverviewSectionSummary.totalSpendingAnswerEdit()).click();
+    it(
+      "When I change my answer to the driving question to 'Yes' for the 2nd repeating section, " +
+        "Then I am able to answer the breakdown question and complete the section",
+      async () => {
+        await $(HubPage.summaryRowLink(repeatingSectionId(2))).click();
+        await $(BreakdownSectionSummary.breakdownDrivingAnswerEdit()).click();
+        await $(BreakdownDrivingPage.yes()).click();
+        await click(BreakdownDrivingPage.submit());
 
-          await expect(await $(TotalSpendingPage.totalSpending()).getValue()).toBe("2500.00");
-          await click(TotalSpendingPage.submit());
-          await click(HouseholdOverviewSectionSummary.submit());
+        await answerAndSubmitSpendingBreakdownQuestion(1000, 500, 0);
+        await answerAndSubmitEntertainmentBreakdownQuestion(250, 150, 100);
+        await click(BreakdownSectionSummary.submit());
+        await expect(await $(HubPage.summaryRowState(repeatingSectionId(2))).getText()).toBe("Completed");
+      },
+    );
 
-          await expect(await $(HubPage.summaryRowState(repeatingSectionId(1))).getText()).toBe("Completed");
-          await expect(await $(HubPage.summaryRowState(repeatingSectionId(2))).getText()).toBe("Completed");
-        },
-      );
+    it("When I change my answer for the total spending question, Then both repeating section should be marked as 'Partially completed'", async () => {
+      await $(HubPage.summaryRowLink(householdOverviewSectionId)).click();
+      await $(HouseholdOverviewSectionSummary.totalSpendingAnswerEdit()).click();
 
-      it("When I submit the questionnaire, Then I should see the thank you page", async () => {
-        await click(HubPage.submit());
+      await answerAndSubmitTotalSpendingQuestion(2500);
+      await click(HouseholdOverviewSectionSummary.submit());
+      await expect(await $(HubPage.summaryRowState(repeatingSectionId(1))).getText()).toBe("Partially completed");
 
-        await verifyUrlContains(ThankYouPage.pageName);
-      });
-    },
-  );
+      // The 2nd repeating section is now on the path, therefore, its status should have been updated.
+      await expect(await $(HubPage.summaryRowState(repeatingSectionId(2))).getText()).toBe("Partially completed");
+    });
+
+    assertRepeatingSectionOnChange(1, "1500.00", "0.00", "0.00", "2,500.00");
+    assertRepeatingSectionOnChange(2, "1000.00", "500.00", "0.00", "2,500.00");
+
+    it("When I edit and resubmit the total spending question without changing the value, Then the repeating section's status should stay as 'Completed'", async () => {
+      await $(HubPage.summaryRowLink(householdOverviewSectionId)).click();
+      await $(HouseholdOverviewSectionSummary.totalSpendingAnswerEdit()).click();
+
+      await expect(await $(TotalSpendingPage.totalSpending()).getValue()).toBe("2500.00");
+      await click(TotalSpendingPage.submit());
+      await click(HouseholdOverviewSectionSummary.submit());
+
+      await expect(await $(HubPage.summaryRowState(repeatingSectionId(1))).getText()).toBe("Completed");
+      await expect(await $(HubPage.summaryRowState(repeatingSectionId(2))).getText()).toBe("Completed");
+    });
+
+    it("When I submit the questionnaire, Then I should see the thank you page", async () => {
+      await click(HubPage.submit());
+
+      await verifyUrlContains(ThankYouPage.pageName);
+    });
+  });
 });

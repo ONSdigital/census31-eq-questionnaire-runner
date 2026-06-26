@@ -127,49 +127,46 @@ describe("Feature: Grand Calculated Summary", () => {
       },
     );
 
-    it(
-      "Given I go back to another calculated summary and edit multiple answers,I am still correctly routed back to the grand calculated summary",
-      async () => {
-        await $(GrandCalculatedSummary2Page.calculatedSummary1Edit()).click();
-        await expect(await $(CalculatedSummary1Page.calculatedSummaryTitle()).getText()).toBe(
-          "Calculated Summary for food expenditure is calculated to be £100.00. Is this correct?",
-        );
+    it("Given I go back to another calculated summary and edit multiple answers,I am still correctly routed back to the grand calculated summary", async () => {
+      await $(GrandCalculatedSummary2Page.calculatedSummary1Edit()).click();
+      await expect(await $(CalculatedSummary1Page.calculatedSummaryTitle()).getText()).toBe(
+        "Calculated Summary for food expenditure is calculated to be £100.00. Is this correct?",
+      );
 
-        // change first answer
-        await $(CalculatedSummary1Page.q1A1Edit()).click();
-        await verifyUrlContains(Block1Page.pageName);
-        await $(Block1Page.q1A1()).setValue(100);
-        await click(Block1Page.submit());
+      // change first answer
+      await $(CalculatedSummary1Page.q1A1Edit()).click();
+      await verifyUrlContains(Block1Page.pageName);
+      await $(Block1Page.q1A1()).setValue(100);
+      await click(Block1Page.submit());
 
-        // go to each calculated summary that uses the answer in turn, then each grand calculated summary up to the one we were editing
-        await verifyUrlContains(CalculatedSummary1Page.pageName);
-        await expect(await $(CalculatedSummary1Page.calculatedSummaryTitle()).getText()).toBe(
-          "Calculated Summary for food expenditure is calculated to be £190.00. Is this correct?",
-        );
+      // go to each calculated summary that uses the answer in turn, then each grand calculated summary up to the one we were editing
+      await verifyUrlContains(CalculatedSummary1Page.pageName);
+      await expect(await $(CalculatedSummary1Page.calculatedSummaryTitle()).getText()).toBe(
+        "Calculated Summary for food expenditure is calculated to be £190.00. Is this correct?",
+      );
 
-        // change another answer
-        await $(CalculatedSummary1Page.q2A2Edit()).click();
-        await verifyUrlContains(Block2Page.pageName);
-        await $(Block2Page.q2A2()).setValue(400);
-        await click(Block2Page.submit());
+      // change another answer
+      await $(CalculatedSummary1Page.q2A2Edit()).click();
+      await verifyUrlContains(Block2Page.pageName);
+      await $(Block2Page.q2A2()).setValue(400);
+      await click(Block2Page.submit());
 
-        // back at updated calculated summary
-        await expect(await $(CalculatedSummary1Page.calculatedSummaryTitle()).getText()).toBe(
-          "Calculated Summary for food expenditure is calculated to be £550.00. Is this correct?",
-        );
+      // back at updated calculated summary
+      await expect(await $(CalculatedSummary1Page.calculatedSummaryTitle()).getText()).toBe(
+        "Calculated Summary for food expenditure is calculated to be £550.00. Is this correct?",
+      );
 
-        // Go to each calculated/grand calculated summary including this answer and reconfirm before being taken back to grand calculated summary
-        await click(CalculatedSummary1Page.submit());
-        await verifyUrlContains(CalculatedSummary3Page.pageName);
-        await click(CalculatedSummary3Page.submit());
-        await verifyUrlContains(GrandCalculatedSummary1Page.pageName);
-        await click(GrandCalculatedSummary1Page.submit());
-        await verifyUrlContains(GrandCalculatedSummary2Page.pageName);
-        await expect(await $(GrandCalculatedSummary2Page.grandCalculatedSummaryTitle()).getText()).toBe(
-          "Grand Calculated Summary for shopping and entertainment is calculated to be £910.00. Is this correct?",
-        );
-      },
-    );
+      // Go to each calculated/grand calculated summary including this answer and reconfirm before being taken back to grand calculated summary
+      await click(CalculatedSummary1Page.submit());
+      await verifyUrlContains(CalculatedSummary3Page.pageName);
+      await click(CalculatedSummary3Page.submit());
+      await verifyUrlContains(GrandCalculatedSummary1Page.pageName);
+      await click(GrandCalculatedSummary1Page.submit());
+      await verifyUrlContains(GrandCalculatedSummary2Page.pageName);
+      await expect(await $(GrandCalculatedSummary2Page.grandCalculatedSummaryTitle()).getText()).toBe(
+        "Grand Calculated Summary for shopping and entertainment is calculated to be £910.00. Is this correct?",
+      );
+    });
 
     it(
       "Given I edit an answer included in a grand calculated summary, " +
@@ -193,14 +190,11 @@ describe("Feature: Grand Calculated Summary", () => {
       },
     );
 
-    it(
-      "Given I confirm the calculated summary, When I return to the Hub, Then I see the grand calculated summary come back marked as partially completed",
-      async () => {
-        await $(HubPage.summaryRowLink("section-2")).click();
-        await click(CalculatedSummary4Page.submit());
-        await expect(await $(HubPage.summaryRowState("section-3")).getText()).toBe("Partially completed");
-      },
-    );
+    it("Given I confirm the calculated summary, When I return to the Hub, Then I see the grand calculated summary come back marked as partially completed", async () => {
+      await $(HubPage.summaryRowLink("section-2")).click();
+      await click(CalculatedSummary4Page.submit());
+      await expect(await $(HubPage.summaryRowState("section-3")).getText()).toBe("Partially completed");
+    });
 
     it(
       "Given I set both answers to block 4 to zero which removes the Grand Calculated Summary from the path, " +
@@ -603,18 +597,15 @@ describe("Feature: Grand Calculated Summary", () => {
       await expect(await $(PersonalExpenditureBlockPage.errorNumber(1)).getText()).toBe("Enter an answer less than or equal to £1,199.00");
     });
 
-    it(
-      "Given I display multiple grand calculated summaries on an Interstitial page, When I reach the page, Then I see the correct values piped in",
-      async () => {
-        await $(PersonalExpenditureBlockPage.personalExpenditure()).setValue(1100);
-        await click(PersonalExpenditureBlockPage.submit());
-        await verifyUrlContains(GrandCalculatedSummaryPipingPage.pageName);
-        await expect(await $("body").getText()).toContain("Total household expenditure: £1,199.00");
-        await expect(await $("body").getText()).toContain("Personal contribution: £1,100.00");
-        await expect(await $("body").getText()).toContain("Total internet usage: 85 GB");
-        await expect(await $("body").getText()).toContain("Usage by phone: 25 GB");
-        await expect(await $("body").getText()).toContain("Usage by PC: 60 GB");
-      },
-    );
+    it("Given I display multiple grand calculated summaries on an Interstitial page, When I reach the page, Then I see the correct values piped in", async () => {
+      await $(PersonalExpenditureBlockPage.personalExpenditure()).setValue(1100);
+      await click(PersonalExpenditureBlockPage.submit());
+      await verifyUrlContains(GrandCalculatedSummaryPipingPage.pageName);
+      await expect(await $("body").getText()).toContain("Total household expenditure: £1,199.00");
+      await expect(await $("body").getText()).toContain("Personal contribution: £1,100.00");
+      await expect(await $("body").getText()).toContain("Total internet usage: 85 GB");
+      await expect(await $("body").getText()).toContain("Usage by phone: 25 GB");
+      await expect(await $("body").getText()).toContain("Usage by PC: 60 GB");
+    });
   });
 });

@@ -322,17 +322,14 @@ describe("Grand Calculated Summary inside a repeating section", () => {
     },
   );
 
-  it(
-    "Given I've completed the first repeating section, When I press continue, I am taken straight to the grand calculated summary of the second repeat",
-    async () => {
-      await click(HubPage.submit());
-      await verifyUrlContains(GrandCalculatedSummaryVehiclePage.pageName);
-      await verifyUrlContains(`vehicles/${vehicleListItemIds[1]}/`);
-      await expect(await $(GrandCalculatedSummaryVehiclePage.grandCalculatedSummaryTitle()).getText()).toBe(
-        "The total cost of owning and running your Van is calculated to be £230.00. Is this correct?",
-      );
-    },
-  );
+  it("Given I've completed the first repeating section, When I press continue, I am taken straight to the grand calculated summary of the second repeat", async () => {
+    await click(HubPage.submit());
+    await verifyUrlContains(GrandCalculatedSummaryVehiclePage.pageName);
+    await verifyUrlContains(`vehicles/${vehicleListItemIds[1]}/`);
+    await expect(await $(GrandCalculatedSummaryVehiclePage.grandCalculatedSummaryTitle()).getText()).toBe(
+      "The total cost of owning and running your Van is calculated to be £230.00. Is this correct?",
+    );
+  });
 
   it(
     "Given I go to the non-repeating calculated summary, " +
@@ -364,21 +361,18 @@ describe("Grand Calculated Summary inside a repeating section", () => {
     },
   );
 
-  it(
-    "Given I edit a dynamic answer from the non-repeating calculated summary, When I return to the Grand Calculated Summary, Then I see the correct total",
-    async () => {
-      await $(GrandCalculatedSummaryVehiclePage.calculatedSummaryBaseCostEdit()).click();
-      await dynamicAnswerChangeLink(3).click();
-      await $$(DynamicCostBlockPage.inputs())[1].setValue(28);
-      await click(DynamicCostBlockPage.submit());
-      await click(CalculatedSummaryBaseCostPage.submit());
-      await click(BaseCostPaymentBreakdownPage.submit());
-      await verifyUrlContains(GrandCalculatedSummaryVehiclePage.pageName);
-      await expect(await $(GrandCalculatedSummaryVehiclePage.grandCalculatedSummaryTitle()).getText()).toBe(
-        "The total cost of owning and running your Van is calculated to be £250.00. Is this correct?",
-      );
-    },
-  );
+  it("Given I edit a dynamic answer from the non-repeating calculated summary, When I return to the Grand Calculated Summary, Then I see the correct total", async () => {
+    await $(GrandCalculatedSummaryVehiclePage.calculatedSummaryBaseCostEdit()).click();
+    await dynamicAnswerChangeLink(3).click();
+    await $$(DynamicCostBlockPage.inputs())[1].setValue(28);
+    await click(DynamicCostBlockPage.submit());
+    await click(CalculatedSummaryBaseCostPage.submit());
+    await click(BaseCostPaymentBreakdownPage.submit());
+    await verifyUrlContains(GrandCalculatedSummaryVehiclePage.pageName);
+    await expect(await $(GrandCalculatedSummaryVehiclePage.grandCalculatedSummaryTitle()).getText()).toBe(
+      "The total cost of owning and running your Van is calculated to be £250.00. Is this correct?",
+    );
+  });
 
   it(
     "Given I edit a repeating block answer from the non-repeating calculated summary, " +

@@ -35,14 +35,11 @@ describe("Placeholder default value check", () => {
       await expect(await $("#main-content > p").getText()).toBe("The average training budget per employee is £250.00");
     },
   );
-  it(
-    "Given a training budget question with default answer, When I enter an amount and click submit, Then the interstitial page shows amount entered",
-    async () => {
-      await click(EmployeesNumberBlockPage.submit());
-      await click(EmployeesNumberInterstitialPage.submit());
-      await $(EmployeesTrainingBlockPage.employeesAvgTraining()).setValue("100");
-      await click(EmployeesTrainingBlockPage.submit());
-      await expect(await $("#main-content > p").getText()).toBe("The average training budget per employee is £100.00");
-    },
-  );
+  it("Given a training budget question with default answer, When I enter an amount and click submit, Then the interstitial page shows amount entered", async () => {
+    await click(EmployeesNumberBlockPage.submit());
+    await click(EmployeesNumberInterstitialPage.submit());
+    await $(EmployeesTrainingBlockPage.employeesAvgTraining()).setValue("100");
+    await click(EmployeesTrainingBlockPage.submit());
+    await expect(await $("#main-content > p").getText()).toBe("The average training budget per employee is £100.00");
+  });
 });

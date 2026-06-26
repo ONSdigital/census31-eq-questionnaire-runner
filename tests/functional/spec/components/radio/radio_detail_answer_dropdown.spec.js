@@ -49,19 +49,16 @@ describe("Optional Radio with a Dropdown detail answer", () => {
       },
     );
 
-    it(
-      "When the user selects the default dropdown option after submitting a detail answer, Then the summary should not display the detail answer",
-      async () => {
-        await $(RadioDropdownPage.fruit()).click();
-        await $(RadioDropdownPage.fruitDetail()).selectByAttribute("value", "Mango");
-        await click(RadioDropdownPage.submit());
-        await $(SubmitPage.previous()).click();
-        await $(RadioDropdownPage.fruitDetail()).selectByVisibleText("Select fruit");
-        await click(RadioDropdownPage.submit());
+    it("When the user selects the default dropdown option after submitting a detail answer, Then the summary should not display the detail answer", async () => {
+      await $(RadioDropdownPage.fruit()).click();
+      await $(RadioDropdownPage.fruitDetail()).selectByAttribute("value", "Mango");
+      await click(RadioDropdownPage.submit());
+      await $(SubmitPage.previous()).click();
+      await $(RadioDropdownPage.fruitDetail()).selectByVisibleText("Select fruit");
+      await click(RadioDropdownPage.submit());
 
-        await expect(await $(SubmitPage.optionalRadioWithDropdownDetailAnswer()).getText()).toBe("Fruit");
-      },
-    );
+      await expect(await $(SubmitPage.optionalRadioWithDropdownDetailAnswer()).getText()).toBe("Fruit");
+    });
 
     it(
       "When the user selects an option with an mandatory detail answer but does not provide a detail answer, " +

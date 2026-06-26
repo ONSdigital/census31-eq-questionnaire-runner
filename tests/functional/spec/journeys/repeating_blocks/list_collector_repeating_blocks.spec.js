@@ -117,20 +117,17 @@ describe("List Collector Repeating Blocks", () => {
     before("Load the survey", async () => {
       await browser.openQuestionnaire("test_list_collector_repeating_blocks_section_summary.json");
     });
-    it(
-      "When the user adds items to the list and completes the repeating blocks, Then the completed items are displayed on the list collector page.",
-      async () => {
-        await proceedToListCollector();
-        await addCompany("ONS", "123", "1", "1", "2023", true, true);
-        await $(AnyOtherCompaniesOrBranchesPage.yes()).click();
-        await click(AnyOtherCompaniesOrBranchesPage.submit());
-        await addCompany("GOV", "456", "2", "2", "2023", false, false);
-        await $(AnyOtherCompaniesOrBranchesPage.yes()).click();
-        await click(AnyOtherCompaniesOrBranchesPage.submit());
-        await addCompany("MOD", "789", "3", "3", "2023", true);
-        await checkItemsInList(["ONS", "GOV", "MOD"], AnyOtherCompaniesOrBranchesPage.listLabel);
-      },
-    );
+    it("When the user adds items to the list and completes the repeating blocks, Then the completed items are displayed on the list collector page.", async () => {
+      await proceedToListCollector();
+      await addCompany("ONS", "123", "1", "1", "2023", true, true);
+      await $(AnyOtherCompaniesOrBranchesPage.yes()).click();
+      await click(AnyOtherCompaniesOrBranchesPage.submit());
+      await addCompany("GOV", "456", "2", "2", "2023", false, false);
+      await $(AnyOtherCompaniesOrBranchesPage.yes()).click();
+      await click(AnyOtherCompaniesOrBranchesPage.submit());
+      await addCompany("MOD", "789", "3", "3", "2023", true);
+      await checkItemsInList(["ONS", "GOV", "MOD"], AnyOtherCompaniesOrBranchesPage.listLabel);
+    });
 
     it("When the user edits an item, Then the name of the item is able to be changed", async () => {
       await $(AnyOtherCompaniesOrBranchesPage.listEditLink(2)).click();
@@ -368,21 +365,18 @@ describe("List Collector Repeating Blocks", () => {
       },
     );
 
-    it(
-      "When the user completes the incomplete blocks and returns to the list collector Page, Then the completed items should display the checkmark icon",
-      async () => {
-        await $(CompaniesRepeatingBlock1Page.registrationNumber()).setValue("456");
-        await $(CompaniesRepeatingBlock1Page.registrationDateDay()).setValue("2");
-        await $(CompaniesRepeatingBlock1Page.registrationDateMonth()).setValue("2");
-        await $(CompaniesRepeatingBlock1Page.registrationDateYear()).setValue("2023");
-        await click(CompaniesRepeatingBlock1Page.submit());
-        await $(CompaniesRepeatingBlock2Page.authorisedTraderUkRadioNo()).click();
-        await click(CompaniesRepeatingBlock2Page.submit());
-        await verifyUrlContains(AnyOtherCompaniesOrBranchesPage.pageName);
-        await summaryItemComplete(`dt[data-qa="list-item-1-label"]`, true);
-        await summaryItemComplete(`dt[data-qa="list-item-2-label"]`, true);
-      },
-    );
+    it("When the user completes the incomplete blocks and returns to the list collector Page, Then the completed items should display the checkmark icon", async () => {
+      await $(CompaniesRepeatingBlock1Page.registrationNumber()).setValue("456");
+      await $(CompaniesRepeatingBlock1Page.registrationDateDay()).setValue("2");
+      await $(CompaniesRepeatingBlock1Page.registrationDateMonth()).setValue("2");
+      await $(CompaniesRepeatingBlock1Page.registrationDateYear()).setValue("2023");
+      await click(CompaniesRepeatingBlock1Page.submit());
+      await $(CompaniesRepeatingBlock2Page.authorisedTraderUkRadioNo()).click();
+      await click(CompaniesRepeatingBlock2Page.submit());
+      await verifyUrlContains(AnyOtherCompaniesOrBranchesPage.pageName);
+      await summaryItemComplete(`dt[data-qa="list-item-1-label"]`, true);
+      await summaryItemComplete(`dt[data-qa="list-item-2-label"]`, true);
+    });
 
     it(
       "When another incomplete item is added via the section summary, " +
@@ -437,12 +431,9 @@ describe("List Collector Repeating Blocks", () => {
       await verifyUrlContains(HubPage.pageName);
     });
 
-    it(
-      "When the user has completed the list collector section and uses Submit on the hub page, Then the user will be redirected to the next section.",
-      async () => {
-        await click(HubPage.submit());
-        await verifyUrlContains(ResponsiblePartyHubPage.pageName);
-      },
-    );
+    it("When the user has completed the list collector section and uses Submit on the hub page, Then the user will be redirected to the next section.", async () => {
+      await click(HubPage.submit());
+      await verifyUrlContains(ResponsiblePartyHubPage.pageName);
+    });
   });
 });

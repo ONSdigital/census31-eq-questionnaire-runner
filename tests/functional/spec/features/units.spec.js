@@ -46,16 +46,13 @@ describe("Units", () => {
     },
   );
 
-  it(
-    "Given we open a questionnaire with unit labels, When the label is highlighted by the tooltip, Then the long unit label should be displayed.",
-    async () => {
-      await browser.openQuestionnaire("test_unit_patterns.json", { language: "en" });
-      await expect(await $(SetLengthUnitsBlockPage.centimetresUnit()).getAttribute("title")).toBe("centimetres");
-      await expect(await $(SetLengthUnitsBlockPage.metresUnit()).getAttribute("title")).toBe("metres");
-      await expect(await $(SetLengthUnitsBlockPage.kilometresUnit()).getAttribute("title")).toBe("kilometres");
-      await expect(await $(SetLengthUnitsBlockPage.milesUnit()).getAttribute("title")).toBe("miles");
-    },
-  );
+  it("Given we open a questionnaire with unit labels, When the label is highlighted by the tooltip, Then the long unit label should be displayed.", async () => {
+    await browser.openQuestionnaire("test_unit_patterns.json", { language: "en" });
+    await expect(await $(SetLengthUnitsBlockPage.centimetresUnit()).getAttribute("title")).toBe("centimetres");
+    await expect(await $(SetLengthUnitsBlockPage.metresUnit()).getAttribute("title")).toBe("metres");
+    await expect(await $(SetLengthUnitsBlockPage.kilometresUnit()).getAttribute("title")).toBe("kilometres");
+    await expect(await $(SetLengthUnitsBlockPage.milesUnit()).getAttribute("title")).toBe("miles");
+  });
 
   it(
     "Given we open a questionnaire with unit labels, When the weight unit label is highlighted by the tooltip, " +

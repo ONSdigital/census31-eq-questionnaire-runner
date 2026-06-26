@@ -152,22 +152,19 @@ describe("Feature: Grand Calculated Summary", () => {
       },
     );
 
-    it(
-      "Given I complete the calculated and grand calculated summaries, When I return to the Hub, Then I see a new conditional section has opened up",
-      async () => {
-        await click(HubPage.submit());
-        await click(CalculatedSummary4Page.submit());
-        await click(Section1SummaryPage.submit());
-        await click(HubPage.submit());
-        await expect(await $(GrandCalculatedSummaryShoppingPage.grandCalculatedSummaryTitle()).getText()).toContain(
-          "Grand Calculated Summary of purchases this week comes to £520.00. Is this correct?",
-        );
-        await click(GrandCalculatedSummaryShoppingPage.submit());
-        await expect(await $(HubPage.summaryRowState("section-1")).getText()).toBe("Completed");
-        await expect(await $(HubPage.summaryRowState("section-3")).getText()).toBe("Completed");
-        await expect(await $(HubPage.summaryRowLink("section-4")).isExisting()).toBe(true);
-      },
-    );
+    it("Given I complete the calculated and grand calculated summaries, When I return to the Hub, Then I see a new conditional section has opened up", async () => {
+      await click(HubPage.submit());
+      await click(CalculatedSummary4Page.submit());
+      await click(Section1SummaryPage.submit());
+      await click(HubPage.submit());
+      await expect(await $(GrandCalculatedSummaryShoppingPage.grandCalculatedSummaryTitle()).getText()).toContain(
+        "Grand Calculated Summary of purchases this week comes to £520.00. Is this correct?",
+      );
+      await click(GrandCalculatedSummaryShoppingPage.submit());
+      await expect(await $(HubPage.summaryRowState("section-1")).getText()).toBe("Completed");
+      await expect(await $(HubPage.summaryRowState("section-3")).getText()).toBe("Completed");
+      await expect(await $(HubPage.summaryRowLink("section-4")).isExisting()).toBe(true);
+    });
 
     it(
       "Given I change my answer about purchasing additional items decreasing the gcs, " +

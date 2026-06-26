@@ -40,19 +40,16 @@ describe('Radio with multiple "detail_answer" options', () => {
     },
   );
 
-  it(
-    "Given a non-mandatory detail answer, When the user does not provide any text, Then just the option value should be displayed on the summary screen",
-    async () => {
-      // Given
-      await browser.openQuestionnaire(radioSchema);
-      // When
-      await $(MandatoryRadioPage.eggs()).click();
-      await expect(await $(MandatoryRadioPage.eggsDetail()).isDisplayed()).toBe(true);
-      await click(MandatoryRadioPage.submit());
-      // Then
-      await expect(await $(SubmitPage.radioMandatoryAnswer()).getText()).toBe("Eggs");
-    },
-  );
+  it("Given a non-mandatory detail answer, When the user does not provide any text, Then just the option value should be displayed on the summary screen", async () => {
+    // Given
+    await browser.openQuestionnaire(radioSchema);
+    // When
+    await $(MandatoryRadioPage.eggs()).click();
+    await expect(await $(MandatoryRadioPage.eggsDetail()).isDisplayed()).toBe(true);
+    await click(MandatoryRadioPage.submit());
+    // Then
+    await expect(await $(SubmitPage.radioMandatoryAnswer()).getText()).toBe("Eggs");
+  });
 
   it("Given a detail answer, When the user provides text, Then that text should be displayed on the summary screen", async () => {
     // Given

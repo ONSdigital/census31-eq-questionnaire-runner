@@ -72,20 +72,17 @@ describe("Test routing question answered/unanswered", () => {
       await click(QuestionTwoUnanswered.submit());
     });
 
-    it(
-      "When I do not answer the question or answer `0` and submit, Then I should see a page saying I did not answer the question or that I chose `0`",
-      async () => {
-        await click(QuestionThree.submit());
-        await expect(await $(QuestionThreeUnansweredOrAnswerZero.heading()).getText()).toBe("You did not answer the question or chose 0 slices");
-        await verifyUrlContains(QuestionThreeUnansweredOrAnswerZero.pageName);
+    it("When I do not answer the question or answer `0` and submit, Then I should see a page saying I did not answer the question or that I chose `0`", async () => {
+      await click(QuestionThree.submit());
+      await expect(await $(QuestionThreeUnansweredOrAnswerZero.heading()).getText()).toBe("You did not answer the question or chose 0 slices");
+      await verifyUrlContains(QuestionThreeUnansweredOrAnswerZero.pageName);
 
-        await $(QuestionThreeUnansweredOrAnswerZero.previous()).click();
-        await $(QuestionThree.answer3()).setValue("0");
-        await click(QuestionThree.submit());
-        await expect(await $(QuestionThreeUnansweredOrAnswerZero.heading()).getText()).toBe("You did not answer the question or chose 0 slices");
-        await verifyUrlContains(QuestionThreeUnansweredOrAnswerZero.pageName);
-      },
-    );
+      await $(QuestionThreeUnansweredOrAnswerZero.previous()).click();
+      await $(QuestionThree.answer3()).setValue("0");
+      await click(QuestionThree.submit());
+      await expect(await $(QuestionThreeUnansweredOrAnswerZero.heading()).getText()).toBe("You did not answer the question or chose 0 slices");
+      await verifyUrlContains(QuestionThreeUnansweredOrAnswerZero.pageName);
+    });
 
     it("When I enter an answer greater than 0 and submit, Then I should see a page saying I chose at least one", async () => {
       await $(QuestionThree.answer3()).setValue("2");

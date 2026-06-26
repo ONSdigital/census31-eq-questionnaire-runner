@@ -45,38 +45,32 @@ describe("Introduction preview questions", () => {
     expect(await $(previewQuestion).$$("ul")[0].getText()).toBe("Yes\nNo");
   }
 
-  it(
-    "Given I start a survey, When I view the preview page, Then all preview elements should be visible and any metadata piped answers are resolved",
-    async () => {
-      await testPreview(introductionSchemaHub, IntroductionPageHub);
-      await testPreview(introductionSchemaLinear, IntroductionPageLinear);
-    },
-  );
+  it("Given I start a survey, When I view the preview page, Then all preview elements should be visible and any metadata piped answers are resolved", async () => {
+    await testPreview(introductionSchemaHub, IntroductionPageHub);
+    await testPreview(introductionSchemaLinear, IntroductionPageLinear);
+  });
 
-  it(
-    "Given I complete some of a survey and the piped answers should be being populated, Then preview answers should still be showing placeholders",
-    async () => {
-      await browser.openQuestionnaire(introductionSchemaLinear);
-      await $(startSurveyButton).click();
-      await $(noRadio).click();
-      await $(submitButton).click();
-      await $(answerFromDay).setValue(5);
-      await $(answerFromMonth).setValue(12);
-      await $(answerFromYear).setValue(2016);
-      await $(answerToDay).setValue(20);
-      await $(answerToMonth).setValue(12);
-      await $(answerToYear).setValue(2016);
-      await $(submitButton).click();
-      expect(await $("h1").getText()).toBe("Are you sure you are able to report for the calendar month 5 December 2016 to 20 December 2016?");
-      await browser.url("questionnaire/introduction/");
-      await $(IntroductionPageLinear.previewQuestions()).click();
-      await verifyUrlContains("questionnaire/preview");
-      expect(await $(previewSectionTitle).getText()).toBe("Main section");
-      expect(await $$(previewQuestion)[2].$("h3").getText()).toBe(
-        "Are you sure you are able to report for the calendar month {calendar_start_date} to {calendar_end_date}?",
-      );
-    },
-  );
+  it("Given I complete some of a survey and the piped answers should be being populated, Then preview answers should still be showing placeholders", async () => {
+    await browser.openQuestionnaire(introductionSchemaLinear);
+    await $(startSurveyButton).click();
+    await $(noRadio).click();
+    await $(submitButton).click();
+    await $(answerFromDay).setValue(5);
+    await $(answerFromMonth).setValue(12);
+    await $(answerFromYear).setValue(2016);
+    await $(answerToDay).setValue(20);
+    await $(answerToMonth).setValue(12);
+    await $(answerToYear).setValue(2016);
+    await $(submitButton).click();
+    expect(await $("h1").getText()).toBe("Are you sure you are able to report for the calendar month 5 December 2016 to 20 December 2016?");
+    await browser.url("questionnaire/introduction/");
+    await $(IntroductionPageLinear.previewQuestions()).click();
+    await verifyUrlContains("questionnaire/preview");
+    expect(await $(previewSectionTitle).getText()).toBe("Main section");
+    expect(await $$(previewQuestion)[2].$("h3").getText()).toBe(
+      "Are you sure you are able to report for the calendar month {calendar_start_date} to {calendar_end_date}?",
+    );
+  });
 
   it(
     "Given I start a survey, When I view the preview page of hub flow schema, " +

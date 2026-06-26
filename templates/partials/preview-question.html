@@ -29,7 +29,9 @@
                 <strong>{{ _("Or") }}</strong>
             </p>
         {% endif %}
-        {% if not loop.last or (answer.options and answers_length == 1) %}<p>{{ answer.options_text }}</p>{% endif %}
+        {% if not loop.last or (answer.options and answers_length == 1) %}
+            <p>{{ answer.options_text }}</p>
+        {% endif %}
         {% if answer.options %}
             {% if answer.label %}
                 <p>
@@ -45,7 +47,9 @@
                     <strong>{{- answer.label | safe -}}</strong>
                 </p>
             {% endif %}
-            {% if answer.max_length %}<p>{{ _("{max_characters} characters can be added.").format(max_characters = answer.max_length) }}</p>{% endif %}
+            {% if answer.max_length %}
+                <p>{{ _("{max_characters} characters can be added.").format(max_characters = answer.max_length) }}</p>
+            {% endif %}
         {% endif %}
         {# answer guidance not implemented yet due to some work that needs to be done in the DS will be implemented in iteration 2 #}
         {# {% if answer.guidance %}

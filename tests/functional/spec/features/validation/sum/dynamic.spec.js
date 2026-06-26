@@ -95,18 +95,15 @@ describe("Feature: Sum of dynamic answers based on list and optional static answ
     });
   });
   describe("Given I add list items and fill all the dynamic answers", () => {
-    it(
-      "When I continue and remove existing list item, Then I should be revisiting dynamic answers which should be updated to reflect the changes",
-      async () => {
-        await addTwoSupermarkets();
-        await fillDynamicAnswers();
-        await $(SectionSummaryPage.supermarketsListRemoveLink(1)).click();
-        await $(ListCollectorRemovePage.yes()).click();
-        await click(ListCollectorRemovePage.submit());
-        await verifyUrlContains(DynamicAnswerPage.pageName);
-        await expect(await $$(DynamicAnswerPage.labels()).length).toBe(2);
-      },
-    );
+    it("When I continue and remove existing list item, Then I should be revisiting dynamic answers which should be updated to reflect the changes", async () => {
+      await addTwoSupermarkets();
+      await fillDynamicAnswers();
+      await $(SectionSummaryPage.supermarketsListRemoveLink(1)).click();
+      await $(ListCollectorRemovePage.yes()).click();
+      await click(ListCollectorRemovePage.submit());
+      await verifyUrlContains(DynamicAnswerPage.pageName);
+      await expect(await $$(DynamicAnswerPage.labels()).length).toBe(2);
+    });
   });
   describe("Given I add list items and fill all the dynamic answers", () => {
     it(
