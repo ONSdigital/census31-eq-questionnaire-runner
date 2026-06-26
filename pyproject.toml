@@ -1,5 +1,4 @@
 [tool.djlint]
-profile = "jinja"
 # when using double quote escape sequence in strings we get "H025 Tag seems to be an orphan" false positives
 ignore = "H025"
 
