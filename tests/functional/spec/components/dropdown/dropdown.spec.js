@@ -91,7 +91,7 @@ describe("Component: Dropdown", () => {
     });
 
     it(
-      "When I have selected a dropdown option and I reselect the default option (Select an answer), " + 'Then the summary should display "No answer provided"',
+      'When I have selected a dropdown option and I reselect the default option (Select an answer), Then the summary should display "No answer provided"',
       async () => {
         await $(DropdownOptionalPage.answer()).selectByAttribute("value", "Chelsea");
         await click(DropdownOptionalPage.submit());

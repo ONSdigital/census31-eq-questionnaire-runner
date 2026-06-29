@@ -25,7 +25,7 @@ describe("Answer Action: Redirect To List Add Question (Checkbox)", () => {
     });
 
     it(
-      'When the user clicks the "Previous" link from the add question then they should be taken to the block they came from, ' + "not the list collector",
+      'When the user clicks the "Previous" link from the add question then they should be taken to the block they came from, not the list collector',
       async () => {
         await $(AnyoneLiveAtListCollectorAddPage.previous()).click();
         await verifyUrlContains(AnyoneUsuallyLiveAt.pageName);
