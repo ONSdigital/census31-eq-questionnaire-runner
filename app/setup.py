@@ -44,7 +44,6 @@ from app.submitter import (
     GCSSubmitter,
     LogFeedbackSubmitter,
     LogSubmitter,
-    RabbitMQSubmitter,
 )
 from app.utilities.json import json_dumps
 from app.utilities.schema import cache_questionnaire_schemas
@@ -85,8 +84,6 @@ compress = Compress()
 logger = get_logger()
 
 BUCKET_ID_ERROR_MESSAGE = "Setting EQ_GCS_SUBMISSION_BUCKET_ID Missing"
-HOST_ERROR_MESSAGE = "Setting EQ_RABBITMQ_HOST Missing"
-SECONDARY_HOST_ERROR_MESSAGE = "Setting EQ_RABBITMQ_HOST_SECONDARY Missing"
 SDS_CLIENT_ID_ERROR_MESSAGE = "Setting SDS_OAUTH2_CLIENT_ID Missing"
 TOKEN_BACKEND_ERROR_MESSAGE = "Setting OIDC_TOKEN_BACKEND Missing"
 FEEDBACK_BUCKET_ID_ERROR_MESSAGE = "Setting EQ_GCS_FEEDBACK_BUCKET_ID Missing"
@@ -348,28 +345,6 @@ def setup_submitter(application):
         if not (bucket_name := application.config.get("EQ_GCS_SUBMISSION_BUCKET_ID")):
             raise MissingEnvironmentVariable(BUCKET_ID_ERROR_MESSAGE)
         application.eq["submitter"] = GCSSubmitter(bucket_name=bucket_name)
-
-    elif application.config["EQ_SUBMISSION_BACKEND"] == "rabbitmq":
-        host = application.config.get("EQ_RABBITMQ_HOST")
-        secondary_host = application.config.get("EQ_RABBITMQ_HOST_SECONDARY")
-
-        if not host:
-            raise MissingEnvironmentVariable(HOST_ERROR_MESSAGE)
-        if not secondary_host:
-            raise MissingEnvironmentVariable(SECONDARY_HOST_ERROR_MESSAGE)
-
-        application.eq["submitter"] = RabbitMQSubmitter(
-            host=host,
-            secondary_host=secondary_host,
-            port=application.config["EQ_RABBITMQ_PORT"],
-            queue=application.config["EQ_RABBITMQ_QUEUE_NAME"],
-            username=application.eq["secret_store"].get_secret_by_name(
-                "EQ_RABBITMQ_USERNAME"
-            ),
-            password=application.eq["secret_store"].get_secret_by_name(
-                "EQ_RABBITMQ_PASSWORD"
-            ),
-        )
 
     elif application.config["EQ_SUBMISSION_BACKEND"] == "log":
         application.eq["submitter"] = LogSubmitter()

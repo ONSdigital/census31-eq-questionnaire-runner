@@ -425,23 +425,19 @@ The following env variables can be used
 |-------------------------------------------|------------------------------|----------------------------------------------------------------------------------------------------------------|
 | EQ_SESSION_TIMEOUT_SECONDS                | 2700 (45 mins)               | The duration of the flask session                                                                              |
 | EQ_PROFILING                              | False                        | Enables or disables profiling (True/False) Default False/Disabled                                              |
-| EQ_GOOGLE_TAG_ID                          |                              | The Google Tag Manger ID - Specifies the GTM account                                                           |
+| EQ_GOOGLE_TAG_ID                          |                              | The Google Tag Manager ID - Specifies the GTM account                                                          |
 | EQ_ENABLE_HTML_MINIFY                     | True                         | Enable minification of html                                                                                    |
 | EQ_ENABLE_SECURE_SESSION_COOKIE           | True                         | Set secure session cookies                                                                                     |
-| EQ_MAX_HTTP_POST_CONTENT_LENGTH           | 65536                        | The maximum http post content length that the system wil accept                                                |
+| EQ_MAX_HTTP_POST_CONTENT_LENGTH           | 65536                        | The maximum http post content length that the system will accept                                               |
 | EQ_MINIMIZE_ASSETS                        | True                         | Should JS and CSS be minimized                                                                                 |
-| MAX_CONTENT_LENGTH                        | 65536                        | max request payload size in bytes                                                                              |
-| EQ_APPLICATION_VERSION_PATH               | .application-version         | the location of a file containing the application version number                                               |
+| MAX_CONTENT_LENGTH                        | 65536                        | Max request payload size in bytes                                                                              |
+| EQ_APPLICATION_VERSION_PATH               | .application-version         | The location of a file containing the application version number                                               |
 | EQ_ENABLE_LIVE_RELOAD                     | False                        | Enable livereload of browser when scripts, styles or templates are updated                                     |
 | EQ_SECRETS_FILE                           | secrets.yml                  | The location of the secrets file                                                                               |
 | EQ_KEYS_FILE                              | keys.yml                     | The location of the keys file                                                                                  |
-| EQ_SUBMISSION_BACKEND                     |                              | Which submission backend to use ( gcs, rabbitmq, log )                                                         |
+| EQ_SUBMISSION_BACKEND                     |                              | Which submission backend to use (gcs, log)                                                                     |
 | EQ_GCS_SUBMISSION_BUCKET_ID               |                              | The bucket name in GCP to store the submissions in                                                             |
 | EQ_GCS_FEEDBACK_BUCKET_ID                 |                              | The bucket name in GCP to store the feedback in                                                                |
-| EQ_RABBITMQ_HOST                          |                              |                                                                                                                |
-| EQ_RABBITMQ_HOST_SECONDARY                |                              |                                                                                                                |
-| EQ_RABBITMQ_PORT                          | 5672                         |                                                                                                                |
-| EQ_RABBITMQ_QUEUE_NAME                    | submit_q                     | The name of the submission queue                                                                               |
 | EQ_SERVER_SIDE_STORAGE_USER_ID_ITERATIONS | 10000                        |                                                                                                                |
 | EQ_STORAGE_BACKEND                        | datastore                    |                                                                                                                |
 | EQ_DYNAMODB_ENDPOINT                      |                              |                                                                                                                |

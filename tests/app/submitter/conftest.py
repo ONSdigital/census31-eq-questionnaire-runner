@@ -13,7 +13,6 @@ from app.data_models.metadata_proxy import MetadataProxy
 from app.data_models.supplementary_data_store import SupplementaryDataStore
 from app.questionnaire.questionnaire_schema import QuestionnaireSchema
 from app.settings import ACCOUNT_SERVICE_BASE_URL_SOCIAL
-from app.submitter import RabbitMQSubmitter
 from tests.app.parser.conftest import get_response_expires_at
 
 RAW_METADATA_V2 = {
@@ -87,13 +86,6 @@ def fake_questionnaire_schema():
     questionnaire = {"survey_id": "999", "data_version": "0.0.3"}
 
     return QuestionnaireSchema(questionnaire)
-
-
-@pytest.fixture
-def rabbitmq_submitter():
-    return RabbitMQSubmitter(
-        host="host1", secondary_host="host2", port=5672, queue="test_queue"
-    )
 
 
 @pytest.fixture
