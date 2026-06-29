@@ -90,17 +90,14 @@ describe("Component: Dropdown", () => {
       await expect(await $(DropdownOptionalSummary.dropdownOptionalAnswer()).getText()).toBe("Rugby is better!");
     });
 
-    it(
-      'When I have selected a dropdown option and I reselect the default option (Select an answer), Then the summary should display "No answer provided"',
-      async () => {
-        await $(DropdownOptionalPage.answer()).selectByAttribute("value", "Chelsea");
-        await click(DropdownOptionalPage.submit());
-        await expect(await $(DropdownOptionalSummary.dropdownOptionalAnswer()).getText()).toBe("Chelsea");
-        await $(DropdownOptionalSummary.dropdownOptionalAnswerEdit()).click();
-        await $(DropdownOptionalPage.answer()).selectByAttribute("value", "");
-        await click(DropdownOptionalPage.submit());
-        await expect(await $(DropdownOptionalSummary.dropdownOptionalAnswer()).getText()).toBe("No answer provided");
-      },
-    );
+    it('When I have selected a dropdown option and I reselect the default option (Select an answer), Then the summary should display "No answer provided"', async () => {
+      await $(DropdownOptionalPage.answer()).selectByAttribute("value", "Chelsea");
+      await click(DropdownOptionalPage.submit());
+      await expect(await $(DropdownOptionalSummary.dropdownOptionalAnswer()).getText()).toBe("Chelsea");
+      await $(DropdownOptionalSummary.dropdownOptionalAnswerEdit()).click();
+      await $(DropdownOptionalPage.answer()).selectByAttribute("value", "");
+      await click(DropdownOptionalPage.submit());
+      await expect(await $(DropdownOptionalSummary.dropdownOptionalAnswer()).getText()).toBe("No answer provided");
+    });
   });
 });

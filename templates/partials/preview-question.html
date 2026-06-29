@@ -39,7 +39,9 @@
                 </p>
             {% endif %}
             <ul>
-                {% for option in answer.options %}<li>{{ option }}</li>{% endfor %}
+                {% for option in answer.options %}
+                    <li>{{ option }}</li>
+                {% endfor %}
             </ul>
         {% else %}
             {% if answer.label %}
