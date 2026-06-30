@@ -58,9 +58,7 @@ def convert_answers_to_payload_0_0_3(
                         answers_payload=answers_payload,
                     )
 
-                if schema.is_list_block_type(
-                    block_type
-                ) or schema.is_primary_person_block_type(block_type):
+                if schema.is_list_block_type(block_type) or schema.is_primary_person_block_type(block_type):
                     add_list_collector_answers(
                         answer_store=answer_store,
                         list_store=list_store,
@@ -70,11 +68,7 @@ def convert_answers_to_payload_0_0_3(
                     )
 
                 answer_ids = schema.get_answer_ids_for_block(block_id)
-                static_answer_ids = [
-                    answer_id
-                    for answer_id in answer_ids
-                    if not schema.is_answer_dynamic(answer_id)
-                ]
+                static_answer_ids = [answer_id for answer_id in answer_ids if not schema.is_answer_dynamic(answer_id)]
                 has_dynamic_answers = len(static_answer_ids) != len(answer_ids)
 
                 if answer_ids and has_dynamic_answers:
@@ -104,9 +98,7 @@ def add_list_collector_answers(
     """Add answers from a ListCollector block.
     Output is added to the `answers_payload` argument."""
 
-    answers_ids_in_add_block = schema.get_answer_ids_for_list_items(
-        list_collector_block["id"]
-    )
+    answers_ids_in_add_block = schema.get_answer_ids_for_list_items(list_collector_block["id"])
     list_name = list_collector_block["for_list"]
     list_item_ids = list_store[list_name].items
     if answers_ids_in_add_block:
@@ -125,9 +117,7 @@ def add_relationships_unrelated_answers(
     relationships_block: Mapping,
     answers_payload: AnswerStore,
 ) -> RelationshipStore | None:
-    relationships_answer_id = schema.get_first_answer_id_for_block(
-        relationships_block["id"]
-    )
+    relationships_answer_id = schema.get_first_answer_id_for_block(relationships_block["id"])
     relationships_answer = answer_store.get_answer(relationships_answer_id)
     if not relationships_answer:
         return None
@@ -137,9 +127,7 @@ def add_relationships_unrelated_answers(
     unrelated_block = relationships_block["unrelated_block"]
     unrelated_block_id = unrelated_block["id"]
     unrelated_answer_id = schema.get_first_answer_id_for_block(unrelated_block_id)
-    unrelated_no_answer_values = schema.get_unrelated_block_no_answer_values(
-        unrelated_answer_id
-    )
+    unrelated_no_answer_values = schema.get_unrelated_block_no_answer_values(unrelated_answer_id)
 
     relationship_router = RelationshipRouter(
         answer_store=answer_store,
@@ -155,9 +143,7 @@ def add_relationships_unrelated_answers(
 
     for location in relationship_router.path:
         if location.block_id == unrelated_block_id and (
-            unrelated_answer := answer_store.get_answer(
-                unrelated_answer_id, list_item_id=location.list_item_id
-            )
+            unrelated_answer := answer_store.get_answer(unrelated_answer_id, list_item_id=location.list_item_id)
         ):
             answers_payload.add_or_update(unrelated_answer)
 
@@ -173,7 +159,5 @@ def resolve_dynamic_answers(
     for answer in dynamic_answers["answers"]:
         if values["source"] == "list":
             for list_item_id in list_store[values["identifier"]].items:
-                if extracted_answer := answer_store.get_answer(
-                    answer["id"], list_item_id=list_item_id
-                ):
+                if extracted_answer := answer_store.get_answer(answer["id"], list_item_id=list_item_id):
                     answers_payload.add_or_update(extracted_answer)

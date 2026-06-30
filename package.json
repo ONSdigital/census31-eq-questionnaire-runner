@@ -51,5 +51,7 @@
         "uuid": "14.0.1",
         "webdriverio": "9.27.2"
     },
-    "prettier": {}
+    "prettier": {
+        "printWidth": 160
+    }
 }

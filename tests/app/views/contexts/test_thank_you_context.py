@@ -25,8 +25,7 @@ def test_default_survey_context(app: Flask):
         )
 
         assert (
-            context["submission_text"]
-            == "Your answers have been submitted for <span>ESSENTIAL ENTERPRISE LTD</span>"
+            context["submission_text"] == "Your answers have been submitted for <span>ESSENTIAL ENTERPRISE LTD</span>"
         )
         assert len(context["metadata"]["itemsList"]) == 2
 
@@ -40,9 +39,7 @@ def test_default_survey_context(app: Flask):
 )
 def test_survey_context_without_ru_name(app: Flask, survey_type):
     with app.app_context():
-        context = build_thank_you_context(
-            SCHEMA, get_metadata(), SUBMITTED_AT, survey_type
-        )
+        context = build_thank_you_context(SCHEMA, get_metadata(), SUBMITTED_AT, survey_type)
 
         assert context["submission_text"] == "Your answers have been submitted."
         assert len(context["metadata"]["itemsList"]) == 1
@@ -52,9 +49,7 @@ def test_default_survey_context_with_trad_as(app: Flask):
     with app.app_context():
         context = build_thank_you_context(
             SCHEMA,
-            get_metadata(
-                extra_metadata={"ru_name": "ESSENTIAL ENTERPRISE LTD", "trad_as": "EE"}
-            ),
+            get_metadata(extra_metadata={"ru_name": "ESSENTIAL ENTERPRISE LTD", "trad_as": "EE"}),
             SUBMITTED_AT,
             SURVEY_TYPE_DEFAULT,
         )
@@ -68,9 +63,7 @@ def test_default_survey_context_with_trad_as(app: Flask):
 
 def test_view_submitted_response_enabled(app: Flask):
     with app.app_context():
-        context = build_thank_you_context(
-            SCHEMA, get_metadata(), SUBMITTED_AT, SURVEY_TYPE_DEFAULT
-        )
+        context = build_thank_you_context(SCHEMA, get_metadata(), SUBMITTED_AT, SURVEY_TYPE_DEFAULT)
 
         assert context["view_submitted_response"]["enabled"] is True
 
@@ -79,18 +72,14 @@ def test_view_submitted_response_not_enabled(app: Flask):
     with app.app_context():
         schema = load_schema_from_name("test_title", "en")
 
-        context = build_thank_you_context(
-            schema, get_metadata(), SUBMITTED_AT, SURVEY_TYPE_DEFAULT
-        )
+        context = build_thank_you_context(schema, get_metadata(), SUBMITTED_AT, SURVEY_TYPE_DEFAULT)
 
         assert context["view_submitted_response"]["enabled"] is False
 
 
 def test_view_submitted_response_not_expired(app: Flask):
     with app.app_context():
-        context = build_thank_you_context(
-            SCHEMA, get_metadata(), SUBMITTED_AT, SURVEY_TYPE_DEFAULT
-        )
+        context = build_thank_you_context(SCHEMA, get_metadata(), SUBMITTED_AT, SURVEY_TYPE_DEFAULT)
 
         assert context["view_submitted_response"]["expired"] is False
         assert context["view_submitted_response"]["url"] == "/submitted/view-response/"
@@ -100,9 +89,7 @@ def test_view_submitted_response_expired(app: Flask):
     submitted_at = SUBMITTED_AT - timedelta(minutes=46)
 
     with app.app_context():
-        context = build_thank_you_context(
-            SCHEMA, get_metadata(), submitted_at, SURVEY_TYPE_DEFAULT
-        )
+        context = build_thank_you_context(SCHEMA, get_metadata(), submitted_at, SURVEY_TYPE_DEFAULT)
 
         assert context["view_submitted_response"]["expired"] is True
 

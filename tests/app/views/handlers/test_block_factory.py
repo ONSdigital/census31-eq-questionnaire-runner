@@ -30,12 +30,8 @@ def test_get_handler_invalid_block_raises_value_error(
     block_type, is_block_in_repeating_section, list_name, exc, mocker
 ):
     schema = mocker.Mock()
-    schema.get_block = mocker.Mock(
-        return_value={"id": "some-block", "type": block_type}
-    )
-    schema.is_block_in_repeating_section = mocker.Mock(
-        return_value=is_block_in_repeating_section
-    )
+    schema.get_block = mocker.Mock(return_value={"id": "some-block", "type": block_type})
+    schema.is_block_in_repeating_section = mocker.Mock(return_value=is_block_in_repeating_section)
 
     with pytest.raises(exc):
         get_block_handler(

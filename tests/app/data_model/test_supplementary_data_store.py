@@ -1,9 +1,6 @@
 import pytest
 
-from app.data_models.supplementary_data_store import (
-    InvalidSupplementaryDataSelector,
-    SupplementaryDataStore,
-)
+from app.data_models.supplementary_data_store import InvalidSupplementaryDataSelector, SupplementaryDataStore
 from app.utilities.make_immutable import make_immutable
 
 
@@ -72,9 +69,7 @@ def test_empty_supplementary_data_deserialisation():
         ("INVALID", None, None, None),
     ],
 )
-def test_get_supplementary_data(
-    supplementary_data_store_with_data, identifier, list_item_id, selectors, expected
-):
+def test_get_supplementary_data(supplementary_data_store_with_data, identifier, list_item_id, selectors, expected):
     assert (
         supplementary_data_store_with_data.get_data(
             identifier=identifier,
@@ -87,7 +82,5 @@ def test_get_supplementary_data(
 
 def test_get_supplementary_data_invalid_selectors(supplementary_data_store_with_data):
     with pytest.raises(InvalidSupplementaryDataSelector) as exception:
-        supplementary_data_store_with_data.get_data(
-            identifier="identifier", selectors=["INVALID"], list_item_id=None
-        )
+        supplementary_data_store_with_data.get_data(identifier="identifier", selectors=["INVALID"], list_item_id=None)
         assert "Cannot use the selector `INVALID` on non-nested data" == str(exception)

@@ -13,7 +13,7 @@ The url for an individual relation for a 'relationships' block would be:
 
 ```text
 /<block_id>/<list_item_id>/to/<to_list_item_id>
-/relationships/a9hd8j/to/skjwo9
+e.g. /relationships/a9hd8j/to/skjwo9
 ```
 
 Where the `list_item_id` and `to_list_item_id` identify which list items the relation is being formed between.
@@ -27,16 +27,16 @@ For each relationship we need to store both the relationship type and the items 
 {
   "answer_id": "relationship"
   "value": [
-      {
-        "list_item_id": "a9hd8j",
-        "relationship": "Husband or Wife",
-        "to_list_item_id": "kl9s3y"
-      },
-      {
-        "list_item_id": "a9hd8j",
-        "relationship": "Father or Mother",
-        "to_list_item_id": "skjwo9"
-      }
+    {
+      "list_item_id": "a9hd8j",
+      "relationship": "Husband or Wife",
+      "to_list_item_id": "kl9s3y"
+    },
+    {
+      "list_item_id": "a9hd8j",
+      "relationship": "Father or Mother",
+      "to_list_item_id": "skjwo9"
+    }
   ]
 }
 ```

@@ -14,9 +14,7 @@ SCHEMA_PATH_MAP = get_schema_path_map(include_test_schemas=True)
 class SubmissionTestCase(IntegrationTestCase):
     @property
     def retry_url(self):
-        return (
-            self.getHtmlSoup().find("p", {"data-qa": "retry"}).find("a").attrs["href"]
-        )
+        return self.getHtmlSoup().find("p", {"data-qa": "retry"}).find("a").attrs["href"]
 
     def _mock_submission_failure(self):
         submitter = self._application.eq["submitter"]
@@ -38,9 +36,7 @@ class TestQuestionnaireSubmission(SubmissionTestCase):
         self._launch_and_submit_questionnaire()
 
         # Then I should see the thank you page
-        self.assertInBody(
-            "Your answers have been submitted for <span>Integration Testing</span>"
-        )
+        self.assertInBody("Your answers have been submitted for <span>Integration Testing</span>")
         self.assertInUrl(THANK_YOU_URL_PATH)
 
     def test_unsuccessful_submission(self):
@@ -51,9 +47,7 @@ class TestQuestionnaireSubmission(SubmissionTestCase):
 
         # Then I should see an error page
         self.assertStatusCode(500)
-        self.assertEqualPageTitle(
-            "Sorry, there is a problem - Test Submit with Custom Submission Text"
-        )
+        self.assertEqualPageTitle("Sorry, there is a problem - Test Submit with Custom Submission Text")
 
         self.get(self.retry_url)
         self.assertInUrl(SUBMIT_URL_PATH)
@@ -64,9 +58,7 @@ class TestQuestionnaireSubmissionSchemaURL(SubmissionTestCase):
         schema_url = "http://eq-survey-register.url/my-test-schema"
 
         # Given
-        token = self.token_generator.create_token_with_schema_url(
-            schema_name=None, schema_url=schema_url
-        )
+        token = self.token_generator.create_token_with_schema_url(schema_name=None, schema_url=schema_url)
 
         # When
         with HTTMock(self.schema_url_mock):
@@ -111,9 +103,7 @@ class TestQuestionnaireSubmissionHub(SubmissionTestCase):
         self._launch_and_submit_questionnaire()
 
         # Then I should see the thank you page
-        self.assertInBody(
-            "Your answers have been submitted for <span>Integration Testing</span>"
-        )
+        self.assertInBody("Your answers have been submitted for <span>Integration Testing</span>")
         self.assertEqualUrl(THANK_YOU_URL_PATH)
 
     def test_unsuccessful_submission(self):
@@ -147,9 +137,7 @@ class TestQuestionnaireSubmissionWithSummary(SubmissionTestCase):
         self._launch_and_submit_questionnaire()
 
         # Then I should see the thank you page
-        self.assertInBody(
-            "Your answers have been submitted for <span>Integration Testing</span>"
-        )
+        self.assertInBody("Your answers have been submitted for <span>Integration Testing</span>")
         self.assertInUrl(THANK_YOU_URL_PATH)
 
     def test_unsuccessful_submission(self):
@@ -165,9 +153,7 @@ class TestQuestionnaireSubmissionWithSummary(SubmissionTestCase):
 
         # Then I should see an error page
         self.assertStatusCode(500)
-        self.assertEqualPageTitle(
-            "Sorry, there is a problem - Test Submit with Summary"
-        )
+        self.assertEqualPageTitle("Sorry, there is a problem - Test Submit with Summary")
 
         self.get(self.retry_url)
         self.assertInUrl(SUBMIT_URL_PATH)

@@ -26,20 +26,28 @@ describe("Optional Checkbox with a Dropdown detail answer", () => {
       await expect(await $(SubmitPage.optionalCheckboxWithDropdownDetailAnswer()).getText()).toBe("No answer provided");
     });
 
-    it("When the user selects an option with an optional detail answer but does not provide a detail answer, Then the summary should display the chosen option without the detail answer", async () => {
-      await $(CheckboxDropdownPage.fruit()).click();
-      await click(CheckboxDropdownPage.submit());
+    it(
+      "When the user selects an option with an optional detail answer but does not provide a detail answer, " +
+        "Then the summary should display the chosen option without the detail answer",
+      async () => {
+        await $(CheckboxDropdownPage.fruit()).click();
+        await click(CheckboxDropdownPage.submit());
 
-      await expect(await $(SubmitPage.optionalCheckboxWithDropdownDetailAnswer()).getText()).toBe("Fruit");
-    });
+        await expect(await $(SubmitPage.optionalCheckboxWithDropdownDetailAnswer()).getText()).toBe("Fruit");
+      },
+    );
 
-    it("When the user selects an option with an optional detail answer and provides a detail answer, Then the summary should display the chosen option and the detail answer", async () => {
-      await $(CheckboxDropdownPage.fruit()).click();
-      await $(CheckboxDropdownPage.fruitDetail()).selectByAttribute("value", "Mango");
-      await click(CheckboxDropdownPage.submit());
+    it(
+      "When the user selects an option with an optional detail answer and provides a detail answer, " +
+        "Then the summary should display the chosen option and the detail answer",
+      async () => {
+        await $(CheckboxDropdownPage.fruit()).click();
+        await $(CheckboxDropdownPage.fruitDetail()).selectByAttribute("value", "Mango");
+        await click(CheckboxDropdownPage.submit());
 
-      await expect(await $(SubmitPage.optionalCheckboxWithDropdownDetailAnswer()).getText()).toBe("Fruit\nMango");
-    });
+        await expect(await $(SubmitPage.optionalCheckboxWithDropdownDetailAnswer()).getText()).toBe("Fruit\nMango");
+      },
+    );
 
     it("When the user selects the default dropdown option after submitting a detail answer, Then the summary should not display the detail answer", async () => {
       await $(CheckboxDropdownPage.fruit()).click();
@@ -52,20 +60,28 @@ describe("Optional Checkbox with a Dropdown detail answer", () => {
       await expect(await $(SubmitPage.optionalCheckboxWithDropdownDetailAnswer()).getText()).toBe("Fruit");
     });
 
-    it("When the user selects an option with an mandatory detail answer but does not provide a detail answer, Then an error should be displayed when the user submits", async () => {
-      await $(CheckboxDropdownPage.jam()).click();
-      await click(CheckboxDropdownPage.submit());
+    it(
+      "When the user selects an option with an mandatory detail answer but does not provide a detail answer, " +
+        "Then an error should be displayed when the user submits",
+      async () => {
+        await $(CheckboxDropdownPage.jam()).click();
+        await click(CheckboxDropdownPage.submit());
 
-      await expect(await $(DropdownMandatoryPage.errorNumber(1)).getText()).toBe("Please select the type of Jam");
-    });
+        await expect(await $(DropdownMandatoryPage.errorNumber(1)).getText()).toBe("Please select the type of Jam");
+      },
+    );
 
-    it("When the user selects an option with an mandatory detail answer and provides a detail answer, Then the summary should display the chosen option and its details", async () => {
-      await $(CheckboxDropdownPage.jam()).click();
-      await $(CheckboxDropdownPage.jamDetail()).selectByAttribute("value", "Strawberry");
-      await click(CheckboxDropdownPage.submit());
+    it(
+      "When the user selects an option with an mandatory detail answer and provides a detail answer, " +
+        "Then the summary should display the chosen option and its details",
+      async () => {
+        await $(CheckboxDropdownPage.jam()).click();
+        await $(CheckboxDropdownPage.jamDetail()).selectByAttribute("value", "Strawberry");
+        await click(CheckboxDropdownPage.submit());
 
-      await expect(await $(SubmitPage.optionalCheckboxWithDropdownDetailAnswer()).getText()).toBe("Jam\nStrawberry");
-    });
+        await expect(await $(SubmitPage.optionalCheckboxWithDropdownDetailAnswer()).getText()).toBe("Jam\nStrawberry");
+      },
+    );
 
     it("When the user removes a previously submitted detail answer, Then the summary should not display the removed detail answer", async () => {
       await $(CheckboxDropdownPage.fruit()).click();
@@ -78,14 +94,18 @@ describe("Optional Checkbox with a Dropdown detail answer", () => {
       await expect(await $(SubmitPage.optionalCheckboxWithDropdownDetailAnswer()).getText()).toBe("No answer provided");
     });
 
-    it("When the user selects multiple options with detail answers and submits, Then the summary should display all the chosen options and their detail answer", async () => {
-      await $(CheckboxDropdownPage.fruit()).click();
-      await $(CheckboxDropdownPage.fruitDetail()).selectByAttribute("value", "Mango");
-      await $(CheckboxDropdownPage.jam()).click();
-      await $(CheckboxDropdownPage.jamDetail()).selectByAttribute("value", "Strawberry");
-      await click(CheckboxDropdownPage.submit());
+    it(
+      "When the user selects multiple options with detail answers and submits, " +
+        "Then the summary should display all the chosen options and their detail answer",
+      async () => {
+        await $(CheckboxDropdownPage.fruit()).click();
+        await $(CheckboxDropdownPage.fruitDetail()).selectByAttribute("value", "Mango");
+        await $(CheckboxDropdownPage.jam()).click();
+        await $(CheckboxDropdownPage.jamDetail()).selectByAttribute("value", "Strawberry");
+        await click(CheckboxDropdownPage.submit());
 
-      await expect(await $(SubmitPage.optionalCheckboxWithDropdownDetailAnswer()).getText()).toBe("Fruit\nMango\nJam\nStrawberry");
-    });
+        await expect(await $(SubmitPage.optionalCheckboxWithDropdownDetailAnswer()).getText()).toBe("Fruit\nMango\nJam\nStrawberry");
+      },
+    );
   });
 });

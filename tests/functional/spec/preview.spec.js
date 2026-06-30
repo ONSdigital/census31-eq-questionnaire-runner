@@ -72,18 +72,22 @@ describe("Introduction preview questions", () => {
     );
   });
 
-  it("Given I start a survey, When I view the preview page of hub flow schema, Then the twisty button should read 'Show all' and answers should be invisible", async () => {
-    await browser.openQuestionnaire(introductionSchemaHub);
-    await $(IntroductionPageHub.previewQuestions()).click();
-    await verifyUrlContains("questionnaire/preview");
-    expect(await $(printButton).isClickable()).toBe(true);
-    expect(await $(pdfButton).isClickable()).toBe(true);
-    expect(await $(showButton).getText()).toBe("Show all");
-    expect(await $(previewSummaryContent).isClickable()).toBe(false);
-    it("and if the twisty button is clicked, Then the twisty button should read 'Hide all' and the answers should be visible", async () => {
-      await $(showButton).click();
-      expect(await $(showButton).getText()).toBe("Hide all");
-      expect(await $(previewSummaryContent).isClickable()).toBe(true);
-    });
-  });
+  it(
+    "Given I start a survey, When I view the preview page of hub flow schema, " +
+      "Then the twisty button should read 'Show all' and answers should be invisible",
+    async () => {
+      await browser.openQuestionnaire(introductionSchemaHub);
+      await $(IntroductionPageHub.previewQuestions()).click();
+      await verifyUrlContains("questionnaire/preview");
+      expect(await $(printButton).isClickable()).toBe(true);
+      expect(await $(pdfButton).isClickable()).toBe(true);
+      expect(await $(showButton).getText()).toBe("Show all");
+      expect(await $(previewSummaryContent).isClickable()).toBe(false);
+      it("and if the twisty button is clicked, Then the twisty button should read 'Hide all' and the answers should be visible", async () => {
+        await $(showButton).click();
+        expect(await $(showButton).getText()).toBe("Hide all");
+        expect(await $(previewSummaryContent).isClickable()).toBe(true);
+      });
+    },
+  );
 });

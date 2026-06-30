@@ -110,9 +110,7 @@ def test_dynamic_answer_options_answer_source(
     mock_schema.get_answers_by_answer_id = mocker.Mock(return_value=answer_schema)
     mock_schema.get_default_answer = mocker.Mock(return_value=None)
     mock_schema.is_answer_dynamic = mocker.Mock(return_value=False)
-    mock_schema.is_answer_in_list_collector_repeating_block = mocker.Mock(
-        return_value=False
-    )
+    mock_schema.is_answer_in_list_collector_repeating_block = mocker.Mock(return_value=False)
 
     if checkbox_answer:
         value_source_resolver.data_stores.answer_store.add_or_update(
@@ -122,9 +120,7 @@ def test_dynamic_answer_options_answer_source(
     dynamic_options = DynamicAnswerOptions(
         {
             "values": {"source": "answers", "identifier": "injury-sustained-answer"},
-            "transform": {
-                "option-label-from-value": ["self", "injury-sustained-answer"]
-            },
+            "transform": {"option-label-from-value": ["self", "injury-sustained-answer"]},
         },
         rule_evaluator=rule_evaluator,
         value_source_resolver=value_source_resolver,

@@ -9,7 +9,8 @@ from app.data_models import CompletionStatus
 from app.questionnaire.location import SectionKey
 from app.views.contexts import Context  # pylint: disable=cyclic-import
 
-# Removing Pylint disable causes linting fail in GHA but not locally this issue has been raised here: https://github.com/pylint-dev/pylint/issues/9168
+# Removing Pylint disable causes linting fail in GHA but not locally this issue has been raised here:
+# https://github.com/pylint-dev/pylint/issues/9168
 
 
 class HubContext(Context):
@@ -44,21 +45,15 @@ class HubContext(Context):
         },
     }
 
-    def __call__(
-        self, survey_complete: bool, enabled_section_ids: Iterable[str]
-    ) -> dict[str, Any]:
+    def __call__(self, survey_complete: bool, enabled_section_ids: Iterable[str]) -> dict[str, Any]:
         rows = self._get_rows(enabled_section_ids)
 
         if survey_complete:
             submission_schema: Mapping = self._schema.get_submission()
             title = submission_schema.get("title") or lazy_gettext("Submit survey")
-            submit_button = submission_schema.get("button") or lazy_gettext(
-                "Submit survey"
-            )
+            submit_button = submission_schema.get("button") or lazy_gettext("Submit survey")
             guidance = submission_schema.get("guidance")
-            warning = submission_schema.get("warning") or lazy_gettext(
-                "You must submit this survey to complete it"
-            )
+            warning = submission_schema.get("warning") or lazy_gettext("You must submit this survey to complete it")
             individual_response_enabled = False
             individual_response_url = None
 
@@ -98,9 +93,9 @@ class HubContext(Context):
                     "actions": [
                         {
                             "text": section_content["link"]["text"],
-                            "visuallyHiddenText": section_content["link"][
-                                "aria_label"
-                            ].format(section_name=section_name),
+                            "visuallyHiddenText": section_content["link"]["aria_label"].format(
+                                section_name=section_name
+                            ),
                             "url": section_url,
                             "attributes": {"data-qa": f"hub-row-{row_id}-link"},
                         }
@@ -118,9 +113,7 @@ class HubContext(Context):
         return context
 
     @staticmethod
-    def get_section_url(
-        section_id: str, list_item_id: str | None, section_status: CompletionStatus
-    ) -> str:
+    def get_section_url(section_id: str, list_item_id: str | None, section_status: CompletionStatus) -> str:
         if section_status == CompletionStatus.INDIVIDUAL_RESPONSE_REQUESTED:
             return url_for(
                 "individual_response.individual_response_change",
@@ -147,9 +140,7 @@ class HubContext(Context):
             list_item_id,
         )
 
-        return self._get_row_for_section(
-            title, section_id, list_item_id, list_item_index
-        )
+        return self._get_row_for_section(title, section_id, list_item_id, list_item_index)
 
     def _get_row_for_section(
         self,
@@ -160,9 +151,7 @@ class HubContext(Context):
     ) -> dict[str, str | list]:
         row_id = f"{section_id}-{list_item_index}" if list_item_index else section_id
 
-        section_status = self._data_stores.progress_store.get_section_status(
-            SectionKey(section_id, list_item_id)
-        )
+        section_status = self._data_stores.progress_store.get_section_status(SectionKey(section_id, list_item_id))
 
         return self.get_row_context_for_section(
             section_title,
@@ -171,9 +160,7 @@ class HubContext(Context):
             row_id,
         )
 
-    def _get_rows(
-        self, enabled_section_ids: Iterable[str]
-    ) -> list[dict[str, str | list]]:
+    def _get_rows(self, enabled_section_ids: Iterable[str]) -> list[dict[str, str | list]]:
         rows: list[dict] = []
 
         for section_id in enabled_section_ids:
@@ -187,11 +174,7 @@ class HubContext(Context):
                     for list_item_index, list_item_id in enumerate(
                         self._data_stores.list_store[repeating_list].items, start=1
                     ):
-                        rows.append(
-                            self._get_row_for_repeating_section(
-                                section_id, list_item_id, list_item_index
-                            )
-                        )
+                        rows.append(self._get_row_for_repeating_section(section_id, list_item_id, list_item_index))
                 else:
                     rows.append(self._get_row_for_section(section_title, section_id))
 
@@ -210,11 +193,6 @@ class HubContext(Context):
 
     @cached_property
     def _individual_response_url(self) -> str | None:
-        if (
-            self._individual_response_enabled
-            and self._schema.get_individual_response_show_on_hub()
-        ):
-            return url_for(
-                "individual_response.request_individual_response", journey="hub"
-            )
+        if self._individual_response_enabled and self._schema.get_individual_response_show_on_hub():
+            return url_for("individual_response.request_individual_response", journey="hub")
         return None

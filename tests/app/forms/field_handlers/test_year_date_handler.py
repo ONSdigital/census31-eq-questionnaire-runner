@@ -20,9 +20,7 @@ def test_get_field(value_source_resolver, rule_evaluator):
         },
     }
 
-    handler = YearDateHandler(
-        date_json, value_source_resolver, rule_evaluator, error_messages
-    )
+    handler = YearDateHandler(date_json, value_source_resolver, rule_evaluator, error_messages)
 
     class TestForm(Form):
         test_field = handler.get_field()

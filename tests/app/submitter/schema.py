@@ -8,9 +8,7 @@ def make_schema(data_version, section, group, block, question):
                 "groups": [
                     {
                         "id": group,
-                        "blocks": [
-                            {"id": block, "type": "Question", "question": question}
-                        ],
+                        "blocks": [{"id": block, "type": "Question", "question": question}],
                     }
                 ],
             }

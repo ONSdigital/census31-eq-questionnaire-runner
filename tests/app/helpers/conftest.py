@@ -1,19 +1,12 @@
 from pytest import fixture
 
 from app.helpers.template_helpers import ContextHelper
-from app.settings import (
-    ACCOUNT_SERVICE_BASE_URL,
-    ACCOUNT_SERVICE_BASE_URL_SOCIAL,
-    ONS_URL,
-    ONS_URL_CY,
-)
+from app.settings import ACCOUNT_SERVICE_BASE_URL, ACCOUNT_SERVICE_BASE_URL_SOCIAL, ONS_URL, ONS_URL_CY
 
 
 @fixture
 def get_context_helper():
-    def _context_helper(
-        app, survey_config, is_post_submission=False, include_csrf_token=True
-    ):
+    def _context_helper(app, survey_config, is_post_submission=False, include_csrf_token=True):
         with app.test_client():
             return ContextHelper(
                 language="en",

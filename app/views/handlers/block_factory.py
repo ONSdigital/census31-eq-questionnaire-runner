@@ -6,10 +6,7 @@ from app.data_models import QuestionnaireStore
 from app.questionnaire import QuestionnaireSchema
 from app.questionnaire.location import InvalidLocationException, Location
 from app.questionnaire.relationship_location import RelationshipLocation
-from app.views.handlers.calculation_summary import (
-    CalculatedSummary,
-    GrandCalculatedSummary,
-)
+from app.views.handlers.calculation_summary import CalculatedSummary, GrandCalculatedSummary
 from app.views.handlers.content import Content
 from app.views.handlers.list_add_question import ListAddQuestion
 from app.views.handlers.list_collector import ListCollector
@@ -64,9 +61,7 @@ def get_block_handler(
     if not block:
         raise InvalidLocationException(block_error_message["invalid_block_id"])
 
-    if schema.is_block_in_repeating_section(block_id=block["id"]) and not all(
-        (list_name, list_item_id)
-    ):
+    if schema.is_block_in_repeating_section(block_id=block["id"]) and not all((list_name, list_item_id)):
         raise InvalidLocationException(block_error_message["invalid_list"])
 
     block_type = block["type"]
@@ -94,6 +89,4 @@ def get_block_handler(
             list_item_id=list_item_id,
         )
 
-    return block_class(
-        schema, questionnaire_store, language, location, request_args, form_data
-    )
+    return block_class(schema, questionnaire_store, language, location, request_args, form_data)

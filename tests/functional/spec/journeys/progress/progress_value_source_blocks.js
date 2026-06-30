@@ -68,82 +68,90 @@ describe("Feature: Routing  based on progress value sources using block identifi
   });
 
   describe("Given I have routing based on the completeness of a block", () => {
-    it("When an answer is changed so that the block being evaluated is completed, Then the dependent questions (Q4 + Q6) should be on the path and displayed on the summary", async () => {
-      await $(FirstQuestionPage.q1A1()).setValue("0");
-      await click(FirstQuestionPage.submit());
+    it(
+      "When an answer is changed so that the block being evaluated is completed, " +
+        "Then the dependent questions (Q4 + Q6) should be on the path and displayed on the summary",
+      async () => {
+        await $(FirstQuestionPage.q1A1()).setValue("0");
+        await click(FirstQuestionPage.submit());
 
-      await verifyUrlContains(ThirdQuestionPage.pageName);
-      await $(ThirdQuestionPage.q1A1()).setValue("1");
-      await click(ThirdQuestionPage.submit());
+        await verifyUrlContains(ThirdQuestionPage.pageName);
+        await $(ThirdQuestionPage.q1A1()).setValue("1");
+        await click(ThirdQuestionPage.submit());
 
-      await $(FifthQuestionPage.q1A1()).setValue("2");
-      await click(FifthQuestionPage.submit());
+        await $(FifthQuestionPage.q1A1()).setValue("2");
+        await click(FifthQuestionPage.submit());
 
-      await $(SeventhQuestionPage.q1A1()).setValue("3");
-      await click(SeventhQuestionPage.submit());
+        await $(SeventhQuestionPage.q1A1()).setValue("3");
+        await click(SeventhQuestionPage.submit());
 
-      await $(SubmitPage.s1B1Q1A1Edit()).click();
-      await verifyUrlContains(FirstQuestionPage.pageName);
-      await $(FirstQuestionPage.q1A1()).setValue("1");
-      await click(FirstQuestionPage.submit());
+        await $(SubmitPage.s1B1Q1A1Edit()).click();
+        await verifyUrlContains(FirstQuestionPage.pageName);
+        await $(FirstQuestionPage.q1A1()).setValue("1");
+        await click(FirstQuestionPage.submit());
 
-      await verifyUrlContains(SecondQuestionPage.pageName);
-      await $(SecondQuestionPage.q1A1()).setValue("1");
-      await click(SecondQuestionPage.submit());
+        await verifyUrlContains(SecondQuestionPage.pageName);
+        await $(SecondQuestionPage.q1A1()).setValue("1");
+        await click(SecondQuestionPage.submit());
 
-      await click(ThirdQuestionPage.submit());
+        await click(ThirdQuestionPage.submit());
 
-      await verifyUrlContains(FourthQuestionPage.pageName);
-      await $(FourthQuestionPage.q1A1()).setValue("3");
-      await click(FourthQuestionPage.submit());
+        await verifyUrlContains(FourthQuestionPage.pageName);
+        await $(FourthQuestionPage.q1A1()).setValue("3");
+        await click(FourthQuestionPage.submit());
 
-      await click(FifthQuestionPage.submit());
+        await click(FifthQuestionPage.submit());
 
-      await verifyUrlContains(SixthQuestionPage.pageName);
-      await $(SixthQuestionPage.q1A1()).setValue("3");
-      await click(SixthQuestionPage.submit());
+        await verifyUrlContains(SixthQuestionPage.pageName);
+        await $(SixthQuestionPage.q1A1()).setValue("3");
+        await click(SixthQuestionPage.submit());
 
-      await verifyUrlContains(SubmitPage.pageName);
-      await expect(await $("body").getText()).toContain("Section 1 Question 4");
-      await expect(await $("body").getText()).toContain("Section 1 Question 6");
-    });
+        await verifyUrlContains(SubmitPage.pageName);
+        await expect(await $("body").getText()).toContain("Section 1 Question 4");
+        await expect(await $("body").getText()).toContain("Section 1 Question 6");
+      },
+    );
   });
 
   describe("Given I have routing based on the completeness of a block", () => {
-    it("When an answer is removed form the path block being evaluated is no longer completed, Then the dependent questions (Q4 + Q6) should not be on the path and not be displayed on the summary", async () => {
-      await $(FirstQuestionPage.q1A1()).setValue("1");
-      await click(FirstQuestionPage.submit());
+    it(
+      "When an answer is removed form the path block being evaluated is no longer completed, " +
+        "Then the dependent questions (Q4 + Q6) should not be on the path and not be displayed on the summary",
+      async () => {
+        await $(FirstQuestionPage.q1A1()).setValue("1");
+        await click(FirstQuestionPage.submit());
 
-      await verifyUrlContains(SecondQuestionPage.pageName);
-      await $(SecondQuestionPage.q1A1()).setValue("1");
-      await click(SecondQuestionPage.submit());
+        await verifyUrlContains(SecondQuestionPage.pageName);
+        await $(SecondQuestionPage.q1A1()).setValue("1");
+        await click(SecondQuestionPage.submit());
 
-      await $(ThirdQuestionPage.q1A1()).setValue("2");
-      await click(ThirdQuestionPage.submit());
+        await $(ThirdQuestionPage.q1A1()).setValue("2");
+        await click(ThirdQuestionPage.submit());
 
-      await verifyUrlContains(FourthQuestionPage.pageName);
-      await $(FourthQuestionPage.q1A1()).setValue("3");
-      await click(FourthQuestionPage.submit());
+        await verifyUrlContains(FourthQuestionPage.pageName);
+        await $(FourthQuestionPage.q1A1()).setValue("3");
+        await click(FourthQuestionPage.submit());
 
-      await $(FifthQuestionPage.q1A1()).setValue("4");
-      await click(FifthQuestionPage.submit());
+        await $(FifthQuestionPage.q1A1()).setValue("4");
+        await click(FifthQuestionPage.submit());
 
-      await verifyUrlContains(SixthQuestionPage.pageName);
-      await $(SixthQuestionPage.q1A1()).setValue("5");
-      await click(SixthQuestionPage.submit());
+        await verifyUrlContains(SixthQuestionPage.pageName);
+        await $(SixthQuestionPage.q1A1()).setValue("5");
+        await click(SixthQuestionPage.submit());
 
-      await $(SeventhQuestionPage.q1A1()).setValue("6");
-      await click(SeventhQuestionPage.submit());
+        await $(SeventhQuestionPage.q1A1()).setValue("6");
+        await click(SeventhQuestionPage.submit());
 
-      await verifyUrlContains(SubmitPage.pageName);
-      await $(SubmitPage.s1B1Q1A1Edit()).click();
-      await verifyUrlContains(FirstQuestionPage.pageName);
-      await $(FirstQuestionPage.q1A1()).setValue("0");
-      await click(FirstQuestionPage.submit());
+        await verifyUrlContains(SubmitPage.pageName);
+        await $(SubmitPage.s1B1Q1A1Edit()).click();
+        await verifyUrlContains(FirstQuestionPage.pageName);
+        await $(FirstQuestionPage.q1A1()).setValue("0");
+        await click(FirstQuestionPage.submit());
 
-      await expect(await $("body").getText()).not.toBe("Section 1 Question 4");
-      await expect(await $("body").getText()).not.toBe("Section 1 Question 6");
-    });
+        await expect(await $("body").getText()).not.toBe("Section 1 Question 4");
+        await expect(await $("body").getText()).not.toBe("Section 1 Question 6");
+      },
+    );
   });
 });
 

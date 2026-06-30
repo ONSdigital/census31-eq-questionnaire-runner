@@ -2,11 +2,7 @@ from app.data_models.answer_store import Answer, AnswerStore
 from app.data_models.data_stores import DataStores
 from app.questionnaire.location import Location
 from app.questionnaire.questionnaire_schema import QuestionnaireSchema
-from app.questionnaire.variants import (
-    choose_content_to_display,
-    choose_question_to_display,
-    transform_variants,
-)
+from app.questionnaire.variants import choose_content_to_display, choose_question_to_display, transform_variants
 
 
 def compare_transformed_block(base_block, transformed_block, title):
@@ -96,15 +92,9 @@ def test_transform_variants_list_collector(list_collector_variant_schema):
         current_location=Location(section_id=section_id, block_id=block["id"]),
     )
 
-    compare_transformed_block(
-        block["add_block"], transformed_block["add_block"], "Add, No"
-    )
-    compare_transformed_block(
-        block["remove_block"], transformed_block["remove_block"], "Remove, No"
-    )
-    compare_transformed_block(
-        block["edit_block"], transformed_block["edit_block"], "Edit, No"
-    )
+    compare_transformed_block(block["add_block"], transformed_block["add_block"], "Add, No")
+    compare_transformed_block(block["remove_block"], transformed_block["remove_block"], "Remove, No")
+    compare_transformed_block(block["edit_block"], transformed_block["edit_block"], "Edit, No")
 
     answer_store.add_or_update(Answer(answer_id="when-answer", value="yes"))
 
@@ -115,15 +105,9 @@ def test_transform_variants_list_collector(list_collector_variant_schema):
         current_location=Location(section_id=section_id, block_id=block["id"]),
     )
 
-    compare_transformed_block(
-        block["add_block"], transformed_block["add_block"], "Add, Yes"
-    )
-    compare_transformed_block(
-        block["remove_block"], transformed_block["remove_block"], "Remove, Yes"
-    )
-    compare_transformed_block(
-        block["edit_block"], transformed_block["edit_block"], "Edit, Yes"
-    )
+    compare_transformed_block(block["add_block"], transformed_block["add_block"], "Add, Yes")
+    compare_transformed_block(block["remove_block"], transformed_block["remove_block"], "Remove, Yes")
+    compare_transformed_block(block["edit_block"], transformed_block["edit_block"], "Edit, Yes")
 
 
 def test_choose_content_to_display(content_variant_schema):

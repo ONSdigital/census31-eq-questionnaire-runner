@@ -110,9 +110,7 @@ def test_assert_primary_person_string_appended(
     list_context = ListContext(
         language=DEFAULT_LANGUAGE_CODE,
         schema=schema,
-        data_stores=DataStores(
-            answer_store=people_answer_store, list_store=people_list_store
-        ),
+        data_stores=DataStores(answer_store=people_answer_store, list_store=people_list_store),
     )
     list_context = list_context(
         summary_definition=list_collector_block["summary"],
@@ -137,9 +135,7 @@ def test_for_list_item_ids(
     list_context = ListContext(
         language=DEFAULT_LANGUAGE_CODE,
         schema=schema,
-        data_stores=DataStores(
-            answer_store=people_answer_store, list_store=people_list_store
-        ),
+        data_stores=DataStores(answer_store=people_answer_store, list_store=people_list_store),
     )
     list_context = list_context(
         summary_definition=list_collector_block["summary"],
@@ -234,9 +230,7 @@ def test_list_context_items_incomplete_with_repeating_blocks(
     repeating_blocks_answer_store,
     repeating_blocks_list_store,
 ):
-    schema = load_schema_from_name(
-        "test_list_collector_repeating_blocks_section_summary"
-    )
+    schema = load_schema_from_name("test_list_collector_repeating_blocks_section_summary")
     list_collector_block = schema.get_block("any-other-companies-or-branches")
     expected = [
         {
@@ -284,9 +278,7 @@ def test_list_context_items_incomplete_with_repeating_blocks(
 def test_list_context_items_complete_with_repeating_blocks(
     repeating_blocks_answer_store, repeating_blocks_list_store, supplementary_data_store
 ):
-    schema = load_schema_from_name(
-        "test_list_collector_repeating_blocks_section_summary"
-    )
+    schema = load_schema_from_name("test_list_collector_repeating_blocks_section_summary")
     list_collector_block = schema.get_block("any-other-companies-or-branches")
     expected = [
         {

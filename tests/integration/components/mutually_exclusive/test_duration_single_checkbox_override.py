@@ -1,6 +1,4 @@
-from tests.integration.components.mutually_exclusive.schema_urls import (
-    MUTUALLY_EXCLUSIVE_DURATION,
-)
+from tests.integration.components.mutually_exclusive.schema_urls import MUTUALLY_EXCLUSIVE_DURATION
 from tests.integration.integration_test_case import IntegrationTestCase
 
 

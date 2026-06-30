@@ -10,13 +10,9 @@ REQUIRED_SECRETS = [
 ]
 
 
-def validate_required_secrets(
-    secrets: SecretsType, additional_required_secrets: list[str] | None = None
-) -> None:
+def validate_required_secrets(secrets: SecretsType, additional_required_secrets: list[str] | None = None) -> None:
     all_required_secrets = (
-        REQUIRED_SECRETS + additional_required_secrets
-        if additional_required_secrets
-        else REQUIRED_SECRETS
+        REQUIRED_SECRETS + additional_required_secrets if additional_required_secrets else REQUIRED_SECRETS
     )
     for required_secret in all_required_secrets:
         if required_secret not in secrets["secrets"]:

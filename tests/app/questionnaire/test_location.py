@@ -5,21 +5,13 @@ from app.questionnaire.location import Location
 
 @pytest.mark.usefixtures("app")
 def test_location_url(current_location):
-    assert (
-        current_location.url(_external=True)
-        == "http://test.localdomain/questionnaire/some-block/"
-    )
+    assert current_location.url(_external=True) == "http://test.localdomain/questionnaire/some-block/"
 
 
 @pytest.mark.usefixtures("app")
 def test_location_url_with_list():
-    location = Location(
-        section_id="some-section", block_id="add-block", list_name="people"
-    )
-    assert (
-        location.url(_external=True)
-        == "http://test.localdomain/questionnaire/people/add-block/"
-    )
+    location = Location(section_id="some-section", block_id="add-block", list_name="people")
+    assert location.url(_external=True) == "http://test.localdomain/questionnaire/people/add-block/"
 
 
 @pytest.mark.usefixtures("app")
@@ -30,10 +22,7 @@ def test_location_url_with_list_item_id():
         list_name="people",
         list_item_id="abc123",
     )
-    assert (
-        location.url(_external=True)
-        == "http://test.localdomain/questionnaire/people/abc123/add-block/"
-    )
+    assert location.url(_external=True) == "http://test.localdomain/questionnaire/people/abc123/add-block/"
 
 
 def test_location_hash(current_location):

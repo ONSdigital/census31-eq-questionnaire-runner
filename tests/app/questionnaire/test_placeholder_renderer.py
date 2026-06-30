@@ -14,9 +14,7 @@ def test_correct_pointers(placholder_transform_pointers):
     assert placholder_transform_pointers[0] == "/answers/0/options/0/label"
 
 
-def test_renders_pointer(
-    placholder_transform_question_json, mock_schema, mock_renderer, mock_location
-):
+def test_renders_pointer(placholder_transform_question_json, mock_schema, mock_renderer, mock_location):
     mock_transform = {
         "transform": "calculate_date_difference",
         "arguments": {
@@ -29,9 +27,7 @@ def test_renders_pointer(
     }
 
     json_to_render = placholder_transform_question_json.copy()
-    json_to_render["answers"][0]["options"][0]["label"]["placeholders"][1][
-        "transforms"
-    ][0] = mock_transform
+    json_to_render["answers"][0]["options"][0]["label"]["placeholders"][1]["transforms"][0] = mock_transform
 
     answer_store = AnswerStore(
         [
@@ -70,9 +66,7 @@ def test_renders_json(placholder_transform_question_json):
         },
     }
     json_to_render = placholder_transform_question_json.copy()
-    json_to_render["answers"][0]["options"][0]["label"]["placeholders"][1][
-        "transforms"
-    ][0] = mock_transform
+    json_to_render["answers"][0]["options"][0]["label"]["placeholders"][1]["transforms"][0] = mock_transform
 
     answer_store = AnswerStore(
         [
@@ -101,9 +95,7 @@ def test_renders_json_uses_language(placholder_transform_question_json):
         },
     }
     json_to_render = placholder_transform_question_json.copy()
-    json_to_render["answers"][0]["options"][0]["label"]["placeholders"][1][
-        "transforms"
-    ][0] = mock_transform
+    json_to_render["answers"][0]["options"][0]["label"]["placeholders"][1]["transforms"][0] = mock_transform
 
     answer_store = AnswerStore(
         [
@@ -113,9 +105,7 @@ def test_renders_json_uses_language(placholder_transform_question_json):
         ]
     )
 
-    renderer = get_placeholder_render(
-        language="cy", data_stores=DataStores(answer_store=answer_store)
-    )
+    renderer = get_placeholder_render(language="cy", data_stores=DataStores(answer_store=answer_store))
     rendered_schema = renderer.render(data_to_render=json_to_render, list_item_id=None)
     rendered_label = rendered_schema["answers"][0]["options"][0]["label"]
 

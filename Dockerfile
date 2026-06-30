@@ -2,7 +2,15 @@ FROM python:3.13-slim-bookworm
 
 EXPOSE 5000
 
-RUN apt-get update && apt-get install -y --no-install-recommends curl=7.88.1-10+deb12u14 unzip=6.0-28 libsnappy-dev=1.1.9-3 build-essential=12.9 jq=1.6-2.1+deb12u1 wkhtmltopdf=0.12.6-2+b1 && rm -rf /var/lib/apt/lists/*
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+        curl=7.88.1-10+deb12u14 \
+        unzip=6.0-28 \
+        libsnappy-dev=1.1.9-3 \
+        build-essential=12.9 \
+        jq=1.6-2.1+deb12u1 \
+        wkhtmltopdf=0.12.6-2+b1 \
+    && rm -rf /var/lib/apt/lists/*
 
 COPY . /runner
 WORKDIR /runner
