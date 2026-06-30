@@ -135,5 +135,21 @@ megalint-apply:
 		-e APPLY_FIXES=all \
 		ghcr.io/oxsecurity/megalinter:v9.5.0
 
+.PHONY: megalint-podman megalint-apply-podman clean-megalint
+megalint-podman:
+	podman run --platform linux/arm64 --rm \
+		-v /var/run/docker.sock:/var/run/docker.sock:rw \
+		-v $(CURDIR):/tmp/lint:rw \
+		-e DISABLE_LINTERS=ACTION_ZIZMOR \
+		ghcr.io/oxsecurity/megalinter:v9.5.0
+
+megalint-apply-podman:
+	podman run --platform linux/arm64 --rm \
+		-v /var/run/docker.sock:/var/run/docker.sock:rw \
+		-v $(CURDIR):/tmp/lint:rw \
+		-e APPLY_FIXES=all \
+		-e DISABLE_LINTERS=ACTION_ZIZMOR \
+		ghcr.io/oxsecurity/megalinter:v9.5.0
+
 clean-megalint:
 	rm -rf megalinter-reports
