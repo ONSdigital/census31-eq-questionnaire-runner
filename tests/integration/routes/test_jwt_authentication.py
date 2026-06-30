@@ -9,10 +9,7 @@ from sdc.crypto.encrypter import encrypt
 from sdc.crypto.key_store import KeyStore
 
 from app.keys import KEY_PURPOSE_AUTHENTICATION
-from tests.app.authentication import (
-    TEST_DO_NOT_USE_SR_PUBLIC_KEY,
-    TEST_DO_NOT_USE_UPSTREAM_PRIVATE_KEY,
-)
+from tests.app.authentication import TEST_DO_NOT_USE_SR_PUBLIC_KEY, TEST_DO_NOT_USE_UPSTREAM_PRIVATE_KEY
 from tests.app.parser.conftest import get_response_expires_at
 from tests.integration.app_context_test_case import AppContextTestCase
 from tests.integration.integration_test_case import (

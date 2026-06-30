@@ -18,24 +18,16 @@ class TestQuestionnaireCustomPageTitles(QuestionnaireTestCase):
         self.add_person("Susan", "Doe")
         self.post({"anyone-else": "No"})
 
-        self.assertEqualPageTitle(
-            "How Person 1 is related to Person 2 - Test Custom Page Titles"
-        )
+        self.assertEqualPageTitle("How Person 1 is related to Person 2 - Test Custom Page Titles")
         self.post({"relationship-answer": "Husband or Wife"})
 
-        self.assertEqualPageTitle(
-            "How Person 1 is related to Person 3 - Test Custom Page Titles"
-        )
+        self.assertEqualPageTitle("How Person 1 is related to Person 3 - Test Custom Page Titles")
         self.post({"relationship-answer": "Husband or Wife"})
 
-        self.assertEqualPageTitle(
-            "How Person 2 is related to Person 3 - Test Custom Page Titles"
-        )
+        self.assertEqualPageTitle("How Person 2 is related to Person 3 - Test Custom Page Titles")
         self.post({"relationship-answer": "Husband or Wife"})
 
-        self.assertEqualPageTitle(
-            "Custom section summary page title - Test Custom Page Titles"
-        )
+        self.assertEqualPageTitle("Custom section summary page title - Test Custom Page Titles")
 
     def test_custom_repeating_page_titles(self):
         self.launchSurveyV2(schema_name="test_custom_page_titles")
@@ -47,34 +39,26 @@ class TestQuestionnaireCustomPageTitles(QuestionnaireTestCase):
         self.post({"relationship-answer": "Husband or Wife"})
         self.post()
         self.post()
-        self.assertEqualPageTitle(
-            "Individual interstitial: Person 1 - Test Custom Page Titles"
-        )
+        self.assertEqualPageTitle("Individual interstitial: Person 1 - Test Custom Page Titles")
 
         self.post()
         self.assertEqualPageTitle("Proxy question: Person 1 - Test Custom Page Titles")
 
         self.post()
-        self.assertEqualPageTitle(
-            "What is your date of birth?: Person 1 - Test Custom Page Titles"
-        )
+        self.assertEqualPageTitle("What is your date of birth?: Person 1 - Test Custom Page Titles")
 
         self.post()
         self.assertEqualPageTitle("Summary: Person 1 - Test Custom Page Titles")
 
         self.post()
         self.post()
-        self.assertEqualPageTitle(
-            "Individual interstitial: Person 2 - Test Custom Page Titles"
-        )
+        self.assertEqualPageTitle("Individual interstitial: Person 2 - Test Custom Page Titles")
 
         self.post()
         self.assertEqualPageTitle("Proxy question: Person 2 - Test Custom Page Titles")
 
         self.post()
-        self.assertEqualPageTitle(
-            "What is your date of birth?: Person 2 - Test Custom Page Titles"
-        )
+        self.assertEqualPageTitle("What is your date of birth?: Person 2 - Test Custom Page Titles")
 
         self.post()
         self.assertEqualPageTitle("Summary: Person 2 - Test Custom Page Titles")

@@ -38,7 +38,4 @@ def test_deserialize(eq_session):
     storage_model = StorageModel(model_type=type(eq_session))
     serialized_item = storage_model.serialize(eq_session)
 
-    assert (
-        storage_model.deserialize(serialized_item).__dict__
-        == EQSessionSchema().load(serialized_item).__dict__
-    )
+    assert storage_model.deserialize(serialized_item).__dict__ == EQSessionSchema().load(serialized_item).__dict__

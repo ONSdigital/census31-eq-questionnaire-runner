@@ -13,9 +13,7 @@ class TestQuestionnaireDynamicAnswerOptionsFunctionDriven(IntegrationTestCase):
 
     def answer_mutually_exclusive_question(self, answer_value, exclusive=False):
         answer_id = (
-            "dynamic-mutually-exclusive-static-answer"
-            if exclusive
-            else "dynamic-mutually-exclusive-dynamic-answer"
+            "dynamic-mutually-exclusive-static-answer" if exclusive else "dynamic-mutually-exclusive-dynamic-answer"
         )
         self.post({answer_id: answer_value})
 
@@ -48,14 +46,10 @@ class TestQuestionnaireDynamicAnswerOptionsFunctionDriven(IntegrationTestCase):
         )
 
         # Assert Radio answer
-        self.assertAnswerInSummary(
-            "Tuesday 29 December 2020", answer_id="dynamic-radio-answer"
-        )
+        self.assertAnswerInSummary("Tuesday 29 December 2020", answer_id="dynamic-radio-answer")
 
         # Assert Dropdown answer
-        self.assertAnswerInSummary(
-            "Saturday 2 January 2021", answer_id="dynamic-dropdown-answer"
-        )
+        self.assertAnswerInSummary("Saturday 2 January 2021", answer_id="dynamic-dropdown-answer")
 
         # Assert Mutually Exclusive Checkbox answer
         self.assertAnswerInSummary(
@@ -83,14 +77,10 @@ class TestQuestionnaireDynamicAnswerOptionsFunctionDriven(IntegrationTestCase):
         )
 
         # Assert Radio answer
-        self.assertAnswerInSummary(
-            "No answer provided", answer_id="dynamic-radio-answer"
-        )
+        self.assertAnswerInSummary("No answer provided", answer_id="dynamic-radio-answer")
 
         # Assert Dropdown answer
-        self.assertAnswerInSummary(
-            "No answer provided", answer_id="dynamic-dropdown-answer"
-        )
+        self.assertAnswerInSummary("No answer provided", answer_id="dynamic-dropdown-answer")
 
         # Assert Mutually Exclusive Checkbox answer
         self.assertAnswerInSummary(
@@ -121,16 +111,12 @@ class TestQuestionnaireDynamicAnswerOptionsFunctionDriven(IntegrationTestCase):
         ]:
             with self.subTest(schema_name=schema_name):
                 self.setUp()
-                self.assert_dynamic_answer_options_no_answer_provided(
-                    schema_name=schema_name
-                )
+                self.assert_dynamic_answer_options_no_answer_provided(schema_name=schema_name)
                 self.assert_questionnaire_submission()
 
     def test_static_answer_options(self):
         # Given I launch a schema with dynamic options with additional static option
-        self.launchSurveyV2(
-            schema_name="test_dynamic_answer_options_function_driven_with_static_options"
-        )
+        self.launchSurveyV2(schema_name="test_dynamic_answer_options_function_driven_with_static_options")
 
         # When I answer the questions using the static options
         self.complete_reference_date_question()
@@ -151,9 +137,7 @@ class TestQuestionnaireDynamicAnswerOptionsFunctionDriven(IntegrationTestCase):
         self.assertAnswerInSummary("I did not work", answer_id="dynamic-radio-answer")
 
         # Assert Dropdown answer
-        self.assertAnswerInSummary(
-            "I did not work", answer_id="dynamic-dropdown-answer"
-        )
+        self.assertAnswerInSummary("I did not work", answer_id="dynamic-dropdown-answer")
 
         # Assert Mutually Exclusive Checkbox answer
         self.assertAnswerInSummary(
@@ -165,9 +149,7 @@ class TestQuestionnaireDynamicAnswerOptionsFunctionDriven(IntegrationTestCase):
 
     def test_dynamic_options_answer_cleared_on_dependency_change(self):
         # Given I launch a schema and submit an answer for a question which has dynamic options
-        self.launchSurveyV2(
-            schema_name="test_dynamic_answer_options_function_driven_with_static_options"
-        )
+        self.launchSurveyV2(schema_name="test_dynamic_answer_options_function_driven_with_static_options")
         self.complete_reference_date_question()
         self.answer_checkbox_question(["2020-12-29", "2020-12-30"])
         self.previous()

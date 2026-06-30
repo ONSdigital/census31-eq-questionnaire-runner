@@ -67,10 +67,16 @@ class TestSession(IntegrationTestCase):
         self.get("/session-expired")
         self.assertInBody("Sorry, you need to sign in again")
         self.assertInBody(
-            f'<p>If you are completing a business survey, you need to sign back in to <a href="{BUSINESS_URL}/sign-in/logout">your account</a>.</p>'
+            (
+                f"<p>If you are completing a business survey, you need to sign back in to "
+                f'<a href="{BUSINESS_URL}/sign-in/logout">your account</a>.</p>'
+            )
         )
         self.assertInBody(
-            f'<p>If you started your survey using an access code, you need to <a href="{SOCIAL_URL}/{DEFAULT_LANGUAGE_CODE}/start/">re-enter your code</a>.</p>'
+            (
+                f"<p>If you started your survey using an access code, you need to "
+                f'<a href="{SOCIAL_URL}/{DEFAULT_LANGUAGE_CODE}/start/">re-enter your code</a>.</p>'
+            )
         )
 
     def test_session_jti_token_expired(self):
@@ -96,9 +102,7 @@ class TestSession(IntegrationTestCase):
             parsed_json = json_loads(response)
             # ... check that the session expiry time is not affected by
             # the request, and is still 45mins from the start time
-            expected_expires_at = (
-                TIME_TO_FREEZE + timedelta(seconds=EQ_SESSION_TIMEOUT_SECONDS)
-            ).isoformat()
+            expected_expires_at = (TIME_TO_FREEZE + timedelta(seconds=EQ_SESSION_TIMEOUT_SECONDS)).isoformat()
 
             self.assertIn("expires_at", parsed_json)
             self.assertEqual(parsed_json["expires_at"], expected_expires_at)
@@ -114,9 +118,7 @@ class TestSession(IntegrationTestCase):
             parsed_json = json_loads(response)
             # ... check that the session expiry time is reset by the request
             # and is now 45 mins from the request time
-            expected_expires_at = (
-                request_time + timedelta(seconds=EQ_SESSION_TIMEOUT_SECONDS)
-            ).isoformat()
+            expected_expires_at = (request_time + timedelta(seconds=EQ_SESSION_TIMEOUT_SECONDS)).isoformat()
 
             self.assertIn("expires_at", parsed_json)
             self.assertEqual(parsed_json["expires_at"], expected_expires_at)
@@ -240,9 +242,7 @@ class TestSession(IntegrationTestCase):
     @patch(
         "app.questionnaire.questionnaire_store_updater.QuestionnaireStoreUpdaterBase.set_supplementary_data",
     )
-    def test_supplementary_data_raises_500_error_when_missing_required_lists(
-        self, mock_set, mock_get
-    ):
+    def test_supplementary_data_raises_500_error_when_missing_required_lists(self, mock_set, mock_get):
         """Tests that if the supplementary data being loaded does not cover all the dependent lists for the schema
         that a validation error is raised"""
         mock_get.return_value = {"data": {"items": {"products": []}}}
@@ -254,9 +254,7 @@ class TestSession(IntegrationTestCase):
     @patch(
         "app.questionnaire.questionnaire_store_updater.QuestionnaireStoreUpdaterBase.set_supplementary_data",
     )
-    def test_supplementary_data_is_loaded_when_all_required_lists_present(
-        self, mock_set, mock_get
-    ):
+    def test_supplementary_data_is_loaded_when_all_required_lists_present(self, mock_set, mock_get):
         mock_get.return_value = {"data": {"items": {"employees": [], "products": []}}}
         self.launchSupplementaryDataSurvey(schema_name="test_supplementary_data")
         self.assertStatusOK()
@@ -267,9 +265,7 @@ class TestSession(IntegrationTestCase):
         "app.routes.session._validate_supplementary_data_lists",
         side_effect=[
             None,
-            ValidationError(
-                "Supplementary data does not include the following lists required for the schema: missing"
-            ),
+            ValidationError("Supplementary data does not include the following lists required for the schema: missing"),
         ],
     )
     @patch(

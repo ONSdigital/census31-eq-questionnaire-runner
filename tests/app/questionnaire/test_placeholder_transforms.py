@@ -5,11 +5,7 @@ import pytest
 
 from app.questionnaire.placeholder_transforms import PlaceholderTransforms
 from app.questionnaire.questionnaire_schema import QuestionnaireSchema
-from tests.app.test_jinja_filters import (
-    TEST_FORMAT_CURRENCY_PARAMS,
-    TEST_FORMAT_NUMBER_PARAMS,
-    TEST_FORMAT_UNIT_PARAMS,
-)
+from tests.app.test_jinja_filters import TEST_FORMAT_CURRENCY_PARAMS, TEST_FORMAT_NUMBER_PARAMS, TEST_FORMAT_UNIT_PARAMS
 
 
 @pytest.mark.parametrize(*TEST_FORMAT_CURRENCY_PARAMS)
@@ -68,12 +64,7 @@ def test_format_unit(
     app,
 ):
     with app.app_context():
-        assert (
-            transformer(language=locale_string).format_unit(
-                measurement_unit, value, length
-            )
-            == expected_result
-        )
+        assert transformer(language=locale_string).format_unit(measurement_unit, value, length) == expected_result
 
 
 def test_format_list(transformer):
@@ -82,13 +73,7 @@ def test_format_list(transformer):
 
     format_value = transform.format_list(names)
 
-    expected_result = (
-        "<ul>"
-        "<li>Alice Aardvark</li>"
-        "<li>Bob Berty Brown</li>"
-        "<li>Dave Dixon Davies</li>"
-        "</ul>"
-    )
+    expected_result = "<ul><li>Alice Aardvark</li><li>Bob Berty Brown</li><li>Dave Dixon Davies</li></ul>"
 
     assert expected_result == format_value
 
@@ -145,10 +130,7 @@ def test_format_possessive_non_english_does_nothing(name, expected, transformer)
     ),
 )
 def test_calculate_difference(date_start, date_end, expected):
-    assert (
-        PlaceholderTransforms.calculate_date_difference(date_start, date_end)
-        == expected
-    )
+    assert PlaceholderTransforms.calculate_date_difference(date_start, date_end) == expected
 
 
 @pytest.mark.parametrize(
@@ -240,12 +222,8 @@ def test_add_decimal(first, second, expected, transformer):
         ("cy", 40, None, "40ain"),
     ),
 )
-def test_format_ordinal_with_determiner(
-    language, number_to_format, determiner, expected, transformer
-):
-    assert (
-        transformer(language).format_ordinal(number_to_format, determiner) == expected
-    )
+def test_format_ordinal_with_determiner(language, number_to_format, determiner, expected, transformer):
+    assert transformer(language).format_ordinal(number_to_format, determiner) == expected
 
 
 def test_remove_empty_from_list(transformer):
@@ -327,12 +305,7 @@ def test_list_has_items(transformer):
     ),
 )
 def test_format_name(first, middle, last, include_middle_names, expected, transformer):
-    assert (
-        transformer().format_name(
-            first, middle, last, include_middle_names=include_middle_names
-        )
-        == expected
-    )
+    assert transformer().format_name(first, middle, last, include_middle_names=include_middle_names) == expected
 
 
 @pytest.mark.parametrize(
@@ -370,10 +343,7 @@ def test_email_link(address, subject, reference, expected, transformer):
 
 
 def test_telephone_number_link(transformer):
-    assert (
-        transformer().telephone_number_link("012345 67890")
-        == '<a href="tel:01234567890">012345 67890</a>'
-    )
+    assert transformer().telephone_number_link("012345 67890") == '<a href="tel:01234567890">012345 67890</a>'
 
 
 @pytest.mark.parametrize(
@@ -446,9 +416,7 @@ def test_list_item_count(item_list, expected, transformer):
 def test_date_range_bounds_all_weekdays_as_reference_date(
     transformer, ref_date, weeks_prior, day_range, first_day_of_week, expected
 ):
-    actual = transformer().date_range_bounds(
-        ref_date, weeks_prior, day_range, first_day_of_week
-    )
+    actual = transformer().date_range_bounds(ref_date, weeks_prior, day_range, first_day_of_week)
     assert actual == expected
 
 
@@ -533,8 +501,6 @@ def test_conditional_trad_as(transformer, trad_as, expected):
     ],
 )
 def test_get_ordinal_indicator_raises_NotImplementedError(invalid_number_to_format):
-    placeholder_transform = PlaceholderTransforms(
-        "invalid_language", QuestionnaireSchema, "PlaceholderRenderer"
-    )
+    placeholder_transform = PlaceholderTransforms("invalid_language", QuestionnaireSchema, "PlaceholderRenderer")
     with pytest.raises(NotImplementedError):
         placeholder_transform.get_ordinal_indicator(invalid_number_to_format)

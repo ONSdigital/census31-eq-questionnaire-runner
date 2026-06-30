@@ -6,9 +6,7 @@ from tests.app.views.handlers.conftest import time_to_freeze
 
 
 @freeze_time(time_to_freeze)
-def test_confirmation_email_fulfilment_request_message(
-    session_data, metadata, confirmation_email_fulfilment_schema
-):
+def test_confirmation_email_fulfilment_request_message(session_data, metadata, confirmation_email_fulfilment_schema):
     email_address = "name@example.com"
 
     fulfilment_request = ConfirmationEmailFulfilmentRequest(
@@ -29,7 +27,4 @@ def test_confirmation_email_fulfilment_request_message(
         "tx_id": metadata.tx_id,
     }
 
-    assert (
-        confirmation_email_json_message["payload"]["fulfilmentRequest"]
-        == expected_payload
-    )
+    assert confirmation_email_json_message["payload"]["fulfilmentRequest"] == expected_payload

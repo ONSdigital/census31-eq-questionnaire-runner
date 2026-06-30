@@ -3,8 +3,20 @@
 {% set page_title = _("Page is not available") %}
 {% set sign_in = _("You will need to <a href='{url}'>sign back in</a> to access your account").format(url = business_logout_url) %}
 {% set access_code = _("To access this page you need to <a href='{url}'>re-enter your access code</a>.").format(url = other_logout_url) %}
-{% set business_sign_in = _("If you are completing a business survey, you need to sign back in to <a href='{url}'>your account</a>.").format(url = business_logout_url) %}
-{% set other_access_code = _("If you started your survey using an access code, you need to <a href='{url}'>re-enter your code</a>.").format(url = other_logout_url) %}
+{# djlint:off #}
+{% set business_sign_in =
+    _(
+        "If you are completing a business survey, you need to sign back in to "
+        "<a href='{url}'>your account</a>."
+    ).format(url = business_logout_url)
+%}
+{% set other_access_code =
+    _(
+        "If you started your survey using an access code, you need to "
+        "<a href='{url}'>re-enter your code</a>."
+    ).format(url = other_logout_url)
+%}
+{# djlint:on #}
 
 {% block main %}
     <h1>{{ _("Sorry, you need to sign in again") }}</h1>

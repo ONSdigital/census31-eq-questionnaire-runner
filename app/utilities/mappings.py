@@ -19,9 +19,7 @@ def get_mappings_with_key(  # noqa: C901 pylint: disable=too-complex
     def _handle_sequence(value: Sequence) -> Generator[Mapping]:
         for element in value:
             if isinstance(element, Mapping):
-                yield from get_mappings_with_key(
-                    key, data=element, ignore_keys=ignore_keys
-                )
+                yield from get_mappings_with_key(key, data=element, ignore_keys=ignore_keys)
 
     if isinstance(data, Sequence):
         yield from _handle_sequence(data)
@@ -39,8 +37,6 @@ def get_mappings_with_key(  # noqa: C901 pylint: disable=too-complex
                 yield from _handle_sequence(v)
 
 
-def get_values_for_key(
-    key: str, *, data: Mapping | Sequence, ignore_keys: list[str] | None = None
-) -> Generator:
+def get_values_for_key(key: str, *, data: Mapping | Sequence, ignore_keys: list[str] | None = None) -> Generator:
     for mapping in get_mappings_with_key(key, data=data, ignore_keys=ignore_keys):
         yield mapping[key]

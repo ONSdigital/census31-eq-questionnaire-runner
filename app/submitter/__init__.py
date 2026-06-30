@@ -1,9 +1,4 @@
-from app.submitter.submitter import (
-    GCSFeedbackSubmitter,
-    GCSSubmitter,
-    LogFeedbackSubmitter,
-    LogSubmitter,
-)
+from app.submitter.submitter import GCSFeedbackSubmitter, GCSSubmitter, LogFeedbackSubmitter, LogSubmitter
 
 __all__ = [
     "GCSFeedbackSubmitter",

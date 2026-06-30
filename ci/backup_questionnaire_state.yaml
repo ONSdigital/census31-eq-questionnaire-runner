@@ -25,12 +25,23 @@ run:
       gcloud config set project "${PROJECT_ID}"
 
       EXPORT_DATETIME=$(date --utc +"%Y-%m-%dT%H:%M:%S")
-      EXPORT_OPERATION=$(gcloud datastore export --kinds="questionnaire-state" gs://"${BUCKET_NAME}/${FILE_PREFIX}/${EXPORT_DATETIME}" --format="value(name.scope())")
-      EXPORT_STATE=$(gcloud datastore operations describe "$EXPORT_OPERATION" --format="value(metadata.common.state.scope())")
-      TOTAL_ENTITIES_EXPORTED=$(gcloud datastore operations describe "$EXPORT_OPERATION" --format="value(metadata.progressEntities.workCompleted.scope())")
+      EXPORT_OPERATION=$(
+        gcloud datastore export --kinds="questionnaire-state" \
+          gs://"${BUCKET_NAME}/${FILE_PREFIX}/${EXPORT_DATETIME}" \
+          --format="value(name.scope())"
+      )
+      EXPORT_STATE=$(
+        gcloud datastore operations describe "$EXPORT_OPERATION" \
+          --format="value(metadata.common.state.scope())"
+      )
+      TOTAL_ENTITIES_EXPORTED=$(
+        gcloud datastore operations describe "$EXPORT_OPERATION" \
+          --format="value(metadata.progressEntities.workCompleted.scope())"
+      )
 
       if [[ "$EXPORT_STATE" == "SUCCESSFUL" ]]; then
-        echo "Questionnaire State Backup Successful - ${TOTAL_ENTITIES_EXPORTED:-0} entities exported" > "backup-questionnaire-state-output/notification-message"
+        echo "Questionnaire State Backup Successful - ${TOTAL_ENTITIES_EXPORTED:-0} "\
+          "entities exported" > "backup-questionnaire-state-output/notification-message"
       else
         exit 1
       fi

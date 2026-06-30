@@ -70,9 +70,7 @@ def get_routing_path_block_ids_by_section_for_calculation_summary_dependencies(
     for all the sections that those CS or GCS values depend on, get the blocks on the path for that section.
     These routing path block ids are then used to ensure the CS/GCS only includes answers on the path
     """
-    dependent_sections = schema.calculation_summary_section_dependencies_by_block[
-        location.section_id
-    ]
+    dependent_sections = schema.calculation_summary_section_dependencies_by_block[location.section_id]
     return get_routing_path_block_ids_by_section_for_dependent_sections(
         location=location,
         progress_store=progress_store,

@@ -14,8 +14,7 @@ logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
 
 parser = argparse.ArgumentParser(
-    description="Generate a bag of DOM selectors, organised by page, "
-    "to make writing webdriver tests easier"
+    description="Generate a bag of DOM selectors, organised by page, " "to make writing webdriver tests easier"
 )
 
 parser.add_argument(
@@ -34,34 +33,31 @@ parser.add_argument(
 parser.add_argument(
     "-s",
     "--spec_file",
-    help="The file where the template spec should be written."
-    "This flag has no effect when using a schema directory",
+    help="The file where the template spec should be written." "This flag has no effect when using a schema directory",
 )
 
 parser.add_argument(
     "-r",
     "--require_path",
     default="../../base_pages",
-    help="The relative path from a page file to the directory containing the base/parent page classes. "
+    help="The relative path from a page file to the directory containing the base/parent page classes."
     'Defaults to ".."',
 )
 
 SPEC_PAGE_HEADER = "import helpers from '../helpers';\n\n"
 
-SPEC_PAGE_IMPORT = Template(
-    r"""import ${pageName}Page from '../generated_pages/${pageDir}/${pageFile}';
-"""
-)
+SPEC_PAGE_IMPORT = Template(r"""import ${pageName}Page from '../generated_pages/${pageDir}/${pageFile}';
+""")
 
 SPEC_EXAMPLE_TEST = Template(r"""
 describe("Example Test", () => {
-  beforeEach("Load the survey", () => {
-    browser.openQuestionnaire(schema);
-  });
+    beforeEach("Load the survey", () => {
+        browser.openQuestionnaire(schema);
+    });
 
-  it("Given..., When..., Then...", () => {
+    it("Given..., When..., Then...", () => {
 
-  });
+    });
 });
 
 """)
@@ -78,17 +74,13 @@ SECTION_SUMMARY_PAGE_URL = r"""  url() { return `/questionnaire/sections/${this.
 
 """
 
-DEFINITION_TITLE_GETTER = Template(
-    r"""  definitionTitle() { return `[data-qa='${definitionId}-title']`; }
+DEFINITION_TITLE_GETTER = Template(r"""  definitionTitle() { return `[data-qa='${definitionId}-title']`; }
 
-"""
-)
+""")
 
-DEFINITION_CONTENT_GETTER = Template(
-    r"""  definitionContent() { return `[data-qa='${definitionId}-content']`; }
+DEFINITION_CONTENT_GETTER = Template(r"""  definitionContent() { return `[data-qa='${definitionId}-content']`; }
 
-"""
-)
+""")
 
 GUIDANCE_PANEL_GETTER = Template(
     r"""  guidancePanel(guidanceIndex) { return `[data-qa='${guidanceId}-${guidanceIndex}']`; }
@@ -100,39 +92,37 @@ CONTENT_ITEM_GETTER = Template(r"""  ${contentName}Content() { return `#${conten
 
 """)
 
-QUESTION_ERROR_PANEL = Template(
-    r"""  ${questionName}ErrorPanel() { return `#${questionOrAnswerId}-error`; }
+QUESTION_ERROR_PANEL = Template(r"""  ${questionName}ErrorPanel() { return `#${questionOrAnswerId}-error`; }
 
-"""
-)
+""")
 
 QUESTION_TITLE = Template(r"""  questionTitle() {
-    return `#${questionId}`;
-  }
+        return `#${questionId}`;
+    }
 
 """)
 
 ANSWER_LEGEND_GETTER = Template(r"""  ${answerName}Legend() {
-    return `#${answerId} > legend`;
-  }
+        return `#${answerId} > legend`;
+    }
 
 """)
 
 ANSWER_LABEL_GETTER = Template(r"""  ${answerName}Label() {
-    return `[for=${answerId}]`;
-  }
+        return `[for=${answerId}]`;
+    }
 
 """)
 
 DYNAMIC_ANSWER_LABEL_GETTER = Template(r"""  answerLabelByIndex(answerIndex) {
-    return `[for=${answerId}-${answerIndex}]`;
-  }
+        return `[for=${answerId}-${answerIndex}]`;
+    }
 
 """)
 
 ANSWER_ERROR_GETTER = Template(r"""  ${answerName}ErrorItem() {
-    return `#${answerId}-error .ons-panel__body .ons-panel__error`;
-  }
+        return `#${answerId}-error .ons-panel__body .ons-panel__error`;
+    }
 
 """)
 
@@ -145,20 +135,20 @@ ANSWER_SINGLE_ERROR_LINK_GETTER = r"""  singleErrorLink() { return `p[data-qa="e
 """
 
 ANSWER_LABEL_DESCRIPTION_GETTER = Template(r"""  ${answerName}LabelDescription() {
-    return `#${answerId}-label-description-hint`;
-  }
+        return `#${answerId}-label-description-hint`;
+    }
 
 """)
 
 ANSWER_GETTER = Template(r"""  ${answerName}() {
-    return `#${answerId}`;
-  }
+        return `#${answerId}`;
+    }
 
 """)
 
 ANSWER_SUFFIX_GETTER = Template(r"""  ${answerName}Suffix() {
-    return `#${answerId} + span`;
-  }
+        return `#${answerId} + span`;
+    }
 
 """)
 
@@ -171,40 +161,34 @@ QUESTION_INPUTS_GETTER = r"""  inputs() { return `[data-qa="input-text"]`; }
 """
 
 DYNAMIC_ANSWER_GETTER = Template(r"""  answerByIndex(answerIndex) {
-    return `#${answerId}-${answerIndex}`;
-  }
+        return `#${answerId}-${answerIndex}`;
+    }
 
 """)
 
 BLOCK_DESCRIPTION = Template(r"""  ${block_name}Description() {
-    return `div.block__description`;
-  }
+        return `div.block__description`;
+    }
 
 """)
 
 ANSWER_UNIT_TYPE_GETTER = Template(r"""  ${answerName}Unit() {
-    return `#${answerId}-type`;
-  }
+        return `#${answerId}-type`;
+    }
 
 """)
 
-SUMMARY_ANSWER_GETTER = Template(
-    r"""  ${answerName}() { return `[data-qa="${answerId}"]`; }
+SUMMARY_ANSWER_GETTER = Template(r"""  ${answerName}() { return `[data-qa="${answerId}"]`; }
 
-"""
-)
+""")
 
-SUMMARY_ANSWER_EDIT_GETTER = Template(
-    r"""  ${answerName}Edit() { return `[data-qa="${answerId}-edit"]`; }
+SUMMARY_ANSWER_EDIT_GETTER = Template(r"""  ${answerName}Edit() { return `[data-qa="${answerId}-edit"]`; }
 
-"""
-)
+""")
 
-SUMMARY_TITLE_GETTER = Template(
-    r"""  ${group_id_camel}Title() { return `#${group_id} .ons-summary__group-title`; }
+SUMMARY_TITLE_GETTER = Template(r"""  ${group_id_camel}Title() { return `#${group_id} .ons-summary__group-title`; }
 
-"""
-)
+""")
 
 SUMMARY_GROUP_GETTER = Template(
     r"""  ${group_id_camel}Content(groupNumber) { return `#${group_id_without_number}-` + groupNumber; }
@@ -212,21 +196,17 @@ SUMMARY_GROUP_GETTER = Template(
 """
 )
 
-SUMMARY_QUESTION_GETTER = Template(
-    r"""  ${questionName}() { return `[data-qa=${questionId}]`; }
+SUMMARY_QUESTION_GETTER = Template(r"""  ${questionName}() { return `[data-qa=${questionId}]`; }
 
-"""
-)
+""")
 
 COLLAPSIBLE_SUMMARY_GETTER = r"""  collapsibleSummary() { return `#summary-accordion`; }
 
 """
 
-CALCULATED_SUMMARY_LABEL_GETTER = Template(
-    r"""  ${answerName}Label() { return `[data-qa=${answerId}-label]`; }
+CALCULATED_SUMMARY_LABEL_GETTER = Template(r"""  ${answerName}Label() { return `[data-qa=${answerId}-label]`; }
 
-"""
-)
+""")
 
 LIST_SUMMARY_LABEL_GETTER = r"""  listLabel(instance) { return `[data-qa='list-item-${instance}-label']`; }
 
@@ -235,7 +215,7 @@ LIST_SUMMARY_LABEL_GETTER = r"""  listLabel(instance) { return `[data-qa='list-i
 LIST_SUMMARY_EDIT_LINK_GETTER = r"""  listEditLink(instance) { return `[data-qa='list-item-change-${instance}-link']`; }
 
 """
-
+# pylint: disable=line-too-long
 LIST_SUMMARY_REMOVE_LINK_GETTER = r"""  listRemoveLink(instance) { return `[data-qa='list-item-remove-${instance}-link']`; }
 
 """
@@ -243,7 +223,7 @@ LIST_SUMMARY_REMOVE_LINK_GETTER = r"""  listRemoveLink(instance) { return `[data
 LIST_SUMMARY_LIST_GETTER = r"""  listSummary() { return `.ons-list__item`; }
 
 """
-
+# pylint: disable=line-too-long
 LIST_SECTION_SUMMARY_LABEL_GETTER = Template(
     r"""  ${list_name}ListLabel(listItemInstance) { return `div[data-qa="${list_name}-list-summary"] dt[data-qa="list-item-` + listItemInstance + `-label"]`; }
 
@@ -256,15 +236,16 @@ LIST_SECTION_SUMMARY_ADD_LINK_GETTER = Template(
 """
 )
 
-# pylint: disable=line-too-long
 LIST_SECTION_SUMMARY_EDIT_LINK_GETTER = Template(
-    r"""  ${list_name}ListEditLink(listItemInstance) { return `div[data-qa="${list_name}-list-summary"] a[data-qa="list-item-change-` + listItemInstance + `-link"]`; }
+    r"""  ${list_name}ListEditLink(listItemInstance) { return `div[data-qa="${list_name}-list-summary"] """
+    r"""a[data-qa="list-item-change-` + listItemInstance + `-link"]`; }
 
 """
 )
 # pylint: disable=line-too-long
 LIST_SECTION_SUMMARY_REMOVE_LINK_GETTER = Template(
-    r"""  ${list_name}ListRemoveLink(listItemInstance) { return `div[data-qa="${list_name}-list-summary"] a[data-qa="list-item-remove-` + listItemInstance + `-link"]`; }
+    r"""  ${list_name}ListRemoveLink(listItemInstance) { return `div[data-qa="${list_name}-list-summary"] """
+    r"""a[data-qa="list-item-remove-` + listItemInstance + `-link"]`; }
 
 """
 )
@@ -301,8 +282,8 @@ CLEAR_SELECTION_BUTTON_GETTER = r"""  clearSelectionButton() { return `.ons-js-c
 """
 
 CONSTRUCTOR = Template(r"""  constructor() {
-    super(`${page_id}`);
-  }
+        super(`${page_id}`);
+    }
 
 """)
 
@@ -336,16 +317,11 @@ def get_all_questions(block):
 
 def process_answer_legend(answer_context, answer, page_spec):
     single_duration_answer = answer["type"] == "Duration" and len(answer["units"]) == 1
-    single_checkbox_answer = (
-        answer["type"] == "Checkbox" and len(answer.get("options", [])) == 1
-    )
+    single_checkbox_answer = answer["type"] == "Checkbox" and len(answer.get("options", [])) == 1
     if (
         single_duration_answer
         or single_checkbox_answer
-        or (
-            answer["type"]
-            not in {"Duration", "Date", "MonthYearDate", "Checkbox", "Radio"}
-        )
+        or (answer["type"] not in {"Duration", "Date", "MonthYearDate", "Checkbox", "Radio"})
     ):
         return
 
@@ -507,9 +483,7 @@ def process_final_summary(schema_data, require_path, dir_out, spec_file, collaps
         )
 
         for section in schema_data["sections"]:
-            write_summary_spec(
-                page_spec, section, collapsible=collapsible, answers_are_editable=True
-            )
+            write_summary_spec(page_spec, section, collapsible=collapsible, answers_are_editable=True)
 
         if collapsible:
             page_spec.write(COLLAPSIBLE_SUMMARY_GETTER)
@@ -578,45 +552,19 @@ def write_summary_spec(
         if summary_element["type"] == "List"
     ]
     for list_block in list_summaries:
-        list_context = {
-            "list_name": camel_case(
-                generate_pascal_case_from_id(list_block["for_list"])
-            )
-        }
+        list_context = {"list_name": camel_case(generate_pascal_case_from_id(list_block["for_list"]))}
         if answers_are_editable:
             if show_non_item_answers:
-                page_spec.write(
-                    NON_ITEM_ANSWERS_LIST_SECTION_SUMMARY_ADD_LINK_GETTER.substitute(
-                        list_context
-                    )
-                )
-                page_spec.write(
-                    NON_ITEM_ANSWERS_LIST_SECTION_SUMMARY_EDIT_LINK_GETTER.substitute(
-                        list_context
-                    )
-                )
-                page_spec.write(
-                    NON_ITEM_ANSWERS_LIST_SECTION_SUMMARY_REMOVE_LINK_GETTER.substitute(
-                        list_context
-                    )
-                )
+                page_spec.write(NON_ITEM_ANSWERS_LIST_SECTION_SUMMARY_ADD_LINK_GETTER.substitute(list_context))
+                page_spec.write(NON_ITEM_ANSWERS_LIST_SECTION_SUMMARY_EDIT_LINK_GETTER.substitute(list_context))
+                page_spec.write(NON_ITEM_ANSWERS_LIST_SECTION_SUMMARY_REMOVE_LINK_GETTER.substitute(list_context))
 
             else:
-                page_spec.write(
-                    LIST_SECTION_SUMMARY_ADD_LINK_GETTER.substitute(list_context)
-                )
-                page_spec.write(
-                    LIST_SECTION_SUMMARY_EDIT_LINK_GETTER.substitute(list_context)
-                )
-                page_spec.write(
-                    LIST_SECTION_SUMMARY_REMOVE_LINK_GETTER.substitute(list_context)
-                )
+                page_spec.write(LIST_SECTION_SUMMARY_ADD_LINK_GETTER.substitute(list_context))
+                page_spec.write(LIST_SECTION_SUMMARY_EDIT_LINK_GETTER.substitute(list_context))
+                page_spec.write(LIST_SECTION_SUMMARY_REMOVE_LINK_GETTER.substitute(list_context))
         if show_non_item_answers:
-            page_spec.write(
-                NON_ITEM_ANSWERS_LIST_SECTION_SUMMARY_LABEL_GETTER.substitute(
-                    list_context
-                )
-            )
+            page_spec.write(NON_ITEM_ANSWERS_LIST_SECTION_SUMMARY_LABEL_GETTER.substitute(list_context))
         else:
             page_spec.write(LIST_SECTION_SUMMARY_LABEL_GETTER.substitute(list_context))
 
@@ -625,9 +573,7 @@ def write_summary_spec(
             for question in get_all_questions(block):
                 question_context = {
                     "questionId": question["id"],
-                    "questionName": camel_case(
-                        generate_pascal_case_from_id(question["id"])
-                    ),
+                    "questionName": camel_case(generate_pascal_case_from_id(question["id"])),
                 }
                 for answer in question.get("answers", []):
                     answer_name = generate_pascal_case_from_id(answer["id"])
@@ -640,9 +586,7 @@ def write_summary_spec(
                     page_spec.write(SUMMARY_ANSWER_GETTER.substitute(answer_context))
 
                     if answers_are_editable:
-                        page_spec.write(
-                            SUMMARY_ANSWER_EDIT_GETTER.substitute(answer_context)
-                        )
+                        page_spec.write(SUMMARY_ANSWER_EDIT_GETTER.substitute(answer_context))
 
                 page_spec.write(SUMMARY_QUESTION_GETTER.substitute(question_context))
 
@@ -673,24 +617,12 @@ def _write_date_answer(answer_id, prefix):
     year_name = camel_case(prefix + "Year")
 
     return (
-        ANSWER_GETTER.substitute(
-            {"answerName": day_name, "answerId": answer_id + "-day"}
-        )
-        + ANSWER_GETTER.substitute(
-            {"answerName": month_name, "answerId": answer_id + "-month"}
-        )
-        + ANSWER_GETTER.substitute(
-            {"answerName": year_name, "answerId": answer_id + "-year"}
-        )
-        + ANSWER_LABEL_GETTER.substitute(
-            {"answerName": day_name, "answerId": answer_id + "-day"}
-        )
-        + ANSWER_LABEL_GETTER.substitute(
-            {"answerName": month_name, "answerId": answer_id + "-month"}
-        )
-        + ANSWER_LABEL_GETTER.substitute(
-            {"answerName": year_name, "answerId": answer_id + "-year"}
-        )
+        ANSWER_GETTER.substitute({"answerName": day_name, "answerId": answer_id + "-day"})
+        + ANSWER_GETTER.substitute({"answerName": month_name, "answerId": answer_id + "-month"})
+        + ANSWER_GETTER.substitute({"answerName": year_name, "answerId": answer_id + "-year"})
+        + ANSWER_LABEL_GETTER.substitute({"answerName": day_name, "answerId": answer_id + "-day"})
+        + ANSWER_LABEL_GETTER.substitute({"answerName": month_name, "answerId": answer_id + "-month"})
+        + ANSWER_LABEL_GETTER.substitute({"answerName": year_name, "answerId": answer_id + "-year"})
     )
 
 
@@ -699,18 +631,10 @@ def _write_month_year_date_answer(answer_id, prefix):
     year_name = camel_case(prefix + "Year")
 
     return (
-        ANSWER_GETTER.substitute(
-            {"answerName": month_name, "answerId": answer_id + "-month"}
-        )
-        + ANSWER_GETTER.substitute(
-            {"answerName": year_name, "answerId": answer_id + "-year"}
-        )
-        + ANSWER_LABEL_GETTER.substitute(
-            {"answerName": month_name, "answerId": answer_id + "-month"}
-        )
-        + ANSWER_LABEL_GETTER.substitute(
-            {"answerName": year_name, "answerId": answer_id + "-year"}
-        )
+        ANSWER_GETTER.substitute({"answerName": month_name, "answerId": answer_id + "-month"})
+        + ANSWER_GETTER.substitute({"answerName": year_name, "answerId": answer_id + "-year"})
+        + ANSWER_LABEL_GETTER.substitute({"answerName": month_name, "answerId": answer_id + "-month"})
+        + ANSWER_LABEL_GETTER.substitute({"answerName": year_name, "answerId": answer_id + "-year"})
     )
 
 
@@ -799,9 +723,7 @@ def build_and_get_base_page_context(
 
 
 # pylint: disable=too-many-branches,too-many-statements,too-many-locals,too-complex
-def process_block(
-    block, dir_out, schema_data, spec_file, relative_require="..", page_filename=None
-):
+def process_block(block, dir_out, schema_data, spec_file, relative_require="..", page_filename=None):
     logger.debug("Processing Block: %s", block["id"])
 
     if not page_filename:
@@ -889,9 +811,7 @@ def process_block(
                 contents_block = content.get("contents")
                 content_context = {
                     "contentId": content["id"],
-                    "contentName": camel_case(
-                        generate_pascal_case_from_id(content["id"])
-                    ),
+                    "contentName": camel_case(generate_pascal_case_from_id(content["id"])),
                 }
                 process_content(content_context, page_spec)
 
@@ -904,31 +824,21 @@ def process_block(
 
         elif block["type"] == "CalculatedSummary":
             if block["calculation"].get("answers_to_calculate"):
-                process_calculated_summary(
-                    block["calculation"]["answers_to_calculate"], page_spec
-                )
+                process_calculated_summary(block["calculation"]["answers_to_calculate"], page_spec)
             else:
-                values = _get_dictionaries_with_key(
-                    "source", block["calculation"]["operation"]
-                )
+                values = _get_dictionaries_with_key("source", block["calculation"]["operation"])
 
                 calculated_summary_answer_ids = [
-                    value["identifier"]
-                    for value in values
-                    if value["source"] == "answers"
+                    value["identifier"] for value in values if value["source"] == "answers"
                 ]
 
                 process_calculated_summary(calculated_summary_answer_ids, page_spec)
 
         elif block["type"] == "GrandCalculatedSummary":
-            values = _get_dictionaries_with_key(
-                "source", block["calculation"]["operation"]
-            )
+            values = _get_dictionaries_with_key("source", block["calculation"]["operation"])
 
             calculated_summary_ids = [
-                value["identifier"]
-                for value in values
-                if value["source"] == "calculated_summary"
+                value["identifier"] for value in values if value["source"] == "calculated_summary"
             ]
 
             # each calculated summary in a grand calculated summary is constructed such that it will have a single "answer" linking back to it
@@ -1020,9 +930,7 @@ def process_schema(in_schema, out_dir, spec_file, require_path=".."):
 
     for section in data["sections"]:
         if "summary" in section:
-            process_section_summary(
-                section["id"], out_dir, section, spec_file, require_path
-            )
+            process_section_summary(section["id"], out_dir, section, spec_file, require_path)
         for group in section["groups"]:
             for block in group["blocks"]:
                 process_block(block, out_dir, data, spec_file, require_path)
@@ -1032,9 +940,7 @@ def process_questionnaire_flow(schema_data, require_path, dir_out, spec_file):
     questionnaire_flow = schema_data["questionnaire_flow"]
     options = questionnaire_flow.get("options", {})
 
-    if questionnaire_flow["type"] == "Linear" and (
-        summary_options := options.get("summary")
-    ):
+    if questionnaire_flow["type"] == "Linear" and (summary_options := options.get("summary")):
         logger.debug("Processing questionnaire flow summary")
         collapsible = summary_options["collapsible"]
         process_final_summary(
@@ -1046,9 +952,7 @@ def process_questionnaire_flow(schema_data, require_path, dir_out, spec_file):
         )
 
 
-def process_section_summary(
-    section_id, dir_out, section, spec_file, relative_require="..", page_filename=None
-):
+def process_section_summary(section_id, dir_out, section, spec_file, relative_require="..", page_filename=None):
     logger.debug("Processing section summary: %s", section_id)
 
     if not page_filename:
@@ -1111,9 +1015,7 @@ if __name__ == "__main__":
             template_spec.write(SPEC_PAGE_HEADER)
             template_spec.close()
 
-            process_schema(
-                args.SCHEMA, args.OUT_DIRECTORY, template_spec_file, args.require_path
-            )
+            process_schema(args.SCHEMA, args.OUT_DIRECTORY, template_spec_file, args.require_path)
 
             with open(template_spec_file, "a", encoding="utf-8") as template_spec:
                 schema_name = {"schema": os.path.basename(args.SCHEMA)}
@@ -1126,14 +1028,10 @@ if __name__ == "__main__":
                     logger.info("File %s", filename)
                     if filename[0] == ".":
                         continue
-                    output_dir = os.path.join(
-                        args.OUT_DIRECTORY, filename.split(".")[0].replace("test_", "")
-                    )
+                    output_dir = os.path.join(args.OUT_DIRECTORY, filename.split(".")[0].replace("test_", ""))
                     if not os.path.exists(output_dir):
                         os.makedirs(output_dir)
                     process_schema(file, output_dir, None, args.require_path)
 
         else:
-            process_schema(
-                args.SCHEMA, args.OUT_DIRECTORY, template_spec_file, args.require_path
-            )
+            process_schema(args.SCHEMA, args.OUT_DIRECTORY, template_spec_file, args.require_path)

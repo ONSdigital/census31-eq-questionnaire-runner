@@ -118,19 +118,13 @@ class TokenGenerator:
             if key in TOP_LEVEL_KEYS:
                 populate_with_extra_payload_items(key, value, payload_vars)
             else:
-                populate_with_extra_payload_items(
-                    key, value, payload_vars["survey_metadata"]["data"]
-                )
+                populate_with_extra_payload_items(key, value, payload_vars["survey_metadata"]["data"])
 
         return payload_vars
 
     def create_token_v2(self, schema_name, theme="default", **extra_payload):
-        payload_for_theme = (
-            PAYLOAD_V2_SOCIAL if theme == "social" else PAYLOAD_V2_BUSINESS
-        )
-        payload = self._get_payload_with_params(
-            schema_name=schema_name, payload=payload_for_theme, **extra_payload
-        )
+        payload_for_theme = PAYLOAD_V2_SOCIAL if theme == "social" else PAYLOAD_V2_BUSINESS
+        payload = self._get_payload_with_params(schema_name=schema_name, payload=payload_for_theme, **extra_payload)
 
         return self.generate_token(payload)
 
@@ -143,48 +137,36 @@ class TokenGenerator:
                 payload["survey_metadata"]["data"][key] = value
                 del extra_payload[key]
 
-        payload = self._get_payload_with_params(
-            schema_name=schema_name, payload=payload, **extra_payload
-        )
+        payload = self._get_payload_with_params(schema_name=schema_name, payload=payload, **extra_payload)
 
         return self.generate_token(payload)
 
     def create_token_invalid_version(self, schema_name, **extra_payload):
-        payload = self._get_payload_with_params(
-            schema_name=schema_name, payload=PAYLOAD_V2_BUSINESS, **extra_payload
-        )
+        payload = self._get_payload_with_params(schema_name=schema_name, payload=PAYLOAD_V2_BUSINESS, **extra_payload)
 
         payload["version"] = "v3"
 
         return self.generate_token(payload)
 
     def create_token_without_jti(self, schema_name, **extra_payload):
-        payload_vars = self._get_payload_with_params(
-            schema_name=schema_name, schema_url=None, **extra_payload
-        )
+        payload_vars = self._get_payload_with_params(schema_name=schema_name, schema_url=None, **extra_payload)
         del payload_vars["jti"]
 
         return self.generate_token(payload_vars)
 
     def create_token_without_case_id(self, schema_name, **extra_payload):
-        payload_vars = self._get_payload_with_params(
-            schema_name=schema_name, schema_url=None, **extra_payload
-        )
+        payload_vars = self._get_payload_with_params(schema_name=schema_name, schema_url=None, **extra_payload)
         del payload_vars["case_id"]
 
         return self.generate_token(payload_vars)
 
     def create_token_without_trad_as(self, schema_name, **extra_payload):
-        payload_vars = self._get_payload_with_params(
-            schema_name=schema_name, schema_url=None, **extra_payload
-        )
+        payload_vars = self._get_payload_with_params(schema_name=schema_name, schema_url=None, **extra_payload)
         del payload_vars["survey_metadata"]["data"]["trad_as"]
 
         return self.generate_token(payload_vars)
 
-    def create_token_v2_social_token_invalid_receipting_key(
-        self, schema_name, **extra_payload
-    ):
+    def create_token_v2_social_token_invalid_receipting_key(self, schema_name, **extra_payload):
         payload_vars = self._get_payload_with_params(
             schema_name=schema_name, payload=PAYLOAD_V2_SOCIAL, **extra_payload
         )
@@ -193,15 +175,11 @@ class TokenGenerator:
         return self.generate_token(payload_vars)
 
     def create_token_with_schema_url(self, schema_url, **extra_payload):
-        payload_vars = self._get_payload_with_params(
-            schema_url=schema_url, **extra_payload
-        )
+        payload_vars = self._get_payload_with_params(schema_url=schema_url, **extra_payload)
 
         return self.generate_token(payload_vars)
 
-    def create_token_with_cir_instrument_id(
-        self, cir_instrument_id, payload=None, **extra_payload
-    ):
+    def create_token_with_cir_instrument_id(self, cir_instrument_id, payload=None, **extra_payload):
         payload_vars = self._get_payload_with_params(
             cir_instrument_id=cir_instrument_id,
             payload=payload or PAYLOAD_V2_BUSINESS,
@@ -211,9 +189,7 @@ class TokenGenerator:
         return self.generate_token(payload_vars)
 
     def create_token_with_none_language_code(self, schema_name, **extra_payload):
-        payload_vars = self._get_payload_with_params(
-            schema_name=schema_name, **extra_payload
-        )
+        payload_vars = self._get_payload_with_params(schema_name=schema_name, **extra_payload)
         del payload_vars["language_code"]
 
         return self.generate_token(payload_vars)
