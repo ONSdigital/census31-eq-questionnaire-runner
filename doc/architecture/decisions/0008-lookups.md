@@ -14,13 +14,13 @@ We will define a new answer type 'Lookup' within the schema which identifies the
         description: 'This question is voluntary',
         type: 'General',
         answers: [
-          {
-            id: 'religion-answer',
-            mandatory: false,
-            label: 'Religion',
-            type: 'Lookup',
-            lookup_type: 'Religion'
-          }
+            {
+                id: 'religion-answer',
+                mandatory: false,
+                label: 'Religion',
+                type: 'Lookup',
+                lookup_type: 'Religion'
+            }
         ]
     }
 

@@ -90,9 +90,7 @@ class BlockHandler:
         )
 
     def is_location_valid(self) -> bool:
-        return self.router.can_access_location(
-            self._current_location, self._routing_path
-        )
+        return self.router.can_access_location(self._current_location, self._routing_path)
 
     def get_previous_location_url(self) -> str | None:
         return self.router.get_previous_location_url(
@@ -119,9 +117,7 @@ class BlockHandler:
     def _get_routing_path(self) -> RoutingPath:
         return self.router.routing_path(self._current_location.section_key)
 
-    def _update_section_completeness(
-        self, location: Location | RelationshipLocation | None = None
-    ) -> None:
+    def _update_section_completeness(self, location: Location | RelationshipLocation | None = None) -> None:
         location = location or self._current_location
 
         self.questionnaire_store_updater.update_section_status(
@@ -142,11 +138,9 @@ class BlockHandler:
 
     def _resolve_custom_page_title_vars(self) -> MutableMapping:
         # Type ignore: list_item_id and list_name are populated at this stage
-        list_item_position = (
-            self._questionnaire_store.data_stores.list_store.list_item_position(
-                self.current_location.list_name,  # type: ignore
-                self.current_location.list_item_id,  # type: ignore
-            )
+        list_item_position = self._questionnaire_store.data_stores.list_store.list_item_position(
+            self.current_location.list_name,  # type: ignore
+            self.current_location.list_item_id,  # type: ignore
         )
         return {"list_item_position": list_item_position}
 
@@ -154,18 +148,13 @@ class BlockHandler:
         if not page_title:
             return None
 
-        section_repeating_page_title = (
-            self._schema.get_repeating_page_title_for_section(
-                self._current_location.section_id
-            )
+        section_repeating_page_title = self._schema.get_repeating_page_title_for_section(
+            self._current_location.section_id
         )
         if section_repeating_page_title:
             page_title = f"{page_title}: {section_repeating_page_title}"
 
-        if (
-            self._current_location.list_item_id
-            or self.block["type"] == "ListAddQuestion"
-        ):
+        if self._current_location.list_item_id or self.block["type"] == "ListAddQuestion":
             page_title_vars = self._resolve_custom_page_title_vars()
             page_title = page_title.format(**page_title_vars)
 

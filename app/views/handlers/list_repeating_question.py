@@ -13,7 +13,8 @@ class ListRepeatingQuestion(ListEditQuestion):
             return url
 
         # the locations list_item_id is referring to where to return to within the context of a repeating section
-        # since the list collector won't be in a repeating section, use the parent location which doesn't have a list item id
+        # since the list collector won't be in a repeating section,
+        # use the parent location which doesn't have a list item id
         if url := self.router.get_return_to_location_url(
             location=self.parent_location,
             return_location=self.return_location,
@@ -27,9 +28,7 @@ class ListRepeatingQuestion(ListEditQuestion):
             self.current_location.block_id  # type: ignore
         )
         if repeating_block_index != 0:
-            previous_repeating_block_id = self.repeating_block_ids[
-                repeating_block_index - 1
-            ]
+            previous_repeating_block_id = self.repeating_block_ids[repeating_block_index - 1]
             return url_for(
                 "questionnaire.block",
                 list_name=self.current_location.list_name,
@@ -38,9 +37,7 @@ class ListRepeatingQuestion(ListEditQuestion):
                 **self.return_location.to_dict(),
             )
 
-        if edit_block := self._schema.get_edit_block_for_list_collector(
-            self.parent_block["id"]
-        ):
+        if edit_block := self._schema.get_edit_block_for_list_collector(self.parent_block["id"]):
             return url_for(
                 "questionnaire.block",
                 list_name=self.current_location.list_name,

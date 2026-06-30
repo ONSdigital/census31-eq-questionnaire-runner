@@ -153,9 +153,7 @@ def form():
 
 @pytest.fixture
 def schema():
-    return MagicMock(
-        QuestionnaireSchema({"questionnaire_flow": {"type": "Hub", "options": {}}})
-    )
+    return MagicMock(QuestionnaireSchema({"questionnaire_flow": {"type": "Hub", "options": {}}}))
 
 
 @pytest.fixture
@@ -399,9 +397,7 @@ def test_grand_calculated_summary_schema():
 
 @pytest.fixture
 def test_calculated_summary_repeating_and_static_answers_schema():
-    return load_schema_from_name(
-        "test_new_calculated_summary_repeating_and_static_answers"
-    )
+    return load_schema_from_name("test_new_calculated_summary_repeating_and_static_answers")
 
 
 @pytest.fixture
@@ -490,8 +486,6 @@ def questionnaire_store():
         "ru_ref": "12345678901A",
     }
 
-    store.data_stores.response_metadata = {
-        "started_at": "2018-07-04T14:49:33.448608+00:00"
-    }
+    store.data_stores.response_metadata = {"started_at": "2018-07-04T14:49:33.448608+00:00"}
 
     return store

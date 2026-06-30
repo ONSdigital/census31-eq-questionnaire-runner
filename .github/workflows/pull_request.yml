@@ -250,7 +250,15 @@ jobs:
           [ "$LINT" = "success" ] || { echo "::error::lint failed or was skipped unexpectedly"; exit 1; }
           [ "$VALIDATE_SCHEMAS" = "success" ] || { echo "::error::validate-schemas failed or was skipped unexpectedly"; exit 1; }
 
-          [ "$TEST_UNIT" = "success" ] || { echo "::error::test-unit must run and pass before merge (result: $TEST_UNIT). If skip-tests-unit is set, remove the label and rerun checks."; exit 1; }
-          [ "$TEST_FUNCTIONAL" = "success" ] || { echo "::error::test-functional must run and pass before merge (result: $TEST_FUNCTIONAL). If skip-tests-acceptance is set, remove the label and rerun checks."; exit 1; }
+          [ "$TEST_UNIT" = "success" ] || {
+            echo "::error::test-unit must run and pass before merge (result: $TEST_UNIT)."
+            echo "If skip-tests-unit is set, remove the label and rerun checks."
+            exit 1
+          }
+          [ "$TEST_FUNCTIONAL" = "success" ] || {
+            echo "::error::test-functional must run and pass before merge (result: $TEST_FUNCTIONAL)."
+            echo "If skip-tests-acceptance is set, remove the label and rerun checks."
+            exit 1
+          }
 
           echo "All required checks passed!"

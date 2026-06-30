@@ -23,12 +23,16 @@ describe("Component: Dropdown", () => {
       await expect(await $(DropdownMandatoryPage.errorNumber(1)).getText()).toBe("Select an answer");
     });
 
-    it("When I have selected a dropdown option and I try to select a default (disabled) dropdown option, Then the already selected option should be displayed in summary", async () => {
-      await $(DropdownMandatoryPage.answer()).selectByAttribute("value", "Liverpool");
-      await $(DropdownMandatoryPage.answer()).selectByAttribute("value", "");
-      await click(DropdownMandatoryPage.submit());
-      await expect(await $(DropdownMandatorySummary.dropdownMandatoryAnswer()).getText()).toBe("Liverpool");
-    });
+    it(
+      "When I have selected a dropdown option and I try to select a default (disabled) dropdown option, " +
+        "Then the already selected option should be displayed in summary",
+      async () => {
+        await $(DropdownMandatoryPage.answer()).selectByAttribute("value", "Liverpool");
+        await $(DropdownMandatoryPage.answer()).selectByAttribute("value", "");
+        await click(DropdownMandatoryPage.submit());
+        await expect(await $(DropdownMandatorySummary.dropdownMandatoryAnswer()).getText()).toBe("Liverpool");
+      },
+    );
 
     it("When I click the dropdown label, Then the dropdown should be focused", async () => {
       await $(DropdownMandatoryPage.answerLabel()).click();

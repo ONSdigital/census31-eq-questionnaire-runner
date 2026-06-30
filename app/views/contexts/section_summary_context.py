@@ -40,9 +40,7 @@ class SectionSummaryContext(Context):
         summary = self.build_summary(return_to, view_submitted_response)
         title_for_location = self.title_for_location()
         title = (
-            self._placeholder_renderer.render_placeholder(
-                title_for_location, self.current_location.list_item_id
-            )
+            self._placeholder_renderer.render_placeholder(title_for_location, self.current_location.list_item_id)
             if isinstance(title_for_location, dict)
             else title_for_location
         )
@@ -78,10 +76,8 @@ class SectionSummaryContext(Context):
         return section
 
     def get_page_title(self, title_for_location: Mapping | str) -> str:
-        section_repeating_page_title = (
-            self._schema.get_repeating_page_title_for_section(
-                self.current_location.section_id
-            )
+        section_repeating_page_title = self._schema.get_repeating_page_title_for_section(
+            self.current_location.section_id
         )
         page_title = self._schema.get_custom_page_title_for_section(
             self.current_location.section_id
@@ -155,9 +151,7 @@ class SectionSummaryContext(Context):
             or self._schema.get_title_for_section(section_id)
         )
 
-    def _custom_summary_elements(
-        self, section_summary: Iterable[Mapping]
-    ) -> Generator[dict[str, Any], Any]:
+    def _custom_summary_elements(self, section_summary: Iterable[Mapping]) -> Generator[dict[str, Any], Any]:
         for summary_element in section_summary:
             if summary_element["type"] == "List":
                 list_collector_block = ListCollectorBlock(
@@ -171,15 +165,16 @@ class SectionSummaryContext(Context):
                 yield list_collector_block.list_summary_element(summary_element)
 
     def _get_safe_page_title(self, title: Mapping | str) -> str:
-        return (
-            safe_content(self._schema.get_single_string_value(title)) if title else ""
-        )
+        return safe_content(self._schema.get_single_string_value(title)) if title else ""
 
     @staticmethod
     def _get_refactored_groups(original_groups: dict) -> list[dict[str, Any]]:
-        """original schema groups are refactored into groups based on block types, it follows the order/sequence of blocks in the original groups, all the
-        non list collector blocks are put together into groups, list collectors are put into separate groups, this way summary groups are displayed correctly
-        on section summary"""
+        """Original schema groups are refactored into groups based on block types,
+        it follows the order/sequence of blocks in the original groups. All the
+        non list collector blocks are put together into groups, list collectors are
+        put into separate groups, this way summary groups are displayed correctly
+        on section summary.
+        """
         refactored_groups = []
         group_number = 0
 
@@ -189,13 +184,15 @@ class SectionSummaryContext(Context):
             list_collector_blocks: list[dict[str, str]] = []
             for block in group["blocks"]:
                 if block["type"] in LIST_COLLECTORS_WITH_REPEATING_BLOCKS:
-                    # if list collector block encountered, close the previously started non list collector blocks list if exists
+                    # if list collector block encountered, close the previously
+                    # started non list collector blocks list if exists
                     if non_list_collector_blocks:
                         previously_started_group = {
                             "id": f"{group_name}-{group_number}",
                             "blocks": non_list_collector_blocks,
                         }
-                        # add previous non list collector blocks group to all groups and increase the group number for the list collector group
+                        # add previous non list collector blocks group to all
+                        # groups and increase the group number for the list collector group
                         # that you handle next
                         refactored_groups.append(previously_started_group)
                         group_number += 1
@@ -212,7 +209,8 @@ class SectionSummaryContext(Context):
                     non_list_collector_blocks = []
 
                 else:
-                    # if list collector not encountered keep adding blocks or add first one to an empty non list collector blocks list
+                    # if list collector not encountered keep adding blocks or add
+                    # first one to an empty non list collector blocks list
                     non_list_collector_blocks.append(block)
 
             # on exiting the loop, accumulated list of blocks gets added as a group

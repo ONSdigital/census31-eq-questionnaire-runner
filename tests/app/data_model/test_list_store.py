@@ -113,12 +113,8 @@ def test_list_representation_equality():
     assert ListModel("list", ["1", "2"]) == ListModel("list", ["1", "2"])
     assert ListModel("list", ["1", "2"]) != ListModel("list", ["1"])
 
-    assert ListModel("list", ["1"], primary_person="1") == ListModel(
-        "list", ["1"], primary_person="1"
-    )
-    assert ListModel("list", ["1"], primary_person="1") != ListModel(
-        "list", ["1"], primary_person="2"
-    )
+    assert ListModel("list", ["1"], primary_person="1") == ListModel("list", ["1"], primary_person="1")
+    assert ListModel("list", ["1"], primary_person="1") != ListModel("list", ["1"], primary_person="2")
 
     assert ListModel("list", ["1"]) != ["1"]
 
@@ -156,9 +152,7 @@ def test_first_raises_index_error_when_list_is_empty():
     with pytest.raises(IndexError) as error:
         new_list.first  # pylint: disable=pointless-statement
 
-    assert "unable to access first item in list, list 'people' is empty" in str(
-        error.value
-    )
+    assert "unable to access first item in list, list 'people' is empty" in str(error.value)
 
 
 def test_get_item_using_method():

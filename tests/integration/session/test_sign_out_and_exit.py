@@ -6,20 +6,14 @@ SIGNED_OUT_URL_PATH = "/signed-out"
 SESSION_EXPIRED_PATH = "/session-expired"
 ACCOUNT_SERVICE_BASE_URL = "http://localhost"
 ACCOUNT_SERVICE_LOG_OUT_URL_PATH = "/sign-in/logout"
-ACCOUNT_SERVICE_LOG_OUT_URL = (
-    f"{ACCOUNT_SERVICE_BASE_URL}{ACCOUNT_SERVICE_LOG_OUT_URL_PATH}"
-)
-DEFAULT_ACCOUNT_SERVICE_LOG_OUT_URL = (
-    f"{DEFAULT_ACCOUNT_SERVICE_BASE_URL}{ACCOUNT_SERVICE_LOG_OUT_URL_PATH}"
-)
+ACCOUNT_SERVICE_LOG_OUT_URL = f"{ACCOUNT_SERVICE_BASE_URL}{ACCOUNT_SERVICE_LOG_OUT_URL_PATH}"
+DEFAULT_ACCOUNT_SERVICE_LOG_OUT_URL = f"{DEFAULT_ACCOUNT_SERVICE_BASE_URL}{ACCOUNT_SERVICE_LOG_OUT_URL_PATH}"
 
 
 class TestSaveAndSignOut(IntegrationTestCase):
     def test_sign_out_button_link(self):
         self.launchSurveyV2(schema_name="test_textfield")
-        self.assertEqual(
-            "/sign-out?internal_redirect=True", self.getSignOutButton()["href"]
-        )
+        self.assertEqual("/sign-out?internal_redirect=True", self.getSignOutButton()["href"])
 
     def test_sign_out_url(self):
         self.launchSurveyV2(schema_name="test_textfield")
@@ -48,9 +42,7 @@ class TestSaveAndSignOut(IntegrationTestCase):
     def test_redirects_to_account_service_log_out_url_using_base_url_from_claims(self):
         for schema in ["test_textfield", "test_hub_and_spoke"]:
             with self.subTest(schema=schema):
-                self.launchSurveyV2(
-                    schema_name=schema, account_service_url=ACCOUNT_SERVICE_BASE_URL
-                )
+                self.launchSurveyV2(schema_name=schema, account_service_url=ACCOUNT_SERVICE_BASE_URL)
                 self.signOut()
                 self.assertInRedirect(ACCOUNT_SERVICE_LOG_OUT_URL)
 
@@ -70,9 +62,7 @@ class TestExitPostSubmissionTestCase(IntegrationTestCase):
         self.assertInUrl("/thank-you")
 
 
-class TestExitPostSubmissionWithFinalSummaryDefaultTheme(
-    TestExitPostSubmissionTestCase
-):
+class TestExitPostSubmissionWithFinalSummaryDefaultTheme(TestExitPostSubmissionTestCase):
     def test_redirects_to_account_service_log_out_url_using_base_url_from_claims(self):
         self._launch_and_submit_questionnaire(
             schema="test_textfield",

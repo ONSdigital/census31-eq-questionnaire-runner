@@ -62,7 +62,7 @@ describe("Feature: Routing rules based on progress value sources in repeating se
   });
 
   describe("Given I have routing in a repeating section based on the completeness of a block", () => {
-    it("When the status of the block changes from incomplete to complete, then the dependent question should be on the path in the repeating sections", async () => {
+    it("When the status of the block changes from incomplete to complete, Then the dependent question should be on the path in the repeating sections", async () => {
       await click(HubPage.submit());
       await $(ListCollectorPage.yes()).click();
       await click(ListCollectorPage.submit());
@@ -131,41 +131,45 @@ describe("Feature: Routing rules based on progress value sources in repeating se
   });
 
   describe("Given I have routing in a repeating section based on the completeness of a calculated summary", () => {
-    it("When the calculated summary block is incomplete but is updated so that it is completed, then I should see the dependency should be updated in the repeating section", async () => {
-      await click(HubPage.submit());
-      await $(FirstNumberBlockPage.firstNumber()).setValue(1);
-      await click(FirstNumberBlockPage.submit());
-      await browser.url(HubPage.url());
+    it(
+      "When the calculated summary block is incomplete but is updated so that it is completed, " +
+        "then I should see the dependency should be updated in the repeating section",
+      async () => {
+        await click(HubPage.submit());
+        await $(FirstNumberBlockPage.firstNumber()).setValue(1);
+        await click(FirstNumberBlockPage.submit());
+        await browser.url(HubPage.url());
 
-      await $(HubPage.summaryRowLink("section-2")).click();
+        await $(HubPage.summaryRowLink("section-2")).click();
 
-      await $(ListCollectorPage.yes()).click();
-      await click(ListCollectorPage.submit());
-      await $(ListCollectorAddPage.firstName()).setValue("John");
-      await $(ListCollectorAddPage.lastName()).setValue("Doe");
-      await click(ListCollectorAddPage.submit());
-      await $(ListCollectorPage.no()).click();
-      await click(ListCollectorPage.submit());
-      await verifyUrlContains(HubPage.pageName);
+        await $(ListCollectorPage.yes()).click();
+        await click(ListCollectorPage.submit());
+        await $(ListCollectorAddPage.firstName()).setValue("John");
+        await $(ListCollectorAddPage.lastName()).setValue("Doe");
+        await click(ListCollectorAddPage.submit());
+        await $(ListCollectorPage.no()).click();
+        await click(ListCollectorPage.submit());
+        await verifyUrlContains(HubPage.pageName);
 
-      await $(HubPage.summaryRowLink("section-3-1")).click();
-      await click(DOBQuestionBlockPage.submit());
-      await click(SectionThreeSummaryPage.submit());
+        await $(HubPage.summaryRowLink("section-3-1")).click();
+        await click(DOBQuestionBlockPage.submit());
+        await click(SectionThreeSummaryPage.submit());
 
-      await expect(await $(HubPage.summaryRowState("section-1")).getText()).toBe("Partially completed");
-      await expect(await $(HubPage.summaryRowState("section-2")).getText()).toBe("Completed");
-      await expect(await $(HubPage.summaryRowState("section-3-1")).getText()).toBe("Completed");
+        await expect(await $(HubPage.summaryRowState("section-1")).getText()).toBe("Partially completed");
+        await expect(await $(HubPage.summaryRowState("section-2")).getText()).toBe("Completed");
+        await expect(await $(HubPage.summaryRowState("section-3-1")).getText()).toBe("Completed");
 
-      await $(HubPage.summaryRowLink("section-1")).click();
-      await $(SecondNumberBlockPage.secondNumber()).setValue(2);
-      await click(SecondNumberBlockPage.submit());
-      await click(CalculatedSummaryBlockPage.submit());
-      await browser.url(HubPage.url());
+        await $(HubPage.summaryRowLink("section-1")).click();
+        await $(SecondNumberBlockPage.secondNumber()).setValue(2);
+        await click(SecondNumberBlockPage.submit());
+        await click(CalculatedSummaryBlockPage.submit());
+        await browser.url(HubPage.url());
 
-      await expect(await $(HubPage.summaryRowState("section-1")).getText()).toBe("Completed");
-      await expect(await $(HubPage.summaryRowState("section-2")).getText()).toBe("Partially completed");
-      await expect(await $(HubPage.summaryRowState("section-3-1")).getText()).toBe("Partially completed");
-    });
+        await expect(await $(HubPage.summaryRowState("section-1")).getText()).toBe("Completed");
+        await expect(await $(HubPage.summaryRowState("section-2")).getText()).toBe("Partially completed");
+        await expect(await $(HubPage.summaryRowState("section-3-1")).getText()).toBe("Partially completed");
+      },
+    );
   });
 
   describe("Given I have routing in a repeating section based on the completeness of a calculated summary", () => {

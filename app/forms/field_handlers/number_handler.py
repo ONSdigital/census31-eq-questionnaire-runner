@@ -6,17 +6,10 @@ from wtforms.fields.core import UnboundField
 
 from app.forms.field_handlers.field_handler import FieldHandler
 from app.forms.fields import DecimalFieldWithSeparator, IntegerFieldWithSeparator
-from app.forms.validators import (
-    DecimalPlaces,
-    NumberCheck,
-    NumberRange,
-    ResponseRequired,
-)
+from app.forms.validators import DecimalPlaces, NumberCheck, NumberRange, ResponseRequired
 from app.settings import MAX_NUMBER
 
-NumberValidatorTypes = list[
-    ResponseRequired | NumberCheck | NumberRange | DecimalPlaces
-]
+NumberValidatorTypes = list[ResponseRequired | NumberCheck | NumberRange | DecimalPlaces]
 
 
 class NumberHandler(FieldHandler):
@@ -40,9 +33,7 @@ class NumberHandler(FieldHandler):
         max_exclusive: bool = schema_maximum.get("exclusive", False)
 
         minimum = self.get_schema_value(schema_minimum) if schema_minimum else 0
-        maximum = (
-            self.get_schema_value(schema_maximum) if schema_maximum else MAX_NUMBER
-        )
+        maximum = self.get_schema_value(schema_maximum) if schema_maximum else MAX_NUMBER
 
         return {
             "min_exclusive": min_exclusive,
@@ -59,18 +50,10 @@ class NumberHandler(FieldHandler):
     def _field_type(
         self,
     ) -> type[DecimalFieldWithSeparator | IntegerFieldWithSeparator]:
-        return (
-            DecimalFieldWithSeparator
-            if self.max_decimals > 0
-            else IntegerFieldWithSeparator
-        )
+        return DecimalFieldWithSeparator if self.max_decimals > 0 else IntegerFieldWithSeparator
 
     def get_field(self) -> UnboundField | DecimalField | IntegerField:
-        additional_args = (
-            {"places": self.max_decimals}
-            if self._field_type == DecimalFieldWithSeparator
-            else {}
-        )
+        additional_args = {"places": self.max_decimals} if self._field_type == DecimalFieldWithSeparator else {}
         return self._field_type(
             label=self.label,
             validators=self.validators,

@@ -49,7 +49,5 @@ class SubmitQuestionnaireHandler:
         return "submit-with-summary" if self._schema.get_summary_options() else "submit"
 
     def handle_post(self) -> None:
-        submission_handler = SubmissionHandler(
-            self._schema, self._questionnaire_store, self.router.full_routing_path()
-        )
+        submission_handler = SubmissionHandler(self._schema, self._questionnaire_store, self.router.full_routing_path())
         submission_handler.submit_questionnaire()

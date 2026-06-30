@@ -46,9 +46,7 @@ KEYS_DICT = {
         SR_USER_AUTHENTICATION_PUBLIC_KEY_KID: {
             "purpose": KEY_PURPOSE_AUTHENTICATION,
             "type": "public",
-            "value": get_file_contents(
-                "sdc-sr-authentication-encryption-public-v1.pem"
-            ),
+            "value": get_file_contents("sdc-sr-authentication-encryption-public-v1.pem"),
         },
         EQ_SUBMISSION_SDX_PRIVATE_KEY: {
             "purpose": KEY_PURPOSE_SUBMISSION,
@@ -63,9 +61,7 @@ KEYS_DICT = {
         EQ_SUPPLEMENTARY_DATA_PRIVATE_KEY: {
             "purpose": KEY_PURPOSE_SDS,
             "type": "private",
-            "value": get_file_contents(
-                "sdc-sds-supplementary_data-encryption-private-v1.pem"
-            ),
+            "value": get_file_contents("sdc-sds-supplementary_data-encryption-private-v1.pem"),
         },
     }
 }
@@ -121,29 +117,21 @@ class IntegrationTestCase(unittest.TestCase):  # pylint: disable=too-many-public
         self._ds.stop()
         self._redis.stop()
 
-    def launchSupplementaryDataSurvey(
-        self, schema_name="test_supplementary_data", **payload_kwargs
-    ):
+    def launchSupplementaryDataSurvey(self, schema_name="test_supplementary_data", **payload_kwargs):
         """
         Launch a survey as an authenticated user and follow re-directs
         :param schema_name: The name of the schema to load
         """
-        token = self.token_generator.create_supplementary_data_token(
-            schema_name=schema_name, **payload_kwargs
-        )
+        token = self.token_generator.create_supplementary_data_token(schema_name=schema_name, **payload_kwargs)
 
         self.get(f"/session?token={token}")
 
-    def launchSurveyV2(
-        self, theme="default", schema_name="test_dates", **payload_kwargs
-    ):
+    def launchSurveyV2(self, theme="default", schema_name="test_dates", **payload_kwargs):
         """
         Launch a survey as an authenticated user and follow re-directs
         :param schema_name: The name of the schema to load
         """
-        token = self.token_generator.create_token_v2(
-            theme=theme, schema_name=schema_name, **payload_kwargs
-        )
+        token = self.token_generator.create_token_v2(theme=theme, schema_name=schema_name, **payload_kwargs)
 
         self.get(f"/session?token={token}")
 
@@ -202,9 +190,7 @@ class IntegrationTestCase(unittest.TestCase):  # pylint: disable=too-many-public
         if action:
             _post_data.update({f"action[{action}]": ""})
 
-        response = self._client.post(
-            url, data=_post_data, follow_redirects=True, **kwargs
-        )
+        response = self._client.post(url, data=_post_data, follow_redirects=True, **kwargs)
 
         self._cache_response(response)
 
@@ -227,9 +213,7 @@ class IntegrationTestCase(unittest.TestCase):  # pylint: disable=too-many-public
         if self.last_csrf_token is not None:
             _patch_data.update({"csrf_token": self.last_csrf_token})
 
-        response = self._client.patch(
-            url, data=_patch_data, follow_redirects=True, **kwargs
-        )
+        response = self._client.patch(url, data=_patch_data, follow_redirects=True, **kwargs)
 
         self._cache_response(response)
 
@@ -267,7 +251,8 @@ class IntegrationTestCase(unittest.TestCase):  # pylint: disable=too-many-public
 
     def saveAndSignOut(self):
         """
-        Sign out of eQ using the `Save and exit survey` button and do not follow redirects since the redirect is external
+        Sign out of eQ using the `Save and exit survey`
+        button and do not follow redirects since the redirect is external
         """
         return self.get(self.getSignOutButton()["href"], follow_redirects=False)
 
@@ -294,9 +279,7 @@ class IntegrationTestCase(unittest.TestCase):  # pylint: disable=too-many-public
         environ = response.request.environ
 
         self.last_csrf_token = (
-            self._extract_csrf_token(response.get_data(True))
-            if response.mimetype == "text/html"
-            else None
+            self._extract_csrf_token(response.get_data(True)) if response.mimetype == "text/html" else None
         )
         self.redirect_url = response.headers.get("Location")
         self.last_response = response
@@ -375,17 +358,13 @@ class IntegrationTestCase(unittest.TestCase):  # pylint: disable=too-many-public
     def assertAnswerInSummary(self, answer, *, answer_id):
         # Get answer using data qa
         data = self.getHtmlSoup().find(attrs={"data-qa": answer_id})
-        self.assertTrue(
-            data is not None, msg=f"Element not found for answer_id: {answer_id}"
-        )
+        self.assertTrue(data is not None, msg=f"Element not found for answer_id: {answer_id}")
 
         # Get answer as list to handle all answer types
         clean_data = [i.strip() for i in data.text.split("\n") if i.strip()]
         answer_as_list = answer if isinstance(answer, list) else [answer]
 
-        self.assertTrue(
-            answer_as_list == clean_data, msg=f"\n{answer} not in \n{clean_data}"
-        )
+        self.assertTrue(answer_as_list == clean_data, msg=f"\n{answer} not in \n{clean_data}")
 
     def assertInSelectorCSS(self, content, *selectors, **kwargs):
         data = self.getHtmlSoup().find(*selectors, **kwargs)
@@ -402,14 +381,10 @@ class IntegrationTestCase(unittest.TestCase):  # pylint: disable=too-many-public
         self.assertFalse(content in str(data), msg=message)
 
     def assertNotInPage(self, content, message=None):
-        self.assertNotIn(
-            member=str(content), container=self.getResponseData(), msg=str(message)
-        )
+        self.assertNotIn(member=str(content), container=self.getResponseData(), msg=str(message))
 
     def assertRegexPage(self, regex, message=None):
-        self.assertRegex(
-            text=self.getResponseData(), expected_regex=str(regex), msg=str(message)
-        )
+        self.assertRegex(text=self.getResponseData(), expected_regex=str(regex), msg=str(message))
 
     def assertEqualPageTitle(self, title):
         self.assertEqual(title, self.getHtmlSoup().title.string)

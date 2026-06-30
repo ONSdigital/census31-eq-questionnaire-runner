@@ -15,11 +15,7 @@ from app.publisher import LogPublisher, PubSubPublisher
 from app.setup import MissingEnvironmentVariable, create_app
 from app.storage.datastore import Datastore
 from app.storage.dynamodb import Dynamodb
-from app.submitter.submitter import (
-    GCSFeedbackSubmitter,
-    GCSSubmitter,
-    LogSubmitter,
-)
+from app.submitter.submitter import GCSFeedbackSubmitter, GCSSubmitter, LogSubmitter
 
 
 class TestCreateApp(unittest.TestCase):  # pylint: disable=too-many-public-methods
@@ -37,10 +33,7 @@ class TestCreateApp(unittest.TestCase):  # pylint: disable=too-many-public-metho
         settings.
 
         Returns a list of contexts."""
-        patches = [
-            patch(f"app.setup.settings.{k}", v)
-            for k, v in self._setting_overrides.items()
-        ]
+        patches = [patch(f"app.setup.settings.{k}", v) for k, v in self._setting_overrides.items()]
         for p in patches:
             p.start()
         yield patches
@@ -51,9 +44,7 @@ class TestCreateApp(unittest.TestCase):  # pylint: disable=too-many-public-metho
         self.assertIsInstance(create_app(self._setting_overrides), Flask)
 
     def test_sets_content_length(self):
-        self.assertGreater(
-            create_app(self._setting_overrides).config["MAX_CONTENT_LENGTH"], 0
-        )
+        self.assertGreater(create_app(self._setting_overrides).config["MAX_CONTENT_LENGTH"], 0)
 
     def test_enforces_secure_session(self):
         application = create_app(self._setting_overrides)
@@ -85,9 +76,7 @@ class TestCreateApp(unittest.TestCase):  # pylint: disable=too-many-public-metho
             self._setting_overrides.update({"EQ_APPLICATION_VERSION": False})
             application = create_app(self._setting_overrides)
 
-            x_cloud_headers = {
-                "X-Cloud-Trace-Context": "0123456789/0123456789012345678901;o=1"
-            }
+            x_cloud_headers = {"X-Cloud-Trace-Context": "0123456789/0123456789012345678901;o=1"}
             application.test_client().get("/", headers=x_cloud_headers)
 
             self.assertEqual(2, bind_contextvars.call_count)
@@ -101,14 +90,10 @@ class TestCreateApp(unittest.TestCase):  # pylint: disable=too-many-public-metho
         with create_app(self._setting_overrides).test_client() as client:
             headers = client.get(
                 "/",
-                headers={
-                    "X-Forwarded-Proto": "https"
-                },  # set protocol so that talisman sets HSTS headers
+                headers={"X-Forwarded-Proto": "https"},  # set protocol so that talisman sets HSTS headers
             ).headers
 
-            self.assertEqual(
-                "no-cache, no-store, must-revalidate", headers["Cache-Control"]
-            )
+            self.assertEqual("no-cache, no-store, must-revalidate", headers["Cache-Control"])
             self.assertEqual("no-cache", headers["Pragma"])
             self.assertEqual(
                 "max-age=31536000; includeSubDomains",
@@ -130,16 +115,13 @@ class TestCreateApp(unittest.TestCase):  # pylint: disable=too-many-public-metho
         with create_app(self._setting_overrides).test_client() as client:
             headers = client.get(
                 "/",
-                headers={
-                    "X-Forwarded-Proto": "https"
-                },  # set protocol so that talisman sets HSTS headers
+                headers={"X-Forwarded-Proto": "https"},  # set protocol so that talisman sets HSTS headers
             ).headers
 
             csp_policy_parts = headers["Content-Security-Policy"].split("; ")
             self.assertIn(f"default-src 'self' {cdn_url}", csp_policy_parts)
             self.assertIn(
-                "script-src 'self' https://*.googletagmanager.com "
-                f"{cdn_url} 'nonce-{request.csp_nonce}'",
+                "script-src 'self' https://*.googletagmanager.com " f"{cdn_url} 'nonce-{request.csp_nonce}'",
                 csp_policy_parts,
             )
             self.assertIn(
@@ -251,9 +233,7 @@ class TestCreateApp(unittest.TestCase):  # pylint: disable=too-many-public-metho
 
     def test_adds_cloud_task_publisher_to_the_application(self):
         self._setting_overrides["EQ_SUBMISSION_CONFIRMATION_BACKEND"] = "cloud-tasks"
-        self._setting_overrides["EQ_SUBMISSION_CONFIRMATION_CLOUD_FUNCTION_NAME"] = (
-            "test"
-        )
+        self._setting_overrides["EQ_SUBMISSION_CONFIRMATION_CLOUD_FUNCTION_NAME"] = "test"
 
         # When
         with patch(
@@ -268,9 +248,7 @@ class TestCreateApp(unittest.TestCase):  # pylint: disable=too-many-public-metho
     def test_submission_backend_not_set_raises_exception(self):
         # Given
         self._setting_overrides["EQ_SUBMISSION_CONFIRMATION_BACKEND"] = ""
-        self._setting_overrides["EQ_SUBMISSION_CONFIRMATION_CLOUD_FUNCTION_NAME"] = (
-            "test"
-        )
+        self._setting_overrides["EQ_SUBMISSION_CONFIRMATION_CLOUD_FUNCTION_NAME"] = "test"
 
         # When
         with patch(
@@ -349,9 +327,7 @@ class TestCreateApp(unittest.TestCase):  # pylint: disable=too-many-public-metho
         self._setting_overrides["ADDRESS_LOOKUP_API_AUTH_ENABLED"] = True
         with self.assertRaises(Exception) as ex:
             create_app(self._setting_overrides)
-        assert "Missing Secret [ADDRESS_LOOKUP_API_AUTH_TOKEN_SECRET]" in str(
-            ex.exception
-        )
+        assert "Missing Secret [ADDRESS_LOOKUP_API_AUTH_TOKEN_SECRET]" in str(ex.exception)
 
     def test_setup_oidc_service_gcp(self):
         # Given
@@ -363,9 +339,7 @@ class TestCreateApp(unittest.TestCase):  # pylint: disable=too-many-public-metho
         application = create_app(self._setting_overrides)
 
         # Then
-        assert isinstance(
-            application.eq["oidc_credentials_service"], OIDCCredentialsServiceGCP
-        )
+        assert isinstance(application.eq["oidc_credentials_service"], OIDCCredentialsServiceGCP)
 
     def test_setup_oidc_service_local(self):
         # Given
@@ -375,9 +349,7 @@ class TestCreateApp(unittest.TestCase):  # pylint: disable=too-many-public-metho
         application = create_app(self._setting_overrides)
 
         # Then
-        assert isinstance(
-            application.eq["oidc_credentials_service"], OIDCCredentialsServiceLocal
-        )
+        assert isinstance(application.eq["oidc_credentials_service"], OIDCCredentialsServiceLocal)
 
     def test_oidc_backend_invalid_raises_exception(self):
         # Given

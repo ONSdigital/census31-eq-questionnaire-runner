@@ -2,11 +2,7 @@ from unittest import mock
 
 from app.authentication.authenticator import decrypt_token
 from tests.integration.app_context_test_case import AppContextTestCase
-from tests.integration.create_token import (
-    PAYLOAD_V2_BUSINESS,
-    PAYLOAD_V2_SOCIAL,
-    PAYLOAD_V2_SUPPLEMENTARY_DATA,
-)
+from tests.integration.create_token import PAYLOAD_V2_BUSINESS, PAYLOAD_V2_SOCIAL, PAYLOAD_V2_SUPPLEMENTARY_DATA
 from tests.integration.integration_test_case import IntegrationTestCase
 
 EXPECTED_TOKEN_BUSINESS = {
@@ -81,9 +77,7 @@ class TestCreateToken(IntegrationTestCase, AppContextTestCase):
     @mock.patch(
         "tests.integration.create_token.get_response_expires_at",
     )
-    def test_payload_content_and_structure_from_token(
-        self, mock_response_expiry_time, mock_time, mock_uuid
-    ):
+    def test_payload_content_and_structure_from_token(self, mock_response_expiry_time, mock_time, mock_uuid):
         mock_uuid.return_value = 1001
         mock_time.return_value = 1709054595.091798
         mock_response_expiry_time.return_value = "2024-02-28T09:59:43.109276+00:00"
@@ -125,9 +119,7 @@ class TestCreateToken(IntegrationTestCase, AppContextTestCase):
                     self.assertEqual(value["expected_token"], decrypted_token)
 
     def test_uuid_consistent_after_decryption(self):
-        token = self.token_generator.create_token_v2(
-            "test_checkbox.json", theme="social", value="Dummy Text"
-        )
+        token = self.token_generator.create_token_v2("test_checkbox.json", theme="social", value="Dummy Text")
         with self.test_app.app_context():
             decrypted_token = decrypt_token(token)
             assert decrypted_token["survey_metadata"] == {
@@ -140,14 +132,10 @@ class TestCreateToken(IntegrationTestCase, AppContextTestCase):
             }
 
     def test_sds_metadata_included_in_token(self):
-        token = self.token_generator.create_supplementary_data_token(
-            "test_checkbox.json"
-        )
+        token = self.token_generator.create_supplementary_data_token("test_checkbox.json")
         with self.test_app.app_context():
             decrypted_token = decrypt_token(token)
-            self.assertEqual(
-                decrypted_token, PAYLOAD_V2_SUPPLEMENTARY_DATA | decrypted_token
-            )
+            self.assertEqual(decrypted_token, PAYLOAD_V2_SUPPLEMENTARY_DATA | decrypted_token)
 
     def test_additional_payload_added_in_token(self):
         token = self.token_generator.create_supplementary_data_token(
@@ -178,21 +166,15 @@ class TestCreateToken(IntegrationTestCase, AppContextTestCase):
     def test_metadata_is_removed_from_token(self):
         metadata_tokens = [
             {
-                "token": self.token_generator.create_token_without_jti(
-                    "test_number.json"
-                ),
+                "token": self.token_generator.create_token_without_jti("test_number.json"),
                 "removed_metadata": "jti",
             },
             {
-                "token": self.token_generator.create_token_without_case_id(
-                    "test_numbers.json"
-                ),
+                "token": self.token_generator.create_token_without_case_id("test_numbers.json"),
                 "removed_metadata": "case_id",
             },
             {
-                "token": self.token_generator.create_token_without_trad_as(
-                    "test_numbers.json"
-                ),
+                "token": self.token_generator.create_token_without_trad_as("test_numbers.json"),
                 "removed_metadata": "trad_as",
             },
         ]
