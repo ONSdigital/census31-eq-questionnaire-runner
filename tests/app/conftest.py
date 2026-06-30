@@ -19,10 +19,7 @@ from app.data_models.metadata_proxy import MetadataProxy
 from app.data_models.progress_store import ProgressStore
 from app.data_models.session_data import SessionData
 from app.data_models.session_store import SessionStore
-from app.data_models.supplementary_data_store import (
-    SupplementaryDataListMapping,
-    SupplementaryDataStore,
-)
+from app.data_models.supplementary_data_store import SupplementaryDataListMapping, SupplementaryDataStore
 from app.publisher import PubSubPublisher
 from app.questionnaire.location import Location
 from app.setup import create_app
@@ -224,13 +221,9 @@ def mocked_response_content(mocker):
 
 
 @pytest.fixture
-def mocked_make_request_with_timeout(
-    mocker, mocked_response_content  # pylint: disable=unused-argument
-):
+def mocked_make_request_with_timeout(mocker, mocked_response_content):  # pylint: disable=unused-argument
     connect_timeout_error = ConnectTimeoutError("connect timed out")
-    read_timeout_error = ReadTimeoutError(
-        pool=None, message="read timed out", url="test-url"
-    )
+    read_timeout_error = ReadTimeoutError(pool=None, message="read timed out", url="test-url")
 
     response_not_timed_out = HTTPResponse(status=200, headers={}, msg=HTTPMessage())
     response_not_timed_out.drain_conn = Mock(return_value=None)
@@ -402,26 +395,16 @@ def supplementary_data_list_mappings_extra_item():
 def supplementary_data_employee_list_mappings():
     return {
         "employees": [
-            SupplementaryDataListMapping(
-                identifier="429001", list_item_id="employee-1"
-            ),
-            SupplementaryDataListMapping(
-                identifier="529001", list_item_id="employee-2"
-            ),
-            SupplementaryDataListMapping(
-                identifier="629011", list_item_id="employee-3"
-            ),
-            SupplementaryDataListMapping(
-                identifier="729011", list_item_id="employee-4"
-            ),
+            SupplementaryDataListMapping(identifier="429001", list_item_id="employee-1"),
+            SupplementaryDataListMapping(identifier="529001", list_item_id="employee-2"),
+            SupplementaryDataListMapping(identifier="629011", list_item_id="employee-3"),
+            SupplementaryDataListMapping(identifier="729011", list_item_id="employee-4"),
         ],
     }
 
 
 @pytest.fixture
-def supplementary_data_store_with_data(
-    supplementary_data, supplementary_data_list_mappings
-):
+def supplementary_data_store_with_data(supplementary_data, supplementary_data_list_mappings):
     return SupplementaryDataStore(
         supplementary_data=supplementary_data,
         list_mappings=supplementary_data_list_mappings,
@@ -429,9 +412,7 @@ def supplementary_data_store_with_data(
 
 
 @pytest.fixture
-def supplementary_data_store_with_data_extra_item(
-    supplementary_data, supplementary_data_list_mappings_extra_item
-):
+def supplementary_data_store_with_data_extra_item(supplementary_data, supplementary_data_list_mappings_extra_item):
     return SupplementaryDataStore(
         supplementary_data=supplementary_data,
         list_mappings=supplementary_data_list_mappings_extra_item,

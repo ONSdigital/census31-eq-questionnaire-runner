@@ -7,9 +7,7 @@ import sys
 import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
-logging.basicConfig(
-    level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
-)
+logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 
 
 def check_connection():
@@ -45,11 +43,7 @@ def check_connection():
 def get_schemas() -> list[str]:
     if len(sys.argv) == 1 or sys.argv[1] == "--local":
         file_path = "./schemas/test/en"
-        schemas = [
-            os.path.join(file_path, f)
-            for f in os.listdir(file_path)
-            if f.endswith(".json")
-        ]
+        schemas = [os.path.join(file_path, f) for f in os.listdir(file_path) if f.endswith(".json")]
         logging.info("--- Testing Schemas in %s ---", file_path)
     else:
         schema = sys.argv[1]
@@ -105,9 +99,7 @@ def process_schema(future, future_to_schema):
         # Extract HTTP status code
         result_response = re.search(r"HTTPSTATUS:(\d+)", result)[1]
 
-        if "errors" not in http_body_json and all(
-            [validator_version, success, result_response == "200"]
-        ):
+        if "errors" not in http_body_json and all([validator_version, success, result_response == "200"]):
             logging.info(
                 "\033[32m%s: PASSED | validator_version: %s | success: %s\033[0m",
                 schema_path,
@@ -139,9 +131,7 @@ def main():
     schemas = get_schemas()
 
     with ThreadPoolExecutor(max_workers=20) as executor:
-        future_to_schema = {
-            executor.submit(validate_schema, schema): schema for schema in schemas
-        }
+        future_to_schema = {executor.submit(validate_schema, schema): schema for schema in schemas}
         for future in as_completed(future_to_schema):
             if process_schema(future, future_to_schema):
                 passed += 1

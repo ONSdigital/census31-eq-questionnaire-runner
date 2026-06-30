@@ -44,9 +44,7 @@ class EncryptedQuestionnaireStorage:
             version = questionnaire_state.version
             submitted_at = questionnaire_state.submitted_at
             collection_exercise_sid = questionnaire_state.collection_exercise_sid
-            decrypted_data = self._get_snappy_compressed_data(
-                questionnaire_state.state_data
-            )
+            decrypted_data = self._get_snappy_compressed_data(questionnaire_state.state_data)
             return decrypted_data, collection_exercise_sid, version, submitted_at
 
         return None, None, None, None

@@ -162,24 +162,32 @@ describe("Feature: Hub and Spoke", () => {
       await expect(await $(HubPage.summaryRowState("employment-section")).getText()).toBe("Completed");
     });
 
-    it("When the user clicks the 'View answers' link and incompletes the section, Then they the should be taken to the next incomplete question on 'Continue", async () => {
-      await $(HubPage.summaryRowLink("employment-section")).click();
-      await verifyUrlContains(EmploymentStatusBlockPage.url());
-      await $(EmploymentStatusBlockPage.exclusiveNoneOfTheseApply()).click();
-      await click(EmploymentStatusBlockPage.submit());
-      await verifyUrlContains(EmploymentTypeBlockPage.url());
-    });
+    it(
+      "When the user clicks the 'View answers' link and incompletes the section, " +
+        "Then they the should be taken to the next incomplete question on 'Continue",
+      async () => {
+        await $(HubPage.summaryRowLink("employment-section")).click();
+        await verifyUrlContains(EmploymentStatusBlockPage.url());
+        await $(EmploymentStatusBlockPage.exclusiveNoneOfTheseApply()).click();
+        await click(EmploymentStatusBlockPage.submit());
+        await verifyUrlContains(EmploymentTypeBlockPage.url());
+      },
+    );
 
-    it("When the user clicks the 'View answers' link and incompletes the section and returns to the hub, Then the section should be marked as 'Partially completed'", async () => {
-      await $(HubPage.summaryRowLink("employment-section")).click();
-      await verifyUrlContains(EmploymentStatusBlockPage.url());
-      await $(EmploymentStatusBlockPage.exclusiveNoneOfTheseApply()).click();
-      await click(EmploymentStatusBlockPage.submit());
-      await browser.url(HubPage.url());
-      await verifyUrlPathIs(HubPage.url());
-      await expect(await $(HubPage.summaryRowState("employment-section")).getText()).toBe("Partially completed");
-      await expect(await $(HubPage.summaryRowLink("employment-section")).getHTML()).toContain("Continue with section: Employment");
-    });
+    it(
+      "When the user clicks the 'View answers' link and incompletes the section and returns to the hub, " +
+        "Then the section should be marked as 'Partially completed'",
+      async () => {
+        await $(HubPage.summaryRowLink("employment-section")).click();
+        await verifyUrlContains(EmploymentStatusBlockPage.url());
+        await $(EmploymentStatusBlockPage.exclusiveNoneOfTheseApply()).click();
+        await click(EmploymentStatusBlockPage.submit());
+        await browser.url(HubPage.url());
+        await verifyUrlPathIs(HubPage.url());
+        await expect(await $(HubPage.summaryRowState("employment-section")).getText()).toBe("Partially completed");
+        await expect(await $(HubPage.summaryRowLink("employment-section")).getHTML()).toContain("Continue with section: Employment");
+      },
+    );
   });
 
   describe("Given a user has completed all sections", () => {

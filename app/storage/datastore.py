@@ -25,9 +25,7 @@ class Datastore(StorageHandler):
 
         key = self.client.key(storage_model.table_name, key_value)
         exclude_from_indexes = tuple(
-            field
-            for field in serialized_item.keys()
-            if field not in storage_model.index_fields
+            field for field in serialized_item.keys() if field not in storage_model.index_fields
         )
         entity = Entity(key=key, exclude_from_indexes=exclude_from_indexes)
         entity.update(serialized_item)

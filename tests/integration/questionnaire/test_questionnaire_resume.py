@@ -18,18 +18,14 @@ class TestResume(IntegrationTestCase):
 
     def test_sign_out_on_section_summary(self):
         # Given I complete the first section
-        self.launchSurveyV2(
-            schema_name="test_section_summary", display_address="test address"
-        )
+        self.launchSurveyV2(schema_name="test_section_summary", display_address="test address")
         self.post({"insurance-type-answer": "Both"})
         self.post({"insurance-address-answer": "Address"})
         self.post({"listed-answer": "No"})
 
         # When I sign out and then resume
         self.signOut()
-        self.launchSurveyV2(
-            schema_name="test_section_summary", display_address="test address"
-        )
+        self.launchSurveyV2(schema_name="test_section_summary", display_address="test address")
 
         # Then I should resume on the start of the next section
         self.assertInUrl("/questionnaire/house-type/")

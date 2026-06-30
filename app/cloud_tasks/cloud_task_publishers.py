@@ -16,9 +16,7 @@ class CloudTaskPublisher:
         _, self._project_id = auth.default()
 
     def _get_task(self, body: bytes, function_name: str):
-        service_account_email = (
-            f"cloud-functions@{self._project_id}.iam.gserviceaccount.com"
-        )
+        service_account_email = f"cloud-functions@{self._project_id}.iam.gserviceaccount.com"
 
         url = f"https://europe-west2-{self._project_id}.cloudfunctions.net/{function_name}"
 
@@ -37,9 +35,7 @@ class CloudTaskPublisher:
         )
 
     @Retry()
-    def _create_task_with_retry(
-        self, body: bytes, function_name: str, parent: str
-    ) -> Task:
+    def _create_task_with_retry(self, body: bytes, function_name: str, parent: str) -> Task:
         task = self._client.create_task(
             parent=parent,
             task=self._get_task(body=body, function_name=function_name),

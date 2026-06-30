@@ -51,9 +51,7 @@ def test_single_date_period_custom_message_invalid_raises(mock_form, mock_field)
 def test_valid_single_date_period(mock_form, mock_field):
     minimum_date = parse_datetime("2016-03-20")
     maximum_date = parse_datetime("2016-03-31")
-    validator = SingleDatePeriodCheck(
-        minimum_date=minimum_date, maximum_date=maximum_date
-    )
+    validator = SingleDatePeriodCheck(minimum_date=minimum_date, maximum_date=maximum_date)
 
     mock_form.data = "2016-03-26"
 

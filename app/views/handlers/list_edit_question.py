@@ -8,10 +8,7 @@ from app.views.handlers.list_action import ListAction
 class ListEditQuestion(ListAction):
     @cached_property
     def repeating_block_ids(self) -> list[str]:
-        return [
-            repeating_block["id"]
-            for repeating_block in self.parent_block.get("repeating_blocks", [])
-        ]
+        return [repeating_block["id"] for repeating_block in self.parent_block.get("repeating_blocks", [])]
 
     def is_location_valid(self) -> bool:
         list_item_doesnt_exist = (

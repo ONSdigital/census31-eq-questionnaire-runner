@@ -28,18 +28,12 @@ def with_schema[**P, T](
     @wraps(function)
     def wrapped_function(*args: P.args, **kwargs: P.kwargs) -> T:
         session_store = get_session_store()
-        if (
-            not session_store
-            or not session_store.session_data
-            or not (metadata := get_metadata(current_user))
-        ):
+        if not session_store or not session_store.session_data or not (metadata := get_metadata(current_user)):
             raise Unauthorized
 
         language_code = session_store.session_data.language_code
 
-        schema = load_schema_from_metadata(
-            metadata=metadata, language_code=language_code
-        )
+        schema = load_schema_from_metadata(metadata=metadata, language_code=language_code)
         return function(schema, *args, **kwargs)
 
     return wrapped_function

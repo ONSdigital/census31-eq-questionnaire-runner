@@ -123,9 +123,7 @@ def test_get_context(router, data_stores):
         "warning": None,
     }
 
-    assert expected_context == hub(
-        survey_complete=False, enabled_section_ids=router.enabled_section_ids
-    )
+    assert expected_context == hub(survey_complete=False, enabled_section_ids=router.enabled_section_ids)
 
 
 def test_get_context_custom_content_incomplete(router, data_stores):
@@ -142,9 +140,7 @@ def test_get_context_custom_content_incomplete(router, data_stores):
         "warning": None,
     }
 
-    assert expected_context == hub_context(
-        survey_complete=False, enabled_section_ids=router.enabled_section_ids
-    )
+    assert expected_context == hub_context(survey_complete=False, enabled_section_ids=router.enabled_section_ids)
 
 
 def test_get_context_custom_content_complete(data_stores, router):
@@ -161,9 +157,7 @@ def test_get_context_custom_content_complete(data_stores, router):
         "warning": "Submission warning",
     }
 
-    assert expected_context == hub_context(
-        survey_complete=True, enabled_section_ids=router.enabled_section_ids
-    )
+    assert expected_context == hub_context(survey_complete=True, enabled_section_ids=router.enabled_section_ids)
 
 
 def test_get_context_no_list_items_survey_incomplete_individual_response_disabled(
@@ -174,7 +168,7 @@ def test_get_context_no_list_items_survey_incomplete_individual_response_disable
     hub_context = HubContext(language="en", schema=schema, data_stores=data_stores)
 
     assert not (
-        hub_context(
-            survey_complete=False, enabled_section_ids=router.enabled_section_ids
-        )["individual_response_enabled"]
+        hub_context(survey_complete=False, enabled_section_ids=router.enabled_section_ids)[
+            "individual_response_enabled"
+        ]
     )

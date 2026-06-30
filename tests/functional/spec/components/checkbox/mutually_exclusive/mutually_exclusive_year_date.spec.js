@@ -30,23 +30,27 @@ describe("Component: Mutually Exclusive Year Date With Single Checkbox Override"
   });
 
   describe("Given the user has clicked the mutually exclusive checkbox answer", () => {
-    it("When the user enters a value for the non-exclusive year date answer and removes focus, Then only the non-exclusive year date answer should be answered.", async () => {
-      // Given
-      await $(YearDatePage.yearDateExclusiveIPreferNotToSay()).click();
-      await expect(await $(YearDatePage.yearDateExclusiveIPreferNotToSay()).isSelected()).toBe(true);
+    it(
+      "When the user enters a value for the non-exclusive year date answer and removes focus, " +
+        "Then only the non-exclusive year date answer should be answered.",
+      async () => {
+        // Given
+        await $(YearDatePage.yearDateExclusiveIPreferNotToSay()).click();
+        await expect(await $(YearDatePage.yearDateExclusiveIPreferNotToSay()).isSelected()).toBe(true);
 
-      // When
-      await $(YearDatePage.yearDateYear()).setValue("2018");
+        // When
+        await $(YearDatePage.yearDateYear()).setValue("2018");
 
-      // Then
-      await expect(await $(YearDatePage.yearDateYear()).getValue()).toBe("2018");
-      await expect(await $(YearDatePage.yearDateExclusiveIPreferNotToSay()).isSelected()).toBe(false);
+        // Then
+        await expect(await $(YearDatePage.yearDateYear()).getValue()).toBe("2018");
+        await expect(await $(YearDatePage.yearDateExclusiveIPreferNotToSay()).isSelected()).toBe(false);
 
-      await click(YearDatePage.submit());
+        await click(YearDatePage.submit());
 
-      await expect(await $(SubmitPage.yearDateAnswer()).getText()).toBe("2018");
-      await expect(await $(SubmitPage.yearDateAnswer()).getText()).not.toBe("I prefer not to say");
-    });
+        await expect(await $(SubmitPage.yearDateAnswer()).getText()).toBe("2018");
+        await expect(await $(SubmitPage.yearDateAnswer()).getText()).not.toBe("I prefer not to say");
+      },
+    );
   });
 
   describe("Given the user has not clicked the mutually exclusive checkbox answer", () => {

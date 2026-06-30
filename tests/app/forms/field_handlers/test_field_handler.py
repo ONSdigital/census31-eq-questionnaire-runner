@@ -8,9 +8,7 @@ from app.forms.validators import ResponseRequired
 def test_get_mandatory_validator_optional(value_source_resolver, rule_evaluator):
     answer = {"mandatory": False}
 
-    text_area_handler = StringHandler(
-        answer, value_source_resolver, rule_evaluator, error_messages
-    )
+    text_area_handler = StringHandler(answer, value_source_resolver, rule_evaluator, error_messages)
     validate_with = text_area_handler.get_mandatory_validator()
 
     assert isinstance(validate_with, validators.Optional)
@@ -31,37 +29,23 @@ def test_get_mandatory_validator_mandatory(value_source_resolver, rule_evaluator
     assert validate_with.message == "This is the default mandatory message"
 
 
-def test_get_mandatory_validator_mandatory_with_error(
-    value_source_resolver, rule_evaluator
-):
+def test_get_mandatory_validator_mandatory_with_error(value_source_resolver, rule_evaluator):
     answer = {
         "mandatory": True,
-        "validation": {
-            "messages": {
-                "MANDATORY_TEXTFIELD": "This is the mandatory message for an answer"
-            }
-        },
+        "validation": {"messages": {"MANDATORY_TEXTFIELD": "This is the mandatory message for an answer"}},
     }
 
-    text_area_handler = StringHandler(
-        answer, value_source_resolver, rule_evaluator, error_messages
-    )
+    text_area_handler = StringHandler(answer, value_source_resolver, rule_evaluator, error_messages)
     validate_with = text_area_handler.get_mandatory_validator()
 
     assert isinstance(validate_with, ResponseRequired)
     assert validate_with.message == "This is the mandatory message for an answer"
 
 
-def test_get_mandatory_validator_mandatory_with_question_in_error(
-    value_source_resolver, rule_evaluator
-):
+def test_get_mandatory_validator_mandatory_with_question_in_error(value_source_resolver, rule_evaluator):
     answer = {
         "mandatory": True,
-        "validation": {
-            "messages": {
-                "MANDATORY_TEXTFIELD": "Select an answer to ‘%(question_title)s’"
-            }
-        },
+        "validation": {"messages": {"MANDATORY_TEXTFIELD": "Select an answer to ‘%(question_title)s’"}},
     }
     text_area_handler = StringHandler(
         answer,

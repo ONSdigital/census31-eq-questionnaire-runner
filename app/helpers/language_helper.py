@@ -30,9 +30,7 @@ def handle_language(metadata: MetadataProxy | None = None) -> None:
         request_language = request.args.get("language_code")
         if request_language and request_language in g.allowed_languages:
             if metadata:
-                schema = load_schema_from_metadata(
-                    metadata=metadata, language_code=request_language
-                )
+                schema = load_schema_from_metadata(metadata=metadata, language_code=request_language)
                 if schema.json["title"] != cookie_session.get("title"):
                     cookie_session["title"] = schema.json["title"]
 
@@ -45,8 +43,7 @@ def get_languages_context(current_language: str) -> dict[str, list[dict]] | None
     allowed_languages = g.get("allowed_languages")
     if allowed_languages and len(allowed_languages) > 1:
         context: list[dict[str, str | bool]] = [
-            _get_language_context(language, current_language)
-            for language in allowed_languages
+            _get_language_context(language, current_language) for language in allowed_languages
         ]
         return {"languages": context}
 
@@ -56,9 +53,7 @@ def get_languages_context(current_language: str) -> dict[str, list[dict]] | None
     return None
 
 
-def _get_language_context(
-    language_code: str, current_language: str
-) -> dict[str, str | bool]:
+def _get_language_context(language_code: str, current_language: str) -> dict[str, str | bool]:
     return {
         "isoCode": language_code,
         "url": _get_query_string_with_language(language_code),

@@ -69,17 +69,21 @@ describe("Last viewed question guidance", () => {
       await expect(await $(ALevelsPage.lastViewedQuestionGuidance()).isExisting()).toBe(true);
     });
 
-    it("When the respondent selects a section which is complete , then last question guidance is not shown on the summary or any link clicked from the summary", async () => {
-      await $(ALevelsPage.yes()).click();
-      await click(ALevelsPage.submit());
-      await verifyUrlContains(EducationSectionSummaryPage.url());
-      await expect(await $(ALevelsPage.lastViewedQuestionGuidance()).isExisting()).toBe(false);
-      await click(EducationSectionSummaryPage.submit());
-      await $(HubPage.summaryRowLink("education-section")).click();
-      await verifyUrlContains(EducationSectionSummaryPage.url());
-      await $(EducationSectionSummaryPage.alevelsAnswerEdit()).click();
-      await expect(await $(ALevelsPage.lastViewedQuestionGuidance()).isExisting()).toBe(false);
-    });
+    it(
+      "When the respondent selects a section which is complete , " +
+        "then last question guidance is not shown on the summary or any link clicked from the summary",
+      async () => {
+        await $(ALevelsPage.yes()).click();
+        await click(ALevelsPage.submit());
+        await verifyUrlContains(EducationSectionSummaryPage.url());
+        await expect(await $(ALevelsPage.lastViewedQuestionGuidance()).isExisting()).toBe(false);
+        await click(EducationSectionSummaryPage.submit());
+        await $(HubPage.summaryRowLink("education-section")).click();
+        await verifyUrlContains(EducationSectionSummaryPage.url());
+        await $(EducationSectionSummaryPage.alevelsAnswerEdit()).click();
+        await expect(await $(ALevelsPage.lastViewedQuestionGuidance()).isExisting()).toBe(false);
+      },
+    );
 
     it("When the user clicks continue on the hub and it takes you to a section which is not started, then last question guidance is not shown", async () => {
       await browser.url(HubPage.url());
@@ -99,12 +103,16 @@ describe("Last viewed question guidance", () => {
       await expect(await $(HobbiesPage.lastViewedQuestionGuidance()).isExisting()).toBe(true);
     });
 
-    it("When the user clicks continue on the hub and it takes you to a section which is complete but doesnt have a summary, then last question guidance is not shown", async () => {
-      await $(HobbiesPage.yes()).click();
-      await click(HobbiesPage.submit());
-      await $(HubPage.summaryRowLink("interests-section")).click();
-      await verifyUrlContains(SportsPage.url());
-      await expect(await $(SportsPage.lastViewedQuestionGuidance()).isExisting()).toBe(false);
-    });
+    it(
+      "When the user clicks continue on the hub and it takes you to a section which is complete " +
+        "but doesnt have a summary, then last question guidance is not shown",
+      async () => {
+        await $(HobbiesPage.yes()).click();
+        await click(HobbiesPage.submit());
+        await $(HubPage.summaryRowLink("interests-section")).click();
+        await verifyUrlContains(SportsPage.url());
+        await expect(await $(SportsPage.lastViewedQuestionGuidance()).isExisting()).toBe(false);
+      },
+    );
   });
 });

@@ -7,10 +7,7 @@ from app.authentication.auth_payload_versions import AuthPayloadVersion
 from app.data_models import QuestionnaireStore
 from app.data_models.data_stores import DataStores
 from app.data_models.metadata_proxy import MetadataProxy, NoMetadataException
-from app.questionnaire.questionnaire_schema import (
-    DEFAULT_LANGUAGE_CODE,
-    QuestionnaireSchema,
-)
+from app.questionnaire.questionnaire_schema import DEFAULT_LANGUAGE_CODE, QuestionnaireSchema
 from app.questionnaire.routing_path import RoutingPath
 from app.submitter.convert_payload_0_0_1 import convert_answers_to_payload_0_0_1
 from app.submitter.convert_payload_0_0_3 import convert_answers_to_payload_0_0_3
@@ -71,9 +68,7 @@ def convert_answers_v2(
         "survey_metadata": {"survey_id": survey_id},
     }
 
-    optional_properties = get_optional_payload_properties(
-        metadata, data_stores.response_metadata
-    )
+    optional_properties = get_optional_payload_properties(metadata, data_stores.response_metadata)
 
     if metadata.schema_name:
         payload["schema_name"] = metadata.schema_name
@@ -96,9 +91,7 @@ def convert_answers_v2(
     return payload | optional_properties
 
 
-def get_optional_payload_properties(
-    metadata: MetadataProxy, response_metadata: MutableMapping
-) -> dict:
+def get_optional_payload_properties(metadata: MetadataProxy, response_metadata: MutableMapping) -> dict:
     payload = {}
 
     for key in ["channel", "region_code"]:
@@ -133,9 +126,7 @@ def get_payload_data(
         lists: list = data_stores.list_store.serialize()
         for list_ in lists:
             # for any lists that were populated by supplementary data, provide the identifier -> list_item_id mappings
-            if mapping := data_stores.supplementary_data_store.list_mappings.get(
-                list_["name"]
-            ):
+            if mapping := data_stores.supplementary_data_store.list_mappings.get(list_["name"]):
                 list_["supplementary_data_mappings"] = mapping
 
         data: dict[str, list | dict] = {"answers": answers, "lists": lists}
@@ -155,13 +146,9 @@ def get_payload_data(
     raise DataVersionError(schema.json["data_version"])
 
 
-def get_filtered_answer_codes(
-    *, answer_codes: Iterable[dict], answer_ids_to_filter: set[str]
-) -> list[dict[str, str]]:
+def get_filtered_answer_codes(*, answer_codes: Iterable[dict], answer_ids_to_filter: set[str]) -> list[dict[str, str]]:
     filtered_answer_codes: list[dict] = []
     filtered_answer_codes.extend(
-        answer_code
-        for answer_code in answer_codes
-        if answer_code["answer_id"] in answer_ids_to_filter
+        answer_code for answer_code in answer_codes if answer_code["answer_id"] in answer_ids_to_filter
     )
     return filtered_answer_codes

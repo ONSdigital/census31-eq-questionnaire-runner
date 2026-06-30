@@ -9,9 +9,13 @@ describe('Checkbox with "other" option', () => {
     await browser.openQuestionnaire("test_checkbox.json");
   });
 
-  it("Given a label has not been provided in the schema for a checkbox answer, When the checkbox answer is displayed, Then the default label should be visible", async () => {
-    await expect(await $("body").getText()).toContain("Select all that apply");
-  });
+  it(
+    "Given a label has not been provided in the schema for a checkbox answer, " +
+      "When the checkbox answer is displayed, Then the default label should be visible",
+    async () => {
+      await expect(await $("body").getText()).toContain("Select all that apply");
+    },
+  );
 
   it("Given a label has been set in the schema for a checkbox answer, When the checkbox answer is displayed, Then the label should be visible", async () => {
     await $(MandatoryCheckboxPage.none()).click();
@@ -26,13 +30,13 @@ describe('Checkbox with "other" option', () => {
     await expect(await $("body").getText()).not.toBe("Select all that apply");
   });
 
-  it('Given an "other" option is available, when the user clicks the "other" option the other input should be visible.', async () => {
+  it('Given an "other" option is available, When the user clicks the "other" option the other input should be visible.', async () => {
     await expect(await $(MandatoryCheckboxPage.otherLabelDescription()).getText()).toBe("Choose any other topping");
     await $(MandatoryCheckboxPage.other()).click();
     await expect(await $(MandatoryCheckboxPage.otherDetail()).isDisplayed()).toBe(true);
   });
 
-  it("Given a mandatory checkbox answer, When I select the other option, leave the input field empty and submit, Then an error should be displayed.", async () => {
+  it("Given a mandatory checkbox answer, When I select the other option,leave the input field empty and submit, Then an error should be displayed.", async () => {
     // When
     await $(MandatoryCheckboxPage.other()).click();
     await click(MandatoryCheckboxPage.submit());
@@ -40,27 +44,35 @@ describe('Checkbox with "other" option', () => {
     await expect(await $(MandatoryCheckboxPage.error()).isDisplayed()).toBe(true);
   });
 
-  it("Given a mandatory checkbox answer, When I leave the input field empty and submit, Then the question text should be hidden in the error message using a span element.", async () => {
-    // When
-    await click(MandatoryCheckboxPage.submit());
-    // Then
-    await expect(normalizeHtml(await $(MandatoryCheckboxPage.error()).getHTML())).toContain(
-      normalizeHtml("Select at least one answer <span class=\"ons-u-vh\">to 'Which pizza toppings would you like?'</span></a>"),
-    );
-  });
+  it(
+    "Given a mandatory checkbox answer, When I leave the input field empty and submit, " +
+      "Then the question text should be hidden in the error message using a span element.",
+    async () => {
+      // When
+      await click(MandatoryCheckboxPage.submit());
+      // Then
+      await expect(normalizeHtml(await $(MandatoryCheckboxPage.error()).getHTML())).toContain(
+        normalizeHtml("Select at least one answer <span class=\"ons-u-vh\">to 'Which pizza toppings would you like?'</span></a>"),
+      );
+    },
+  );
 
-  it("Given a mandatory checkbox answer, when there is an error on the page for other field and I enter valid value and submit page, then the error is cleared and I navigate to next page.", async () => {
-    await $(MandatoryCheckboxPage.other()).click();
-    await click(MandatoryCheckboxPage.submit());
-    await expect(await $(MandatoryCheckboxPage.error()).isDisplayed()).toBe(true);
+  it(
+    "Given a mandatory checkbox answer, When there is an error on the page for other field " +
+      "and I enter valid value and submit page, Then the error is cleared and I navigate to next page.",
+    async () => {
+      await $(MandatoryCheckboxPage.other()).click();
+      await click(MandatoryCheckboxPage.submit());
+      await expect(await $(MandatoryCheckboxPage.error()).isDisplayed()).toBe(true);
 
-    // When
-    await $(MandatoryCheckboxPage.otherDetail()).setValue("Other Text");
-    await click(MandatoryCheckboxPage.submit());
-    await verifyUrlContains(NonMandatoryCheckboxPage.pageName);
-  });
+      // When
+      await $(MandatoryCheckboxPage.otherDetail()).setValue("Other Text");
+      await click(MandatoryCheckboxPage.submit());
+      await verifyUrlContains(NonMandatoryCheckboxPage.pageName);
+    },
+  );
 
-  it('Given a non-mandatory checkbox answer, when the user does not select an option, then "No answer provided" should be displayed on the summary screen', async () => {
+  it("Given a non-mandatory checkbox answer, When the user does not select an option, Then 'No answer provided' should be displayed on the summary screen", async () => {
     // When
     await $(MandatoryCheckboxPage.other()).click();
     await $(MandatoryCheckboxPage.otherDetail()).setValue("Other value");
@@ -71,59 +83,76 @@ describe('Checkbox with "other" option', () => {
     await expect(await $(SubmitPage.nonMandatoryCheckboxAnswer()).getText()).toBe("No answer provided");
   });
 
-  it('Given a non-mandatory checkbox answer, when the user selects Other but does not supply a value, then "Other" should be displayed on the summary screen', async () => {
-    // When
-    await $(MandatoryCheckboxPage.other()).click();
-    await $(MandatoryCheckboxPage.otherDetail()).setValue("Other value");
-    await click(MandatoryCheckboxPage.submit());
-    await $(NonMandatoryCheckboxPage.other()).click();
-    await click(NonMandatoryCheckboxPage.submit());
-    await click(singleCheckboxPage.submit());
-    // Then
-    await expect(await $(SubmitPage.nonMandatoryCheckboxAnswer()).getText()).toBe("Other");
-  });
+  it(
+    "Given a non-mandatory checkbox answer, When the user selects Other but does not supply a value, " +
+      'Then "Other" should be displayed on the summary screen',
+    async () => {
+      // When
+      await $(MandatoryCheckboxPage.other()).click();
+      await $(MandatoryCheckboxPage.otherDetail()).setValue("Other value");
+      await click(MandatoryCheckboxPage.submit());
+      await $(NonMandatoryCheckboxPage.other()).click();
+      await click(NonMandatoryCheckboxPage.submit());
+      await click(singleCheckboxPage.submit());
+      // Then
+      await expect(await $(SubmitPage.nonMandatoryCheckboxAnswer()).getText()).toBe("Other");
+    },
+  );
 
-  it("Given a non-mandatory checkbox answer, when the user selects Other and supplies a value, then the supplied value should be displayed on the summary screen", async () => {
-    // When
-    await $(MandatoryCheckboxPage.other()).click();
-    await $(MandatoryCheckboxPage.otherDetail()).setValue("Other value");
-    await click(MandatoryCheckboxPage.submit());
-    await $(NonMandatoryCheckboxPage.other()).click();
-    await $(NonMandatoryCheckboxPage.otherDetail()).setValue("The other value");
-    await click(NonMandatoryCheckboxPage.submit());
-    await click(singleCheckboxPage.submit());
-    // Then
-    await expect(await $(SubmitPage.nonMandatoryCheckboxAnswer()).getText()).toContain("The other value");
-  });
+  it(
+    "Given a non-mandatory checkbox answer, When the user selects Other and supplies a value, " +
+      "Then the supplied value should be displayed on the summary screen",
+    async () => {
+      // When
+      await $(MandatoryCheckboxPage.other()).click();
+      await $(MandatoryCheckboxPage.otherDetail()).setValue("Other value");
+      await click(MandatoryCheckboxPage.submit());
+      await $(NonMandatoryCheckboxPage.other()).click();
+      await $(NonMandatoryCheckboxPage.otherDetail()).setValue("The other value");
+      await click(NonMandatoryCheckboxPage.submit());
+      await click(singleCheckboxPage.submit());
+      // Then
+      await expect(await $(SubmitPage.nonMandatoryCheckboxAnswer()).getText()).toContain("The other value");
+    },
+  );
 
-  it("Given that there is an escaped character in an answer label, when the user selects the answer, then the label should be displayed on the summary screen", async () => {
-    // When
-    await $(MandatoryCheckboxPage.hamCheese()).click();
-    await click(MandatoryCheckboxPage.submit());
-    await $(NonMandatoryCheckboxPage.other()).click();
-    await $(NonMandatoryCheckboxPage.otherDetail()).setValue("The other value");
-    await click(NonMandatoryCheckboxPage.submit());
-    await click(singleCheckboxPage.submit());
-    // Then
-    await expect(await $(SubmitPage.mandatoryCheckboxAnswer()).getText()).toBe("Ham & Cheese");
-  });
+  it(
+    "Given that there is an escaped character in an answer label, When the user selects the answer, " +
+      "Then the label should be displayed on the summary screen",
+    async () => {
+      // When
+      await $(MandatoryCheckboxPage.hamCheese()).click();
+      await click(MandatoryCheckboxPage.submit());
+      await $(NonMandatoryCheckboxPage.other()).click();
+      await $(NonMandatoryCheckboxPage.otherDetail()).setValue("The other value");
+      await click(NonMandatoryCheckboxPage.submit());
+      await click(singleCheckboxPage.submit());
+      // Then
+      await expect(await $(SubmitPage.mandatoryCheckboxAnswer()).getText()).toBe("Ham & Cheese");
+    },
+  );
 
-  it("Given I have previously added text in other textfield and saved, when I uncheck other options and select a different checkbox as answer, then the text entered in other field must be wiped.", async () => {
-    // When
-    await $(MandatoryCheckboxPage.other()).click();
-    await $(MandatoryCheckboxPage.otherDetail()).setValue("Other value");
-    await click(MandatoryCheckboxPage.submit());
-    await $(NonMandatoryCheckboxPage.previous()).click();
-    await $(MandatoryCheckboxPage.other()).click();
-    await $(MandatoryCheckboxPage.hamCheese()).click();
-    await click(MandatoryCheckboxPage.submit());
-    await $(NonMandatoryCheckboxPage.previous()).click();
-    // Then
-    await $(MandatoryCheckboxPage.other()).click();
-    await expect(await $(MandatoryCheckboxPage.otherDetail()).getValue()).toBe("");
-  });
+  it(
+    "Given I have previously added text in other textfield and saved, " +
+      "when I uncheck other options and select a different checkbox as answer, " +
+      "then the text entered in other field must be wiped.",
+    async () => {
+      // When
+      await $(MandatoryCheckboxPage.other()).click();
+      await $(MandatoryCheckboxPage.otherDetail()).setValue("Other value");
+      await click(MandatoryCheckboxPage.submit());
+      await $(NonMandatoryCheckboxPage.previous()).click();
+      await $(MandatoryCheckboxPage.other()).click();
+      await $(MandatoryCheckboxPage.hamCheese()).click();
+      await click(MandatoryCheckboxPage.submit());
+      await $(NonMandatoryCheckboxPage.previous()).click();
+      // Then
+      await $(MandatoryCheckboxPage.other()).click();
+      await expect(await $(MandatoryCheckboxPage.otherDetail()).getValue()).toBe("");
+    },
+  );
 
-  it("Given a mandatory checkbox answer, when the user selects only one option, then the answer should not be displayed as a list on the summary screen", async () => {
+  it("Given a mandatory checkbox answer, When the user selects only one option, Then the answer should not be displayed as a list on the summary screen", async () => {
     // When
     await $(MandatoryCheckboxPage.ham()).click();
     await click(MandatoryCheckboxPage.submit());
@@ -136,7 +165,7 @@ describe('Checkbox with "other" option', () => {
     await expect(listLength).toBe(0);
   });
 
-  it("Given a mandatory checkbox answer, when the user selects more than one option, then the answer should be displayed as a list on the summary screen", async () => {
+  it("Given a mandatory checkbox answer, When the user selects more than one option, Then the answer should be displayed as a list on the summary screen", async () => {
     // When
     await $(MandatoryCheckboxPage.ham()).click();
     await $(MandatoryCheckboxPage.hamCheese()).click();

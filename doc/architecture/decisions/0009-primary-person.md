@@ -49,7 +49,7 @@ The list store will include a `primary_person` key which will map to a `list_ite
 
 ### Create a PrimaryPersonCollector block type
 
-A new block type "PrimaryPersonCollector" will be defined to support the necessary behaviour. It will extend the existing ListCollector and allow addition of a primary person through adding context to the list store. The following diagram identifies the flow to be implemented in runner.  
+A new block type "PrimaryPersonCollector" will be defined to support the necessary behaviour. It will extend the existing ListCollector and allow addition of a primary person through adding context to the list store. The following diagram identifies the flow to be implemented in runner.
 
 ![Primary Flow](0009-primary-flow.png)
 

@@ -20,9 +20,7 @@ class AddressHandler(FieldHandler):
             validate_with = [
                 InputRequired(
                     message=self.get_validation_message(
-                        format_message_with_title(
-                            self.MANDATORY_MESSAGE_KEY, self.question_title
-                        )
+                        format_message_with_title(self.MANDATORY_MESSAGE_KEY, self.question_title)
                     )
                 )
             ]

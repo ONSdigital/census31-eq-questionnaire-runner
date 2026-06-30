@@ -29,10 +29,14 @@ describe("Feature: Default Value", () => {
     await expect(await $(QuestionPageOne.one()).getValue()).toBe("");
   });
 
-  it("Given I have not answered a question containing a default value, When a skip condition checks for the default value, Then I should skip the next question", async () => {
-    await browser.openQuestionnaire("test_default_with_skip.json");
-    await click(QuestionPageOneSkip.submit());
-    await verifyUrlContains(QuestionPageThreeSkip.pageName);
-    await expect(await $(QuestionPageThreeSkip.questionText()).getText()).toBe("Question Three");
-  });
+  it(
+    "Given I have not answered a question containing a default value, " +
+      "When a skip condition checks for the default value, Then I should skip the next question",
+    async () => {
+      await browser.openQuestionnaire("test_default_with_skip.json");
+      await click(QuestionPageOneSkip.submit());
+      await verifyUrlContains(QuestionPageThreeSkip.pageName);
+      await expect(await $(QuestionPageThreeSkip.questionText()).getText()).toBe("Question Three");
+    },
+  );
 });
