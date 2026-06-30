@@ -19,15 +19,11 @@ class ViewSubmittedResponseBase(IntegrationTestCase):
         return self.getHtmlSoup().find("a", {"href": "/submitted/download-pdf"})
 
     def assert_expired_content(self):
-        self.assertEqualPageTitle(
-            "View Submitted Response - Test View Submitted Response"
-        )
+        self.assertEqualPageTitle("View Submitted Response - Test View Submitted Response")
         self.assertInBody("Answers submitted for <span>Integration Testing</span>")
         self.assertInBody("Submitted on:")
         self.assertInBody("Submission reference:")
-        self.assertInBody(
-            "For security, you can no longer view or get a copy of your answers"
-        )
+        self.assertInBody("For security, you can no longer view or get a copy of your answers")
 
         self.assertNotInBody("What is your name?")
         self.assertNotInBody("John Smith")
@@ -46,9 +42,7 @@ class TestViewSubmissionResponse(ViewSubmittedResponseBase):
         self.get(self.VIEW_RESPONSE_PAGE_URL)
 
         # Then the page is displayed correctly
-        self.assertEqualPageTitle(
-            "View Submitted Response - Test View Submitted Response"
-        )
+        self.assertEqualPageTitle("View Submitted Response - Test View Submitted Response")
         self.assertInBody("Answers submitted for <span>Integration Testing</span>")
         self.assertInBody("Submitted on:")
         self.assertInBody("Submission reference:")

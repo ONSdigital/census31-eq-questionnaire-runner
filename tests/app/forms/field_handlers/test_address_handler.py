@@ -14,9 +14,7 @@ def get_test_form_class(
 ):
     if not messages:
         messages = error_messages.copy()
-    address_handler = AddressHandler(
-        answer_schema, value_source_resolver, rule_evaluator, error_messages=messages
-    )
+    address_handler = AddressHandler(answer_schema, value_source_resolver, rule_evaluator, error_messages=messages)
 
     class TestForm(Form):
         test_field = address_handler.get_field()
@@ -26,9 +24,7 @@ def get_test_form_class(
 
 def test_address_fields(value_source_resolver, rule_evaluator):
     answer_json = {"id": "address", "mandatory": True, "type": "Address"}
-    address_handler = AddressHandler(
-        answer_json, value_source_resolver, rule_evaluator, error_messages
-    )
+    address_handler = AddressHandler(answer_json, value_source_resolver, rule_evaluator, error_messages)
 
     class TestForm(Form):
         test_field = address_handler.get_field()
@@ -56,14 +52,10 @@ def test_address_mandatory_line1_validator(value_source_resolver, rule_evaluator
     assert validator[0].message == "Enter an address"
 
 
-def test_no_validation_when_address_not_mandatory(
-    value_source_resolver, rule_evaluator
-):
+def test_no_validation_when_address_not_mandatory(value_source_resolver, rule_evaluator):
     answer_json = {"id": "address", "mandatory": False, "type": "Address"}
 
-    test_form_class = get_test_form_class(
-        answer_json, value_source_resolver, rule_evaluator
-    )
+    test_form_class = get_test_form_class(answer_json, value_source_resolver, rule_evaluator)
     form = test_form_class(
         MultiDict({"test_field": "1"}),
         value_source_resolver,
@@ -72,14 +64,10 @@ def test_no_validation_when_address_not_mandatory(
     assert not form.errors
 
 
-def test_mandatory_validation_when_address_line_1_missing(
-    value_source_resolver, rule_evaluator
-):
+def test_mandatory_validation_when_address_line_1_missing(value_source_resolver, rule_evaluator):
     answer_json = {"id": "address", "mandatory": True, "type": "Address"}
 
-    test_form_class = get_test_form_class(
-        answer_json, value_source_resolver, rule_evaluator
-    )
+    test_form_class = get_test_form_class(answer_json, value_source_resolver, rule_evaluator)
     form = test_form_class(MultiDict({"test_field": "1"}), value_source_resolver)
     form.validate()
     assert form.errors["test_field"]["line1"][0] == "Enter an address"
@@ -90,15 +78,9 @@ def test_address_validator_with_message_override(value_source_resolver, rule_eva
         "id": "address",
         "mandatory": True,
         "type": "Address",
-        "validation": {
-            "messages": {
-                "MANDATORY_ADDRESS": "Please enter an address line 1 to continue"
-            }
-        },
+        "validation": {"messages": {"MANDATORY_ADDRESS": "Please enter an address line 1 to continue"}},
     }
-    address_handler = AddressHandler(
-        answer_json, value_source_resolver, rule_evaluator, error_messages
-    )
+    address_handler = AddressHandler(answer_json, value_source_resolver, rule_evaluator, error_messages)
 
     validator = address_handler.validators
 

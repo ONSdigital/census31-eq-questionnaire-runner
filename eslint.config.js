@@ -4,7 +4,7 @@ import jsonPlugin from "eslint-plugin-json";
 
 export default [
   {
-    ignores: ["node_modules/**", "htmlcov/**", "coverage/**", "dist/**", "src/index.html"],
+    ignores: ["node_modules/**", "htmlcov/**", "coverage/**", "dist/**", "src/index.html", "tests/functional/generated_pages/**"],
   },
   ...neostandard({ semi: true }),
   {

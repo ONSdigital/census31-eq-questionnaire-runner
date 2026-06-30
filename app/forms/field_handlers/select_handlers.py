@@ -3,10 +3,7 @@ from typing import Any, Sequence
 from wtforms.fields.core import UnboundField
 
 from app.forms.field_handlers.field_handler import FieldHandler
-from app.forms.fields import (
-    MultipleSelectFieldWithDetailAnswer,
-    SelectFieldWithDetailAnswer,
-)
+from app.forms.fields import MultipleSelectFieldWithDetailAnswer, SelectFieldWithDetailAnswer
 from app.questionnaire.dynamic_answer_options import DynamicAnswerOptions
 from app.questionnaire.questionnaire_schema import InvalidSchemaConfigurationException
 from app.utilities.types import ChoiceType, ChoiceWithDetailAnswer
@@ -35,21 +32,14 @@ class SelectHandlerBase(FieldHandler):
             value_source_resolver=self.value_source_resolver,
         )
 
-        return [
-            ChoiceWithDetailAnswer(option["value"], option["label"], None)
-            for option in dynamic_options.evaluate()
-        ]
+        return [ChoiceWithDetailAnswer(option["value"], option["label"], None) for option in dynamic_options.evaluate()]
 
     def _build_static_choices(self) -> list[ChoiceWithDetailAnswer]:
         choices = []
 
         for option in self.answer_schema.get("options", []):
             detail_answer_id = option.get("detail_answer", {}).get("id")
-            choices.append(
-                ChoiceWithDetailAnswer(
-                    option["value"], option["label"], detail_answer_id
-                )
-            )
+            choices.append(ChoiceWithDetailAnswer(option["value"], option["label"], detail_answer_id))
         return choices
 
 

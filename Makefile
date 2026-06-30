@@ -58,7 +58,11 @@ test-functional-suite: generate-pages
 	npm run test_functional -- --suite=$(SUITE)
 
 generate-spec:
-	poetry run python -m tests.functional.generate_pages schemas/test/en/$(SCHEMA).json ./tests/functional/generated_pages/$(patsubst test_%,%,$(SCHEMA)) -r '../../base_pages' -s tests/functional/spec/$(SCHEMA).spec.js
+	poetry run python -m tests.functional.generate_pages \
+		schemas/test/en/$(SCHEMA).json \
+		./tests/functional/generated_pages/$(patsubst test_%,%,$(SCHEMA)) \
+		-r '../../base_pages' \
+		-s tests/functional/spec/$(SCHEMA).spec.js
 
 validate-test-schemas:
 	poetry run python -m scripts.validate_test_schemas

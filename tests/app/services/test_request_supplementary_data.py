@@ -50,9 +50,7 @@ def test_get_supplementary_data_v1_200(
     [401, 403, 404, 501, 511],
 )
 @responses.activate
-def test_get_supplementary_data_v1_non_200(
-    app: Flask, status_code, encrypted_mock_supplementary_data_payload
-):
+def test_get_supplementary_data_v1_non_200(app: Flask, status_code, encrypted_mock_supplementary_data_payload):
     with app.app_context():
         current_app.config["SDS_API_BASE_URL"] = TEST_SDS_URL
 
@@ -113,9 +111,7 @@ def test_get_supplementary_data_v1_retries_timeout_error(
 
     assert supplementary_data == decrypted_mock_supplementary_data_payload
 
-    expected_call = (
-        SUPPLEMENTARY_DATA_REQUEST_MAX_RETRIES + 1
-    )  # Max retries + the initial request
+    expected_call = SUPPLEMENTARY_DATA_REQUEST_MAX_RETRIES + 1  # Max retries + the initial request
     assert mocked_make_request_with_timeout.call_count == expected_call
 
 
@@ -125,9 +121,7 @@ def test_get_supplementary_data_v1_retries_transient_error(
 ):
     with app.app_context():
         current_app.config["SDS_API_BASE_URL"] = TEST_SDS_URL
-        mocked_make_request = get_mocked_make_request(
-            mocker, status_codes=[500, 500, 200]
-        )
+        mocked_make_request = get_mocked_make_request(mocker, status_codes=[500, 500, 200])
 
         mocker.patch(
             "app.services.supplementary_data.decrypt_supplementary_data",
@@ -145,9 +139,7 @@ def test_get_supplementary_data_v1_retries_transient_error(
 
         assert supplementary_data == decrypted_mock_supplementary_data_payload
 
-        expected_call = (
-            SUPPLEMENTARY_DATA_REQUEST_MAX_RETRIES + 1
-        )  # Max retries + the initial request
+        expected_call = SUPPLEMENTARY_DATA_REQUEST_MAX_RETRIES + 1  # Max retries + the initial request
 
     assert mocked_make_request.call_count == expected_call
 
@@ -156,9 +148,7 @@ def test_get_supplementary_data_v1_max_retries(app: Flask, mocker):
     with app.app_context():
         current_app.config["SDS_API_BASE_URL"] = TEST_SDS_URL
 
-        mocked_make_request = get_mocked_make_request(
-            mocker, status_codes=[500, 500, 500, 500]
-        )
+        mocked_make_request = get_mocked_make_request(mocker, status_codes=[500, 500, 500, 500])
 
         with pytest.raises(SupplementaryDataRequestFailed) as exc:
             get_supplementary_data_v1(
@@ -207,9 +197,7 @@ def test_decrypt_supplementary_data_v1_raises_invalid_token_error_when_encrypted
             )
 
 
-def test_get_supplementary_data_v1_raises_missing_supplementary_data_key_error_when_key_is_missing(
-    app: Flask, mocker
-):
+def test_get_supplementary_data_v1_raises_missing_supplementary_data_key_error_when_key_is_missing(app: Flask, mocker):
     with app.app_context():
         mocker.patch.dict(
             "app.services.supplementary_data.current_app.eq",

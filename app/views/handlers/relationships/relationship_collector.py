@@ -8,16 +8,15 @@ from app.views.handlers.relationships.relationship_question import RelationshipQ
 class RelationshipCollector(RelationshipQuestion):
     def is_location_valid(self) -> bool:
         if isinstance(self._current_location, Location):
-            return self.router.can_access_location(
-                self._current_location, self._routing_path
-            )
+            return self.router.can_access_location(self._current_location, self._routing_path)
 
         return super().is_location_valid()
 
     def handle_post(self) -> None:
         relationship_answer = self.form.data.get(self.relationships_answer_id)
         relationship = Relationship(
-            # Type ignore: handle_post is only called from relationships endpoint and location class is assigned to RelationshipLocation
+            # Type ignore: handle_post is only called from relationships endpoint and
+            # location class is assigned to RelationshipLocation
             self._current_location.list_item_id,  # type: ignore
             self._current_location.to_list_item_id,  # type: ignore
             relationship_answer,
@@ -31,9 +30,7 @@ class RelationshipCollector(RelationshipQuestion):
             )
 
         if self._is_last_relationship():
-            self.questionnaire_store_updater.add_completed_location(
-                location=self.parent_location
-            )
+            self.questionnaire_store_updater.add_completed_location(location=self.parent_location)
             self._update_section_completeness(location=self.parent_location)
 
         self.questionnaire_store_updater.save()

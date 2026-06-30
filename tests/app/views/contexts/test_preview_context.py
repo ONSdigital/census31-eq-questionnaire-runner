@@ -3,10 +3,7 @@ from flask_babel import lazy_gettext
 
 from app.data_models.data_stores import DataStores
 from app.questionnaire import QuestionnaireSchema
-from app.views.contexts.preview_context import (
-    PreviewContext,
-    PreviewNotEnabledException,
-)
+from app.views.contexts.preview_context import PreviewContext, PreviewNotEnabledException
 from tests.app.views.contexts import assert_preview_context
 
 
@@ -56,25 +53,25 @@ def test_build_preview_context(
                                     "guidance": {
                                         "contents": [
                                             {
-                                                "description": "For example select `yes` if you can report for this period"
+                                                "description": (
+                                                    "For example select `yes` if you can " "report for this period"
+                                                )
                                             }
                                         ],
                                         "hide_guidance": "Additional guidance",
                                         "show_guidance": "Additional guidance",
                                     },
                                     "options": ["Yes", "No"],
-                                    "options_text": lazy_gettext(
-                                        "You can answer with one of the following options:"
-                                    ),
+                                    "options_text": lazy_gettext("You can answer with one of the following options:"),
                                 }
                             ],
-                            "descriptions": [
-                                "<p>Your return should relate to the calendar year 2021.</p>"
-                            ],
+                            "descriptions": ["<p>Your return should relate to the calendar year 2021.</p>"],
                             "guidance": {
                                 "contents": [
                                     {
-                                        "description": "Please provide figures for the period in which you were trading."
+                                        "description": (
+                                            "Please provide figures for the period " "in which you were trading."
+                                        )
                                     }
                                 ]
                             },
@@ -91,29 +88,32 @@ def test_build_preview_context(
                             ],
                             "descriptions": [
                                 "<p>If figures are not available for the calendar year 2021, your return should "
-                                "relate to a 12 month business year that ends between 6 April 2021 and 5 April 2022.</p>"
+                                "relate to a 12 month business year that ends between "
+                                "6 April 2021 and 5 April 2022.</p>"
                             ],
                             "guidance": {
                                 "contents": [
+                                    {"description": "<p><strong>Only traded for a part of the year?</strong></p>"},
                                     {
-                                        "description": "<p><strong>Only traded for a part of the year?</strong></p>"
+                                        "description": (
+                                            "<p>Please provide figures for the period " "in which you were trading.</p>"
+                                        )
                                     },
+                                    {"description": "<p><strong>Only commenced trading during 2021?</strong></p>"},
                                     {
-                                        "description": "<p>Please provide figures for the period in which you were trading.</p>"
+                                        "description": (
+                                            "<p>Your return should cover the period from the commencement of "
+                                            "your business until 31 December 2021 or, alternatively, any "
+                                            "date up to 5 April 2022.</p>"
+                                        )
                                     },
+                                    {"description": "<p><strong>Ceased trading during 2021?</strong></p>"},
                                     {
-                                        "description": "<p><strong>Only commenced trading during 2021?</strong></p>"
-                                    },
-                                    {
-                                        "description": "<p>Your return should cover the period from the commencement of "
-                                        "your business until 31 December 2021 or, alternatively, any date up to 5 April 2022.</p>"
-                                    },
-                                    {
-                                        "description": "<p><strong>Ceased trading during 2021?</strong></p>"
-                                    },
-                                    {
-                                        "description": "<p>Your return should cover the period 1 January 2021 to the date "
-                                        "you ceased to trade or, alternatively, from the beginning of your last business year up to the cessation date.</p>"
+                                        "description": (
+                                            "<p>Your return should cover the period 1 January 2021 to the date "
+                                            "you ceased to trade or, alternatively, from the beginning of "
+                                            "your last business year up to the cessation date.</p>"
+                                        )
                                     },
                                 ]
                             },
@@ -127,17 +127,16 @@ def test_build_preview_context(
                             "answers": [
                                 {
                                     "options": ["Yes", "No"],
-                                    "options_text": lazy_gettext(
-                                        "You can answer with one of the following options:"
-                                    ),
+                                    "options_text": lazy_gettext("You can answer with one of the following options:"),
                                 }
                             ],
-                            "descriptions": [
-                                "<p>Your return should relate to the calendar year 2021.</p>"
-                            ],
+                            "descriptions": ["<p>Your return should relate to the calendar year 2021.</p>"],
                             "guidance": None,
                             "id": "report-radio-second",
-                            "title": "Are you sure you are able to report for the calendar month {calendar_start_date} to {calendar_end_date}?",
+                            "title": (
+                                "Are you sure you are able to report for the calendar month "
+                                "{calendar_start_date} to {calendar_end_date}?"
+                            ),
                             "type": "General",
                         }
                     },
@@ -149,9 +148,7 @@ def test_build_preview_context(
                                         "Public sector projects",
                                         "Private sector projects",
                                     ],
-                                    "options_text": lazy_gettext(
-                                        "You can answer with the following options:"
-                                    ),
+                                    "options_text": lazy_gettext("You can answer with the following options:"),
                                 }
                             ],
                             "descriptions": None,
@@ -167,9 +164,7 @@ def test_build_preview_context(
                                 ]
                             },
                             "id": "projects-checkbox",
-                            "title": "Which sector did ESSENTIAL "
-                            "ENTERPRISE LTD. carry out work "
-                            "for?",
+                            "title": "Which sector did ESSENTIAL " "ENTERPRISE LTD. carry out work " "for?",
                             "type": "General",
                         }
                     },
@@ -188,7 +183,10 @@ def test_build_preview_context(
                                             "income from sub-contracted activities",
                                             "commission",
                                             "sales of goods purchased for resale",
-                                            "revenue earned from other parts of the business not named, please supply at fair value",
+                                            (
+                                                "revenue earned from other parts of the business "
+                                                "not named, please supply at fair value"
+                                            ),
                                         ]
                                     },
                                     {"description": "<strong>Exclude:</strong>"},
@@ -217,15 +215,11 @@ def test_build_preview_context(
                                         "7 Evelyn Street, Barry",
                                         "251 Argae Lane, Barry",
                                     ],
-                                    "options_text": lazy_gettext(
-                                        "You can answer with the following options:"
-                                    ),
+                                    "options_text": lazy_gettext("You can answer with the following options:"),
                                 },
                                 {
                                     "options": ["I prefer not to say"],
-                                    "options_text": lazy_gettext(
-                                        "You can answer with the following options:"
-                                    ),
+                                    "options_text": lazy_gettext("You can answer with the following options:"),
                                 },
                             ],
                             "descriptions": None,
@@ -243,9 +237,7 @@ def test_build_preview_context(
                                     "max_length": 2000,
                                 }
                             ],
-                            "descriptions": [
-                                "<p>Answer for ESSENTIAL ENTERPRISE LTD.</p>"
-                            ],
+                            "descriptions": ["<p>Answer for ESSENTIAL ENTERPRISE LTD.</p>"],
                             "guidance": None,
                             "id": "further-details-text-area",
                             "title": "Please provide any further details",

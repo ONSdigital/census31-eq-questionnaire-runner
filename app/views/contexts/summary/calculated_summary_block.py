@@ -52,7 +52,9 @@ class CalculatedSummaryBlock:
         )
 
         # Type ignore: for a calculated summary the resolved answer would only ever be one of these 3
-        calculated_total: NumericType = self._rule_evaluator.evaluate(block_schema["calculation"]["operation"])  # type: ignore
+        calculated_total: NumericType = self._rule_evaluator.evaluate(
+            block_schema["calculation"]["operation"]
+        )  # type: ignore[assignment]
         answer_format = self._schema.get_answer_format_for_calculated_summary(self.id)
         self.answers = [
             {
@@ -66,11 +68,7 @@ class CalculatedSummaryBlock:
 
     def _build_link(self) -> str:
         # not required if the calculated summary is in the repeat alongside the GCS
-        return_to_list_item_id = (
-            self._return_location.return_to_list_item_id
-            if not self._list_item_id
-            else None
-        )
+        return_to_list_item_id = self._return_location.return_to_list_item_id if not self._list_item_id else None
         return url_for(
             "questionnaire.block",
             block_id=self.id,

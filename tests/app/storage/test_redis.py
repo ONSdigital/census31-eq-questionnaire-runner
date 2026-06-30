@@ -124,9 +124,7 @@ def test_put_handles_connection_error_once(redis, mocker):
     expires_at = used_at + timedelta(seconds=60)
     jti = UsedJtiClaim(str(uuid.uuid4()), expires_at)
 
-    redis.client.set = mocker.Mock(
-        side_effect=[RedisConnectionError, RedisConnectionError]
-    )
+    redis.client.set = mocker.Mock(side_effect=[RedisConnectionError, RedisConnectionError])
 
     # When
     with pytest.raises(RedisConnectionError):
@@ -138,9 +136,7 @@ def test_put_handles_connection_error_once(redis, mocker):
 
 def test_get_handles_connection_error_once(redis, mocker):
     # Given
-    redis.client.get = mocker.Mock(
-        side_effect=[RedisConnectionError, RedisConnectionError]
-    )
+    redis.client.get = mocker.Mock(side_effect=[RedisConnectionError, RedisConnectionError])
 
     # When
     with pytest.raises(RedisConnectionError):
@@ -156,9 +152,7 @@ def test_delete_handles_connection_error_once(redis, mocker):
     expires_at = used_at + timedelta(seconds=60)
     jti = UsedJtiClaim(str(uuid.uuid4()), expires_at)
 
-    redis.client.delete = mocker.Mock(
-        side_effect=[RedisConnectionError, RedisConnectionError]
-    )
+    redis.client.delete = mocker.Mock(side_effect=[RedisConnectionError, RedisConnectionError])
 
     # When
     with pytest.raises(RedisConnectionError):
