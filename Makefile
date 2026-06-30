@@ -20,14 +20,14 @@ build: load-design-system-templates load-schemas translate
 generate-pages:
 	npm run generate_pages
 
-lint: lint-python lint-js
+lint: lint-python
 
 lint-python:
 	poetry run ./scripts/run_lint_python.sh
 
 lint-test-python: lint-python test-unit
 
-format: format-python format-js
+format: format-python
 
 format-python:
 	poetry run isort .
@@ -50,12 +50,6 @@ test-functional-spec: generate-pages
 
 test-functional-suite: generate-pages
 	npm run test_functional -- --suite=$(SUITE)
-
-lint-js:
-	npm run lint
-
-format-js:
-	npm run format
 
 generate-spec:
 	poetry run python -m tests.functional.generate_pages \

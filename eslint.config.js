@@ -88,6 +88,12 @@ export default [
         },
       ],
       "require-await": "error",
+      "import/no-unresolved": [
+        2,
+        {
+          ignore: ["generated_pages"],
+        },
+      ],
     },
   },
   {
