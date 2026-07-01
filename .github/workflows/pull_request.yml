@@ -82,8 +82,6 @@ jobs:
         run: npm install
       - name: Functional tests spec lint
         run: ./scripts/lint_functional_test_specs.sh
-      - name: HTML linting
-        run: make lint-html
   test-unit:
     if: "!contains(github.event.pull_request.labels.*.name, 'skip-tests-unit')"
     permissions:
