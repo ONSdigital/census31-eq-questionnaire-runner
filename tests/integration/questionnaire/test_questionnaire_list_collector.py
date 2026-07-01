@@ -255,9 +255,7 @@ class TestQuestionnaireListCollector(QuestionnaireTestCase):
 
         self.get(remove_link)
 
-        self.assertIsNotNone(
-            self.getHtmlSoup().select("#question-warning-remove-question")
-        )
+        self.assertIsNotNone(self.getHtmlSoup().select("#question-warning-remove-question"))
 
         self.assertInBody("All of the information about this person will be deleted")
 
@@ -490,7 +488,7 @@ class TestQuestionnaireListCollector(QuestionnaireTestCase):
 
         self.assertInUrl("?return_to=section-summary")
 
-    def test_adding_from_the_summary_page_and_then_clicking_previous_link_from_edit_question_block_persists_return_to_url_param(
+    def test_add_from_summary_page_and_clicking_previous_link_from_edit_question_block_persists_return_to_url_param(
         self,
     ):
         self.launchSurveyV2(schema_name="test_list_collector")
@@ -529,7 +527,7 @@ class TestQuestionnaireListCollector(QuestionnaireTestCase):
 
         self.assertInUrl("?return_to=section-summary")
 
-    def test_adding_from_the_summary_page_and_then_clicking_previous_link_from_remove_question_block_persists_return_to_url_param(
+    def test_add_from_summary_page_and_clicking_previous_link_from_remove_question_block_persists_return_to_url_param(
         self,
     ):
         self.launchSurveyV2(schema_name="test_list_collector")

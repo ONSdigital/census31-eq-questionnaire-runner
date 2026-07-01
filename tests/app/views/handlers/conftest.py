@@ -89,9 +89,7 @@ def set_storage_data(
     version=1,
     submitted_at=None,
 ):
-    storage_.get_user_data = Mock(
-        return_value=(raw_data, version, collection_exercise_sid, submitted_at)
-    )
+    storage_.get_user_data = Mock(return_value=(raw_data, version, collection_exercise_sid, submitted_at))
 
 
 @pytest.fixture

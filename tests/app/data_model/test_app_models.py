@@ -1,12 +1,6 @@
 from datetime import datetime, timezone
 
-from app.data_models.app_models import (
-    DateTimeSchemaMixin,
-    EQSession,
-    QuestionnaireState,
-    Timestamp,
-    UsedJtiClaim,
-)
+from app.data_models.app_models import DateTimeSchemaMixin, EQSession, QuestionnaireState, Timestamp, UsedJtiClaim
 from app.storage.storage import StorageModel
 
 NOW = datetime.now(tz=timezone.utc).replace(microsecond=0)
@@ -54,9 +48,7 @@ def test_questionnaire_state():
 
 def test_set_date():
     new_mixin = DateTimeSchemaMixin()
-    questionnaire_store = new_mixin.set_date(
-        QuestionnaireState("someuser", "somedata", "ce_sid", 1)
-    )
+    questionnaire_store = new_mixin.set_date(QuestionnaireState("someuser", "somedata", "ce_sid", 1))
     assert questionnaire_store.updated_at >= NOW
 
 

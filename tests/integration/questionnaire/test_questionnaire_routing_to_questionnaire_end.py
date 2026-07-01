@@ -11,9 +11,7 @@ class TestRoutingToQuestionnaireEndBase(IntegrationTestCase):
 class TestRoutingToQuestionnaireEndSingleSection(TestRoutingToQuestionnaireEndBase):
     def test_able_to_route_to_questionnaire_end(self):
         # Given I launch a questionnaire with a single section and answer "No" to the first question
-        self._launch_and_complete_questionnaire(
-            "test_routing_to_questionnaire_end_single_section"
-        )
+        self._launch_and_complete_questionnaire("test_routing_to_questionnaire_end_single_section")
 
         # Then I should be routed to the end of the questionnaire and be shown the submit page
         self.assertInBody("Would you like to complete question 2?")
@@ -24,9 +22,7 @@ class TestRoutingToQuestionnaireEndMultipleSections(TestRoutingToQuestionnaireEn
     def test_able_to_route_to_questionnaire_end(self):
         # Given I launch a questionnaire with multiple sections
         # When I answer "No" to the first question
-        self._launch_and_complete_questionnaire(
-            "test_routing_to_questionnaire_end_multiple_sections"
-        )
+        self._launch_and_complete_questionnaire("test_routing_to_questionnaire_end_multiple_sections")
 
         # Then I should be routed to the end of the questionnaire and be shown the submit page with only 1 section
         self.assertInBody("Would you like to complete section 2?")
@@ -38,9 +34,7 @@ class TestRoutingToQuestionnaireEndMultipleSections(TestRoutingToQuestionnaireEn
         self,
     ):
         # Given I am able to route to the questionnaire end by completing only section 1
-        self._launch_and_complete_questionnaire(
-            "test_routing_to_questionnaire_end_multiple_sections"
-        )
+        self._launch_and_complete_questionnaire("test_routing_to_questionnaire_end_multiple_sections")
         self.assertInUrl(SUBMIT_URL_PATH)
 
         # When I change my answer in section 1

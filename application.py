@@ -24,9 +24,7 @@ def configure_logging():
     error_log_handler = logging.StreamHandler(sys.stderr)
     error_log_handler.setLevel(logging.ERROR)
 
-    logging.basicConfig(
-        level=log_level, format="%(message)s", handlers=[error_log_handler, log_handler]
-    )
+    logging.basicConfig(level=log_level, format="%(message)s", handlers=[error_log_handler, log_handler])
 
     # Set werkzeug logging level
     werkzeug_logger = logging.getLogger("werkzeug")
@@ -41,9 +39,7 @@ def configure_logging():
         return event_dict
 
     # setup file logging
-    renderer_processor = (
-        ConsoleRenderer() if debug else JSONRenderer(serializer=json_dumps)
-    )
+    renderer_processor = ConsoleRenderer() if debug else JSONRenderer(serializer=json_dumps)
     processors = [
         contextvars.merge_contextvars,
         add_log_level,

@@ -81,44 +81,53 @@ describe("Feature: Grand Calculated Summary", () => {
       await verifyUrlContains(GrandCalculatedSummary2Page.pageName);
     });
 
-    it("Given I click on the change link for a calculated summary then one for an answer, When I press previous twice, I am return to the calculated summary then grand calculated summary", async () => {
-      await $(GrandCalculatedSummary2Page.calculatedSummary1Edit()).click();
-      await $(CalculatedSummary1Page.q1A1Edit()).click();
-      await verifyUrlContains(Block1Page.pageName);
+    it(
+      "Given I click on the change link for a calculated summary then one for an answer, " +
+        "When I press previous twice, I am return to the calculated summary then grand calculated summary",
+      async () => {
+        await $(GrandCalculatedSummary2Page.calculatedSummary1Edit()).click();
+        await $(CalculatedSummary1Page.q1A1Edit()).click();
+        await verifyUrlContains(Block1Page.pageName);
 
-      await $(Block1Page.previous()).click();
-      await verifyUrlContains(CalculatedSummary1Page.pageName);
+        await $(Block1Page.previous()).click();
+        await verifyUrlContains(CalculatedSummary1Page.pageName);
 
-      await $(CalculatedSummary1Page.previous()).click();
-      await verifyUrlContains(GrandCalculatedSummary2Page.pageName);
-    });
+        await $(CalculatedSummary1Page.previous()).click();
+        await verifyUrlContains(GrandCalculatedSummary2Page.pageName);
+      },
+    );
 
-    it("Given I go back to the calculated summary and then to a question and edit the answer. I am first taken back to the each calculated summary that uses the answer, the grand calculated summary in section 1, and then the updated grand calculated summary in section 3.", async () => {
-      await $(GrandCalculatedSummary2Page.calculatedSummary4Edit()).click();
-      await expect(await $(CalculatedSummary4Page.calculatedSummaryTitle()).getText()).toBe(
-        "Calculated Summary for games expenditure is calculated to be £15.00. Is this correct?",
-      );
-      await $(CalculatedSummary4Page.q4A1Edit()).click();
-      await verifyUrlContains(Block4Page.pageName);
+    it(
+      "Given I go back to the calculated summary and then to a question and edit the answer. " +
+        "I am first taken back to the each calculated summary that uses the answer, " +
+        "the grand calculated summary in section 1, and then the updated grand calculated summary in section 3.",
+      async () => {
+        await $(GrandCalculatedSummary2Page.calculatedSummary4Edit()).click();
+        await expect(await $(CalculatedSummary4Page.calculatedSummaryTitle()).getText()).toBe(
+          "Calculated Summary for games expenditure is calculated to be £15.00. Is this correct?",
+        );
+        await $(CalculatedSummary4Page.q4A1Edit()).click();
+        await verifyUrlContains(Block4Page.pageName);
 
-      await $(Block4Page.q4A1()).setValue(50);
-      await click(Block4Page.submit());
+        await $(Block4Page.q4A1()).setValue(50);
+        await click(Block4Page.submit());
 
-      // first taken back to the calculated summary which has updated
-      await verifyUrlContains(CalculatedSummary4Page.pageName);
-      await expect(await $(CalculatedSummary4Page.calculatedSummaryTitle()).getText()).toBe(
-        "Calculated Summary for games expenditure is calculated to be £60.00. Is this correct?",
-      );
-      await click(CalculatedSummary4Page.submit());
+        // first taken back to the calculated summary which has updated
+        await verifyUrlContains(CalculatedSummary4Page.pageName);
+        await expect(await $(CalculatedSummary4Page.calculatedSummaryTitle()).getText()).toBe(
+          "Calculated Summary for games expenditure is calculated to be £60.00. Is this correct?",
+        );
+        await click(CalculatedSummary4Page.submit());
 
-      // then taken back to the grand calculated summary which has also been updated correctly
-      await verifyUrlContains(GrandCalculatedSummary2Page.pageName);
-      await expect(await $(GrandCalculatedSummary2Page.grandCalculatedSummaryTitle()).getText()).toBe(
-        "Grand Calculated Summary for shopping and entertainment is calculated to be £460.00. Is this correct?",
-      );
-    });
+        // then taken back to the grand calculated summary which has also been updated correctly
+        await verifyUrlContains(GrandCalculatedSummary2Page.pageName);
+        await expect(await $(GrandCalculatedSummary2Page.grandCalculatedSummaryTitle()).getText()).toBe(
+          "Grand Calculated Summary for shopping and entertainment is calculated to be £460.00. Is this correct?",
+        );
+      },
+    );
 
-    it("Given I go back to another calculated summary and edit multiple answers, I am still correctly routed back to the grand calculated summary", async () => {
+    it("Given I go back to another calculated summary and edit multiple answers,I am still correctly routed back to the grand calculated summary", async () => {
       await $(GrandCalculatedSummary2Page.calculatedSummary1Edit()).click();
       await expect(await $(CalculatedSummary1Page.calculatedSummaryTitle()).getText()).toBe(
         "Calculated Summary for food expenditure is calculated to be £100.00. Is this correct?",
@@ -159,23 +168,27 @@ describe("Feature: Grand Calculated Summary", () => {
       );
     });
 
-    it("Given I edit an answer included in a grand calculated summary, the calculated summary sections should return to partially completed, and the grand calculated summary becomes unavailable.", async () => {
-      await click(GrandCalculatedSummary2Page.submit());
-      await expect(await $(HubPage.summaryRowState("section-3")).getText()).toBe("Completed");
+    it(
+      "Given I edit an answer included in a grand calculated summary, " +
+        "the calculated summary sections should return to partially completed, and the grand calculated summary becomes unavailable.",
+      async () => {
+        await click(GrandCalculatedSummary2Page.submit());
+        await expect(await $(HubPage.summaryRowState("section-3")).getText()).toBe("Completed");
 
-      // Now edit an answer from section 2 and go back to the hub
-      await $(HubPage.summaryRowLink("section-3")).click();
-      await $(GrandCalculatedSummary2Page.calculatedSummary4Edit()).click();
-      await $(CalculatedSummary4Page.q4A1Edit()).click();
-      await $(Block4Page.q4A1()).setValue(1);
-      await click(Block4Page.submit());
-      await $(CalculatedSummary4Page.previous()).click();
-      await $(Block4Page.previous()).click();
+        // Now edit an answer from section 2 and go back to the hub
+        await $(HubPage.summaryRowLink("section-3")).click();
+        await $(GrandCalculatedSummary2Page.calculatedSummary4Edit()).click();
+        await $(CalculatedSummary4Page.q4A1Edit()).click();
+        await $(Block4Page.q4A1()).setValue(1);
+        await click(Block4Page.submit());
+        await $(CalculatedSummary4Page.previous()).click();
+        await $(Block4Page.previous()).click();
 
-      // calculated summary section should be in progress
-      await expect(await $(HubPage.summaryRowState("section-2")).getText()).toBe("Partially completed");
-      await expect(await $(HubPage.summaryRowLink("section-3")).isExisting()).toBe(false);
-    });
+        // calculated summary section should be in progress
+        await expect(await $(HubPage.summaryRowState("section-2")).getText()).toBe("Partially completed");
+        await expect(await $(HubPage.summaryRowLink("section-3")).isExisting()).toBe(false);
+      },
+    );
 
     it("Given I confirm the calculated summary, When I return to the Hub, Then I see the grand calculated summary come back marked as partially completed", async () => {
       await $(HubPage.summaryRowLink("section-2")).click();
@@ -183,168 +196,206 @@ describe("Feature: Grand Calculated Summary", () => {
       await expect(await $(HubPage.summaryRowState("section-3")).getText()).toBe("Partially completed");
     });
 
-    it("Given I set both answers to block 4 to zero which removes the Grand Calculated Summary from the path, I am routed back to the Hub after the calculated summary", async () => {
-      await $(HubPage.summaryRowLink("section-3")).click();
-      await $(GrandCalculatedSummary2Page.calculatedSummary4Edit()).click();
-      await $(CalculatedSummary4Page.q4A1Edit()).click();
-      await $(Block4Page.q4A1()).setValue(0);
-      await $(Block4Page.q4A2()).setValue(0);
-      await click(Block4Page.submit());
-      await click(CalculatedSummary4Page.submit());
-      // should be back at Hub, and grand calculated summary section not present
-      await verifyUrlContains(HubPage.pageName);
-      await expect(await $(HubPage.summaryRowLink("section-3")).isExisting()).toBe(false);
-    });
+    it(
+      "Given I set both answers to block 4 to zero which removes the Grand Calculated Summary from the path, " +
+        "I am routed back to the Hub after the calculated summary",
+      async () => {
+        await $(HubPage.summaryRowLink("section-3")).click();
+        await $(GrandCalculatedSummary2Page.calculatedSummary4Edit()).click();
+        await $(CalculatedSummary4Page.q4A1Edit()).click();
+        await $(Block4Page.q4A1()).setValue(0);
+        await $(Block4Page.q4A2()).setValue(0);
+        await click(Block4Page.submit());
+        await click(CalculatedSummary4Page.submit());
+        // should be back at Hub, and grand calculated summary section not present
+        await verifyUrlContains(HubPage.pageName);
+        await expect(await $(HubPage.summaryRowLink("section-3")).isExisting()).toBe(false);
+      },
+    );
 
-    it("Given I have a grand calculated summary section requiring completion of all previous sections, When I complete each section in turn, Then I don't see the grand calculated summary until all sections are complete, at which point I see it on the Hub", async () => {
-      // no grand calculated summary section on the hub
-      await expect(await $(HubPage.summaryRowLink("section-6")).isExisting()).toBe(false);
+    it(
+      "Given I have a grand calculated summary section requiring completion of all previous sections, " +
+        "When I complete each section in turn, Then I don't see the grand calculated summary " +
+        "until all sections are complete, at which point I see it on the Hub",
+      async () => {
+        // no grand calculated summary section on the hub
+        await expect(await $(HubPage.summaryRowLink("section-6")).isExisting()).toBe(false);
 
-      await click(HubPage.submit());
-      await $(AnyUtilityBillsPage.yes()).click();
-      await click(AnyUtilityBillsPage.submit());
-      await $(AddUtilityBillPage.utilityBillName()).selectByAttribute("value", "Electricity");
-      await click(AddUtilityBillPage.submit());
-      await $(AnyOtherUtilityBillsPage.yes()).click();
-      await click(AnyOtherUtilityBillsPage.submit());
-      await $(AddUtilityBillPage.utilityBillName()).selectByAttribute("value", "Internet");
-      await click(AddUtilityBillPage.submit());
-      await $(AnyOtherUtilityBillsPage.yes()).click();
-      await click(AnyOtherUtilityBillsPage.submit());
-      await $(AddUtilityBillPage.utilityBillName()).selectByAttribute("value", "Gas");
-      await click(AddUtilityBillPage.submit());
-      await $(AnyOtherUtilityBillsPage.no()).click();
-      await click(AnyOtherUtilityBillsPage.submit());
-      await $$(DynamicAnswerPage.inputs())[0].setValue(150);
-      await $$(DynamicAnswerPage.inputs())[1].setValue(35);
-      await $$(DynamicAnswerPage.inputs())[2].setValue(65);
-      await click(DynamicAnswerPage.submit());
-      await click(CalculatedSummary5Page.submit());
-      await click(Section4SummaryPage.submit());
-      // still no grand calculated summary yet
-      await expect(await $(HubPage.summaryRowLink("section-6")).isExisting()).toBe(false);
+        await click(HubPage.submit());
+        await $(AnyUtilityBillsPage.yes()).click();
+        await click(AnyUtilityBillsPage.submit());
+        await $(AddUtilityBillPage.utilityBillName()).selectByAttribute("value", "Electricity");
+        await click(AddUtilityBillPage.submit());
+        await $(AnyOtherUtilityBillsPage.yes()).click();
+        await click(AnyOtherUtilityBillsPage.submit());
+        await $(AddUtilityBillPage.utilityBillName()).selectByAttribute("value", "Internet");
+        await click(AddUtilityBillPage.submit());
+        await $(AnyOtherUtilityBillsPage.yes()).click();
+        await click(AnyOtherUtilityBillsPage.submit());
+        await $(AddUtilityBillPage.utilityBillName()).selectByAttribute("value", "Gas");
+        await click(AddUtilityBillPage.submit());
+        await $(AnyOtherUtilityBillsPage.no()).click();
+        await click(AnyOtherUtilityBillsPage.submit());
+        await $$(DynamicAnswerPage.inputs())[0].setValue(150);
+        await $$(DynamicAnswerPage.inputs())[1].setValue(35);
+        await $$(DynamicAnswerPage.inputs())[2].setValue(65);
+        await click(DynamicAnswerPage.submit());
+        await click(CalculatedSummary5Page.submit());
+        await click(Section4SummaryPage.submit());
+        // still no grand calculated summary yet
+        await expect(await $(HubPage.summaryRowLink("section-6")).isExisting()).toBe(false);
 
-      await click(HubPage.submit());
-      await $(AnyStreamingServicesPage.yes()).click();
-      await click(AnyStreamingServicesPage.submit());
-      await $(AddStreamingServicePage.streamingServiceName()).selectByAttribute("value", "Netflix");
-      await click(AddStreamingServicePage.submit());
-      await $(StreamingServiceRepeatingBlock1Page.streamingServiceMonthlyCost()).setValue(10);
-      await $(StreamingServiceRepeatingBlock1Page.streamingServiceExtraCost()).setValue(0);
-      await click(StreamingServiceRepeatingBlock1Page.submit());
-      await $(StreamingServiceRepeatingBlock2Page.streamingServiceUsage()).setValue(20);
-      await click(StreamingServiceRepeatingBlock2Page.submit());
-      await $(AnyOtherStreamingServicesPage.yes()).click();
-      await click(AnyOtherStreamingServicesPage.submit());
-      await $(AddStreamingServicePage.streamingServiceName()).selectByAttribute("value", "Prime video");
-      await click(AddStreamingServicePage.submit());
-      await $(StreamingServiceRepeatingBlock1Page.streamingServiceMonthlyCost()).setValue(8);
-      await $(StreamingServiceRepeatingBlock1Page.streamingServiceExtraCost()).setValue(12);
-      await click(StreamingServiceRepeatingBlock1Page.submit());
-      await $(StreamingServiceRepeatingBlock2Page.streamingServiceUsage()).setValue(25);
-      await click(StreamingServiceRepeatingBlock2Page.submit());
-      await $(AnyOtherStreamingServicesPage.no()).click();
-      await click(AnyOtherStreamingServicesPage.submit());
-      await click(CalculatedSummary6Page.submit());
-      await click(CalculatedSummary7Page.submit());
-      await $(OtherInternetUsagePage.mediaDownloads()).setValue(50);
-      await $(OtherInternetUsagePage.miscInternet()).setValue(5);
-      await click(OtherInternetUsagePage.submit());
-      await click(CalculatedSummary8Page.submit());
-      await click(Section5SummaryPage.submit());
-      // grand calculated summary now present
-      await expect(await $(HubPage.summaryRowLink("section-6")).isExisting()).toBe(true);
-      await expect(await $(HubPage.summaryRowState("section-6")).getText()).toBe("Not started");
-    });
+        await click(HubPage.submit());
+        await $(AnyStreamingServicesPage.yes()).click();
+        await click(AnyStreamingServicesPage.submit());
+        await $(AddStreamingServicePage.streamingServiceName()).selectByAttribute("value", "Netflix");
+        await click(AddStreamingServicePage.submit());
+        await $(StreamingServiceRepeatingBlock1Page.streamingServiceMonthlyCost()).setValue(10);
+        await $(StreamingServiceRepeatingBlock1Page.streamingServiceExtraCost()).setValue(0);
+        await click(StreamingServiceRepeatingBlock1Page.submit());
+        await $(StreamingServiceRepeatingBlock2Page.streamingServiceUsage()).setValue(20);
+        await click(StreamingServiceRepeatingBlock2Page.submit());
+        await $(AnyOtherStreamingServicesPage.yes()).click();
+        await click(AnyOtherStreamingServicesPage.submit());
+        await $(AddStreamingServicePage.streamingServiceName()).selectByAttribute("value", "Prime video");
+        await click(AddStreamingServicePage.submit());
+        await $(StreamingServiceRepeatingBlock1Page.streamingServiceMonthlyCost()).setValue(8);
+        await $(StreamingServiceRepeatingBlock1Page.streamingServiceExtraCost()).setValue(12);
+        await click(StreamingServiceRepeatingBlock1Page.submit());
+        await $(StreamingServiceRepeatingBlock2Page.streamingServiceUsage()).setValue(25);
+        await click(StreamingServiceRepeatingBlock2Page.submit());
+        await $(AnyOtherStreamingServicesPage.no()).click();
+        await click(AnyOtherStreamingServicesPage.submit());
+        await click(CalculatedSummary6Page.submit());
+        await click(CalculatedSummary7Page.submit());
+        await $(OtherInternetUsagePage.mediaDownloads()).setValue(50);
+        await $(OtherInternetUsagePage.miscInternet()).setValue(5);
+        await click(OtherInternetUsagePage.submit());
+        await click(CalculatedSummary8Page.submit());
+        await click(Section5SummaryPage.submit());
+        // grand calculated summary now present
+        await expect(await $(HubPage.summaryRowLink("section-6")).isExisting()).toBe(true);
+        await expect(await $(HubPage.summaryRowState("section-6")).getText()).toBe("Not started");
+      },
+    );
 
-    it("Given I have a calculated summary of repeating answers and a calculated summary of dynamic answers, When I reach the grand calculated summary of both, Then I see the correct total and items", async () => {
-      await click(HubPage.submit());
-      await expect(await $(GrandCalculatedSummary3Page.grandCalculatedSummaryTitle()).getText()).toBe(
-        "Grand Calculated Summary for monthly spending on bills and services is calculated to be £280.00. Is this correct?",
-      );
-      await assertSummaryValues(["£250.00", "£30.00", "£280.00"]);
-      await assertSummaryItems([
-        "Total monthly expenditure on utility bills",
-        "Total monthly expenditure on streaming services",
-        "Total monthly expenditure on bills and streaming services",
-      ]);
-    });
+    it(
+      "Given I have a calculated summary of repeating answers and a calculated summary of dynamic answers, " +
+        "When I reach the grand calculated summary of both, Then I see the correct total and items",
+      async () => {
+        await click(HubPage.submit());
+        await expect(await $(GrandCalculatedSummary3Page.grandCalculatedSummaryTitle()).getText()).toBe(
+          "Grand Calculated Summary for monthly spending on bills and services is calculated to be £280.00. Is this correct?",
+        );
+        await assertSummaryValues(["£250.00", "£30.00", "£280.00"]);
+        await assertSummaryItems([
+          "Total monthly expenditure on utility bills",
+          "Total monthly expenditure on streaming services",
+          "Total monthly expenditure on bills and streaming services",
+        ]);
+      },
+    );
 
-    it("Given I have 2 calculated summaries of list repeating block answers, When I reach the grand calculated summary of both, Then I see the correct total and items", async () => {
-      await click(GrandCalculatedSummary3Page.submit());
-      await expect(await $(GrandCalculatedSummary4Page.grandCalculatedSummaryTitle()).getText()).toBe(
-        "Grand Calculated Summary for internet usage is calculated to be 100 GB. Is this correct?",
-      );
-      await assertSummaryValues(["45 GB", "55 GB", "100 GB"]);
-      await assertSummaryItems(["Total internet usage on streaming services", "Total internet usage on other services", "Total internet usage"]);
-    });
+    it(
+      "Given I have 2 calculated summaries of list repeating block answers, " +
+        "When I reach the grand calculated summary of both, Then I see the correct total and items",
+      async () => {
+        await click(GrandCalculatedSummary3Page.submit());
+        await expect(await $(GrandCalculatedSummary4Page.grandCalculatedSummaryTitle()).getText()).toBe(
+          "Grand Calculated Summary for internet usage is calculated to be 100 GB. Is this correct?",
+        );
+        await assertSummaryValues(["45 GB", "55 GB", "100 GB"]);
+        await assertSummaryItems(["Total internet usage on streaming services", "Total internet usage on other services", "Total internet usage"]);
+      },
+    );
 
-    it("Given I have multiple calculated summaries of static, repeating and dynamic answers, When I reach the grand calculated summary of them all, Then I see the correct total and items", async () => {
-      await click(GrandCalculatedSummary4Page.submit());
-      await expect(await $(GrandCalculatedSummary5Page.grandCalculatedSummaryTitle()).getText()).toBe(
-        "Grand Calculated Summary for total monthly household expenditure is calculated to be £1,130.00. Is this correct?",
-      );
-      await assertSummaryValues(["£550.00", "£300.00", "£0.00", "£250.00", "£30.00", "£1,130.00"]);
-      await assertSummaryItems([
-        "Total monthly food expenditure",
-        "Total monthly clothes expenditure",
-        "Total games expenditure",
-        "Total monthly expenditure on utility bills",
-        "Total monthly expenditure on streaming services",
-        "Total monthly expenditure",
-      ]);
-    });
+    it(
+      "Given I have multiple calculated summaries of static, repeating and dynamic answers, " +
+        "When I reach the grand calculated summary of them all, Then I see the correct total and items",
+      async () => {
+        await click(GrandCalculatedSummary4Page.submit());
+        await expect(await $(GrandCalculatedSummary5Page.grandCalculatedSummaryTitle()).getText()).toBe(
+          "Grand Calculated Summary for total monthly household expenditure is calculated to be £1,130.00. Is this correct?",
+        );
+        await assertSummaryValues(["£550.00", "£300.00", "£0.00", "£250.00", "£30.00", "£1,130.00"]);
+        await assertSummaryItems([
+          "Total monthly food expenditure",
+          "Total monthly clothes expenditure",
+          "Total games expenditure",
+          "Total monthly expenditure on utility bills",
+          "Total monthly expenditure on streaming services",
+          "Total monthly expenditure",
+        ]);
+      },
+    );
 
-    it("Given I a grand calculated summary featuring repeating answers, When I click edit links to return to a dynamic answer then previous twice, Then I return to the grand calculated summary where I started", async () => {
-      await $(GrandCalculatedSummary5Page.calculatedSummary5Edit()).click();
-      await repeatingAnswerChangeLink(0).click();
-      await verifyUrlContains(DynamicAnswerPage.pageName);
-      await $(DynamicAnswerPage.previous()).click();
-      await $(CalculatedSummary5Page.previous()).click();
-      await verifyUrlContains(GrandCalculatedSummary5Page.pageName);
-    });
+    it(
+      "Given I a grand calculated summary featuring repeating answers, " +
+        "When I click edit links to return to a dynamic answer then previous twice, Then I return to the grand calculated summary where I started",
+      async () => {
+        await $(GrandCalculatedSummary5Page.calculatedSummary5Edit()).click();
+        await repeatingAnswerChangeLink(0).click();
+        await verifyUrlContains(DynamicAnswerPage.pageName);
+        await $(DynamicAnswerPage.previous()).click();
+        await $(CalculatedSummary5Page.previous()).click();
+        await verifyUrlContains(GrandCalculatedSummary5Page.pageName);
+      },
+    );
 
-    it("Given I have a grand calculated summary featuring repeating answers, When I edit a dynamic answer, Then I return to the calculated summary to confirm, and then each affected grand calculated summary in turn", async () => {
-      await $(GrandCalculatedSummary5Page.calculatedSummary5Edit()).click();
-      await repeatingAnswerChangeLink(1).click();
-      await $$(DynamicAnswerPage.inputs())[0].setValue("175");
-      await click(DynamicAnswerPage.submit());
-      await click(CalculatedSummary5Page.submit());
-      await verifyUrlContains(GrandCalculatedSummary3Page.pageName);
-      await expect(await $(GrandCalculatedSummary3Page.grandCalculatedSummaryTitle()).getText()).toBe(
-        "Grand Calculated Summary for monthly spending on bills and services is calculated to be £305.00. Is this correct?",
-      );
-      await click(GrandCalculatedSummary3Page.submit());
-      await verifyUrlContains(GrandCalculatedSummary5Page.pageName);
-      await expect(await $(GrandCalculatedSummary5Page.grandCalculatedSummaryTitle()).getText()).toBe(
-        "Grand Calculated Summary for total monthly household expenditure is calculated to be £1,155.00. Is this correct?",
-      );
-    });
+    it(
+      "Given I have a grand calculated summary featuring repeating answers, " +
+        "When I edit a dynamic answer, Then I return to the calculated summary to confirm, and then each affected grand calculated summary in turn",
+      async () => {
+        await $(GrandCalculatedSummary5Page.calculatedSummary5Edit()).click();
+        await repeatingAnswerChangeLink(1).click();
+        await $$(DynamicAnswerPage.inputs())[0].setValue("175");
+        await click(DynamicAnswerPage.submit());
+        await click(CalculatedSummary5Page.submit());
+        await verifyUrlContains(GrandCalculatedSummary3Page.pageName);
+        await expect(await $(GrandCalculatedSummary3Page.grandCalculatedSummaryTitle()).getText()).toBe(
+          "Grand Calculated Summary for monthly spending on bills and services is calculated to be £305.00. Is this correct?",
+        );
+        await click(GrandCalculatedSummary3Page.submit());
+        await verifyUrlContains(GrandCalculatedSummary5Page.pageName);
+        await expect(await $(GrandCalculatedSummary5Page.grandCalculatedSummaryTitle()).getText()).toBe(
+          "Grand Calculated Summary for total monthly household expenditure is calculated to be £1,155.00. Is this correct?",
+        );
+      },
+    );
 
-    it("Given I have a grand calculated summary featuring repeating answers, When I click edit links to return to a list repeating block answer then previous twice, Then I return to the grand calculated summary anchored from where I started", async () => {
-      await $(GrandCalculatedSummary5Page.calculatedSummary6Edit()).click();
-      await repeatingAnswerChangeLink(2).click();
-      await $(StreamingServiceRepeatingBlock1Page.previous()).click();
-      await $(CalculatedSummary5Page.previous()).click();
-      await verifyUrlContains(GrandCalculatedSummary5Page.pageName);
-    });
+    it(
+      "Given I have a grand calculated summary featuring repeating answers, " +
+        "When I click edit links to return to a list repeating block answer then previous twice, " +
+        "Then I return to the grand calculated summary anchored from where I started",
+      async () => {
+        await $(GrandCalculatedSummary5Page.calculatedSummary6Edit()).click();
+        await repeatingAnswerChangeLink(2).click();
+        await $(StreamingServiceRepeatingBlock1Page.previous()).click();
+        await $(CalculatedSummary5Page.previous()).click();
+        await verifyUrlContains(GrandCalculatedSummary5Page.pageName);
+      },
+    );
 
-    it("Given I have a grand calculated summary featuring repeating answers, When I edit a list repeating block answer, Then I return to the calculated summary to confirm, and then the grand calculated summary to confirm", async () => {
-      await $(GrandCalculatedSummary5Page.calculatedSummary6Edit()).click();
-      await repeatingAnswerChangeLink(2).click();
-      await $(StreamingServiceRepeatingBlock1Page.streamingServiceMonthlyCost()).setValue(12);
-      await click(StreamingServiceRepeatingBlock1Page.submit());
-      await click(CalculatedSummary5Page.submit());
-      await verifyUrlContains(GrandCalculatedSummary3Page.pageName);
-      await expect(await $(GrandCalculatedSummary3Page.grandCalculatedSummaryTitle()).getText()).toBe(
-        "Grand Calculated Summary for monthly spending on bills and services is calculated to be £309.00. Is this correct?",
-      );
-      await click(GrandCalculatedSummary3Page.submit());
-      await verifyUrlContains(GrandCalculatedSummary5Page.pageName);
-      await expect(await $(GrandCalculatedSummary5Page.grandCalculatedSummaryTitle()).getText()).toBe(
-        "Grand Calculated Summary for total monthly household expenditure is calculated to be £1,159.00. Is this correct?",
-      );
-    });
+    it(
+      "Given I have a grand calculated summary featuring repeating answers, " +
+        "When I edit a list repeating block answer, Then I return to the calculated summary to confirm, and then the grand calculated summary to confirm",
+      async () => {
+        await $(GrandCalculatedSummary5Page.calculatedSummary6Edit()).click();
+        await repeatingAnswerChangeLink(2).click();
+        await $(StreamingServiceRepeatingBlock1Page.streamingServiceMonthlyCost()).setValue(12);
+        await click(StreamingServiceRepeatingBlock1Page.submit());
+        await click(CalculatedSummary5Page.submit());
+        await verifyUrlContains(GrandCalculatedSummary3Page.pageName);
+        await expect(await $(GrandCalculatedSummary3Page.grandCalculatedSummaryTitle()).getText()).toBe(
+          "Grand Calculated Summary for monthly spending on bills and services is calculated to be £309.00. Is this correct?",
+        );
+        await click(GrandCalculatedSummary3Page.submit());
+        await verifyUrlContains(GrandCalculatedSummary5Page.pageName);
+        await expect(await $(GrandCalculatedSummary5Page.grandCalculatedSummaryTitle()).getText()).toBe(
+          "Grand Calculated Summary for total monthly household expenditure is calculated to be £1,159.00. Is this correct?",
+        );
+      },
+    );
 
     it("Given I pipe the grand calculated summary into the next question, When I press continue, Then I see the correct title", async () => {
       await click(GrandCalculatedSummary5Page.submit());
@@ -365,29 +416,38 @@ describe("Feature: Grand Calculated Summary", () => {
       await click(Section6SummaryPage.submit());
     });
 
-    it("Given I have a grand calculated summary featuring dynamic answers, When I add an item to the list collector and return to the hub, Then I see the section with dynamic answers is in progress, and the grand calculated summary section is not available", async () => {
-      await $(HubPage.summaryRowLink("section-4")).click();
-      await $(Section4SummaryPage.utilityBillsListAddLink()).click();
-      await $(AddUtilityBillPage.utilityBillName()).selectByAttribute("value", "Water");
-      await click(AddUtilityBillPage.submit());
-      await $(AnyOtherUtilityBillsPage.no()).click();
-      await click(AnyOtherUtilityBillsPage.submit());
-      await $$(DynamicAnswerPage.inputs())[3].setValue("40");
-      await click(DynamicAnswerPage.submit());
-      await browser.url(HubPage.url());
-      await expect(await $(HubPage.summaryRowState("section-4")).getText()).toBe("Partially completed");
-      await expect(await $(HubPage.summaryRowLink("section-6")).isExisting()).toBe(false);
-    });
+    it(
+      "Given I have a grand calculated summary featuring dynamic answers, " +
+        "When I add an item to the list collector and return to the hub, " +
+        "Then I see the section with dynamic answers is in progress, and the grand calculated summary section is not available",
+      async () => {
+        await $(HubPage.summaryRowLink("section-4")).click();
+        await $(Section4SummaryPage.utilityBillsListAddLink()).click();
+        await $(AddUtilityBillPage.utilityBillName()).selectByAttribute("value", "Water");
+        await click(AddUtilityBillPage.submit());
+        await $(AnyOtherUtilityBillsPage.no()).click();
+        await click(AnyOtherUtilityBillsPage.submit());
+        await $$(DynamicAnswerPage.inputs())[3].setValue("40");
+        await click(DynamicAnswerPage.submit());
+        await browser.url(HubPage.url());
+        await expect(await $(HubPage.summaryRowState("section-4")).getText()).toBe("Partially completed");
+        await expect(await $(HubPage.summaryRowLink("section-6")).isExisting()).toBe(false);
+      },
+    );
 
-    it("Given I complete the in progress section, When I return to the Hub, Then I see the grand calculated summary section re-enabled, and partially completed", async () => {
-      await $(HubPage.summaryRowLink("section-4")).click();
-      await expect(await $(CalculatedSummary5Page.calculatedSummaryTitle()).getText()).toBe(
-        "Calculated Summary for monthly spending on utility bills is calculated to be £315.00. Is this correct?",
-      );
-      await click(CalculatedSummary5Page.submit());
-      await click(Section4SummaryPage.submit());
-      await expect(await $(HubPage.summaryRowState("section-6")).getText()).toBe("Partially completed");
-    });
+    it(
+      "Given I complete the in progress section, " +
+        "When I return to the Hub, Then I see the grand calculated summary section re-enabled, and partially completed",
+      async () => {
+        await $(HubPage.summaryRowLink("section-4")).click();
+        await expect(await $(CalculatedSummary5Page.calculatedSummaryTitle()).getText()).toBe(
+          "Calculated Summary for monthly spending on utility bills is calculated to be £315.00. Is this correct?",
+        );
+        await click(CalculatedSummary5Page.submit());
+        await click(Section4SummaryPage.submit());
+        await expect(await $(HubPage.summaryRowState("section-6")).getText()).toBe("Partially completed");
+      },
+    );
 
     it("Given I return to the grand calculated summary section, When I go to each grand calculated summary, Then I see the correct new values", async () => {
       await $(HubPage.summaryRowLink("section-6")).click();
@@ -412,99 +472,121 @@ describe("Feature: Grand Calculated Summary", () => {
       await expect(await $(HubPage.summaryRowState("section-6")).getText()).toBe("Completed");
     });
 
-    it("Given I add a list item for the section with list repeating blocks, When I return to the hub before and after completing the section, Then I see the grand calculated summary go from unavailable, to enabled and in progress", async () => {
-      await $(HubPage.summaryRowLink("section-5")).click();
-      await $(Section5SummaryPage.streamingServicesListAddLink()).click();
-      await $(AddStreamingServicePage.streamingServiceName()).selectByAttribute("value", "Disney+");
-      await click(AddStreamingServicePage.submit());
-      await $(StreamingServiceRepeatingBlock1Page.streamingServiceMonthlyCost()).setValue(10);
-      await click(StreamingServiceRepeatingBlock1Page.submit());
-      await $(StreamingServiceRepeatingBlock2Page.streamingServiceUsage()).setValue(5);
-      await click(StreamingServiceRepeatingBlock2Page.submit());
-      await $(AnyOtherStreamingServicesPage.no()).click();
-      await click(AnyOtherStreamingServicesPage.submit());
-      await expect(await $(CalculatedSummary6Page.calculatedSummaryTitle()).getText()).toBe(
-        "Calculated Summary for monthly expenditure on streaming services is calculated to be £44.00. Is this correct?",
-      );
-      await browser.url(HubPage.url());
-      await expect(await $(HubPage.summaryRowState("section-5")).getText()).toBe("Partially completed");
-      await expect(await $(HubPage.summaryRowLink("section-6")).isExisting()).toBe(false);
-      await $(HubPage.summaryRowLink("section-5")).click();
-      await click(CalculatedSummary6Page.submit());
-      await expect(await $(CalculatedSummary7Page.calculatedSummaryTitle()).getText()).toBe(
-        "Total monthly internet usage on streaming services is calculated to be 50 GB. Is this correct?",
-      );
-      await click(CalculatedSummary7Page.submit());
-      await click(Section5SummaryPage.submit());
-      await expect(await $(HubPage.summaryRowState("section-6")).getText()).toBe("Partially completed");
-    });
+    it(
+      "Given I add a list item for the section with list repeating blocks, " +
+        "When I return to the hub before and after completing the section, " +
+        "Then I see the grand calculated summary go from unavailable, to enabled and in progress",
+      async () => {
+        await $(HubPage.summaryRowLink("section-5")).click();
+        await $(Section5SummaryPage.streamingServicesListAddLink()).click();
+        await $(AddStreamingServicePage.streamingServiceName()).selectByAttribute("value", "Disney+");
+        await click(AddStreamingServicePage.submit());
+        await $(StreamingServiceRepeatingBlock1Page.streamingServiceMonthlyCost()).setValue(10);
+        await click(StreamingServiceRepeatingBlock1Page.submit());
+        await $(StreamingServiceRepeatingBlock2Page.streamingServiceUsage()).setValue(5);
+        await click(StreamingServiceRepeatingBlock2Page.submit());
+        await $(AnyOtherStreamingServicesPage.no()).click();
+        await click(AnyOtherStreamingServicesPage.submit());
+        await expect(await $(CalculatedSummary6Page.calculatedSummaryTitle()).getText()).toBe(
+          "Calculated Summary for monthly expenditure on streaming services is calculated to be £44.00. Is this correct?",
+        );
+        await browser.url(HubPage.url());
+        await expect(await $(HubPage.summaryRowState("section-5")).getText()).toBe("Partially completed");
+        await expect(await $(HubPage.summaryRowLink("section-6")).isExisting()).toBe(false);
+        await $(HubPage.summaryRowLink("section-5")).click();
+        await click(CalculatedSummary6Page.submit());
+        await expect(await $(CalculatedSummary7Page.calculatedSummaryTitle()).getText()).toBe(
+          "Total monthly internet usage on streaming services is calculated to be 50 GB. Is this correct?",
+        );
+        await click(CalculatedSummary7Page.submit());
+        await click(Section5SummaryPage.submit());
+        await expect(await $(HubPage.summaryRowState("section-6")).getText()).toBe("Partially completed");
+      },
+    );
 
-    it("Given I the grand calculated summary section is now incomplete, When I return to the section, Then I am taken to each updated grand calculated summary to confirm the new total", async () => {
-      await $(HubPage.summaryRowLink("section-6")).click();
-      await verifyUrlContains(GrandCalculatedSummary3Page.pageName);
-      await expect(await $(GrandCalculatedSummary3Page.grandCalculatedSummaryTitle()).getText()).toBe(
-        "Grand Calculated Summary for monthly spending on bills and services is calculated to be £359.00. Is this correct?",
-      );
-      await click(GrandCalculatedSummary3Page.submit());
-      await verifyUrlContains(GrandCalculatedSummary4Page.pageName);
-      await expect(await $(GrandCalculatedSummary4Page.grandCalculatedSummaryTitle()).getText()).toBe(
-        "Grand Calculated Summary for internet usage is calculated to be 105 GB. Is this correct?",
-      );
-      await click(GrandCalculatedSummary4Page.submit());
-      await verifyUrlContains(GrandCalculatedSummary5Page.pageName);
-      await expect(await $(GrandCalculatedSummary5Page.grandCalculatedSummaryTitle()).getText()).toBe(
-        "Grand Calculated Summary for total monthly household expenditure is calculated to be £1,209.00. Is this correct?",
-      );
-      await click(GrandCalculatedSummary5Page.submit());
-      await $(InternetBreakdownBlockPage.internetPhone()).setValue(45);
-      await click(InternetBreakdownBlockPage.submit());
-      await click(Section6SummaryPage.submit());
-    });
+    it(
+      "Given I the grand calculated summary section is now incomplete, " +
+        "When I return to the section, Then I am taken to each updated grand calculated summary to confirm the new total",
+      async () => {
+        await $(HubPage.summaryRowLink("section-6")).click();
+        await verifyUrlContains(GrandCalculatedSummary3Page.pageName);
+        await expect(await $(GrandCalculatedSummary3Page.grandCalculatedSummaryTitle()).getText()).toBe(
+          "Grand Calculated Summary for monthly spending on bills and services is calculated to be £359.00. Is this correct?",
+        );
+        await click(GrandCalculatedSummary3Page.submit());
+        await verifyUrlContains(GrandCalculatedSummary4Page.pageName);
+        await expect(await $(GrandCalculatedSummary4Page.grandCalculatedSummaryTitle()).getText()).toBe(
+          "Grand Calculated Summary for internet usage is calculated to be 105 GB. Is this correct?",
+        );
+        await click(GrandCalculatedSummary4Page.submit());
+        await verifyUrlContains(GrandCalculatedSummary5Page.pageName);
+        await expect(await $(GrandCalculatedSummary5Page.grandCalculatedSummaryTitle()).getText()).toBe(
+          "Grand Calculated Summary for total monthly household expenditure is calculated to be £1,209.00. Is this correct?",
+        );
+        await click(GrandCalculatedSummary5Page.submit());
+        await $(InternetBreakdownBlockPage.internetPhone()).setValue(45);
+        await click(InternetBreakdownBlockPage.submit());
+        await click(Section6SummaryPage.submit());
+      },
+    );
 
-    it("Given I remove a list item involved in the grand calculated summary, When I confirm, Then I am taken to each affected calculated summary to reconfirm, and when I return to the Hub the grand calculated summary is in progress", async () => {
-      await expect(await $(HubPage.summaryRowState("section-6")).getText()).toBe("Completed");
-      await $(HubPage.summaryRowLink("section-5")).click();
-      await $(Section5SummaryPage.streamingServicesListRemoveLink(1)).click();
-      await $(RemoveStreamingServicePage.yes()).click();
-      await click(RemoveStreamingServicePage.submit());
-      await expect(await $(CalculatedSummary6Page.calculatedSummaryTitle()).getText()).toBe(
-        "Calculated Summary for monthly expenditure on streaming services is calculated to be £34.00. Is this correct?",
-      );
-      await click(CalculatedSummary6Page.submit());
-      await expect(await $(CalculatedSummary7Page.calculatedSummaryTitle()).getText()).toBe(
-        "Total monthly internet usage on streaming services is calculated to be 30 GB. Is this correct?",
-      );
-      await click(CalculatedSummary7Page.submit());
-      await click(Section5SummaryPage.submit());
-      await expect(await $(HubPage.summaryRowState("section-6")).getText()).toBe("Partially completed");
-    });
+    it(
+      "Given I remove a list item involved in the grand calculated summary, " +
+        "When I confirm, Then I am taken to each affected calculated summary to reconfirm, " +
+        "and when I return to the Hub the grand calculated summary is in progress",
+      async () => {
+        await expect(await $(HubPage.summaryRowState("section-6")).getText()).toBe("Completed");
+        await $(HubPage.summaryRowLink("section-5")).click();
+        await $(Section5SummaryPage.streamingServicesListRemoveLink(1)).click();
+        await $(RemoveStreamingServicePage.yes()).click();
+        await click(RemoveStreamingServicePage.submit());
+        await expect(await $(CalculatedSummary6Page.calculatedSummaryTitle()).getText()).toBe(
+          "Calculated Summary for monthly expenditure on streaming services is calculated to be £34.00. Is this correct?",
+        );
+        await click(CalculatedSummary6Page.submit());
+        await expect(await $(CalculatedSummary7Page.calculatedSummaryTitle()).getText()).toBe(
+          "Total monthly internet usage on streaming services is calculated to be 30 GB. Is this correct?",
+        );
+        await click(CalculatedSummary7Page.submit());
+        await click(Section5SummaryPage.submit());
+        await expect(await $(HubPage.summaryRowState("section-6")).getText()).toBe("Partially completed");
+      },
+    );
 
-    it("Given the section has reverted to partially complete, When I go back to the section, Then I am taken to each grand calculated summary to reconfirm with correct values", async () => {
-      await $(HubPage.summaryRowLink("section-6")).click();
-      await verifyUrlContains(GrandCalculatedSummary3Page.pageName);
-      await expect(await $(GrandCalculatedSummary3Page.grandCalculatedSummaryTitle()).getText()).toBe(
-        "Grand Calculated Summary for monthly spending on bills and services is calculated to be £349.00. Is this correct?",
-      );
-      await click(GrandCalculatedSummary3Page.submit());
-      await verifyUrlContains(GrandCalculatedSummary4Page.pageName);
-      await expect(await $(GrandCalculatedSummary4Page.grandCalculatedSummaryTitle()).getText()).toBe(
-        "Grand Calculated Summary for internet usage is calculated to be 85 GB. Is this correct?",
-      );
-      await click(GrandCalculatedSummary4Page.submit());
-      await verifyUrlContains(GrandCalculatedSummary5Page.pageName);
-      await expect(await $(GrandCalculatedSummary5Page.grandCalculatedSummaryTitle()).getText()).toBe(
-        "Grand Calculated Summary for total monthly household expenditure is calculated to be £1,199.00. Is this correct?",
-      );
-    });
+    it(
+      "Given the section has reverted to partially complete, " +
+        "When I go back to the section, Then I am taken to each grand calculated summary to reconfirm with correct values",
+      async () => {
+        await $(HubPage.summaryRowLink("section-6")).click();
+        await verifyUrlContains(GrandCalculatedSummary3Page.pageName);
+        await expect(await $(GrandCalculatedSummary3Page.grandCalculatedSummaryTitle()).getText()).toBe(
+          "Grand Calculated Summary for monthly spending on bills and services is calculated to be £349.00. Is this correct?",
+        );
+        await click(GrandCalculatedSummary3Page.submit());
+        await verifyUrlContains(GrandCalculatedSummary4Page.pageName);
+        await expect(await $(GrandCalculatedSummary4Page.grandCalculatedSummaryTitle()).getText()).toBe(
+          "Grand Calculated Summary for internet usage is calculated to be 85 GB. Is this correct?",
+        );
+        await click(GrandCalculatedSummary4Page.submit());
+        await verifyUrlContains(GrandCalculatedSummary5Page.pageName);
+        await expect(await $(GrandCalculatedSummary5Page.grandCalculatedSummaryTitle()).getText()).toBe(
+          "Grand Calculated Summary for total monthly household expenditure is calculated to be £1,199.00. Is this correct?",
+        );
+      },
+    );
 
-    it("Given I have a further section depending on the grand calculated summary section, When I return to the Hub, Then I see the new section is available", async () => {
-      await click(GrandCalculatedSummary5Page.submit());
-      await $(InternetBreakdownBlockPage.internetPhone()).setValue(25);
-      await click(InternetBreakdownBlockPage.submit());
-      await click(Section6SummaryPage.submit());
-      await expect(await $(HubPage.summaryRowState("section-7")).getText()).toBe("Not started");
-      await click(HubPage.submit());
-    });
+    it(
+      "Given I have a further section depending on the grand calculated summary section, " +
+        "When I return to the Hub, Then I see the new section is available",
+      async () => {
+        await click(GrandCalculatedSummary5Page.submit());
+        await $(InternetBreakdownBlockPage.internetPhone()).setValue(25);
+        await click(InternetBreakdownBlockPage.submit());
+        await click(Section6SummaryPage.submit());
+        await expect(await $(HubPage.summaryRowState("section-7")).getText()).toBe("Not started");
+        await click(HubPage.submit());
+      },
+    );
 
     it("Given I use a grand calculated summary value as a maximum, When I enter a value that is too large, Then I see a validation error", async () => {
       await expect(await $(PersonalExpenditureBlockPage.questionTitle()).getText()).toContain(

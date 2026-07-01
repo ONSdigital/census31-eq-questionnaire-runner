@@ -16,9 +16,7 @@ class ListAddQuestion(ListAction):
         return True
 
     def get_next_location_url(self) -> str:
-        if self._list_item_id and (
-            repeating_blocks := self.parent_block.get("repeating_blocks")
-        ):
+        if self._list_item_id and (repeating_blocks := self.parent_block.get("repeating_blocks")):
             return url_for(
                 "questionnaire.block",
                 list_name=self.parent_block["for_list"],
@@ -37,9 +35,7 @@ class ListAddQuestion(ListAction):
 
     def handle_post(self) -> None:
         # Ensure the section is in progress when user adds an item
-        self._list_item_id = self.questionnaire_store_updater.add_list_item(
-            list_name := self.parent_block["for_list"]
-        )
+        self._list_item_id = self.questionnaire_store_updater.add_list_item(list_name := self.parent_block["for_list"])
 
         # Clear the answer from the confirmation question on the list collector question
         answer_ids_to_remove = self._schema.get_answer_ids_for_block(
@@ -49,9 +45,7 @@ class ListAddQuestion(ListAction):
         self.questionnaire_store_updater.remove_answers(answer_ids_to_remove)
         self.questionnaire_store_updater.remove_completed_location(self.parent_location)
 
-        self.questionnaire_store_updater.update_answers(
-            self.form.data, self._list_item_id
-        )
+        self.questionnaire_store_updater.update_answers(self.form.data, self._list_item_id)
         self.questionnaire_store_updater.capture_dependencies_for_list_change(list_name)
         return super().handle_post()
 

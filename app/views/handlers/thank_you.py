@@ -43,9 +43,7 @@ class ThankYou:
     def get_context(self) -> dict:
         metadata: MetadataProxy = get_metadata(current_user)  # type: ignore
 
-        confirmation_email_form = (
-            self.confirmation_email.form if self.confirmation_email else None
-        )
+        confirmation_email_form = self.confirmation_email.form if self.confirmation_email else None
 
         guidance_content = self._schema.get_post_submission().get("guidance")
         return build_thank_you_context(

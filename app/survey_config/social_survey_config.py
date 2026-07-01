@@ -27,9 +27,7 @@ class SocialSurveyConfig(
             self.account_service_log_out_url: str = f"{upstream_base_url}/start/"
 
         self.cookie_settings_url: str = f"{upstream_base_url}/cookies/"
-        self.privacy_and_data_protection_url: str = (
-            f"{upstream_base_url}/privacy-and-data-protection/"
-        )
+        self.privacy_and_data_protection_url: str = f"{upstream_base_url}/privacy-and-data-protection/"
 
         self.contact_us_url: str = f"{ons_url}/aboutus/contactus/surveyenquiries/"
         self.accessibility_url: str = f"{ons_url}/help/accessibility/"
@@ -39,9 +37,7 @@ class SocialSurveyConfig(
         links = [Link(lazy_gettext("What we do"), self.what_we_do_url).as_dict()]
 
         if cookie_has_theme:
-            links.append(
-                Link(lazy_gettext("Contact us"), self.contact_us_url).as_dict()
-            )
+            links.append(Link(lazy_gettext("Contact us"), self.contact_us_url).as_dict())
 
         links.append(
             Link(
@@ -67,16 +63,16 @@ class SocialSurveyConfig(
 
 @dataclass
 class UKHSAONSSocialSurveyConfig(SocialSurveyConfig):
-    masthead_logo: str = read_file(
-        "./templates/assets/images/ukhsa-logo-stacked.svg"
-    ) + read_file("./templates/assets/images/ons-logo-stacked.svg")
-    masthead_logo_mobile: str = read_file(
-        "./templates/assets/images/ukhsa-logo-stacked.svg"
-    ) + read_file("./templates/assets/images/ons-logo-stacked.svg")
+    masthead_logo: str = read_file("./templates/assets/images/ukhsa-logo-stacked.svg") + read_file(
+        "./templates/assets/images/ons-logo-stacked.svg"
+    )
+    masthead_logo_mobile: str = read_file("./templates/assets/images/ukhsa-logo-stacked.svg") + read_file(
+        "./templates/assets/images/ons-logo-stacked.svg"
+    )
 
 
 @dataclass
 class ONSNHSSocialSurveyConfig(SocialSurveyConfig):
-    masthead_logo: str = read_file(
-        "./templates/assets/images/ons-logo-stacked.svg"
-    ) + read_file("./templates/assets/images/nhs-logo.svg")
+    masthead_logo: str = read_file("./templates/assets/images/ons-logo-stacked.svg") + read_file(
+        "./templates/assets/images/nhs-logo.svg"
+    )

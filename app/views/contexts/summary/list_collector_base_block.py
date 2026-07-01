@@ -44,9 +44,7 @@ class ListCollectorBaseBlock:
 
     def _list_collector_block_on_path(self, for_list: str) -> list[ImmutableDict]:
         list_collector_blocks = list(
-            self._schema.get_list_collectors_for_list_for_sections(
-                [self._section["id"]], for_list=for_list
-            )
+            self._schema.get_list_collectors_for_list_for_sections([self._section["id"]], for_list=for_list)
         )
 
         return [
@@ -55,19 +53,11 @@ class ListCollectorBaseBlock:
             if list_collector_block["id"] in self._routing_path_block_ids
         ]
 
-    def _list_collector_block(
-        self, for_list: str, list_collector_blocks_on_path: list[ImmutableDict]
-    ) -> ImmutableDict:
+    def _list_collector_block(self, for_list: str, list_collector_blocks_on_path: list[ImmutableDict]) -> ImmutableDict:
         list_collector_blocks = list(
-            self._schema.get_list_collectors_for_list_for_sections(
-                [self._section["id"]], for_list=for_list
-            )
+            self._schema.get_list_collectors_for_list_for_sections([self._section["id"]], for_list=for_list)
         )
-        return (
-            list_collector_blocks_on_path[0]
-            if list_collector_blocks_on_path
-            else list_collector_blocks[0]
-        )
+        return list_collector_blocks_on_path[0] if list_collector_blocks_on_path else list_collector_blocks[0]
 
     def _get_related_answer_blocks_by_list_item_id(
         self, *, list_model: ListModel, repeating_blocks: Sequence[ImmutableDict]
@@ -125,24 +115,16 @@ class ListCollectorBaseBlock:
             # block is not optional at this point
             block: Mapping = self._schema.get_block_for_answer_id(answer_id)  # type: ignore
 
-            block_to_keep = (
-                block["edit_block"]
-                if is_list_collector_block_editable(block)
-                else block
-            )
+            block_to_keep = block["edit_block"] if is_list_collector_block_editable(block) else block
             answers_by_block[block_to_keep].append(answer_id)
 
         for immutable_block, answer_ids in answers_by_block.items():
             mutable_block = self._schema.get_mutable_deepcopy(immutable_block)
 
             # We need to filter out answers for both variants and normal questions
-            for variant_or_block in mutable_block.get(
-                "question_variants", [mutable_block]
-            ):
+            for variant_or_block in mutable_block.get("question_variants", [mutable_block]):
                 answers = [
-                    answer
-                    for answer in variant_or_block["question"].get("answers", {})
-                    if answer["id"] in answer_ids
+                    answer for answer in variant_or_block["question"].get("answers", {}) if answer["id"] in answer_ids
                 ]
                 # Mutate the answers to only keep the related answers
                 variant_or_block["question"]["answers"] = answers
@@ -151,9 +133,7 @@ class ListCollectorBaseBlock:
 
         return blocks
 
-    def get_repeating_block_related_answer_blocks(
-        self, block: ImmutableDict
-    ) -> list[dict]:
+    def get_repeating_block_related_answer_blocks(self, block: ImmutableDict) -> list[dict]:
         """
         Given a repeating block question to render,
         return the list of rendered question blocks for each list item id

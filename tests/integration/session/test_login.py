@@ -2,10 +2,7 @@ import time
 
 from httmock import HTTMock, response, urlmatch
 
-from app.utilities.schema import (
-    CIR_RETRIEVE_COLLECTION_INSTRUMENT_URL,
-    get_schema_path_map,
-)
+from app.utilities.schema import CIR_RETRIEVE_COLLECTION_INSTRUMENT_URL, get_schema_path_map
 from tests.integration.create_token import PAYLOAD_V2_BUSINESS
 from tests.integration.integration_test_case import IntegrationTestCase
 
@@ -46,9 +43,7 @@ class TestLoginWithGetRequest(IntegrationTestCase):
 
     def test_login_with_valid_v2_social_token_should_redirect_to_survey(self):
         # Given
-        token = self.token_generator.create_token_v2(
-            schema_name="test_theme_social", theme="social"
-        )
+        token = self.token_generator.create_token_v2(schema_name="test_theme_social", theme="social")
 
         # When
         self.get(url=f"/session?token={token}")
@@ -124,9 +119,7 @@ class TestLoginWithGetRequest(IntegrationTestCase):
 
     def test_login_with_invalid_questionnaire_claims_should_be_forbidden_v2_get(self):
         # flag_1 should be a boolean
-        token = self.token_generator.create_token_v2(
-            "test_metadata_routing", flag_1=123
-        )
+        token = self.token_generator.create_token_v2("test_metadata_routing", flag_1=123)
 
         self.get(url=f"/session?token={token}")
 
@@ -258,9 +251,7 @@ class TestLoginWithPostRequest(IntegrationTestCase):
 
     def test_login_with_invalid_questionnaire_claims_should_be_forbidden_v2_post(self):
         # flag_1 should be a boolean
-        token = self.token_generator.create_token_v2(
-            "test_metadata_routing", flag_1=123
-        )
+        token = self.token_generator.create_token_v2("test_metadata_routing", flag_1=123)
 
         self.get(url=f"/session?token={token}")
 
@@ -270,9 +261,7 @@ class TestLoginWithPostRequest(IntegrationTestCase):
         self,
     ):
         # flag_1 should be a boolean
-        token = self.token_generator.create_token_v2(
-            "test_metadata_routing", flag_1=123
-        )
+        token = self.token_generator.create_token_v2("test_metadata_routing", flag_1=123)
 
         self.post(url=f"/session?token={token}")
 
@@ -281,20 +270,14 @@ class TestLoginWithPostRequest(IntegrationTestCase):
     def test_v2_social_login_with_invalid_questionnaire_claims_should_be_forbidden(
         self,
     ):
-        token = self.token_generator.create_token_v2(
-            schema_name="test_address", theme="social"
-        )
+        token = self.token_generator.create_token_v2(schema_name="test_address", theme="social")
 
         self.post(url=f"/session?token={token}")
 
         self.assertStatusForbidden()
 
     def test_v2_social_login_with_invalid_receipting_key_should_be_forbidden(self):
-        token = (
-            self.token_generator.create_token_v2_social_token_invalid_receipting_key(
-                "test_theme_social"
-            )
-        )
+        token = self.token_generator.create_token_v2_social_token_invalid_receipting_key("test_theme_social")
 
         self.post(url=f"/session?token={token}")
 
@@ -338,9 +321,7 @@ class TestLoginWithPostRequest(IntegrationTestCase):
         cir_instrument_id = "f0519981-426c-8b93-75c0-bfc40c66fe25"
 
         # Given
-        token = self.token_generator.create_token_with_cir_instrument_id(
-            cir_instrument_id=cir_instrument_id
-        )
+        token = self.token_generator.create_token_with_cir_instrument_id(cir_instrument_id=cir_instrument_id)
 
         # When
         with HTTMock(self._cir_url_mock):
@@ -354,9 +335,7 @@ class TestLoginWithPostRequest(IntegrationTestCase):
         cir_instrument_id = "a0df1208-dff5-4a3d-b35d-f9620c4a48ef"
 
         # Given
-        token = self.token_generator.create_token_with_cir_instrument_id(
-            cir_instrument_id=cir_instrument_id
-        )
+        token = self.token_generator.create_token_with_cir_instrument_id(cir_instrument_id=cir_instrument_id)
 
         # When
         with HTTMock(self._cir_url_mock_500):

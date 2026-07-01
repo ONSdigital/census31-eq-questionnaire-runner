@@ -6,9 +6,7 @@ from app.questionnaire import QuestionnaireSchema
 
 
 @pytest.mark.usefixtures("app")
-def test_questionnaire_schema_passed_into_function(
-    mocker, session_store, fake_questionnaire_store
-):
+def test_questionnaire_schema_passed_into_function(mocker, session_store, fake_questionnaire_store):
     mocker.patch(
         "app.helpers.schema_helpers.get_metadata",
         return_value=fake_questionnaire_store.data_stores.metadata,

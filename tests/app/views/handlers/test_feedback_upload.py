@@ -34,9 +34,7 @@ from tests.app.views.handlers.conftest import (
 
 
 @freeze_time(datetime.now(tz=timezone.utc).isoformat())
-def test_feedback_payload_v2(
-    session_data_feedback, schema_feedback, metadata_v2, response_metadata
-):
+def test_feedback_payload_v2(session_data_feedback, schema_feedback, metadata_v2, response_metadata):
     feedback_payload = FeedbackPayloadV2(
         metadata=metadata_v2,
         response_metadata=response_metadata,

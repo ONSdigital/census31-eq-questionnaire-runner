@@ -1,6 +1,4 @@
-from tests.integration.components.mutually_exclusive.schema_urls import (
-    MUTUALLY_EXCLUSIVE_NUMBER,
-)
+from tests.integration.components.mutually_exclusive.schema_urls import MUTUALLY_EXCLUSIVE_NUMBER
 from tests.integration.integration_test_case import IntegrationTestCase
 
 
@@ -25,9 +23,7 @@ class TestNumberSingleCheckboxOverride(IntegrationTestCase):
 
     def test_exclusive_answer(self):
         # When
-        self.post(
-            {"number-answer": "", "number-exclusive-answer": ["I prefer not to say"]}
-        )
+        self.post({"number-answer": "", "number-exclusive-answer": ["I prefer not to say"]})
 
         # Then
         self.assertInUrl("/sections/mutually-exclusive-number-section/")

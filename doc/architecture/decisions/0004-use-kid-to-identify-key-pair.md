@@ -21,4 +21,4 @@ The kid value will be a SHA1 hash of the digest of the Public Key
 Multiple keys are able to be used by upstream systems. This means that the process of rotating keys should be a zero downtime operation.
 
 This change should be a breaking change to any upstream system that does not pass a valid kid.
-So during the crossover period the previous value of EDCRRM will be valid for the JWT header and a default key will be used if no kid is passed in the JWE header.  
+So during the crossover period the previous value of EDCRRM will be valid for the JWT header and a default key will be used if no kid is passed in the JWE header.

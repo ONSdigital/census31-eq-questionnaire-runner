@@ -4,9 +4,7 @@ from tests.integration.questionnaire import QuestionnaireTestCase
 
 class TestQuestionnaireSameNameItems(QuestionnaireTestCase):
     def test_same_name_items(self):
-        self.launchSurveyV2(
-            schema_name="test_list_collector_same_name_items", roles=["dumper"]
-        )
+        self.launchSurveyV2(schema_name="test_list_collector_same_name_items", roles=["dumper"])
 
         self.post({"you-live-here": "Yes"})
         self.post({"first-name": "James", "middle-names": "Brian", "last-name": "May"})
@@ -24,9 +22,7 @@ class TestQuestionnaireSameNameItems(QuestionnaireTestCase):
         assert item_id_b in actual["LISTS"][0]["same_name_items"]
 
     def test_same_name_items_edit_primary(self):
-        self.launchSurveyV2(
-            schema_name="test_list_collector_same_name_items", roles=["dumper"]
-        )
+        self.launchSurveyV2(schema_name="test_list_collector_same_name_items", roles=["dumper"])
 
         self.post({"you-live-here": "Yes"})
         self.post({"first-name": "James", "last-name": "May"})
@@ -46,9 +42,7 @@ class TestQuestionnaireSameNameItems(QuestionnaireTestCase):
         assert "same_name_items" not in actual["LISTS"][0]
 
     def test_same_name_remove_primary(self):
-        self.launchSurveyV2(
-            schema_name="test_list_collector_same_name_items", roles=["dumper"]
-        )
+        self.launchSurveyV2(schema_name="test_list_collector_same_name_items", roles=["dumper"])
 
         self.post({"you-live-here": "Yes"})
         self.post({"first-name": "James", "last-name": "May"})
@@ -66,9 +60,7 @@ class TestQuestionnaireSameNameItems(QuestionnaireTestCase):
         assert "same_name_items" not in actual["LISTS"][0]
 
     def test_same_name_items_remove_non_primary(self):
-        self.launchSurveyV2(
-            schema_name="test_list_collector_same_name_items", roles=["dumper"]
-        )
+        self.launchSurveyV2(schema_name="test_list_collector_same_name_items", roles=["dumper"])
 
         self.post({"you-live-here": "Yes"})
         self.post({"first-name": "James", "last-name": "May"})
@@ -88,9 +80,7 @@ class TestQuestionnaireSameNameItems(QuestionnaireTestCase):
         assert "same_name_items" not in actual["LISTS"][0]
 
     def test_same_name_items_edit_non_primary(self):
-        self.launchSurveyV2(
-            schema_name="test_list_collector_same_name_items", roles=["dumper"]
-        )
+        self.launchSurveyV2(schema_name="test_list_collector_same_name_items", roles=["dumper"])
 
         self.post({"you-live-here": "Yes"})
         self.post({"first-name": "Joe", "last-name": "Smith"})

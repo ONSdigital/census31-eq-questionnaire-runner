@@ -153,15 +153,15 @@ Where type hints aren’t specific enough to identify the return type (e.g. obje
 
 ```python
 def get_id_from_block(block: dict) -> str:
-   return block["id"] # Returning Any from function declared to return "str"
+    return block["id"] # Returning Any from function declared to return "str"
 ```
 
 A type ignore can be avoided here, by changing the code to this...
 
 ```python
 def get_id_from_block(block: dict) -> str:
-   block_id: str = block["id"]
-   return block_id
+    block_id: str = block["id"]
+    return block_id
 ```
 
 ...but as this is a common pattern in a number of places, it results in a lot of duplicating the return type, and extra lines of code for the sake of type hinting. In this scenario, it is ok to type ignore it.
@@ -170,20 +170,20 @@ If the value was needed for any other checks e.g.
 
 ```python
 def get_first_answer_from_block(block: dict) -> str:
-   answer = ...
-   if answer["id"] ... :
-      ...
-   return answer
+    answer = ...
+    if answer["id"] ... :
+        ...
+    return answer
 ```
 
 This would not be suitable to type ignore, and it should use the existing convention of typing the unknown variable:
 
 ```python
 def get_first_answer_from_block(block: dict) -> str:
-   answer: Answer = ...
-   if answer["id"] ... :
-      ...
-   return answer
+    answer: Answer = ...
+    if answer["id"] ... :
+        ...
+    return answer
 ```
 
 ## ParamSpec

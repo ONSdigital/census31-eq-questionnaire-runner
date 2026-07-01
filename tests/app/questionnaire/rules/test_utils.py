@@ -20,9 +20,7 @@ from app.questionnaire.rules.utils import parse_datetime
 )
 def test_parse_datetime(date_string, date_format):
     expected_date = (
-        parser.isoparse(date_string)
-        if date_format == "iso8601"
-        else datetime.strptime(date_string, date_format)
+        parser.isoparse(date_string) if date_format == "iso8601" else datetime.strptime(date_string, date_format)
     )
 
     assert parse_datetime(date_string) == expected_date.replace(tzinfo=timezone.utc)
