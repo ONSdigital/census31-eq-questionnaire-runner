@@ -2,6 +2,7 @@ SCHEMAS_VERSION=`cat .schemas-version`
 DESIGN_SYSTEM_VERSION=`cat .design-system-version`
 RUNNER_ENV_FILE?=.development.env
 SCHEMA_PATH=./schemas/test/en/
+MEGALINTER_VERSION=v9.5.0
 
 clean:
 	find schemas/* -prune | grep -v "schemas/test" | xargs rm -r
@@ -121,17 +122,33 @@ generate-integration-test:
 
 .PHONY: megalint megalint-apply clean-megalint
 megalint:
-	docker run --platform linux/amd64 --rm \
+	docker run --rm \
 		-v /var/run/docker.sock:/var/run/docker.sock:rw \
 		-v $(shell pwd):/tmp/lint:rw \
-		ghcr.io/oxsecurity/megalinter:v9.5.0
+		ghcr.io/oxsecurity/megalinter:$(MEGALINTER_VERSION)
 
 megalint-apply:
-	docker run --platform linux/amd64 --rm \
+	docker run --rm \
 		-v /var/run/docker.sock:/var/run/docker.sock:rw \
 		-v $(shell pwd):/tmp/lint:rw \
 		-e APPLY_FIXES=all \
-		ghcr.io/oxsecurity/megalinter:v9.5.0
+		ghcr.io/oxsecurity/megalinter:$(MEGALINTER_VERSION)
+
+.PHONY: megalint-podman megalint-apply-podman clean-megalint
+megalint-podman:
+	podman run --rm \
+		-v /var/run/docker.sock:/var/run/docker.sock:rw \
+		-v $(CURDIR):/tmp/lint:rw \
+		-e DISABLE_LINTERS=ACTION_ZIZMOR \
+		ghcr.io/oxsecurity/megalinter:$(MEGALINTER_VERSION)
+
+megalint-apply-podman:
+	podman run --rm \
+		-v /var/run/docker.sock:/var/run/docker.sock:rw \
+		-v $(CURDIR):/tmp/lint:rw \
+		-e APPLY_FIXES=all \
+		-e DISABLE_LINTERS=ACTION_ZIZMOR \
+		ghcr.io/oxsecurity/megalinter:$(MEGALINTER_VERSION)
 
 clean-megalint:
 	rm -rf megalinter-reports

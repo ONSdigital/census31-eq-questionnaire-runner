@@ -601,15 +601,24 @@ Now when navigating to localhost:8000 and launching a schema, this will now be u
 
 ## Code Linting/Formatting
 
-We use [Megalinter](https://megalinter.io/latest/mega-linter-runner/) to maintain our code by running various linters over the different file types we have. This is run against PRs using the `mega-linter` GitHub action but can also be run locally. To run the linter locally you can run:
+We use [Megalinter](https://megalinter.io/latest/mega-linter-runner/) to maintain our code by running various linters over the different file types we have. This is run against PRs using the `mega-linter` GitHub action but can also be run locally.
+
+To run the linter locally there are two variations, firstly prioritising Docker on an amd64 host machine
 
 ```shell
 make megalint
 ```
+Alternatively this command is intended for those using Podman on an arm64 host machine. This explicitly excludes the [Zizmor GHA linter](https://github.com/zizmorcore/zizmor/blob/main/README.md) as we see `qemu` emulation errors (due to the lack of an arm64 megalinter image).
+```shell
+make megalint-podman
+```
 
-This command will run all the linters enabled in the `mega-linter.yml` config file in the root of the repo against the all the files in the repo and report back any issues. This is run via docker and may take some time to run first time.
+These commands will run all the linters enabled in the `mega-linter.yml` config file in the root of the repo against the all the files in the repo and report back any issues. This is run via docker and may take some time to run first time.
 We also have another command which will also run Megalinter locally but this one will attempt to fix any issues it can rather than just report them.
 
 ```shell
 make megalint-apply
+```
+```shell
+make megalint-apply-podman
 ```
