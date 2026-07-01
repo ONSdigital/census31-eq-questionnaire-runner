@@ -14,16 +14,16 @@ Most of the linting is done by MegaLinter, it is a static analysis tool that run
 
 ## MegaLinter Summary
 
-| Filetype        | Linter                    | Config File                               | Ignore Files                          |
-|-----------------|---------------------------|-------------------------------------------|---------------------------------------|
-| JavaScript/JSON | ESLint v9                 | `eslint.config.js`                        | `eslint.config.js`, `.prettierignore` |
-| HTML            | djLint                    | `pyproject.toml`                          | `pyproject.toml`                      |
-| JSON            | jsonlint                  | `.mega-linter.yml`                        | (none)                                |
-| Markdown        | markdownlint              | `.mega-linter.yml`                        | `.markdownlintignore`                 |
-| YAML            | yamllint                  | `.mega-linter.yml`                        | (none)                                |
-| All Files       | editorconfig-checker      | `.editorconfig`                           | (none)                                |
-| GitHub Actions  | Zizmor                    | `.mega-linter.yml`                        | (none)                                |
-| Dockerfile      | hadolint                  | `.mega-linter.yml`                        | `.dockerignore`                       |
+| Filetype        | Linter               | Config File        | Ignore Files                          |
+|-----------------|----------------------|--------------------|---------------------------------------|
+| JavaScript/JSON | ESLint v9            | `eslint.config.js` | `eslint.config.js`, `.prettierignore` |
+| HTML            | djLint               | `pyproject.toml`   | `pyproject.toml`                      |
+| JSON            | jsonlint             | `.mega-linter.yml` | (none)                                |
+| Markdown        | markdownlint         | `.mega-linter.yml` | `.markdownlintignore`                 |
+| YAML            | yamllint             | `.mega-linter.yml` | (none)                                |
+| All Files       | editorconfig-checker | `.editorconfig`    | (none)                                |
+| GitHub Actions  | Zizmor               | `.mega-linter.yml` | (none)                                |
+| Dockerfile      | hadolint             | `.mega-linter.yml` | `.dockerignore`                       |
 
 ## Non MegaLinter Summary
 
@@ -31,9 +31,9 @@ Python linting is handled separately from MegaLinter, this is intentionally disa
 [ONS Python template repo](https://github.com/ONSdigital/ons-python-template#3-megalinter).
 Python script to run Python linting: [scripts/run_lint_python.sh](../scripts/run_lint_python.sh)
 
-| Filetype        | Linter                    | Config File                               | Ignore Files                          |
-|-----------------|---------------------------|-------------------------------------------|---------------------------------------|
-| Python          | ruff, pylint, mypy, black | `pyproject.toml`, `.pylintrc`, `mypy.ini` | `.pylintrc`, `setup.cfg`              |
+| Filetype | Linter                    | Config File                               | Ignore Files             |
+|----------|---------------------------|-------------------------------------------|--------------------------|
+| Python   | ruff, pylint, mypy, black | `pyproject.toml`, `.pylintrc`, `mypy.ini` | `.pylintrc`, `setup.cfg` |
 
 ## How to Run MegaLinter
 
