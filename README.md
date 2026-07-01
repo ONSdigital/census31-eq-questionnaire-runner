@@ -614,4 +614,4 @@ We also have another command which will also run Megalinter locally but this one
 make megalint-apply
 ```
 
-More detailed documentation on the lint process is available in [doc/megalinter-process.md](doc/megalinter-process.md).
+More detailed documentation on the lint process is available in [doc/linting-process.md](doc/linting-process.md).
