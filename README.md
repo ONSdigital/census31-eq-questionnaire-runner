@@ -1,6 +1,6 @@
 # eQ Questionnaire Runner
 
-[![Build Status](https://github.com/ONSdigital/census31-eq-questionnaire-runner/actions/workflows/main.yml/badge.svg)](https://github.com/ONSdigital/census31-eq-questionnaire-runner/actions/workflows/main.yml)
+[![Build Status](https://github.com/ONSdigital/census31-eq-questionnaire-runner/actions/workflows/pull_request.yml/badge.svg)](https://github.com/ONSdigital/census31-eq-questionnaire-runner/actions/workflows/pull_request.yml)
 [![Build Status](https://github.com/ONSdigital/census31-eq-questionnaire-runner/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/ONSdigital/census31-eq-questionnaire-runner/actions/workflows/codeql-analysis.yml)
 ![Coverage](https://img.shields.io/badge/Coverage-100%25-2FC050.svg)
 
