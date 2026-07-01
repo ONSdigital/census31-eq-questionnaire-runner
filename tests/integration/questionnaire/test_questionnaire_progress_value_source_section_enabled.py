@@ -20,9 +20,7 @@ class TestQuestionnaireProgressValueSource(IntegrationTestCase):
         In a linear flow with no hub
         """
 
-        self.launchSurveyV2(
-            schema_name="test_progress_value_source_section_enabled_no_hub"
-        )
+        self.launchSurveyV2(schema_name="test_progress_value_source_section_enabled_no_hub")
 
         self.assertInBody("Section 1 Question 1")
         self.post({"s1-b1-q1-a1": 1})
@@ -39,9 +37,7 @@ class TestQuestionnaireProgressValueSource(IntegrationTestCase):
         In a hub flow
         """
 
-        self.launchSurveyV2(
-            schema_name="test_progress_value_source_section_enabled_hub"
-        )
+        self.launchSurveyV2(schema_name="test_progress_value_source_section_enabled_hub")
 
         # 1. Only section 1 shows on the hub
         self.assertInBody("Choose another section to complete")
@@ -83,9 +79,7 @@ class TestQuestionnaireProgressValueSource(IntegrationTestCase):
         are updated when the section progress changes
         """
 
-        self.launchSurveyV2(
-            schema_name="test_progress_value_source_section_enabled_hub"
-        )
+        self.launchSurveyV2(schema_name="test_progress_value_source_section_enabled_hub")
 
         self.assertInBody("Choose another section to complete")
         self.assertInBody("Section 1")
@@ -122,9 +116,7 @@ class TestQuestionnaireProgressValueSource(IntegrationTestCase):
         self.assert_section_status(2, "Not started", ["Start section"])
 
     def test_enable_section_by_progress_hub_complex_happy_path(self):
-        self.launchSurveyV2(
-            schema_name="test_progress_value_source_section_enabled_hub_complex"
-        )
+        self.launchSurveyV2(schema_name="test_progress_value_source_section_enabled_hub_complex")
 
         self.assertInBody("Choose another section to complete")
         self.assertInBody("Section 1")

@@ -37,9 +37,7 @@ class TestQuestionnaireListChangeEvaluatesSections(QuestionnaireTestCase):
         self.post()
         self.assertEqualUrl("/questionnaire/")
 
-        self.assertInSelector(
-            "Partially completed", "[data-qa='hub-row-accommodation-section-state']"
-        )
+        self.assertInSelector("Partially completed", "[data-qa='hub-row-accommodation-section-state']")
 
         self.get("questionnaire/sections/accommodation-section/")
         self.assertEqualUrl("/questionnaire/own-or-rent/?resume=True")
@@ -53,9 +51,7 @@ class TestQuestionnaireListChangeEvaluatesSections(QuestionnaireTestCase):
         self.assertEqualUrl("/questionnaire/sections/accommodation-section/")
         self.post()
 
-        self.assertInSelector(
-            "Completed", "[data-qa='hub-row-accommodation-section-state']"
-        )
+        self.assertInSelector("Completed", "[data-qa='hub-row-accommodation-section-state']")
 
         self.get("/questionnaire/sections/who-lives-here/")
         self.assertEqualUrl("/questionnaire/primary-person-list-collector/")
@@ -65,6 +61,4 @@ class TestQuestionnaireListChangeEvaluatesSections(QuestionnaireTestCase):
         self.post()
 
         self.assertEqualUrl("/questionnaire/")
-        self.assertInSelector(
-            "Partially completed", "[data-qa='hub-row-accommodation-section-state']"
-        )
+        self.assertInSelector("Partially completed", "[data-qa='hub-row-accommodation-section-state']")

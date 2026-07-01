@@ -12,9 +12,7 @@ def get_operator(mock_renderer, mock_schema):
     def _operators(operator_name):
         return Operator(
             operator_name,
-            operations=Operations(
-                language=DEFAULT_LANGUAGE, schema=mock_schema, renderer=mock_renderer
-            ),
+            operations=Operations(language=DEFAULT_LANGUAGE, schema=mock_schema, renderer=mock_renderer),
         )
 
     return _operators

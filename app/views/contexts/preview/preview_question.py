@@ -28,13 +28,9 @@ class PreviewQuestion:
                 options_list = [option["label"] for option in options]
                 answer_dict["options"] = options_list
                 if answer_type == "Checkbox":
-                    answer_dict["options_text"] = lazy_gettext(
-                        "You can answer with the following options:"
-                    )
+                    answer_dict["options_text"] = lazy_gettext("You can answer with the following options:")
                 else:
-                    answer_dict["options_text"] = lazy_gettext(
-                        "You can answer with one of the following options:"
-                    )
+                    answer_dict["options_text"] = lazy_gettext("You can answer with one of the following options:")
             elif answer_label := answer.get("label"):
                 answer_dict["label"] = answer_label
 

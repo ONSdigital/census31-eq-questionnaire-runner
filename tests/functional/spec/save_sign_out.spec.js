@@ -14,7 +14,7 @@ import { click, verifyUrlContains } from "../helpers";
 describe("Save sign out / Exit", () => {
   const responseId = getRandomString(16);
 
-  it("Given I am on an introduction page, when I click the exit button, then I am redirected to sign out page and my session is cleared", async () => {
+  it("Given I am on an introduction page, When I click the exit button, Then I am redirected to sign out page and my session is cleared", async () => {
     await browser.openQuestionnaire("test_introduction.json");
     await $(IntroductionPage.exitButton()).click();
 
@@ -24,7 +24,7 @@ describe("Save sign out / Exit", () => {
     await expect(await $("body").getHTML()).toContain("Sorry, you need to sign in again");
   });
 
-  it("Given I am completing a questionnaire, when I select save and sign out, then I am redirected to the signed out page", async () => {
+  it("Given I am completing a questionnaire, When I select save and sign out, Then I am redirected to the signed out page", async () => {
     await browser.openQuestionnaire("test_numbers.json", { userId: "test_user", responseId });
     await $(SetMinMax.setMinimum()).setValue("10");
     await $(SetMinMax.setMaximum()).setValue("1020");
@@ -37,48 +37,60 @@ describe("Save sign out / Exit", () => {
     await expect(await $("body").getHTML()).toContain("Sorry, you need to sign in again");
   });
 
-  it("Given I have started a questionnaire, when I return to the questionnaire, then I am returned to the page I was on and can then complete the questionnaire", async () => {
-    await browser.openQuestionnaire("test_numbers.json", { userId: "test_user", responseId });
+  it(
+    "Given I have started a questionnaire, When I return to the questionnaire, " +
+      "Then I am returned to the page I was on and can then complete the questionnaire",
+    async () => {
+      await browser.openQuestionnaire("test_numbers.json", { userId: "test_user", responseId });
 
-    await $(TestMinMax.testRange()).setValue("10");
-    await $(TestMinMax.testMin()).setValue("123");
-    await $(TestMinMax.testMax()).setValue("1000");
-    await $(TestMinMax.testPercent()).setValue("100");
-    await click(TestMinMax.submit());
-    await $(DetailAnswer.answer1()).click();
-    await click(DetailAnswer.submit());
-    await $(currencyBlock.usDollars()).click();
-    await click(currencyBlock.submit());
-    await $(firstNumberBlock.firstNumber()).setValue(50);
-    await click(firstNumberBlock.submit());
-    await $(secondNumberBlock.secondNumber()).setValue(321);
-    await click(secondNumberBlock.submit());
-    await click(currencySectionSummary.submit());
+      await $(TestMinMax.testRange()).setValue("10");
+      await $(TestMinMax.testMin()).setValue("123");
+      await $(TestMinMax.testMax()).setValue("1000");
+      await $(TestMinMax.testPercent()).setValue("100");
+      await click(TestMinMax.submit());
+      await $(DetailAnswer.answer1()).click();
+      await click(DetailAnswer.submit());
+      await $(currencyBlock.usDollars()).click();
+      await click(currencyBlock.submit());
+      await $(firstNumberBlock.firstNumber()).setValue(50);
+      await click(firstNumberBlock.submit());
+      await $(secondNumberBlock.secondNumber()).setValue(321);
+      await click(secondNumberBlock.submit());
+      await click(currencySectionSummary.submit());
 
-    await click(SubmitPage.submit());
-    await verifyUrlContains("thank-you");
-  });
+      await click(SubmitPage.submit());
+      await verifyUrlContains("thank-you");
+    },
+  );
 
-  it("Given a I have started a social questionnaire, when I select save and sign out, then I am redirected to the signed out page and the correct access code link is shown", async () => {
-    await browser.openQuestionnaire("test_theme_social.json", { theme: "social" });
-    await $(SubmitPage.saveSignOut()).click();
-    await verifyUrlContains("/signed-out");
-    await expect(await $("body").getHTML()).toContain("Your progress has been saved");
-    await expect(await $("body").getHTML()).toContain("To resume the survey,");
-    await expect(await $("body").getHTML()).toContain("/en/start");
-  });
+  it(
+    "Given I have started a social questionnaire, When I select save and sign out, " +
+      "Then I am redirected to the signed out page and the correct access code link is shown",
+    async () => {
+      await browser.openQuestionnaire("test_theme_social.json", { theme: "social" });
+      await $(SubmitPage.saveSignOut()).click();
+      await verifyUrlContains("/signed-out");
+      await expect(await $("body").getHTML()).toContain("Your progress has been saved");
+      await expect(await $("body").getHTML()).toContain("To resume the survey,");
+      await expect(await $("body").getHTML()).toContain("/en/start");
+    },
+  );
 
-  it("Given a I have started a business questionnaire, when I select save and sign out, then I am redirected to the signed out page and the correct access code link is shown", async () => {
-    await browser.openQuestionnaire("test_introduction.json");
-    await $(IntroductionPage.getStarted()).click();
-    await $(IntroInterstitialPage.saveSignOut()).click();
-    await verifyUrlContains("/signed-out");
-    await expect(await $("body").getHTML()).toContain("Your progress has been saved");
-    await expect(await $("body").getHTML()).toContain("To find further information or resume the survey,");
-    await expect(await $("body").getHTML()).toContain("/surveys/todo");
-  });
+  it(
+    "Given I have started a business questionnaire, When I select save and sign out, " +
+      "Then I am redirected to the signed out page and the correct access code link is shown",
+    async () => {
+      await browser.openQuestionnaire("test_introduction.json");
+      await $(IntroductionPage.getStarted()).click();
+      await $(IntroInterstitialPage.saveSignOut()).click();
+      await verifyUrlContains("/signed-out");
+      await expect(await $("body").getHTML()).toContain("Your progress has been saved");
+      await expect(await $("body").getHTML()).toContain("To find further information or resume the survey,");
+      await expect(await $("body").getHTML()).toContain("/surveys/todo");
+    },
+  );
 
-  it("Given a business questionnaire, when I navigate the questionnaire, then I see the correct sign out buttons", async () => {
+  it("Given a business questionnaire, When I navigate the questionnaire, Then I see the correct sign out buttons", async () => {
     await browser.openQuestionnaire("test_introduction.json");
 
     await expect(await $(IntroductionPage.exitButton()).getText()).toBe("Exit");

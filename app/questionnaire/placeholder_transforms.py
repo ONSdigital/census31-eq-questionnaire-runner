@@ -17,16 +17,10 @@ from app.questionnaire.rules.operations import DateOffset
 from app.questionnaire.rules.operations_helper import OperationHelper
 from app.questionnaire.rules.utils import parse_datetime
 from app.settings import DEFAULT_LOCALE
-from app.utilities.decimal_places import (
-    custom_format_decimal,
-    custom_format_unit,
-    get_formatted_currency,
-)
+from app.utilities.decimal_places import custom_format_decimal, custom_format_unit, get_formatted_currency
 
 if TYPE_CHECKING:
-    from app.questionnaire.placeholder_renderer import (
-        PlaceholderRenderer,  # pragma: no cover
-    )
+    from app.questionnaire.placeholder_renderer import PlaceholderRenderer  # pragma: no cover
 
 
 # pylint: disable=too-many-public-methods
@@ -56,9 +50,11 @@ class PlaceholderTransforms:
         currency: str = "GBP",
     ) -> str:
         """
-        The raw arguments for the transform are required here, in addition to the formatted number, as custom logic is required
-        to calculate the correct number of decimals based on the source of the transform. The decimal only takes into account if the source is
-        an answer or a calculated summary without any previous transform.
+        The raw arguments for the transform are required here, in addition to the
+        formatted number, as custom logic is required to calculate the correct
+        number of decimals based on the source of the transform. The decimal only
+        takes into account if the source is an answer or a calculated summary
+        without any previous transform.
         """
         formatted_currency: str = get_formatted_currency(
             value=number,
@@ -75,37 +71,25 @@ class PlaceholderTransforms:
         if source == "answers":
             decimal_limit = self.schema.get_decimal_limit([identifier])
         elif source == "calculated_summary":
-            decimal_limit = self.schema.get_decimal_limit_from_calculated_summaries(
-                [identifier]
-            )
+            decimal_limit = self.schema.get_decimal_limit_from_calculated_summaries([identifier])
         elif source == "grand_calculated_summary":
             # Type ignore: Validator will have checked the id so the block is guaranteed to exist
             grand_calculated_summary_block: ImmutableDict = self.schema.get_block(identifier)  # type: ignore
             decimal_limit = self.schema.get_decimal_limit_from_calculated_summaries(
-                get_calculated_summary_ids_for_grand_calculated_summary(
-                    grand_calculated_summary_block
-                )
+                get_calculated_summary_ids_for_grand_calculated_summary(grand_calculated_summary_block)
             )
 
         return decimal_limit
 
     def format_date(self, date_to_format: str, date_format: str) -> str:
-        date_as_datetime = datetime.strptime(
-            date_to_format, self.input_date_format
-        ).replace(tzinfo=timezone.utc)
+        date_as_datetime = datetime.strptime(date_to_format, self.input_date_format).replace(tzinfo=timezone.utc)
 
-        formatted_datetime: str = format_datetime(
-            date_as_datetime, date_format, locale=self.locale
-        )
+        formatted_datetime: str = format_datetime(date_as_datetime, date_format, locale=self.locale)
         return formatted_datetime
 
     def format_list(self, list_to_format: Sequence[str] | None) -> str:
         filtered_list = self.remove_empty_from_list(list_to_format or [])
-        formatted_list = (
-            f"<ul>{''.join(f'<li>{item}</li>' for item in filtered_list)}</ul>"
-            if filtered_list
-            else ""
-        )
+        formatted_list = f"<ul>{''.join(f'<li>{item}</li>' for item in filtered_list)}</ul>" if filtered_list else ""
         return formatted_list
 
     @staticmethod
@@ -127,9 +111,7 @@ class PlaceholderTransforms:
         """
         return [item for item in list_to_filter if item or item is False or item == 0]
 
-    def concatenate_list(
-        self, list_to_concatenate: Sequence[str], delimiter: str
-    ) -> str:
+    def concatenate_list(self, list_to_concatenate: Sequence[str], delimiter: str) -> str:
         filtered_list = self.remove_empty_from_list(list_to_concatenate)
         return delimiter.join(filtered_list)
 
@@ -145,11 +127,7 @@ class PlaceholderTransforms:
     ) -> str:
         href = f"mailto:{email_address}"
         if email_subject:
-            email_subject = (
-                f"{email_subject} {email_subject_append}"
-                if email_subject_append
-                else email_subject
-            )
+            email_subject = f"{email_subject} {email_subject_append}" if email_subject_append else email_subject
             href = f"{href}?subject={quote(email_subject)}"
 
         return self._create_hyperlink(href, email_address)
@@ -200,20 +178,14 @@ class PlaceholderTransforms:
         )
 
         if time.years:
-            year_string: str = ngettext(
-                "{number_of_years} year", "{number_of_years} years", time.years
-            )
+            year_string: str = ngettext("{number_of_years} year", "{number_of_years} years", time.years)
             return year_string.format(number_of_years=time.years)
 
         if time.months:
-            month_string: str = ngettext(
-                "{number_of_months} month", "{number_of_months} months", time.months
-            )
+            month_string: str = ngettext("{number_of_months} month", "{number_of_months} months", time.months)
             return month_string.format(number_of_months=time.months)
 
-        day_string: str = ngettext(
-            "{number_of_days} day", "{number_of_days} days", time.days
-        )
+        day_string: str = ngettext("{number_of_days} day", "{number_of_days} days", time.days)
         return day_string.format(number_of_days=time.days)
 
     def date_range_bounds(
@@ -244,9 +216,7 @@ class PlaceholderTransforms:
             offset_by_full_weeks=True,
         )  # type: ignore
 
-        last_day_of_range = first_day_of_prior_full_week + relativedelta(
-            days=days_in_range - 1
-        )
+        last_day_of_range = first_day_of_prior_full_week + relativedelta(days=days_in_range - 1)
         return (
             first_day_of_prior_full_week.strftime(self.input_date_format),
             last_day_of_range.strftime(self.input_date_format),
@@ -284,17 +254,11 @@ class PlaceholderTransforms:
     def add(lhs: int | Decimal, rhs: int | Decimal) -> int | Decimal:
         return lhs + rhs
 
-    def format_ordinal(
-        self, number_to_format: int, determiner: str | None = None
-    ) -> str:
+    def format_ordinal(self, number_to_format: int, determiner: str | None = None) -> str:
         indicator = self.get_ordinal_indicator(number_to_format)
 
         if determiner == "a_or_an" and self.language in ["en", "eo"]:
-            a_or_an = (
-                "an"
-                if str(number_to_format).startswith("8") or number_to_format in [11, 18]
-                else "a"
-            )
+            a_or_an = "an" if str(number_to_format).startswith("8") or number_to_format in [11, 18] else "a"
             return f"{a_or_an} {number_to_format}{indicator}"
 
         return f"{number_to_format}{indicator}"
@@ -326,9 +290,7 @@ class PlaceholderTransforms:
                 19: "eg",
             }.get(number_to_format, "fed")
 
-        language_code_error_message = (
-            f"Language code '{self.language}' not implemented."
-        )
+        language_code_error_message = f"Language code '{self.language}' not implemented."
         raise NotImplementedError(language_code_error_message)
 
     def first_non_empty_item(self, items: Sequence[str]) -> str:
@@ -336,7 +298,7 @@ class PlaceholderTransforms:
         :param items: anything that is iterable
         :return: first non empty value
 
-         Note: to guarantee the returned element is actually the first non empty element in the iterable,
+        Note: to guarantee the returned element is actually the first non empty element in the iterable,
         'items' must be a data structure that preserves order, ie tuple, list etc.
         If order is not important, this can be reused to return `one of` the elements which is non empty.
         """

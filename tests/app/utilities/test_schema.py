@@ -63,9 +63,7 @@ def test_get_schema_path_map():
 def test_get_schema_list():
     expected_output = {
         survey_type: list(schemas_by_language["en"])
-        for survey_type, schemas_by_language in get_schema_path_map(
-            include_test_schemas=True
-        ).items()
+        for survey_type, schemas_by_language in get_schema_path_map(include_test_schemas=True).items()
     }
     assert get_schema_list() == expected_output
 
@@ -126,9 +124,7 @@ def test_schema_cache_on_app_start_up():
 
     total_schemas = sum(
         len(schemas)
-        for schemas_by_language in get_schema_path_map(
-            include_test_schemas=True
-        ).values()
+        for schemas_by_language in get_schema_path_map(include_test_schemas=True).values()
         for schemas in schemas_by_language.values()
     )
     cache_info = _load_schema_from_name.cache_info()
@@ -169,9 +165,7 @@ def test_load_schema_from_url_200():
 def test_load_schema_from_url_non_200(status_code):
     load_schema_from_url.cache_clear()
     mock_schema = QuestionnaireSchema({})
-    responses.add(
-        responses.GET, TEST_SCHEMA_URL, json=mock_schema.json, status=status_code
-    )
+    responses.add(responses.GET, TEST_SCHEMA_URL, json=mock_schema.json, status=status_code)
 
     with pytest.raises(SchemaRequestFailed) as exc:
         load_schema_from_url(url=TEST_SCHEMA_URL, language_code="en")
@@ -237,16 +231,12 @@ def test_load_schema_from_metadata_with_schema_url_and_override_language_code():
     load_schema_from_url.cache_clear()
     language_code = "en"
 
-    metadata = get_metadata(
-        extra_metadata={"schema_url": TEST_SCHEMA_URL, "language_code": "cy"}
-    )
+    metadata = get_metadata(extra_metadata={"schema_url": TEST_SCHEMA_URL, "language_code": "cy"})
 
     mock_schema = QuestionnaireSchema({}, language_code="cy")
     responses.add(responses.GET, TEST_SCHEMA_URL, json=mock_schema.json, status=200)
 
-    loaded_schema = load_schema_from_metadata(
-        metadata=metadata, language_code=language_code
-    )
+    loaded_schema = load_schema_from_metadata(metadata=metadata, language_code=language_code)
 
     assert loaded_schema.json == mock_schema.json
     assert loaded_schema.language_code == language_code
@@ -298,9 +288,7 @@ def test_load_schema_from_url_retries_transient_error(mocker):
 
 
 def test_load_schema_from_url_max_retries(mocker):
-    mocked_make_request = get_mocked_make_request(
-        mocker, status_codes=[500, 500, 500, 500]
-    )
+    mocked_make_request = get_mocked_make_request(mocker, status_codes=[500, 500, 500, 500])
     load_schema_from_url.cache_clear()
 
     with pytest.raises(SchemaRequestFailed) as exc:

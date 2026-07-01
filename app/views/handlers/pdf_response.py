@@ -50,9 +50,7 @@ class PDFResponse:
     @property
     def filename(self) -> str:
         """The name to use for the PDF file"""
-        formatted_title = re.sub(
-            "[^0-9a-zA-Z]+", "-", self._schema.json["title"].lower()
-        )
+        formatted_title = re.sub("[^0-9a-zA-Z]+", "-", self._schema.json["title"].lower())
         if self._questionnaire_store.submitted_at:
             formatted_date = self._questionnaire_store.submitted_at.date().isoformat()
         else:

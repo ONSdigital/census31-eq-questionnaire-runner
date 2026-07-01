@@ -10,11 +10,7 @@ from app.utilities.decimal_places import get_formatted_currency
 
 
 def sanitise_number(number: str) -> str:
-    return (
-        number.replace(numbers.get_group_symbol(flask_babel.get_locale()), "")
-        .replace("_", "")
-        .replace(" ", "")
-    )
+    return number.replace(numbers.get_group_symbol(flask_babel.get_locale()), "").replace("_", "").replace(" ", "")
 
 
 def sanitise_mobile_number(data: str) -> str:
@@ -32,9 +28,7 @@ def format_playback_value(
     in the given value rather than any limit that has been set in the schema as we do for other methods
     """
     if currency:
-        return get_formatted_currency(
-            value=value, currency=currency, decimal_limit=decimal_limit
-        )
+        return get_formatted_currency(value=value, currency=currency, decimal_limit=decimal_limit)
 
     formatted_number: str = format_number(value)
     return formatted_number

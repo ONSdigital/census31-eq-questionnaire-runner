@@ -38,18 +38,14 @@ class RelationshipRouter:
     def get_last_location(self) -> RelationshipLocation:
         return self.path[-1]
 
-    def get_next_location(
-        self, location: RelationshipLocation
-    ) -> RelationshipLocation | None:
+    def get_next_location(self, location: RelationshipLocation) -> RelationshipLocation | None:
         try:
             location_index = self.path.index(location)
             return self.path[location_index + 1]
         except IndexError:
             return None
 
-    def get_previous_location(
-        self, location: RelationshipLocation
-    ) -> RelationshipLocation | None:
+    def get_previous_location(self, location: RelationshipLocation) -> RelationshipLocation | None:
         location_index = self.path.index(location)
         if not location_index:
             return None
@@ -93,10 +89,7 @@ class RelationshipRouter:
                     self.unrelated_answer_id,  # type: ignore
                     from_list_item_id,
                 )
-                if (
-                    unrelated_answer
-                    and unrelated_answer.value in self.unrelated_no_answer_values
-                ):
+                if unrelated_answer and unrelated_answer.value in self.unrelated_no_answer_values:
                     return path
 
             path.append(
@@ -108,14 +101,8 @@ class RelationshipRouter:
                     list_name=self.list_name,
                 )
             )
-            relationship_answer = self.relationship_store.get_relationship(
-                from_list_item_id, to_item_id
-            )
-            if (
-                relationship_answer
-                and relationship_answer.relationship
-                == self.UNRELATED_RELATIONSHIP_VALUE
-            ):
+            relationship_answer = self.relationship_store.get_relationship(from_list_item_id, to_item_id)
+            if relationship_answer and relationship_answer.relationship == self.UNRELATED_RELATIONSHIP_VALUE:
                 number_of_unrelated_relationships += 1
 
             number_of_relationships_left -= 1

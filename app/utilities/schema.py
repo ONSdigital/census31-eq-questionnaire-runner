@@ -8,10 +8,7 @@ from requests import RequestException
 from structlog import get_logger
 
 from app.data_models.metadata_proxy import MetadataProxy
-from app.questionnaire.questionnaire_schema import (
-    DEFAULT_LANGUAGE_CODE,
-    QuestionnaireSchema,
-)
+from app.questionnaire.questionnaire_schema import DEFAULT_LANGUAGE_CODE, QuestionnaireSchema
 from app.utilities.json import json_load, json_loads
 from app.utilities.request_session import get_retryable_session
 
@@ -48,9 +45,7 @@ class SchemaRequestFailed(Exception):
 def get_schema_list(language_code: str = DEFAULT_LANGUAGE_CODE) -> dict[str, list]:
     return {
         survey_type: list(schemas_by_language[language_code])
-        for survey_type, schemas_by_language in get_schema_path_map(
-            include_test_schemas=True
-        ).items()
+        for survey_type, schemas_by_language in get_schema_path_map(include_test_schemas=True).items()
         for lang in schemas_by_language
         if lang == language_code
     }
@@ -76,9 +71,7 @@ def get_schema_path_map(
         schemas[survey_type] = {
             language_code: {
                 Path(schema_file).with_suffix("").name: schema_file
-                for schema_file in glob(
-                    f"{SCHEMA_DIR}/{survey_type}/{language_code}/*.json"
-                )
+                for schema_file in glob(f"{SCHEMA_DIR}/{survey_type}/{language_code}/*.json")
             }
             for language_code in LANGUAGE_CODES
         }
@@ -91,8 +84,7 @@ def _schema_exists(language_code: str, schema_name: str) -> bool:
     return any(
         True
         for survey_type, schemas_by_lang in schema_path_map.items()
-        if language_code in schemas_by_lang
-        and schema_name in schemas_by_lang[language_code]
+        if language_code in schemas_by_lang and schema_name in schemas_by_lang[language_code]
     )
 
 
@@ -104,9 +96,7 @@ def get_allowed_languages(schema_name: str | None, launch_language: str) -> list
     return [DEFAULT_LANGUAGE_CODE]
 
 
-def load_schema_from_metadata(
-    metadata: MetadataProxy, *, language_code: str | None
-) -> QuestionnaireSchema:
+def load_schema_from_metadata(metadata: MetadataProxy, *, language_code: str | None) -> QuestionnaireSchema:
     if schema_url := metadata.schema_url:
         return load_schema_from_url(
             url=schema_url,
@@ -121,9 +111,7 @@ def load_schema_from_metadata(
     )
 
 
-def load_schema_from_name(
-    schema_name: str, language_code: str | None = DEFAULT_LANGUAGE_CODE
-) -> QuestionnaireSchema:
+def load_schema_from_name(schema_name: str, language_code: str | None = DEFAULT_LANGUAGE_CODE) -> QuestionnaireSchema:
     language_code = language_code or DEFAULT_LANGUAGE_CODE
     return _load_schema_from_name(schema_name, language_code)
 
@@ -145,9 +133,7 @@ def _load_schema_file(schema_name: str, language_code: str) -> Any:
     :param schema_name: The name of the schema e.g. test_address
     :param language_code: ISO 2-character code for language e.g. 'en', 'cy'
     """
-    if language_code != DEFAULT_LANGUAGE_CODE and not _schema_exists(
-        language_code, schema_name
-    ):
+    if language_code != DEFAULT_LANGUAGE_CODE and not _schema_exists(language_code, schema_name):
         language_code = DEFAULT_LANGUAGE_CODE
         logger.info(
             "couldn't find requested language schema, falling back to 'en'",

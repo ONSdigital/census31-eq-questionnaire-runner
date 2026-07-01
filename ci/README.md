@@ -11,7 +11,7 @@ PROJECT_ID=<project_id> \
 EQ_KEYS_FILE=<path_to_keys_file> \
 EQ_SECRETS_FILE=<path_to_secrets_file> \
 fly -t <target-concourse> execute \
-  --config ci/deploy_credentials.yaml
+    --config ci/deploy_credentials.yaml
 ```
 
 ## Deploying the app
@@ -22,7 +22,7 @@ IMAGE_TAG can be passed as an environment variable or as a file input located at
 To deploy the app via Concourse, use the following task command:
 ```sh
 fly -t <target-concourse> execute \
-  --config ci/deploy_app.yaml
+    --config ci/deploy_app.yaml
 ```
 
 ## Backing up questionnaire state
@@ -34,7 +34,7 @@ PROJECT_ID=<project_id> \
 BUCKET_NAME=<bucket_name> \
 FILE_PREFIX=<file_prefix> \
 fly -t <target-concourse> execute \
-  --config ci/backup_questionnaire_state.yaml
+    --config ci/backup_questionnaire_state.yaml
 ```
 
 - `BUCKET_NAME` should not contain `gs://`
@@ -50,7 +50,7 @@ BUCKET_NAME=<bucket_name> \
 BACKUP_NAME=<backup_name> \
 FILE_PREFIX=<file_prefix> \
 fly -t <target-concourse> execute \
-  --config ci/restore_questionnaire_state.yaml
+    --config ci/restore_questionnaire_state.yaml
 ```
 
 - `BUCKET_NAME` should not contain `gs://`
@@ -66,7 +66,7 @@ PROJECT_ID=<project_id> \
 DATAFLOW_TEMPLATE_VERSION=<dataflow_template_version> \
 EXPIRATION_TIME_OFFSET_IN_SECONDS=<expiration_time_offset_in_seconds> \
 fly -t <target-concourse> execute \
-  --config ci/purge_expired_sessions.yaml
+    --config ci/purge_expired_sessions.yaml
 ```
 There are defaults for both DATAFLOW_TEMPLATE_VERSION and EXPIRATION_TIME_OFFSET_IN_SECONDS if not set
 

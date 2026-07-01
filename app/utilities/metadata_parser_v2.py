@@ -2,16 +2,7 @@ import functools
 from datetime import datetime, timezone
 from typing import Any, Callable, Iterable, Mapping, MutableMapping
 
-from marshmallow import (
-    EXCLUDE,
-    INCLUDE,
-    Schema,
-    ValidationError,
-    fields,
-    pre_load,
-    validate,
-    validates_schema,
-)
+from marshmallow import EXCLUDE, INCLUDE, Schema, ValidationError, fields, pre_load, validate, validates_schema
 from structlog import get_logger
 
 from app.authentication.auth_payload_versions import AuthPayloadVersion
@@ -26,9 +17,7 @@ VALIDATORS: Mapping[str, Callable] = {
     "boolean": functools.partial(fields.Boolean, required=True),
     "string": functools.partial(fields.String, required=True),
     "url": functools.partial(fields.Url, required=True),
-    "iso_8601_date_string": functools.partial(
-        DateString, format="iso8601", required=True
-    ),
+    "iso_8601_date_string": functools.partial(DateString, format="iso8601", required=True),
 }
 
 
@@ -57,9 +46,7 @@ class SurveyMetadata(Schema, StripWhitespaceMixin):
     ) -> None:
         if data and (receipting_keys := data.get("receipting_keys", {})):
             missing_receipting_keys = [
-                receipting_key
-                for receipting_key in receipting_keys
-                if receipting_key not in data.get("data", {})
+                receipting_key for receipting_key in receipting_keys if receipting_key not in data.get("data", {})
             ]
 
             if missing_receipting_keys:
@@ -69,26 +56,20 @@ class SurveyMetadata(Schema, StripWhitespaceMixin):
 
 def validate_response_expires_at(expires_at: str) -> None:
     if parse_iso_8601_datetime(expires_at) < datetime.now(tz=timezone.utc):
-        error_message = (
-            f"Response expires at: {expires_at} is not valid, must be in the future"
-        )
+        error_message = f"Response expires at: {expires_at} is not valid, must be in the future"
         raise ValidationError(error_message)
 
 
 class RunnerMetadataSchema(Schema, StripWhitespaceMixin):
     """Metadata which is required for the operation of runner itself"""
 
-    METADATA_OPTION_ERROR_MESSAGE = (
-        "Neither schema_name or schema_url has been set in metadata"
-    )
+    METADATA_OPTION_ERROR_MESSAGE = "Neither schema_name or schema_url has been set in metadata"
 
     jti = VALIDATORS["uuid"]()
     tx_id = VALIDATORS["uuid"]()
     case_id = VALIDATORS["uuid"]()
     collection_exercise_sid = VALIDATORS["string"](validate=validate.Length(min=1))
-    version = VALIDATORS["string"](
-        required=True, validate=validate.OneOf([AuthPayloadVersion.V2.value])
-    )
+    version = VALIDATORS["string"](required=True, validate=validate.OneOf([AuthPayloadVersion.V2.value]))
     schema_name = VALIDATORS["string"](required=False)
     schema_url = VALIDATORS["url"](required=False)
     response_id = VALIDATORS["string"](required=True)
@@ -106,13 +87,9 @@ class RunnerMetadataSchema(Schema, StripWhitespaceMixin):
     survey_metadata = fields.Nested(SurveyMetadata, required=False)
 
     @validates_schema
-    def validate_schema_options(  # pylint: disable=unused-argument
-        self, data: Mapping, **kwargs: Any
-    ) -> None:
+    def validate_schema_options(self, data: Mapping, **kwargs: Any) -> None:  # pylint: disable=unused-argument
         if data:
-            options = [
-                option for option in ["schema_name", "schema_url"] if data.get(option)
-            ]
+            options = [option for option in ["schema_name", "schema_url"] if data.get(option)]
             if len(options) == 0:
                 raise ValidationError(self.METADATA_OPTION_ERROR_MESSAGE)
             if len(options) > 1:
@@ -138,10 +115,7 @@ def validate_questionnaire_claims(
         if metadata_field.get("optional"):
             field_arguments["required"] = False
 
-        if any(
-            length_limit in metadata_field
-            for length_limit in ("min_length", "max_length", "length")
-        ):
+        if any(length_limit in metadata_field for length_limit in ("min_length", "max_length", "length")):
             validators.append(
                 validate.Length(
                     min=metadata_field.get("min_length"),
@@ -154,9 +128,9 @@ def validate_questionnaire_claims(
             validate=validators, **field_arguments
         )
 
-    questionnaire_metadata_schema = type(
-        "QuestionnaireMetadataSchema", (Schema, StripWhitespaceMixin), dynamic_fields
-    )(unknown=unknown)
+    questionnaire_metadata_schema = type("QuestionnaireMetadataSchema", (Schema, StripWhitespaceMixin), dynamic_fields)(
+        unknown=unknown
+    )
 
     # The load method performs validation.
     # Type ignore: the load method in the Marshmallow parent schema class doesn't have type hints for return

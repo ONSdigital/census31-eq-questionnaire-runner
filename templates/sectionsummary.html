@@ -19,7 +19,6 @@
         }
     })
 }}
-{# djlint:on #}
 
 {% block form_content %}
     {% if content.summary.custom_summary %}
@@ -31,7 +30,7 @@
                 {% set empty_list_text = summary.empty_list_text %}
                 {% set list_title = summary.title %}
                 <div {{ 'class="ons-u-mb-l"' if not loop.last }}
-                     data-qa="{{ summary.list_name }}-list-summary">
+                    data-qa="{{ summary.list_name }}-list-summary">
                     {% if summary.list %}
                         {% set list = summary.list %}
                         {% include "partials/summary/list-summary.html" %}
@@ -46,7 +45,6 @@
 {% endblock form_content %}
 
 {% block submit_button %}
-    {# djlint:off #}
     {{
         onsButton({
             "text": continue_button_text | default(_("Continue")),
@@ -62,5 +60,5 @@
             }
         })
     }}
-    {# djlint:on #}
+{# djlint:on #}
 {% endblock submit_button %}

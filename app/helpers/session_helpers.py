@@ -14,9 +14,7 @@ def with_questionnaire_store(function: Callable) -> Any:
 
     @wraps(function)
     def wrapped_function(*args: Any, **kwargs: Any) -> Any:
-        questionnaire_store = get_questionnaire_store(
-            current_user.user_id, current_user.user_ik
-        )
+        questionnaire_store = get_questionnaire_store(current_user.user_id, current_user.user_ik)
         return function(questionnaire_store, *args, **kwargs)
 
     return wrapped_function

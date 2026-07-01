@@ -39,9 +39,7 @@ METADATA_V2 = {
         (MetadataProxy.from_dict(METADATA_V2)["non_existing"], None),
     ),
 )
-def test_metadata_proxy_returns_value_for_valid_key(
-    resolved_metadata_proxy_value, metadata_var
-):
+def test_metadata_proxy_returns_value_for_valid_key(resolved_metadata_proxy_value, metadata_var):
     assert resolved_metadata_proxy_value == metadata_var
 
 

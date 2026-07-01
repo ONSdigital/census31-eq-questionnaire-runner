@@ -21,9 +21,7 @@ def get_questionnaire_store(user_id: str, user_ik: str) -> QuestionnaireStore:
     store = g.get("_questionnaire_store")
     if store is None:
         secret_store = current_app.eq["secret_store"]  # type: ignore
-        pepper = secret_store.get_secret_by_name(
-            "EQ_SERVER_SIDE_STORAGE_ENCRYPTION_USER_PEPPER"
-        )
+        pepper = secret_store.get_secret_by_name("EQ_SERVER_SIDE_STORAGE_ENCRYPTION_USER_PEPPER")
         storage = EncryptedQuestionnaireStorage(user_id, user_ik, pepper)
         store = g._questionnaire_store = QuestionnaireStore(storage)
 
@@ -39,12 +37,8 @@ def get_session_store() -> SessionStore | None:
 
     if store is None:
         secret_store = current_app.eq["secret_store"]  # type: ignore
-        pepper = secret_store.get_secret_by_name(
-            "EQ_SERVER_SIDE_STORAGE_ENCRYPTION_USER_PEPPER"
-        )
-        store = g._session_store = SessionStore(
-            cookie_session[USER_IK], pepper, cookie_session[EQ_SESSION_ID]
-        )
+        pepper = secret_store.get_secret_by_name("EQ_SERVER_SIDE_STORAGE_ENCRYPTION_USER_PEPPER")
+        store = g._session_store = SessionStore(cookie_session[USER_IK], pepper, cookie_session[EQ_SESSION_ID])
 
     return store if store.session_data else None
 
@@ -72,20 +66,12 @@ def create_session_store(
     session_data: SessionData,
 ) -> None:
     secret_store = current_app.eq["secret_store"]  # type: ignore
-    pepper = secret_store.get_secret_by_name(
-        "EQ_SERVER_SIDE_STORAGE_ENCRYPTION_USER_PEPPER"
-    )
+    pepper = secret_store.get_secret_by_name("EQ_SERVER_SIDE_STORAGE_ENCRYPTION_USER_PEPPER")
     session_timeout_in_seconds = get_session_timeout_in_seconds(g.schema)
-    expires_at = datetime.now(tz=timezone.utc) + timedelta(
-        seconds=session_timeout_in_seconds
-    )
+    expires_at = datetime.now(tz=timezone.utc) + timedelta(seconds=session_timeout_in_seconds)
 
     # pylint: disable=protected-access
-    g._session_store = (
-        SessionStore(user_ik, pepper)
-        .create(eq_session_id, user_id, session_data, expires_at)
-        .save()
-    )
+    g._session_store = SessionStore(user_ik, pepper).create(eq_session_id, user_id, session_data, expires_at).save()
 
 
 def get_metadata(user: User) -> MetadataProxy | None:
@@ -98,13 +84,9 @@ def get_metadata(user: User) -> MetadataProxy | None:
 
 
 def get_view_submitted_response_expiration_time(submitted_at: datetime) -> datetime:
-    view_submitted_expiry_seconds = current_app.config[
-        "VIEW_SUBMITTED_RESPONSE_EXPIRATION_IN_SECONDS"
-    ]
+    view_submitted_expiry_seconds = current_app.config["VIEW_SUBMITTED_RESPONSE_EXPIRATION_IN_SECONDS"]
     return submitted_at + timedelta(seconds=view_submitted_expiry_seconds)
 
 
 def has_view_submitted_response_expired(submitted_at: datetime) -> bool:
-    return datetime.now(tz=timezone.utc) > get_view_submitted_response_expiration_time(
-        submitted_at
-    )
+    return datetime.now(tz=timezone.utc) > get_view_submitted_response_expiration_time(submitted_at)

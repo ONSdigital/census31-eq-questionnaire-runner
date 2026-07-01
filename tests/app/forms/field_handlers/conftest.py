@@ -57,10 +57,7 @@ def static_answer_options_schema():
 
 
 def static_answer_options_choices():
-    return [
-        Choice(option["label"], option["value"])
-        for option in static_answer_options_schema()["options"]
-    ]
+    return [Choice(option["label"], option["value"]) for option in static_answer_options_schema()["options"]]
 
 
 def dynamic_answer_options_schema():
@@ -119,6 +116,4 @@ def static_and_dynamic_answer_options_choices():
 
 
 def to_choices_with_detail_answer_id(choices):
-    return [
-        ChoiceWithDetailAnswer(choice.value, choice.label, None) for choice in choices
-    ]
+    return [ChoiceWithDetailAnswer(choice.value, choice.label, None) for choice in choices]

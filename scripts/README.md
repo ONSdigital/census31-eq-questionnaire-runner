@@ -15,8 +15,7 @@ and outputs this formatted in the style of an integration test.
 * Additional logic is in place to ensure that, when navigating backwards in a journey after following links (e.g. 'previous' link), it is recorded correctly.
   This is achieved by storing the previous request method at module-level so that it can be used in deciding whether to record or disregard the GET request.
 * You will need to manually add your assertions in the generated test file
-* When the script is launched, it will create a new file for the schema chosen. If you launch the script again for the same schema, it will overwrite the
-  previous file output
+* When the script is launched, it will create a new file for the schema chosen. If you launch the script again for the same schema, it will overwrite the previous file output
 * The script is intended to be run with schemas with a `test_` prefix, which would suit most scenarios for test generation. If you wish to use a schema without
   this prefix, you will need to manually amend the generated names for the file, class, and function to allow pytest to process the test file correctly
 * It does **not** handle dynamic answers because these are generated at runtime - you will need to update the output script to handle `list_item_id` separately,

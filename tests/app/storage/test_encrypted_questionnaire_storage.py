@@ -21,9 +21,7 @@ def test_encrypted_storage_requires_user_id(user_id, user_ik, pepper):
 
 
 @pytest.mark.usefixtures("app")
-@pytest.mark.parametrize(
-    "submitted_at", (None, datetime.now(timezone.utc).replace(microsecond=0))
-)
+@pytest.mark.parametrize("submitted_at", (None, datetime.now(timezone.utc).replace(microsecond=0)))
 def test_store_and_get_submitted_at(submitted_at):
     encrypted = EncryptedQuestionnaireStorage(user_id="1", user_ik="2", pepper="pepper")
     encrypted.save(
