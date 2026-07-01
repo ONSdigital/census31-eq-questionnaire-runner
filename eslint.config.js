@@ -7,7 +7,7 @@ import globals from "globals";
 
 export default [
   {
-    ignores: ["node_modules/**", "htmlcov/**", "coverage/**", "dist/**", "src/index.html", "tests/functional/generated_pages/**"],
+    ignores: ["node_modules/**", "htmlcov/**", "coverage/**", "dist/**", "src/index.html", "tests/functional/generated_pages/**", "**/generated_pages/**"],
   },
   js.configs.recommended,
   importX.flatConfigs.recommended,
