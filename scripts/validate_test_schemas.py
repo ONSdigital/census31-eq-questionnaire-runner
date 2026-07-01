@@ -19,7 +19,7 @@ def check_connection():
                 "/dev/null",
                 "-w",
                 "%{http_code}",
-                "http://localhost:5002/status",
+                "http://localhost:5006/status",
             ],
             capture_output=True,
             text=True,
