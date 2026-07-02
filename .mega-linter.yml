@@ -28,6 +28,7 @@ SHOW_ELAPSED_TIME: true
 FLAVOR_SUGGESTIONS: false
 
 FILTER_REGEX_EXCLUDE: (.*/)?generated_pages/.* # Ignore generated pages in CI
+JAVASCRIPT_ES_FILTER_REGEX_EXCLUDE: (.*/)?generated_pages/.* # Ensure ESLint descriptor also excludes generated pages
 
 ACTION_ZIZMOR_UNSECURED_ENV_VARIABLES:
   - GITHUB_TOKEN
