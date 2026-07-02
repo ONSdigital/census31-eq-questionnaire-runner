@@ -29,7 +29,7 @@ Most of the linting is done by MegaLinter, it is a static analysis tool that run
 
 Python linting is handled separately from MegaLinter, this is intentionally disabled in MegaLinter as recommended in the
 [ONS Python template repo](https://github.com/ONSdigital/ons-python-template#3-megalinter).
-Python script to run Python linting: [scripts/run_lint_python.sh](../scripts/run_lint_python.sh)
+To run Python linting: `make lint-python`
 
 | Filetype | Linter                    | Config File                               | Ignore Files             |
 |----------|---------------------------|-------------------------------------------|--------------------------|

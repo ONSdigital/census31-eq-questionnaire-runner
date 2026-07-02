@@ -258,8 +258,6 @@ Available commands:
 |------------------------|-----------------------------------------------------------------------------------------------------------|
 | `make test-functional` | Runs the functional tests through Webdriver (requires app running on localhost:5000 and generated pages). |
 | `make generate-pages`  | Generates the functional test pages.                                                                      |
-| `make lint-js`         | Lints the JS, reporting errors/warnings.                                                                  |
-| `make format-js`       | Format the json schemas.                                                                                  |
 
 ---
 
