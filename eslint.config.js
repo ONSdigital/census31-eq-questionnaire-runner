@@ -95,4 +95,11 @@ export default [
       "json/sort-keys": 0,
     },
   },
+  {
+    files: ["tests/functional/**/*.js"],
+    rules: {
+      // Functional specs import generated pages that are not present in MegaLinter CI runs.
+      "n/no-missing-import": 0,
+    },
+  },
 ];
