@@ -2,6 +2,7 @@ SCHEMAS_VERSION=`cat .schemas-version`
 DESIGN_SYSTEM_VERSION=`cat .design-system-version`
 RUNNER_ENV_FILE?=.development.env
 SCHEMA_PATH=./schemas/test/en/
+CONTAINER_RUNTIME?=docker
 
 clean:
 	find schemas/* -prune | grep -v "schemas/test" | xargs rm -r
@@ -115,13 +116,13 @@ generate-integration-test:
 
 .PHONY: megalint megalint-apply clean-megalint
 megalint:
-	docker run --platform linux/amd64 --rm \
+	$(CONTAINER_RUNTIME) run --rm \
 		-v /var/run/docker.sock:/var/run/docker.sock:rw \
 		-v $(shell pwd):/tmp/lint:rw \
 		ghcr.io/oxsecurity/megalinter:v9.6.0
 
 megalint-apply:
-	docker run --platform linux/amd64 --rm \
+	$(CONTAINER_RUNTIME) run --rm \
 		-v /var/run/docker.sock:/var/run/docker.sock:rw \
 		-v $(shell pwd):/tmp/lint:rw \
 		-e APPLY_FIXES=all \
