@@ -3,10 +3,10 @@ DESIGN_SYSTEM_VERSION=`cat .design-system-version`
 RUNNER_ENV_FILE?=.development.env
 SCHEMA_PATH=./schemas/test/en/
 CONTAINER_RUNTIME?=docker
-ifeq ($(CONTAINER_RUNTIME),docker)
-	COMPOSE_COMMAND=docker compose
-else
+ifeq ($(CONTAINER_RUNTIME),podman)
 	COMPOSE_COMMAND=podman-compose
+else
+	COMPOSE_COMMAND=docker compose
 endif
 
 clean:
