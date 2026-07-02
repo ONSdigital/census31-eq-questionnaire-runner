@@ -27,6 +27,13 @@ FORMATTERS_DISABLE_ERRORS: false
 SHOW_ELAPSED_TIME: true
 FLAVOR_SUGGESTIONS: false
 
+# ESLint v10 flat-config workaround: install project deps before running MegaLinter via CI
+JAVASCRIPT_ES_PRE_COMMANDS:
+  - command: npm ci --include=dev
+    cwd: workspace
+    continue_if_failed: false
+JAVASCRIPT_ES_CLI_EXECUTABLE: node_modules/.bin/eslint
+
 ACTION_ZIZMOR_UNSECURED_ENV_VARIABLES:
   - GITHUB_TOKEN
 
