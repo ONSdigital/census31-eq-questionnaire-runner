@@ -3,6 +3,11 @@ DESIGN_SYSTEM_VERSION=`cat .design-system-version`
 RUNNER_ENV_FILE?=.development.env
 SCHEMA_PATH=./schemas/test/en/
 CONTAINER_RUNTIME?=docker
+ifeq ($(CONTAINER_RUNTIME),docker)
+	COMPOSE_COMMAND=docker compose
+else
+	COMPOSE_COMMAND=podman-compose
+endif
 
 clean:
 	find schemas/* -prune | grep -v "schemas/test" | xargs rm -r
@@ -99,13 +104,13 @@ run-uwsgi-async: link-development-env
 	WEB_SERVER_TYPE=uwsgi-async poetry run ./run_app.sh
 
 dev-compose-up:
-	docker compose -f docker-compose-dev.yml pull eq-questionnaire-launcher
-	docker compose -f docker-compose-dev.yml pull sds
-	docker compose -f docker-compose-dev.yml pull cir
-	docker compose -f docker-compose-dev.yml up -d
+	$(COMPOSE_COMMAND) -f docker-compose-dev.yml pull eq-questionnaire-launcher
+	$(COMPOSE_COMMAND) -f docker-compose-dev.yml pull sds
+	$(COMPOSE_COMMAND) -f docker-compose-dev.yml pull cir
+	$(COMPOSE_COMMAND) -f docker-compose-dev.yml up -d
 
 dev-compose-down:
-	docker compose -f docker-compose-dev.yml down
+	$(COMPOSE_COMMAND) -f docker-compose-dev.yml down
 
 profile:
 	poetry run python profile_application.py
