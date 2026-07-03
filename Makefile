@@ -100,11 +100,16 @@ run-uwsgi-async: link-development-env
 dev-compose-up:
 	docker compose -f docker-compose-dev.yml pull eq-questionnaire-launcher
 	docker compose -f docker-compose-dev.yml pull sds
-	docker compose -f docker-compose-dev.yml pull cir
 	docker compose -f docker-compose-dev.yml up -d
 
 dev-compose-down:
 	docker compose -f docker-compose-dev.yml down
+
+aims-compose-up:
+	docker compose -f docker-compose-aims.yml up -d
+
+aims-compose-down:
+	docker compose -f docker-compose-aims.yml down
 
 profile:
 	poetry run python profile_application.py
