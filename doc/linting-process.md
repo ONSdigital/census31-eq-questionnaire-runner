@@ -1,4 +1,4 @@
-# Runner Linting Process Documentation
+# Linting Process
 
 ## Overview
 
