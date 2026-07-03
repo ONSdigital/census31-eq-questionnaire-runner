@@ -6,7 +6,7 @@ CONTAINER_RUNTIME?=docker
 ifeq ($(CONTAINER_RUNTIME),docker)
 	COMPOSE_COMMAND=docker compose
 else
-	COMPOSE_COMMAND=podman-compose
+	COMPOSE_COMMAND=docker-compose
 endif
 
 clean:
