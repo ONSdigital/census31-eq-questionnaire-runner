@@ -9,7 +9,7 @@
 [![poetry-managed](https://img.shields.io/badge/poetry-managed-blue)](https://python-poetry.org/)
 [![License - MIT](https://img.shields.io/badge/licence%20-MIT-1ac403.svg)](https://github.com/ONSdigital/census31-eq-questionnaire-runner/blob/main/LICENSE)
 
-## Using Docker
+## Run with Docker
 
 Install [Docker](https://www.docker.com/) for your system. Make sure that you've installed both docker and docker-compose packages, preferably using Homebrew:
 
@@ -32,7 +32,7 @@ Build and run the containers (using the `compose` command of the `docker` cli)
 RUNNER_ENV_FILE=.development.env docker compose up -d
 ```
 
-## Using Podman on MacOS with Conda
+## Run with Podman on MacOS with Conda
 
 Install [Podman](https://podman.io/) for your system and create/start a Podman machine
 ```shell
