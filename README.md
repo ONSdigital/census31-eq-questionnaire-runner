@@ -70,7 +70,7 @@ To launch a survey, navigate to [http://localhost:8000/](http://localhost:8000/)
 When the containers are running you are able to access the application as normal, and code changes will be reflected in the running application.
 However, any new dependencies that are added would require a re-build.
 
-To rebuild the eq-questionnaire-runner container, the following command can be use (preferring the required compose commands)
+To rebuild the eq-questionnaire-runner container, the following command can be used (preferring the required compose commands)
 
 ```shell
 RUNNER_ENV_FILE=.development.env [ docker compose | docker-compose ] build
