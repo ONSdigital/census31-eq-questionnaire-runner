@@ -9,7 +9,7 @@
 [![poetry-managed](https://img.shields.io/badge/poetry-managed-blue)](https://python-poetry.org/)
 [![License - MIT](https://img.shields.io/badge/licence%20-MIT-1ac403.svg)](https://github.com/ONSdigital/census31-eq-questionnaire-runner/blob/main/LICENSE)
 
-## Run with Docker
+## Using Docker
 
 Install [Docker](https://www.docker.com/) for your system. Make sure that you've installed both docker and docker-compose packages, preferably using Homebrew:
 
@@ -27,28 +27,59 @@ Make sure Colima is started every time you want to use Docker images:
 ```shell
 colima start
 ```
-
-To get eq-questionnaire-runner running the following command will build and run the containers
-
+Build and run the containers (using the `compose` command of the `docker` cli)
 ```shell
 RUNNER_ENV_FILE=.development.env docker compose up -d
 ```
+
+## Using Podman on MacOS with Conda
+
+Install [Podman](https://podman.io/) for your system and create/start a Podman machine
+```shell
+podman machine init
+```
+Ensure the Podman machine is using the `applehv` Apple HyperVisor and not the `libkurn` hypervisor
+```bash
+podman machine info
+...
+vmtype: applehv
+```
+Install the docker-compose binaries
+```bash
+conda install -c conda-forge docker-compose
+```
+To use docker-compose as the Podman compose provider find the location of the docker-compose binary (e.g. `$HOME/.conda/envs/<ENV>/bin/docker-compose`) and add to the Podman config file (e.g. `$HOME/.config/containers/containers.conf`)
+```bash
+which docker-compose
+```
+Edit the Podman config file (e.g. `vim $HOME/.config/containers/containers.conf`)
+```bash
+[engine]
+env = []
+compose_providers=["<HOME_DIR>/.conda/envs/<ENV>/bin/docker-compose"]
+```
+Build and run the containers. Unlike Colima or Docker, with Podman we invoke the `docker-compose` binary directly
+```shell
+RUNNER_ENV_FILE=.development.env docker-compose up -d
+```
+
+## Launching a survey
 
 To launch a survey, navigate to [http://localhost:8000/](http://localhost:8000/)
 
 When the containers are running you are able to access the application as normal, and code changes will be reflected in the running application.
 However, any new dependencies that are added would require a re-build.
 
-To rebuild the eq-questionnaire-runner container, the following command can be used.
+To rebuild the eq-questionnaire-runner container, the following command can be use (preferring the required compose commands)
 
 ```shell
-RUNNER_ENV_FILE=.development.env docker compose build
+RUNNER_ENV_FILE=.development.env [ docker compose | docker-compose ] build
 ```
 
 If you need to rebuild the container from scratch to re-load any dependencies then you can run the following
 
 ```shell
-RUNNER_ENV_FILE=.development.env docker compose build --no-cache
+RUNNER_ENV_FILE=.development.env [ docker compose | docker-compose ] build --no-cache
 ```
 
 ## Run locally
