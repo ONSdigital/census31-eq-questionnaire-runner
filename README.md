@@ -38,7 +38,7 @@ Install [Podman](https://podman.io/) for your system and create/start a Podman m
 ```shell
 podman machine init
 ```
-Ensure the Podman machine is using the `applehv` Apple HyperVisor and not the `libkurn` hypervisor
+Ensure the Podman machine is using the `applehv` Apple HyperVisor and not the `LibKrun` hypervisor
 ```bash
 podman machine info
 ...
