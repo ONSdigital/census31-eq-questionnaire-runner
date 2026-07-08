@@ -62,6 +62,10 @@ Build and run the containers. Unlike Colima or Docker, with Podman we invoke the
 ```shell
 RUNNER_ENV_FILE=.development.env docker-compose up -d
 ```
+Make commands default to expect a Docker container runtime, however this can be overridden to prefer Podman by exporting the `CONTAINER_RUNTIME` variable (either during invocation, in the shell session, or permanently in a shell profile)
+```
+CONTAINER_RUNTIME=podman make megalint
+```
 
 ## Launching a survey
 
