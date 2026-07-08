@@ -14,11 +14,7 @@ from app.questionnaire.return_location import ReturnLocation
 from app.questionnaire.rules.rule_evaluator import RuleEvaluator
 from app.questionnaire.value_source_resolver import ValueSourceResolver
 from app.utilities.types import LocationType
-from app.views.contexts.summary.answer import (
-    Answer,
-    InferredAnswerValueTypes,
-    RadioCheckboxTypes,
-)
+from app.views.contexts.summary.answer import Answer, InferredAnswerValueTypes, RadioCheckboxTypes
 
 
 # pylint: disable=too-many-locals
@@ -42,9 +38,7 @@ class Question:
         self.answer_schemas = iter(question_schema.get("answers", []))
         self.location = location
         self.summary = question_schema.get("summary")
-        self.title = (
-            question_schema.get("title") or question_schema["answers"][0]["label"]
-        )
+        self.title = question_schema.get("title") or question_schema["answers"][0]["label"]
         self.number = question_schema.get("number", None)
 
         self._rule_evaluator = RuleEvaluator(
@@ -62,9 +56,7 @@ class Question:
         )
 
         # no need to call the method if no list item id
-        self._is_in_repeating_section = bool(
-            self.list_item_id and self.schema.is_block_in_repeating_section(block_id)
-        )
+        self._is_in_repeating_section = bool(self.list_item_id and self.schema.is_block_in_repeating_section(block_id))
 
         self.answers = self._build_answers(
             answer_store=self.data_stores.answer_store,
@@ -110,9 +102,7 @@ class Question:
             return [
                 {
                     "id": answer_id,
-                    "value": self._concatenate_answers(
-                        answer_store, self.summary["concatenation_type"]
-                    ),
+                    "value": self._concatenate_answers(answer_store, self.summary["concatenation_type"]),
                     "link": link,
                 }
             ]
@@ -125,12 +115,8 @@ class Question:
         ):
             list_item_id = answer_schema.get("list_item_id")
             answer_id = answer_schema.get("original_answer_id") or answer_schema["id"]
-            answer_value = self.get_answer(
-                answer_store, answer_id, list_item_id=list_item_id
-            )
-            answer = self._build_answer(
-                answer_store, question_schema, answer_schema, answer_value
-            )
+            answer_value = self.get_answer(answer_store, answer_id, list_item_id=list_item_id)
+            answer = self._build_answer(answer_store, question_schema, answer_schema, answer_value)
 
             summary_answer = Answer(
                 answer_schema=answer_schema,
@@ -150,16 +136,11 @@ class Question:
             return summary_answers[:-1]
         return summary_answers
 
-    def _concatenate_answers(
-        self, answer_store: AnswerStore, concatenation_type: str
-    ) -> str:
+    def _concatenate_answers(self, answer_store: AnswerStore, concatenation_type: str) -> str:
         answer_separators = {"Newline": "<br>", "Space": " "}
         answer_separator = answer_separators.get(concatenation_type, " ")
 
-        answer_values = [
-            self.get_answer(answer_store, answer_schema["id"])
-            for answer_schema in self.answer_schemas
-        ]
+        answer_values = [self.get_answer(answer_store, answer_schema["id"]) for answer_schema in self.answer_schemas]
 
         values_to_concatenate: list[AnswerValueEscapedTypes] = []
         for answer_value in answer_values:
@@ -221,12 +202,8 @@ class Question:
 
         return dynamic_options.evaluate()
 
-    def get_answer_options(
-        self, answer_schema: Mapping[str, Any]
-    ) -> tuple[dict[str, str], ...]:
-        return tuple(answer_schema.get("options", ())) + tuple(
-            self._get_dynamic_answer_options(answer_schema)
-        )
+    def get_answer_options(self, answer_schema: Mapping[str, Any]) -> tuple[dict[str, str], ...]:
+        return tuple(answer_schema.get("options", ())) + tuple(self._get_dynamic_answer_options(answer_schema))
 
     def _build_checkbox_answers(
         self,
@@ -237,9 +214,7 @@ class Question:
         multiple_answers = []
         for option in self.get_answer_options(answer_schema):
             if escape(option["value"]) in answer:
-                detail_answer_value = self._get_detail_answer_value(
-                    option, answer_store
-                )
+                detail_answer_value = self._get_detail_answer_value(option, answer_store)
 
                 multiple_answers.append(
                     {
@@ -258,17 +233,13 @@ class Question:
     ) -> RadioCheckboxTypes | None:
         for option in self.get_answer_options(answer_schema):
             if answer == escape(option["value"]):
-                detail_answer_value = self._get_detail_answer_value(
-                    option, answer_store
-                )
+                detail_answer_value = self._get_detail_answer_value(option, answer_store)
                 return {
                     "label": option["label"],
                     "detail_answer_value": detail_answer_value,
                 }
 
-    def _get_detail_answer_value(
-        self, option: dict, answer_store: AnswerStore
-    ) -> AnswerValueEscapedTypes | None:
+    def _get_detail_answer_value(self, option: dict, answer_store: AnswerStore) -> AnswerValueEscapedTypes | None:
         if "detail_answer" in option:
             return self.get_answer(answer_store, option["detail_answer"]["id"])
 
@@ -295,9 +266,7 @@ class Question:
             )
 
             resolved_question = ImmutableDict(
-                placeholder_renderer.render(
-                    data_to_render=question_schema, list_item_id=self.list_item_id
-                )
+                placeholder_renderer.render(data_to_render=question_schema, list_item_id=self.list_item_id)
             )
         return resolved_question["answers"]
 

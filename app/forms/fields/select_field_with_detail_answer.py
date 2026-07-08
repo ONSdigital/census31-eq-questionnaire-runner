@@ -30,9 +30,7 @@ class SelectFieldWithDetailAnswer(SelectField):
             "_form": None,
             "_meta": self.meta,
         }
-        for i, (value, label, checked, detail_answer_id) in enumerate(
-            self.iter_choices()
-        ):
+        for i, (value, label, checked, detail_answer_id) in enumerate(self.iter_choices()):
             opt = self._Option(label=label, id=f"{self.id}-{i}", **opts)
             opt.process(None, value)
             opt.detail_answer_id = detail_answer_id

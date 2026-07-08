@@ -36,18 +36,14 @@ class TestQuestionnaireListCollector(QuestionnaireTestCase):
         self.get(first_person_change_link)
 
         # Get the non-primary list item id
-        non_primary_person_list_item_id = re.search(
-            r"people\/([a-zA-Z]*)\/edit-person", self.last_url
-        ).group(1)
+        non_primary_person_list_item_id = re.search(r"people\/([a-zA-Z]*)\/edit-person", self.last_url).group(1)
 
         # Add primary person
         self.get("/questionnaire/primary-person-list-collector/")
         self.post({"you-live-here": "Yes"})
 
         # Use the non-primary person list item id in the URL
-        self.get(
-            f"/questionnaire/people/{non_primary_person_list_item_id}/add-or-edit-primary-person/"
-        )
+        self.get(f"/questionnaire/people/{non_primary_person_list_item_id}/add-or-edit-primary-person/")
 
         self.assertStatusNotFound()
 
@@ -112,9 +108,7 @@ class TestQuestionnaireListCollector(QuestionnaireTestCase):
         response_id = random.choices(string.digits, k=16)
 
         # Given I initially answer 'No' to the primary person list collector
-        self.launchSurveyV2(
-            schema_name="test_list_collector_primary_person", reponse_id=response_id
-        )
+        self.launchSurveyV2(schema_name="test_list_collector_primary_person", reponse_id=response_id)
         self.post({"you-live-here": "No"})
 
         # When I change my answer to 'Yes' and sign out
@@ -123,17 +117,13 @@ class TestQuestionnaireListCollector(QuestionnaireTestCase):
         self.signOut()
 
         # Then on resuming, I am returned to the primary-person-list-collector
-        self.launchSurveyV2(
-            schema_name="test_list_collector_primary_person", reponse_id=response_id
-        )
+        self.launchSurveyV2(schema_name="test_list_collector_primary_person", reponse_id=response_id)
         self.assertInUrl("/questionnaire/primary-person-list-collector/")
 
     def test_section_summary_with_primary_no_driving_question_on_path(
         self,
     ):
-        self.launchSurveyV2(
-            schema_name="test_list_collector_primary_and_collector_with_driving_question"
-        )
+        self.launchSurveyV2(schema_name="test_list_collector_primary_and_collector_with_driving_question")
 
         self.assertInBody("Start section")
 

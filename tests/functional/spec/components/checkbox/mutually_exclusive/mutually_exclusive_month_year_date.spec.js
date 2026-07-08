@@ -33,26 +33,30 @@ describe("Component: Mutually Exclusive Month Year Date With Single Checkbox Ove
   });
 
   describe("Given the user has clicked the mutually exclusive checkbox answer", () => {
-    it("When the user enters a value for the non-exclusive month year date answer and removes focus, Then only the non-exclusive month year date answer should be answered.", async () => {
-      // Given
-      await $(MonthYearDatePage.monthYearDateExclusiveIPreferNotToSay()).click();
-      await expect(await $(MonthYearDatePage.monthYearDateExclusiveIPreferNotToSay()).isSelected()).toBe(true);
+    it(
+      "When the user enters a value for the non-exclusive month year date answer and removes focus, " +
+        "Then only the non-exclusive month year date answer should be answered.",
+      async () => {
+        // Given
+        await $(MonthYearDatePage.monthYearDateExclusiveIPreferNotToSay()).click();
+        await expect(await $(MonthYearDatePage.monthYearDateExclusiveIPreferNotToSay()).isSelected()).toBe(true);
 
-      // When
-      await $(MonthYearDatePage.monthYearDateMonth()).setValue("3");
-      await $(MonthYearDatePage.monthYearDateYear()).setValue("2018");
+        // When
+        await $(MonthYearDatePage.monthYearDateMonth()).setValue("3");
+        await $(MonthYearDatePage.monthYearDateYear()).setValue("2018");
 
-      // Then
-      await expect(await $(MonthYearDatePage.monthYearDateMonth()).getValue()).toBe("3");
-      await expect(await $(MonthYearDatePage.monthYearDateYear()).getValue()).toBe("2018");
+        // Then
+        await expect(await $(MonthYearDatePage.monthYearDateMonth()).getValue()).toBe("3");
+        await expect(await $(MonthYearDatePage.monthYearDateYear()).getValue()).toBe("2018");
 
-      await expect(await $(MonthYearDatePage.monthYearDateExclusiveIPreferNotToSay()).isSelected()).toBe(false);
+        await expect(await $(MonthYearDatePage.monthYearDateExclusiveIPreferNotToSay()).isSelected()).toBe(false);
 
-      await click(MonthYearDatePage.submit());
+        await click(MonthYearDatePage.submit());
 
-      await expect(await $(SummaryPage.monthYearDateAnswer()).getText()).toBe("March 2018");
-      await expect(await $(SummaryPage.monthYearDateAnswer()).getText()).not.toBe("I prefer not to say");
-    });
+        await expect(await $(SummaryPage.monthYearDateAnswer()).getText()).toBe("March 2018");
+        await expect(await $(SummaryPage.monthYearDateAnswer()).getText()).not.toBe("I prefer not to say");
+      },
+    );
   });
 
   describe("Given the user has not clicked the mutually exclusive checkbox answer", () => {

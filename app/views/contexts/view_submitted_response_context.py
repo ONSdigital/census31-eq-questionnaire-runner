@@ -8,9 +8,7 @@ from app.data_models.metadata_proxy import NoMetadataException
 from app.globals import has_view_submitted_response_expired
 from app.questionnaire.questionnaire_schema import QuestionnaireSchema
 from app.survey_config.survey_type import SurveyType
-from app.views.contexts.submission_metadata_context import (
-    build_submission_metadata_context,
-)
+from app.views.contexts.submission_metadata_context import build_submission_metadata_context
 from app.views.contexts.summary_context import SummaryContext
 
 
@@ -29,13 +27,11 @@ def build_view_submitted_response_context(
         raise NoMetadataException
 
     if (ru_name := metadata["ru_name"]) and (trad_as := metadata["trad_as"]):
-        submitted_text = lazy_gettext(
-            "Answers submitted for <span>{ru_name}</span> ({trad_as})"
-        ).format(ru_name=ru_name, trad_as=trad_as)
+        submitted_text = lazy_gettext("Answers submitted for <span>{ru_name}</span> ({trad_as})").format(
+            ru_name=ru_name, trad_as=trad_as
+        )
     elif ru_name:
-        submitted_text = lazy_gettext(
-            "Answers submitted for <span>{ru_name}</span>"
-        ).format(ru_name=ru_name)
+        submitted_text = lazy_gettext("Answers submitted for <span>{ru_name}</span>").format(ru_name=ru_name)
     else:
         submitted_text = lazy_gettext("Answers submitted.")
 

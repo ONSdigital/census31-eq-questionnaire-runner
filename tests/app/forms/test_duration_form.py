@@ -19,21 +19,13 @@ def test_init():
     form = form_class()
 
     assert form.data is None
-    assert (
-        form.answer_errors["INVALID_DURATION"]
-        == answer_schema["validation"]["messages"]["INVALID_DURATION"]
-    )
+    assert form.answer_errors["INVALID_DURATION"] == answer_schema["validation"]["messages"]["INVALID_DURATION"]
 
-    assert (
-        form.answer_errors["MANDATORY_DURATION"]
-        == answer_schema["validation"]["messages"]["MANDATORY_DURATION"]
-    )
+    assert form.answer_errors["MANDATORY_DURATION"] == answer_schema["validation"]["messages"]["MANDATORY_DURATION"]
 
 
 def test_zero():
-    form_class = get_duration_form(
-        {"mandatory": False, "units": ["years", "months"]}, error_messages
-    )
+    form_class = get_duration_form({"mandatory": False, "units": ["years", "months"]}, error_messages)
     form = form_class()
     form.years.raw_data = ["0"]
     form.years.data = 0
@@ -90,9 +82,7 @@ def test_validation(mandatory, years, months, valid, error, app):
     if months is not None:
         units.append("months")
 
-    form_class = get_duration_form(
-        {"mandatory": mandatory, "units": units}, error_messages
-    )
+    form_class = get_duration_form({"mandatory": mandatory, "units": units}, error_messages)
 
     form = form_class()
     if years is not None:

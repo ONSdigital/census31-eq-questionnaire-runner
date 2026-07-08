@@ -16,7 +16,7 @@ from app.keys import KEY_PURPOSE_AUTHENTICATION, KEY_PURPOSE_SUBMISSION
 from app.questionnaire import QuestionnaireSchema
 from app.questionnaire.router import Router
 from app.questionnaire.routing_path import RoutingPath
-from app.submitter import GCSSubmitter, LogSubmitter, RabbitMQSubmitter
+from app.submitter import GCSSubmitter, LogSubmitter
 from app.submitter.converter_v2 import convert_answers_v2
 from app.submitter.submission_failed import SubmissionFailedException
 from app.utilities.bind_context import bind_contextvars_schema_from_metadata
@@ -28,7 +28,7 @@ flush_blueprint = Blueprint("flush", __name__)
 
 logger = get_logger()
 
-Submitter: TypeAlias = GCSSubmitter | LogSubmitter | RabbitMQSubmitter
+Submitter: TypeAlias = GCSSubmitter | LogSubmitter
 
 
 @flush_blueprint.route("/flush", methods=["POST"])
@@ -70,12 +70,12 @@ def _submit_data(user: User) -> bool:
     questionnaire_store = get_questionnaire_store(user.user_id, user.user_ik)
 
     if questionnaire_store and questionnaire_store.data_stores.answer_store:
-        # Type ignore: The presence of an answer_store implicitly verifies that there must be metadata populated and thus can safely be used non-optionally.
+        # Type ignore: The presence of an answer_store implicitly verifies that
+        # there must be metadata populated and thus can safely be used
+        # non-optionally.
         metadata: MetadataProxy = questionnaire_store.data_stores.metadata  # type: ignore
         submitted_at = datetime.now(timezone.utc)
-        schema = load_schema_from_metadata(
-            metadata=metadata, language_code=metadata.language_code
-        )
+        schema = load_schema_from_metadata(metadata=metadata, language_code=metadata.language_code)
 
         router = Router(
             schema=schema,
@@ -94,7 +94,8 @@ def _submit_data(user: User) -> bool:
 
         additional_metadata = get_receipting_metadata(metadata)
 
-        # Type ignore: Instance attribute 'eq' is a dict with key "submitter" with value of type GCSSubmitter, LogSubmitter or RabbitMQSubmitter
+        # Type ignore: Instance attribute 'eq' is a dict with key "submitter"
+        # with value of type GCSSubmitter or LogSubmitter
         submitter: Submitter = current_app.eq["submitter"]  # type: ignore
 
         sent = submitter.send_message(
@@ -122,7 +123,8 @@ def _get_converted_answers_message(
     submitted_at: datetime,
 ) -> str:
     """
-    This gets converted answer message based on the selected version, currently only v2 is supported so `app.submitter.converter_v2.convert_answers_v2` is used
+    This gets converted answer message based on the selected version, currently
+    only v2 is supported so `app.submitter.converter_v2.convert_answers_v2` is used.
     Returns:
         object: str
     """

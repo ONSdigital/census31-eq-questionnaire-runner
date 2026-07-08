@@ -18,12 +18,8 @@ def test_submission_language_code_uses_session_data_language_if_present(
         "app.views.handlers.submission.get_session_store",
         return_value=submission_payload_session_store,
     )
-    mocker.patch(
-        "app.views.handlers.submission.convert_answers_v2", mocker.Mock(return_value={})
-    )
-    submission_handler = SubmissionHandler(
-        QuestionnaireSchema({}), mock_questionnaire_store, {}
-    )
+    mocker.patch("app.views.handlers.submission.convert_answers_v2", mocker.Mock(return_value={}))
+    submission_handler = SubmissionHandler(QuestionnaireSchema({}), mock_questionnaire_store, {})
     assert submission_handler.get_payload()["submission_language_code"] == "cy"
 
 
@@ -34,9 +30,7 @@ def test_submission_language_code_uses_default_language_if_session_data_language
     mock_questionnaire_store,
     mocker,
 ):
-    mocker.patch(
-        "app.views.handlers.submission.convert_answers_v2", mocker.Mock(return_value={})
-    )
+    mocker.patch("app.views.handlers.submission.convert_answers_v2", mocker.Mock(return_value={}))
     submission_payload_session_data.language_code = None
     submission_payload_session_data.launch_language_code = None
     session_store = SessionStore("user_ik", "pepper", "eq_session_id").create(
@@ -50,9 +44,7 @@ def test_submission_language_code_uses_default_language_if_session_data_language
         "app.views.handlers.submission.get_session_store",
         return_value=session_store,
     )
-    submission_handler = SubmissionHandler(
-        QuestionnaireSchema({}), mock_questionnaire_store, {}
-    )
+    submission_handler = SubmissionHandler(QuestionnaireSchema({}), mock_questionnaire_store, {})
     assert submission_handler.get_payload()["submission_language_code"] == "en"
 
 
@@ -86,9 +78,7 @@ def test_submit_view_submitted_response_true_submitted_at_set(
 
 @freeze_time(datetime.now(timezone.utc).replace(second=0, microsecond=0))
 @pytest.mark.usefixtures("app")
-def test_submission_payload_structure_v2(
-    app, submission_payload_session_store, mock_questionnaire_store_v2, mocker
-):
+def test_submission_payload_structure_v2(app, submission_payload_session_store, mock_questionnaire_store_v2, mocker):
     expected_payload = {
         "case_id": "case_id",
         "tx_id": "tx_id",

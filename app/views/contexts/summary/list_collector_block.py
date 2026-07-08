@@ -21,13 +21,9 @@ class ListCollectorBlock(ListCollectorBaseBlock):
 
         add_link = self._add_link(summary, list_collector_block)
 
-        list_collector_blocks_on_path = self._list_collector_block_on_path(
-            summary["for_list"]
-        )
+        list_collector_blocks_on_path = self._list_collector_block_on_path(summary["for_list"])
 
-        list_collector_block = self._list_collector_block(
-            summary["for_list"], list_collector_blocks_on_path
-        )
+        list_collector_block = self._list_collector_block(summary["for_list"], list_collector_blocks_on_path)
 
         rendered_summary = self._placeholder_renderer.render(
             data_to_render=summary, list_item_id=self._location.list_item_id
@@ -52,9 +48,7 @@ class ListCollectorBlock(ListCollectorBaseBlock):
                 primary=True,
             ):
                 for primary_person_block in primary_list_collectors:
-                    primary_person_edit_block_id = edit_block_id = primary_person_block[
-                        "add_or_edit_block"
-                    ]["id"]
+                    primary_person_edit_block_id = edit_block_id = primary_person_block["add_or_edit_block"]["id"]
 
         list_summary_context = self.list_context(
             list_collector_block["summary"],
@@ -93,9 +87,7 @@ class ListCollectorBlock(ListCollectorBaseBlock):
                 return_to=self._return_location.return_to,
             )
 
-        if driving_question_block := self._schema.get_driving_question_for_list(
-            self._section, summary["for_list"]
-        ):
+        if driving_question_block := self._schema.get_driving_question_for_list(self._section, summary["for_list"]):
             return url_for(
                 "questionnaire.block",
                 block_id=driving_question_block["id"],

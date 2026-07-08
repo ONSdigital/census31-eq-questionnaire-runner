@@ -61,14 +61,12 @@ def is_recordable_survey_navigation(request: Request) -> bool:
 
 def process_get(request: Request, file: IO) -> None:
     """
-    We only want to record GET requests in Runner for actions like navigating back in a survey journey. Therefore, we exclude the following:
+    We only want to record GET requests in Runner for actions
+    like navigating back in a survey journey. Therefore, we exclude the following:
         - the very first GET action of a survey journey, after schema is loaded
         - tokens/authentication
     """
-    has_journey_started = (
-        not survey_journey["in_progress"]
-        and request.url == f"{RUNNER_ROOT_URL}/questionnaire/"
-    )
+    has_journey_started = not survey_journey["in_progress"] and request.url == f"{RUNNER_ROOT_URL}/questionnaire/"
     if has_journey_started:
         survey_journey["in_progress"] = True
         return
@@ -78,7 +76,8 @@ def process_get(request: Request, file: IO) -> None:
         file.write(generate_method_request(method="get", data=path))
 
     elif survey_journey["in_progress"]:
-        # ensure the request method is captured - allows us to record Runner GET navigation actions on the next pass through
+        # ensure the request method is captured - allows us
+        # to record Runner GET navigation actions on the next pass through
         survey_journey["previous_request_method"] = request.method
 
 
@@ -128,9 +127,7 @@ def request_handler(request: Request) -> None:
 
 def run(pw: Playwright) -> None:
     chromium = pw.chromium
-    browser = chromium.launch(
-        headless=False, args=["--start-maximized"], channel="chrome"
-    )
+    browser = chromium.launch(headless=False, args=["--start-maximized"], channel="chrome")
     page = browser.new_page(no_viewport=True)
     page.goto(LAUNCHER_ROOT_URL)
 

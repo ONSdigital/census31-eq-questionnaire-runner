@@ -10,14 +10,14 @@ describe("Feature: Validation for single date periods", () => {
 
   describe("Given I enter a date before the minimum offset meta date", () => {
     it("When I continue, Then I should see a period validation error", async () => {
-      await $(DatePeriodPage.dateRangeFromday()).setValue(13);
-      await $(DatePeriodPage.dateRangeFrommonth()).setValue(2);
-      await $(DatePeriodPage.dateRangeFromyear()).setValue(2016);
+      await $(DatePeriodPage.dateRangeFromDay()).setValue(13);
+      await $(DatePeriodPage.dateRangeFromMonth()).setValue(2);
+      await $(DatePeriodPage.dateRangeFromYear()).setValue(2016);
       await click(DatePeriodPage.submit());
 
-      await $(DatePeriodPage.dateRangeToday()).setValue(3);
-      await $(DatePeriodPage.dateRangeTomonth()).setValue(3);
-      await $(DatePeriodPage.dateRangeToyear()).setValue(2018);
+      await $(DatePeriodPage.dateRangeToDay()).setValue(3);
+      await $(DatePeriodPage.dateRangeToMonth()).setValue(3);
+      await $(DatePeriodPage.dateRangeToYear()).setValue(2018);
       await click(DatePeriodPage.submit());
       await expect(await $(DatePeriodPage.errorNumber(1)).getText()).toBe("Enter a date after 12 December 2016");
     });
@@ -25,14 +25,14 @@ describe("Feature: Validation for single date periods", () => {
 
   describe("Given I enter a date after the maximum offset value date", () => {
     it("When I continue, Then I should see a period validation error", async () => {
-      await $(DatePeriodPage.dateRangeFromday()).setValue(13);
-      await $(DatePeriodPage.dateRangeFrommonth()).setValue(7);
-      await $(DatePeriodPage.dateRangeFromyear()).setValue(2017);
+      await $(DatePeriodPage.dateRangeFromDay()).setValue(13);
+      await $(DatePeriodPage.dateRangeFromMonth()).setValue(7);
+      await $(DatePeriodPage.dateRangeFromYear()).setValue(2017);
       await click(DatePeriodPage.submit());
 
-      await $(DatePeriodPage.dateRangeToday()).setValue(3);
-      await $(DatePeriodPage.dateRangeTomonth()).setValue(3);
-      await $(DatePeriodPage.dateRangeToyear()).setValue(2018);
+      await $(DatePeriodPage.dateRangeToDay()).setValue(3);
+      await $(DatePeriodPage.dateRangeToMonth()).setValue(3);
+      await $(DatePeriodPage.dateRangeToYear()).setValue(2018);
       await click(DatePeriodPage.submit());
       await expect(await $(DatePeriodPage.errorNumber(1)).getText()).toBe("Enter a date before 2 July 2017");
     });
@@ -40,14 +40,14 @@ describe("Feature: Validation for single date periods", () => {
 
   describe("Given I enter a date before the minimum offset answer id date", () => {
     it("When I continue, Then I should see a period validation error", async () => {
-      await $(DatePeriodPage.dateRangeFromday()).setValue(13);
-      await $(DatePeriodPage.dateRangeFrommonth()).setValue(11);
-      await $(DatePeriodPage.dateRangeFromyear()).setValue(2016);
+      await $(DatePeriodPage.dateRangeFromDay()).setValue(13);
+      await $(DatePeriodPage.dateRangeFromMonth()).setValue(11);
+      await $(DatePeriodPage.dateRangeFromYear()).setValue(2016);
       await click(DatePeriodPage.submit());
 
-      await $(DatePeriodPage.dateRangeToday()).setValue(13);
-      await $(DatePeriodPage.dateRangeTomonth()).setValue(1);
-      await $(DatePeriodPage.dateRangeToyear()).setValue(2018);
+      await $(DatePeriodPage.dateRangeToDay()).setValue(13);
+      await $(DatePeriodPage.dateRangeToMonth()).setValue(1);
+      await $(DatePeriodPage.dateRangeToYear()).setValue(2018);
       await click(DatePeriodPage.submit());
       await expect(await $(DatePeriodPage.errorNumber(2)).getText()).toBe("Enter a date after 10 February 2018");
     });
@@ -55,14 +55,14 @@ describe("Feature: Validation for single date periods", () => {
 
   describe("Given I enter a date in between the minimum offset meta date and the maximum offset value date", () => {
     it("When I continue, Then I should be able to reach the summary", async () => {
-      await $(DatePeriodPage.dateRangeFromday()).setValue(13);
-      await $(DatePeriodPage.dateRangeFrommonth()).setValue(12);
-      await $(DatePeriodPage.dateRangeFromyear()).setValue(2016);
+      await $(DatePeriodPage.dateRangeFromDay()).setValue(13);
+      await $(DatePeriodPage.dateRangeFromMonth()).setValue(12);
+      await $(DatePeriodPage.dateRangeFromYear()).setValue(2016);
       await click(DatePeriodPage.submit());
 
-      await $(DatePeriodPage.dateRangeToday()).setValue(11);
-      await $(DatePeriodPage.dateRangeTomonth()).setValue(2);
-      await $(DatePeriodPage.dateRangeToyear()).setValue(2018);
+      await $(DatePeriodPage.dateRangeToDay()).setValue(11);
+      await $(DatePeriodPage.dateRangeToMonth()).setValue(2);
+      await $(DatePeriodPage.dateRangeToYear()).setValue(2018);
       await click(DatePeriodPage.submit());
       await verifyUrlContains(SubmitPage.pageName);
     });

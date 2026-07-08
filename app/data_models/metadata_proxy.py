@@ -26,7 +26,6 @@ TOP_LEVEL_METADATA_KEYS = [
     "language_code",
     "schema_name",
     "schema_url",
-    "cir_instrument_id",
     "channel",
     "region_code",
     "roles",
@@ -53,7 +52,6 @@ class MetadataProxy:
     survey_metadata: SurveyMetadata | None = None
     schema_url: str | None = None
     schema_name: str | None = None
-    cir_instrument_id: str | None = None
     language_code: str | None = None
     channel: str | None = None
     region_code: str | None = None
@@ -69,19 +67,13 @@ class MetadataProxy:
     @classmethod
     def from_dict(cls, metadata: Mapping) -> MetadataProxy:
         _metadata = deepcopy(dict(metadata))
-        version = (
-            AuthPayloadVersion(_metadata.pop("version"))
-            if "version" in _metadata
-            else None
-        )
+        version = AuthPayloadVersion(_metadata.pop("version")) if "version" in _metadata else None
 
         survey_metadata = None
         if serialized_metadata := cls.serialize(_metadata.pop("survey_metadata", {})):
             survey_metadata = SurveyMetadata(**serialized_metadata)
 
-        top_level_data = {
-            key: _metadata.pop(key, None) for key in TOP_LEVEL_METADATA_KEYS
-        }
+        top_level_data = {key: _metadata.pop(key, None) for key in TOP_LEVEL_METADATA_KEYS}
 
         return cls(
             **top_level_data,

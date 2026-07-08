@@ -9,7 +9,7 @@ describe("Conditional combined routing.", () => {
     await browser.openQuestionnaire("test_conditional_combined_routing.json");
   });
 
-  it('Given a list of radio options, when I choose the option "Yes" or the option "Sometimes" then I should be routed to the relevant page', async () => {
+  it('Given a list of radio options, When I choose the option "Yes" or the option "Sometimes", Then I should be routed to the relevant page', async () => {
     // When
     await $(ConditionalCombinedRoutingPage.yes()).click();
     await click(ConditionalCombinedRoutingPage.submit());
@@ -27,7 +27,7 @@ describe("Conditional combined routing.", () => {
     await verifyUrlContains(ResponseAny.pageName);
   });
 
-  it('Given a list of radio options, when I choose the option "No, I prefer tea" then I should be routed to the relevant page', async () => {
+  it('Given a list of radio options, When I choose the option "No, I prefer tea", Then I should be routed to the relevant page', async () => {
     // When
     await $(ConditionalCombinedRoutingPage.noIPreferTea()).click();
     await click(ConditionalCombinedRoutingPage.submit());
@@ -35,7 +35,7 @@ describe("Conditional combined routing.", () => {
     await verifyUrlContains(ResponseNotAny.pageName);
   });
 
-  it('Given a list of radio options, when I choose the option "No, I don\'t drink any hot drinks" then I should be routed to the submit page', async () => {
+  it('Given a list of radio options, When I choose the option "No, I don\'t drink any hot drinks", Then I should be routed to the submit page', async () => {
     // When
     await $(ConditionalCombinedRoutingPage.noIDonTDrinkAnyHotDrinks()).click();
     await click(ConditionalCombinedRoutingPage.submit());

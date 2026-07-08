@@ -23,18 +23,22 @@ describe('Radio with multiple "detail_answer" options', () => {
     await expect(await $(MandatoryRadioPage.errorNumber(1)).getText()).toBe("Enter your favourite to continue");
   });
 
-  it("Given a selected radio answer with an error for a mandatory detail answer, When I enter valid value and submit the page, Then the error is cleared and I navigate to next page.", async () => {
-    // Given
-    await browser.openQuestionnaire(radioSchema);
-    await $(MandatoryRadioPage.favouriteNotListed()).click();
-    await click(MandatoryRadioPage.submit());
-    await expect(await $(MandatoryRadioPage.error()).isDisplayed()).toBe(true);
+  it(
+    "Given a selected radio answer with an error for a mandatory detail answer, " +
+      "When I enter valid value and submit the page, Then the error is cleared and I navigate to next page.",
+    async () => {
+      // Given
+      await browser.openQuestionnaire(radioSchema);
+      await $(MandatoryRadioPage.favouriteNotListed()).click();
+      await click(MandatoryRadioPage.submit());
+      await expect(await $(MandatoryRadioPage.error()).isDisplayed()).toBe(true);
 
-    // When
-    await $(MandatoryRadioPage.favouriteNotListedDetail()).setValue("Bacon");
-    await click(MandatoryRadioPage.submit());
-    await verifyUrlContains(SubmitPage.pageName);
-  });
+      // When
+      await $(MandatoryRadioPage.favouriteNotListedDetail()).setValue("Bacon");
+      await click(MandatoryRadioPage.submit());
+      await verifyUrlContains(SubmitPage.pageName);
+    },
+  );
 
   it("Given a non-mandatory detail answer, When the user does not provide any text, Then just the option value should be displayed on the summary screen", async () => {
     // Given
@@ -58,19 +62,23 @@ describe('Radio with multiple "detail_answer" options', () => {
     await expect(await $(SubmitPage.radioMandatoryAnswer()).getText()).toBe("Eggs\nScrambled");
   });
 
-  it("Given I have previously added text in a detail answer and saved, When I select a different radio and save, Then the text entered in the detail answer field should be empty.", async () => {
-    // Given
-    await browser.openQuestionnaire(radioSchema);
-    // When
-    await $(MandatoryRadioPage.favouriteNotListed()).click();
-    await $(MandatoryRadioPage.favouriteNotListedDetail()).setValue("Bacon");
-    await click(MandatoryRadioPage.submit());
-    await $(SubmitPage.previous()).click();
-    await $(MandatoryRadioPage.eggs()).click();
-    await click(MandatoryRadioPage.submit());
-    await $(SubmitPage.previous()).click();
-    // Then
-    await $(MandatoryRadioPage.favouriteNotListed()).click();
-    await expect(await $(MandatoryRadioPage.favouriteNotListedDetail()).getValue()).toBe("");
-  });
+  it(
+    "Given I have previously added text in a detail answer and saved, " +
+      "When I select a different radio and save, Then the text entered in the detail answer field should be empty.",
+    async () => {
+      // Given
+      await browser.openQuestionnaire(radioSchema);
+      // When
+      await $(MandatoryRadioPage.favouriteNotListed()).click();
+      await $(MandatoryRadioPage.favouriteNotListedDetail()).setValue("Bacon");
+      await click(MandatoryRadioPage.submit());
+      await $(SubmitPage.previous()).click();
+      await $(MandatoryRadioPage.eggs()).click();
+      await click(MandatoryRadioPage.submit());
+      await $(SubmitPage.previous()).click();
+      // Then
+      await $(MandatoryRadioPage.favouriteNotListed()).click();
+      await expect(await $(MandatoryRadioPage.favouriteNotListedDetail()).getValue()).toBe("");
+    },
+  );
 });

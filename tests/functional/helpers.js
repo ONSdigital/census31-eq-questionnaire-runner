@@ -1,3 +1,5 @@
+export const WAIT_FOR_DISPLAYED_TIMEOUT_MS = 5000;
+
 export const checkItemsInList = async (itemsExpected, listLabel) => {
   await $(listLabel(1)).waitForDisplayed();
 
@@ -66,4 +68,21 @@ export const verifyUrlContains = async (expectedUrlString) => {
 
 export const verifyUrlContainsSyncMode = (expectedUrlString) => {
   expect(browser).toHaveUrl(expect.stringContaining(expectedUrlString));
+};
+
+/**
+ * Normalize HTML by removing extra whitespace and normalizing self-closing tags.
+ * This helps tests be resilient to formatting changes in templates (e.g., pretty-printed vs minified HTML).
+ * Converts: `<br />` to `<br>` and removes extra whitespace/newlines between tags.
+ */
+export const normalizeHtml = (html) => {
+  return html
+    .replace(/\s+/g, " ") // Replace multiple whitespace (including newlines) with single space
+    .replace(/>\s+</g, "><") // Remove whitespace between tags
+    .replace(/\s*(<br\s*\/?>)\s*/gi, "$1") // Remove whitespace around line-break tags
+    .replace(/>\s+/g, ">") // Remove whitespace immediately after opening tags
+    .replace(/\s+</g, "<") // Remove whitespace immediately before closing/opening tags
+    .replace(/<br\s*\/>/g, "<br>") // Normalize XHTML br tags to HTML5
+    .replace(/[\u2018\u2019]/g, "'") // Normalize smart apostrophes to ASCII apostrophe
+    .trim();
 };

@@ -54,9 +54,7 @@ class TestQuestionnaireSubmit(IntegrationTestCase):
                 self.assertInUrl(SUBMIT_URL_PATH)
 
                 # When I invalidate a block and try access the submit page
-                self.get(
-                    "questionnaire/test-forced/?return_to=final-summary#test-answer"
-                )
+                self.get("questionnaire/test-forced/?return_to=final-summary#test-answer")
                 self.post({"test-answer": "Yes"})
 
                 self.get(SUBMIT_URL_PATH)
@@ -118,9 +116,7 @@ class TestQuestionnaireSubmitWithSummary(IntegrationTestCase):
         self,
     ):
         # Given a partially completed questionnaire
-        self.launchSurveyV2(
-            schema_name="test_routing_to_questionnaire_end_single_section"
-        )
+        self.launchSurveyV2(schema_name="test_routing_to_questionnaire_end_single_section")
         self.post({"test-answer": "Yes"})
 
         # When I make a GET request to the submit page
@@ -133,9 +129,7 @@ class TestQuestionnaireSubmitWithSummary(IntegrationTestCase):
         self,
     ):
         # Given a partially completed questionnaire
-        self.launchSurveyV2(
-            schema_name="test_routing_to_questionnaire_end_single_section"
-        )
+        self.launchSurveyV2(schema_name="test_routing_to_questionnaire_end_single_section")
         self.post({"test-answer": "Yes"})
 
         # When I make a POST request to the submit page
@@ -146,9 +140,7 @@ class TestQuestionnaireSubmitWithSummary(IntegrationTestCase):
 
     def test_is_displayed(self):
         # Given I launch a questionnaire
-        self.launchSurveyV2(
-            schema_name="test_routing_to_questionnaire_end_multiple_sections"
-        )
+        self.launchSurveyV2(schema_name="test_routing_to_questionnaire_end_multiple_sections")
 
         # When I complete the questionnaire
         self.post({"test-answer": "Yes"})

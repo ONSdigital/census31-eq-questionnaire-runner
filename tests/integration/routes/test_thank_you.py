@@ -122,6 +122,4 @@ class TestThankYou(IntegrationTestCase):
         self.post()
 
         self.assertInUrl("thank-you")
-        self.assertInBody(
-            "For security, your answers will only be available to view for 45 minutes"
-        )
+        self.assertInBody("For security, your answers will only be available to view for 45 minutes")

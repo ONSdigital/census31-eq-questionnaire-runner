@@ -74,9 +74,9 @@ def test_invalid_supplementary_dataset_version_raises_error():
             sds_schema_version="v6",
         )
 
-    assert (
-        str(error.value)
-        == "{'_schema': ['The Supplementary Dataset Schema Version does not match the version set in the Questionnaire Schema']}"
+    assert str(error.value) == (
+        "{'_schema': ['The Supplementary Dataset Schema Version does not match "
+        "the version set in the Questionnaire Schema']}"
     )
 
 
@@ -113,10 +113,7 @@ def test_validate_supplementary_data_payload_incorrect_dataset_id():
             survey_id="123",
         )
 
-    assert (
-        str(error.value)
-        == "{'_schema': ['Supplementary data did not return the specified Dataset ID']}"
-    )
+    assert str(error.value) == "{'_schema': ['Supplementary data did not return the specified Dataset ID']}"
 
 
 def test_validate_supplementary_data_payload_incorrect_survey_id():
@@ -128,10 +125,7 @@ def test_validate_supplementary_data_payload_incorrect_survey_id():
             survey_id="234",
         )
 
-    assert (
-        str(error.value)
-        == "{'_schema': ['Supplementary data did not return the specified Survey ID']}"
-    )
+    assert str(error.value) == "{'_schema': ['Supplementary data did not return the specified Survey ID']}"
 
 
 def test_validate_supplementary_data_payload_incorrect_identifier():
@@ -143,10 +137,7 @@ def test_validate_supplementary_data_payload_incorrect_identifier():
             survey_id="123",
         )
 
-    assert (
-        str(error.value)
-        == "{'data': {'_schema': ['Supplementary data did not return the specified Identifier']}}"
-    )
+    assert str(error.value) == "{'data': {'_schema': ['Supplementary data did not return the specified Identifier']}}"
 
 
 def test_supplementary_data_payload_with_no_items_is_validated():
@@ -238,7 +229,4 @@ def test_validate_supplementary_data_payload_invalid_identifier(invalid_identifi
             survey_id="123",
         )
 
-    assert (
-        str(error.value)
-        == "{'identifier': ['Item identifier must be a non-empty string or non-negative integer']}"
-    )
+    assert str(error.value) == "{'identifier': ['Item identifier must be a non-empty string or non-negative integer']}"

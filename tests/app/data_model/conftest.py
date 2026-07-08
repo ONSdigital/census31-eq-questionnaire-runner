@@ -12,28 +12,16 @@ from tests.app.parser.conftest import get_response_expires_at
 
 @pytest.fixture
 def basic_answer_store(answer_store):
-    answer_store.add_or_update(
-        Answer(answer_id="answer1", value=10, list_item_id="abc123")
-    )
-    answer_store.add_or_update(
-        Answer(answer_id="answer2", value=20, list_item_id="xyz987")
-    )
-    answer_store.add_or_update(
-        Answer(answer_id="another-answer2", value=25, list_item_id="xyz987")
-    )
+    answer_store.add_or_update(Answer(answer_id="answer1", value=10, list_item_id="abc123"))
+    answer_store.add_or_update(Answer(answer_id="answer2", value=20, list_item_id="xyz987"))
+    answer_store.add_or_update(Answer(answer_id="another-answer2", value=25, list_item_id="xyz987"))
 
     answer_store.add_or_update(Answer(answer_id="answer3", value=30))
     answer_store.add_or_update(Answer(answer_id="another-answer3", value=35))
 
     answer_store.add_or_update(Answer(answer_id="answer4", value="<p>abc123</p>"))
-    answer_store.add_or_update(
-        Answer(answer_id="answer5", value=["<p>abc123</p>", "some value"])
-    )
-    answer_store.add_or_update(
-        Answer(
-            answer_id="answer6", value={"item1": "<p>abc123</p>", "item2": "some value"}
-        )
-    )
+    answer_store.add_or_update(Answer(answer_id="answer5", value=["<p>abc123</p>", "some value"]))
+    answer_store.add_or_update(Answer(answer_id="answer6", value={"item1": "<p>abc123</p>", "item2": "some value"}))
 
     answer_store.add_or_update(Answer(answer_id="to-escape", value="'Twenty Five'"))
     return answer_store
@@ -69,12 +57,8 @@ def relationship_answer_store(answer_store):
 
 @pytest.fixture
 def store_to_serialize(answer_store):
-    answer_store.add_or_update(
-        Answer(answer_id="answer1", value=10, list_item_id="abc123")
-    )
-    answer_store.add_or_update(
-        Answer(answer_id="answer2", value=20, list_item_id="xyz987")
-    )
+    answer_store.add_or_update(Answer(answer_id="answer1", value=10, list_item_id="abc123"))
+    answer_store.add_or_update(Answer(answer_id="answer2", value=20, list_item_id="xyz987"))
     answer_store.add_or_update(Answer(answer_id="answer3", value=30))
 
     return answer_store
@@ -152,7 +136,5 @@ def app_session_store_encoded(mocker, session_data):
     store.session_data = session_data
 
     # pylint: disable=protected-access
-    store.key = storage_encryption.StorageEncryption._generate_key(
-        store.user_id, store.user_ik, store.pepper
-    )
+    store.key = storage_encryption.StorageEncryption._generate_key(store.user_id, store.user_ik, store.pepper)
     return store

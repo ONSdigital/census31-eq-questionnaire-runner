@@ -3,11 +3,7 @@ from decimal import Decimal
 import pytest
 from wtforms.fields import Field
 
-from app.forms.fields import (
-    DecimalFieldWithSeparator,
-    IntegerFieldWithSeparator,
-    MaxTextAreaField,
-)
+from app.forms.fields import DecimalFieldWithSeparator, IntegerFieldWithSeparator, MaxTextAreaField
 
 
 def test_text_area_a_wtforms_field(mock_form):

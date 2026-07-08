@@ -15,9 +15,7 @@ class DropdownHandler(SelectHandlerBase):
 
     @property
     def choices(self) -> Sequence[Choice]:
-        _choices: list[ChoiceWithDetailAnswer] = (
-            self._build_dynamic_choices() + self._build_static_choices()
-        )
+        _choices: list[ChoiceWithDetailAnswer] = self._build_dynamic_choices() + self._build_static_choices()
         if not _choices:
             raise InvalidSchemaConfigurationException()
 

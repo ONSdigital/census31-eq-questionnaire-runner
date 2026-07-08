@@ -18,9 +18,7 @@ dump_blueprint = Blueprint("dump", __name__)
 @login_required
 @role_required("dumper")
 def dump_debug() -> str:
-    questionnaire_store = get_questionnaire_store(
-        current_user.user_id, current_user.user_ik
-    )
+    questionnaire_store = get_questionnaire_store(current_user.user_id, current_user.user_ik)
     return questionnaire_store.serialize()
 
 
@@ -29,9 +27,7 @@ def dump_debug() -> str:
 @role_required("dumper")
 @with_questionnaire_store
 @with_schema
-def dump_routing(
-    schema: QuestionnaireSchema, questionnaire_store: QuestionnaireStore
-) -> tuple[str, int]:
+def dump_routing(schema: QuestionnaireSchema, questionnaire_store: QuestionnaireStore) -> tuple[str, int]:
     router = Router(
         schema=schema,
         data_stores=questionnaire_store.data_stores,
@@ -54,9 +50,7 @@ def dump_routing(
 @role_required("dumper")
 @with_questionnaire_store
 @with_schema
-def dump_submission(
-    schema: QuestionnaireSchema, questionnaire_store: QuestionnaireStore
-) -> tuple[str, int]:
+def dump_submission(schema: QuestionnaireSchema, questionnaire_store: QuestionnaireStore) -> tuple[str, int]:
     router = Router(
         schema=schema,
         data_stores=questionnaire_store.data_stores,

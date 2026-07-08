@@ -99,9 +99,7 @@ class QuestionnaireStateSchema(Schema, DateTimeSchemaMixin):
     expires_at = Timestamp(allow_none=True)
 
     @post_load
-    def make_model(
-        self, data: dict, **kwargs: dict  # pylint: disable=unused-argument
-    ) -> QuestionnaireState:
+    def make_model(self, data: dict, **kwargs: dict) -> QuestionnaireState:  # pylint: disable=unused-argument
         created_at = data.pop("created_at", None)
         updated_at = data.pop("updated_at", None)
         model = QuestionnaireState(**data)
@@ -117,9 +115,7 @@ class EQSessionSchema(Schema, DateTimeSchemaMixin):
     expires_at = Timestamp()
 
     @post_load
-    def make_model(
-        self, data: dict, **kwargs: dict  # pylint: disable=unused-argument
-    ) -> EQSession:
+    def make_model(self, data: dict, **kwargs: dict) -> EQSession:  # pylint: disable=unused-argument
         created_at = data.pop("created_at", None)
         updated_at = data.pop("updated_at", None)
         model = EQSession(**data)
@@ -133,7 +129,5 @@ class UsedJtiClaimSchema(Schema):
     expires_at = Timestamp()
 
     @post_load
-    def make_model(
-        self, data: dict, **kwargs: dict  # pylint: disable=unused-argument
-    ) -> UsedJtiClaim:
+    def make_model(self, data: dict, **kwargs: dict) -> UsedJtiClaim:  # pylint: disable=unused-argument
         return UsedJtiClaim(**data)

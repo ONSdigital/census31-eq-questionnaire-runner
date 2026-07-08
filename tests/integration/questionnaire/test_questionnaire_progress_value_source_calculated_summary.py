@@ -3,19 +3,13 @@ from tests.integration.integration_test_case import IntegrationTestCase
 
 class TestQuestionnaireProgressValueSource(IntegrationTestCase):
     def john_doe_link(self):
-        return self.getHtmlSoup().find("a", {"data-qa": "hub-row-section-3-1-link"})[
-            "href"
-        ]
+        return self.getHtmlSoup().find("a", {"data-qa": "hub-row-section-3-1-link"})["href"]
 
     def james_bond_link(self):
-        return self.getHtmlSoup().find("a", {"data-qa": "hub-row-section-3-2-link"})[
-            "href"
-        ]
+        return self.getHtmlSoup().find("a", {"data-qa": "hub-row-section-3-2-link"})["href"]
 
     def section_one_link(self):
-        return self.getHtmlSoup().find("a", {"data-qa": "hub-row-section-1-link"})[
-            "href"
-        ]
+        return self.getHtmlSoup().find("a", {"data-qa": "hub-row-section-1-link"})["href"]
 
     def add_person(self, first_name, last_name):
         self.assertEqualUrl("/questionnaire/people/add-person/")
@@ -213,9 +207,7 @@ class TestQuestionnaireProgressValueSource(IntegrationTestCase):
 
         # 11. Dependent sections should have been updated to partially completed
         self.assert_section_status(1, "Completed")
-        self.assert_section_status(
-            2, "Partially completed", ["Skippable random question + List collector"]
-        )
+        self.assert_section_status(2, "Partially completed", ["Skippable random question + List collector"])
         self.assert_section_status(3, "Partially completed", ["John Doe"])
         self.assert_section_status(4, "Partially completed", ["James Bond"])
 
@@ -308,9 +300,7 @@ class TestQuestionnaireProgressValueSource(IntegrationTestCase):
         # 5. Go back to calculated summary and make it incomplete
         self.get("/questionnaire/calculated-summary-block/")
         # Edit first answer
-        first_answer_link = self.getHtmlSoup().find(
-            "a", {"data-qa": "first-number-answer-edit"}
-        )["href"]
+        first_answer_link = self.getHtmlSoup().find("a", {"data-qa": "first-number-answer-edit"})["href"]
         self.get(first_answer_link)
         self.post({"first-number-answer": 2})
 
@@ -339,9 +329,7 @@ class TestQuestionnaireProgressValueSource(IntegrationTestCase):
         self.assertNotInBody("Random question about")
 
     def test_progress_value_source_with_backward_chained_dependencies(self):
-        self.launchSurveyV2(
-            schema_name="test_progress_value_source_calculated_summary_extended"
-        )
+        self.launchSurveyV2(schema_name="test_progress_value_source_calculated_summary_extended")
         self.post()
 
         # 1. Complete section 7
@@ -377,9 +365,7 @@ class TestQuestionnaireProgressValueSource(IntegrationTestCase):
         self.assert_section_status(6, "Completed")
 
     def test_progress_value_source_with_chained_dependencies(self):
-        self.launchSurveyV2(
-            schema_name="test_progress_value_source_calculated_summary_extended"
-        )
+        self.launchSurveyV2(schema_name="test_progress_value_source_calculated_summary_extended")
         self.post()
 
         # 1. Complete section 8, 9, 10, 11 and 12

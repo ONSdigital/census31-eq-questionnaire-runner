@@ -128,9 +128,7 @@ def test_context_for_section_list_summary(people_answer_store):
                     {"items": ["gTrlio"], "name": "visitors"},
                 ]
             ),
-            metadata=get_metadata(
-                extra_metadata={"display_address": "70 Abingdon Road, Goathill"}
-            ),
+            metadata=get_metadata(extra_metadata={"display_address": "70 Abingdon Road, Goathill"}),
         ),
         current_location=Location(section_id="section"),
         routing_path=RoutingPath(
@@ -159,7 +157,10 @@ def test_context_for_section_list_summary(people_answer_store):
                         "editable": True,
                         "list_items": [
                             {
-                                "edit_link": "/questionnaire/people/PlwgoG/edit-person/?return_to=section-summary&return_to_answer_id=PlwgoG",
+                                "edit_link": (
+                                    "/questionnaire/people/PlwgoG/edit-person/"
+                                    "?return_to=section-summary&return_to_answer_id=PlwgoG"
+                                ),
                                 "item_title": "Toni Morrison",
                                 "list_item_id": "PlwgoG",
                                 "primary_person": False,
@@ -168,7 +169,10 @@ def test_context_for_section_list_summary(people_answer_store):
                                 "repeating_blocks": False,
                             },
                             {
-                                "edit_link": "/questionnaire/people/UHPLbX/edit-person/?return_to=section-summary&return_to_answer_id=UHPLbX",
+                                "edit_link": (
+                                    "/questionnaire/people/UHPLbX/edit-person/"
+                                    "?return_to=section-summary&return_to_answer_id=UHPLbX"
+                                ),
                                 "item_title": "Barry Pheloung",
                                 "list_item_id": "UHPLbX",
                                 "primary_person": False,
@@ -193,11 +197,16 @@ def test_context_for_section_list_summary(people_answer_store):
                         "editable": True,
                         "list_items": [
                             {
-                                "edit_link": "/questionnaire/visitors/gTrlio/edit-visitor-person/?return_to=section-summary&return_to_answer_id=gTrlio",
+                                "edit_link": (
+                                    "/questionnaire/visitors/gTrlio/edit-visitor-person/"
+                                    "?return_to=section-summary&return_to_answer_id=gTrlio"
+                                ),
                                 "item_title": "",
                                 "list_item_id": "gTrlio",
                                 "primary_person": False,
-                                "remove_link": "/questionnaire/visitors/gTrlio/remove-visitor/?return_to=section-summary",
+                                "remove_link": (
+                                    "/questionnaire/visitors/gTrlio/remove-visitor/" "?return_to=section-summary"
+                                ),
                                 "is_complete": False,
                                 "repeating_blocks": False,
                             }
@@ -302,7 +311,10 @@ def test_context_for_section_summary_with_list_summary_and_first_variant(
                                         "editable": True,
                                         "list_items": [
                                             {
-                                                "edit_link": "/questionnaire/companies/PlwgoG/edit-company/?return_to=section-summary&return_to_answer_id=PlwgoG",
+                                                "edit_link": (
+                                                    "/questionnaire/companies/PlwgoG/edit-company/?return_to=section-summary"
+                                                    "&return_to_answer_id=PlwgoG"
+                                                ),
                                                 "item_title": "company a",
                                                 "list_item_id": "PlwgoG",
                                                 "primary_person": False,
@@ -311,7 +323,10 @@ def test_context_for_section_summary_with_list_summary_and_first_variant(
                                                 "repeating_blocks": False,
                                             },
                                             {
-                                                "edit_link": "/questionnaire/companies/UHPLbX/edit-company/?return_to=section-summary&return_to_answer_id=UHPLbX",
+                                                "edit_link": (
+                                                    "/questionnaire/companies/UHPLbX/edit-company/?return_to=section-summary"
+                                                    "&return_to_answer_id=UHPLbX"
+                                                ),
                                                 "item_title": "company b",
                                                 "list_item_id": "UHPLbX",
                                                 "primary_person": False,
@@ -333,7 +348,10 @@ def test_context_for_section_summary_with_list_summary_and_first_variant(
                                                             "currency": None,
                                                             "id": "registration-number-PlwgoG",
                                                             "label": answer_1_label,
-                                                            "link": "/questionnaire/companies/PlwgoG/edit-company/?return_to=section-summary&return_to_answer_id=registration-number-PlwgoG#registration-number",
+                                                            "link": (
+                                                                "/questionnaire/companies/PlwgoG/edit-company/?return_to=section-summary"
+                                                                "&return_to_answer_id=registration-number-PlwgoG#registration-number"
+                                                            ),
                                                             "type": "number",
                                                             "unit": None,
                                                             "unit_length": None,
@@ -344,7 +362,10 @@ def test_context_for_section_summary_with_list_summary_and_first_variant(
                                                             "currency": None,
                                                             "id": "authorised-insurer-radio-PlwgoG",
                                                             "label": answer_2_label,
-                                                            "link": "/questionnaire/companies/PlwgoG/edit-company/?return_to=section-summary&return_to_answer_id=authorised-insurer-radio-PlwgoG#authorised-insurer-radio",
+                                                            "link": (
+                                                                "/questionnaire/companies/PlwgoG/edit-company/?return_to=section-summary"
+                                                                "&return_to_answer_id=authorised-insurer-radio-PlwgoG#authorised-insurer-radio"
+                                                            ),
                                                             "type": "radio",
                                                             "unit": None,
                                                             "unit_length": None,
@@ -373,7 +394,10 @@ def test_context_for_section_summary_with_list_summary_and_first_variant(
                                                             "currency": None,
                                                             "id": "registration-number-UHPLbX",
                                                             "label": answer_1_label,
-                                                            "link": "/questionnaire/companies/UHPLbX/edit-company/?return_to=section-summary&return_to_answer_id=registration-number-UHPLbX#registration-number",
+                                                            "link": (
+                                                                "/questionnaire/companies/UHPLbX/edit-company/?return_to=section-summary"
+                                                                "&return_to_answer_id=registration-number-UHPLbX#registration-number"
+                                                            ),
                                                             "type": "number",
                                                             "unit": None,
                                                             "unit_length": None,
@@ -384,7 +408,10 @@ def test_context_for_section_summary_with_list_summary_and_first_variant(
                                                             "currency": None,
                                                             "id": "authorised-insurer-radio-UHPLbX",
                                                             "label": answer_2_label,
-                                                            "link": "/questionnaire/companies/UHPLbX/edit-company/?return_to=section-summary&return_to_answer_id=authorised-insurer-radio-UHPLbX#authorised-insurer-radio",
+                                                            "link": (
+                                                                "/questionnaire/companies/UHPLbX/edit-company/?return_to=section-summary"
+                                                                "&return_to_answer_id=authorised-insurer-radio-UHPLbX#authorised-insurer-radio"
+                                                            ),
                                                             "type": "radio",
                                                             "unit": None,
                                                             "unit_length": None,
@@ -447,15 +474,9 @@ def test_context_for_driving_question_summary_empty_list():
     summary_context = SectionSummaryContext(
         DEFAULT_LANGUAGE_CODE,
         schema,
-        DataStores(
-            answer_store=AnswerStore(
-                [{"answer_id": "anyone-usually-live-at-answer", "value": "No"}]
-            )
-        ),
+        DataStores(answer_store=AnswerStore([{"answer_id": "anyone-usually-live-at-answer", "value": "No"}])),
         current_location=Location(section_id="section"),
-        routing_path=RoutingPath(
-            block_ids=["anyone-usually-live-at"], section_id="section"
-        ),
+        routing_path=RoutingPath(block_ids=["anyone-usually-live-at"], section_id="section"),
     )
 
     context = summary_context()
@@ -622,9 +643,7 @@ def test_primary_only_links_for_section_summary(people_answer_store):
                 }
             ]
         ),
-        metadata=get_metadata(
-            extra_metadata={"display_address": "70 Abingdon Road, Goathill"}
-        ),
+        metadata=get_metadata(extra_metadata={"display_address": "70 Abingdon Road, Goathill"}),
         response_metadata={},
     )
 
@@ -665,9 +684,7 @@ def test_primary_links_for_section_summary(people_answer_store):
                 }
             ]
         ),
-        metadata=get_metadata(
-            extra_metadata={"display_address": "70 Abingdon Road, Goathill"}
-        ),
+        metadata=get_metadata(extra_metadata={"display_address": "70 Abingdon Road, Goathill"}),
     )
 
     summary_context = SectionSummaryContext(

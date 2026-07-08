@@ -20,11 +20,7 @@ SUBMITTED_AT = datetime.now(timezone.utc)
 def test_convert_answers_v2_to_payload_0_0_3():
     questionnaire_store = get_questionnaire_store()
 
-    full_routing_path = [
-        RoutingPath(
-            block_ids=["about you", "where you live"], section_id="household-section"
-        )
-    ]
+    full_routing_path = [RoutingPath(block_ids=["about you", "where you live"], section_id="household-section")]
 
     questionnaire_store.data_stores.answer_store = AnswerStore(
         [
@@ -92,9 +88,7 @@ def test_convert_payload_0_0_3_multiple_answers():
     questionnaire_store = get_questionnaire_store()
 
     full_routing_path = [RoutingPath(block_ids=["crisps"], section_id="section-1")]
-    answers = AnswerStore(
-        [Answer("crisps-answer", ["Ready salted", "Sweet chilli"]).to_dict()]
-    )
+    answers = AnswerStore([Answer("crisps-answer", ["Ready salted", "Sweet chilli"]).to_dict()])
     questionnaire_store.data_stores.answer_store = answers
 
     questionnaire = make_schema(
@@ -176,9 +170,7 @@ def test_radio_answer():
 def test_number_answer():
     questionnaire_store = get_questionnaire_store()
 
-    full_routing_path = [
-        RoutingPath(block_ids=["number-block"], section_id="section-1")
-    ]
+    full_routing_path = [RoutingPath(block_ids=["number-block"], section_id="section-1")]
     answers = AnswerStore([Answer("number-answer", 1.755).to_dict()])
     questionnaire_store.data_stores.answer_store = answers
 
@@ -209,9 +201,7 @@ def test_number_answer():
 def test_percentage_answer():
     questionnaire_store = get_questionnaire_store()
 
-    full_routing_path = [
-        RoutingPath(block_ids=["percentage-block"], section_id="section-1")
-    ]
+    full_routing_path = [RoutingPath(block_ids=["percentage-block"], section_id="section-1")]
     answers = AnswerStore([Answer("percentage-answer", 99).to_dict()])
     questionnaire_store.data_stores.answer_store = answers
 
@@ -242,12 +232,8 @@ def test_percentage_answer():
 def test_textarea_answer():
     questionnaire_store = get_questionnaire_store()
 
-    full_routing_path = [
-        RoutingPath(block_ids=["textarea-block"], section_id="section-1")
-    ]
-    answers = AnswerStore(
-        [Answer("textarea-answer", "This is an example text!").to_dict()]
-    )
+    full_routing_path = [RoutingPath(block_ids=["textarea-block"], section_id="section-1")]
+    answers = AnswerStore([Answer("textarea-answer", "This is an example text!").to_dict()])
     questionnaire_store.data_stores.answer_store = answers
 
     questionnaire = make_schema(
@@ -277,9 +263,7 @@ def test_textarea_answer():
 def test_currency_answer():
     questionnaire_store = get_questionnaire_store()
 
-    full_routing_path = [
-        RoutingPath(block_ids=["currency-block"], section_id="section-1")
-    ]
+    full_routing_path = [RoutingPath(block_ids=["currency-block"], section_id="section-1")]
     answers = AnswerStore([Answer("currency-answer", 100).to_dict()])
     questionnaire_store.data_stores.answer_store = answers
 
@@ -310,9 +294,7 @@ def test_currency_answer():
 def test_dropdown_answer():
     questionnaire_store = get_questionnaire_store()
 
-    full_routing_path = [
-        RoutingPath(block_ids=["dropdown-block"], section_id="section-1")
-    ]
+    full_routing_path = [RoutingPath(block_ids=["dropdown-block"], section_id="section-1")]
     answers = AnswerStore([Answer("dropdown-answer", "Rugby is better!").to_dict()])
     questionnaire_store.data_stores.answer_store = answers
 
@@ -500,9 +482,7 @@ def test_primary_person_list_item_conversion():
 
     data_dict = json_loads(json_dumps(output["answers"]))
 
-    assert sorted(answer_objects, key=lambda x: x["answer_id"]) == sorted(
-        data_dict, key=lambda x: x["answer_id"]
-    )
+    assert sorted(answer_objects, key=lambda x: x["answer_id"]) == sorted(data_dict, key=lambda x: x["answer_id"])
 
 
 def test_list_item_conversion():
@@ -548,9 +528,7 @@ def test_list_item_conversion():
 
     data_dict = json_loads(json_dumps(output["answers"]))
 
-    assert sorted(answer_objects, key=lambda x: x["answer_id"]) == sorted(
-        data_dict, key=lambda x: x["answer_id"]
-    )
+    assert sorted(answer_objects, key=lambda x: x["answer_id"]) == sorted(data_dict, key=lambda x: x["answer_id"])
 
 
 def test_list_item_conversion_empty_list():
@@ -593,9 +571,7 @@ def test_list_item_conversion_empty_list():
 
     data_dict = json_loads(json_dumps(output["answers"]))
 
-    assert sorted(answer_objects, key=lambda x: x["answer_id"]) == sorted(
-        data_dict, key=lambda x: x["answer_id"]
-    )
+    assert sorted(answer_objects, key=lambda x: x["answer_id"]) == sorted(data_dict, key=lambda x: x["answer_id"])
 
 
 def test_default_answers_not_present_when_not_answered():
@@ -933,9 +909,7 @@ def test_unrelated_block_answers_in_payload():
     )
 
     data = json_loads(json_dumps(output["answers"]))
-    answers = {
-        (answer["answer_id"], answer.get("list_item_id")): answer for answer in data
-    }
+    answers = {(answer["answer_id"], answer.get("list_item_id")): answer for answer in data}
 
     expected_relationships_answer = [
         {
@@ -1033,9 +1007,7 @@ def test_unrelated_block_answers_not_on_path_not_in_payload():
     )
 
     data = json_loads(json_dumps(output["answers"]))
-    answers = {
-        (answer["answer_id"], answer.get("list_item_id")): answer for answer in data
-    }
+    answers = {(answer["answer_id"], answer.get("list_item_id")): answer for answer in data}
 
     assert ("related-to-anyone-else-answer", "person1") not in answers
 
@@ -1123,9 +1095,7 @@ def test_relationship_answers_not_on_path_in_payload():
     )
 
     data = json_loads(json_dumps(output["answers"]))
-    answers = {
-        (answer["answer_id"], answer.get("list_item_id")): answer for answer in data
-    }
+    answers = {(answer["answer_id"], answer.get("list_item_id")): answer for answer in data}
 
     expected_relationships_answer = [
         {
@@ -1158,11 +1128,7 @@ def test_relationship_answers_not_on_path_in_payload():
 def test_answers_codes_only_present_for_answered_questions():
     questionnaire_store = get_questionnaire_store()
 
-    full_routing_path = [
-        RoutingPath(
-            block_ids=["mandatory-checkbox", "name-block"], section_id="default-section"
-        )
-    ]
+    full_routing_path = [RoutingPath(block_ids=["mandatory-checkbox", "name-block"], section_id="default-section")]
 
     questionnaire_store.data_stores.answer_store = AnswerStore(
         [
@@ -1187,9 +1153,7 @@ def test_answers_codes_only_present_for_answered_questions():
 def test_all_answers_codes_for_answer_options_in_payload_when_one_is_answered():
     questionnaire_store = get_questionnaire_store()
 
-    full_routing_path = [
-        RoutingPath(block_ids=["mandatory-checkbox"], section_id="default-section")
-    ]
+    full_routing_path = [RoutingPath(block_ids=["mandatory-checkbox"], section_id="default-section")]
 
     questionnaire_store.data_stores.answer_store = AnswerStore(
         [
@@ -1207,18 +1171,13 @@ def test_all_answers_codes_for_answer_options_in_payload_when_one_is_answered():
 
     # Then
     assert len(data_payload["answer_codes"]) == 5
-    assert all(
-        answer_code["answer_id"] == "mandatory-checkbox-answer"
-        for answer_code in data_payload["answer_codes"]
-    )
+    assert all(answer_code["answer_id"] == "mandatory-checkbox-answer" for answer_code in data_payload["answer_codes"])
 
 
 def test_no_answers_codes_in_payload_when_no_questions_answered():
     questionnaire_store = get_questionnaire_store()
 
-    full_routing_path = [
-        RoutingPath(block_ids=["mandatory-checkbox"], section_id="default-section")
-    ]
+    full_routing_path = [RoutingPath(block_ids=["mandatory-checkbox"], section_id="default-section")]
 
     questionnaire_store.data_stores.answer_store = AnswerStore()
 
@@ -1255,9 +1214,7 @@ def test_payload_dynamic_answers():
         ]
     )
 
-    questionnaire_store.data_stores.list_store = ListStore(
-        [{"items": ["tUJzGV", "vhECeh"], "name": "supermarkets"}]
-    )
+    questionnaire_store.data_stores.list_store = ListStore([{"items": ["tUJzGV", "vhECeh"], "name": "supermarkets"}])
 
     schema = load_schema_from_name("test_dynamic_answers_list_source")
 
@@ -1268,19 +1225,11 @@ def test_payload_dynamic_answers():
     )
 
     # Then
-    assert (
-        Answer(answer_id="percentage-of-shopping", value=12, list_item_id="tUJzGV")
-        in data_payload["answers"]
-    )
-    assert (
-        Answer(answer_id="percentage-of-shopping", value=21, list_item_id="vhECeh")
-        in data_payload["answers"]
-    )
+    assert Answer(answer_id="percentage-of-shopping", value=12, list_item_id="tUJzGV") in data_payload["answers"]
+    assert Answer(answer_id="percentage-of-shopping", value=21, list_item_id="vhECeh") in data_payload["answers"]
 
 
-def test_repeating_block_answers_present(
-    repeating_blocks_answer_store, repeating_blocks_list_store
-):
+def test_repeating_block_answers_present(repeating_blocks_answer_store, repeating_blocks_list_store):
     questionnaire_store = get_questionnaire_store()
 
     full_routing_path = [
@@ -1298,9 +1247,7 @@ def test_repeating_block_answers_present(
     questionnaire_store.data_stores.answer_store = repeating_blocks_answer_store
     questionnaire_store.data_stores.list_store = repeating_blocks_list_store
 
-    schema = load_schema_from_name(
-        "test_list_collector_repeating_blocks_section_summary"
-    )
+    schema = load_schema_from_name("test_list_collector_repeating_blocks_section_summary")
 
     data_payload = get_payload_data(
         questionnaire_store.data_stores,
@@ -1411,9 +1358,7 @@ def test_payload_supplementary_data():
         supplementary_data=supplementary_data,
         list_mappings={"supermarkets": supermarkets_list_mappings},
     )
-    questionnaire_store.data_stores.list_store = ListStore(
-        [{"items": list_item_ids, "name": "supermarkets"}]
-    )
+    questionnaire_store.data_stores.list_store = ListStore([{"items": list_item_ids, "name": "supermarkets"}])
     questionnaire_store.data_stores.answer_store = AnswerStore(
         [
             Answer("percentage-of-shopping", 12, list_item_ids[0]).to_dict(),

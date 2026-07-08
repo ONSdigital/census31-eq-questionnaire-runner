@@ -9,15 +9,10 @@ from app.questionnaire.placeholder_renderer import PlaceholderRenderer
 from app.questionnaire.questionnaire_schema import DEFAULT_LANGUAGE_CODE
 from app.questionnaire.rules.operations import Operations
 from app.questionnaire.rules.operator import Operator
-from app.questionnaire.value_source_resolver import (
-    ValueSourceResolver,
-    ValueSourceTypes,
-)
+from app.questionnaire.value_source_resolver import ValueSourceResolver, ValueSourceTypes
 from app.utilities.types import LocationType
 
-RuleEvaluatorTypes: TypeAlias = (
-    bool | date | list[str] | list[date] | int | float | Decimal | None
-)
+RuleEvaluatorTypes: TypeAlias = bool | date | list[str] | list[date] | int | float | Decimal | None
 ResolvedOperand: TypeAlias = bool | date | ValueSourceTypes | None
 
 
@@ -47,15 +42,15 @@ class RuleEvaluator:
             schema=self.schema,
             location=self.location,
         )
-        self.operations = Operations(
-            language=self.language, schema=self.schema, renderer=renderer
-        )
+        self.operations = Operations(language=self.language, schema=self.schema, renderer=renderer)
 
     def _evaluate(self, rule: dict[str, Sequence]) -> bool | date | None:
         operator_name = next(iter(rule))
         operator = Operator(operator_name, self.operations)
         operands = rule[operator_name]
-        operands_rule_error_message = f"The rule is invalid, operands should be of type Sequence and not {type(operands)}"
+        operands_rule_error_message = (
+            f"The rule is invalid, operands should be of type Sequence and not {type(operands)}"
+        )
 
         if not isinstance(operands, Sequence):
             raise TypeError(operands_rule_error_message)
@@ -79,9 +74,7 @@ class RuleEvaluator:
 
         return operand
 
-    def get_resolved_operands(
-        self, operands: Sequence[ValueSourceTypes]
-    ) -> Generator[ResolvedOperand]:
+    def get_resolved_operands(self, operands: Sequence[ValueSourceTypes]) -> Generator[ResolvedOperand]:
         for operand in operands:
             yield self._resolve_operand(operand)
 

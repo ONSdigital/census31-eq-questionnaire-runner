@@ -8,7 +8,7 @@ describe("Date checks", () => {
     await browser.openQuestionnaire("test_placeholder_transform_date_range_bounds.json");
   });
 
-  it("Given a reference date is provided, when I get to the next page, then the placeholder contains a formatted date range based on the reference date", async () => {
+  it("Given a reference date is provided, When I get to the next page, Then the placeholder contains a formatted date range based on the reference date", async () => {
     await $(DateQuestionPage.day()).setValue(8);
     await $(DateQuestionPage.month()).setValue(9);
     await $(DateQuestionPage.year()).setValue(2021);
@@ -19,7 +19,7 @@ describe("Date checks", () => {
     await click(DaysQuestionBlockPage.submit());
   });
 
-  it("Given a reference date is provided, when I get to the next page, then the placeholder contains a formatted date range", async () => {
+  it("Given a reference date is provided, When I get to the next page, Then the placeholder contains a formatted date range", async () => {
     await $(DateQuestionPage.day()).setValue(15);
     await $(DateQuestionPage.month()).setValue(9);
     await $(DateQuestionPage.year()).setValue(2021);
@@ -27,13 +27,13 @@ describe("Date checks", () => {
     await click(DateQuestionPage.submit());
     await click(DaysQuestionBlockPage.submit());
 
-    await $(Block0Page.ref0day()).setValue(1);
-    await $(Block0Page.ref0month()).setValue(5);
-    await $(Block0Page.ref0year()).setValue(2019);
+    await $(Block0Page.ref0Day()).setValue(1);
+    await $(Block0Page.ref0Month()).setValue(5);
+    await $(Block0Page.ref0Year()).setValue(2019);
 
-    await $(Block0Page.ref1day()).setValue(19);
-    await $(Block0Page.ref1month()).setValue(5);
-    await $(Block0Page.ref1year()).setValue(2019);
+    await $(Block0Page.ref1Day()).setValue(19);
+    await $(Block0Page.ref1Month()).setValue(5);
+    await $(Block0Page.ref1Year()).setValue(2019);
 
     await click(Block0Page.submit());
 

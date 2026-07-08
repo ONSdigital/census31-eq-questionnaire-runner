@@ -11,13 +11,9 @@ class ListCollectorContentBlock(ListCollectorBaseBlock):
 
         current_list = self._data_stores.list_store[summary["for_list"]]
 
-        list_collector_blocks_on_path = self._list_collector_block_on_path(
-            summary["for_list"]
-        )
+        list_collector_blocks_on_path = self._list_collector_block_on_path(summary["for_list"])
 
-        list_collector_block = self._list_collector_block(
-            summary["for_list"], list_collector_blocks_on_path
-        )
+        list_collector_block = self._list_collector_block(summary["for_list"], list_collector_blocks_on_path)
 
         rendered_summary = self._placeholder_renderer.render(
             data_to_render=summary, list_item_id=self._location.list_item_id
@@ -28,9 +24,7 @@ class ListCollectorContentBlock(ListCollectorBaseBlock):
             related_answers = self._get_related_answer_blocks_by_list_item_id(
                 list_model=current_list, repeating_blocks=repeating_blocks
             )
-            item_label = self._schema.get_item_label(
-                self._section["id"], current_list.name
-            )
+            item_label = self._schema.get_item_label(self._section["id"], current_list.name)
 
         list_summary_context = self.list_context(
             list_collector_block["summary"],

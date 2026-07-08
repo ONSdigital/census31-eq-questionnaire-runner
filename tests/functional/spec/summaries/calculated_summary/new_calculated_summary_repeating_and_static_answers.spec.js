@@ -43,21 +43,25 @@ describe("Calculated summary with repeating answers", () => {
     await $(ExtraSpendingBlockPage.extraSpending()).setValue(0);
   });
 
-  it("Given I complete all list collector dynamic answers for two calculated summaries one of which also has static answers, I'm taken to each one in turn, showing the correct answers", async () => {
-    await click(ExtraSpendingBlockPage.submit());
-    await expect(await $(CalculatedSummarySpendingPage.calculatedSummaryTitle()).getText()).toBe(
-      "We calculate the total cost of your weekly shopping to be £550.00. Is this correct?",
-    );
-    await expect(await $(CalculatedSummarySpendingPage.calculatedSummaryAnswer()).getText()).toBe("£550.00");
-    await assertSummaryValues(["£300.00", "£200.00", "£30.00", "£15.00", "£5.00", "£0.00", "£550.00"]);
-    await click(CalculatedSummarySpendingPage.submit());
-    await expect(await $(CalculatedSummaryVisitsPage.calculatedSummaryTitle()).getText()).toBe(
-      "We calculate the total visits to the shop to be 6. Is this correct?",
-    );
-    await assertSummaryValues(["4", "2", "6"]);
-  });
+  it(
+    "Given I complete all list collector dynamic answers for two calculated summaries one of which also has static answers, " +
+      "I'm taken to each one in turn, showing the correct answers",
+    async () => {
+      await click(ExtraSpendingBlockPage.submit());
+      await expect(await $(CalculatedSummarySpendingPage.calculatedSummaryTitle()).getText()).toBe(
+        "We calculate the total cost of your weekly shopping to be £550.00. Is this correct?",
+      );
+      await expect(await $(CalculatedSummarySpendingPage.calculatedSummaryAnswer()).getText()).toBe("£550.00");
+      await assertSummaryValues(["£300.00", "£200.00", "£30.00", "£15.00", "£5.00", "£0.00", "£550.00"]);
+      await click(CalculatedSummarySpendingPage.submit());
+      await expect(await $(CalculatedSummaryVisitsPage.calculatedSummaryTitle()).getText()).toBe(
+        "We calculate the total visits to the shop to be 6. Is this correct?",
+      );
+      await assertSummaryValues(["4", "2", "6"]);
+    },
+  );
 
-  it("Given I click on a change link, when I use the previous button, I return to the calculated summary", async () => {
+  it("Given I click on a change link, When I use the previous button, I return to the calculated summary", async () => {
     await dynamicAnswerChangeLink(1).click();
     await verifyUrlContains(DynamicAnswerPage.pageName);
     await $(DynamicAnswerPage.previous()).click();
@@ -76,97 +80,113 @@ describe("Calculated summary with repeating answers", () => {
     await click(CalculatedSummaryVisitsPage.submit());
   });
 
-  it("Given I go back and change an answer that opens up a new question before the calculated summary, I am taken to the new question, and then the calculated summary", async () => {
-    await $(SummaryPage.extraSpendingAnswerEdit()).click();
-    await $(ExtraSpendingBlockPage.extraSpending()).setValue(50);
-    await click(ExtraSpendingBlockPage.submit());
+  it(
+    "Given I go back and change an answer that opens up a new question before the calculated summary, " +
+      "I am taken to the new question, and then the calculated summary",
+    async () => {
+      await $(SummaryPage.extraSpendingAnswerEdit()).click();
+      await $(ExtraSpendingBlockPage.extraSpending()).setValue(50);
+      await click(ExtraSpendingBlockPage.submit());
 
-    // new question
-    await verifyUrlContains(ExtraSpendingMethodBlockPage.pageName);
-    await $(ExtraSpendingMethodBlockPage.yes()).click();
-    await click(ExtraSpendingMethodBlockPage.submit());
+      // new question
+      await verifyUrlContains(ExtraSpendingMethodBlockPage.pageName);
+      await $(ExtraSpendingMethodBlockPage.yes()).click();
+      await click(ExtraSpendingMethodBlockPage.submit());
 
-    // then calculated summary
-    await verifyUrlContains(CalculatedSummarySpendingPage.pageName);
-    await expect(await $(CalculatedSummarySpendingPage.calculatedSummaryTitle()).getText()).toBe(
-      "We calculate the total cost of your weekly shopping to be £600.00. Is this correct?",
-    );
+      // then calculated summary
+      await verifyUrlContains(CalculatedSummarySpendingPage.pageName);
+      await expect(await $(CalculatedSummarySpendingPage.calculatedSummaryTitle()).getText()).toBe(
+        "We calculate the total cost of your weekly shopping to be £600.00. Is this correct?",
+      );
 
-    // then jump straight back to section summary (as other calculated summary is unchanged
-    await click(CalculatedSummarySpendingPage.submit());
-    await verifyUrlContains(SummaryPage.pageName);
-  });
+      // then jump straight back to section summary (as other calculated summary is unchanged
+      await click(CalculatedSummarySpendingPage.submit());
+      await verifyUrlContains(SummaryPage.pageName);
+    },
+  );
 
-  it("Given I add a new item to the list, I return to the list collector block, then the dynamic answers, then both calculated summaries to confirm newly added answers", async () => {
-    await $(SummaryPage.supermarketsListAddLink()).click();
-    await $(ListCollectorAddPage.supermarketName()).setValue("Sainsburys");
-    await click(ListCollectorAddPage.submit());
-    await $(ListCollectorPage.no()).click();
-    await click(ListCollectorPage.submit());
+  it(
+    "Given I add a new item to the list, I return to the list collector block, " +
+      "then the dynamic answers, then both calculated summaries to confirm newly added answers",
+    async () => {
+      await $(SummaryPage.supermarketsListAddLink()).click();
+      await $(ListCollectorAddPage.supermarketName()).setValue("Sainsburys");
+      await click(ListCollectorAddPage.submit());
+      await $(ListCollectorPage.no()).click();
+      await click(ListCollectorPage.submit());
 
-    // return to dynamic answer
-    await verifyUrlContains(DynamicAnswerPage.pageName);
-    await $$(DynamicAnswerPage.inputs())[2].setValue(100);
-    await $$(DynamicAnswerPage.inputs())[5].setValue(10);
-    await $$(DynamicAnswerPage.inputs())[8].setValue(7);
-    await click(DynamicAnswerPage.submit());
+      // return to dynamic answer
+      await verifyUrlContains(DynamicAnswerPage.pageName);
+      await $$(DynamicAnswerPage.inputs())[2].setValue(100);
+      await $$(DynamicAnswerPage.inputs())[5].setValue(10);
+      await $$(DynamicAnswerPage.inputs())[8].setValue(7);
+      await click(DynamicAnswerPage.submit());
 
-    // first calc summary
-    await verifyUrlContains(CalculatedSummarySpendingPage.pageName);
-    await expect(await $(CalculatedSummarySpendingPage.calculatedSummaryTitle()).getText()).toBe(
-      "We calculate the total cost of your weekly shopping to be £710.00. Is this correct?",
-    );
-    await assertSummaryValues(["£300.00", "£200.00", "£100.00", "£30.00", "£15.00", "£10.00", "£5.00", "£0.00", "£710.00"]);
+      // first calc summary
+      await verifyUrlContains(CalculatedSummarySpendingPage.pageName);
+      await expect(await $(CalculatedSummarySpendingPage.calculatedSummaryTitle()).getText()).toBe(
+        "We calculate the total cost of your weekly shopping to be £710.00. Is this correct?",
+      );
+      await assertSummaryValues(["£300.00", "£200.00", "£100.00", "£30.00", "£15.00", "£10.00", "£5.00", "£0.00", "£710.00"]);
 
-    // second calculated summary
-    await click(CalculatedSummarySpendingPage.submit());
-    await expect(await $(CalculatedSummaryVisitsPage.calculatedSummaryTitle()).getText()).toBe(
-      "We calculate the total visits to the shop to be 14. Is this correct?",
-    );
-    await assertSummaryValues(["4", "3", "2", "14"]);
-    await click(CalculatedSummaryVisitsPage.submit());
-    await verifyUrlContains(SummaryPage.pageName);
-  });
+      // second calculated summary
+      await click(CalculatedSummarySpendingPage.submit());
+      await expect(await $(CalculatedSummaryVisitsPage.calculatedSummaryTitle()).getText()).toBe(
+        "We calculate the total visits to the shop to be 14. Is this correct?",
+      );
+      await assertSummaryValues(["4", "3", "2", "14"]);
+      await click(CalculatedSummaryVisitsPage.submit());
+      await verifyUrlContains(SummaryPage.pageName);
+    },
+  );
 
-  it("Given I remove an item from the list which changes the calculated summaries, I return to each incomplete block only to confirm new dynamic answers and totals with answers removed", async () => {
-    await expect(await $(SummaryPage.supermarketsListLabel(1)).getText()).toBe("Tesco");
-    await expect(await $(SummaryPage.supermarketsListLabel(2)).getText()).toBe("Lidl");
-    await expect(await $(SummaryPage.supermarketsListLabel(3)).getText()).toBe("Sainsburys");
-    await expect(await $(SummaryPage.supermarketsListLabel(4)).isExisting()).toBe(false);
-    await $(SummaryPage.supermarketsListRemoveLink(1)).click();
+  it(
+    "Given I remove an item from the list which changes the calculated summaries, " +
+      "I return to each incomplete block only to confirm new dynamic answers and totals with answers removed",
+    async () => {
+      await expect(await $(SummaryPage.supermarketsListLabel(1)).getText()).toBe("Tesco");
+      await expect(await $(SummaryPage.supermarketsListLabel(2)).getText()).toBe("Lidl");
+      await expect(await $(SummaryPage.supermarketsListLabel(3)).getText()).toBe("Sainsburys");
+      await expect(await $(SummaryPage.supermarketsListLabel(4)).isExisting()).toBe(false);
+      await $(SummaryPage.supermarketsListRemoveLink(1)).click();
 
-    await verifyUrlContains(ListCollectorRemovePage.pageName);
-    await $(ListCollectorRemovePage.yes()).click();
-    await click(ListCollectorRemovePage.submit());
+      await verifyUrlContains(ListCollectorRemovePage.pageName);
+      await $(ListCollectorRemovePage.yes()).click();
+      await click(ListCollectorRemovePage.submit());
 
-    // section is now incomplete as dynamic answers and calculated summary depend on the removed item - step through each incomplete block only
-    await verifyUrlContains(DynamicAnswerPage.pageName);
-    await click(DynamicAnswerPage.submit());
+      // section is now incomplete as dynamic answers and calculated summary depend on the removed item - step through each incomplete block only
+      await verifyUrlContains(DynamicAnswerPage.pageName);
+      await click(DynamicAnswerPage.submit());
 
-    // Tesco is now gone
-    await expect(await $(CalculatedSummarySpendingPage.calculatedSummaryTitle()).getText()).toBe(
-      "We calculate the total cost of your weekly shopping to be £380.00. Is this correct?",
-    );
-    await assertSummaryValues(["£200.00", "£100.00", "£15.00", "£10.00", "£5.00", "£50.00", "£380.00"]);
-    await click(CalculatedSummarySpendingPage.submit());
-    await expect(await $(CalculatedSummaryVisitsPage.calculatedSummaryTitle()).getText()).toBe(
-      "We calculate the total visits to the shop to be 10. Is this correct?",
-    );
-    await assertSummaryValues(["3", "7", "10"]);
-    await click(CalculatedSummaryVisitsPage.submit());
+      // Tesco is now gone
+      await expect(await $(CalculatedSummarySpendingPage.calculatedSummaryTitle()).getText()).toBe(
+        "We calculate the total cost of your weekly shopping to be £380.00. Is this correct?",
+      );
+      await assertSummaryValues(["£200.00", "£100.00", "£15.00", "£10.00", "£5.00", "£50.00", "£380.00"]);
+      await click(CalculatedSummarySpendingPage.submit());
+      await expect(await $(CalculatedSummaryVisitsPage.calculatedSummaryTitle()).getText()).toBe(
+        "We calculate the total visits to the shop to be 10. Is this correct?",
+      );
+      await assertSummaryValues(["3", "7", "10"]);
+      await click(CalculatedSummaryVisitsPage.submit());
 
-    await expect(await $(SummaryPage.supermarketsListLabel(1)).getText()).toBe("Lidl");
-    await expect(await $(SummaryPage.supermarketsListLabel(2)).getText()).toBe("Sainsburys");
-    await expect(await $(SummaryPage.supermarketsListLabel(3)).isExisting()).toBe(false);
-  });
+      await expect(await $(SummaryPage.supermarketsListLabel(1)).getText()).toBe("Lidl");
+      await expect(await $(SummaryPage.supermarketsListLabel(2)).getText()).toBe("Sainsburys");
+      await expect(await $(SummaryPage.supermarketsListLabel(3)).isExisting()).toBe(false);
+    },
+  );
 
-  it("Given I proceed to the second section and enter a value greater than the calculated summary from the previous section, the correct error message is displayed", async () => {
-    await click(SummaryPage.submit());
-    await click(HubPage.submit());
-    await $(SupermarketTransportPage.weeklyCarTrips()).setValue(11);
-    await click(SupermarketTransportPage.submit());
-    await expect(await $(SupermarketTransportPage.singleErrorLink()).getText()).toBe("Enter an answer less than or equal to 10");
-  });
+  it(
+    "Given I proceed to the second section and enter a value greater than the calculated summary from the previous section, " +
+      "the correct error message is displayed",
+    async () => {
+      await click(SummaryPage.submit());
+      await click(HubPage.submit());
+      await $(SupermarketTransportPage.weeklyCarTrips()).setValue(11);
+      await click(SupermarketTransportPage.submit());
+      await expect(await $(SupermarketTransportPage.singleErrorLink()).getText()).toBe("Enter an answer less than or equal to 10");
+    },
+  );
 
   it("Given I change my answer to a value less than the calculated summary from the previous section, I am able to proceed", async () => {
     await $(SupermarketTransportPage.weeklyCarTrips()).setValue(9);

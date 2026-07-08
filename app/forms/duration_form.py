@@ -11,9 +11,7 @@ ErrorMessageType = dict[str, str]
 
 # pylint: disable=no-member
 class DurationForm(Form):
-    def validate(
-        self, extra_validators: dict[str, list[Callable]] | None = None
-    ) -> bool:
+    def validate(self, extra_validators: dict[str, list[Callable]] | None = None) -> bool:
         super().validate(extra_validators)
 
         if all(not field.raw_data[0] for field in self._fields.values()):
@@ -27,9 +25,7 @@ class DurationForm(Form):
             self._set_error("INVALID_DURATION")
             return False
 
-        if "months" in self.units and (
-            self.months.data is None or self.months.data < 0
-        ):
+        if "months" in self.units and (self.months.data is None or self.months.data < 0):
             self._set_error("INVALID_DURATION")
             return False
 
@@ -50,9 +46,7 @@ class DurationForm(Form):
         return data
 
 
-def get_duration_form(
-    answer: Mapping, error_messages: ErrorMessageType
-) -> type[DurationForm]:
+def get_duration_form(answer: Mapping, error_messages: ErrorMessageType) -> type[DurationForm]:
     class CustomDurationForm(DurationForm):
         mandatory = answer["mandatory"]
         units = answer["units"]
@@ -67,9 +61,7 @@ def get_duration_form(
     return CustomDurationForm
 
 
-def _get_answer_errors(
-    answer: Mapping, error_messages: ErrorMessageType
-) -> dict[str, str]:
+def _get_answer_errors(answer: Mapping, error_messages: ErrorMessageType) -> dict[str, str]:
     answer_errors = error_messages.copy()
 
     if "validation" in answer and "messages" in answer["validation"]:

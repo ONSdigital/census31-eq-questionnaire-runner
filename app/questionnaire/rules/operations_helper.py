@@ -11,9 +11,7 @@ from app.questionnaire.questionnaire_schema import QuestionnaireSchema
 from app.questionnaire.rules.operations import DateOffset, Operations
 
 if TYPE_CHECKING:
-    from app.questionnaire.placeholder_renderer import (
-        PlaceholderRenderer,  # pragma: no cover
-    )
+    from app.questionnaire.placeholder_renderer import PlaceholderRenderer  # pragma: no cover
 
 
 class OperationHelper:
@@ -34,9 +32,7 @@ class OperationHelper:
         offset: DateOffset | None = None,
         offset_by_full_weeks: bool = False,
     ) -> date | None:
-        return self.ops.resolve_date_from_string(
-            date_string, offset, offset_by_full_weeks
-        )
+        return self.ops.resolve_date_from_string(date_string, offset, offset_by_full_weeks)
 
     def get_option_label_from_value(
         self,

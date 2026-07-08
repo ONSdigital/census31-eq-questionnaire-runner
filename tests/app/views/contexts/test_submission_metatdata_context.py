@@ -4,9 +4,7 @@ import pytest
 from flask import Flask
 
 from app.survey_config.survey_type import SurveyType
-from app.views.contexts.submission_metadata_context import (
-    build_submission_metadata_context,
-)
+from app.views.contexts.submission_metadata_context import build_submission_metadata_context
 
 SURVEY_TYPE_DEFAULT = SurveyType.DEFAULT
 SURVEY_TYPE_SOCIAL = SurveyType.SOCIAL
@@ -37,9 +35,7 @@ def test_metadata_survey_types_without_ru_name(app: Flask, survey_type):
 
 def test_metadata_survey_type_default(app: Flask):
     with app.app_context():
-        metadata = build_submission_metadata_context(
-            SURVEY_TYPE_DEFAULT, SUBMITTED_AT, TX_ID
-        )
+        metadata = build_submission_metadata_context(SURVEY_TYPE_DEFAULT, SUBMITTED_AT, TX_ID)
         assert metadata["data-qa"] == "metadata"
         assert len(metadata["itemsList"]) == 2
         assert metadata["termCol"] == 5

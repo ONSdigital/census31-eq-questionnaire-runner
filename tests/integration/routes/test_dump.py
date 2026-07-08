@@ -14,9 +14,7 @@ class TestDumpDebug(IntegrationTestCase):
     def test_dump_debug_authenticated_missing_role(self):
         # Given I am an authenticated user who has launched a survey
         # but does not have the 'dumper' role in my metadata
-        self.launchSurveyV2(
-            schema_name="test_radio_mandatory_with_detail_answer_mandatory"
-        )
+        self.launchSurveyV2(schema_name="test_radio_mandatory_with_detail_answer_mandatory")
 
         # When I attempt to dump the questionnaire store
         self.get("/dump/debug")
@@ -51,9 +49,7 @@ class TestDumpSubmission(IntegrationTestCase):
     def test_dump_submission_authenticated_missing_role(self):
         # Given I am an authenticated user who has launched a survey
         # but does not have the 'dumper' role in my metadata
-        self.launchSurveyV2(
-            schema_name="test_radio_mandatory_with_detail_answer_mandatory"
-        )
+        self.launchSurveyV2(schema_name="test_radio_mandatory_with_detail_answer_mandatory")
 
         # When I attempt to dump the submission payload
         self.get("/dump/submission")
@@ -135,9 +131,7 @@ class TestDumpSubmission(IntegrationTestCase):
                 "case_id": actual["submission"]["case_id"],
                 "collection_exercise_sid": "789",
                 "data": {
-                    "answers": [
-                        {"answer_id": "radio-mandatory-answer", "value": "Coffee"}
-                    ],
+                    "answers": [{"answer_id": "radio-mandatory-answer", "value": "Coffee"}],
                     "lists": [],
                 },
                 "data_version": "0.0.3",
@@ -196,27 +190,19 @@ class TestDumpSubmission(IntegrationTestCase):
                     "answers": [
                         {
                             "answer_id": "first-name",
-                            "list_item_id": actual["submission"]["data"]["answers"][0][
-                                "list_item_id"
-                            ],
+                            "list_item_id": actual["submission"]["data"]["answers"][0]["list_item_id"],
                             "value": "John",
                         },
                         {
                             "answer_id": "last-name",
-                            "list_item_id": actual["submission"]["data"]["answers"][0][
-                                "list_item_id"
-                            ],
+                            "list_item_id": actual["submission"]["data"]["answers"][0]["list_item_id"],
                             "value": "Doe",
                         },
                         {"answer_id": "anyone-else", "value": "No"},
                     ],
                     "lists": [
                         {
-                            "items": [
-                                actual["submission"]["data"]["answers"][0][
-                                    "list_item_id"
-                                ]
-                            ],
+                            "items": [actual["submission"]["data"]["answers"][0]["list_item_id"]],
                             "name": "people",
                         }
                     ],
@@ -262,9 +248,7 @@ class TestDumpRoute(IntegrationTestCase):
     def test_dump_route_authenticated_missing_role(self):
         # Given I am an authenticated user who has launched a survey
         # but does not have the 'dumper' role in my metadata
-        self.launchSurveyV2(
-            schema_name="test_radio_mandatory_with_detail_answer_mandatory"
-        )
+        self.launchSurveyV2(schema_name="test_radio_mandatory_with_detail_answer_mandatory")
 
         # When I attempt to dump the questionnaire store
         self.get("/dump/routing-path")

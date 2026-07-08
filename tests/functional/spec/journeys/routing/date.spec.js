@@ -110,16 +110,16 @@ describe("Feature: Routing on a Date", () => {
       });
 
       it("When I enter a different date to February 2018, Then I should be routed to the correct page", async () => {
-        await $(DateNotEqualsQuestionPage.Month()).setValue(3);
-        await $(DateNotEqualsQuestionPage.Year()).setValue(2018);
+        await $(DateNotEqualsQuestionPage.month()).setValue(3);
+        await $(DateNotEqualsQuestionPage.year()).setValue(2018);
         await click(DateNotEqualsQuestionPage.submit());
 
         await verifyUrlContains(CorrectAnswerPage.pageName);
       });
 
       it("When I enter February 2018, Then I should be routed to the incorrect page", async () => {
-        await $(DateNotEqualsQuestionPage.Month()).setValue(2);
-        await $(DateNotEqualsQuestionPage.Year()).setValue(2018);
+        await $(DateNotEqualsQuestionPage.month()).setValue(2);
+        await $(DateNotEqualsQuestionPage.year()).setValue(2018);
         await click(DateNotEqualsQuestionPage.submit());
         await verifyUrlContains(IncorrectAnswerPage.pageName);
       });
@@ -165,19 +165,19 @@ describe("Feature: Routing on a Date", () => {
       });
 
       it("When I enter a date greater than 2017, Then I should be routed to the correct page", async () => {
-        await $(DateGreaterThanOrEqualsQuestionPage.Year()).setValue(2018);
+        await $(DateGreaterThanOrEqualsQuestionPage.year()).setValue(2018);
         await click(DateGreaterThanOrEqualsQuestionPage.submit());
         await verifyUrlContains(CorrectAnswerPage.pageName);
       });
 
       it("When I enter 2017, Then I should be routed to the correct page", async () => {
-        await $(DateGreaterThanOrEqualsQuestionPage.Year()).setValue(2017);
+        await $(DateGreaterThanOrEqualsQuestionPage.year()).setValue(2017);
         await click(DateGreaterThanOrEqualsQuestionPage.submit());
         await verifyUrlContains(CorrectAnswerPage.pageName);
       });
 
       it("When I enter a date less than March 2017, Then I should be routed to the incorrect page", async () => {
-        await $(DateGreaterThanOrEqualsQuestionPage.Year()).setValue(2016);
+        await $(DateGreaterThanOrEqualsQuestionPage.year()).setValue(2016);
         await click(DateGreaterThanOrEqualsQuestionPage.submit());
         await verifyUrlContains(IncorrectAnswerPage.pageName);
       });

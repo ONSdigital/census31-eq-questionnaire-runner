@@ -7,11 +7,7 @@ from wtforms.validators import Optional as OptionalValidator
 
 from app.forms.validators import ResponseRequired, format_message_with_title
 from app.questionnaire.rules.rule_evaluator import RuleEvaluator
-from app.questionnaire.value_source_resolver import (
-    ValueSourceEscapedTypes,
-    ValueSourceResolver,
-    ValueSourceTypes,
-)
+from app.questionnaire.value_source_resolver import ValueSourceEscapedTypes, ValueSourceResolver, ValueSourceTypes
 
 
 class FieldHandler(ABC):
@@ -33,9 +29,7 @@ class FieldHandler(ABC):
         self.disable_validation = disable_validation
         self.question_title = str(question_title)
 
-        self.validation_messages: Mapping[str, str] = self.answer_schema.get(
-            "validation", {}
-        ).get("messages", {})
+        self.validation_messages: Mapping[str, str] = self.answer_schema.get("validation", {}).get("messages", {})
 
     @cached_property
     def validators(self) -> list[validators.Optional]:
@@ -52,30 +46,19 @@ class FieldHandler(ABC):
         return str(self.answer_schema.get("guidance", ""))
 
     def get_validation_message(self, message_key: str) -> str:
-        return (
-            self.validation_messages.get(message_key)
-            or self.error_messages[message_key]
-        )
+        return self.validation_messages.get(message_key) or self.error_messages[message_key]
 
     def get_mandatory_validator(self) -> ResponseRequired | OptionalValidator:
         if self.answer_schema["mandatory"] is True:
             mandatory_message = self.get_validation_message(self.MANDATORY_MESSAGE_KEY)
 
-            return ResponseRequired(
-                message=format_message_with_title(
-                    mandatory_message, self.question_title
-                )
-            )
+            return ResponseRequired(message=format_message_with_title(mandatory_message, self.question_title))
         return validators.Optional()
 
-    def get_schema_value(
-        self, schema_element: dict
-    ) -> ValueSourceEscapedTypes | ValueSourceTypes:
+    def get_schema_value(self, schema_element: dict) -> ValueSourceEscapedTypes | ValueSourceTypes:
         if isinstance(schema_element["value"], dict):
             return self.value_source_resolver.resolve(schema_element["value"])
-        schema_element_value: ValueSourceEscapedTypes | ValueSourceTypes = (
-            schema_element["value"]
-        )
+        schema_element_value: ValueSourceEscapedTypes | ValueSourceTypes = schema_element["value"]
         return schema_element_value
 
     def get_field(self) -> Field:

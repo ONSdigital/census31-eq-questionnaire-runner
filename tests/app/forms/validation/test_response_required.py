@@ -11,9 +11,7 @@ from app.forms.validators import ResponseRequired
         ("test_response_blank_invalid", ["                           "]),
     ),
 )
-def test_response_invalid_raises_StopValidation(
-    raw_data, message, mock_form, mock_field
-):
+def test_response_invalid_raises_StopValidation(raw_data, message, mock_form, mock_field):
     validator = ResponseRequired(message)
     mock_field.raw_data = raw_data
     mock_field.errors = []

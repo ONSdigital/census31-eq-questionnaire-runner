@@ -2,20 +2,19 @@
 set -exo pipefail
 
 if [[ -z "$PROJECT_ID" ]]; then
-  echo "PROJECT_ID not provided"
-  exit 1
+    echo "PROJECT_ID not provided"
+    exit 1
 fi
 
 if [[ -z "$DOCKER_REGISTRY" ]]; then
-  echo "DOCKER_REGISTRY not provided"
-  exit 1
+    echo "DOCKER_REGISTRY not provided"
+    exit 1
 fi
 
 if [[ -z "$IMAGE_TAG" ]]; then
-  echo "IMAGE_TAG not provided"
-  exit 1
+    echo "IMAGE_TAG not provided"
+    exit 1
 fi
-
 
 REGION="${REGION:=europe-west2}"
 
@@ -36,10 +35,7 @@ EQ_SECRETS_FILE="/secrets/secrets.yml"
 DATASTORE_USE_GRPC="${DATASTORE_USE_GRPC:=True}"
 EQ_STORAGE_BACKEND="${EQ_STORAGE_BACKEND:=datastore}"
 EQ_ENABLE_SECURE_SESSION_COOKIE="${EQ_ENABLE_SECURE_SESSION_COOKIE:=True}"
-EQ_RABBITMQ_ENABLED="${EQ_RABBITMQ_ENABLED:=False}"
 EQ_ENABLE_HTML_MINIFY="${EQ_ENABLE_HTML_MINIFY:=False}"
-EQ_RABBITMQ_HOST="${EQ_RABBITMQ_HOST:=rabbit}"
-EQ_RABBITMQ_HOST_SECONDARY="${EQ_RABBITMQ_HOST_SECONDARY:=rabbit}"
 EQ_QUESTIONNAIRE_STATE_TABLE_NAME="${EQ_QUESTIONNAIRE_STATE_TABLE_NAME:=questionnaire-state}"
 EQ_SESSION_TABLE_NAME="${EQ_SESSION_TABLE_NAME:=eq-session}"
 EQ_USED_JTI_CLAIM_TABLE_NAME="${EQ_USED_JTI_CLAIM_TABLE_NAME:=used-jti-claim}"
@@ -63,7 +59,6 @@ VIEW_SUBMITTED_RESPONSE_EXPIRATION_IN_SECONDS="${VIEW_SUBMITTED_RESPONSE_EXPIRAT
 
 GOOGLE_TAG_ID="${GOOGLE_TAG_ID:=}"
 
-
 gcloud beta run deploy eq-questionnaire-runner \
     --project="${PROJECT_ID}" --region="${REGION}" --concurrency="${CONCURRENCY}" --min-instances="${MIN_INSTANCES}" --max-instances="${MAX_INSTANCES}" \
     --port=5000 --cpu="${CPU}" --memory="${MEMORY}" \
@@ -84,10 +79,7 @@ gcloud beta run deploy eq-questionnaire-runner \
     --set-env-vars DATASTORE_USE_GRPC="${DATASTORE_USE_GRPC}" \
     --set-env-vars EQ_STORAGE_BACKEND="${EQ_STORAGE_BACKEND}" \
     --set-env-vars EQ_ENABLE_SECURE_SESSION_COOKIE="${EQ_ENABLE_SECURE_SESSION_COOKIE}" \
-    --set-env-vars EQ_RABBITMQ_ENABLED="${EQ_RABBITMQ_ENABLED}" \
     --set-env-vars EQ_ENABLE_HTML_MINIFY="${EQ_ENABLE_HTML_MINIFY}" \
-    --set-env-vars EQ_RABBITMQ_HOST="${EQ_RABBITMQ_HOST}" \
-    --set-env-vars EQ_RABBITMQ_HOST_SECONDARY="${EQ_RABBITMQ_HOST_SECONDARY}" \
     --set-env-vars EQ_QUESTIONNAIRE_STATE_TABLE_NAME="${EQ_QUESTIONNAIRE_STATE_TABLE_NAME}" \
     --set-env-vars EQ_SESSION_TABLE_NAME="${EQ_SESSION_TABLE_NAME}" \
     --set-env-vars EQ_USED_JTI_CLAIM_TABLE_NAME="${EQ_USED_JTI_CLAIM_TABLE_NAME}" \

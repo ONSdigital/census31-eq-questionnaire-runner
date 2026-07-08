@@ -21,19 +21,13 @@ class TestQuestionnaireProgressValueSourceInRepeatingSections(IntegrationTestCas
         self.post(payload)
 
     def john_doe_link(self):
-        return self.getHtmlSoup().find("a", {"data-qa": "hub-row-section-2-1-link"})[
-            "href"
-        ]
+        return self.getHtmlSoup().find("a", {"data-qa": "hub-row-section-2-1-link"})["href"]
 
     def james_bond_link(self):
-        return self.getHtmlSoup().find("a", {"data-qa": "hub-row-section-2-2-link"})[
-            "href"
-        ]
+        return self.getHtmlSoup().find("a", {"data-qa": "hub-row-section-2-2-link"})["href"]
 
     def jane_doe_link(self):
-        return self.getHtmlSoup().find("a", {"data-qa": "hub-row-section-4-1-link"})[
-            "href"
-        ]
+        return self.getHtmlSoup().find("a", {"data-qa": "hub-row-section-4-1-link"})["href"]
 
     def add_person(self, first_name, last_name):
         self.assertInBody("What is the name of the person?")
@@ -63,9 +57,7 @@ class TestQuestionnaireProgressValueSourceInRepeatingSections(IntegrationTestCas
         from a block in another section is not completed
         """
 
-        self.launchSurveyV2(
-            schema_name="test_progress_block_value_source_repeating_sections"
-        )
+        self.launchSurveyV2(schema_name="test_progress_block_value_source_repeating_sections")
 
         self.assertInBody("Choose another section to complete")
 
@@ -121,9 +113,7 @@ class TestQuestionnaireProgressValueSourceInRepeatingSections(IntegrationTestCas
         from a block in another section is not completed
         """
 
-        self.launchSurveyV2(
-            schema_name="test_progress_section_value_source_repeating_sections"
-        )
+        self.launchSurveyV2(schema_name="test_progress_section_value_source_repeating_sections")
 
         self.assertInBody("Choose another section to complete")
 
@@ -179,9 +169,7 @@ class TestQuestionnaireProgressValueSourceInRepeatingSections(IntegrationTestCas
         from a block in another section is completeted
         """
 
-        self.launchSurveyV2(
-            schema_name="test_progress_block_value_source_repeating_sections"
-        )
+        self.launchSurveyV2(schema_name="test_progress_block_value_source_repeating_sections")
 
         self.assertInBody("Choose another section to complete")
 
@@ -230,9 +218,7 @@ class TestQuestionnaireProgressValueSourceInRepeatingSections(IntegrationTestCas
         Test that a block inside a repeating section is enabled if the progress value source
         from a block in another section is completeted
         """
-        self.launchSurveyV2(
-            schema_name="test_progress_section_value_source_repeating_sections"
-        )
+        self.launchSurveyV2(schema_name="test_progress_section_value_source_repeating_sections")
 
         self.assertInBody("Choose another section to complete")
 
@@ -281,9 +267,7 @@ class TestQuestionnaireProgressValueSourceInRepeatingSections(IntegrationTestCas
         Test that dependency blocks inside repeating sections are updated properly
         """
 
-        self.launchSurveyV2(
-            schema_name="test_progress_block_value_source_repeating_sections"
-        )
+        self.launchSurveyV2(schema_name="test_progress_block_value_source_repeating_sections")
 
         self.assertInBody("Choose another section to complete")
 
@@ -336,9 +320,7 @@ class TestQuestionnaireProgressValueSourceInRepeatingSections(IntegrationTestCas
         # 8. Assert sections 1 is completed and repeating sections are partially completed
         self.assertInBody("Choose another section to complete")
         self.assert_section_status(1, "Completed", ["List collector + random question"])
-        self.assert_section_status(
-            2, "Partially completed", ["John Doe", "Continue with section"]
-        )
+        self.assert_section_status(2, "Partially completed", ["John Doe", "Continue with section"])
         self.assert_section_status(3, "Not started", ["James Bond"])
 
         # 9. Go back to John Doe section
@@ -374,9 +356,7 @@ class TestQuestionnaireProgressValueSourceInRepeatingSections(IntegrationTestCas
         Test that dependency blocks inside repeating sections are updated properly
         """
 
-        self.launchSurveyV2(
-            schema_name="test_progress_section_value_source_repeating_sections"
-        )
+        self.launchSurveyV2(schema_name="test_progress_section_value_source_repeating_sections")
 
         self.assertInBody("Choose another section to complete")
 
@@ -429,9 +409,7 @@ class TestQuestionnaireProgressValueSourceInRepeatingSections(IntegrationTestCas
         # 8. Assert sections 1 is completed and repeating sections are partially completed
         self.assertInBody("Choose another section to complete")
         self.assert_section_status(1, "Completed", ["List collector + random question"])
-        self.assert_section_status(
-            2, "Partially completed", ["John Doe", "Continue with section"]
-        )
+        self.assert_section_status(2, "Partially completed", ["John Doe", "Continue with section"])
         self.assert_section_status(3, "Not started", ["James Bond"])
 
         # 9. Go back to John Doe section
@@ -468,9 +446,7 @@ class TestQuestionnaireProgressValueSourceInRepeatingSections(IntegrationTestCas
         """
         Test that dependency blocks inside repeating sections are updated properly when there are chained dependencies
         """
-        self.launchSurveyV2(
-            schema_name="test_progress_value_source_repeating_sections_chained_dependencies"
-        )
+        self.launchSurveyV2(schema_name="test_progress_value_source_repeating_sections_chained_dependencies")
 
         self.assertInBody("Choose another section to complete")
 

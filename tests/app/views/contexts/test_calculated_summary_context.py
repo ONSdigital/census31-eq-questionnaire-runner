@@ -113,9 +113,7 @@ def test_build_view_context_for_currency_calculated_summary(
     current_location = Location(section_id="default-section", block_id=block_id)
     data_stores = DataStores(
         answer_store=(
-            test_calculated_summary_answers_skipped_fourth
-            if skip_fourth
-            else test_calculated_summary_answers
+            test_calculated_summary_answers_skipped_fourth if skip_fourth else test_calculated_summary_answers
         )
     )
     block = test_calculated_summary_schema.get_block(block_id)
@@ -127,9 +125,7 @@ def test_build_view_context_for_currency_calculated_summary(
         location=current_location,
     )
 
-    rendered_block = placeholder_renderer.render(
-        data_to_render=block, list_item_id=current_location.list_item_id
-    )
+    rendered_block = placeholder_renderer.render(data_to_render=block, list_item_id=current_location.list_item_id)
 
     calculated_summary_context = CalculatedSummaryContext(
         language=language,
@@ -152,15 +148,10 @@ def test_build_view_context_for_currency_calculated_summary(
 
     assert "calculated_question" in context_summary
     assert len(context_summary["sections"][0]["groups"][0]["blocks"]) == total_blocks
-    assert (
-        context_summary["calculated_question"]["title"]
-        == "Grand total of previous values"
-    )
+    assert context_summary["calculated_question"]["title"] == "Grand total of previous values"
     assert context_summary["calculated_question"]["answers"][0]["value"] == value
 
-    answer_change_link = context_summary["sections"][0]["groups"][0]["blocks"][0][
-        "question"
-    ]["answers"][0]["link"]
+    answer_change_link = context_summary["sections"][0]["groups"][0]["blocks"][0]["question"]["answers"][0]["link"]
     assert "return_to=calculated-summary" in answer_change_link
     assert f"return_to_answer_id={return_to_answer_id}" in answer_change_link
     assert f"return_to_block_id={block_id}" in answer_change_link
@@ -206,7 +197,8 @@ def test_build_view_context_for_return_to_calculated_summary(
     return_to_block_id,
 ):
     """
-    Tests the change answer links for a calculated summary that has been reached by a change link on a grand calculated summary
+    Tests the change answer links for a calculated summary that
+    has been reached by a change link on a grand calculated summary
     """
     mocker.patch(
         "app.jinja_filters.flask_babel.get_locale",
@@ -236,9 +228,7 @@ def test_build_view_context_for_return_to_calculated_summary(
         location=current_location,
     )
 
-    rendered_block = placeholder_renderer.render(
-        data_to_render=block, list_item_id=current_location.list_item_id
-    )
+    rendered_block = placeholder_renderer.render(data_to_render=block, list_item_id=current_location.list_item_id)
 
     calculated_summary_context = CalculatedSummaryContext(
         language=language,
@@ -246,9 +236,7 @@ def test_build_view_context_for_return_to_calculated_summary(
         data_stores=data_stores,
         routing_path=RoutingPath(section_id="default-section", block_ids=block_ids),
         current_location=current_location,
-        return_location=ReturnLocation(
-            return_to=return_to, return_to_block_id=return_to_block_id
-        ),
+        return_location=ReturnLocation(return_to=return_to, return_to_block_id=return_to_block_id),
         rendered_block=rendered_block,
     )
 
@@ -257,9 +245,7 @@ def test_build_view_context_for_return_to_calculated_summary(
     assert_summary_context(context)
     context_summary = context["summary"]
 
-    answer_change_link = context_summary["sections"][0]["groups"][0]["blocks"][0][
-        "question"
-    ]["answers"][0]["link"]
+    answer_change_link = context_summary["sections"][0]["groups"][0]["blocks"][0]["question"]["answers"][0]["link"]
     assert f"return_to=calculated-summary,{return_to}" in answer_change_link
     assert f"return_to_answer_id={return_to_answer_id}" in answer_change_link
     assert f"return_to_block_id={block_id},{return_to_block_id}" in answer_change_link
@@ -314,12 +300,8 @@ def test_build_view_context_for_calculated_summary_with_dynamic_answers(
     ]
 
     current_location = Location(section_id="section-1", block_id=block_id)
-    data_stores = DataStores(
-        list_store=ListStore([{"items": ["CHKtQS", "laFWcs"], "name": "supermarkets"}])
-    )
-    block = test_calculated_summary_repeating_and_static_answers_schema.get_block(
-        block_id
-    )
+    data_stores = DataStores(list_store=ListStore([{"items": ["CHKtQS", "laFWcs"], "name": "supermarkets"}]))
+    block = test_calculated_summary_repeating_and_static_answers_schema.get_block(block_id)
     language = "en"
 
     placeholder_renderer = PlaceholderRenderer(
@@ -329,9 +311,7 @@ def test_build_view_context_for_calculated_summary_with_dynamic_answers(
         location=current_location,
     )
 
-    rendered_block = placeholder_renderer.render(
-        data_to_render=block, list_item_id=current_location.list_item_id
-    )
+    rendered_block = placeholder_renderer.render(data_to_render=block, list_item_id=current_location.list_item_id)
 
     calculated_summary_context = CalculatedSummaryContext(
         language=language,
@@ -356,10 +336,14 @@ def test_build_view_context_for_calculated_summary_with_dynamic_answers(
     answer_ids = [answer["id"] for answer in answers_to_keep]
     assert answer_ids == expected_answer_ids
 
-    # blocks with dynamic answers show each answer suffixed with the list item id, so the anchor needs to also include it
+    # blocks with dynamic answers show each answer suffixed with the
+    # list item id, so the anchor needs to also include it
     assert all(
         answer["link"].endswith(
-            f"return_to=calculated-summary&return_to_answer_id={answer['id']}&return_to_block_id={block_id}#{answer['id']}"
+            (
+                f"return_to=calculated-summary&return_to_answer_id="
+                f"{answer['id']}&return_to_block_id={block_id}#{answer['id']}"
+            )
         )
         for answer in answers_to_keep
     )
@@ -458,9 +442,7 @@ def test_build_view_context_for_calculated_summary_with_answers_from_repeating_b
         location=current_location,
     )
 
-    rendered_block = placeholder_renderer.render(
-        data_to_render=block, list_item_id=current_location.list_item_id
-    )
+    rendered_block = placeholder_renderer.render(data_to_render=block, list_item_id=current_location.list_item_id)
 
     calculated_summary_context = CalculatedSummaryContext(
         language=language,

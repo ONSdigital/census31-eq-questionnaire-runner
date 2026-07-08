@@ -150,9 +150,7 @@ def test_get_next_location_is_not_unrelated_question_when_less_than_two_relation
         ("No, they are not related", relationship_location("def123", "ghi123")),
     ],
 )
-def test_get_next_location_from_unrelated_question(
-    unrelated_answer, expected_next_location
-):
+def test_get_next_location_from_unrelated_question(unrelated_answer, expected_next_location):
     if unrelated_answer:
         answers = [
             {

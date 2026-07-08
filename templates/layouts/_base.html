@@ -55,15 +55,25 @@
         <input id="csrf_token" name="csrf_token" type="hidden" value="{{ csrf_token() }}"/>
     {% endif %}
     {% if cookie_settings_url and cookie_domain %}
-        {{ onsCookiesBanner({
-            "secondaryButtonUrl": cookie_settings_url,
-            "statementTitle": _('Tell us whether you accept cookies') ,
-            "statementText": _("We use <a href='{cookie_settings_url}'>cookies to collect information</a> about how you use {cookie_domain}. We use this information to make the website work as well as possible and improve our services.").format(cookie_settings_url=cookie_settings_url, cookie_domain=cookie_domain),
-            "confirmationText": _("You’ve accepted all cookies. You can <a href='{cookie_settings_url}'>change your cookie preferences</a> at any time.").format(cookie_settings_url=cookie_settings_url),
-            "primaryButtonText": _('Accept all cookies'),
-            "secondaryButtonText": _('Set cookie preferences'),
-            "confirmationButtonText": _('Hide'),
-            'lang': language_code
+        {{
+            onsCookiesBanner({
+                "secondaryButtonUrl": cookie_settings_url,
+                "statementTitle": _('Tell us whether you accept cookies') ,
+                "statementText": _(
+                    "We use <a href='{cookie_settings_url}'>cookies to collect "
+                    "information</a> about how you use {cookie_domain}. We use this "
+                    "information to make the website work as well as possible and "
+                    "improve our services."
+                ).format(cookie_settings_url=cookie_settings_url, cookie_domain=cookie_domain),
+                "confirmationText": _(
+                    "You’ve accepted all cookies. You can "
+                    "<a href='{cookie_settings_url}'>change your cookie preferences</a> "
+                    "at any time."
+                ).format(cookie_settings_url=cookie_settings_url),
+                "primaryButtonText": _('Accept all cookies'),
+                "secondaryButtonText": _('Set cookie preferences'),
+                "confirmationButtonText": _('Hide'),
+                'lang': language_code
             })
         }}
     {% endif %}
@@ -104,7 +114,7 @@
     {# djlint:on #}
 {% endblock head %}
 
-{% block bodyStart %}<form class="form-class" method="POST" autocomplete="off" novalidate>{% endblock bodyStart %}
+{% block bodyStart %}<form class="form-class" method="post" autocomplete="off" novalidate>{% endblock bodyStart %}
 
     {% block skipLink %}
         {# djlint:off #}

@@ -15,9 +15,7 @@ logger = get_logger()
 
 
 class SessionStore:
-    def __init__(
-        self, user_ik: str, pepper: str, eq_session_id: str | None = None
-    ) -> None:
+    def __init__(self, user_ik: str, pepper: str, eq_session_id: str | None = None) -> None:
         self.eq_session_id = eq_session_id
         self.user_id: str | None = None
         self.user_ik = user_ik
@@ -72,9 +70,9 @@ class SessionStore:
         save session
         """
         if self._eq_session:
-            self._eq_session.session_data = StorageEncryption(
-                self.user_id, self.user_ik, self.pepper
-            ).encrypt_data(vars(self.session_data))
+            self._eq_session.session_data = StorageEncryption(self.user_id, self.user_ik, self.pepper).encrypt_data(
+                vars(self.session_data)
+            )
 
             current_app.eq["storage"].put(self._eq_session, overwrite=True)  # type: ignore
 
@@ -93,18 +91,18 @@ class SessionStore:
             self.session_data = None
 
     def _load(self) -> None:
-        logger.debug(
-            "finding eq_session_id in database", eq_session_id=self.eq_session_id
+        logger.debug("finding eq_session_id in database", eq_session_id=self.eq_session_id)
+        self._eq_session: EQSession | None = (  # type: ignore[no-redef]
+            current_app.eq["storage"].get(EQSession, self.eq_session_id)  # type: ignore[attr-defined]
         )
-        self._eq_session: EQSession | None = current_app.eq["storage"].get(EQSession, self.eq_session_id)  # type: ignore
 
         if self._eq_session and self._eq_session.session_data:
             self.user_id = self._eq_session.user_id
 
             encrypted_session_data = self._eq_session.session_data
-            session_data_as_bytes = StorageEncryption(
-                self.user_id, self.user_ik, self.pepper
-            ).decrypt_data(encrypted_session_data)
+            session_data_as_bytes = StorageEncryption(self.user_id, self.user_ik, self.pepper).decrypt_data(
+                encrypted_session_data
+            )
 
             session_data_as_str = session_data_as_bytes.decode()
             # for backwards compatibility
@@ -114,9 +112,7 @@ class SessionStore:
             except ValueError:
                 pass
 
-            self.session_data = json_loads(
-                session_data_as_str, object_hook=lambda d: SessionData(**d)
-            )
+            self.session_data = json_loads(session_data_as_str, object_hook=lambda d: SessionData(**d))
 
             logger.debug(
                 "found matching eq_session for eq_session_id in database",
@@ -124,6 +120,4 @@ class SessionStore:
                 user_id=self._eq_session.user_id,
             )
         else:
-            logger.debug(
-                "eq_session_id not found in database", eq_session_id=self.eq_session_id
-            )
+            logger.debug("eq_session_id not found in database", eq_session_id=self.eq_session_id)

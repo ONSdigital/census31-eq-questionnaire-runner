@@ -10,10 +10,7 @@ from app.data_models import QuestionnaireStore
 from app.data_models.metadata_proxy import MetadataProxy
 from app.globals import get_session_store
 from app.keys import KEY_PURPOSE_SUBMISSION
-from app.questionnaire.questionnaire_schema import (
-    DEFAULT_LANGUAGE_CODE,
-    QuestionnaireSchema,
-)
+from app.questionnaire.questionnaire_schema import DEFAULT_LANGUAGE_CODE, QuestionnaireSchema
 from app.questionnaire.routing_path import RoutingPath
 from app.submitter.converter_v2 import convert_answers_v2
 from app.submitter.submission_failed import SubmissionFailedException

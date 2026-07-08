@@ -9,15 +9,9 @@ from google.cloud import datastore
 
 from app.data_models import app_models
 
-ModelSchemaTypes = (
-    app_models.QuestionnaireStateSchema
-    | app_models.EQSessionSchema
-    | app_models.UsedJtiClaimSchema
-)
+ModelSchemaTypes = app_models.QuestionnaireStateSchema | app_models.EQSessionSchema | app_models.UsedJtiClaimSchema
 
-ModelTypes = (
-    app_models.QuestionnaireState | app_models.EQSession | app_models.UsedJtiClaim
-)
+ModelTypes = app_models.QuestionnaireState | app_models.EQSession | app_models.UsedJtiClaim
 
 
 class TableConfig(TypedDict, total=False):

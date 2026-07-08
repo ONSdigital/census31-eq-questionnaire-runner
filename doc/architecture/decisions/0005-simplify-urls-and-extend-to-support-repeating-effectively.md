@@ -5,21 +5,21 @@
 The current URL structure used in runner is too long and overloaded. The URL should be as clean and readable as possible.
 
 The current URL structure of runner is:
-```
+```text
 /questionnaire/<eq_id>/<survey_id>/<collection_exercise_id>/<group_id>/<group_instance>/<block_id>
 ```
 
 Which generates URLs that look like:
-```
+```text
 /questionnaire/1/0005/e9521994-e475-46cc-ae90-8ce4727e908f/pay-pattern/0/pay-pattern-frequency
 ```
 
 - `eq_id`, `survey_id` and `collection_exercise_id` are unnecessary as we can get that information from the session
 - `group_id` isn't needed as all `block_id`s are unique within a given schema and we can look up the group id
-- `group_instance` shouldn't be required for blocks that aren't repeating (currently it defaults to 0)  
+- `group_instance` shouldn't be required for blocks that aren't repeating (currently it defaults to 0)
 
 Removing these from the URL effectively reduces the example above to:
-```
+```text
 /questionnaire/pay-pattern-frequency
 ```
 
@@ -27,19 +27,19 @@ Removing these from the URL effectively reduces the example above to:
 
 ### Block ids are the root urls
 
-```
+```text
 /<block_id>
 /do-you-live-here
 /what-is-your-name
 /i-dont-live-here
 ```
 
-- No group id and unnecessary zero based group instance 
+- No group id and unnecessary zero based group instance
 - Easy to identify simple non repeating blocks
 
 ### Blocks that drive repeats (list creators)
 
-```
+```text
 /<block_id>
 /does-anyone-else-live-here
 /<list_identifier>/<add_block_id>
@@ -55,7 +55,7 @@ Removing these from the URL effectively reduces the example above to:
 
 ### Blocks that repeat from a listing
 
-```
+```text
 /<list_identifier>/<list_item_id>/<block_id>
 /householders/<list_item_id>/proxy
 /householders/<list_item_id>/sex

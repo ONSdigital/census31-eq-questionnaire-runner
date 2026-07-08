@@ -82,9 +82,7 @@ class ListModel:
         try:
             return self.items[0]
         except IndexError as e:
-            empty_list_error_message = (
-                f"unable to access first item in list, list '{self.name}' is empty"
-            )
+            empty_list_error_message = f"unable to access first item in list, list '{self.name}' is empty"
             raise IndexError(empty_list_error_message) from e
 
     @property
@@ -153,9 +151,7 @@ class ListStore:
     @staticmethod
     def _build_map(list_models: Iterable[ListModelDictType]) -> dict[str, ListModel]:
         """Builds the list_store data structure from a list of dictionaries"""
-        return {
-            list_model["name"]: ListModel(**list_model) for list_model in list_models
-        }
+        return {list_model["name"]: ListModel(**list_model) for list_model in list_models}
 
     def get(self, item: str) -> ListModel:
         return self[item]

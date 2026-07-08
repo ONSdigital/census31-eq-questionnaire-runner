@@ -78,9 +78,7 @@ class TestQuestionnairePiping(IntegrationTestCase):
         # Then
         self.get(self.last_url)
         self.assertStatusOK()
-        self.assertInSelectorCSS(
-            "44 hill side, newport", "label", {"for": "multiple-piping-answer-0"}
-        )
+        self.assertInSelectorCSS("44 hill side, newport", "label", {"for": "multiple-piping-answer-0"})
 
     def test_answer_piped_into_option_on_validation_error(self):
         """Regression test to assert that the previous answer is still piped into
@@ -99,6 +97,4 @@ class TestQuestionnairePiping(IntegrationTestCase):
 
         # Then
         self.assertStatusOK()
-        self.assertInSelectorCSS(
-            "44 hill side, newport", "label", {"for": "multiple-piping-answer-0"}
-        )
+        self.assertInSelectorCSS("44 hill side, newport", "label", {"for": "multiple-piping-answer-0"})

@@ -13,7 +13,6 @@ from app.data_models.metadata_proxy import MetadataProxy
 from app.data_models.supplementary_data_store import SupplementaryDataStore
 from app.questionnaire.questionnaire_schema import QuestionnaireSchema
 from app.settings import ACCOUNT_SERVICE_BASE_URL_SOCIAL
-from app.submitter import RabbitMQSubmitter
 from tests.app.parser.conftest import get_response_expires_at
 
 RAW_METADATA_V2 = {
@@ -61,9 +60,7 @@ def get_questionnaire_store():
     store.data_stores.answer_store.add_or_update(user_answer)
     store.data_stores.metadata = METADATA_V2
 
-    store.data_stores.response_metadata = {
-        "started_at": "2018-07-04T14:49:33.448608+00:00"
-    }
+    store.data_stores.response_metadata = {"started_at": "2018-07-04T14:49:33.448608+00:00"}
 
     return store
 
@@ -72,14 +69,6 @@ def get_questionnaire_store():
 def fake_metadata_v2_schema_url():
     copy = RAW_METADATA_V2.copy()
     copy["schema_url"] = "https://schema_url.com"
-    del copy["schema_name"]
-    return MetadataProxy.from_dict(copy)
-
-
-@pytest.fixture
-def fake_metadata_v2_cir_instrument_id():
-    copy = RAW_METADATA_V2.copy()
-    copy["cir_instrument_id"] = "f0519981-426c-8b93-75c0-bfc40c66fe25"
     del copy["schema_name"]
     return MetadataProxy.from_dict(copy)
 
@@ -95,13 +84,6 @@ def fake_questionnaire_schema():
     questionnaire = {"survey_id": "999", "data_version": "0.0.3"}
 
     return QuestionnaireSchema(questionnaire)
-
-
-@pytest.fixture
-def rabbitmq_submitter():
-    return RabbitMQSubmitter(
-        host="host1", secondary_host="host2", port=5672, queue="test_queue"
-    )
 
 
 @pytest.fixture
@@ -127,17 +109,13 @@ def gcs_blob_with_retry(mocker):
     response_503.status_code = 503
 
     response_200 = Response()
-    response_200._content = (  # pylint: disable=protected-access
-        b'{"some-key":"some-value"}'
-    )
+    response_200._content = b'{"some-key":"some-value"}'  # pylint: disable=protected-access
     response_200.status_code = 200
 
     mock_transport_request = mocker.Mock(side_effect=[response_503, response_200])
     mock_transport = mocker.Mock()
     mock_transport.request = mock_transport_request
-    blob._get_transport = mocker.Mock(  # pylint: disable=protected-access
-        return_value=mock_transport
-    )
+    blob._get_transport = mocker.Mock(return_value=mock_transport)  # pylint: disable=protected-access
 
     return blob
 

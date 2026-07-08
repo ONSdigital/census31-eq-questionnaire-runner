@@ -13,9 +13,7 @@ class PreviewNotEnabledException(Exception):
 
 
 class PreviewContext(Context):
-    def __init__(
-        self, language: str, schema: QuestionnaireSchema, data_stores: DataStores
-    ):
+    def __init__(self, language: str, schema: QuestionnaireSchema, data_stores: DataStores):
         if not schema.preview_enabled:
             raise PreviewNotEnabledException
 

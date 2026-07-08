@@ -1127,7 +1127,7 @@
                                 "answers": [
                                     {
                                         "id": "q1-a1",
-                                        "label": "Weekly distance travelled on foot",
+                                        "label": "Weekly distance traveled on foot",
                                         "mandatory": true,
                                         "type": "Unit",
                                         "unit_length": "short",
@@ -1153,7 +1153,7 @@
                                 "answers": [
                                     {
                                         "id": "q2-a1",
-                                        "label": "Weekly distance travelled by car",
+                                        "label": "Weekly distance traveled by car",
                                         "mandatory": true,
                                         "type": "Unit",
                                         "unit_length": "short",
@@ -1172,7 +1172,7 @@
                         {
                             "type": "CalculatedSummary",
                             "id": "distance-calculated-summary-1",
-                            "title": "We calculate the total of distance travelled by foot and car to be %(total)s. Is this correct?",
+                            "title": "We calculate the total of distance traveled by foot and car to be %(total)s. Is this correct?",
                             "calculation": {
                                 "operation": {
                                     "+": [
@@ -1231,7 +1231,7 @@
                                 "answers": [
                                     {
                                         "id": "q3-a1",
-                                        "label": "Weekly distance travelled by bike",
+                                        "label": "Weekly distance traveled by bike",
                                         "mandatory": true,
                                         "type": "Unit",
                                         "unit_length": "short",
@@ -1257,7 +1257,7 @@
                                 "answers": [
                                     {
                                         "id": "q4-a1",
-                                        "label": "Weekly distance travelled on a Voi",
+                                        "label": "Weekly distance traveled on a Voi",
                                         "mandatory": true,
                                         "type": "Unit",
                                         "unit_length": "short",
@@ -1276,7 +1276,7 @@
                         {
                             "type": "CalculatedSummary",
                             "id": "distance-calculated-summary-2",
-                            "title": "We calculate the total of distance travelled by bike and voi to be %(total)s. Is this correct?",
+                            "title": "We calculate the total of distance traveled by bike and voi to be %(total)s. Is this correct?",
                             "calculation": {
                                 "operation": {
                                     "+": [
@@ -1328,7 +1328,7 @@
                         {
                             "type": "GrandCalculatedSummary",
                             "id": "distance-grand-calculated-summary",
-                            "title": "We calculate the grand total weekly distance travelled to be %(total)s. Is this correct?",
+                            "title": "We calculate the grand total weekly distance traveled to be %(total)s. Is this correct?",
                             "calculation": {
                                 "operation": {
                                     "+": [
@@ -1342,7 +1342,7 @@
                                         }
                                     ]
                                 },
-                                "title": "Grand calculated summary of distance travelled"
+                                "title": "Grand calculated summary of distance traveled"
                             }
                         },
                         {

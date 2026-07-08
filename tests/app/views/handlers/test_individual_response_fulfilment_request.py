@@ -31,9 +31,7 @@ def test_sms_fulfilment_request_payload():
         response_expires_at=get_response_expires_at(),
     )
 
-    fulfilment_request = IndividualResponseFulfilmentRequest(
-        metadata, DUMMY_MOBILE_NUMBER
-    )
+    fulfilment_request = IndividualResponseFulfilmentRequest(metadata, DUMMY_MOBILE_NUMBER)
 
     sms_json_message = json_loads(fulfilment_request.message)
     payload = sms_json_message["payload"]
@@ -153,14 +151,9 @@ def test_fulfilment_code_for_sms(region_code, expected_fulfilment_code):
 
     metadata = MetadataProxy.from_dict(metadata)
 
-    fulfilment_request = IndividualResponseFulfilmentRequest(
-        metadata, DUMMY_MOBILE_NUMBER
-    )
+    fulfilment_request = IndividualResponseFulfilmentRequest(metadata, DUMMY_MOBILE_NUMBER)
     json_message = json_loads(fulfilment_request.message)
-    assert (
-        json_message["payload"]["fulfilmentRequest"]["fulfilmentCode"]
-        == expected_fulfilment_code
-    )
+    assert json_message["payload"]["fulfilmentRequest"]["fulfilmentCode"] == expected_fulfilment_code
 
 
 @pytest.mark.parametrize(
@@ -188,7 +181,4 @@ def test_fulfilment_code_for_postal(region_code, expected_fulfilment_code):
 
     json_message = json_loads(fulfilment_request.message)
 
-    assert (
-        json_message["payload"]["fulfilmentRequest"]["fulfilmentCode"]
-        == expected_fulfilment_code
-    )
+    assert json_message["payload"]["fulfilmentRequest"]["fulfilmentCode"] == expected_fulfilment_code

@@ -43,26 +43,34 @@ describe("Section Summary", () => {
       await verifyUrlContains(HouseType.pageName);
     });
 
-    it("When I select edit from Section Summary but change routing, Then I should step through the section and be returned to the Section Summary once all new questions have been answered", async () => {
-      await $(PropertyDetailsSummaryPage.insuranceTypeAnswerEdit()).click();
-      await $(InsuranceTypePage.contents()).click();
-      await click(InsuranceTypePage.submit());
-      await verifyUrlContains(AddressDurationPage.pageName);
-      await click(AddressDurationPage.submit());
-      await verifyUrlContains(PropertyDetailsSummaryPage.pageName);
-    });
+    it(
+      "When I select edit from Section Summary but change routing, " +
+        "Then I should step through the section and be returned to the Section Summary once all new questions have been answered",
+      async () => {
+        await $(PropertyDetailsSummaryPage.insuranceTypeAnswerEdit()).click();
+        await $(InsuranceTypePage.contents()).click();
+        await click(InsuranceTypePage.submit());
+        await verifyUrlContains(AddressDurationPage.pageName);
+        await click(AddressDurationPage.submit());
+        await verifyUrlContains(PropertyDetailsSummaryPage.pageName);
+      },
+    );
 
-    it("When I select edit from Section Summary but change routing, Then using previous should not prevent me returning to the section summary once all new questions have been answered", async () => {
-      await $(PropertyDetailsSummaryPage.insuranceTypeAnswerEdit()).click();
-      await $(InsuranceTypePage.contents()).click();
-      await click(InsuranceTypePage.submit());
-      await verifyUrlContains(AddressDurationPage.pageName);
-      await $(AddressDurationPage.previous()).click();
-      await verifyUrlContains(InsuranceAddressPage.pageName);
-      await click(InsuranceAddressPage.submit());
-      await click(AddressDurationPage.submit());
-      await verifyUrlContains(PropertyDetailsSummaryPage.pageName);
-    });
+    it(
+      "When I select edit from Section Summary but change routing, " +
+        "Then using previous should not prevent me returning to the section summary once all new questions have been answered",
+      async () => {
+        await $(PropertyDetailsSummaryPage.insuranceTypeAnswerEdit()).click();
+        await $(InsuranceTypePage.contents()).click();
+        await click(InsuranceTypePage.submit());
+        await verifyUrlContains(AddressDurationPage.pageName);
+        await $(AddressDurationPage.previous()).click();
+        await verifyUrlContains(InsuranceAddressPage.pageName);
+        await click(InsuranceAddressPage.submit());
+        await click(AddressDurationPage.submit());
+        await verifyUrlContains(PropertyDetailsSummaryPage.pageName);
+      },
+    );
   });
 
   describe("Given I start a Test Section Summary survey and complete to Final Summary", () => {
@@ -96,36 +104,48 @@ describe("Section Summary", () => {
       await verifyUrlContains(SubmitPage.url());
     });
 
-    it("When I select edit from Final Summary but change routing, Then I should step through the section and be returned to the Final Summary once all new questions have been answered", async () => {
-      await $(SubmitPage.summaryShowAllButton()).click();
-      await $(SubmitPage.insuranceTypeAnswerEdit()).click();
-      await $(InsuranceTypePage.contents()).click();
-      await click(InsuranceTypePage.submit());
-      await verifyUrlContains(AddressDurationPage.pageName);
-      await click(AddressDurationPage.submit());
-      await verifyUrlContains(SubmitPage.pageName);
-    });
+    it(
+      "When I select edit from Final Summary but change routing, " +
+        "Then I should step through the section and be returned to the Final Summary once all new questions have been answered",
+      async () => {
+        await $(SubmitPage.summaryShowAllButton()).click();
+        await $(SubmitPage.insuranceTypeAnswerEdit()).click();
+        await $(InsuranceTypePage.contents()).click();
+        await click(InsuranceTypePage.submit());
+        await verifyUrlContains(AddressDurationPage.pageName);
+        await click(AddressDurationPage.submit());
+        await verifyUrlContains(SubmitPage.pageName);
+      },
+    );
 
-    it("When I select edit from Final Summary but change routing, Then using previous should not prevent me returning to the section summary once all new questions have been answered", async () => {
-      await $(SubmitPage.summaryShowAllButton()).click();
-      await $(SubmitPage.insuranceTypeAnswerEdit()).click();
-      await $(InsuranceTypePage.contents()).click();
-      await click(InsuranceTypePage.submit());
-      await verifyUrlContains(AddressDurationPage.pageName);
-      await $(AddressDurationPage.previous()).click();
-      await verifyUrlContains(InsuranceAddressPage.pageName);
-      await click(InsuranceAddressPage.submit());
-      await click(AddressDurationPage.submit());
-      await verifyUrlContains(SubmitPage.pageName);
-    });
-    it("When I select edit from Final Summary and change an answer and then go to the next question and click previous, Since I cannot return to the section summary yet I return to the previous block in the section", async () => {
-      await $(SubmitPage.summaryShowAllButton()).click();
-      await $(SubmitPage.insuranceTypeAnswerEdit()).click();
-      await $(InsuranceTypePage.contents()).click();
-      await click(InsuranceTypePage.submit());
-      await $(AddressDurationPage.previous()).click();
-      await verifyUrlContains(InsuranceAddressPage.pageName);
-    });
+    it(
+      "When I select edit from Final Summary but change routing, " +
+        "Then using previous should not prevent me returning to the section summary once all new questions have been answered",
+      async () => {
+        await $(SubmitPage.summaryShowAllButton()).click();
+        await $(SubmitPage.insuranceTypeAnswerEdit()).click();
+        await $(InsuranceTypePage.contents()).click();
+        await click(InsuranceTypePage.submit());
+        await verifyUrlContains(AddressDurationPage.pageName);
+        await $(AddressDurationPage.previous()).click();
+        await verifyUrlContains(InsuranceAddressPage.pageName);
+        await click(InsuranceAddressPage.submit());
+        await click(AddressDurationPage.submit());
+        await verifyUrlContains(SubmitPage.pageName);
+      },
+    );
+    it(
+      "When I select edit from Final Summary and change an answer and then go to the next question and click previous, " +
+        "Since I cannot return to the section summary yet I return to the previous block in the section",
+      async () => {
+        await $(SubmitPage.summaryShowAllButton()).click();
+        await $(SubmitPage.insuranceTypeAnswerEdit()).click();
+        await $(InsuranceTypePage.contents()).click();
+        await click(InsuranceTypePage.submit());
+        await $(AddressDurationPage.previous()).click();
+        await verifyUrlContains(InsuranceAddressPage.pageName);
+      },
+    );
 
     it("When I change an answer, Then the final summary should display the updated value", async () => {
       await $(SubmitPage.summaryShowAllButton()).click();

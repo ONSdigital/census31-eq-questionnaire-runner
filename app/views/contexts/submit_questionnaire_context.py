@@ -10,15 +10,9 @@ class SubmitQuestionnaireContext(Context):
     def __call__(self) -> dict[str, str | dict]:
         submission_schema: Mapping = self._schema.get_submission()
 
-        title = submission_schema.get("title") or lazy_gettext(
-            "Check your answers and submit"
-        )
-        submit_button = submission_schema.get("button") or lazy_gettext(
-            "Submit answers"
-        )
-        guidance = submission_schema.get("guidance") or lazy_gettext(
-            "Please submit this survey to complete it"
-        )
+        title = submission_schema.get("title") or lazy_gettext("Check your answers and submit")
+        submit_button = submission_schema.get("button") or lazy_gettext("Submit answers")
+        guidance = submission_schema.get("guidance") or lazy_gettext("Please submit this survey to complete it")
 
         warning = submission_schema.get("warning") or None
 
@@ -37,8 +31,6 @@ class SubmitQuestionnaireContext(Context):
                 data_stores=self._data_stores,
                 view_submitted_response=False,
             )
-            context["summary"] = summary_context(
-                answers_are_editable=True, return_to="final-summary"
-            )
+            context["summary"] = summary_context(answers_are_editable=True, return_to="final-summary")
 
         return context

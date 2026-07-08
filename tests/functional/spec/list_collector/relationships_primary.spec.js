@@ -33,26 +33,30 @@ describe("Relationships - Primary Person", () => {
       await expect(await $(RelationshipsPage.questionText()).getText()).toContain("is their");
     });
 
-    it("When I add household members And add their relationships And remove the primary person And add a new primary person then I will be asked for the relationships again", async () => {
-      await addPrimaryAndTwoOthersAndCompleteRelationships();
+    it(
+      "When I add household members And add their relationships And remove the primary person " +
+        "And add a new primary person then I will be asked for the relationships again",
+      async () => {
+        await addPrimaryAndTwoOthersAndCompleteRelationships();
 
-      await browser.url("/questionnaire/primary-person-list-collector");
+        await browser.url("/questionnaire/primary-person-list-collector");
 
-      await $(PrimaryPersonListCollectorPage.no()).click();
-      await click(PrimaryPersonListCollectorPage.submit());
+        await $(PrimaryPersonListCollectorPage.no()).click();
+        await click(PrimaryPersonListCollectorPage.submit());
 
-      await browser.url("/questionnaire/primary-person-list-collector");
+        await browser.url("/questionnaire/primary-person-list-collector");
 
-      await $(PrimaryPersonListCollectorPage.yes()).click();
-      await click(PrimaryPersonListCollectorPage.submit());
-      await $(PrimaryPersonListCollectorAddPage.firstName()).setValue("Marcus");
-      await $(PrimaryPersonListCollectorAddPage.lastName()).setValue("Twin");
-      await click(PrimaryPersonListCollectorAddPage.submit());
-      await $(ListCollectorPage.no()).click();
-      await click(ListCollectorPage.submit());
+        await $(PrimaryPersonListCollectorPage.yes()).click();
+        await click(PrimaryPersonListCollectorPage.submit());
+        await $(PrimaryPersonListCollectorAddPage.firstName()).setValue("Marcus");
+        await $(PrimaryPersonListCollectorAddPage.lastName()).setValue("Twin");
+        await click(PrimaryPersonListCollectorAddPage.submit());
+        await $(ListCollectorPage.no()).click();
+        await click(ListCollectorPage.submit());
 
-      await expect(await $(RelationshipsPage.questionText()).getText()).toContain("Samuel Clemens is your");
-    });
+        await expect(await $(RelationshipsPage.questionText()).getText()).toContain("Samuel Clemens is your");
+      },
+    );
 
     async function addPrimaryAndTwoOthersAndCompleteRelationships() {
       await addPrimaryAndTwoOthers();

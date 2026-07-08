@@ -15,6 +15,4 @@ class DataStores:
     list_store: ListStore = field(default_factory=ListStore)
     answer_store: AnswerStore = field(default_factory=AnswerStore)
     progress_store: ProgressStore = field(default_factory=ProgressStore)
-    supplementary_data_store: SupplementaryDataStore = field(
-        default_factory=SupplementaryDataStore
-    )
+    supplementary_data_store: SupplementaryDataStore = field(default_factory=SupplementaryDataStore)

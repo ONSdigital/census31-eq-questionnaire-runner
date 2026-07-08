@@ -5,13 +5,7 @@ from flask import session as cookie_session
 from app.helpers.template_helpers import ContextHelper, get_survey_config
 from app.questionnaire import QuestionnaireSchema
 from app.routes.session import set_schema_context_in_cookie
-from app.settings import (
-    ACCOUNT_SERVICE_BASE_URL,
-    ACCOUNT_SERVICE_BASE_URL_SOCIAL,
-    ONS_URL,
-    ONS_URL_CY,
-    read_file,
-)
+from app.settings import ACCOUNT_SERVICE_BASE_URL, ACCOUNT_SERVICE_BASE_URL_SOCIAL, ONS_URL, ONS_URL_CY, read_file
 from app.survey_config import (
     BusinessSurveyConfig,
     DBTBusinessSurveyConfig,
@@ -399,9 +393,7 @@ def test_header_context(app: Flask, theme, survey_title, survey_config, expected
         ),
     ],
 )
-def test_service_links_context(
-    app: Flask, mocker, survey_config, is_authenticated, theme, expected
-):
+def test_service_links_context(app: Flask, mocker, survey_config, is_authenticated, theme, expected):
     with app.app_context():
         mocked_current_user = mocker.Mock()
         mocked_current_user.is_authenticated = is_authenticated
@@ -524,9 +516,7 @@ def test_contact_us_url_context(
         (SurveyConfig(), "Save and exit survey"),
     ],
 )
-def test_sign_out_button_text_context(
-    app: Flask, survey_config: SurveyConfig, expected: dict[str, str]
-):
+def test_sign_out_button_text_context(app: Flask, survey_config: SurveyConfig, expected: dict[str, str]):
     with app.app_context():
         result = ContextHelper(
             language="en",
@@ -610,9 +600,7 @@ def test_sign_out_button_text_context(
         (SurveyConfig(), False, None),
     ],
 )
-def test_cookie_settings_url_context(
-    app: Flask, survey_config: SurveyConfig, cookie_present: bool, expected: str
-):
+def test_cookie_settings_url_context(app: Flask, survey_config: SurveyConfig, cookie_present: bool, expected: str):
     with app.app_context():
         if cookie_present:
             cookie_session["theme"] = "dummy_value"
@@ -698,9 +686,7 @@ def test_cookie_settings_url_context(
         ),
     ],
 )
-def test_cookie_domain_context(
-    app: Flask, survey_config: SurveyConfig, language: str, address: str
-):
+def test_cookie_domain_context(app: Flask, survey_config: SurveyConfig, language: str, address: str):
     with app.app_context():
         cookie_session["theme"] = "dummy_value"
         context_helper = ContextHelper(
@@ -731,9 +717,7 @@ def test_cookie_domain_context(
         UKHSAONSSocialSurveyConfig(),
     ],
 )
-def test_cookie_domain_context_cookie_not_provided(
-    app: Flask, survey_config: SurveyConfig
-):
+def test_cookie_domain_context_cookie_not_provided(app: Flask, survey_config: SurveyConfig):
     with app.app_context():
         context_helper = ContextHelper(
             language="en",
@@ -759,9 +743,7 @@ def test_cookie_domain_context_cookie_not_provided(
 def test_account_service_my_account_url_context(
     app: Flask, survey_config: SurveyConfig, expected: str, get_context_helper
 ):
-    result = get_context_helper(app, survey_config).context[
-        "account_service_my_account_url"
-    ]
+    result = get_context_helper(app, survey_config).context["account_service_my_account_url"]
 
     assert result == expected
 
@@ -848,9 +830,7 @@ def test_account_service_my_todo_url_context(
 def test_account_service_log_out_url_context(
     app: Flask, survey_config: SurveyConfig, expected: str, get_context_helper
 ):
-    result = get_context_helper(app, survey_config).context[
-        "account_service_log_out_url"
-    ]
+    result = get_context_helper(app, survey_config).context["account_service_log_out_url"]
     assert result == expected
 
 
@@ -874,9 +854,7 @@ def test_account_service_log_out_url_context(
         (None, None, BusinessSurveyConfig),
     ],
 )
-def test_get_survey_config(
-    app: Flask, theme: SurveyType, language: str, expected: SurveyConfig
-):
+def test_get_survey_config(app: Flask, theme: SurveyType, language: str, expected: SurveyConfig):
     with app.app_context():
         result = get_survey_config(theme=theme, language=language)
     assert isinstance(result, expected)
@@ -927,10 +905,7 @@ def test_survey_config_base_url_duplicate_todo(app: Flask):
     assert result.account_service_todo_url == f"{DEFAULT_URL}/surveys/todo"
     assert result.contact_us_url == f"{DEFAULT_URL}/contact-us/"
     assert result.cookie_settings_url == f"{DEFAULT_URL}/cookies/"
-    assert (
-        result.privacy_and_data_protection_url
-        == f"{DEFAULT_URL}/privacy-and-data-protection/"
-    )
+    assert result.privacy_and_data_protection_url == f"{DEFAULT_URL}/privacy-and-data-protection/"
 
 
 def test_get_survey_config_base_url_not_provided(app: Flask):
@@ -976,9 +951,7 @@ def test_context_set_from_app_config(app):
         (SurveyType.ORR, "en", None),
     ],
 )
-def test_correct_theme_in_context(
-    app: Flask, theme: SurveyType, language: str, expected: str
-):
+def test_correct_theme_in_context(app: Flask, theme: SurveyType, language: str, expected: str):
     with app.app_context():
         survey_config = get_survey_config(theme=theme, language=language)
         result = ContextHelper(
@@ -1038,25 +1011,19 @@ def test_use_default_survey_title_in_context_when_no_cookie(
         (
             SurveyType.BUSINESS,
             "en",
-            QuestionnaireSchema(
-                {"survey_id": "999", "form_type": "test", "title": "test_title"}
-            ),
+            QuestionnaireSchema({"survey_id": "999", "form_type": "test", "title": "test_title"}),
             {"form_type": "test", "survey_id": "999", "title": "test_title"},
         ),
         (
             SurveyType.HEALTH,
             "en",
-            QuestionnaireSchema(
-                {"survey_id": "999", "form_type": "test", "title": "test_title"}
-            ),
+            QuestionnaireSchema({"survey_id": "999", "form_type": "test", "title": "test_title"}),
             {"form_type": "test", "survey_id": "999", "title": "test_title"},
         ),
         (
             SurveyType.SOCIAL,
             "en",
-            QuestionnaireSchema(
-                {"survey_id": "999", "form_type": "test", "title": "test_title"}
-            ),
+            QuestionnaireSchema({"survey_id": "999", "form_type": "test", "title": "test_title"}),
             {"form_type": "test", "survey_id": "999", "title": "test_title"},
         ),
         (

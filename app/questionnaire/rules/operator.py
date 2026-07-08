@@ -47,9 +47,7 @@ class Operator:
                 return False
 
         value: bool | date | None = (
-            self._operation(operands)
-            if self.name in {Operator.AND, Operator.OR}
-            else self._operation(*operands)
+            self._operation(operands) if self.name in {Operator.AND, Operator.OR} else self._operation(*operands)
         )
         return value
 

@@ -20,20 +20,14 @@ build: load-design-system-templates load-schemas translate
 generate-pages:
 	npm run generate_pages
 
-lint: lint-python lint-js lint-html
-
-lint-html:
-	poetry run djlint ./templates --profile=jinja
+lint: lint-python
 
 lint-python:
 	poetry run ./scripts/run_lint_python.sh
 
 lint-test-python: lint-python test-unit
 
-format: format-python format-js format-html
-
-format-html:
-	poetry run djlint ./templates --reformat --profile=jinja
+format: format-python
 
 format-python:
 	poetry run isort .
@@ -57,14 +51,12 @@ test-functional-spec: generate-pages
 test-functional-suite: generate-pages
 	npm run test_functional -- --suite=$(SUITE)
 
-lint-js:
-	npm run lint
-
-format-js:
-	npm run format
-
 generate-spec:
-	poetry run python -m tests.functional.generate_pages schemas/test/en/$(SCHEMA).json ./tests/functional/generated_pages/$(patsubst test_%,%,$(SCHEMA)) -r '../../base_pages' -s tests/functional/spec/$(SCHEMA).spec.js
+	poetry run python -m tests.functional.generate_pages \
+		schemas/test/en/$(SCHEMA).json \
+		./tests/functional/generated_pages/$(patsubst test_%,%,$(SCHEMA)) \
+		-r '../../base_pages' \
+		-s tests/functional/spec/$(SCHEMA).spec.js
 
 validate-test-schemas:
 	poetry run python -m scripts.validate_test_schemas
@@ -108,11 +100,16 @@ run-uwsgi-async: link-development-env
 dev-compose-up:
 	docker compose -f docker-compose-dev.yml pull eq-questionnaire-launcher
 	docker compose -f docker-compose-dev.yml pull sds
-	docker compose -f docker-compose-dev.yml pull cir
 	docker compose -f docker-compose-dev.yml up -d
 
 dev-compose-down:
 	docker compose -f docker-compose-dev.yml down
+
+aims-compose-up:
+	docker compose -f docker-compose-aims.yml up -d
+
+aims-compose-down:
+	docker compose -f docker-compose-aims.yml down
 
 profile:
 	poetry run python profile_application.py
@@ -120,3 +117,20 @@ profile:
 generate-integration-test:
 	poetry run python -m scripts.generate_integration_test
 	poetry run black ./scripts/test_*
+
+.PHONY: megalint megalint-apply clean-megalint
+megalint:
+	docker run --platform linux/amd64 --rm \
+		-v /var/run/docker.sock:/var/run/docker.sock:rw \
+		-v $(shell pwd):/tmp/lint:rw \
+		ghcr.io/oxsecurity/megalinter:v9.6.0
+
+megalint-apply:
+	docker run --platform linux/amd64 --rm \
+		-v /var/run/docker.sock:/var/run/docker.sock:rw \
+		-v $(shell pwd):/tmp/lint:rw \
+		-e APPLY_FIXES=all \
+		ghcr.io/oxsecurity/megalinter:v9.6.0
+
+clean-megalint:
+	rm -rf megalinter-reports

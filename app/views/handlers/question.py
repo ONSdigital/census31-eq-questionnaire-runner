@@ -95,21 +95,14 @@ class Question(BlockHandler):
             if location_url:
                 return location_url
 
-        return self.router.get_next_location_url(
-            self._current_location, self._routing_path, self._return_location
-        )
+        return self.router.get_next_location_url(self._current_location, self._routing_path, self._return_location)
 
     def _get_answers_for_question(self, question_json: Mapping) -> dict:
-        answers_by_answer_id = self._schema.get_answers_for_question_by_id(
-            question_json
-        )
+        answers_by_answer_id = self._schema.get_answers_for_question_by_id(question_json)
         answer_value_by_answer_id = {}
 
         for answer_id, resolved_answer in answers_by_answer_id.items():
-            list_item_id = (
-                resolved_answer.get("list_item_id")
-                or self._current_location.list_item_id
-            )
+            list_item_id = resolved_answer.get("list_item_id") or self._current_location.list_item_id
             answer_id_to_use = resolved_answer.get("original_answer_id") or answer_id
             if answer := self._questionnaire_store.data_stores.answer_store.get_answer(
                 answer_id=answer_id_to_use, list_item_id=list_item_id
@@ -135,10 +128,7 @@ class Question(BlockHandler):
     def _is_list_just_primary(self, list_items: list[str], list_name: str) -> bool:
         return (
             len(list_items) == 1
-            and list_items[0]
-            == self._questionnaire_store.data_stores.list_store[
-                list_name
-            ].primary_person
+            and list_items[0] == self._questionnaire_store.data_stores.list_store[list_name].primary_person
         )
 
     def _get_answer_action(self) -> dict | None:
@@ -154,25 +144,18 @@ class Question(BlockHandler):
             for option in answer.get("options", {}):
                 action: dict | None = option.get("action")
 
-                if action and (
-                    option["value"] == submitted_answer
-                    or option["value"] in submitted_answer
-                ):
+                if action and (option["value"] == submitted_answer or option["value"] in submitted_answer):
                     return action
 
     def get_context(self) -> dict[str, dict]:
         context = build_question_context(self.rendered_block, self.form)
         context["return_to_hub_url"] = self.get_return_to_hub_url()
-        context["last_viewed_question_guidance"] = (
-            self.get_last_viewed_question_guidance_context()
-        )
+        context["last_viewed_question_guidance"] = self.get_last_viewed_question_guidance_context()
 
         if "list_summary" in self.rendered_block:
             context.update(self.get_list_summary_context())
         if self.form.errors or self.form.question_errors:
-            self.page_title = gettext("Error: {page_title}").format(
-                page_title=self.page_title
-            )
+            self.page_title = gettext("Error: {page_title}").format(page_title=self.page_title)
 
         if self._schema.has_address_lookup_answer(self.rendered_block["question"]) and (
             address_lookup_api_auth_token := get_address_lookup_api_auth_token()
@@ -183,9 +166,7 @@ class Question(BlockHandler):
 
     def get_last_viewed_question_guidance_context(self) -> dict | bool | None:
         if self.resume:
-            first_location_in_section_url = self.router.get_first_location_in_section(
-                self._routing_path
-            ).url()
+            first_location_in_section_url = self.router.get_first_location_in_section(self._routing_path).url()
             return {"first_location_in_section_url": first_location_in_section_url}
 
     def get_list_summary_context(self) -> dict:
@@ -201,31 +182,20 @@ class Question(BlockHandler):
         if self.questionnaire_store_updater.is_dirty():
             # We prematurely complete the block, as we need it completed to build the routing path
             # In order to support progress value source references of the previous block
-            self.questionnaire_store_updater.add_completed_location(
-                self.current_location
-            )
-            self._routing_path = self.router.routing_path(
-                self._current_location.section_key
-            )
+            self.questionnaire_store_updater.add_completed_location(self.current_location)
+            self._routing_path = self.router.routing_path(self._current_location.section_key)
         super().handle_post()
 
     def get_return_to_hub_url(self) -> str | None:
-        if (
-            self.rendered_block["type"] in ["Question", "ConfirmationQuestion"]
-            and self.router.can_access_hub()
-        ):
+        if self.rendered_block["type"] in ["Question", "ConfirmationQuestion"] and self.router.can_access_hub():
             return url_for(".get_questionnaire")
 
     def clear_radio_answers(self) -> None:
         answer_ids_to_remove = [
-            answer["id"]
-            for answer in self.rendered_block["question"]["answers"]
-            if answer["type"] == "Radio"
+            answer["id"] for answer in self.rendered_block["question"]["answers"] if answer["type"] == "Radio"
         ]
         if answer_ids_to_remove:
-            self.questionnaire_store_updater.remove_answers(
-                answer_ids_to_remove, self.current_location.list_item_id
-            )
+            self.questionnaire_store_updater.remove_answers(answer_ids_to_remove, self.current_location.list_item_id)
             self.questionnaire_store_updater.save()
 
     def get_first_incomplete_list_repeating_block_location(
@@ -250,9 +220,7 @@ class Question(BlockHandler):
         section_key: SectionKey,
         list_name: str,
     ) -> Location | None:
-        if self._questionnaire_store.data_stores.progress_store.is_section_complete(
-            section_key
-        ):
+        if self._questionnaire_store.data_stores.progress_store.is_section_complete(section_key):
             return None
 
         for repeating_block_id in repeating_block_ids:

@@ -11,15 +11,9 @@ from app.utilities.types import DependentSection, SectionKey
 
 
 @pytest.fixture
-def questionnaire_store_with_supplementary_data(
-    fake_questionnaire_store, supplementary_data_store_with_data
-):
-    fake_questionnaire_store.data_stores.supplementary_data_store = (
-        supplementary_data_store_with_data
-    )
-    fake_questionnaire_store.data_stores.list_store = ListStore(
-        [{"items": ["item-1", "item-2"], "name": "products"}]
-    )
+def questionnaire_store_with_supplementary_data(fake_questionnaire_store, supplementary_data_store_with_data):
+    fake_questionnaire_store.data_stores.supplementary_data_store = supplementary_data_store_with_data
+    fake_questionnaire_store.data_stores.list_store = ListStore([{"items": ["item-1", "item-2"], "name": "products"}])
     # Mock the identifier generation in list store so the ids are item-1, item-2, ...
     # pylint: disable=protected-access
     fake_questionnaire_store.data_stores.list_store._generate_identifier = Mock(
@@ -34,9 +28,7 @@ def questionnaire_store_with_employee_supplementary_data(
     supplementary_data_store_with_employees,
 ):
     """Mock questionnaire store with supplementary data of two products and partial progress"""
-    fake_questionnaire_store.data_stores.supplementary_data_store = (
-        supplementary_data_store_with_employees
-    )
+    fake_questionnaire_store.data_stores.supplementary_data_store = supplementary_data_store_with_employees
     fake_questionnaire_store.data_stores.list_store = ListStore(
         [
             {"items": ["item-1", "item-2"], "name": "products"},
@@ -113,9 +105,7 @@ def questionnaire_store_with_employee_supplementary_data(
     return fake_questionnaire_store
 
 
-def test_removing_list_item_data(
-    supplementary_data_schema, questionnaire_store_with_employee_supplementary_data
-):
+def test_removing_list_item_data(supplementary_data_schema, questionnaire_store_with_employee_supplementary_data):
     """
     Tests that if you remove list item data with the base updater
     it removes the list item from the list store and removes the progress for any dependents of the list item
@@ -128,9 +118,7 @@ def test_removing_list_item_data(
     base_questionnaire_store_updater.remove_list_item_data("products", "item-2")
     base_questionnaire_store_updater.capture_dependencies_for_list_change("products")
 
-    assert questionnaire_store_with_employee_supplementary_data.data_stores.list_store[
-        "products"
-    ].items == ["item-1"]
+    assert questionnaire_store_with_employee_supplementary_data.data_stores.list_store["products"].items == ["item-1"]
     # should not contain item-1 since this should be unaffected
     assert base_questionnaire_store_updater.dependent_sections == {
         DependentSection(section_id="section-6", list_item_id=None),
@@ -219,9 +207,7 @@ def test_remove_dependent_blocks_and_capture_dependent_sections(
         == expected_blocks
     )
     assert base_questionnaire_store_updater.dependent_sections == {
-        DependentSection(
-            section_id=section_id, list_item_id=list_item_id, is_complete=False
-        )
+        DependentSection(section_id=section_id, list_item_id=list_item_id, is_complete=False)
     }
 
 
@@ -244,9 +230,7 @@ def test_update_progress_for_dependent_sections(
         router=MagicMock(),
     )
     base_questionnaire_store_updater.dependent_sections = {
-        dependent_section := DependentSection(
-            section_id=section_id, list_item_id=list_item_id, is_complete=False
-        )
+        dependent_section := DependentSection(section_id=section_id, list_item_id=list_item_id, is_complete=False)
     }
     base_questionnaire_store_updater.update_progress_for_dependent_sections()
     assert (
@@ -293,9 +277,7 @@ def test_update_supplementary_data_list_in_schema_with_no_list_collector(
         questionnaire_store=fake_questionnaire_store,
         router=MagicMock(),
     )
-    base_questionnaire_store_updater.set_supplementary_data(
-        supplementary_data_with_employees
-    )
+    base_questionnaire_store_updater.set_supplementary_data(supplementary_data_with_employees)
     base_questionnaire_store_updater.remove_list_item_data("products", "product-1")
     base_questionnaire_store_updater.capture_dependencies_for_list_change("products")
     # supplementary data has nothing to do with given schema
@@ -318,9 +300,7 @@ class TestSettingSupplementaryData:
         assert list_name in lists
         assert self.store.data_stores.list_store[list_name].items == list_item_ids
 
-    def test_adding_new_supplementary_data(
-        self, fake_questionnaire_store, supplementary_data
-    ):
+    def test_adding_new_supplementary_data(self, fake_questionnaire_store, supplementary_data):
         """Tests that adding supplementary data adds supplementary list items to the list store
         this test doesn't mock list item ids, and checks that they match those in list_mappings
         """
@@ -329,16 +309,12 @@ class TestSettingSupplementaryData:
         questionnaire_store_updater_base.set_supplementary_data(supplementary_data)
         assert "products" in self.store.data_stores.supplementary_data_store.list_lookup
         supplementary_list_item_ids = list(
-            self.store.data_stores.supplementary_data_store.list_lookup[
-                "products"
-            ].values()
+            self.store.data_stores.supplementary_data_store.list_lookup["products"].values()
         )
         # check list mapping ids match list store ids
         self.assert_list_store_data("products", supplementary_list_item_ids)
 
-    def test_updating_supplementary_data(
-        self, questionnaire_store_with_supplementary_data, supplementary_data
-    ):
+    def test_updating_supplementary_data(self, questionnaire_store_with_supplementary_data, supplementary_data):
         """Test that overwriting supplementary data with additional lists/items adds them to the list store
         without duplicating any existing data"""
         self.store = questionnaire_store_with_supplementary_data
@@ -348,28 +324,23 @@ class TestSettingSupplementaryData:
         supplementary_data["items"]["products"].append({"identifier": "12345"})
         questionnaire_store_updater_base.set_supplementary_data(supplementary_data)
 
-        assert (
-            self.store.data_stores.supplementary_data_store.list_mappings
-            == make_immutable(
-                {
-                    "products": [
-                        {"identifier": 89929001, "list_item_id": "item-1"},
-                        {"identifier": "201630601", "list_item_id": "item-2"},
-                        {"identifier": "12345", "list_item_id": "item-3"},
-                    ],
-                    "supermarkets": [
-                        {"identifier": "54321", "list_item_id": "item-4"},
-                    ],
-                }
-            )
+        assert self.store.data_stores.supplementary_data_store.list_mappings == make_immutable(
+            {
+                "products": [
+                    {"identifier": 89929001, "list_item_id": "item-1"},
+                    {"identifier": "201630601", "list_item_id": "item-2"},
+                    {"identifier": "12345", "list_item_id": "item-3"},
+                ],
+                "supermarkets": [
+                    {"identifier": "54321", "list_item_id": "item-4"},
+                ],
+            }
         )
 
         self.assert_list_store_data("products", ["item-1", "item-2", "item-3"])
         self.assert_list_store_data("supermarkets", ["item-4"])
 
-    def test_removing_some_supplementary_data(
-        self, questionnaire_store_with_supplementary_data, supplementary_data
-    ):
+    def test_removing_some_supplementary_data(self, questionnaire_store_with_supplementary_data, supplementary_data):
         """Tests that if you overwrite existing supplementary data with data that is missing list item ids
         or lists, that the list store is updated to remove that data"""
         self.store = questionnaire_store_with_supplementary_data
@@ -381,9 +352,7 @@ class TestSettingSupplementaryData:
         # products item-1 should be gone
         self.assert_list_store_data("products", ["item-2"])
 
-    def test_removing_all_supplementary_data(
-        self, questionnaire_store_with_supplementary_data
-    ):
+    def test_removing_all_supplementary_data(self, questionnaire_store_with_supplementary_data):
         """Checks that removing all supplementary data clears out the list store"""
         self.store = questionnaire_store_with_supplementary_data
         questionnaire_store_updater_base = self.get_questionnaire_store_updater_base()

@@ -7,13 +7,7 @@ from wtforms.fields.core import UnboundField
 
 from app.forms.field_handlers.field_handler import FieldHandler
 from app.forms.fields import DateField, MonthYearDateField, YearDateField
-from app.forms.validators import (
-    DateCheck,
-    DateRequired,
-    OptionalForm,
-    SingleDatePeriodCheck,
-    format_message_with_title,
-)
+from app.forms.validators import DateCheck, DateRequired, OptionalForm, SingleDatePeriodCheck, format_message_with_title
 from app.questionnaire.rules.utils import parse_datetime
 from app.utilities.types import DateValidatorType
 
@@ -31,9 +25,7 @@ class DateHandler(FieldHandler):
             validate_with = [
                 DateRequired(
                     message=self.get_validation_message(
-                        format_message_with_title(
-                            self.MANDATORY_MESSAGE_KEY, self.question_title
-                        )
+                        format_message_with_title(self.MANDATORY_MESSAGE_KEY, self.question_title)
                     )
                 )
             ]
@@ -51,9 +43,7 @@ class DateHandler(FieldHandler):
         return validate_with
 
     def get_field(self) -> UnboundField | DateField:
-        return DateField(
-            validators=self.validators, label=self.label, description=self.guidance
-        )
+        return DateField(validators=self.validators, label=self.label, description=self.guidance)
 
     def get_min_max_validator(
         self, minimum_date: datetime | None, maximum_date: datetime | None
@@ -82,9 +72,7 @@ class DateHandler(FieldHandler):
         return parse_datetime(value) if isinstance(value, str) else None
 
     @staticmethod
-    def transform_date_by_offset(
-        date_to_offset: datetime | None, offset: dict[str, int]
-    ) -> datetime | None:
+    def transform_date_by_offset(date_to_offset: datetime | None, offset: dict[str, int]) -> datetime | None:
         """
         Adds/subtracts offset from a date and returns
         the new offset value
@@ -124,21 +112,15 @@ class MonthYearDateHandler(DateHandler):
     DISPLAY_FORMAT = "MMMM yyyy"
 
     def get_field(self) -> UnboundField | MonthYearDateField:
-        return MonthYearDateField(
-            validators=self.validators, label=self.label, description=self.guidance
-        )
+        return MonthYearDateField(validators=self.validators, label=self.label, description=self.guidance)
 
     def get_min_max_validator(
         self, minimum_date: datetime | None, maximum_date: datetime | None
     ) -> SingleDatePeriodCheck:
         messages = self.answer_schema.get("validation", {}).get("messages")
 
-        minimum_date = (
-            minimum_date.replace(day=1) if minimum_date else None
-        )  # First day of Month
-        maximum_date = (
-            maximum_date + relativedelta(day=31) if maximum_date else None
-        )  # Last day of month
+        minimum_date = minimum_date.replace(day=1) if minimum_date else None  # First day of Month
+        maximum_date = maximum_date + relativedelta(day=31) if maximum_date else None  # Last day of month
 
         return SingleDatePeriodCheck(
             messages=messages,
@@ -153,21 +135,15 @@ class YearDateHandler(DateHandler):
     DISPLAY_FORMAT = "yyyy"
 
     def get_field(self) -> UnboundField | YearDateField:
-        return YearDateField(
-            validators=self.validators, label=self.label, description=self.guidance
-        )
+        return YearDateField(validators=self.validators, label=self.label, description=self.guidance)
 
     def get_min_max_validator(
         self, minimum_date: datetime | None, maximum_date: datetime | None
     ) -> SingleDatePeriodCheck:
         messages = self.answer_schema.get("validation", {}).get("messages")
 
-        minimum_date = (
-            minimum_date.replace(month=1, day=1) if minimum_date else None
-        )  # January 1st
-        maximum_date = (
-            maximum_date.replace(month=12, day=31) if maximum_date else None
-        )  # Last day of december
+        minimum_date = minimum_date.replace(month=1, day=1) if minimum_date else None  # January 1st
+        maximum_date = maximum_date.replace(month=12, day=31) if maximum_date else None  # Last day of december
 
         return SingleDatePeriodCheck(
             messages=messages,

@@ -15,9 +15,7 @@ class StorageEncryption:
     USER_IK_ERROR_MESSAGE = "user_ik not provided"
     PEPPER_ERROR_MESSAGE = "pepper not provided"
 
-    def __init__(
-        self, user_id: str | None, user_ik: str | None, pepper: str | None
-    ) -> None:
+    def __init__(self, user_id: str | None, user_ik: str | None, pepper: str | None) -> None:
         if not user_id:
             raise ValueError(self.USER_ID_ERROR_MESSAGE)
         if not user_ik:
@@ -47,9 +45,7 @@ class StorageEncryption:
 
         protected_header = {"alg": "dir", "enc": "A256GCM", "kid": "1,1"}
 
-        jwe_token = jwe.JWE(
-            plaintext=data, protected=protected_header, recipient=self.key
-        )
+        jwe_token = jwe.JWE(plaintext=data, protected=protected_header, recipient=self.key)
 
         serialized_token: str = jwe_token.serialize(compact=True)
         return serialized_token

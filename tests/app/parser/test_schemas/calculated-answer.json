@@ -1,7 +1,7 @@
 {
     "mime_type": "application/json/ons/eq",
     "language": "en",
-    "schema_version":  "0.0.1",
+    "schema_version": "0.0.1",
     "data_version": "0.0.1",
     "survey_id": "0",
     "title": "Total field test survey",
@@ -9,9 +9,9 @@
     "legal_basis": "Notice is given under section 1 of the Statistics of Trade Act 1947.",
     "description": "A survey that tests the totalling of percentage input fields",
     "messages": {
-      "NUMBER_TOO_LARGE": "Number cannot be greater than one hundred",
-      "NUMBER_TOO_SMALL": "Number cannot be less than zero",
-      "INVALID_NUMBER": "Please enter an integer"
+        "NUMBER_TOO_LARGE": "Number cannot be greater than one hundred",
+        "NUMBER_TOO_SMALL": "Number cannot be less than zero",
+        "INVALID_NUMBER": "Please enter an integer"
     },
     "groups": [
         {
@@ -19,84 +19,87 @@
                 {
                     "type": "Questionnaire",
                     "id": "block",
-                            "question":
-                              {
-                                    "answers": [
-                                        {
-                                            "id": "percentage-1",
-                                            "label": "Percentage 1",
-                                            "mandatory": false,
-                                            "q_code": "0810",
-                                            "type": "Percentage", "maximum": {"value": 100},
-                                            "validation": {
-                                                "messages" : {
-                                                    "NUMBER_TOO_LARGE": "The maximum value allowed is 100. Please correct your answer"
-                                                }
-                                            }
-                                        },
-                                        {
-                                            "id": "percentage-2",
-                                            "label": "Percentage 2",
-                                            "mandatory": false,
-                                            "q_code": "0820",
-                                            "type": "Percentage", "maximum": {"value": 100},
-                                            "validation": {
-                                                "messages" : {
-                                                    "NUMBER_TOO_LARGE": "The maximum value allowed is 100. Please correct your answer"
-                                                }
-                                            }
-                                        },
-                                        {
-                                            "id": "percentage-3",
-                                            "label": "Percentage 3",
-                                            "mandatory": false,
-                                            "q_code": "0830",
-                                            "type": "Percentage", "maximum": {"value": 100},
-                                            "validation": {
-                                                "messages" : {
-                                                    "NUMBER_TOO_LARGE": "The maximum value allowed is 100. Please correct your answer"
-                                                }
-                                            }
-                                        },
-                                        {
-                                            "id": "percentage-4",
-                                            "label": "Percentage 4",
-                                            "mandatory": false,
-                                            "q_code": "0840",
-                                            "type": "Percentage", "maximum": {"value": 100},
-                                            "validation": {
-                                                "messages" : {
-                                                    "NUMBER_TOO_LARGE": "The maximum value allowed is 100. Please correct your answer"
-                                                }
-                                            }
-                                        },
-                                        {
-                                            "calculated": true,
-                                            "description": "The total percentages should be 100%",
-                                            "id": "total-percentage",
-                                            "label": "Total",
-                                            "mandatory": false,
-                                            "q_code": "10002",
-                                            "type": "Percentage",
-                                            "decimal_places": 2,
-                                            "maximum": {
-                                              "value": 100
-                                            },
-                                            "validation": {
-                                                "messages" : {
-                                                    "NUMBER_TOO_LARGE": "The total percentages should be 100%"
-                                                }
-                                            }
-                                        }
-                                    ],
-                                    "id": "question",
-                                    "title": "",
-                                    "type": "General"
-                              },
-                    "routing_rules":[
-                    ],
+                    "question": {
+                        "answers": [
+                            {
+                                "id": "percentage-1",
+                                "label": "Percentage 1",
+                                "mandatory": false,
+                                "q_code": "0810",
+                                "type": "Percentage",
+                                "maximum": { "value": 100 },
+                                "validation": {
+                                    "messages": {
+                                        "NUMBER_TOO_LARGE": "The maximum value allowed is 100. Please correct your answer"
+                                    }
+                                }
+                            },
+                            {
+                                "id": "percentage-2",
+                                "label": "Percentage 2",
+                                "mandatory": false,
+                                "q_code": "0820",
+                                "type": "Percentage",
+                                "maximum": { "value": 100 },
+                                "validation": {
+                                    "messages": {
+                                        "NUMBER_TOO_LARGE": "The maximum value allowed is 100. Please correct your answer"
+                                    }
+                                }
+                            },
+                            {
+                                "id": "percentage-3",
+                                "label": "Percentage 3",
+                                "mandatory": false,
+                                "q_code": "0830",
+                                "type": "Percentage",
+                                "maximum": { "value": 100 },
+                                "validation": {
+                                    "messages": {
+                                        "NUMBER_TOO_LARGE": "The maximum value allowed is 100. Please correct your answer"
+                                    }
+                                }
+                            },
+                            {
+                                "id": "percentage-4",
+                                "label": "Percentage 4",
+                                "mandatory": false,
+                                "q_code": "0840",
+                                "type": "Percentage",
+                                "maximum": { "value": 100 },
+                                "validation": {
+                                    "messages": {
+                                        "NUMBER_TOO_LARGE": "The maximum value allowed is 100. Please correct your answer"
+                                    }
+                                }
+                            },
+                            {
+                                "calculated": true,
+                                "description": "The total percentages should be 100%",
+                                "id": "total-percentage",
+                                "label": "Total",
+                                "mandatory": false,
+                                "q_code": "10002",
+                                "type": "Percentage",
+                                "decimal_places": 2,
+                                "maximum": {
+                                    "value": 100
+                                },
+                                "validation": {
+                                    "messages": {
+                                        "NUMBER_TOO_LARGE": "The total percentages should be 100%"
+                                    }
+                                }
+                            }
+                        ],
+                        "id": "question",
+                        "title": "",
+                        "type": "General"
+                    },
+                    "routing_rules": [],
                     "title": ""
-                }],
+                }
+            ],
             "id": "group",
             "title": ""
         }

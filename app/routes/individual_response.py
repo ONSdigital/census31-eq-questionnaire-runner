@@ -6,9 +6,7 @@ from structlog import contextvars, get_logger
 from werkzeug.exceptions import BadRequest
 from werkzeug.wrappers.response import Response
 
-from app.authentication.no_questionnaire_state_exception import (
-    NoQuestionnaireStateException,
-)
+from app.authentication.no_questionnaire_state_exception import NoQuestionnaireStateException
 from app.data_models import QuestionnaireStore
 from app.data_models.metadata_proxy import MetadataProxy
 from app.globals import get_metadata, get_questionnaire_store
@@ -48,9 +46,7 @@ def before_individual_response_request() -> Response | None:
     if not metadata:
         raise NoQuestionnaireStateException(401)
 
-    questionnaire_store = get_questionnaire_store(
-        current_user.user_id, current_user.user_ik
-    )
+    questionnaire_store = get_questionnaire_store(current_user.user_id, current_user.user_ik)
 
     if questionnaire_store.submitted_at:
         return redirect(url_for("post_submission.get_thank_you"))
@@ -62,9 +58,7 @@ def before_individual_response_request() -> Response | None:
 
     bind_contextvars_schema_from_metadata(metadata)
 
-    logger.info(
-        "individual-response request", method=request.method, url_path=request.full_path
-    )
+    logger.info("individual-response request", method=request.method, url_path=request.full_path)
 
     # Ensures langauge is set in the SessionStore
     handle_language(metadata)
@@ -78,9 +72,7 @@ def before_individual_response_request() -> Response | None:
 @individual_response_blueprint.route("/", methods=["GET"])
 @with_questionnaire_store
 @with_schema
-def request_individual_response(
-    schema: QuestionnaireSchema, questionnaire_store: QuestionnaireStore
-) -> str:
+def request_individual_response(schema: QuestionnaireSchema, questionnaire_store: QuestionnaireStore) -> str:
     language_code: str = get_locale().language
     list_item_id: str | None = request.args.get("list_item_id")
 
@@ -144,9 +136,7 @@ def individual_response_change(
     return individual_response_handler.handle_get()
 
 
-@individual_response_blueprint.route(
-    "/<list_item_id>/post/confirm-address", methods=["GET", "POST"]
-)
+@individual_response_blueprint.route("/<list_item_id>/post/confirm-address", methods=["GET", "POST"])
 @with_questionnaire_store
 @with_schema
 def individual_response_post_address_confirm(
@@ -207,9 +197,7 @@ def individual_response_post_address_confirmation(
 @individual_response_blueprint.route("/who", methods=["GET", "POST"])
 @with_questionnaire_store
 @with_schema
-def individual_response_who(
-    schema: QuestionnaireSchema, questionnaire_store: QuestionnaireStore
-) -> Response | str:
+def individual_response_who(schema: QuestionnaireSchema, questionnaire_store: QuestionnaireStore) -> Response | str:
     language_code: str = get_locale().language
     individual_response_handler = IndividualResponseWhoHandler(
         schema=schema,
@@ -225,9 +213,7 @@ def individual_response_who(
     return individual_response_handler.handle_get()
 
 
-@individual_response_blueprint.route(
-    "/<list_item_id>/text/enter-number", methods=["GET", "POST"]
-)
+@individual_response_blueprint.route("/<list_item_id>/text/enter-number", methods=["GET", "POST"])
 @with_questionnaire_store
 @with_schema
 def individual_response_text_message(
@@ -251,9 +237,7 @@ def individual_response_text_message(
     return individual_response_handler.handle_get()
 
 
-@individual_response_blueprint.route(
-    "/<list_item_id>/text/confirm-number", methods=["GET", "POST"]
-)
+@individual_response_blueprint.route("/<list_item_id>/text/confirm-number", methods=["GET", "POST"])
 @with_questionnaire_store
 @with_schema
 def individual_response_text_message_confirm(

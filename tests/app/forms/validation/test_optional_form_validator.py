@@ -28,9 +28,7 @@ def _get_comparison_date_parts(day_month_year, mocker):
         [[], [""]],
     ),
 )
-def test_date_validator_day_month_year_invalid_raises_StopValidation(
-    day_month_year, mocker, mock_form, mock_field
-):
+def test_date_validator_day_month_year_invalid_raises_StopValidation(day_month_year, mocker, mock_form, mock_field):
     validator = OptionalForm()
 
     comp = _get_comparison_date_parts(day_month_year, mocker)

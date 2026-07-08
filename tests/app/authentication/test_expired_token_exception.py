@@ -1,6 +1,4 @@
-from app.authentication.no_questionnaire_state_exception import (
-    NoQuestionnaireStateException,
-)
+from app.authentication.no_questionnaire_state_exception import NoQuestionnaireStateException
 
 
 def test_no_questionnaire_state_exception():

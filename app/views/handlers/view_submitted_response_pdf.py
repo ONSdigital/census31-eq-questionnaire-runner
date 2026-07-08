@@ -3,10 +3,7 @@ import io
 from app.data_models import QuestionnaireStore
 from app.questionnaire import QuestionnaireSchema
 from app.views.handlers.pdf_response import PDFResponse
-from app.views.handlers.view_submitted_response import (
-    ViewSubmittedResponse,
-    ViewSubmittedResponseExpired,
-)
+from app.views.handlers.view_submitted_response import ViewSubmittedResponse, ViewSubmittedResponseExpired
 
 
 class ViewSubmittedResponsePDF(ViewSubmittedResponse, PDFResponse):

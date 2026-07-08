@@ -8,9 +8,7 @@
     {% if question.descriptions %}
         {% set descriptions = question.descriptions %}
         {% set descriptions_length = descriptions | length %}
-        {% for description in descriptions %}
-            <div class="ons-question__description ons-u-mb-m">{{- description | safe -}}</div>
-        {% endfor %}
+        {% for description in descriptions %}<div class="ons-question__description ons-u-mb-m">{{- description | safe -}}</div>{% endfor %}
     {% endif %}
     {%- if question.guidance -%}
         {% set contents = question.guidance.contents %}
@@ -31,7 +29,9 @@
                 <strong>{{ _("Or") }}</strong>
             </p>
         {% endif %}
-        {% if not loop.last or (answer.options and answers_length == 1) %}<p>{{ answer.options_text }}</p>{% endif %}
+        {% if not loop.last or (answer.options and answers_length == 1) %}
+            <p>{{ answer.options_text }}</p>
+        {% endif %}
         {% if answer.options %}
             {% if answer.label %}
                 <p>
@@ -39,7 +39,9 @@
                 </p>
             {% endif %}
             <ul>
-                {% for option in answer.options %}<li>{{ option }}</li>{% endfor %}
+                {% for option in answer.options %}
+                    <li>{{ option }}</li>
+                {% endfor %}
             </ul>
         {% else %}
             {% if answer.label %}
@@ -53,13 +55,13 @@
         {% endif %}
         {# answer guidance not implemented yet due to some work that needs to be done in the DS will be implemented in iteration 2 #}
         {# {% if answer.guidance %}
-      {% with answer_guidance = {
-        'id': answer.id,
-        'label': answer.label,
-        'schema_item': answer.guidance
-      } %}
-        {% include "partials/answer-guidance.html" %}
-      {% endwith %}
-{% endif %} #}
+            {% with answer_guidance = {
+                'id': answer.id,
+                'label': answer.label,
+                'schema_item': answer.guidance
+            } %}
+                {% include "partials/answer-guidance.html" %}
+            {% endwith %}
+        {% endif %} #}
     {% endfor %}
 </div>

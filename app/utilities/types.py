@@ -1,16 +1,9 @@
 from typing import TYPE_CHECKING, NamedTuple, TypeAlias, TypedDict, Union
 
 if TYPE_CHECKING:
-    from app.forms.validators import (  # pragma: no cover
-        DateCheck,
-        DateRequired,
-        OptionalForm,
-        SingleDatePeriodCheck,
-    )
+    from app.forms.validators import DateCheck, DateRequired, OptionalForm, SingleDatePeriodCheck  # pragma: no cover
     from app.questionnaire.location import Location  # pragma: no cover
-    from app.questionnaire.relationship_location import (
-        RelationshipLocation,  # pragma: no cover
-    )
+    from app.questionnaire.relationship_location import RelationshipLocation  # pragma: no cover
 
 LocationType: TypeAlias = Union["Location", "RelationshipLocation"]  # noqa: UP007
 SupplementaryDataKeyType: TypeAlias = tuple[str, str | None]
@@ -34,9 +27,7 @@ class SectionKey(NamedTuple):
     list_item_id: str | None = None
 
     def to_dict(self) -> SectionKeyDict:
-        return SectionKeyDict(
-            section_id=self.section_id, list_item_id=self.list_item_id
-        )
+        return SectionKeyDict(section_id=self.section_id, list_item_id=self.list_item_id)
 
 
 class DependentSection(NamedTuple):

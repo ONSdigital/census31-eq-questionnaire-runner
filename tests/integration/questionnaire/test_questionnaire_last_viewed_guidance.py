@@ -80,9 +80,7 @@ class TestLastViewedGuidance(IntegrationTestCase):
         )
 
         # Then the last viewed guidance should be shown
-        self._assert_last_viewed_question_guidance_link(
-            "/questionnaire/household-interstitial/"
-        )
+        self._assert_last_viewed_question_guidance_link("/questionnaire/household-interstitial/")
         self._assert_last_viewed_question_guidance_shown()
 
     def test_shown_on_section_in_progress_resume_primary_person_list_collector(self):
@@ -102,9 +100,7 @@ class TestLastViewedGuidance(IntegrationTestCase):
         )
 
         # Then the last viewed guidance is shown
-        self._assert_last_viewed_question_guidance_link(
-            "/questionnaire/household-interstitial/"
-        )
+        self._assert_last_viewed_question_guidance_link("/questionnaire/household-interstitial/")
         self._assert_last_viewed_question_guidance_shown()
 
     def test_shown_on_section_in_progress_resume_primary_person_list_collector_add_person(
@@ -127,9 +123,7 @@ class TestLastViewedGuidance(IntegrationTestCase):
         )
 
         # Then the last viewed guidance is shown on the parent page
-        self._assert_last_viewed_question_guidance_link(
-            "/questionnaire/household-interstitial/"
-        )
+        self._assert_last_viewed_question_guidance_link("/questionnaire/household-interstitial/")
         self._assert_last_viewed_question_guidance_shown()
 
     def test_shown_on_section_in_progress_resume_list_collector(self):
@@ -151,9 +145,7 @@ class TestLastViewedGuidance(IntegrationTestCase):
         )
 
         # Then the last viewed guidance is shown
-        self._assert_last_viewed_question_guidance_link(
-            "/questionnaire/household-interstitial/"
-        )
+        self._assert_last_viewed_question_guidance_link("/questionnaire/household-interstitial/")
         self._assert_last_viewed_question_guidance_shown()
 
     def test_shown_on_section_in_progress_resume_list_collector_add_person(self):
@@ -176,9 +168,7 @@ class TestLastViewedGuidance(IntegrationTestCase):
         )
 
         # Then the last viewed guidance is shown on the parent page
-        self._assert_last_viewed_question_guidance_link(
-            "/questionnaire/household-interstitial/"
-        )
+        self._assert_last_viewed_question_guidance_link("/questionnaire/household-interstitial/")
         self._assert_last_viewed_question_guidance_shown()
 
     def test_not_shown_on_section_in_progress_resume_relationships(self):

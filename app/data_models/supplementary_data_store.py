@@ -6,11 +6,7 @@ from typing import Iterable, Mapping, MutableMapping
 from werkzeug.datastructures import ImmutableDict
 
 from app.utilities.make_immutable import make_immutable
-from app.utilities.types import (
-    SupplementaryDataKeyType,
-    SupplementaryDataListMapping,
-    SupplementaryDataValueType,
-)
+from app.utilities.types import SupplementaryDataKeyType, SupplementaryDataListMapping, SupplementaryDataValueType
 
 
 class InvalidSupplementaryDataSelector(Exception):
@@ -49,34 +45,28 @@ class SupplementaryDataStore:
 
     @cached_property
     def list_mappings(self) -> ImmutableDict[str, list[ImmutableDict]]:
-        mappings: ImmutableDict[str, list[ImmutableDict]] = make_immutable(
-            self._list_mappings
-        )
+        mappings: ImmutableDict[str, list[ImmutableDict]] = make_immutable(self._list_mappings)
         return mappings
 
     @cached_property
     def list_lookup(self) -> dict[str, dict[str | int, str]]:
         """Create a lookup for easily finding the list_item_id for a given identifier"""
         return {
-            list_name: {
-                mapping["identifier"]: mapping["list_item_id"] for mapping in list_data
-            }
+            list_name: {mapping["identifier"]: mapping["list_item_id"] for mapping in list_data}
             for list_name, list_data in self._list_mappings.items()
         }
 
-    def _build_map(
-        self, data: MutableMapping
-    ) -> dict[SupplementaryDataKeyType, SupplementaryDataValueType]:
+    def _build_map(self, data: MutableMapping) -> dict[SupplementaryDataKeyType, SupplementaryDataValueType]:
         """
         The raw data will be of the form
         {
-          "some_key": "some_value"
-          "items": {
-            "some_list": [
-                {"identifier": ... },
-                {"identifier": ... }
-            ]
-          }
+            "some_key": "some_value",
+            "items": {
+                "some_list": [
+                    {"identifier": ... },
+                    {"identifier": ... }
+                ]
+            }
         }
         each list item has an identifier which will link to a list-item-id in self.list_lookup
         for example: {"some_list": {identifier-1: list_item_id-1, identifier-2: list_item_id-2 }}
@@ -126,9 +116,7 @@ class SupplementaryDataStore:
                     values.append(value)
             return values
 
-        return self._resolve_value(
-            identifier=identifier, selectors=selectors, list_item_id=list_item_id
-        )
+        return self._resolve_value(identifier=identifier, selectors=selectors, list_item_id=list_item_id)
 
     def _resolve_value(
         self,
@@ -144,9 +132,7 @@ class SupplementaryDataStore:
                 return None
             if not isinstance(value, Mapping):
                 # if value is not None, and also not index able, raise an error
-                invalid_selector_error_message = (
-                    f"Cannot use the selector `{selector}` on non-nested data"
-                )
+                invalid_selector_error_message = f"Cannot use the selector `{selector}` on non-nested data"
                 raise InvalidSupplementaryDataSelector(invalid_selector_error_message)
             value = value.get(selector)
 

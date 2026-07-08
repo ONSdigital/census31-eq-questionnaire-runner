@@ -13,17 +13,13 @@ from app.questionnaire.rules.utils import parse_iso_8601_datetime
 from app.utilities.json import json_dumps, json_loads
 
 if TYPE_CHECKING:
-    from app.storage.encrypted_questionnaire_storage import (  # pragma: no cover
-        EncryptedQuestionnaireStorage,
-    )
+    from app.storage.encrypted_questionnaire_storage import EncryptedQuestionnaireStorage  # pragma: no cover
 
 
 class QuestionnaireStore:
     LATEST_VERSION = 1
 
-    def __init__(
-        self, storage: EncryptedQuestionnaireStorage, version: int | None = None
-    ):
+    def __init__(self, storage: EncryptedQuestionnaireStorage, version: int | None = None):
         self._storage = storage
         if version is None:
             version = self.get_latest_version_number()
@@ -90,9 +86,7 @@ class QuestionnaireStore:
 
     def save(self) -> None:
         data = self.serialize()
-        collection_exercise_sid = (
-            self.collection_exercise_sid or self._metadata["collection_exercise_sid"]
-        )
+        collection_exercise_sid = self.collection_exercise_sid or self._metadata["collection_exercise_sid"]
         response_expires_at = self._metadata["response_expires_at"]
         self._storage.save(
             data=data,

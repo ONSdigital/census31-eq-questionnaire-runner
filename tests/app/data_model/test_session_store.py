@@ -24,10 +24,7 @@ def test_create(app, app_session_store):
         )
         assert "eq_session_id" == app_session_store.session_store.eq_session_id
         assert "test" == app_session_store.session_store.user_id
-        assert (
-            app_session_store.session_data
-            == app_session_store.session_store.session_data
-        )
+        assert app_session_store.session_data == app_session_store.session_store.session_data
 
 
 def test_save(app, app_session_store):
@@ -81,9 +78,7 @@ def test_should_not_delete_when_no_session(app, app_session_store):
         assert context.app.eq["storage"].client.delete_call_count == 0
 
 
-def test_session_store_ignores_new_values_in_session_data(
-    app, app_session_store, session_data
-):
+def test_session_store_ignores_new_values_in_session_data(app, app_session_store, session_data):
     session_data.additional_value = "some cool new value you do not know about yet"
 
     with app.test_request_context():
@@ -99,9 +94,7 @@ def test_session_store_ignores_new_values_in_session_data(
         assert hasattr(session_store.session_data, "additional_value") is False
 
 
-def test_session_store_ignores_multiple_new_values_in_session_data(
-    app, app_session_store, session_data
-):
+def test_session_store_ignores_multiple_new_values_in_session_data(app, app_session_store, session_data):
     session_data.additional_value = "some cool new value you do not know about yet"
     session_data.second_additional_value = "some other not so cool value"
 
@@ -118,9 +111,7 @@ def test_session_store_ignores_multiple_new_values_in_session_data(
         assert hasattr(session_store.session_data, "second_additional_value") is False
 
 
-def test_session_store_stores_language_code_value(
-    app, app_session_store, session_data_with_language_code
-):
+def test_session_store_stores_language_code_value(app, app_session_store, session_data_with_language_code):
     with app.test_request_context():
         app_session_store.session_store.create(
             eq_session_id="eq_session_id",
@@ -134,9 +125,7 @@ def test_session_store_stores_language_code_value(
         assert session_store.session_data.language_code == "en"
 
 
-def test_session_store_stores_none_for_language_code_value(
-    app, app_session_store, session_data
-):
+def test_session_store_stores_none_for_language_code_value(app, app_session_store, session_data):
     session_data.language_code = None
     with app.test_request_context():
         app_session_store.session_store.create(
@@ -166,9 +155,7 @@ def test_legacy_load(app_session_store_encoded):
         app_session_store_encoded.session_id,
     )
 
-    assert vars(session_store.session_data) == vars(
-        app_session_store_encoded.session_data
-    )
+    assert vars(session_store.session_data) == vars(app_session_store_encoded.session_data)
 
 
 @pytest.mark.usefixtures("app")
@@ -185,9 +172,7 @@ def test_load(app_session_store_encoded):
         app_session_store_encoded.session_id,
     )
 
-    assert vars(session_store.session_data) == vars(
-        app_session_store_encoded.session_data
-    )
+    assert vars(session_store.session_data) == vars(app_session_store_encoded.session_data)
 
 
 def _save_session(app_session, session_id, user_id, data, legacy=False):
@@ -199,9 +184,7 @@ def _save_session(app_session, session_id, user_id, data, legacy=False):
     else:
         plaintext = raw_data
 
-    jwe_token = jwe.JWE(
-        plaintext=plaintext, protected=protected_header, recipient=app_session.key
-    )
+    jwe_token = jwe.JWE(plaintext=plaintext, protected=protected_header, recipient=app_session.key)
 
     session_model = EQSession(
         eq_session_id=session_id,

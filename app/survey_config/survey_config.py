@@ -14,12 +14,8 @@ class SurveyConfig:
     """Valid options for defining survey-based configuration."""
 
     schema: QuestionnaireSchema | None = None
-    copyright_declaration: LazyString | None = lazy_gettext(
-        "Crown copyright and database rights 2020 OS 100019153."
-    )
-    copyright_text: LazyString | None = lazy_gettext(
-        "Use of address data is subject to the terms and conditions."
-    )
+    copyright_declaration: LazyString | None = lazy_gettext("Crown copyright and database rights 2020 OS 100019153.")
+    copyright_text: LazyString | None = lazy_gettext("Use of address data is subject to the terms and conditions.")
     base_url: str = ACCOUNT_SERVICE_BASE_URL
     account_service_my_account_url: str | None = None
     account_service_todo_url: str | None = None
@@ -46,9 +42,7 @@ class SurveyConfig:
         self.cookie_domain: str = self.cookie_settings_url.split("://")[-1].split("/")[
             0
         ]  # get the FQDN of the cookie settings URL
-        self.privacy_and_data_protection_url: str = (
-            f"{self.base_url}/privacy-and-data-protection/"
-        )
+        self.privacy_and_data_protection_url: str = f"{self.base_url}/privacy-and-data-protection/"
         self.language_code: str = self.language_code or DEFAULT_LANGUAGE_CODE
 
     def get_service_links(  # pylint: disable=unused-argument, no-self-use

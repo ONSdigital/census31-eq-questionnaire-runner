@@ -15,12 +15,7 @@ from app.authentication.user import User
 from app.data_models import QuestionnaireStore
 from app.data_models.session_data import SessionData
 from app.data_models.session_store import SessionStore
-from app.globals import (
-    create_session_store,
-    get_metadata,
-    get_questionnaire_store,
-    get_session_store,
-)
+from app.globals import create_session_store, get_metadata, get_questionnaire_store, get_session_store
 from app.keys import KEY_PURPOSE_AUTHENTICATION
 from app.settings import EQ_SESSION_ID, USER_IK
 
@@ -41,17 +36,13 @@ def request_load_user(
 ) -> User | None:
     logger.debug("load user")
 
-    extend_session = not (
-        request.endpoint == "session.session_expiry" and request.method == "GET"
-    )
+    extend_session = not (request.endpoint == "session.session_expiry" and request.method == "GET")
 
     return load_user(extend_session=extend_session)
 
 
 @user_logged_out.connect_via(ANY)
-def when_user_logged_out(
-    sender_app: Flask, user: str  # pylint: disable=unused-argument
-) -> None:
+def when_user_logged_out(sender_app: Flask, user: str) -> None:  # pylint: disable=unused-argument
     logger.debug("log out user")
     session_store = get_session_store()
     if session_store:
@@ -66,15 +57,12 @@ def _extend_session_expiry(session_store: SessionStore) -> None:
     """
     session_timeout = cookie_session.get("expires_in")
     if session_timeout:
-        new_expiration_time = datetime.now(tz=timezone.utc) + timedelta(
-            seconds=session_timeout
-        )
+        new_expiration_time = datetime.now(tz=timezone.utc) + timedelta(seconds=session_timeout)
 
         # Only update expiry time if its greater than 60s different to what is currently set
         if (
             not session_store.expiration_time
-            or (new_expiration_time - session_store.expiration_time).total_seconds()
-            > 60
+            or (new_expiration_time - session_store.expiration_time).total_seconds() > 60
         ):
             session_store.expiration_time = new_expiration_time
             session_store.save()
@@ -88,10 +76,7 @@ def _is_session_valid(session_store: SessionStore) -> bool:
     :return: True if the session is valid else False
     """
 
-    return (
-        not session_store.expiration_time
-        or session_store.expiration_time >= datetime.now(tz=timezone.utc)
-    )
+    return not session_store.expiration_time or session_store.expiration_time >= datetime.now(tz=timezone.utc)
 
 
 def load_user(extend_session: bool = True) -> User | None:
@@ -124,9 +109,7 @@ def load_user(extend_session: bool = True) -> User | None:
         eq_session_id_present=EQ_SESSION_ID in cookie_session,
         session_store_exists=bool(session_store),
         session_expiration=(
-            session_store.expiration_time.isoformat()
-            if session_store and session_store.expiration_time
-            else None
+            session_store.expiration_time.isoformat() if session_store and session_store.expiration_time else None
         ),
     )
 

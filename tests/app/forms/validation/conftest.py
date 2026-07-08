@@ -16,9 +16,7 @@ def date_required():
 @pytest.fixture
 def get_date_range_check():
     def _date_range_check(messages=None, period_min=None, period_max=None):
-        return DateRangeCheck(
-            messages=messages, period_min=period_min, period_max=period_max
-        )
+        return DateRangeCheck(messages=messages, period_min=period_min, period_max=period_max)
 
     return _date_range_check
 

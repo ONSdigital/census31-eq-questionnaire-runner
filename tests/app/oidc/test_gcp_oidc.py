@@ -20,7 +20,8 @@ def oidc_credentials_service():
     oidc_credentials_service = OIDCCredentialsServiceGCP()
     yield oidc_credentials_service
 
-    # the get credentials method is static, and other tests are affected by the cache, so ensure it is cleared in the fixture teardown
+    # the get credentials method is static, and other tests are affected by the cache,
+    # so ensure it is cleared in the fixture teardown
     oidc_credentials_service.get_credentials.cache.clear()
 
 
@@ -55,9 +56,7 @@ def test_get_credentials(mock_token_fetch, mock_request, oidc_credentials_servic
     fetch credentials and check the gcp call is made
     """
     oidc_credentials_service.get_credentials(iap_client_id=TEST_SDS_OAUTH2_CLIENT_ID)
-    mock_token_fetch.assert_called_once_with(
-        audience=TEST_SDS_OAUTH2_CLIENT_ID, request=mock_request()
-    )
+    mock_token_fetch.assert_called_once_with(audience=TEST_SDS_OAUTH2_CLIENT_ID, request=mock_request())
     mock_token_fetch.return_value.refresh.assert_called_once_with(mock_request())
 
 
@@ -68,9 +67,7 @@ def test_get_credentials_failure(oidc_credentials_service):
     Check that if the request for credentials fails, the cache does not get updated
     """
     with pytest.raises(RefreshError):
-        oidc_credentials_service.get_credentials(
-            iap_client_id=TEST_SDS_OAUTH2_CLIENT_ID
-        )
+        oidc_credentials_service.get_credentials(iap_client_id=TEST_SDS_OAUTH2_CLIENT_ID)
 
     assert not oidc_credentials_service.get_credentials.cache
 
@@ -86,9 +83,9 @@ def test_get_credentials_ttl(mock_token_fetch, oidc_credentials_service):
     (as per https://github.com/spulec/freezegun/issues/477 )
     """
     # overwrite the timer
-    oidc_credentials_service.get_credentials = ttl_cache(
-        maxsize=None, ttl=TTL, timer=time.monotonic
-    )(oidc_credentials_service.get_credentials.__wrapped__)
+    oidc_credentials_service.get_credentials = ttl_cache(maxsize=None, ttl=TTL, timer=time.monotonic)(
+        oidc_credentials_service.get_credentials.__wrapped__
+    )
 
     # initial fetch
     oidc_credentials_service.get_credentials(iap_client_id=TEST_SDS_OAUTH2_CLIENT_ID)
@@ -107,13 +104,9 @@ def test_get_credentials_ttl(mock_token_fetch, oidc_credentials_service):
     ]:
         # Mock the current time and check the call counter for the credentials service
         with freeze_time(datetime_to_invoke_at):
-            oidc_credentials_service.get_credentials(
-                iap_client_id=TEST_SDS_OAUTH2_CLIENT_ID
-            )
+            oidc_credentials_service.get_credentials(iap_client_id=TEST_SDS_OAUTH2_CLIENT_ID)
             assert mock_token_fetch.call_count == expected_call_count
-            assert (
-                mock_token_fetch.return_value.refresh.call_count == expected_call_count
-            )
+            assert mock_token_fetch.return_value.refresh.call_count == expected_call_count
 
 
 @pytest.mark.usefixtures("patch_authentication")
@@ -132,9 +125,7 @@ def test_get_credentials_with_retry(oidc_credentials_service):
     tracked_request = Mock(side_effect=Request())
 
     with patch("app.oidc.gcp_oidc.Request", Mock(return_value=tracked_request)):
-        credentials = oidc_credentials_service.get_credentials(
-            iap_client_id=TEST_SDS_OAUTH2_CLIENT_ID
-        )
+        credentials = oidc_credentials_service.get_credentials(iap_client_id=TEST_SDS_OAUTH2_CLIENT_ID)
         assert credentials.valid
         # the request should have 3 attempts, the two transport failures and the success
         assert tracked_request.call_count == 3
@@ -149,6 +140,4 @@ def test_get_credentials_transport_failure(oidc_credentials_service):
     failing_request = Mock(side_effect=TransportError)
     with patch("app.oidc.gcp_oidc.Request", Mock(return_value=failing_request)):
         with pytest.raises(RefreshError):
-            oidc_credentials_service.get_credentials(
-                iap_client_id=TEST_SDS_OAUTH2_CLIENT_ID
-            )
+            oidc_credentials_service.get_credentials(iap_client_id=TEST_SDS_OAUTH2_CLIENT_ID)

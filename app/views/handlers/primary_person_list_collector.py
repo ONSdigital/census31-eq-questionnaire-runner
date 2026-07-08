@@ -30,12 +30,8 @@ class PrimaryPersonListCollector(Question):
         if answer_action and answer_action["type"] == "RedirectToListAddBlock":
             self._is_adding = True
             self.questionnaire_store_updater.update_answers(self.form.data)
-            self._primary_person_id = (
-                self.questionnaire_store_updater.add_primary_person(list_name)
-            )
-            self.questionnaire_store_updater.capture_dependencies_for_list_change(
-                list_name
-            )
+            self._primary_person_id = self.questionnaire_store_updater.add_primary_person(list_name)
+            self.questionnaire_store_updater.capture_dependencies_for_list_change(list_name)
             self.questionnaire_store_updater.remove_dependent_blocks_and_capture_dependent_sections()
             self.questionnaire_store_updater.update_progress_for_dependent_sections()
             self.questionnaire_store_updater.save()
@@ -49,7 +45,5 @@ class PrimaryPersonListCollector(Question):
             self.questionnaire_store_updater.update_same_name_items(
                 list_name, self.rendered_block.get("same_name_answer_ids")
             )
-            self.questionnaire_store_updater.capture_dependencies_for_list_change(
-                list_name
-            )
+            self.questionnaire_store_updater.capture_dependencies_for_list_change(list_name)
             super().handle_post()

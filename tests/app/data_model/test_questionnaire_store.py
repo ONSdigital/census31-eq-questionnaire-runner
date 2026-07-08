@@ -13,9 +13,7 @@ from app.utilities.json import json_dumps, json_loads
     "extra_basic_input",
     ({}, {"NOT_A_LEGAL_TOP_LEVEL_KEY": "woop_woop_thats_the_sound_of_the_police"}),
 )
-def test_questionnaire_store_json_loads(
-    questionnaire_store, basic_input, extra_basic_input
-):
+def test_questionnaire_store_json_loads(questionnaire_store, basic_input, extra_basic_input):
     basic_input.update(extra_basic_input)
     # Given
     questionnaire_store.input_data = json_dumps(basic_input)
@@ -31,18 +29,9 @@ def test_questionnaire_store_json_loads(
 
     expected_completed_block_ids = basic_input["PROGRESS"][0]["block_ids"][0]
 
+    assert len(data_stores.progress_store.get_completed_block_ids(SectionKey("a-test-section", "abc123"))) == 1
     assert (
-        len(
-            data_stores.progress_store.get_completed_block_ids(
-                SectionKey("a-test-section", "abc123")
-            )
-        )
-        == 1
-    )
-    assert (
-        data_stores.progress_store.get_completed_block_ids(
-            SectionKey("a-test-section", "abc123")
-        )[0]
+        data_stores.progress_store.get_completed_block_ids(SectionKey("a-test-section", "abc123"))[0]
         == expected_completed_block_ids
     )
 
@@ -69,9 +58,7 @@ def test_questionnaire_store_updates_storage(questionnaire_store, basic_input):
     data_stores.answer_store = AnswerStore(basic_input["ANSWERS"])
     data_stores.response_metadata = basic_input["RESPONSE_METADATA"]
     data_stores.progress_store = ProgressStore(basic_input["PROGRESS"])
-    store.supplementary_data_store = SupplementaryDataStore.deserialize(
-        basic_input["SUPPLEMENTARY_DATA"]
-    )
+    store.supplementary_data_store = SupplementaryDataStore.deserialize(basic_input["SUPPLEMENTARY_DATA"])
 
     # When
     store.save()

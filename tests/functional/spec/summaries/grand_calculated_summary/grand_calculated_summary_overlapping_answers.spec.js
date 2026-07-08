@@ -40,98 +40,117 @@ describe("Feature: Grand Calculated Summary", () => {
       await click(GrandCalculatedSummaryShoppingPage.submit());
     });
 
-    it("Given I edit an answer that is only used in a single calculated summary, I am routed back to the calculated summary and then the grand calculated summary and the correct fields are focused", async () => {
-      await $(HubPage.summaryRowLink("section-3")).click();
-      await $(GrandCalculatedSummaryShoppingPage.calculatedSummary2Edit()).click();
-      await $(CalculatedSummary2Page.q1A2Edit()).click();
-      await $(Block1Page.q1A2()).setValue(300);
-      await click(Block1Page.submit());
+    it(
+      "Given I edit an answer that is only used in a single calculated summary, " +
+        "I am routed back to the calculated summary and then the grand calculated summary and the correct fields are focused",
+      async () => {
+        await $(HubPage.summaryRowLink("section-3")).click();
+        await $(GrandCalculatedSummaryShoppingPage.calculatedSummary2Edit()).click();
+        await $(CalculatedSummary2Page.q1A2Edit()).click();
+        await $(Block1Page.q1A2()).setValue(300);
+        await click(Block1Page.submit());
 
-      // taken back to calculated summary
-      await verifyUrlContains(CalculatedSummary2Page.pageName);
-      await verifyUrlContains(
-        "/questionnaire/calculated-summary-2/?return_to=grand-calculated-summary&return_to_block_id=grand-calculated-summary-shopping&return_to_answer_id=calculated-summary-2#q1-a2",
-      );
-      await click(CalculatedSummary2Page.submit());
+        // taken back to calculated summary
+        await verifyUrlContains(CalculatedSummary2Page.pageName);
+        await verifyUrlContains(
+          "/questionnaire/calculated-summary-2/?return_to=grand-calculated-summary" +
+            "&return_to_block_id=grand-calculated-summary-shopping&return_to_answer_id=calculated-summary-2#q1-a2",
+        );
+        await click(CalculatedSummary2Page.submit());
 
-      // then grand calculated summary
-      await verifyUrlContains(GrandCalculatedSummaryShoppingPage.pageName);
-      await expect(await $(GrandCalculatedSummaryShoppingPage.grandCalculatedSummaryTitle()).getText()).toBe(
-        "Grand Calculated Summary of purchases this week comes to £460.00. Is this correct?.",
-      );
-      await verifyUrlContains("/questionnaire/grand-calculated-summary-shopping/#calculated-summary-2");
-    });
+        // then grand calculated summary
+        await verifyUrlContains(GrandCalculatedSummaryShoppingPage.pageName);
+        await expect(await $(GrandCalculatedSummaryShoppingPage.grandCalculatedSummaryTitle()).getText()).toBe(
+          "Grand Calculated Summary of purchases this week comes to £460.00. Is this correct?.",
+        );
+        await verifyUrlContains("/questionnaire/grand-calculated-summary-shopping/#calculated-summary-2");
+      },
+    );
 
-    it("Given I edit an answer that is used in two calculated summaries, if I edit it from the first calculated summary change link, I taken through each block between the question and the second calculated summary before returning to the grand calculated summary", async () => {
-      await $(GrandCalculatedSummaryShoppingPage.calculatedSummary2Edit()).click();
-      await $(CalculatedSummary2Page.q2A2Edit()).click();
-      await $(Block2Page.q2A2()).setValue(400);
-      await click(Block2Page.submit());
+    it(
+      "Given I edit an answer that is used in two calculated summaries, " +
+        "if I edit it from the first calculated summary change link, " +
+        "I taken through each block between the question and the second calculated summary before returning to the grand calculated summary",
+      async () => {
+        await $(GrandCalculatedSummaryShoppingPage.calculatedSummary2Edit()).click();
+        await $(CalculatedSummary2Page.q2A2Edit()).click();
+        await $(Block2Page.q2A2()).setValue(400);
+        await click(Block2Page.submit());
 
-      // taken back to the FIRST calculated summary which uses it
-      await verifyUrlContains(CalculatedSummary2Page.pageName);
-      await expect(await $(CalculatedSummary2Page.calculatedSummaryTitle()).getText()).toBe(
-        "Total of eggs and cheese is calculated to be £700.00. Is this correct?",
-      );
-      await click(CalculatedSummary2Page.submit());
+        // taken back to the FIRST calculated summary which uses it
+        await verifyUrlContains(CalculatedSummary2Page.pageName);
+        await expect(await $(CalculatedSummary2Page.calculatedSummaryTitle()).getText()).toBe(
+          "Total of eggs and cheese is calculated to be £700.00. Is this correct?",
+        );
+        await click(CalculatedSummary2Page.submit());
 
-      // taken back to the SECOND calculated summary which uses it
-      await verifyUrlContains(CalculatedSummary4Page.pageName);
-      await expect(await $(CalculatedSummary4Page.calculatedSummaryTitle()).getText()).toContain(
-        "Total extra items cost is calculated to be £410.00. Is this correct?",
-      );
-      await click(CalculatedSummary4Page.submit());
+        // taken back to the SECOND calculated summary which uses it
+        await verifyUrlContains(CalculatedSummary4Page.pageName);
+        await expect(await $(CalculatedSummary4Page.calculatedSummaryTitle()).getText()).toContain(
+          "Total extra items cost is calculated to be £410.00. Is this correct?",
+        );
+        await click(CalculatedSummary4Page.submit());
 
-      // then grand calculated summary
-      await verifyUrlContains(GrandCalculatedSummaryShoppingPage.pageName);
-      await expect(await $(GrandCalculatedSummaryShoppingPage.grandCalculatedSummaryTitle()).getText()).toContain(
-        "Grand Calculated Summary of purchases this week comes to £1,220.00. Is this correct?",
-      );
-    });
+        // then grand calculated summary
+        await verifyUrlContains(GrandCalculatedSummaryShoppingPage.pageName);
+        await expect(await $(GrandCalculatedSummaryShoppingPage.grandCalculatedSummaryTitle()).getText()).toContain(
+          "Grand Calculated Summary of purchases this week comes to £1,220.00. Is this correct?",
+        );
+      },
+    );
 
-    it("Given I edit an answer that is used in two calculated summaries, if I edit it from the second calculated summary change link, I taken through each block between the question and the second calculated summary before returning to the grand calculated summary", async () => {
-      await $(GrandCalculatedSummaryShoppingPage.calculatedSummary4Edit()).click();
-      await $(CalculatedSummary4Page.q2A2Edit()).click();
-      await $(Block2Page.q2A2()).setValue(500);
-      await click(Block2Page.submit());
+    it(
+      "Given I edit an answer that is used in two calculated summaries, " +
+        "if I edit it from the second calculated summary change link, " +
+        "I taken through each block between the question and the second calculated summary before returning to the grand calculated summary",
+      async () => {
+        await $(GrandCalculatedSummaryShoppingPage.calculatedSummary4Edit()).click();
+        await $(CalculatedSummary4Page.q2A2Edit()).click();
+        await $(Block2Page.q2A2()).setValue(500);
+        await click(Block2Page.submit());
 
-      // taken back to the FIRST calculated summary which uses it
-      await verifyUrlContains(CalculatedSummary2Page.pageName);
-      await expect(await $(CalculatedSummary2Page.calculatedSummaryTitle()).getText()).toBe(
-        "Total of eggs and cheese is calculated to be £800.00. Is this correct?",
-      );
-      await click(CalculatedSummary2Page.submit());
+        // taken back to the FIRST calculated summary which uses it
+        await verifyUrlContains(CalculatedSummary2Page.pageName);
+        await expect(await $(CalculatedSummary2Page.calculatedSummaryTitle()).getText()).toBe(
+          "Total of eggs and cheese is calculated to be £800.00. Is this correct?",
+        );
+        await click(CalculatedSummary2Page.submit());
 
-      // taken back to the SECOND calculated summary which uses it
-      await verifyUrlContains(CalculatedSummary4Page.pageName);
-      await expect(await $(CalculatedSummary4Page.calculatedSummaryTitle()).getText()).toContain(
-        "Total extra items cost is calculated to be £510.00. Is this correct?",
-      );
-      await click(CalculatedSummary4Page.submit());
+        // taken back to the SECOND calculated summary which uses it
+        await verifyUrlContains(CalculatedSummary4Page.pageName);
+        await expect(await $(CalculatedSummary4Page.calculatedSummaryTitle()).getText()).toContain(
+          "Total extra items cost is calculated to be £510.00. Is this correct?",
+        );
+        await click(CalculatedSummary4Page.submit());
 
-      // then grand calculated summary
-      await verifyUrlContains(GrandCalculatedSummaryShoppingPage.pageName);
-      await expect(await $(GrandCalculatedSummaryShoppingPage.grandCalculatedSummaryTitle()).getText()).toContain(
-        "Grand Calculated Summary of purchases this week comes to £1,420.00. Is this correct?",
-      );
-      await click(GrandCalculatedSummaryShoppingPage.submit());
-    });
+        // then grand calculated summary
+        await verifyUrlContains(GrandCalculatedSummaryShoppingPage.pageName);
+        await expect(await $(GrandCalculatedSummaryShoppingPage.grandCalculatedSummaryTitle()).getText()).toContain(
+          "Grand Calculated Summary of purchases this week comes to £1,420.00. Is this correct?",
+        );
+        await click(GrandCalculatedSummaryShoppingPage.submit());
+      },
+    );
 
-    it("Given I change an answer and return to the Hub before all calculated summaries are confirmed, the grand calculated summary section becomes inaccessible", async () => {
-      await $(HubPage.summaryRowLink("section-3")).click();
-      await $(GrandCalculatedSummaryShoppingPage.calculatedSummary4Edit()).click();
-      await $(CalculatedSummary4Page.q2A2Edit()).click();
-      await $(Block2Page.q2A2()).setValue(50);
-      await click(Block2Page.submit());
+    it(
+      "Given I change an answer and return to the Hub before all calculated summaries are confirmed, " +
+        "the grand calculated summary section becomes inaccessible",
+      async () => {
+        await $(HubPage.summaryRowLink("section-3")).click();
+        await $(GrandCalculatedSummaryShoppingPage.calculatedSummary4Edit()).click();
+        await $(CalculatedSummary4Page.q2A2Edit()).click();
+        await $(Block2Page.q2A2()).setValue(50);
+        await click(Block2Page.submit());
 
-      // confirm one of the calculated summaries but return to the hub instead of confirming the other
-      await click(CalculatedSummary2Page.submit());
-      await browser.url(HubPage.url());
+        // confirm one of the calculated summaries but return to the hub instead of confirming the other
+        await click(CalculatedSummary2Page.submit());
+        await browser.url(HubPage.url());
 
-      // calculated summary 4 is not confirmed so GCS doesn't show
-      await expect(await $(HubPage.summaryRowState("section-1")).getText()).toBe("Partially completed");
-      await expect(await $(HubPage.summaryRowLink("section-3")).isExisting()).toBe(false);
-    });
+        // calculated summary 4 is not confirmed so GCS doesn't show
+        await expect(await $(HubPage.summaryRowState("section-1")).getText()).toBe("Partially completed");
+        await expect(await $(HubPage.summaryRowLink("section-3")).isExisting()).toBe(false);
+      },
+    );
 
     it("Given I complete the calculated and grand calculated summaries, When I return to the Hub, Then I see a new conditional section has opened up", async () => {
       await click(HubPage.submit());
@@ -147,15 +166,19 @@ describe("Feature: Grand Calculated Summary", () => {
       await expect(await $(HubPage.summaryRowLink("section-4")).isExisting()).toBe(true);
     });
 
-    it("Given I change my answer about purchasing additional items decreasing the gcs, When I return to the Hub, Then I see the conditional section is gone", async () => {
-      await $(HubPage.summaryRowLink("section-1")).click();
-      await $(Section1SummaryPage.radioExtraEdit()).click();
-      await $(Block3Page.no()).click();
-      await click(Block3Page.submit());
-      await click(Section1SummaryPage.submit());
-      await expect(await $(HubPage.summaryRowState("section-1")).getText()).toBe("Completed");
-      await expect(await $(HubPage.summaryRowState("section-3")).getText()).toBe("Completed");
-      await expect(await $(HubPage.summaryRowLink("section-4")).isExisting()).toBe(false);
-    });
+    it(
+      "Given I change my answer about purchasing additional items decreasing the gcs, " +
+        "When I return to the Hub, Then I see the conditional section is gone",
+      async () => {
+        await $(HubPage.summaryRowLink("section-1")).click();
+        await $(Section1SummaryPage.radioExtraEdit()).click();
+        await $(Block3Page.no()).click();
+        await click(Block3Page.submit());
+        await click(Section1SummaryPage.submit());
+        await expect(await $(HubPage.summaryRowState("section-1")).getText()).toBe("Completed");
+        await expect(await $(HubPage.summaryRowState("section-3")).getText()).toBe("Completed");
+        await expect(await $(HubPage.summaryRowLink("section-4")).isExisting()).toBe(false);
+      },
+    );
   });
 });

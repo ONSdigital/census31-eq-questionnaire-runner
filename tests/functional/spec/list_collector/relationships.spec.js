@@ -21,7 +21,6 @@ describe("Relationships", () => {
       await $(ListCollectorAddPage.lastName()).setValue("Twin");
       await click(ListCollectorAddPage.submit());
       await $(ListCollectorPage.no()).click();
-      // eslint-disable-next-line no-undef
       await click(ListCollectorPage.submit());
       await verifyUrlContains("/sections/section/");
     });

@@ -32,9 +32,7 @@ def test_invalid_date_range(
     assert error_messages["INVALID_DATE_RANGE"] == str(context.value)
 
 
-def test_date_range_with_too_small_period(
-    get_date_range_check, mock_form, mock_period_from, mock_period_to
-):
+def test_date_range_with_too_small_period(get_date_range_check, mock_form, mock_period_from, mock_period_to):
     mock_period_from.data = "2016-02-01"
     mock_period_to.data = "2016-02-12"
     period_min = {"days": 20}
@@ -44,14 +42,10 @@ def test_date_range_with_too_small_period(
     with pytest.raises(ValidationError) as context:
         date_range_check(mock_form, mock_period_from, mock_period_to)
 
-    assert "Enter a reporting period greater than or equal to 20 days" == str(
-        context.value
-    )
+    assert "Enter a reporting period greater than or equal to 20 days" == str(context.value)
 
 
-def test_date_range_with_too_large_period(
-    get_date_range_check, mock_form, mock_period_from, mock_period_to
-):
+def test_date_range_with_too_large_period(get_date_range_check, mock_form, mock_period_from, mock_period_to):
     mock_period_from.data = "2016-02-11"
     mock_period_to.data = "2016-03-14"
     period_max = {"months": 1}
@@ -61,14 +55,10 @@ def test_date_range_with_too_large_period(
     with pytest.raises(ValidationError) as context:
         date_range_check(mock_form, mock_period_from, mock_period_to)
 
-    assert "Enter a reporting period less than or equal to 1 month" == str(
-        context.value
-    )
+    assert "Enter a reporting period less than or equal to 1 month" == str(context.value)
 
 
-def test_bespoke_message_playback(
-    get_date_range_check, mock_form, mock_period_from, mock_period_to
-):
+def test_bespoke_message_playback(get_date_range_check, mock_form, mock_period_from, mock_period_to):
     mock_period_from.data = "2016-02-11"
     mock_period_to.data = "2018-03-19"
     message = {"DATE_PERIOD_TOO_LARGE": "Test %(max)s"}
@@ -106,9 +96,7 @@ def test_date_range_period_max(
     with pytest.raises(ValidationError) as context:
         date_range_check(mock_form, mock_period_from, mock_period_to)
 
-    assert f"Enter a reporting period less than or equal to {expected_result}" == str(
-        context.value
-    )
+    assert f"Enter a reporting period less than or equal to {expected_result}" == str(context.value)
 
 
 @pytest.mark.parametrize(
@@ -136,15 +124,10 @@ def test_date_range_period_min(
     with pytest.raises(ValidationError) as context:
         date_range_check(mock_form, mock_period_from, mock_period_to)
 
-    assert (
-        f"Enter a reporting period greater than or equal to {expected_result}"
-        == str(context.value)
-    )
+    assert f"Enter a reporting period greater than or equal to {expected_result}" == str(context.value)
 
 
-def test_valid_day_month_year_date_range(
-    get_date_range_check, mock_form, mock_period_from, mock_period_to
-):
+def test_valid_day_month_year_date_range(get_date_range_check, mock_form, mock_period_from, mock_period_to):
     mock_period_from.data = "2016-09-01"
     mock_period_to.data = "2018-01-01"
 
@@ -156,9 +139,7 @@ def test_valid_day_month_year_date_range(
         pytest.fail("Valid day month year date range raised ValidationError")
 
 
-def test_valid_month_year_date_range(
-    get_date_range_check, mock_form, mock_period_from, mock_period_to
-):
+def test_valid_month_year_date_range(get_date_range_check, mock_form, mock_period_from, mock_period_to):
     mock_period_from.data = "2016-09"
     mock_period_to.data = "2018-01"
 
@@ -170,17 +151,13 @@ def test_valid_month_year_date_range(
         pytest.fail("Valid month year date range raised ValidationError")
 
 
-def test_date_range_and_period_valid(
-    get_date_range_check, mock_form, mock_period_from, mock_period_to
-):
+def test_date_range_and_period_valid(get_date_range_check, mock_form, mock_period_from, mock_period_to):
     mock_period_from.data = "2016-01-01"
     mock_period_to.data = "2017-01-05"
     period_min = {"days": 50}
     period_max = {"years": 1, "months": 1, "days": 5}
 
-    date_range_check = get_date_range_check(
-        period_min=period_min, period_max=period_max
-    )
+    date_range_check = get_date_range_check(period_min=period_min, period_max=period_max)
 
     try:
         date_range_check(mock_form, mock_period_from, mock_period_to)

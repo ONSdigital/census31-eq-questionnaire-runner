@@ -1,5 +1,3 @@
-# pylint: disable=too-many-lines
-
 import pytest
 from mock import MagicMock, Mock
 
@@ -36,9 +34,7 @@ def get_mock_schema():
     return schema
 
 
-def get_calculation_block(
-    block_id: str, summary_type: str, source_type: str, identifiers: list[str]
-) -> dict:
+def get_calculation_block(block_id: str, summary_type: str, source_type: str, identifiers: list[str]) -> dict:
     return {
         "id": block_id,
         "type": summary_type,
@@ -59,9 +55,7 @@ def get_calculation_block(
 def get_value_source_resolver(
     schema: QuestionnaireSchema = None,
     data_stores: DataStores = None,
-    location: Location | RelationshipLocation = Location(
-        section_id="test-section", block_id="test-block"
-    ),
+    location: Location | RelationshipLocation = Location(section_id="test-section", block_id="test-block"),
     list_item_id: str | None = None,
     routing_path_block_ids: list | None = None,
     use_default_answer=False,
@@ -71,9 +65,7 @@ def get_value_source_resolver(
     if not schema:
         schema = get_mock_schema()
         schema.is_repeating_answer = Mock(return_value=bool(list_item_id))
-        schema.get_list_name_for_answer_id = Mock(
-            return_value="list" if list_item_id else None
-        )
+        schema.get_list_name_for_answer_id = Mock(return_value="list" if list_item_id else None)
         schema.is_answer_dynamic = Mock(return_value=False)
         schema.is_answer_in_list_collector_repeating_block = Mock(return_value=False)
 
@@ -93,17 +85,10 @@ def get_value_source_resolver(
 
 def test_answer_source():
     value_source_resolver = get_value_source_resolver(
-        data_stores=DataStores(
-            answer_store=AnswerStore([{"answer_id": "some-answer", "value": "Yes"}])
-        ),
+        data_stores=DataStores(answer_store=AnswerStore([{"answer_id": "some-answer", "value": "Yes"}])),
     )
 
-    assert (
-        value_source_resolver.resolve(
-            {"source": "answers", "identifier": "some-answer"}
-        )
-        == "Yes"
-    )
+    assert value_source_resolver.resolve({"source": "answers", "identifier": "some-answer"}) == "Yes"
 
 
 def test_answer_source_with_dict_answer_selector():
@@ -135,19 +120,12 @@ def test_answer_source_with_dict_answer_selector():
 def test_answer_source_with_list_item_id_no_list_item_selector():
     value_source_resolver = get_value_source_resolver(
         data_stores=DataStores(
-            answer_store=AnswerStore(
-                [{"answer_id": "some-answer", "list_item_id": "item-1", "value": "Yes"}]
-            )
+            answer_store=AnswerStore([{"answer_id": "some-answer", "list_item_id": "item-1", "value": "Yes"}])
         ),
         list_item_id="item-1",
     )
 
-    assert (
-        value_source_resolver.resolve(
-            {"source": "answers", "identifier": "some-answer"}
-        )
-        == "Yes"
-    )
+    assert value_source_resolver.resolve({"source": "answers", "identifier": "some-answer"}) == "Yes"
 
 
 def test_list_item_id_ignored_if_answer_not_in_list_collector_or_repeat():
@@ -156,18 +134,11 @@ def test_list_item_id_ignored_if_answer_not_in_list_collector_or_repeat():
 
     value_source_resolver = get_value_source_resolver(
         schema=schema,
-        data_stores=DataStores(
-            answer_store=AnswerStore([{"answer_id": "some-answer", "value": "Yes"}])
-        ),
+        data_stores=DataStores(answer_store=AnswerStore([{"answer_id": "some-answer", "value": "Yes"}])),
         list_item_id="item-1",
     )
 
-    assert (
-        value_source_resolver.resolve(
-            {"source": "answers", "identifier": "some-answer"}
-        )
-        == "Yes"
-    )
+    assert value_source_resolver.resolve({"source": "answers", "identifier": "some-answer"}) == "Yes"
 
 
 def test_answer_source_with_list_item_selector_location():
@@ -183,9 +154,7 @@ def test_answer_source_with_list_item_selector_location():
                 ]
             )
         ),
-        location=Location(
-            section_id="some-section", block_id="some-block", list_item_id="item-1"
-        ),
+        location=Location(section_id="some-section", block_id="some-block", list_item_id="item-1"),
     )
 
     assert (
@@ -272,17 +241,10 @@ def test_answer_source_outside_of_repeating_section():
             answer_store=answer_store,
             list_store=ListStore([{"name": "some-list", "items": get_list_items(3)}]),
         ),
-        location=Location(
-            section_id="some-section", block_id="some-block", list_item_id="item-1"
-        ),
+        location=Location(section_id="some-section", block_id="some-block", list_item_id="item-1"),
     )
 
-    assert (
-        value_source_resolver.resolve(
-            {"source": "answers", "identifier": "some-answer"}
-        )
-        == "Yes"
-    )
+    assert value_source_resolver.resolve({"source": "answers", "identifier": "some-answer"}) == "Yes"
 
 
 @pytest.mark.parametrize("is_answer_on_path", [True, False])
@@ -313,21 +275,14 @@ def test_answer_source_not_on_path_non_repeating_section(is_answer_on_path):
         routing_path_block_ids=["block-on-path"],
     )
 
-    assert (
-        value_source_resolver.resolve(
-            {"source": "answers", "identifier": "answer-on-path"}
-        )
-        == expected_result
-    )
+    assert value_source_resolver.resolve({"source": "answers", "identifier": "answer-on-path"}) == expected_result
 
 
 @pytest.mark.parametrize("is_answer_on_path", [True, False])
 def test_answer_source_not_on_path_repeating_section(is_answer_on_path):
     schema = get_mock_schema()
     schema.get_list_name_for_answer_id = Mock(return_value="some-list")
-    location = Location(
-        section_id="test-section", block_id="test-block", list_item_id="item-1"
-    )
+    location = Location(section_id="test-section", block_id="test-block", list_item_id="item-1")
 
     if is_answer_on_path:
         schema.get_block_for_answer_id = Mock(return_value={"id": "block-on-path"})
@@ -351,21 +306,14 @@ def test_answer_source_not_on_path_repeating_section(is_answer_on_path):
         routing_path_block_ids=["block-on-path"],
     )
 
-    assert (
-        value_source_resolver.resolve(
-            {"source": "answers", "identifier": "answer-on-path"}
-        )
-        == expected_result
-    )
+    assert value_source_resolver.resolve({"source": "answers", "identifier": "answer-on-path"}) == expected_result
 
 
 @pytest.mark.parametrize("use_default_answer", [True, False])
 def test_answer_source_default_answer(use_default_answer):
     schema = get_mock_schema()
     if use_default_answer:
-        schema.get_default_answer = Mock(
-            return_value=Answer(answer_id="some-answer", value="Yes")
-        )
+        schema.get_default_answer = Mock(return_value=Answer(answer_id="some-answer", value="Yes"))
     else:
         schema.get_default_answer = Mock(return_value=None)
 
@@ -375,12 +323,7 @@ def test_answer_source_default_answer(use_default_answer):
     )
 
     expected_result = "Yes" if use_default_answer else None
-    assert (
-        value_source_resolver.resolve(
-            {"source": "answers", "identifier": "some-answer"}
-        )
-        == expected_result
-    )
+    assert value_source_resolver.resolve({"source": "answers", "identifier": "some-answer"}) == expected_result
 
 
 @pytest.mark.parametrize(
@@ -421,10 +364,7 @@ def test_answer_source_dynamic_answer(
     )
     expected_result = [ESCAPED_CONTENT] if escape_answer_values else answer_values
     assert (
-        value_source_resolver.resolve(
-            {"source": "answers", "identifier": "percentage-of-shopping"}
-        )
-        == expected_result
+        value_source_resolver.resolve({"source": "answers", "identifier": "percentage-of-shopping"}) == expected_result
     )
 
 
@@ -468,18 +408,11 @@ def test_answer_source_dynamic_answer_in_different_repeat(
             ),
             list_store=ListStore([{"name": "supermarkets", "items": list_item_ids}]),
         ),
-        location=Location(
-            section_id="section-1", list_name=list_name, list_item_id=list_item_id
-        ),
+        location=Location(section_id="section-1", list_name=list_name, list_item_id=list_item_id),
         list_item_id=list_item_id,
         schema=schema,
     )
-    assert (
-        value_source_resolver.resolve(
-            {"source": "answers", "identifier": "percentage-of-shopping"}
-        )
-        == expected
-    )
+    assert value_source_resolver.resolve({"source": "answers", "identifier": "percentage-of-shopping"}) == expected
 
 
 @pytest.mark.parametrize(
@@ -509,9 +442,7 @@ def test_answer_source_repeating_block_answers_in_repeat(
     schema.list_names_by_list_repeating_block_id = {"repeating-block-1": "transport"}
     schema.is_answer_dynamic = Mock(return_value=False)
     schema.get_list_name_for_answer_id = Mock(return_value="transport")
-    schema.get_block_for_answer_id = Mock(
-        return_value=placeholder_transform_question_repeating_block
-    )
+    schema.get_block_for_answer_id = Mock(return_value=placeholder_transform_question_repeating_block)
     list_item_ids = get_list_items(len(answer_values))
     value_source_resolver = get_value_source_resolver(
         data_stores=DataStores(
@@ -528,17 +459,10 @@ def test_answer_source_repeating_block_answers_in_repeat(
             list_store=ListStore([{"name": "transport", "items": list_item_ids}]),
         ),
         schema=schema,
-        location=Location(
-            section_id="section-1", list_name=list_name, list_item_id=list_item_id
-        ),
+        location=Location(section_id="section-1", list_name=list_name, list_item_id=list_item_id),
         list_item_id=list_item_id,
     )
-    assert (
-        value_source_resolver.resolve(
-            {"source": "answers", "identifier": "transport-cost"}
-        )
-        == expected
-    )
+    assert value_source_resolver.resolve({"source": "answers", "identifier": "transport-cost"}) == expected
 
 
 @pytest.mark.parametrize(
@@ -547,9 +471,7 @@ def test_answer_source_repeating_block_answers_in_repeat(
 )
 def test_metadata_source(metadata_identifier, expected_result):
     value_source_resolver = get_value_source_resolver(
-        data_stores=DataStores(
-            metadata=get_metadata(extra_metadata={"region_code": "GB-ENG"})
-        )
+        data_stores=DataStores(metadata=get_metadata(extra_metadata={"region_code": "GB-ENG"}))
     )
 
     source = {"source": "metadata", "identifier": metadata_identifier}
@@ -581,9 +503,7 @@ def test_metadata_source_v2_metadata_structure(metadata_identifier, expected_res
         },
     )
 
-    value_source_resolver = get_value_source_resolver(
-        data_stores=DataStores(metadata=metadata)
-    )
+    value_source_resolver = get_value_source_resolver(data_stores=DataStores(metadata=metadata))
 
     source = {"source": "metadata", "identifier": metadata_identifier}
     assert value_source_resolver.resolve(source) == expected_result
@@ -595,34 +515,20 @@ def test_metadata_source_v2_metadata_structure(metadata_identifier, expected_res
 )
 def test_list_source(list_count):
     value_source_resolver = get_value_source_resolver(
-        data_stores=DataStores(
-            list_store=ListStore(
-                [{"name": "some-list", "items": get_list_items(list_count)}]
-            )
-        ),
+        data_stores=DataStores(list_store=ListStore([{"name": "some-list", "items": get_list_items(list_count)}])),
     )
 
     assert (
-        value_source_resolver.resolve(
-            {"source": "list", "identifier": "some-list", "selector": "count"}
-        )
-        == list_count
+        value_source_resolver.resolve({"source": "list", "identifier": "some-list", "selector": "count"}) == list_count
     )
 
 
 def test_list_source_with_id_selector_first():
     value_source_resolver = get_value_source_resolver(
-        data_stores=DataStores(
-            list_store=ListStore([{"name": "some-list", "items": get_list_items(3)}])
-        ),
+        data_stores=DataStores(list_store=ListStore([{"name": "some-list", "items": get_list_items(3)}])),
     )
 
-    assert (
-        value_source_resolver.resolve(
-            {"source": "list", "identifier": "some-list", "selector": "first"}
-        )
-        == "item-1"
-    )
+    assert value_source_resolver.resolve({"source": "list", "identifier": "some-list", "selector": "first"}) == "item-1"
 
 
 def test_list_source_with_id_selector_same_name_items():
@@ -682,24 +588,15 @@ def test_list_source_id_selector_primary_person(primary_person_list_item_id):
 
 def test_location_source():
     value_source_resolver = get_value_source_resolver(list_item_id="item-1")
-    assert (
-        value_source_resolver.resolve(
-            {"source": "location", "identifier": "list_item_id"}
-        )
-        == "item-1"
-    )
+    assert value_source_resolver.resolve({"source": "location", "identifier": "list_item_id"}) == "item-1"
 
 
 def test_response_metadata_source():
     value_source_resolver = get_value_source_resolver(
-        data_stores=DataStores(
-            response_metadata={"started_at": "2021-10-11T09:40:11.220038+00:00"}
-        )
+        data_stores=DataStores(response_metadata={"started_at": "2021-10-11T09:40:11.220038+00:00"})
     )
     assert (
-        value_source_resolver.resolve(
-            {"source": "response_metadata", "identifier": "started_at"}
-        )
+        value_source_resolver.resolve({"source": "response_metadata", "identifier": "started_at"})
         == "2021-10-11T09:40:11.220038+00:00"
     )
 
@@ -725,24 +622,15 @@ def test_calculated_summary_value_source(mocker, list_item_id):
         data_stores=DataStores(
             answer_store=AnswerStore(
                 [
-                    AnswerDict(
-                        answer_id="number-answer-1", value=10, list_item_id=list_item_id
-                    ),
-                    AnswerDict(
-                        answer_id="number-answer-2", value=5, list_item_id=list_item_id
-                    ),
+                    AnswerDict(answer_id="number-answer-1", value=10, list_item_id=list_item_id),
+                    AnswerDict(answer_id="number-answer-2", value=5, list_item_id=list_item_id),
                 ]
             )
         ),
         schema=schema,
         list_item_id=list_item_id,
     )
-    assert (
-        value_source_resolver.resolve(
-            {"source": "calculated_summary", "identifier": "number-total"}
-        )
-        == 15
-    )
+    assert value_source_resolver.resolve({"source": "calculated_summary", "identifier": "number-total"}) == 15
 
 
 @pytest.mark.parametrize(
@@ -768,9 +656,7 @@ def test_new_calculated_summary_value_source(mocker, list_item_id):
     schema.is_answer_dynamic = Mock(return_value=False)
     schema.is_answer_in_list_collector_repeating_block = Mock(return_value=False)
 
-    location = Location(
-        section_id="test-section", block_id="test-block", list_item_id=list_item_id
-    )
+    location = Location(section_id="test-section", block_id="test-block", list_item_id=list_item_id)
 
     value_source_resolver = get_value_source_resolver(
         data_stores=DataStores(
@@ -781,9 +667,7 @@ def test_new_calculated_summary_value_source(mocker, list_item_id):
                         value=10,
                         list_item_id=location.list_item_id,
                     ),
-                    AnswerDict(
-                        answer_id="number-answer-2", value=5, list_item_id=list_item_id
-                    ),
+                    AnswerDict(answer_id="number-answer-2", value=5, list_item_id=list_item_id),
                 ]
             )
         ),
@@ -791,12 +675,7 @@ def test_new_calculated_summary_value_source(mocker, list_item_id):
         list_item_id=list_item_id,
         location=location,
     )
-    assert (
-        value_source_resolver.resolve(
-            {"source": "calculated_summary", "identifier": "number-total"}
-        )
-        == 15
-    )
+    assert value_source_resolver.resolve({"source": "calculated_summary", "identifier": "number-total"}) == 15
 
 
 @pytest.mark.parametrize(
@@ -827,23 +706,15 @@ def test_new_calculated_summary_nested_value_source(mocker, list_item_id):
     schema.is_answer_dynamic = Mock(return_value=False)
     schema.is_answer_in_list_collector_repeating_block = Mock(return_value=False)
 
-    location = Location(
-        section_id="test-section", block_id="test-block", list_item_id=list_item_id
-    )
+    location = Location(section_id="test-section", block_id="test-block", list_item_id=list_item_id)
 
     value_source_resolver = get_value_source_resolver(
         data_stores=DataStores(
             answer_store=AnswerStore(
                 [
-                    AnswerDict(
-                        answer_id="number-answer-1", value=10, list_item_id=list_item_id
-                    ),
-                    AnswerDict(
-                        answer_id="number-answer-2", value=5, list_item_id=list_item_id
-                    ),
-                    AnswerDict(
-                        answer_id="number-answer-3", value=5, list_item_id=list_item_id
-                    ),
+                    AnswerDict(answer_id="number-answer-1", value=10, list_item_id=list_item_id),
+                    AnswerDict(answer_id="number-answer-2", value=5, list_item_id=list_item_id),
+                    AnswerDict(answer_id="number-answer-3", value=5, list_item_id=list_item_id),
                 ]
             )
         ),
@@ -851,12 +722,7 @@ def test_new_calculated_summary_nested_value_source(mocker, list_item_id):
         list_item_id=list_item_id,
         location=location,
     )
-    assert (
-        value_source_resolver.resolve(
-            {"source": "calculated_summary", "identifier": "number-total"}
-        )
-        == 20
-    )
+    assert value_source_resolver.resolve({"source": "calculated_summary", "identifier": "number-total"}) == 20
 
 
 @pytest.mark.parametrize(
@@ -868,9 +734,7 @@ def test_new_calculated_summary_nested_value_source(mocker, list_item_id):
         ("item-1", None, None),
     ],
 )
-def test_grand_calculated_summary_value_source(
-    mocker, gcs_list_item_id, cs_list_item_id_1, cs_list_item_id_2
-):
+def test_grand_calculated_summary_value_source(mocker, gcs_list_item_id, cs_list_item_id_1, cs_list_item_id_2):
     """
     Mocks out the grand calculated summary block and its child calculated summary blocks and tests
     that the value source resolver correctly sums up all child answers when
@@ -913,9 +777,7 @@ def test_grand_calculated_summary_value_source(
         )
 
     schema.get_block = Mock(side_effect=mock_get_block)
-    schema.get_list_name_for_answer_id = Mock(
-        side_effect=mock_get_list_name_for_answer_id
-    )
+    schema.get_list_name_for_answer_id = Mock(side_effect=mock_get_list_name_for_answer_id)
     schema.is_answer_dynamic = Mock(return_value=False)
     schema.is_answer_in_list_collector_repeating_block = Mock(return_value=False)
 
@@ -929,18 +791,10 @@ def test_grand_calculated_summary_value_source(
         data_stores=DataStores(
             answer_store=AnswerStore(
                 [
-                    AnswerDict(
-                        answer_id="answer-1", value=10, list_item_id=cs_list_item_id_1
-                    ),
-                    AnswerDict(
-                        answer_id="answer-2", value=5, list_item_id=cs_list_item_id_1
-                    ),
-                    AnswerDict(
-                        answer_id="answer-3", value=20, list_item_id=cs_list_item_id_2
-                    ),
-                    AnswerDict(
-                        answer_id="answer-4", value=30, list_item_id=cs_list_item_id_2
-                    ),
+                    AnswerDict(answer_id="answer-1", value=10, list_item_id=cs_list_item_id_1),
+                    AnswerDict(answer_id="answer-2", value=5, list_item_id=cs_list_item_id_1),
+                    AnswerDict(answer_id="answer-3", value=20, list_item_id=cs_list_item_id_2),
+                    AnswerDict(answer_id="answer-4", value=30, list_item_id=cs_list_item_id_2),
                 ]
             )
         ),
@@ -948,12 +802,7 @@ def test_grand_calculated_summary_value_source(
         list_item_id=gcs_list_item_id,
         location=location,
     )
-    assert (
-        value_source_resolver.resolve(
-            {"source": "grand_calculated_summary", "identifier": "number-total"}
-        )
-        == 65
-    )
+    assert value_source_resolver.resolve({"source": "grand_calculated_summary", "identifier": "number-total"}) == 65
 
 
 @pytest.mark.parametrize(
@@ -979,12 +828,7 @@ def test_answer_value_can_be_escaped(answer_value, escaped_value):
         ),
         escape_answer_values=True,
     )
-    assert (
-        value_source_resolver.resolve(
-            {"source": "answers", "identifier": "some-answer"}
-        )
-        == escaped_value
-    )
+    assert value_source_resolver.resolve({"source": "answers", "identifier": "some-answer"}) == escaped_value
 
 
 def test_answer_value_with_selector_can_be_escaped():
@@ -1002,9 +846,7 @@ def test_answer_value_with_selector_can_be_escaped():
         escape_answer_values=True,
     )
     assert (
-        value_source_resolver.resolve(
-            {"source": "answers", "identifier": "some-answer", "selector": "key_1"}
-        )
+        value_source_resolver.resolve({"source": "answers", "identifier": "some-answer", "selector": "key_1"})
         == ESCAPED_CONTENT
     )
 
@@ -1014,9 +856,7 @@ def test_progress_values_source_throws_if_no_location_given():
         data_stores=DataStores(progress_store=ProgressStore()), location=None
     )
     with pytest.raises(ValueError):
-        value_source_resolver.resolve(
-            {"source": "progress", "selector": "block", "identifier": "a-block"}
-        )
+        value_source_resolver.resolve({"source": "progress", "selector": "block", "identifier": "a-block"})
 
 
 @pytest.mark.parametrize("in_repeating_section", [True, False])
@@ -1211,9 +1051,7 @@ def test_supplementary_data_invalid_selector_raises_exception(
         block_id="block-id",
     )
     value_source_resolver = get_value_source_resolver(
-        data_stores=DataStores(
-            supplementary_data_store=supplementary_data_store_with_data
-        ),
+        data_stores=DataStores(supplementary_data_store=supplementary_data_store_with_data),
         location=location,
     )
     with pytest.raises(InvalidSupplementaryDataSelector) as e:

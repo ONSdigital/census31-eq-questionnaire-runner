@@ -7,9 +7,7 @@ from app.questionnaire import Location
 from app.questionnaire.placeholder_renderer import PlaceholderRenderer
 from app.questionnaire.return_location import ReturnLocation
 from app.questionnaire.routing_path import RoutingPath
-from app.views.contexts.grand_calculated_summary_context import (
-    GrandCalculatedSummaryContext,
-)
+from app.views.contexts.grand_calculated_summary_context import GrandCalculatedSummaryContext
 from tests.app.views.contexts import assert_summary_context
 
 
@@ -19,7 +17,7 @@ from tests.app.views.contexts import assert_summary_context
     (
         (
             "distance-grand-calculated-summary",
-            "We calculate the grand total weekly distance travelled to be 100 mi. Is this correct?",
+            "We calculate the grand total weekly distance traveled to be 100 mi. Is this correct?",
             "100 mi",
             "distance-calculated-summary-1",
         ),
@@ -95,9 +93,7 @@ def test_build_view_context_for_grand_calculated_summary(
         location=current_location,
     )
 
-    rendered_block = placeholder_renderer.render(
-        data_to_render=block, list_item_id=current_location.list_item_id
-    )
+    rendered_block = placeholder_renderer.render(data_to_render=block, list_item_id=current_location.list_item_id)
 
     grand_calculated_summary_context = GrandCalculatedSummaryContext(
         language=language,
@@ -120,11 +116,9 @@ def test_build_view_context_for_grand_calculated_summary(
     assert "calculated_question" in context_summary
     assert context_summary["calculated_question"]["answers"][0]["value"] == value
 
-    calculated_summary_change_link = context_summary["sections"][0]["groups"][0][
-        "blocks"
-    ][0]["calculated_summary"]["answers"][0]["link"]
+    calculated_summary_change_link = context_summary["sections"][0]["groups"][0]["blocks"][0]["calculated_summary"][
+        "answers"
+    ][0]["link"]
     assert "return_to=grand-calculated-summary" in calculated_summary_change_link
-    assert (
-        f"return_to_answer_id={return_to_answer_id}" in calculated_summary_change_link
-    )
+    assert f"return_to_answer_id={return_to_answer_id}" in calculated_summary_change_link
     assert f"return_to_block_id={block_id}" in calculated_summary_change_link

@@ -22,6 +22,4 @@ class MobileNumberHandler(FieldHandler):
         return validate_with
 
     def get_field(self) -> UnboundField | StringField:
-        return StringField(
-            label=self.label, description=self.guidance, validators=self.validators
-        )
+        return StringField(label=self.label, description=self.guidance, validators=self.validators)

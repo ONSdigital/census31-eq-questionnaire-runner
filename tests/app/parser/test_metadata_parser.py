@@ -4,15 +4,8 @@ import pytest
 from freezegun import freeze_time
 from marshmallow import ValidationError
 
-from app.utilities.metadata_parser_v2 import (
-    validate_questionnaire_claims,
-    validate_runner_claims_v2,
-)
-from tests.app.parser.conftest import (
-    get_metadata,
-    get_metadata_full,
-    get_metadata_social,
-)
+from app.utilities.metadata_parser_v2 import validate_questionnaire_claims, validate_runner_claims_v2
+from tests.app.parser.conftest import get_metadata, get_metadata_full, get_metadata_social
 
 
 def test_spaces_are_stripped_from_string_fields():
@@ -41,9 +34,7 @@ def test_validation_does_not_change_metadata(
 
     questionnaire_claims = metadata["survey_metadata"]["data"]
 
-    validate_questionnaire_claims(
-        questionnaire_claims, fake_questionnaire_metadata_requirements_full
-    )
+    validate_questionnaire_claims(questionnaire_claims, fake_questionnaire_metadata_requirements_full)
 
     assert metadata == fake_metadata_copy
 
@@ -51,9 +42,7 @@ def test_validation_does_not_change_metadata(
 def test_validation_no_error_when_optional_field_not_passed():
     metadata = get_metadata_full()
 
-    field_specification = [
-        {"name": "optional_field", "type": "string", "optional": True}
-    ]
+    field_specification = [{"name": "optional_field", "type": "string", "optional": True}]
 
     validate_questionnaire_claims(metadata, field_specification)
 
@@ -104,9 +93,7 @@ def test_maximum_length():
 def test_min_and_max_length():
     metadata = get_metadata_full()
 
-    field_specification = [
-        {"name": "some_field", "type": "string", "min_length": 4, "max_length": 5}
-    ]
+    field_specification = [{"name": "some_field", "type": "string", "min_length": 4, "max_length": 5}]
 
     questionnaire_claims = metadata["survey_metadata"]["data"]
 
@@ -222,39 +209,23 @@ def test_deserialisation_iso_8601_datetime_bad_datetime_raises_ValidationError()
         validate_runner_claims_v2(metadata)
 
 
-def test_empty_schema_name_and_schema_url_and_cir_instrument_id_not_valid_v2():
+def test_empty_schema_name_and_schema_url_not_valid_v2():
     metadata = get_metadata_full()
     del metadata["schema_name"]
 
     with pytest.raises(ValidationError) as exc:
         validate_runner_claims_v2(metadata)
 
-    assert (
-        "Neither schema_name, schema_url or cir_instrument_id has been set in metadata"
-        in str(exc)
-    )
+    assert "Neither schema_name or schema_url has been set in metadata" in str(exc)
 
 
 @pytest.mark.parametrize(
     "options",
     [
-        {
-            "schema_name": "test_name",
-            "cir_instrument_id": "f0519981-426c-8b93-75c0-bfc40c66fe25",
-        },
-        {
-            "schema_url": "http://test.json",
-            "cir_instrument_id": "f0519981-426c-8b93-75c0-bfc40c66fe25",
-        },
-        {
-            "schema_name": "test_name",
-            "schema_url": "http://test.json",
-            "cir_instrument_id": "f0519981-426c-8b93-75c0-bfc40c66fe25",
-        },
         {"schema_name": "test_name", "schema_url": "http://test.json"},
     ],
 )
-def test_too_many_of_schema_name_schema_url_and_cir_instrument_id_not_valid_v2(options):
+def test_schema_name_and_schema_url_not_valid_v2(options):
     metadata = get_metadata_full()
     del metadata["schema_name"]
 
@@ -265,7 +236,7 @@ def test_too_many_of_schema_name_schema_url_and_cir_instrument_id_not_valid_v2(o
         validate_runner_claims_v2(metadata)
 
     assert (
-        f"Only one of schema_name, schema_url or cir_instrument_id should be specified in metadata, but {provided} were provided"
+        f"Only one of schema_name or schema_url should be specified in metadata, but {provided} were provided"
         in str(exc)
     )
 

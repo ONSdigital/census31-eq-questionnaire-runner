@@ -17,48 +17,33 @@ class ListAction(Question):
     @property
     def parent_location(self) -> Location:
         parent_block_id = self._schema.parent_id_map[self.block["id"]]
-        return Location(
-            section_id=self._current_location.section_id, block_id=parent_block_id
-        )
+        return Location(section_id=self._current_location.section_id, block_id=parent_block_id)
 
     def _get_routing_path(self) -> RoutingPath:
         return self.router.routing_path(self.parent_location.section_key)
 
     def is_location_valid(self) -> bool:
-        can_access_parent_location = self.router.can_access_location(
-            self.parent_location, self._routing_path
-        )
+        can_access_parent_location = self.router.can_access_location(self.parent_location, self._routing_path)
 
-        return bool(
-            can_access_parent_location
-            and self._current_location.list_name == self.parent_block["for_list"]
-        )
+        return bool(can_access_parent_location and self._current_location.list_name == self.parent_block["for_list"])
 
     def get_previous_location_url(self) -> str:
         if url := self.get_section_or_final_summary_url():
             return url
 
         block_id = self._request_args.get("previous")
-        return self._get_location_url(
-            block_id=block_id, return_location=self.return_location
-        )
+        return self._get_location_url(block_id=block_id, return_location=self.return_location)
 
     def get_section_or_final_summary_url(self) -> str | None:
-        if (
-            self.return_location.return_to == "section-summary"
-            and self.router.can_display_section_summary(
-                self.parent_location.section_key
-            )
+        if self.return_location.return_to == "section-summary" and self.router.can_display_section_summary(
+            self.parent_location.section_key
         ):
             return url_for(
                 "questionnaire.get_section",
                 section_id=self.parent_location.section_id,
                 _anchor=self.return_location.return_to_answer_id,
             )
-        if (
-            self.return_location.return_to == "final-summary"
-            and self.router.is_questionnaire_complete
-        ):
+        if self.return_location.return_to == "final-summary" and self.router.is_questionnaire_complete:
             return url_for(
                 "questionnaire.submit_questionnaire",
                 _anchor=self.return_location.return_to_answer_id,

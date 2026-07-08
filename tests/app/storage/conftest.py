@@ -24,12 +24,8 @@ def dynamodb():
             if table_name:
                 boto3_client.create_table(
                     TableName=table_name,
-                    AttributeDefinitions=[
-                        {"AttributeName": config["key_field"], "AttributeType": "S"}
-                    ],
-                    KeySchema=[
-                        {"AttributeName": config["key_field"], "KeyType": "HASH"}
-                    ],
+                    AttributeDefinitions=[{"AttributeName": config["key_field"], "AttributeType": "S"}],
+                    KeySchema=[{"AttributeName": config["key_field"], "KeyType": "HASH"}],
                     ProvisionedThroughput={
                         "ReadCapacityUnits": 1,
                         "WriteCapacityUnits": 1,
@@ -72,6 +68,5 @@ def eq_session():
         eq_session_id="sessionid",
         user_id="someuser",
         session_data="somedata",
-        expires_at=datetime.now(tz=timezone.utc).replace(microsecond=0)
-        + timedelta(minutes=1),
+        expires_at=datetime.now(tz=timezone.utc).replace(microsecond=0) + timedelta(minutes=1),
     )

@@ -9,9 +9,7 @@ def test_validate_required_secrets_fails_on_missing():
     with pytest.raises(Exception) as exception:
         validate_required_secrets(secrets)
 
-        assert "Missing Secret [EQ_SERVER_SIDE_STORAGE_USER_ID_SALT]" in str(
-            exception.exception
-        )
+        assert "Missing Secret [EQ_SERVER_SIDE_STORAGE_USER_ID_SALT]" in str(exception.exception)
 
 
 def test_validate_required_secrets_passes():
@@ -23,8 +21,6 @@ def test_validate_required_secrets_fails_on_conditional_secret():
     secrets = {"secrets": {secret: "abc" for secret in REQUIRED_SECRETS}}
 
     with pytest.raises(Exception) as exception:
-        validate_required_secrets(
-            secrets, additional_required_secrets=["MY_REQUIRED_SECRET"]
-        )
+        validate_required_secrets(secrets, additional_required_secrets=["MY_REQUIRED_SECRET"])
 
         assert "Missing Secret [MY_REQUIRED_SECRET]" in str(exception.exception)

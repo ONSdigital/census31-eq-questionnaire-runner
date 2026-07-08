@@ -34,25 +34,29 @@ describe("Component: Mutually Exclusive Duration With Single Checkbox Override",
   });
 
   describe("Given the user has clicked the mutually exclusive checkbox answer", () => {
-    it("When the user enters a value for the non-exclusive duration answer and removes focus, Then only the non-exclusive duration answer should be answered.", async () => {
-      // Given
-      await $(DurationPage.durationExclusiveIPreferNotToSay()).click();
-      await expect(await $(DurationPage.durationExclusiveIPreferNotToSay()).isSelected()).toBe(true);
+    it(
+      "When the user enters a value for the non-exclusive duration answer and removes focus, " +
+        "Then only the non-exclusive duration answer should be answered.",
+      async () => {
+        // Given
+        await $(DurationPage.durationExclusiveIPreferNotToSay()).click();
+        await expect(await $(DurationPage.durationExclusiveIPreferNotToSay()).isSelected()).toBe(true);
 
-      // When
-      await $(DurationPage.durationYears()).setValue("1");
-      await $(DurationPage.durationMonths()).setValue("7");
+        // When
+        await $(DurationPage.durationYears()).setValue("1");
+        await $(DurationPage.durationMonths()).setValue("7");
 
-      // Then
-      await expect(await $(DurationPage.durationYears()).getValue()).toBe("1");
-      await expect(await $(DurationPage.durationMonths()).getValue()).toBe("7");
-      await expect(await $(DurationPage.durationExclusiveIPreferNotToSay()).isSelected()).toBe(false);
+        // Then
+        await expect(await $(DurationPage.durationYears()).getValue()).toBe("1");
+        await expect(await $(DurationPage.durationMonths()).getValue()).toBe("7");
+        await expect(await $(DurationPage.durationExclusiveIPreferNotToSay()).isSelected()).toBe(false);
 
-      await click(DurationPage.submit());
+        await click(DurationPage.submit());
 
-      await expect(await $(SummaryPage.durationAnswer()).getText()).toBe("1 year 7 months");
-      await expect(await $(SummaryPage.durationAnswer()).getText()).not.toBe("I prefer not to say");
-    });
+        await expect(await $(SummaryPage.durationAnswer()).getText()).toBe("1 year 7 months");
+        await expect(await $(SummaryPage.durationAnswer()).getText()).not.toBe("I prefer not to say");
+      },
+    );
   });
 
   describe("Given the user has not clicked the mutually exclusive checkbox answer", () => {

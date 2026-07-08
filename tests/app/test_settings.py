@@ -33,9 +33,7 @@ def test_invalid_key_raises_exception():
     with pytest.raises(Exception) as exception:
         settings.get_env_or_fail("MISSING_ENVIRONMENT_VARIABLE")
 
-        assert "Setting 'MISSING_ENVIRONMENT_VARIABLE' Missing" == str(
-            exception.exception
-        )
+        assert "Setting 'MISSING_ENVIRONMENT_VARIABLE' Missing" == str(exception.exception)
 
 
 def test_utcoffset_or_fail_raises_exception():

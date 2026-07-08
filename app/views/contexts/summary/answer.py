@@ -8,9 +8,7 @@ from app.questionnaire.return_location import ReturnLocation
 RadioCheckboxTypes = dict[str, str | AnswerValueEscapedTypes | None]
 DateRangeTypes = dict[str, AnswerValueEscapedTypes | None]
 
-InferredAnswerValueTypes = (
-    None | DateRangeTypes | str | AnswerValueEscapedTypes | RadioCheckboxTypes
-)
+InferredAnswerValueTypes = None | DateRangeTypes | str | AnswerValueEscapedTypes | RadioCheckboxTypes
 
 
 class Answer:
@@ -91,8 +89,9 @@ class Answer:
         return_to_answer_id: str | None,
     ) -> str | None:
         """
-        If the summary page using this answer has repeating answers, but it is not in a repeating section,
-        then the answer ids will be suffixed with list item id, so the return to answer id link also needs this to work correctly
+        If the summary page using this answer has repeating answers, but it is
+        not in a repeating section, then the answer ids will be suffixed with list
+        item id, so the return to answer id link also needs this to work correctly
         """
         answer_id = None
         if return_to:

@@ -49,11 +49,11 @@ The list store will include a `primary_person` key which will map to a `list_ite
 
 ### Create a PrimaryPersonCollector block type
 
-A new block type "PrimaryPersonCollector" will be defined to support the necessary behaviour. It will extend the existing ListCollector and allow addition of a primary person through adding context to the list store. The following diagram identifies the flow to be implemented in runner.  
+A new block type "PrimaryPersonCollector" will be defined to support the necessary behaviour. It will extend the existing ListCollector and allow addition of a primary person through adding context to the list store. The following diagram identifies the flow to be implemented in runner.
 
 ![Primary Flow](0009-primary-flow.png)
 
-Both the PrimaryPersonListCollector and ListCollector operate upon the same list in the store. The PrimaryPersonCollector would create an item in the list store, before collecting any answers it refers to. This allows the identification of a primary person in one block and deferring their name entry to another. 
+Both the PrimaryPersonListCollector and ListCollector operate upon the same list in the store. The PrimaryPersonCollector would create an item in the list store, before collecting any answers it refers to. This allows the identification of a primary person in one block and deferring their name entry to another.
 
 As per a ListCollector, the navigation path followed by the PrimaryPersonCollector exists separately from the main routing path. On routing backwards from the ListCollector, the primary person will be routed back to the driving question. This is represented in the reverse flow below, where the primary person would be unable to reach the primary name block when using the "Previous" link.
 

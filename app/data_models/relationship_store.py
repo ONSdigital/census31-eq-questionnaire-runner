@@ -52,13 +52,9 @@ class RelationshipStore:
         self._is_dirty = True
 
     def serialize(self) -> list[RelationshipDict]:
-        return [
-            relationship.for_json() for relationship in self._relationships.values()
-        ]
+        return [relationship.for_json() for relationship in self._relationships.values()]
 
-    def get_relationship(
-        self, list_item_id: str, to_list_item_id: str
-    ) -> Relationship | None:
+    def get_relationship(self, list_item_id: str, to_list_item_id: str) -> Relationship | None:
         key = (list_item_id, to_list_item_id)
         return self._relationships.get(key)
 

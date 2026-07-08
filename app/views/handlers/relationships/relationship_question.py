@@ -44,15 +44,11 @@ class RelationshipQuestion(Question):
     @cached_property
     def unrelated_no_answer_values(self) -> list[str] | None:
         if self.unrelated_answer_id:
-            return self._schema.get_unrelated_block_no_answer_values(
-                self.unrelated_answer_id
-            )
+            return self._schema.get_unrelated_block_no_answer_values(self.unrelated_answer_id)
 
     @cached_property
     def relationship_store(self) -> RelationshipStore:
-        answer = self._questionnaire_store.data_stores.answer_store.get_answer(
-            self.relationships_answer_id
-        )
+        answer = self._questionnaire_store.data_stores.answer_store.get_answer(self.relationships_answer_id)
         if answer:
             # Type ignore: for a relationship question the answer will always be a list of RelationshipDict
             answer_value: list[RelationshipDict] = answer.value  # type: ignore
@@ -82,9 +78,7 @@ class RelationshipQuestion(Question):
         return self.router.routing_path(self.parent_location.section_key)
 
     def is_location_valid(self) -> bool:
-        can_access_parent_location = self.router.can_access_location(
-            self.parent_location, self._routing_path
-        )
+        can_access_parent_location = self.router.can_access_location(self.parent_location, self._routing_path)
         can_access_relationship_location = self.relationship_router.can_access_location(
             self._current_location  # type: ignore
         )
@@ -118,6 +112,4 @@ class RelationshipQuestion(Question):
         if next_location:
             return next_location.url()
 
-        return self.router.get_next_location_url(
-            self.parent_location, self._routing_path, self.return_location
-        )
+        return self.router.get_next_location_url(self.parent_location, self._routing_path, self.return_location)

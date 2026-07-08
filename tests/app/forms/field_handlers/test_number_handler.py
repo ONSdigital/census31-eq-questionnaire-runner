@@ -10,14 +10,10 @@ from app.forms.fields import DecimalFieldWithSeparator, IntegerFieldWithSeparato
 from app.settings import MAX_NUMBER
 
 
-def get_test_form_class(
-    answer_schema, value_source_resolver, rule_evaluator, messages=None
-):
+def get_test_form_class(answer_schema, value_source_resolver, rule_evaluator, messages=None):
     if not messages:
         messages = error_messages.copy()
-    handler = NumberHandler(
-        answer_schema, value_source_resolver, rule_evaluator, error_messages=messages
-    )
+    handler = NumberHandler(answer_schema, value_source_resolver, rule_evaluator, error_messages=messages)
 
     class TestForm(Form):
         test_field = handler.get_field()
@@ -36,9 +32,7 @@ def test_integer_field(value_source_resolver, rule_evaluator):
         "validation": {"messages": {"INVALID_NUMBER": "Please enter your age."}},
     }
 
-    form_class = get_test_form_class(
-        answer_schema, value_source_resolver, rule_evaluator, error_messages
-    )
+    form_class = get_test_form_class(answer_schema, value_source_resolver, rule_evaluator, error_messages)
     form = form_class()
 
     assert isinstance(form.test_field, IntegerFieldWithSeparator)
@@ -54,16 +48,10 @@ def test_decimal_field(value_source_resolver, rule_evaluator):
         "mandatory": False,
         "type": "Number",
         "decimal_places": 2,
-        "validation": {
-            "messages": {
-                "INVALID_NUMBER": "Please only enter whole numbers into the field."
-            }
-        },
+        "validation": {"messages": {"INVALID_NUMBER": "Please only enter whole numbers into the field."}},
     }
 
-    form_class = get_test_form_class(
-        answer_schema, value_source_resolver, rule_evaluator, error_messages
-    )
+    form_class = get_test_form_class(answer_schema, value_source_resolver, rule_evaluator, error_messages)
     form = form_class()
 
     assert isinstance(form.test_field, DecimalFieldWithSeparator)
@@ -78,16 +66,10 @@ def test_currency_field(value_source_resolver, rule_evaluator):
         "mandatory": False,
         "label": "",
         "type": "Currency",
-        "validation": {
-            "messages": {
-                "INVALID_NUMBER": "Please only enter whole numbers into the field."
-            }
-        },
+        "validation": {"messages": {"INVALID_NUMBER": "Please only enter whole numbers into the field."}},
     }
 
-    form_class = get_test_form_class(
-        answer_schema, value_source_resolver, rule_evaluator, error_messages
-    )
+    form_class = get_test_form_class(answer_schema, value_source_resolver, rule_evaluator, error_messages)
     form = form_class()
 
     assert isinstance(form.test_field, IntegerFieldWithSeparator)
@@ -113,9 +95,7 @@ def test_percentage_field(value_source_resolver, rule_evaluator):
         },
     }
 
-    form_class = get_test_form_class(
-        answer_schema, value_source_resolver, rule_evaluator, error_messages
-    )
+    form_class = get_test_form_class(answer_schema, value_source_resolver, rule_evaluator, error_messages)
     form = form_class()
 
     assert isinstance(form.test_field, IntegerFieldWithSeparator)
@@ -138,17 +118,12 @@ def test_manual_min(app, value_source_resolver, rule_evaluator):
         "type": "Currency",
     }
 
-    test_form_class = get_test_form_class(
-        answer_schema, value_source_resolver, rule_evaluator, error_messages
-    )
+    test_form_class = get_test_form_class(answer_schema, value_source_resolver, rule_evaluator, error_messages)
     form = test_form_class(MultiDict({"test_field": "9"}))
 
     form.validate()
 
-    assert (
-        form.errors["test_field"][0]
-        == answer_schema["validation"]["messages"]["NUMBER_TOO_SMALL"]
-    )
+    assert form.errors["test_field"][0] == answer_schema["validation"]["messages"]["NUMBER_TOO_SMALL"]
 
 
 def test_manual_max(app, value_source_resolver, rule_evaluator):
@@ -166,17 +141,12 @@ def test_manual_max(app, value_source_resolver, rule_evaluator):
         "type": "Currency",
     }
 
-    test_form_class = get_test_form_class(
-        answer_schema, value_source_resolver, rule_evaluator
-    )
+    test_form_class = get_test_form_class(answer_schema, value_source_resolver, rule_evaluator)
     form = test_form_class(MultiDict({"test_field": "21"}))
 
     form.validate()
 
-    assert (
-        form.errors["test_field"][0]
-        == answer_schema["validation"]["messages"]["NUMBER_TOO_LARGE"]
-    )
+    assert form.errors["test_field"][0] == answer_schema["validation"]["messages"]["NUMBER_TOO_LARGE"]
 
 
 def test_manual_decimal(app, value_source_resolver, rule_evaluator):
@@ -194,16 +164,11 @@ def test_manual_decimal(app, value_source_resolver, rule_evaluator):
         "type": "Currency",
     }
 
-    test_form_class = get_test_form_class(
-        answer_schema, value_source_resolver, rule_evaluator
-    )
+    test_form_class = get_test_form_class(answer_schema, value_source_resolver, rule_evaluator)
     form = test_form_class(MultiDict({"test_field": "1.234"}))
     form.validate()
 
-    assert (
-        form.errors["test_field"][0]
-        == answer_schema["validation"]["messages"]["INVALID_DECIMAL"]
-    )
+    assert form.errors["test_field"][0] == answer_schema["validation"]["messages"]["INVALID_DECIMAL"]
 
 
 def test_zero_max(app, value_source_resolver, rule_evaluator):
@@ -217,9 +182,7 @@ def test_zero_max(app, value_source_resolver, rule_evaluator):
         "type": "Currency",
     }
     error_message = error_messages["NUMBER_TOO_LARGE"] % {"max": maximum}
-    test_form_class = get_test_form_class(
-        answer_schema, value_source_resolver, rule_evaluator, messages=error_messages
-    )
+    test_form_class = get_test_form_class(answer_schema, value_source_resolver, rule_evaluator, messages=error_messages)
     form = test_form_class(MultiDict({"test_field": "1"}))
     form.validate()
 
@@ -237,9 +200,7 @@ def test_zero_min(app, value_source_resolver, rule_evaluator):
         "type": "Currency",
     }
     error_message = error_messages["NUMBER_TOO_SMALL"] % {"min": minimum}
-    test_form_class = get_test_form_class(
-        answer_schema, value_source_resolver, rule_evaluator, error_messages
-    )
+    test_form_class = get_test_form_class(answer_schema, value_source_resolver, rule_evaluator, error_messages)
     form = test_form_class(MultiDict({"test_field": "-1"}))
     form.validate()
 
@@ -263,24 +224,16 @@ def test_value_min_and_max(app, value_source_resolver, rule_evaluator):
         "type": "Currency",
     }
 
-    test_form_class = get_test_form_class(
-        answer_schema, value_source_resolver, rule_evaluator
-    )
+    test_form_class = get_test_form_class(answer_schema, value_source_resolver, rule_evaluator)
     form = test_form_class(MultiDict({"test_field": "9"}))
     form.validate()
 
-    assert (
-        form.errors["test_field"][0]
-        == answer_schema["validation"]["messages"]["NUMBER_TOO_SMALL"]
-    )
+    assert form.errors["test_field"][0] == answer_schema["validation"]["messages"]["NUMBER_TOO_SMALL"]
 
     form = test_form_class(MultiDict({"test_field": "22"}))
     form.validate()
 
-    assert (
-        form.errors["test_field"][0]
-        == answer_schema["validation"]["messages"]["NUMBER_TOO_LARGE"]
-    )
+    assert form.errors["test_field"][0] == answer_schema["validation"]["messages"]["NUMBER_TOO_LARGE"]
 
 
 def test_manual_min_exclusive(app, value_source_resolver, rule_evaluator):
@@ -298,17 +251,12 @@ def test_manual_min_exclusive(app, value_source_resolver, rule_evaluator):
         "type": "Currency",
     }
 
-    test_form_class = get_test_form_class(
-        answer_schema, value_source_resolver, rule_evaluator
-    )
+    test_form_class = get_test_form_class(answer_schema, value_source_resolver, rule_evaluator)
 
     form = test_form_class(MultiDict({"test_field": "10"}))
     form.validate()
 
-    assert (
-        form.errors["test_field"][0]
-        == answer_schema["validation"]["messages"]["NUMBER_TOO_SMALL_EXCLUSIVE"]
-    )
+    assert form.errors["test_field"][0] == answer_schema["validation"]["messages"]["NUMBER_TOO_SMALL_EXCLUSIVE"]
 
 
 def test_manual_max_exclusive(app, value_source_resolver, rule_evaluator):
@@ -326,17 +274,12 @@ def test_manual_max_exclusive(app, value_source_resolver, rule_evaluator):
         "type": "Currency",
     }
 
-    test_form_class = get_test_form_class(
-        answer_schema, value_source_resolver, rule_evaluator
-    )
+    test_form_class = get_test_form_class(answer_schema, value_source_resolver, rule_evaluator)
 
     form = test_form_class(MultiDict({"test_field": "20"}))
     form.validate()
 
-    assert (
-        form.errors["test_field"][0]
-        == answer_schema["validation"]["messages"]["NUMBER_TOO_LARGE_EXCLUSIVE"]
-    )
+    assert form.errors["test_field"][0] == answer_schema["validation"]["messages"]["NUMBER_TOO_LARGE_EXCLUSIVE"]
 
 
 def test_default_range(value_source_resolver, rule_evaluator):
@@ -354,9 +297,7 @@ def test_default_range(value_source_resolver, rule_evaluator):
         "id": "test-range",
         "type": "Currency",
     }
-    handler = NumberHandler(
-        answer, value_source_resolver, rule_evaluator, error_messages
-    )
+    handler = NumberHandler(answer, value_source_resolver, rule_evaluator, error_messages)
     field_references = handler.references
 
     assert field_references["maximum"] == MAX_NUMBER
@@ -383,9 +324,7 @@ def test_get_schema_value_answer_store(value_source_resolver, rule_evaluator):
     answer_store.add_or_update(Answer(answer_id="set-maximum", value=10))
     answer_store.add_or_update(Answer(answer_id="set-minimum", value=1))
     value_source_resolver.data_stores.answer_store = answer_store
-    number_handler = NumberHandler(
-        answer_schema, value_source_resolver, rule_evaluator, error_messages
-    )
+    number_handler = NumberHandler(answer_schema, value_source_resolver, rule_evaluator, error_messages)
 
     maximum = number_handler.get_schema_value(answer_schema["maximum"])
     minimum = number_handler.get_schema_value(answer_schema["minimum"])

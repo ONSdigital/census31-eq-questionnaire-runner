@@ -30,9 +30,7 @@ class BusinessSurveyConfig(SurveyConfig):
         if not self.account_service_todo_url:
             self.account_service_todo_url: str = f"{self.base_url}/surveys/todo"
 
-    def _get_account_service_help_url(
-        self, *, is_authenticated: bool, ru_ref: str | None
-    ) -> str:
+    def _get_account_service_help_url(self, *, is_authenticated: bool, ru_ref: str | None) -> str:
         if self.schema and is_authenticated and ru_ref:
             request_data = {
                 "survey_ref": self.schema.json["survey_id"],
@@ -58,9 +56,7 @@ class BusinessSurveyConfig(SurveyConfig):
             [
                 HeaderLink(
                     lazy_gettext("Help"),
-                    self._get_account_service_help_url(
-                        is_authenticated=is_authenticated, ru_ref=ru_ref
-                    ),
+                    self._get_account_service_help_url(is_authenticated=is_authenticated, ru_ref=ru_ref),
                     id="header-link-help",
                 ).__dict__
             ]
@@ -89,9 +85,7 @@ class BusinessSurveyConfig(SurveyConfig):
         links = [Link(lazy_gettext("What we do"), self.what_we_do_url).as_dict()]
 
         if cookie_has_theme:
-            links.append(
-                Link(lazy_gettext("Contact us"), self.contact_us_url).as_dict()
-            )
+            links.append(Link(lazy_gettext("Contact us"), self.contact_us_url).as_dict())
 
         links.append(
             Link(
@@ -117,7 +111,8 @@ class BusinessSurveyConfig(SurveyConfig):
     @property
     def _stripped_base_url(self) -> str:
         warn(
-            "base_url contains extra pathing which will eventually be corrected and this function will need to be removed"
+            "base_url contains extra pathing which will eventually be corrected "
+            "and this function will need to be removed"
         )
         return self.base_url.replace("/surveys/todo", "")
 
@@ -125,16 +120,14 @@ class BusinessSurveyConfig(SurveyConfig):
 @dataclass
 class NIBusinessSurveyConfig(BusinessSurveyConfig):
     masthead_logo: str = read_file("./templates/assets/images/finance-ni-logo.svg")
-    masthead_logo_mobile: str = read_file(
-        "./templates/assets/images/finance-ni-mobile-logo.svg"
-    )
+    masthead_logo_mobile: str = read_file("./templates/assets/images/finance-ni-mobile-logo.svg")
 
 
 @dataclass
 class DBTDSITBusinessSurveyConfig(BusinessSurveyConfig):
-    masthead_logo: str = read_file(
-        "./templates/assets/images/dbt-logo-stacked.svg"
-    ) + read_file("./templates/assets/images/dsit-logo-stacked.svg")
+    masthead_logo: str = read_file("./templates/assets/images/dbt-logo-stacked.svg") + read_file(
+        "./templates/assets/images/dsit-logo-stacked.svg"
+    )
 
 
 @dataclass
@@ -153,9 +146,9 @@ class DBTBusinessSurveyConfig(BusinessSurveyConfig):
 
 @dataclass
 class DBTNIBusinessSurveyConfig(BusinessSurveyConfig):
-    masthead_logo: str = read_file(
-        "./templates/assets/images/dbt-logo-stacked.svg"
-    ) + read_file("./templates/assets/images/finance-ni-logo-stacked.svg")
+    masthead_logo: str = read_file("./templates/assets/images/dbt-logo-stacked.svg") + read_file(
+        "./templates/assets/images/finance-ni-logo-stacked.svg"
+    )
 
 
 @dataclass
@@ -165,14 +158,12 @@ class DESNZBusinessSurveyConfig(BusinessSurveyConfig):
 
 @dataclass
 class DESNZNIBusinessSurveyConfig(BusinessSurveyConfig):
-    masthead_logo: str = read_file(
-        "./templates/assets/images/desnz-logo-stacked.svg"
-    ) + read_file("./templates/assets/images/finance-ni-logo-stacked.svg")
+    masthead_logo: str = read_file("./templates/assets/images/desnz-logo-stacked.svg") + read_file(
+        "./templates/assets/images/finance-ni-logo-stacked.svg"
+    )
 
 
 @dataclass
 class ORRBusinessSurveyConfig(BusinessSurveyConfig):
     masthead_logo: str = read_file("./templates/assets/images/orr-logo.svg")
-    masthead_logo_mobile: str = read_file(
-        "./templates/assets/images/orr-mobile-logo.svg"
-    )
+    masthead_logo_mobile: str = read_file("./templates/assets/images/orr-mobile-logo.svg")

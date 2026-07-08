@@ -15,9 +15,7 @@ def test_check_session_with_user_id_in_session(
     expires_at,
     mocker,
 ):
-    mocker.patch(
-        "app.authentication.authenticator.get_session_store", return_value=session_store
-    )
+    mocker.patch("app.authentication.authenticator.get_session_store", return_value=session_store)
     with app.app_context():
         # Given
         session_store.create("eq_session_id", "user_id", session_data, expires_at)
@@ -32,9 +30,7 @@ def test_check_session_with_user_id_in_session(
 
 
 def test_check_session_with_no_user_id_in_session(app, mocker):
-    mocker.patch(
-        "app.authentication.authenticator.get_session_store", return_value=None
-    )
+    mocker.patch("app.authentication.authenticator.get_session_store", return_value=None)
 
     with app.app_context():
         # Given / When
@@ -51,9 +47,7 @@ def test_load_user(
     expires_at,
     mocker,
 ):
-    mocker.patch(
-        "app.authentication.authenticator.get_session_store", return_value=session_store
-    )
+    mocker.patch("app.authentication.authenticator.get_session_store", return_value=session_store)
     with app.app_context():
         # Given
         session_store.create(
@@ -102,9 +96,7 @@ def test_no_user_when_session_has_expired(
     session_data,
     mocker,
 ):
-    mocker.patch(
-        "app.authentication.authenticator.get_session_store", return_value=session_store
-    )
+    mocker.patch("app.authentication.authenticator.get_session_store", return_value=session_store)
     with app.app_context():
         # Given
         session_store.create(
@@ -130,9 +122,7 @@ def test_valid_user_does_not_extend_session_expiry_when_expiry_less_than_60_seco
     expires_at,
     mocker,
 ):
-    mocker.patch(
-        "app.authentication.authenticator.get_session_store", return_value=session_store
-    )
+    mocker.patch("app.authentication.authenticator.get_session_store", return_value=session_store)
     with app.app_context():
         # Given
         session_store.create("eq_session_id", "user_id", session_data, expires_at)
@@ -156,9 +146,7 @@ def test_valid_user_extends_session_expiry_when_expiry_greater_than_60_seconds_d
     expires_at,
     mocker,
 ):
-    mocker.patch(
-        "app.authentication.authenticator.get_session_store", return_value=session_store
-    )
+    mocker.patch("app.authentication.authenticator.get_session_store", return_value=session_store)
     with app.app_context():
         # Given
         session_store.create("eq_session_id", "user_id", session_data, expires_at)

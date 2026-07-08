@@ -50,10 +50,9 @@ def get_formatted_currency(
 
     # If there is no decimal limit then use the currency precision value if the number of decimals entered
     # is less than the value returned by babel's currency precision method.
-    if (
-        decimal_limit is not None
-        and currency_precision > decimal_limit >= decimal_places
-    ) or (decimal_limit is None and not decimal_places):
+    if (decimal_limit is not None and currency_precision > decimal_limit >= decimal_places) or (
+        decimal_limit is None and not decimal_places
+    ):
         currency_digits = False
     else:
         currency_digits = decimal_places < currency_precision
@@ -100,9 +99,7 @@ def custom_format_unit(
     return formatted_unit
 
 
-def get_number_format(
-    value: int | float | Decimal, locale: Locale | str
-) -> NumberPattern:
+def get_number_format(value: int | float | Decimal, locale: Locale | str) -> NumberPattern:
     """
     Generates the number format based on the value entered by the user and the locale
 
