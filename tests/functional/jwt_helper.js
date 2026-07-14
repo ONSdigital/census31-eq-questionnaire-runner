@@ -174,7 +174,6 @@ function getSurveyMetadata(theme, userId, displayAddress, surveyId, periodId, pe
       survey_id: surveyId,
       period_id: periodId,
       period_str: periodStr,
-      sds_dataset_id: sdsDatasetId,
       ref_p_start_date: "2017-01-01",
       ref_p_end_date: "2017-02-01",
       employment_date: "2016-06-10",
