@@ -23,9 +23,9 @@ DISABLE_LINTERS:
   - HTML_HTMLHINT # HTMLHint was disabled as HTMLHint doesn't understand Jinja2 syntax so there was a lot of false positives
   - JAVASCRIPT_STANDARD # Disabled because its rules conflict with our rules set up in ESLint
 
-FORMATTERS_DISABLE_ERRORS: false
-SHOW_ELAPSED_TIME: true
-FLAVOR_SUGGESTIONS: false
+FORMATTERS_DISABLE_ERRORS: false # Ensures code is actually fixable when using `make megalint-apply`
+SHOW_ELAPSED_TIME: true # Displays execution time for each linter
+FLAVOR_SUGGESTIONS: false # Disables suggestions to use different MegaLinter flavors
 
 # ESLint v10 flat-config workaround: install project deps before running MegaLinter via CI
 JAVASCRIPT_ES_PRE_COMMANDS:
@@ -37,4 +37,4 @@ JAVASCRIPT_ES_CLI_EXECUTABLE: [node_modules/.bin/eslint]
 ACTION_ZIZMOR_UNSECURED_ENV_VARIABLES:
   - GITHUB_TOKEN
 
-HTML_DJLINT_ARGUMENTS: ["--profile", "jinja"]
+HTML_DJLINT_ARGUMENTS: ["--profile", "jinja"] # Configured to recognise and accept Jinja2 template syntax
