@@ -71,10 +71,11 @@ class TestQuestionnaireHtmlEscaping(IntegrationTestCase):
             'data-title="Thinking of &amp;#34;&amp;gt;&amp;lt;b&amp;gt;some html&amp;lt;/b&amp;gt; Jones, '
             'Dave Jones is their &lt;strong&gt;brother or sister&lt;/strong&gt;"' in self.getResponseData()
         )
-        assert (
+        playback_text = (
             'data-playback="Dave Jones is &amp;#34;&amp;gt;&amp;lt;b&amp;gt;some html&amp;lt;/b&amp;gt; '
-            "Jones' &lt;strong&gt;brother or sister&lt;/strong&gt;\"" in self.getResponseData()
+            "Jones' &lt;strong&gt;brother or sister&lt;/strong&gt;\""
         )
+        assert playback_text in self.getResponseData()
 
     def test_composite_address(self):
         self.launchSurveyV2(schema_name="test_address")
