@@ -227,7 +227,6 @@ def test_context_for_section_list_summary(people_answer_store):
     assert context == expected
 
 
-# pylint: disable=line-too-long
 @pytest.mark.parametrize(
     "test_schema, answer_store_fixture, item_label, answer_1_label, answer_2_label",
     [
@@ -372,7 +371,8 @@ def test_context_for_section_summary_with_list_summary_and_first_variant(
                                                             "link": (
                                                                 "/questionnaire/companies/PlwgoG/edit-company/"
                                                                 "?return_to=section-summary&return_to_answer_id="
-                                                                "authorised-insurer-radio-PlwgoG#authorised-insurer-radio"
+                                                                "authorised-insurer-radio-PlwgoG"
+                                                                "#authorised-insurer-radio"
                                                             ),
                                                             "type": "radio",
                                                             "unit": None,
@@ -420,7 +420,8 @@ def test_context_for_section_summary_with_list_summary_and_first_variant(
                                                             "link": (
                                                                 "/questionnaire/companies/UHPLbX/edit-company/"
                                                                 "?return_to=section-summary&return_to_answer_id="
-                                                                "authorised-insurer-radio-UHPLbX#authorised-insurer-radio"
+                                                                "authorised-insurer-radio-UHPLbX"
+                                                                "#authorised-insurer-radio"
                                                             ),
                                                             "type": "radio",
                                                             "unit": None,

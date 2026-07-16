@@ -172,9 +172,7 @@ class TestFlushData(IntegrationTestCase):
             self.get(url=f"/session?token={token}")
             self.assertStatusOK()
             with self.assertLogs() as logs:
-                token = self.token_generator.create_token_with_schema_url(
-                    schema_url=schema_url, **self.get_payload()
-                )
+                token = self.token_generator.create_token_with_schema_url(schema_url=schema_url, **self.get_payload())
                 self.post(url=f"/flush?token={token}")
 
                 flush_log = logs.output[6]

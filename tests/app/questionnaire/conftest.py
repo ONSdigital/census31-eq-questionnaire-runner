@@ -522,7 +522,6 @@ def list_collector_variant_schema():
     }
 
 
-# pylint: disable=line-too-long
 @pytest.fixture
 def sections_dependent_on_list_schema():
     return {

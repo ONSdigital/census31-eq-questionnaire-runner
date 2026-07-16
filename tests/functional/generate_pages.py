@@ -215,20 +215,17 @@ LIST_SUMMARY_LABEL_GETTER = r"""  listLabel(instance) { return `[data-qa='list-i
 LIST_SUMMARY_EDIT_LINK_GETTER = r"""  listEditLink(instance) { return `[data-qa='list-item-change-${instance}-link']`; }
 
 """
-LIST_SUMMARY_REMOVE_LINK_GETTER = (
-    r"""  listRemoveLink(instance) {"""
-    r""" return `[data-qa='list-item-remove-${instance}-link']`; }
+# pylint: disable=line-too-long
+LIST_SUMMARY_REMOVE_LINK_GETTER = r"""  listRemoveLink(instance) { return `[data-qa='list-item-remove-${instance}-link']`; }
 
 """
-)
 
 LIST_SUMMARY_LIST_GETTER = r"""  listSummary() { return `.ons-list__item`; }
 
 """
+# pylint: disable=line-too-long
 LIST_SECTION_SUMMARY_LABEL_GETTER = Template(
-    r"""  ${list_name}ListLabel(listItemInstance) { return `div["""
-    r"""data-qa="${list_name}-list-summary"] dt[data-qa="list-item-` """
-    r"""+ listItemInstance + `-label"]`; }
+    r"""  ${list_name}ListLabel(listItemInstance) { return `div[data-qa="${list_name}-list-summary"] dt[data-qa="list-item-` + listItemInstance + `-label"]`; }
 
 """
 )
@@ -240,15 +237,14 @@ LIST_SECTION_SUMMARY_ADD_LINK_GETTER = Template(
 )
 
 LIST_SECTION_SUMMARY_EDIT_LINK_GETTER = Template(
-    r"""  ${list_name}ListEditLink(listItemInstance) { return `div["""
-    r"""data-qa="${list_name}-list-summary"] """
+    r"""  ${list_name}ListEditLink(listItemInstance) { return `div[data-qa="${list_name}-list-summary"] """
     r"""a[data-qa="list-item-change-` + listItemInstance + `-link"]`; }
 
 """
 )
+# pylint: disable=line-too-long
 LIST_SECTION_SUMMARY_REMOVE_LINK_GETTER = Template(
-    r"""  ${list_name}ListRemoveLink(listItemInstance) { return `div["""
-    r"""data-qa="${list_name}-list-summary"] """
+    r"""  ${list_name}ListRemoveLink(listItemInstance) { return `div[data-qa="${list_name}-list-summary"] """
     r"""a[data-qa="list-item-remove-` + listItemInstance + `-link"]`; }
 
 """
@@ -267,14 +263,12 @@ NON_ITEM_ANSWERS_LIST_SECTION_SUMMARY_ADD_LINK_GETTER = Template(
 )
 
 NON_ITEM_ANSWERS_LIST_SECTION_SUMMARY_EDIT_LINK_GETTER = Template(
-    r"""  ${list_name}ListEditLink(listItemInstance) { return `a["""
-    r"""data-qa="list-item-change-` + listItemInstance + `-link"]`; }
+    r"""  ${list_name}ListEditLink(listItemInstance) { return `a[data-qa="list-item-change-` + listItemInstance + `-link"]`; }
 
 """
 )
 NON_ITEM_ANSWERS_LIST_SECTION_SUMMARY_REMOVE_LINK_GETTER = Template(
-    r"""  ${list_name}ListRemoveLink(listItemInstance) { return `a["""
-    r"""data-qa="list-item-remove-` + listItemInstance + `-link"]`; }
+    r"""  ${list_name}ListRemoveLink(listItemInstance) { return `a[data-qa="list-item-remove-` + listItemInstance + `-link"]`; }
 
 """
 )
@@ -847,9 +841,8 @@ def process_block(block, dir_out, schema_data, spec_file, relative_require="..",
                 value["identifier"] for value in values if value["source"] == "calculated_summary"
             ]
 
-            # each calculated summary in a grand calculated summary is constructed such that
-            # it will have a single "answer" linking back to it so the processing for calculated
-            # summaries can be directly reused.
+            # each calculated summary in a grand calculated summary is constructed such that it will have a single "answer" linking back to it
+            # so the processing for calculated summaries can be directly reused.
             process_calculated_summary(calculated_summary_ids, page_spec)
 
         elif block["type"] == "Interstitial":
