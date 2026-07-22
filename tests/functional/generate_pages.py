@@ -218,7 +218,6 @@ LIST_SUMMARY_EDIT_LINK_GETTER = r"""  listEditLink(instance) { return `[data-qa=
 LIST_SUMMARY_REMOVE_LINK_GETTER = r"""  listRemoveLink(instance) { return `[data-qa='list-item-remove-${instance}-link']`; }
 
 """
-)
 
 LIST_SUMMARY_LIST_GETTER = r"""  listSummary() { return `.ons-list__item`; }
 
