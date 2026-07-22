@@ -215,8 +215,7 @@ LIST_SUMMARY_LABEL_GETTER = r"""  listLabel(instance) { return `[data-qa='list-i
 LIST_SUMMARY_EDIT_LINK_GETTER = r"""  listEditLink(instance) { return `[data-qa='list-item-change-${instance}-link']`; }
 
 """
-LIST_SUMMARY_REMOVE_LINK_GETTER = (
-    r"""  listRemoveLink(instance) {""" + r""" return `[data-qa='list-item-remove-${instance}-link']`; }
+LIST_SUMMARY_REMOVE_LINK_GETTER = r"""  listRemoveLink(instance) { return `[data-qa='list-item-remove-${instance}-link']`; }
 
 """
 )
@@ -261,14 +260,12 @@ NON_ITEM_ANSWERS_LIST_SECTION_SUMMARY_ADD_LINK_GETTER = Template(
 )
 
 NON_ITEM_ANSWERS_LIST_SECTION_SUMMARY_EDIT_LINK_GETTER = Template(
-    r"""  ${list_name}ListEditLink(listItemInstance) { return `a["""
-    + r"""data-qa="list-item-change-` + listItemInstance + `-link"]`; }
+    r"""  ${list_name}ListEditLink(listItemInstance) { return `a[data-qa="list-item-change-` + listItemInstance + `-link"]`; }
 
 """
 )
 NON_ITEM_ANSWERS_LIST_SECTION_SUMMARY_REMOVE_LINK_GETTER = Template(
-    r"""  ${list_name}ListRemoveLink(listItemInstance) { return `a["""
-    + r"""data-qa="list-item-remove-` + listItemInstance + `-link"]`; }
+    r"""  ${list_name}ListRemoveLink(listItemInstance) { return `a[data-qa="list-item-remove-` + listItemInstance + `-link"]`; }
 
 """
 )
