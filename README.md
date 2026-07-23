@@ -136,7 +136,7 @@ make load-design-system-templates
 
 #### Schemas
 
-To download the latest schemas from the [Questionnaire Registry](https://github.com/ONSdigital/census31-eq-questionnaire-schemas):
+To download the latest schemas from the [Questionnaire Registry](https://github.com/ONSdigital/eq-questionnaire-schemas):
 
 ```shell
 make load-schemas
