@@ -242,10 +242,11 @@ nvm install
 nvm use
 ```
 
-Install npm dependencies:
+Install npm dependencies and playwright browsers:
 
 ```shell
 npm install
+npx playwright install --with-deps
 ```
 
 Runner needs to be run with the functional test environment variables:
