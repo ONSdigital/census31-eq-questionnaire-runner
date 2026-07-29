@@ -32,10 +32,7 @@ trim_trailing_whitespace = true
 # Possible values - true, false
 insert_final_newline = true
 
-[*.{json}]
-insert_final_newline = false
-
-[*.{py}]
+[*.py]
 max_line_length = 120
 
 [*.{md,po,json,html,js,ts,yaml,yml}]
