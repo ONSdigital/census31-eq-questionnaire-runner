@@ -19,7 +19,7 @@ from app.helpers.template_helpers import DATA_LAYER_KEYS, get_survey_config, ren
 from app.questionnaire import QuestionnaireSchema
 from app.questionnaire.questionnaire_schema import DEFAULT_LANGUAGE_CODE
 from app.routes.errors import _render_error_page
-from app.utilities.metadata_parser_v2 import validate_questionnaire_claims, validate_runner_claims_v2
+from app.utilities.metadata_parser import validate_questionnaire_claims, validate_runner_claims
 from app.utilities.schema import load_schema_from_metadata
 
 logger = get_logger()
@@ -59,40 +59,23 @@ def login() -> Response:
         cookie_session.clear()
 
     decrypted_token = decrypt_token(request.args.get("token"))
-
     validate_jti(decrypted_token)
 
-    _data = (
-        survey_metadata.get("data", {})
-        if (survey_metadata := decrypted_token.get("survey_metadata"))
-        else decrypted_token
-    )
-    ru_ref, qid = _data.get("ru_ref"), _data.get("qid")
-
-    logger_args = {
-        key: value
-        for key, value in {
-            "tx_id": decrypted_token.get("tx_id"),
-            "case_id": decrypted_token.get("case_id"),
-            "schema_name": decrypted_token.get("schema_name"),
-            "schema_url": decrypted_token.get("schema_url"),
-            "ru_ref": ru_ref,
-            "qid": qid,
-        }.items()
-        if value
-    }
-    contextvars.bind_contextvars(**logger_args)
+    contextvars.bind_contextvars(tx_id=decrypted_token.get("tx_id"), case_id=decrypted_token.get("case_id"))
 
     runner_claims = get_runner_claims(decrypted_token)
-
     metadata = MetadataProxy.from_dict(runner_claims)
+    if metadata.schema_name:
+        contextvars.bind_contextvars(schema_name=metadata.schema_name)
+    else:
+        contextvars.bind_contextvars(schema_url=metadata.schema_url)
 
     g.schema = load_schema_from_metadata(metadata=metadata, language_code=metadata.language_code)
     schema_metadata = g.schema.json["metadata"]
 
     questionnaire_claims = get_questionnaire_claims(decrypted_token=decrypted_token, schema_metadata=schema_metadata)
 
-    runner_claims["survey_metadata"]["data"] = questionnaire_claims
+    runner_claims["survey_metadata"] = questionnaire_claims
 
     logger.info("decrypted token and parsed metadata")
 
@@ -186,17 +169,15 @@ def get_signed_out() -> Response | str:
 
 def get_runner_claims(decrypted_token: Mapping[str, Any]) -> dict:
     try:
-        return validate_runner_claims_v2(decrypted_token)
+        return validate_runner_claims(decrypted_token)
 
     except ValidationError as e:
         raise InvalidTokenException(RUNNER_CLAIMS_ERROR_MESSAGE) from e
 
 
-def get_questionnaire_claims(decrypted_token: Mapping, schema_metadata: Iterable[Mapping[str, str]]) -> dict:
-
+def get_questionnaire_claims(decrypted_token: Mapping[str, Any], schema_metadata: Iterable[Mapping[str, str]]) -> dict:
     try:
-        claims = decrypted_token.get("survey_metadata", {}).get("data", {})
-        return validate_questionnaire_claims(claims, schema_metadata, unknown=INCLUDE)
+        return validate_questionnaire_claims(decrypted_token["survey_metadata"], schema_metadata, unknown=INCLUDE)
 
     except ValidationError as e:
         raise InvalidTokenException(QUESTIONNAIRE_CLAIMS_ERROR_MESSAGE) from e

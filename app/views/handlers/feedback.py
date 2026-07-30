@@ -15,6 +15,7 @@ from app.data_models.session_store import SessionStore
 from app.forms.questionnaire_form import QuestionnaireForm, generate_form
 from app.keys import KEY_PURPOSE_SUBMISSION
 from app.questionnaire.questionnaire_schema import DEFAULT_LANGUAGE_CODE, QuestionnaireSchema
+from app.settings import CENSUS_PERIOD_ID
 from app.submitter import GCSFeedbackSubmitter, LogFeedbackSubmitter, converter_v2
 from app.views.contexts.feedback_form_context import build_feedback_context
 from app.views.handlers.submission import get_receipting_metadata
@@ -98,11 +99,10 @@ class Feedback:
         )
 
         additional_metadata = get_receipting_metadata(metadata)
-
-        feedback_metadata = FeedbackMetadata(tx_id=tx_id, case_id=case_id, **additional_metadata)
+        feedback_metadata = {"tx_id": tx_id, "case_id": case_id, **additional_metadata}
 
         submitter: GCSFeedbackSubmitter | LogFeedbackSubmitter = current_app.eq["feedback_submitter"]  # type: ignore
-        if not submitter.upload(feedback_metadata(), encrypted_message):
+        if not submitter.upload(feedback_metadata, encrypted_message):
             raise FeedbackUploadFailed()
 
         self._session_store.save()
@@ -165,18 +165,6 @@ class Feedback:
         return False
 
 
-class FeedbackMetadata:
-    def __init__(self, case_id: str, tx_id: str, **kwargs: dict):
-        self.case_id = case_id
-        self.tx_id = tx_id
-
-        for key, value in kwargs.items():
-            setattr(self, key, value)
-
-    def __call__(self) -> dict[str, str]:
-        return vars(self)
-
-
 class FeedbackPayloadV2:
     """
     Create the feedback payload object for down stream processing in the following format:
@@ -232,11 +220,14 @@ class FeedbackPayloadV2:
             "collection_exercise_sid": self.metadata.collection_exercise_sid,
             "schema_name": self.metadata.schema_name,
             "case_id": self.case_id,
-            "survey_metadata": {"survey_id": self.schema.json["survey_id"]},
         }
 
         if self.metadata.survey_metadata:
-            payload["survey_metadata"] |= self.metadata.survey_metadata.data
+            payload["survey_metadata"] = self.metadata.survey_metadata
+
+        if self.metadata.schema:
+            payload["schema"] = self.metadata.schema.to_dict()
+            payload["period_id"] = CENSUS_PERIOD_ID
 
         optional_properties = converter_v2.get_optional_payload_properties(self.metadata, self.response_metadata)
 

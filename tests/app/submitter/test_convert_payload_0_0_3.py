@@ -8,14 +8,12 @@ from app.questionnaire.routing_path import RoutingPath
 from app.submitter.converter_v2 import get_payload_data
 from app.utilities.json import json_dumps, json_loads
 from app.utilities.schema import load_schema_from_name
-from tests.app.submitter.conftest import get_questionnaire_store
 from tests.app.submitter.schema import make_schema
 
 SUBMITTED_AT = datetime.now(timezone.utc)
 
 
-def test_convert_answers_v2_to_payload_0_0_3():
-    questionnaire_store = get_questionnaire_store()
+def test_convert_answers_v2_to_payload_0_0_3(questionnaire_store):
 
     full_routing_path = [RoutingPath(block_ids=["about you", "where you live"], section_id="household-section")]
 
@@ -81,8 +79,7 @@ def test_convert_answers_v2_to_payload_0_0_3():
     assert data_payload["answers"][1].value, "62 Somewhere"
 
 
-def test_convert_payload_0_0_3_multiple_answers():
-    questionnaire_store = get_questionnaire_store()
+def test_convert_payload_0_0_3_multiple_answers(questionnaire_store):
 
     full_routing_path = [RoutingPath(block_ids=["crisps"], section_id="section-1")]
     answers = AnswerStore([Answer("crisps-answer", ["Ready salted", "Sweet chilli"]).to_dict()])
@@ -124,8 +121,7 @@ def test_convert_payload_0_0_3_multiple_answers():
     assert data_payload["answers"][0].value == ["Ready salted", "Sweet chilli"]
 
 
-def test_radio_answer():
-    questionnaire_store = get_questionnaire_store()
+def test_radio_answer(questionnaire_store):
 
     full_routing_path = [RoutingPath(block_ids=["radio-block"], section_id="section-1")]
     answers = AnswerStore([Answer("radio-answer", "Coffee").to_dict()])
@@ -164,8 +160,7 @@ def test_radio_answer():
     assert data_payload["answers"][0].value == "Coffee"
 
 
-def test_number_answer():
-    questionnaire_store = get_questionnaire_store()
+def test_number_answer(questionnaire_store):
 
     full_routing_path = [RoutingPath(block_ids=["number-block"], section_id="section-1")]
     answers = AnswerStore([Answer("number-answer", 1.755).to_dict()])
@@ -195,8 +190,7 @@ def test_number_answer():
     assert data_payload["answers"][0].value == 1.755
 
 
-def test_percentage_answer():
-    questionnaire_store = get_questionnaire_store()
+def test_percentage_answer(questionnaire_store):
 
     full_routing_path = [RoutingPath(block_ids=["percentage-block"], section_id="section-1")]
     answers = AnswerStore([Answer("percentage-answer", 99).to_dict()])
@@ -226,8 +220,7 @@ def test_percentage_answer():
     assert data_payload["answers"][0].value == 99
 
 
-def test_textarea_answer():
-    questionnaire_store = get_questionnaire_store()
+def test_textarea_answer(questionnaire_store):
 
     full_routing_path = [RoutingPath(block_ids=["textarea-block"], section_id="section-1")]
     answers = AnswerStore([Answer("textarea-answer", "This is an example text!").to_dict()])
@@ -257,8 +250,7 @@ def test_textarea_answer():
     assert data_payload["answers"][0].value == "This is an example text!"
 
 
-def test_currency_answer():
-    questionnaire_store = get_questionnaire_store()
+def test_currency_answer(questionnaire_store):
 
     full_routing_path = [RoutingPath(block_ids=["currency-block"], section_id="section-1")]
     answers = AnswerStore([Answer("currency-answer", 100).to_dict()])
@@ -288,8 +280,7 @@ def test_currency_answer():
     assert data_payload["answers"][0].value == 100
 
 
-def test_dropdown_answer():
-    questionnaire_store = get_questionnaire_store()
+def test_dropdown_answer(questionnaire_store):
 
     full_routing_path = [RoutingPath(block_ids=["dropdown-block"], section_id="section-1")]
     answers = AnswerStore([Answer("dropdown-answer", "Rugby is better!").to_dict()])
@@ -330,8 +321,7 @@ def test_dropdown_answer():
     assert data_payload["answers"][0].value == "Rugby is better!"
 
 
-def test_date_answer():
-    questionnaire_store = get_questionnaire_store()
+def test_date_answer(questionnaire_store):
 
     full_routing_path = [RoutingPath(block_ids=["date-block"], section_id="section-1")]
     answers = AnswerStore(
@@ -367,8 +357,7 @@ def test_date_answer():
     assert data_payload["answers"][0].value == "01-01-1990"
 
 
-def test_month_year_date_answer():
-    questionnaire_store = get_questionnaire_store()
+def test_month_year_date_answer(questionnaire_store):
 
     full_routing_path = [RoutingPath(block_ids=["date-block"], section_id="section-1")]
     answers = AnswerStore(
@@ -404,8 +393,7 @@ def test_month_year_date_answer():
     assert data_payload["answers"][0].value == "01-1990"
 
 
-def test_unit_answer():
-    questionnaire_store = get_questionnaire_store()
+def test_unit_answer(questionnaire_store):
 
     full_routing_path = [RoutingPath(block_ids=["unit-block"], section_id="section-1")]
     answers = AnswerStore([Answer("unit-answer", 10).to_dict()])
@@ -435,8 +423,7 @@ def test_unit_answer():
     assert data_payload["answers"][0].value == 10
 
 
-def test_primary_person_list_item_conversion():
-    questionnaire_store = get_questionnaire_store()
+def test_primary_person_list_item_conversion(questionnaire_store):
 
     routing_path = [
         RoutingPath(
@@ -482,8 +469,7 @@ def test_primary_person_list_item_conversion():
     assert sorted(answer_objects, key=lambda x: x["answer_id"]) == sorted(data_dict, key=lambda x: x["answer_id"])
 
 
-def test_list_item_conversion():
-    questionnaire_store = get_questionnaire_store()
+def test_list_item_conversion(questionnaire_store):
 
     routing_path = [
         RoutingPath(
@@ -528,10 +514,9 @@ def test_list_item_conversion():
     assert sorted(answer_objects, key=lambda x: x["answer_id"]) == sorted(data_dict, key=lambda x: x["answer_id"])
 
 
-def test_list_item_conversion_empty_list():
+def test_list_item_conversion_empty_list(questionnaire_store):
     """Test that the list store is populated with an empty list for lists which
     do not have answers yet."""
-    questionnaire_store = get_questionnaire_store()
 
     routing_path = [
         RoutingPath(
@@ -571,10 +556,9 @@ def test_list_item_conversion_empty_list():
     assert sorted(answer_objects, key=lambda x: x["answer_id"]) == sorted(data_dict, key=lambda x: x["answer_id"])
 
 
-def test_default_answers_not_present_when_not_answered():
+def test_default_answers_not_present_when_not_answered(questionnaire_store):
     """Test that default values aren't submitted downstream when an answer with
     a default value is not present in the answer store."""
-    questionnaire_store = get_questionnaire_store()
 
     schema = load_schema_from_name("test_default")
 
@@ -602,8 +586,7 @@ def test_default_answers_not_present_when_not_answered():
     assert "answer-one" not in answer_ids
 
 
-def test_list_structure_in_payload_is_as_expected():
-    questionnaire_store = get_questionnaire_store()
+def test_list_structure_in_payload_is_as_expected(questionnaire_store):
 
     routing_path = [
         RoutingPath(
@@ -651,8 +634,7 @@ def test_list_structure_in_payload_is_as_expected():
     assert data_dict[0]["primary_person"] == "xJlKBy"
 
 
-def test_primary_person_not_in_payload_when_not_answered():
-    questionnaire_store = get_questionnaire_store()
+def test_primary_person_not_in_payload_when_not_answered(questionnaire_store):
 
     routing_path = [
         RoutingPath(
@@ -695,8 +677,7 @@ def test_primary_person_not_in_payload_when_not_answered():
     assert "primary_person" not in data_dict[0]
 
 
-def test_relationships_in_payload():
-    questionnaire_store = get_questionnaire_store()
+def test_relationships_in_payload(questionnaire_store):
 
     routing_path = [
         RoutingPath(
@@ -776,8 +757,7 @@ def test_relationships_in_payload():
     assert expected_relationships_answer == relationships_answer["value"]
 
 
-def test_no_relationships_in_payload():
-    questionnaire_store = get_questionnaire_store()
+def test_no_relationships_in_payload(questionnaire_store):
 
     routing_path = [
         RoutingPath(
@@ -828,8 +808,7 @@ def test_no_relationships_in_payload():
     assert "relationship-answer" not in answers
 
 
-def test_unrelated_block_answers_in_payload():
-    questionnaire_store = get_questionnaire_store()
+def test_unrelated_block_answers_in_payload(questionnaire_store):
 
     routing_path = [
         RoutingPath(
@@ -931,8 +910,7 @@ def test_unrelated_block_answers_in_payload():
     assert expected_relationships_answer == relationships_answer["value"]
 
 
-def test_unrelated_block_answers_not_on_path_not_in_payload():
-    questionnaire_store = get_questionnaire_store()
+def test_unrelated_block_answers_not_on_path_not_in_payload(questionnaire_store):
 
     routing_path = [
         RoutingPath(
@@ -1009,8 +987,7 @@ def test_unrelated_block_answers_not_on_path_not_in_payload():
     assert ("related-to-anyone-else-answer", "person1") not in answers
 
 
-def test_relationship_answers_not_on_path_in_payload():
-    questionnaire_store = get_questionnaire_store()
+def test_relationship_answers_not_on_path_in_payload(questionnaire_store):
 
     routing_path = [
         RoutingPath(
@@ -1122,8 +1099,7 @@ def test_relationship_answers_not_on_path_in_payload():
     assert expected_relationships_answer == relationships_answer["value"]
 
 
-def test_answers_codes_only_present_for_answered_questions():
-    questionnaire_store = get_questionnaire_store()
+def test_answers_codes_only_present_for_answered_questions(questionnaire_store):
 
     full_routing_path = [RoutingPath(block_ids=["mandatory-checkbox", "name-block"], section_id="default-section")]
 
@@ -1147,8 +1123,7 @@ def test_answers_codes_only_present_for_answered_questions():
     assert data_payload["answer_codes"][0]["code"] == "2"
 
 
-def test_all_answers_codes_for_answer_options_in_payload_when_one_is_answered():
-    questionnaire_store = get_questionnaire_store()
+def test_all_answers_codes_for_answer_options_in_payload_when_one_is_answered(questionnaire_store):
 
     full_routing_path = [RoutingPath(block_ids=["mandatory-checkbox"], section_id="default-section")]
 
@@ -1171,8 +1146,7 @@ def test_all_answers_codes_for_answer_options_in_payload_when_one_is_answered():
     assert all(answer_code["answer_id"] == "mandatory-checkbox-answer" for answer_code in data_payload["answer_codes"])
 
 
-def test_no_answers_codes_in_payload_when_no_questions_answered():
-    questionnaire_store = get_questionnaire_store()
+def test_no_answers_codes_in_payload_when_no_questions_answered(questionnaire_store):
 
     full_routing_path = [RoutingPath(block_ids=["mandatory-checkbox"], section_id="default-section")]
 
@@ -1190,8 +1164,7 @@ def test_no_answers_codes_in_payload_when_no_questions_answered():
     assert "answer_codes" not in data_payload
 
 
-def test_payload_dynamic_answers():
-    questionnaire_store = get_questionnaire_store()
+def test_payload_dynamic_answers(questionnaire_store):
 
     full_routing_path = [
         RoutingPath(
@@ -1226,8 +1199,9 @@ def test_payload_dynamic_answers():
     assert Answer(answer_id="percentage-of-shopping", value=21, list_item_id="vhECeh") in data_payload["answers"]
 
 
-def test_repeating_block_answers_present(repeating_blocks_answer_store, repeating_blocks_list_store):
-    questionnaire_store = get_questionnaire_store()
+def test_repeating_block_answers_present(
+    repeating_blocks_answer_store, repeating_blocks_list_store, questionnaire_store
+):
 
     full_routing_path = [
         RoutingPath(

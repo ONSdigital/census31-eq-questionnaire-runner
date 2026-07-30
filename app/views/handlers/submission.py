@@ -5,7 +5,6 @@ from flask import current_app
 from flask import session as cookie_session
 from sdc.crypto.encrypter import encrypt
 
-from app.authentication.auth_payload_versions import AuthPayloadVersion
 from app.data_models import QuestionnaireStore
 from app.data_models.metadata_proxy import MetadataProxy
 from app.globals import get_session_store
@@ -18,15 +17,10 @@ from app.utilities.json import json_dumps
 
 
 def get_receipting_metadata(metadata: MetadataProxy) -> dict:
-    return (
-        {item: metadata[item] for item in metadata.survey_metadata.receipting_keys}
-        if (
-            metadata.version is AuthPayloadVersion.V2
-            and metadata.survey_metadata
-            and metadata.survey_metadata.receipting_keys
-        )
-        else {}
-    )
+    receipting_metadata = {}
+    if metadata.survey_metadata and "questionnaire_id" in metadata.survey_metadata:
+        receipting_metadata["questionnaire_id"] = metadata.survey_metadata["questionnaire_id"]
+    return receipting_metadata
 
 
 class SubmissionHandler:

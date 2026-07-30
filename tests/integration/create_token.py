@@ -7,48 +7,40 @@ from sdc.crypto.encrypter import encrypt
 from app.authentication.auth_payload_versions import AuthPayloadVersion
 from app.data_models.metadata_proxy import TOP_LEVEL_METADATA_KEYS
 from app.keys import KEY_PURPOSE_AUTHENTICATION
-from tests.app.parser.conftest import get_response_expires_at
 
 ACCOUNT_SERVICE_URL = "http://upstream.url"
 
 TOP_LEVEL_KEYS = TOP_LEVEL_METADATA_KEYS + ["exp", "jti", "iat"]
 
-PAYLOAD_V2_BUSINESS = {
+PAYLOAD_V2_TEST = {
     "version": AuthPayloadVersion.V2.value,
     "survey_metadata": {
-        "data": {
-            "user_id": "integration-test",
-            "period_str": "April 2016",
-            "period_id": "201604",
-            "ru_ref": "12345678901A",
-            "ru_name": "Integration Testing",
-            "ref_p_start_date": "2016-04-01",
-            "ref_p_end_date": "2016-04-30",
-            "trad_as": "Integration Tests",
-            "employment_date": "1983-06-02",
-            "display_address": "68 Abingdon Road, Goathill",
-        }
+        "user_id": "integration-test",
+        "period_id": "201604",
+        "ru_ref": "12345678901A",
+        "ru_name": "Integration Testing",
+        "ref_p_start_date": "2016-04-01",
+        "ref_p_end_date": "2016-04-30",
+        "trad_as": "Integration Tests",
+        "display_address": "68 Abingdon Road, Goathill",
     },
     "collection_exercise_sid": "789",
     "response_id": "1234567890123456",
     "language_code": "en",
-    "roles": [],
     "account_service_url": ACCOUNT_SERVICE_URL,
 }
 
 PAYLOAD_V2_CENSUS = {
     "version": AuthPayloadVersion.V2.value,
     "survey_metadata": {
-        "data": {
-            "case_ref": "1000000000000001",
-            "qid": str(uuid4()),
-        },
-        "receipting_keys": ["qid"],
+        "case_type": "HH",
+        "display_address": "68 Abingdon Road, Goathill",
+        "ru_ref": "uprn:00001",
+        "questionnaire_id": str(uuid4()),
     },
     "collection_exercise_sid": "789",
     "response_id": "1234567890123456",
     "language_code": "en",
-    "roles": [],
     "account_service_url": ACCOUNT_SERVICE_URL,
 }
 
@@ -68,40 +60,41 @@ class TokenGenerator:
         *,
         schema_name=None,
         schema_url=None,
+        schema=None,
         payload=None,
         **extra_payload,
     ):
         if payload is None:
-            payload = PAYLOAD_V2_BUSINESS
+            payload = PAYLOAD_V2_TEST
         payload_vars = deepcopy(payload)
         payload_vars["tx_id"] = str(uuid4())
         if schema_name:
             payload_vars["schema_name"] = schema_name
         if schema_url:
             payload_vars["schema_url"] = schema_url
+        if schema:
+            payload_vars["schema"] = schema
 
         payload_vars["iat"] = time()
         payload_vars["exp"] = payload_vars["iat"] + float(3600)  # one hour from now
         payload_vars["jti"] = str(uuid4())
         payload_vars["case_id"] = str(uuid4())
-        payload_vars["response_expires_at"] = get_response_expires_at()
-
         for key, value in extra_payload.items():
             if key in TOP_LEVEL_KEYS:
                 populate_with_extra_payload_items(key, value, payload_vars)
             else:
-                populate_with_extra_payload_items(key, value, payload_vars["survey_metadata"]["data"])
+                populate_with_extra_payload_items(key, value, payload_vars["survey_metadata"])
 
         return payload_vars
 
     def create_token_v2(self, schema_name, theme="default", **extra_payload):
-        payload_for_theme = PAYLOAD_V2_CENSUS if theme == "census" else PAYLOAD_V2_BUSINESS
+        payload_for_theme = PAYLOAD_V2_CENSUS if theme == "census" else PAYLOAD_V2_TEST
         payload = self._get_payload_with_params(schema_name=schema_name, payload=payload_for_theme, **extra_payload)
 
         return self.generate_token(payload)
 
     def create_token_invalid_version(self, schema_name, **extra_payload):
-        payload = self._get_payload_with_params(schema_name=schema_name, payload=PAYLOAD_V2_BUSINESS, **extra_payload)
+        payload = self._get_payload_with_params(schema_name=schema_name, payload=PAYLOAD_V2_TEST, **extra_payload)
 
         payload["version"] = "v3"
 
@@ -121,20 +114,22 @@ class TokenGenerator:
 
     def create_token_without_trad_as(self, schema_name, **extra_payload):
         payload_vars = self._get_payload_with_params(schema_name=schema_name, schema_url=None, **extra_payload)
-        del payload_vars["survey_metadata"]["data"]["trad_as"]
-
-        return self.generate_token(payload_vars)
-
-    def create_token_v2_census_token_invalid_receipting_key(self, schema_name, **extra_payload):
-        payload_vars = self._get_payload_with_params(
-            schema_name=schema_name, payload=PAYLOAD_V2_CENSUS, **extra_payload
-        )
-        del payload_vars["survey_metadata"]["data"]["qid"]
+        del payload_vars["survey_metadata"]["trad_as"]
 
         return self.generate_token(payload_vars)
 
     def create_token_with_schema_url(self, schema_url, **extra_payload):
         payload_vars = self._get_payload_with_params(schema_url=schema_url, **extra_payload)
+
+        return self.generate_token(payload_vars)
+
+    def create_token_with_census_claims(self, survey, form_type, region_code, **extra_payload):
+        schema = {
+            "survey": survey,
+            "form_type": form_type,
+            "region_code": region_code,
+        }
+        payload_vars = self._get_payload_with_params(schema=schema, payload=PAYLOAD_V2_CENSUS, **extra_payload)
 
         return self.generate_token(payload_vars)
 

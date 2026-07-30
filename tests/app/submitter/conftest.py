@@ -12,40 +12,30 @@ from app.data_models.answer_store import AnswerStore
 from app.data_models.metadata_proxy import MetadataProxy
 from app.questionnaire.questionnaire_schema import QuestionnaireSchema
 from app.settings import ACCOUNT_SERVICE_BASE_URL
-from tests.app.parser.conftest import get_response_expires_at
 
-RAW_METADATA_V2 = {
+RAW_METADATA = {
     "version": AuthPayloadVersion.V2.value,
     "tx_id": str(uuid.uuid4()),
     "schema_name": "1_0000",
     "collection_exercise_sid": "test-sid",
     "account_service_url": ACCOUNT_SERVICE_BASE_URL,
     "survey_metadata": {
-        "data": {
-            "period_id": "2016-02-01",
-            "period_str": "2016-01-01",
-            "ref_p_start_date": "2016-02-02",
-            "ref_p_end_date": "2016-03-03",
-            "ru_ref": "12345678901A",
-            "ru_name": "Apple",
-            "case_type": "SPG",
-            "form_type": "I",
-            "case_ref": "1000000000000001",
-            "display_address": "68 Abingdon Road, Goathill",
-            "user_id": "789473423",
-        },
+        "ru_ref": "uprn:00001",
+        "case_type": "HH",
+        "display_address": "68 Abingdon Road, Goathill",
+        "user_id": "789473423",
+        "questionnaire_id": "1234567890",
     },
     "response_id": "1234567890123456",
     "case_id": str(uuid.uuid4()),
-    "region_code": "GB-ENG",
     "channel": "RH",
     "jti": str(uuid.uuid4()),
-    "response_expires_at": get_response_expires_at(),
 }
-METADATA_V2 = MetadataProxy.from_dict(RAW_METADATA_V2)
+METADATA = MetadataProxy.from_dict(RAW_METADATA)
 
 
-def get_questionnaire_store():
+@pytest.fixture
+def questionnaire_store():
     user_answer = Answer(answer_id="GHI", value=0, list_item_id=None)
 
     storage = MagicMock()
@@ -56,7 +46,7 @@ def get_questionnaire_store():
 
     store.data_stores.answer_store = AnswerStore()
     store.data_stores.answer_store.add_or_update(user_answer)
-    store.data_stores.metadata = METADATA_V2
+    store.data_stores.metadata = METADATA
 
     store.data_stores.response_metadata = {"started_at": "2018-07-04T14:49:33.448608+00:00"}
 
@@ -65,7 +55,7 @@ def get_questionnaire_store():
 
 @pytest.fixture
 def fake_metadata_v2_schema_url():
-    copy = RAW_METADATA_V2.copy()
+    copy = RAW_METADATA.copy()
     copy["schema_url"] = "https://schema_url.com"
     del copy["schema_name"]
     return MetadataProxy.from_dict(copy)

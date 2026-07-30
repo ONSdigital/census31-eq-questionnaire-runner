@@ -9,6 +9,7 @@ from app.data_models.data_stores import DataStores
 from app.data_models.metadata_proxy import MetadataProxy, NoMetadataException
 from app.questionnaire.questionnaire_schema import DEFAULT_LANGUAGE_CODE, QuestionnaireSchema
 from app.questionnaire.routing_path import RoutingPath
+from app.settings import CENSUS_PERIOD_ID
 from app.submitter.convert_payload_0_0_1 import convert_answers_to_payload_0_0_1
 from app.submitter.convert_payload_0_0_3 import convert_answers_to_payload_0_0_3
 
@@ -52,8 +53,6 @@ def convert_answers_v2(
 
     data_stores = questionnaire_store.data_stores
 
-    survey_id = schema.json["survey_id"]
-
     payload: dict = {
         "case_id": metadata.case_id,
         "tx_id": metadata.tx_id,
@@ -65,7 +64,6 @@ def convert_answers_v2(
         "flushed": flushed,
         "submitted_at": submitted_at.isoformat(),
         "launch_language_code": metadata.language_code or DEFAULT_LANGUAGE_CODE,
-        "survey_metadata": {"survey_id": survey_id},
     }
 
     optional_properties = get_optional_payload_properties(metadata, data_stores.response_metadata)
@@ -75,8 +73,12 @@ def convert_answers_v2(
     elif metadata.schema_url:
         payload["schema_url"] = metadata.schema_url
 
+    if metadata.schema:
+        payload["schema"] = metadata.schema.to_dict()
+        payload["period_id"] = CENSUS_PERIOD_ID
+
     if metadata.survey_metadata:
-        payload["survey_metadata"].update(metadata.survey_metadata.data)
+        payload["survey_metadata"] = metadata.survey_metadata
 
     payload["data"] = get_payload_data(
         data_stores=data_stores,
@@ -92,9 +94,8 @@ def convert_answers_v2(
 def get_optional_payload_properties(metadata: MetadataProxy, response_metadata: MutableMapping) -> dict:
     payload = {}
 
-    for key in ["channel", "region_code"]:
-        if value := metadata[key]:
-            payload[key] = value
+    if channel := metadata.channel:
+        payload["channel"] = channel
     if started_at := response_metadata.get("started_at"):
         payload["started_at"] = started_at
 

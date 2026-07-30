@@ -5,7 +5,6 @@ from unittest.mock import patch
 from httmock import HTTMock, urlmatch
 
 from app.utilities.schema import get_schema_path_map
-from tests.app.parser.conftest import get_response_expires_at
 from tests.integration.integration_test_case import IntegrationTestCase
 
 SCHEMA_PATH_MAP = get_schema_path_map(include_test_schemas=True)
@@ -42,6 +41,18 @@ class TestFlushData(IntegrationTestCase):
 
         with open(schema_path, encoding="utf8") as json_data:
             return json_data.read()
+
+    @staticmethod
+    def get_payload():
+        return {
+            "jti": str(uuid.uuid4()),
+            "iat": time.time(),
+            "exp": time.time() + 1000,
+            "response_id": "1234567890123456",
+            "roles": ["flusher"],
+            "version": "v2",
+            "survey_metadata": {},
+        }
 
     def test_flush_data_successful(self):
         self.post(url="/flush?token=" + self.token_generator.generate_token(self.get_payload()))
@@ -101,50 +112,12 @@ class TestFlushData(IntegrationTestCase):
 
         self.assertTrue('"flushed": true' in args[0])
 
-    @staticmethod
-    def get_payload():
-        return {
-            "jti": str(uuid.uuid4()),
-            "iat": time.time(),
-            "exp": time.time() + 1000,
-            "response_id": "1234567890123456",
-            "roles": ["flusher"],
-            "version": "v2",
-            "survey_metadata": {"data": {}},
-        }
-
     @patch("app.routes.flush.convert_answers_v2")
     def test_flush_data_successful_v2(self, mock_convert_answers_v2):
-        mock_convert_answer_payload = {
-            "case_id": "19300487-87e7-42df-9330-718efb08e660",
-            "tx_id": "5d8b97f7-c8bd-42e1-88c9-e7721388463b",
-            "type": "uk.gov.ons.edc.eq:surveyresponse",
-            "version": "v2",
-            "data_version": "0.0.3",
-            "origin": "uk.gov.ons.edc.eq",
-            "collection_exercise_sid": "1eeb58ec-bae7-414d-a02e-5c3c23052dc7",
-            "schema_name": "test_textfield",
-            "flushed": True,
-            "submitted_at": "2023-02-07T11:42:59.575214+00:00",
-            "launch_language_code": "en",
-            "survey_metadata": {
-                "survey_id": "999",
-                "period_id": "201605",
-                "ru_name": "ESSENTIAL ENTERPRISE LTD.",
-                "user_id": "UNKNOWN",
-                "ru_ref": "12345678901A",
-            },
-            "data": {
-                "answers": [{"answer_id": "name-answer", "value": "sdfsdf"}],
-                "lists": [],
-            },
-            "started_at": "2023-02-07T11:42:32.380784+00:00",
-            "response_expires_at": get_response_expires_at(),
-        }
         self.launchSurveyV2("test_textfield")
         form_data = {"name-answer": "Joe Bloggs"}
         self.post(form_data)
-        mock_convert_answers_v2.return_value = mock_convert_answer_payload
+        mock_convert_answers_v2.return_value = {}
         self.post(url="/flush?token=" + self.token_generator.generate_token(self.get_payload()))
         self.assertStatusOK()
         mock_convert_answers_v2.assert_called_once()
