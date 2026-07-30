@@ -27,18 +27,15 @@ TOP_LEVEL_METADATA_KEYS = [
     "schema_name",
     "schema_url",
     "channel",
-    "region_code",
     "roles",
 ]
 
 
 @dataclass(frozen=True)
-class SurveyMetadata:
-    data: ImmutableDict
-    receipting_keys: tuple | None = None
-
-    def __getitem__(self, key: str) -> Any:
-        return self.data.get(key)
+class SchemaSelector:
+    survey: str
+    form_type: str
+    region_code: str
 
 
 @dataclass(frozen=True)
@@ -49,12 +46,12 @@ class MetadataProxy:
     collection_exercise_sid: str
     response_id: str
     response_expires_at: datetime
-    survey_metadata: SurveyMetadata | None = None
+    survey_metadata: ImmutableDict | None = None
     schema_url: str | None = None
     schema_name: str | None = None
+    schema: SchemaSelector | None = None
     language_code: str | None = None
     channel: str | None = None
-    region_code: str | None = None
     version: AuthPayloadVersion | None = None
     roles: list | None = None
 
@@ -69,16 +66,16 @@ class MetadataProxy:
         _metadata = deepcopy(dict(metadata))
         version = AuthPayloadVersion(_metadata.pop("version")) if "version" in _metadata else None
 
-        survey_metadata = None
-        if serialized_metadata := cls.serialize(_metadata.pop("survey_metadata", {})):
-            survey_metadata = SurveyMetadata(**serialized_metadata)
+        schema = None
+        if serialized_schema := cls.serialize(_metadata.pop("schema", {})):
+            schema = SchemaSelector(**serialized_schema)
 
         top_level_data = {key: _metadata.pop(key, None) for key in TOP_LEVEL_METADATA_KEYS}
 
         return cls(
             **top_level_data,
             version=version,
-            survey_metadata=survey_metadata,
+            schema=schema,
         )
 
     @classmethod

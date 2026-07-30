@@ -36,22 +36,10 @@ class Data(Schema, StripWhitespaceMixin):
     pass
 
 
-class SurveyMetadata(Schema, StripWhitespaceMixin):
-    data = fields.Nested(Data, unknown=INCLUDE, validate=validate.Length(min=1))
-    receipting_keys = fields.List(fields.String)
-
-    @validates_schema
-    def validate_receipting_keys(  # pylint: disable=no-self-use, unused-argument
-        self, data: Mapping, **kwargs: Any
-    ) -> None:
-        if data and (receipting_keys := data.get("receipting_keys", {})):
-            missing_receipting_keys = [
-                receipting_key for receipting_key in receipting_keys if receipting_key not in data.get("data", {})
-            ]
-
-            if missing_receipting_keys:
-                receipting_keys_error_message = f"Receipting keys: {missing_receipting_keys} not set in Survey Metadata"
-                raise ValidationError(receipting_keys_error_message)
+class SchemaSelector(Schema, StripWhitespaceMixin):
+    survey = VALIDATORS["string"](required=False)
+    form_type = VALIDATORS["string"](required=False)
+    region_code = VALIDATORS["string"](required=False, validate=RegionCode())
 
 
 def validate_response_expires_at(expires_at: str) -> None:
@@ -78,23 +66,23 @@ class RunnerMetadataSchema(Schema, StripWhitespaceMixin):
     language_code = VALIDATORS["string"](required=False)
     channel = VALIDATORS["string"](required=False, validate=validate.Length(min=1))
     response_expires_at = VALIDATORS["iso_8601_date_string"](
-        required=True,
+        required=False,
         validate=validate_response_expires_at,
     )
-    region_code = VALIDATORS["string"](required=False, validate=RegionCode())
 
     roles = fields.List(fields.String(), required=False)
-    survey_metadata = fields.Nested(SurveyMetadata, required=False)
+    schema = fields.Nested(SchemaSelector, required=False)
+    survey_metadata = fields.Nested(Data, unknown=INCLUDE, validate=validate.Length(min=1))
 
     @validates_schema
     def validate_schema_options(self, data: Mapping, **kwargs: Any) -> None:  # pylint: disable=unused-argument
         if data:
-            options = [option for option in ["schema_name", "schema_url"] if data.get(option)]
+            options = [option for option in ["schema_name", "schema_url", "schema"] if data.get(option)]
             if len(options) == 0:
                 raise ValidationError(self.METADATA_OPTION_ERROR_MESSAGE)
             if len(options) > 1:
                 metadata_combination_error_message = (
-                    "Only one of schema_name or schema_url should be specified "
+                    "Only one of schema_name, schema_url or schema should be specified "
                     f"in metadata, but {', '.join(options)} were provided"
                 )
                 raise ValidationError(metadata_combination_error_message)
