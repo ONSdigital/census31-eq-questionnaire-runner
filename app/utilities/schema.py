@@ -16,12 +16,19 @@ from app.utilities.request_session import get_retryable_session
 logger = get_logger()
 
 SCHEMA_DIR = "schemas"
-LANGUAGE_CODES = ("en", "cy")
+LANGUAGE_CODES = ("en", "cy", "ga", "eo")
 
 LANGUAGES_MAP = {
     "test_language": [["en", "cy"]],
-    "cris_0001": [["en", "cy"]],
-    "phm_0001": [["en", "cy"]],
+    "census_household_gb_wls": [["en", "cy"]],
+    "census_individual_gb_wls": [["en", "cy"]],
+    "census_communal_establishment_gb_wls": [["en", "cy"]],
+}
+
+CENSUS_FORM_TYPES = {
+    "H": "household",
+    "I": "individual",
+    "C": "communal_establishment",
 }
 
 SCHEMA_REQUEST_BACKOFF_FACTOR = 0.2
@@ -98,7 +105,11 @@ def get_allowed_languages(schema_name: str | None, launch_language: str) -> list
 
 
 def load_schema_from_metadata(metadata: MetadataProxy, *, language_code: str | None) -> QuestionnaireSchema:
-    if schema_url := metadata.schema_url:
+    if schema := metadata.schema:
+        schema_name = get_schema_name_from_census_params(schema.survey, schema.form_type, schema.region_code)
+        return load_schema_from_name(schema_name, language_code=language_code)
+
+    elif schema_url := metadata.schema_url:
         return load_schema_from_url(
             url=schema_url,
             language_code=language_code,
@@ -128,6 +139,14 @@ def get_schema_name_from_params(eq_id: str | None, form_type: str | None) -> str
     return f"{eq_id}_{form_type}"
 
 
+def get_schema_name_from_census_params(survey, form_type, region_code):
+    form_type_transformed = CENSUS_FORM_TYPES.get(form_type, "")
+    region_code_transformed = region_code.lower().replace("-", "_")
+    survey_transformed = survey.lower()
+
+    return f"{survey_transformed}_{form_type_transformed}_{region_code_transformed}"
+
+
 def _load_schema_file(schema_name: str, language_code: str) -> Any:
     """
     Load a schema, optionally for a specified language.
@@ -148,7 +167,7 @@ def _load_schema_file(schema_name: str, language_code: str) -> Any:
             schema_name=schema_name,
             language_code=language_code,
         )
-        raise FileNotFoundError
+        raise FileNotFoundError("no schema file exists", schema_name)
 
     schema_path = get_schema_path(language_code, schema_name)
 

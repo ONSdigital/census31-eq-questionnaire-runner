@@ -76,7 +76,7 @@ def convert_answers_v2(
         payload["schema_url"] = metadata.schema_url
 
     if metadata.survey_metadata:
-        payload["survey_metadata"].update(metadata.survey_metadata.data)
+        payload["survey_metadata"].update(metadata.survey_metadata)
 
     payload["data"] = get_payload_data(
         data_stores=data_stores,

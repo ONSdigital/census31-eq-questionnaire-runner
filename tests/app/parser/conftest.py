@@ -32,7 +32,7 @@ def get_metadata_full():
 
     metadata = _fake_metadata_runner_v2()
 
-    metadata["survey_metadata"]["data"] = fake_survey_metadata_claims
+    metadata["survey_metadata"] = fake_survey_metadata_claims
 
     return metadata
 
@@ -85,8 +85,7 @@ def fake_metadata_full_v2_census():
 
     metadata = _fake_metadata_runner_v2()
 
-    metadata["survey_metadata"]["data"] = fake_survey_metadata_claims
-    metadata["survey_metadata"]["receipting_keys"] = ["qid"]
+    metadata["survey_metadata"] = fake_survey_metadata_claims
 
     return metadata
 

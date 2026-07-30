@@ -5,7 +5,6 @@ from flask import current_app
 from flask import session as cookie_session
 from sdc.crypto.encrypter import encrypt
 
-from app.authentication.auth_payload_versions import AuthPayloadVersion
 from app.data_models import QuestionnaireStore
 from app.data_models.metadata_proxy import MetadataProxy
 from app.globals import get_session_store
@@ -15,18 +14,6 @@ from app.questionnaire.routing_path import RoutingPath
 from app.submitter.converter_v2 import convert_answers_v2
 from app.submitter.submission_failed import SubmissionFailedException
 from app.utilities.json import json_dumps
-
-
-def get_receipting_metadata(metadata: MetadataProxy) -> dict:
-    return (
-        {item: metadata[item] for item in metadata.survey_metadata.receipting_keys}
-        if (
-            metadata.version is AuthPayloadVersion.V2
-            and metadata.survey_metadata
-            and metadata.survey_metadata.receipting_keys
-        )
-        else {}
-    )
 
 
 class SubmissionHandler:
@@ -59,14 +46,14 @@ class SubmissionHandler:
             KEY_PURPOSE_SUBMISSION,
         )
 
-        additional_metadata = get_receipting_metadata(self._metadata)
+#        additional_metadata = self._metadata.survey_metadata.get("questionnaire_id", {})
 
         # Type ignore: current_app can return empty Local Proxy. Similar to other files, this is ignored.
         submitted = current_app.eq["submitter"].send_message(  # type: ignore
             encrypted_message,
             case_id=self._metadata.case_id,
             tx_id=self._metadata.tx_id,
-            **additional_metadata,
+#            **additional_metadata,
         )
 
         if not submitted:

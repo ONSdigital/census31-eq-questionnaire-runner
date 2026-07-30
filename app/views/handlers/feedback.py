@@ -17,7 +17,6 @@ from app.keys import KEY_PURPOSE_SUBMISSION
 from app.questionnaire.questionnaire_schema import DEFAULT_LANGUAGE_CODE, QuestionnaireSchema
 from app.submitter import GCSFeedbackSubmitter, LogFeedbackSubmitter, converter_v2
 from app.views.contexts.feedback_form_context import build_feedback_context
-from app.views.handlers.submission import get_receipting_metadata
 
 
 class FeedbackNotEnabled(Exception):
@@ -97,7 +96,7 @@ class Feedback:
             feedback_message(), current_app.eq["key_store"], KEY_PURPOSE_SUBMISSION  # type: ignore
         )
 
-        additional_metadata = get_receipting_metadata(metadata)
+        additional_metadata = metadata.survey_metadata.get("questionnaire_id", {})
 
         feedback_metadata = FeedbackMetadata(tx_id=tx_id, case_id=case_id, **additional_metadata)
 
@@ -230,13 +229,14 @@ class FeedbackPayloadV2:
             "launch_language_code": self.metadata.language_code or DEFAULT_LANGUAGE_CODE,
             "submission_language_code": (self.submission_language_code or DEFAULT_LANGUAGE_CODE),
             "collection_exercise_sid": self.metadata.collection_exercise_sid,
+            # TODO: need to resolve schema name if schema selector params used
             "schema_name": self.metadata.schema_name,
             "case_id": self.case_id,
             "survey_metadata": {"survey_id": self.schema.json["survey_id"]},
         }
 
         if self.metadata.survey_metadata:
-            payload["survey_metadata"] |= self.metadata.survey_metadata.data
+            payload["survey_metadata"] |= self.metadata.survey_metadata
 
         optional_properties = converter_v2.get_optional_payload_properties(self.metadata, self.response_metadata)
 

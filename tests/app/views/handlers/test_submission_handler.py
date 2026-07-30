@@ -92,7 +92,6 @@ def test_submission_payload_structure_v2(app, submission_payload_session_store, 
         "submitted_at": datetime.now(timezone.utc).isoformat(),
         "launch_language_code": "en",
         "channel": "H",
-        "region_code": "GB_WLS",
         "survey_metadata": {
             "period_id": "2016-02-01",
             "period_str": "2016-01-01",

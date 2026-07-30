@@ -22,7 +22,6 @@ from app.submitter.submission_failed import SubmissionFailedException
 from app.utilities.bind_context import bind_contextvars_schema_from_metadata
 from app.utilities.json import json_dumps
 from app.utilities.schema import load_schema_from_metadata
-from app.views.handlers.submission import get_receipting_metadata
 
 flush_blueprint = Blueprint("flush", __name__)
 
@@ -92,7 +91,7 @@ def _submit_data(user: User) -> bool:
 
         encrypted_message = encrypt(message, _get_keystore(), KEY_PURPOSE_SUBMISSION)
 
-        additional_metadata = get_receipting_metadata(metadata)
+        additional_metadata = metadata.survey_metadata.get("questionnaire_id", {})
 
         # Type ignore: Instance attribute 'eq' is a dict with key "submitter"
         # with value of type GCSSubmitter or LogSubmitter

@@ -62,12 +62,8 @@ def login() -> Response:
 
     validate_jti(decrypted_token)
 
-    _data = (
-        survey_metadata.get("data", {})
-        if (survey_metadata := decrypted_token.get("survey_metadata"))
-        else decrypted_token
-    )
-    ru_ref, qid = _data.get("ru_ref"), _data.get("qid")
+    questionnaire_id = decrypted_token.get("survey_metadata", {}).get("questionnaire_id")
+    # TODO: log schema name derived from census schema selection claims
 
     logger_args = {
         key: value
@@ -76,8 +72,7 @@ def login() -> Response:
             "case_id": decrypted_token.get("case_id"),
             "schema_name": decrypted_token.get("schema_name"),
             "schema_url": decrypted_token.get("schema_url"),
-            "ru_ref": ru_ref,
-            "qid": qid,
+            "questionnaire_id": questionnaire_id,
         }.items()
         if value
     }
@@ -92,7 +87,7 @@ def login() -> Response:
 
     questionnaire_claims = get_questionnaire_claims(decrypted_token=decrypted_token, schema_metadata=schema_metadata)
 
-    runner_claims["survey_metadata"]["data"] = questionnaire_claims
+    runner_claims["survey_metadata"] = questionnaire_claims
 
     logger.info("decrypted token and parsed metadata")
 
@@ -195,7 +190,7 @@ def get_runner_claims(decrypted_token: Mapping[str, Any]) -> dict:
 def get_questionnaire_claims(decrypted_token: Mapping, schema_metadata: Iterable[Mapping[str, str]]) -> dict:
 
     try:
-        claims = decrypted_token.get("survey_metadata", {}).get("data", {})
+        claims = decrypted_token.get("survey_metadata")
         return validate_questionnaire_claims(claims, schema_metadata, unknown=INCLUDE)
 
     except ValidationError as e:
