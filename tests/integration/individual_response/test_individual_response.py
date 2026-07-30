@@ -20,7 +20,7 @@ class IndividualResponseTestCase(IntegrationTestCase):
 
         super().setUp()
 
-        self.launchSurveyV2(
+        self.launchSurvey(
             schema_name="test_individual_response",
             region_code="GB-ENG",
         )
@@ -139,7 +139,7 @@ class IndividualResponseTestCase(IntegrationTestCase):
 class TestIndividualResponseOnHubDisabled(IndividualResponseTestCase):
     def setUp(self):
         super().setUp()
-        self.launchSurveyV2(schema_name="test_individual_response_on_hub_disabled", region_code="GB-ENG")
+        self.launchSurvey(schema_name="test_individual_response_on_hub_disabled", region_code="GB-ENG")
 
     def test_show_on_hub_false(self):
         self._add_household_no_primary()

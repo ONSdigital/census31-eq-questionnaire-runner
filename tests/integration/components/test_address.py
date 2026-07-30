@@ -6,7 +6,7 @@ class TestAddressFields(IntegrationTestCase):
     def setUp(self):
         super().setUp()
         # Given
-        self.launchSurveyV2(schema_name="test_address")
+        self.launchSurvey(schema_name="test_address")
 
     def test_mandatory_address_line_1_is_mandatory(self):
         # When
@@ -66,7 +66,7 @@ class TestLookupAddressFields(IntegrationTestCase):
     def setUp(self):
         super().setUp()
         # Given
-        self.launchSurveyV2(schema_name="test_address_lookups")
+        self.launchSurvey(schema_name="test_address_lookups")
 
     def test_address_fields_exist(self):
         # Then

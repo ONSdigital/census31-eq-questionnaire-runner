@@ -497,7 +497,7 @@ def test_resolve_metadata_source_with_no_metadata_raises_exception():
         ("language_code", None),
     ],
 )
-def test_metadata_source_v2_metadata_structure(metadata_identifier, expected_result):
+def test_metadata_source_metadata_structure(metadata_identifier, expected_result):
     metadata = get_metadata(
         extra_metadata={
             "region_code": "GB-ENG",
