@@ -1,0 +1,4 @@
+# Dockerfile No HEALTHCHECK defined - The healthcheck is not straightforward as
+# there is no shell or curl in a distroless container; and it would only be used
+# locally as Google Cloud Run uses external health checks.
+DS-0026

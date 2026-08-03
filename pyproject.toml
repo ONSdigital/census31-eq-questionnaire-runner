@@ -65,7 +65,7 @@ google-cloud-datastore = "^2.19.0"
 google-cloud-pubsub = "^2.23.0"
 google-cloud-storage = "^3.1.0"
 google-cloud-tasks = "^2.16.3"
-gunicorn = "^26.0.0"
+gunicorn = {version = "^26.0.0", extras = ["gevent"]}
 htmlmin2 = "^0.1.13"
 jsonpointer = "^3.0"
 marshmallow = "^4.3.0"
