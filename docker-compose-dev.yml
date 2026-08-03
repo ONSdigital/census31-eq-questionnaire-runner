@@ -26,6 +26,22 @@ services:
     ports:
       - "8000:8000"
 
+  eq-questionnaire-runner:
+    image: docker.io/library/eq-runner:distroless
+    env_file:
+      - .development.env
+    environment:
+      DATASTORE_EMULATOR_HOST: datastore:8432
+      EQ_REDIS_HOST: "redis"
+    restart: always
+    depends_on:
+      - datastore
+      - redis
+    networks:
+      - eq-env
+    ports:
+      - "5000:5000"
+
 networks:
   eq-env:
     driver: bridge

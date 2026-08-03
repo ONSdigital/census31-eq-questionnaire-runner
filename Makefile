@@ -126,3 +126,7 @@ megalint-apply:
 
 clean-megalint:
 	rm -rf megalinter-reports
+
+.PHONY: build-distroless
+build-distroless:
+	docker build --file Dockerfile.distroless --tag eq-runner:distroless . --load

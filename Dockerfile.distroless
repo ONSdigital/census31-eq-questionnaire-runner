@@ -1,0 +1,98 @@
+# syntax=docker/dockerfile:1
+
+# ---- Builder stage ----
+# Installs all build tools, Python dependencies, and compiled assets.
+# None of these build-time tools are present in the final image.
+FROM python:3.13-slim-bookworm AS builder
+
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+        curl=7.88.1-10+deb12u* \
+        unzip=6.0-28 \
+        build-essential=12.9 \
+        jq=1.6-2.1+deb12u* \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /runner
+
+# Copy lockfiles first so dependency layers are cached independently of source changes
+COPY pyproject.toml poetry.lock ./
+
+RUN pip install --no-cache-dir "poetry==2.1.2" && \
+    poetry config virtualenvs.create false && \
+    poetry install --only main --no-root
+
+# Copy the rest of the source and build static assets / translations
+COPY . .
+RUN make build
+
+# Strip build-only tools and cache before the layer is copied to the final image
+RUN rm -rf \
+        /usr/local/include \
+        /usr/local/lib/python3.13/site-packages/pip \
+        /usr/local/lib/python3.13/site-packages/pip-*.dist-info \
+        /usr/local/lib/python3.13/site-packages/virtualenv \
+        /usr/local/lib/python3.13/site-packages/virtualenv-*.dist-info \
+        /usr/local/lib/python3.13/site-packages/poetry \
+        /usr/local/lib/python3.13/site-packages/poetry-*.dist-info \
+        /usr/local/lib/python3.13/site-packages/dulwich \
+        /usr/local/lib/python3.13/site-packages/dulwich-*.dist-info \
+        /usr/local/lib/python3.13/site-packages/distlib \
+        /usr/local/lib/python3.13/site-packages/distlib-*.dist-info \
+        /usr/local/lib/python3.13/site-packages/cachecontrol \
+        /usr/local/lib/python3.13/site-packages/CacheControl-*.dist-info \
+        /usr/local/bin/pip* \
+        /usr/local/bin/poetry \
+        /usr/local/lib/python3.13/site-packages/zstandard/_cffi.cpython-*.so \
+        /usr/local/lib/python3.13/site-packages/gevent/tests \
+        /usr/local/lib/python3.13/site-packages/gevent/testing \
+    && find /usr/local/lib/python3.13/site-packages/babel/locale-data \
+        -name "*.dat" \
+        ! -name "root.dat" \
+        ! -name "en.dat" ! -name "en_*.dat" \
+        ! -name "cy.dat" ! -name "cy_*.dat" \
+        ! -name "ga.dat" ! -name "ga_*.dat" \
+        ! -name "eo.dat" ! -name "eo_*.dat" \
+        -delete \
+    && find /usr/local/lib/python3.13 -type d -name "__pycache__" -exec rm -rf {} + 2>/dev/null; \
+       find /usr/local/lib/python3.13 -name "*.pyc" -delete
+
+# ---- Runtime stage ----
+# Distroless base provides glibc, libssl and CA certificates but no shell,
+# package manager, or other OS tooling, reducing the attack surface significantly.
+FROM gcr.io/distroless/python3-debian12
+
+# Copy the entire Python installation (interpreter, stdlib, site-packages, entry-point scripts)
+COPY --from=builder /usr/local /usr/local
+
+WORKDIR /runner
+
+# Copy only the files required to run the application
+COPY --from=builder /runner/application.py ./application.py
+COPY --from=builder /runner/gunicorn_config.py ./gunicorn_config.py
+COPY --from=builder /runner/dev-secrets.yml ./dev-secrets.yml
+COPY --from=builder /runner/dev-keys.yml ./dev-keys.yml
+COPY --from=builder /runner/app ./app
+COPY --from=builder /runner/templates ./templates
+COPY --from=builder /runner/schemas ./schemas
+COPY --from=builder /runner/eq_questionnaire_runner ./eq_questionnaire_runner
+
+ENV WEB_SERVER_TYPE=gunicorn-async
+ENV WEB_SERVER_WORKERS=3
+ENV WEB_SERVER_THREADS=10
+ENV WEB_SERVER_UWSGI_ASYNC_CORES=10
+ENV HTTP_KEEP_ALIVE=2
+ENV EQ_SECRETS_FILE=dev-secrets.yml
+ENV EQ_KEYS_FILE=dev-keys.yml
+# GUNICORN_CMD_ARGS is read natively by gunicorn as additional CLI arguments
+ENV GUNICORN_CMD_ARGS="-c gunicorn_config.py"
+
+EXPOSE 5000
+
+# uid 65532 = "nonroot" in distroless base images
+USER nonroot
+
+# run_app.sh cannot be used here (no shell in distroless); gunicorn-async is
+# the default WEB_SERVER_TYPE and is invoked directly.
+ENTRYPOINT ["/usr/local/bin/gunicorn", "application:application", \
+    "--worker-class", "gevent", "--timeout", "0"]
