@@ -52,7 +52,7 @@ def get_currency_symbol(currency: str = "GBP") -> str:
 
 
 @blueprint.app_template_filter()
-def format_percentage(value: float | Decimal) -> str:
+def format_percentage(value: str | float | Decimal) -> str:
     return f"{value}%"
 
 
