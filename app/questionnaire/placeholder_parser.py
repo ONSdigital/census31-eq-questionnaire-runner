@@ -16,7 +16,7 @@ from app.questionnaire.questionnaire_schema import (
     TRANSFORMS_REQUIRING_UNRESOLVED_ARGUMENTS,
 )
 from app.questionnaire.value_source_resolver import ValueSourceEscapedTypes, ValueSourceResolver, ValueSourceTypes
-from app.utilities.mappings import get_flattened_mapping_values, get_values_for_key
+from app.utilities.mappings import get_flattened_mapping_values
 from app.utilities.types import LocationType, SectionKey
 
 if TYPE_CHECKING:
@@ -97,9 +97,6 @@ class PlaceholderParser:
         )
 
     def _parse_placeholder(self, placeholder: Mapping) -> Any:
-        if self._placeholder_preview_mode and not self._all_value_sources_metadata(placeholder):
-            return f'{{{placeholder["placeholder"]}}}'
-
         try:
             return self._parse_transforms(placeholder["transforms"])
         except KeyError:
@@ -154,11 +151,6 @@ class PlaceholderParser:
             ignore_keys=["when"],
             schema=self._schema,
         )
-
-    @staticmethod
-    def _all_value_sources_metadata(placeholder: Mapping) -> bool:
-        sources = get_values_for_key("source", data=placeholder)
-        return all(source == "metadata" for source in sources)
 
     def _get_value_source_resolver_for_transform(self, transform: Mapping) -> ValueSourceResolver:
         if self._location and transform["transform"] in TRANSFORMS_REQUIRING_ROUTING_PATH:

@@ -81,7 +81,6 @@ updates:
           - "itsdangerous"
           - "simplejson"
           - "markupsafe"
-          - "pdfkit"
           - "ordered-set"
           - "cachetools"
           - "gevent"

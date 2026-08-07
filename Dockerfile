@@ -9,7 +9,6 @@ RUN apt-get update \
         libsnappy-dev=1.1.9-3 \
         build-essential=12.9 \
         jq=1.6-2.1+deb12u* \
-        wkhtmltopdf=0.12.6-2+b1 \
     && rm -rf /var/lib/apt/lists/*
 
 COPY . /runner
