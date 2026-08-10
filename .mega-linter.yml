@@ -18,11 +18,13 @@ ENABLE:
   - TYPESCRIPT
   - JSON
   - MARKDOWN
+  - REPOSITORY
   - YAML
 
 DISABLE_LINTERS:
   - HTML_HTMLHINT # HTMLHint doesn't understand Jinja2 syntax
   - JAVASCRIPT_STANDARD # we just use eslint to lint the eslint config file
+  - REPOSITORY_GITLEAKS # deprecated; superseded by betterleaks which runs the same checks with higher accuracy
 
 # ESLint v10 flat-config workaround and ESLint plugin installs: install project deps before running MegaLinter via CI
 PRE_COMMANDS:
@@ -39,5 +41,12 @@ FLAVOR_SUGGESTIONS: false # Disables suggestions to use different MegaLinter fla
 
 ACTION_ZIZMOR_UNSECURED_ENV_VARIABLES:
   - GITHUB_TOKEN
+
+# kingfisher.yaml is not auto-discovered; must be passed explicitly
+REPOSITORY_KINGFISHER_ARGUMENTS: ["--config", "./kingfisher.yaml"]
+
+# Use .secretlintignore instead of .gitignore so project test key fixtures can be excluded
+# secretlint takes the last --secretlintignore value, so .secretlintignore overrides the default .gitignore
+REPOSITORY_SECRETLINT_ARGUMENTS: ["--secretlintignore", ".secretlintignore"]
 
 HTML_DJLINT_ARGUMENTS: ["--profile", "jinja"] # Configured to recognise and accept Jinja2 template syntax

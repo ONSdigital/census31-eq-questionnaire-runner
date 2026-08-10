@@ -1,0 +1,4 @@
+# CVE-2025-26240: pdfkit 1.0.0 from_string method allows command injection via
+# crafted input. No fix version exists upstream. Usage is restricted to
+# server-side PDF generation from trusted, schema-validated questionnaire data.
+CVE-2025-26240

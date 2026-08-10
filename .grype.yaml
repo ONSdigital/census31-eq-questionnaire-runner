@@ -1,0 +1,36 @@
+fail-on-severity: "high"
+
+ignore:
+  # Disputed and unwarranted CVE (MegaLinter default ignore)
+  # https://nvd.nist.gov/vuln/detail/CVE-2018-20225
+  - vulnerability: CVE-2018-20225
+
+  # Node.js binary CVEs: the detected binary (v24.x) belongs to the MegaLinter
+  # container environment, not this project. The project pins Node v22 via .nvmrc.
+  - package:
+      name: node
+      type: binary
+
+  # Go CVEs: this project has no Go code; findings are from Go-based MegaLinter
+  # tools (e.g. grype, trivy) built into the scanner container.
+  - vulnerability: GO-2026-5970
+    package:
+      type: go-module
+  - vulnerability: GO-2026-5856
+    package:
+      type: go-module
+  - vulnerability: GO-2026-4970
+    package:
+      type: go-module
+
+  # pdfkit: no upstream fix available; usage restricted to trusted server-side data
+  - vulnerability: GHSA-9g3x-6x24-vf9f
+    package:
+      name: pdfkit
+      type: python
+
+  # idna: already updated to >=3.15 in poetry.lock; belt-and-suspenders suppression
+  - vulnerability: GHSA-65pc-fj4g-8rjx
+    package:
+      name: idna
+      type: python

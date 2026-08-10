@@ -1,0 +1,12 @@
+filters:
+  exclude:
+    # Python virtualenv and npm packages contain test fixtures with intentional keys
+    - "**/.venv/**"
+    - "**/node_modules/**"
+    # Development keys for local environment setup
+    - "**/dev-keys.yml"
+    # Test JWT signing/encryption key fixtures
+    - "**/jwt-test-keys/**"
+    - "**/tests/app/authentication/__init__.py"
+    - "**/tests/app/submitter/__init__.py"
+    - "**/tests/functional/jwt_helper.ts"

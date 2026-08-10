@@ -1,0 +1,14 @@
+[[IgnoredVulns]]
+id = "PYSEC-2026-2860"
+ignoreUntil = 2027-01-01
+reason = "pdfkit CVE-2025-26240 - no upstream fix; usage restricted to trusted server-side data"
+
+[[IgnoredVulns]]
+id = "GHSA-9g3x-6x24-vf9f"
+ignoreUntil = 2027-01-01
+reason = "pdfkit CVE-2025-26240 - no upstream fix; usage restricted to trusted server-side data"
+
+[[IgnoredVulns]]
+id = "GHSA-w5hq-g745-h8pq"
+ignoreUntil = 2027-01-01
+reason = "uuid (dev) - no fix without major version break; node-jose@2.2.0 pins uuid@9 and has no maintained release"
