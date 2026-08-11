@@ -62,7 +62,7 @@ export default [
       quotes: [
         2,
         "single",
-        {
+        {never,
           avoidEscape: true,
           allowTemplateLiterals: true
         }
