@@ -30,6 +30,9 @@ DISABLE_LINTERS:
   - REPOSITORY_BETTERLEAKS # false positives on test key fixtures; secretlint + trufflehog cover the same ground
   - REPOSITORY_GITLEAKS # deprecated
   - REPOSITORY_GRYPE # CVE coverage overlaps trivy + osv-scanner; slowest of the three at ~90s
+  - REPOSITORY_TRUFFLEHOG # git history scanning not required; current code covered by secretlint
+  - REPOSITORY_SYFT # SBOM generation covered by trivy
+  - REPOSITORY_TRIVY_SBOM # redundant alongside trivy filesystem scan
 
 # ESLint v10 flat-config workaround and ESLint plugin installs: install project deps before running MegaLinter via CI
 PRE_COMMANDS:
