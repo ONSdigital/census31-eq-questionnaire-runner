@@ -24,7 +24,12 @@ ENABLE:
 DISABLE_LINTERS:
   - HTML_HTMLHINT # HTMLHint doesn't understand Jinja2 syntax
   - JAVASCRIPT_STANDARD # we just use eslint to lint the eslint config file
-  - REPOSITORY_GITLEAKS # deprecated; superseded by betterleaks which runs the same checks with higher accuracy
+  - TYPESCRIPT_STANDARD # overlaps entirely with eslint; broken in MegaLinter (resolver "node" not found)
+  - JSON_V8R # makes network calls to SchemaStore; no matches for questionnaire schemas; package.json covered by npm-package-json-lint
+  - YAML_V8R # makes network calls to SchemaStore; GitHub Actions workflows covered more thoroughly by actionlint
+  - REPOSITORY_BETTERLEAKS # false positives on test key fixtures; secretlint + trufflehog cover the same ground
+  - REPOSITORY_GITLEAKS # deprecated
+  - REPOSITORY_GRYPE # CVE coverage overlaps trivy + osv-scanner; slowest of the three at ~90s
 
 # ESLint v10 flat-config workaround and ESLint plugin installs: install project deps before running MegaLinter via CI
 PRE_COMMANDS:
