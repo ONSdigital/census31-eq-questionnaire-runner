@@ -1,4 +1,3 @@
-
 import pytest
 
 from app.data_models import CompletionStatus, QuestionnaireStore

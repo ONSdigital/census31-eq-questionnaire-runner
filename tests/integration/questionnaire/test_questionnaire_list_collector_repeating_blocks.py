@@ -3,7 +3,6 @@ from datetime import date
 from tests.integration.integration_test_case import IntegrationTestCase
 
 
-
 class TestQuestionnaireListCollectorRepeatingBlocks(IntegrationTestCase):
     def launch_repeating_blocks_test_survey(self):
         self.launchSurveyV2(schema_name="test_list_collector_repeating_blocks_section_summary")

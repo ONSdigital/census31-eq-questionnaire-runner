@@ -107,9 +107,7 @@ def test_update_dynamic_answers(
         mock_router,
         current_question,
     )
-    questionnaire_store_updater._list_store = ListStore(
-        [{"items": ["tUJzGV", "vhECeh"], "name": "supermarkets"}]
-    )
+    questionnaire_store_updater._list_store = ListStore([{"items": ["tUJzGV", "vhECeh"], "name": "supermarkets"}])
     questionnaire_store_updater.update_answers(form_data, list_item_id="vhECeh")
 
     assert mock_questionnaire_store.data_stores.answer_store == AnswerStore(
@@ -448,12 +446,7 @@ def test_update_relationship_question_completeness_no_relationship_collectors(
         mock_location, mock_empty_schema, mock_questionnaire_store, mock_router, None
     )
 
-    assert (
-        questionnaire_store_updater._update_relationship_question_completeness(
-            "test-relationship-collector"
-        )
-        is None
-    )
+    assert questionnaire_store_updater._update_relationship_question_completeness("test-relationship-collector") is None
 
 
 def test_update_same_name_items(

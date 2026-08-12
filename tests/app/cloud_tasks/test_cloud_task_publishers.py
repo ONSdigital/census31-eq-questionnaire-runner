@@ -21,9 +21,7 @@ def test_create_task(mocker, cloud_task_publisher):
         "__call__",
     )
     # Designate an appropriate return value for the call.
-    call.return_value = cloud_task_publisher._get_task(
-        body=BODY, function_name=FUNCTION_NAME
-    )
+    call.return_value = cloud_task_publisher._get_task(body=BODY, function_name=FUNCTION_NAME)
     cloud_task_publisher.create_task(
         body=BODY,
         queue_name=QUEUE_NAME,
@@ -36,9 +34,7 @@ def test_create_task(mocker, cloud_task_publisher):
     assert args[0] == CreateTaskRequest(
         mapping={
             "parent": f"projects/{PROJECT_ID}/locations/europe-west2/queues/test",
-            "task": cloud_task_publisher._get_task(
-                body=BODY, function_name=FUNCTION_NAME
-            ),
+            "task": cloud_task_publisher._get_task(body=BODY, function_name=FUNCTION_NAME),
         }
     )
 

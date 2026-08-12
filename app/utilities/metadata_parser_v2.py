@@ -23,9 +23,7 @@ VALIDATORS: Mapping[str, Callable] = {
 
 class StripWhitespaceMixin:
     @pre_load()
-    def strip_whitespace(
-        self, items: MutableMapping, **kwargs: Any
-    ) -> MutableMapping:
+    def strip_whitespace(self, items: MutableMapping, **kwargs: Any) -> MutableMapping:
         for key, value in items.items():
             if isinstance(value, str):
                 items[key] = value.strip()
@@ -41,9 +39,7 @@ class SurveyMetadata(Schema, StripWhitespaceMixin):
     receipting_keys = fields.List(fields.String)
 
     @validates_schema
-    def validate_receipting_keys(
-        self, data: Mapping, **kwargs: Any
-    ) -> None:
+    def validate_receipting_keys(self, data: Mapping, **kwargs: Any) -> None:
         if data and (receipting_keys := data.get("receipting_keys", {})):
             missing_receipting_keys = [
                 receipting_key for receipting_key in receipting_keys if receipting_key not in data.get("data", {})

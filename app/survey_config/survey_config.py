@@ -55,12 +55,8 @@ class SurveyConfig:
     ) -> list[dict] | None:
         return None
 
-    def get_footer_links(
-        self, cookie_has_theme: bool
-    ) -> list[dict] | None:
+    def get_footer_links(self, cookie_has_theme: bool) -> list[dict] | None:
         return None
 
-    def get_footer_legal_links(
-        self, cookie_has_theme: bool
-    ) -> list[dict] | None:
+    def get_footer_legal_links(self, cookie_has_theme: bool) -> list[dict] | None:
         return None

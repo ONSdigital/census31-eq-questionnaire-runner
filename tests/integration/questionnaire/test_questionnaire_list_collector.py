@@ -1,7 +1,6 @@
 from tests.integration.questionnaire import SUBMIT_URL_PATH, QuestionnaireTestCase
 
 
-
 class TestQuestionnaireListCollector(QuestionnaireTestCase):
     def get_add_someone_link(self):
         selector = "[data-qa='add-item-link']"

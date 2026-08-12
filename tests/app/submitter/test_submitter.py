@@ -168,9 +168,7 @@ def test_gcs_feedback_submitter_uploads_feedback(patch_gcs_client):
     assert feedback_upload is True
 
 
-def test_double_submission_passes_when_delete_operation_error(
-    patch_gcs_client, gcs_blob_delete_forbidden
-):
+def test_double_submission_passes_when_delete_operation_error(patch_gcs_client, gcs_blob_delete_forbidden):
     # Given
     gcs_submitter = GCSSubmitter(bucket_name="test_bucket")
 
@@ -182,9 +180,7 @@ def test_double_submission_passes_when_delete_operation_error(
     assert published
 
 
-def test_double_submission_is_forbidden_when_not_delete_operation_error(
-    patch_gcs_client, gcs_blob_create_forbidden
-):
+def test_double_submission_is_forbidden_when_not_delete_operation_error(patch_gcs_client, gcs_blob_create_forbidden):
     # Given
     gcs_submitter = GCSSubmitter(bucket_name="test_bucket")
 
