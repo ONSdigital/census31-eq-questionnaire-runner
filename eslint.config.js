@@ -62,14 +62,14 @@ export default [
       quotes: [
         2,
         "single",
-        {never,
+        {
           avoidEscape: true,
           allowTemplateLiterals: true
         }
       ],
       semi: [2, "never"],
       "comma-dangle": [2, "never"],
-      "space-before-function-paren": [2, "always"],
+      "space-before-function-paren": [2, "never"],
       "@typescript-eslint/no-unused-vars": 2,
       "@typescript-eslint/no-explicit-any": 0,
       "@typescript-eslint/no-useless-constructor": 2,

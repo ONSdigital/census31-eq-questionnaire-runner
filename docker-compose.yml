@@ -18,7 +18,7 @@ services:
       - ${RUNNER_ENV_FILE}
     environment:
       DATASTORE_EMULATOR_HOST: datastore:8432
-      EQ_REDIS_HOST: "redis"
+      EQ_REDIS_HOST: 'redis'
     restart: always
     depends_on:
       - datastore
@@ -26,7 +26,7 @@ services:
     networks:
       - eq-env
     ports:
-      - "5000:5000"
+      - '5000:5000'
 
   eq-questionnaire-launcher:
     image: europe-west2-docker.pkg.dev/ons-eq-ci/docker-images/eq-questionnaire-launcher:latest
@@ -39,7 +39,7 @@ services:
     networks:
       - eq-env
     ports:
-      - "8000:8000"
+      - '8000:8000'
 
 networks:
   eq-env:

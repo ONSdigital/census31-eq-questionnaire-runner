@@ -3,11 +3,11 @@ name: PR
 on:
   pull_request:
     branches:
-      - "main"
-      - "v3-census"
+      - 'main'
+      - 'v3-census'
 
 concurrency:
-  group: "${{ github.head_ref }}"
+  group: '${{ github.head_ref }}'
   cancel-in-progress: true
 
 permissions: {}
@@ -15,7 +15,7 @@ permissions: {}
 jobs:
   lint:
     permissions:
-      contents: "read"
+      contents: 'read'
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -45,7 +45,7 @@ jobs:
   test-unit:
     if: "!contains(github.event.pull_request.labels.*.name, 'skip-tests-unit')"
     permissions:
-      contents: "read"
+      contents: 'read'
     needs: [lint]
     runs-on: ubuntu-22.04
     env:
@@ -87,7 +87,7 @@ jobs:
         run: make test-unit
   validate-schemas:
     permissions:
-      contents: "read"
+      contents: 'read'
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -111,7 +111,7 @@ jobs:
   test-functional:
     if: "!contains(github.event.pull_request.labels.*.name, 'skip-tests-acceptance')"
     permissions:
-      contents: "read"
+      contents: 'read'
     needs: [lint]
     runs-on: ubuntu-22.04
     timeout-minutes: 35
@@ -120,14 +120,14 @@ jobs:
       matrix:
         # Keep worker count low in CI because project matrix already parallelizes at job level
         include:
-          - project: "components"
+          - project: 'components'
             max_instances: 1
           # but increase for timeout tests as most of the time is waiting
-          - project: "timeout_modal"
+          - project: 'timeout_modal'
             max_instances: 4
-          - project: "features"
+          - project: 'features'
             max_instances: 1
-          - project: "journeys"
+          - project: 'journeys'
             max_instances: 1
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -135,7 +135,7 @@ jobs:
           persist-credentials: false
       - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
-          node-version-file: ".nvmrc"
+          node-version-file: '.nvmrc'
       - id: python-version
         run: echo "value=$(cat .python-version)" >> "$GITHUB_OUTPUT"
       - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
@@ -204,7 +204,7 @@ jobs:
 
   required-gate:
     permissions:
-      contents: "read"
+      contents: 'read'
     runs-on: ubuntu-22.04
     if: always()
     needs: [lint, test-unit, validate-schemas, test-functional]

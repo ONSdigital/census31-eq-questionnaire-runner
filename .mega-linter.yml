@@ -50,10 +50,10 @@ ACTION_ZIZMOR_UNSECURED_ENV_VARIABLES:
   - GITHUB_TOKEN
 
 # kingfisher.yaml is not auto-discovered; must be passed explicitly
-REPOSITORY_KINGFISHER_ARGUMENTS: ["--config", "./kingfisher.yaml"]
+REPOSITORY_KINGFISHER_ARGUMENTS: ['--config', './kingfisher.yaml']
 
 # Use .secretlintignore instead of .gitignore so project test key fixtures can be excluded
 # secretlint takes the last --secretlintignore value, so .secretlintignore overrides the default .gitignore
-REPOSITORY_SECRETLINT_ARGUMENTS: ["--secretlintignore", ".secretlintignore"]
+REPOSITORY_SECRETLINT_ARGUMENTS: ['--secretlintignore', '.secretlintignore']
 
-HTML_DJLINT_ARGUMENTS: ["--profile", "jinja"] # Configured to recognise and accept Jinja2 template syntax
+HTML_DJLINT_ARGUMENTS: ['--profile', 'jinja'] # Configured to recognise and accept Jinja2 template syntax
