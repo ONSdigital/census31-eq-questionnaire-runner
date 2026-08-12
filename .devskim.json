@@ -1,4 +1,13 @@
 {
     "IgnoreRuleIds": ["DS162092", "DS176209"],
-    "Globs": ["**/.git/**", "**/megalinter-reports/**", "**/node_modules/**", "**/.venv/**", "**/templates/components/**", "**/tests/fixtures/blns.json"]
+    "Globs": [
+        "**/.git/**",
+        "**/megalinter-reports/**",
+        "**/node_modules/**",
+        "**/.venv/**",
+        "**/templates/components/**",
+        "**/tests/**",
+        "**/dev-keys.yml",
+        "**/docker-compose*.yml"
+    ]
 }
