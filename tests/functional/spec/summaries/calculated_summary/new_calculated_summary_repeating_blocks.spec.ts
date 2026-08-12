@@ -81,9 +81,7 @@ test.describe('Feature: Calculated Summary using Repeating Blocks', () => {
 
   test('Given I have a calculated summary using a single answer from a repeating block, When I reach the calculated summary page, Then I see the correct items and total', async () => {
     const calculatedSummaryCountPage = new CalculatedSummaryCountPage(page)
-    await expect(calculatedSummaryCountPage.calculatedSummaryTitle()).toContainText(
-      'We calculate the total journeys made per month to be 12. Is this correct?'
-    )
+    await expect(calculatedSummaryCountPage.calculatedSummaryTitle()).toContainText('We calculate the total journeys made per month to be 12. Is this correct?')
     await assertSummaryValues(page, ['10', '2', '12'])
     await expect(calculatedSummaryCountPage.summaryItems()).toContainText('Monthly journeys by Bus')
     await expect(calculatedSummaryCountPage.summaryItems()).toContainText('Monthly journeys by Plane')
@@ -120,9 +118,7 @@ test.describe('Feature: Calculated Summary using Repeating Blocks', () => {
     const calculatedSummarySpendingPage = new CalculatedSummarySpendingPage(page)
     await calculatedSummarySpendingPage.submit().click()
     await expect(page).toHaveURL(new RegExp(calculatedSummaryCountPage.pageName))
-    await expect(calculatedSummaryCountPage.calculatedSummaryTitle()).toContainText(
-      'We calculate the total journeys made per month to be 18. Is this correct?'
-    )
+    await expect(calculatedSummaryCountPage.calculatedSummaryTitle()).toContainText('We calculate the total journeys made per month to be 18. Is this correct?')
     await assertSummaryValues(page, ['10', '2', '6', '18'])
     await calculatedSummaryCountPage.previous().click()
   })
@@ -169,9 +165,7 @@ test.describe('Feature: Calculated Summary using Repeating Blocks', () => {
     await transportRepeatingBlock2Page.transportCount().fill('12')
     await transportRepeatingBlock2Page.submit().click()
     await expect(page).toHaveURL(new RegExp(calculatedSummaryCountPage.pageName))
-    await expect(calculatedSummaryCountPage.calculatedSummaryTitle()).toContainText(
-      'We calculate the total journeys made per month to be 24. Is this correct?'
-    )
+    await expect(calculatedSummaryCountPage.calculatedSummaryTitle()).toContainText('We calculate the total journeys made per month to be 24. Is this correct?')
     await assertSummaryValues(page, ['10', '2', '12', '24'])
     await calculatedSummaryCountPage.submit().click()
   })
@@ -199,9 +193,7 @@ test.describe('Feature: Calculated Summary using Repeating Blocks', () => {
     const calculatedSummarySpendingPage = new CalculatedSummarySpendingPage(page)
     await calculatedSummarySpendingPage.submit().click()
     await expect(page).toHaveURL(new RegExp(calculatedSummaryCountPage.pageName))
-    await expect(calculatedSummaryCountPage.calculatedSummaryTitle()).toContainText(
-      'We calculate the total journeys made per month to be 14. Is this correct?'
-    )
+    await expect(calculatedSummaryCountPage.calculatedSummaryTitle()).toContainText('We calculate the total journeys made per month to be 14. Is this correct?')
     await assertSummaryValues(page, ['2', '12', '14'])
   })
 

@@ -229,9 +229,7 @@ class TestCase {
       const percentageTotalPlaybackPage = new PercentageTotalPlaybackPage(page)
       const unitTotalPlaybackPage = new UnitTotalPlaybackPage(page)
       await unitTotalPlaybackPage.submit().click()
-      await expect(unitTotalPlaybackPage.calculatedSummaryTitle()).toHaveText(
-        'We calculate the total of percentage values entered to be 79%. Is this correct?'
-      )
+      await expect(unitTotalPlaybackPage.calculatedSummaryTitle()).toHaveText('We calculate the total of percentage values entered to be 79%. Is this correct?')
       await expect(unitTotalPlaybackPage.calculatedSummaryQuestion()).toHaveText('Grand total of previous values')
       await expect(unitTotalPlaybackPage.calculatedSummaryAnswer()).toHaveText('79%')
 
