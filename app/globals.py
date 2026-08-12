@@ -70,7 +70,6 @@ def create_session_store(
     session_timeout_in_seconds = get_session_timeout_in_seconds(g.schema)
     expires_at = datetime.now(tz=timezone.utc) + timedelta(seconds=session_timeout_in_seconds)
 
-    # pylint: disable=protected-access
     g._session_store = SessionStore(user_ik, pepper).create(eq_session_id, user_id, session_data, expires_at).save()
 
 

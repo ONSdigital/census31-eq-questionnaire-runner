@@ -19,7 +19,6 @@ from app.utilities.schema import load_schema_from_name
 from app.utilities.types import DependentSection, SectionKey
 
 
-# pylint: disable=too-many-locals, too-many-lines
 def test_save_answers_with_form_data(
     mock_location,
     mock_empty_schema,
@@ -108,7 +107,7 @@ def test_update_dynamic_answers(
         mock_router,
         current_question,
     )
-    questionnaire_store_updater._list_store = ListStore(  # pylint: disable=protected-access
+    questionnaire_store_updater._list_store = ListStore(
         [{"items": ["tUJzGV", "vhECeh"], "name": "supermarkets"}]
     )
     questionnaire_store_updater.update_answers(form_data, list_item_id="vhECeh")
@@ -450,7 +449,7 @@ def test_update_relationship_question_completeness_no_relationship_collectors(
     )
 
     assert (
-        questionnaire_store_updater._update_relationship_question_completeness(  # pylint: disable=protected-access
+        questionnaire_store_updater._update_relationship_question_completeness(
             "test-relationship-collector"
         )
         is None

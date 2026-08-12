@@ -16,7 +16,7 @@ from app.storage.dynamodb import Dynamodb
 from app.submitter.submitter import GCSFeedbackSubmitter, GCSSubmitter, LogSubmitter
 
 
-class TestCreateApp(unittest.TestCase):  # pylint: disable=too-many-public-methods
+class TestCreateApp(unittest.TestCase):
     def setUp(self):
         self._setting_overrides = {}
 
@@ -56,7 +56,7 @@ class TestCreateApp(unittest.TestCase):  # pylint: disable=too-many-public-metho
 
     # localisation may not be used but is currently attached...
     def test_adds_i18n_to_application(self):
-        babel = create_app(self._setting_overrides).babel  # pylint: disable=no-member
+        babel = create_app(self._setting_overrides).babel
         self.assertIsInstance(babel, Babel)
 
     def test_adds_logging_of_request_ids(self):

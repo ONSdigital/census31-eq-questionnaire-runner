@@ -121,7 +121,7 @@ def internal_server_error(exception: Exception) -> tuple[str, int]:
     try:
         log_exception(exception, 500)
         return _render_error_page(500)
-    except Exception:  # pylint:disable=broad-except
+    except Exception:
         logger.exception(
             "an error has occurred when rendering 500 error",
             url=request.url,

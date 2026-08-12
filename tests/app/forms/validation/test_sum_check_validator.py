@@ -75,7 +75,6 @@ def test_invalid_multiple_conditions(mock_form):
     assert "There are multiple conditions, but equals is not one of them. We only support <= and >=" == str(exc.value)
 
 
-# pylint: disable=protected-access
 def test_is_valid_raises_NotImplementedError():
     condition = "invalid_condition"
     total, target_total = 10.5, 10.5

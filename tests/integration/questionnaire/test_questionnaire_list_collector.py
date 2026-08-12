@@ -1,6 +1,5 @@
 from tests.integration.questionnaire import SUBMIT_URL_PATH, QuestionnaireTestCase
 
-# pylint: disable=too-many-public-methods
 
 
 class TestQuestionnaireListCollector(QuestionnaireTestCase):

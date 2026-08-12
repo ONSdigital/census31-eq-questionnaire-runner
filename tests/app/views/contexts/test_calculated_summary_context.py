@@ -10,7 +10,6 @@ from app.views.contexts.calculated_summary_context import CalculatedSummaryConte
 from tests.app.views.contexts import assert_summary_context
 
 
-# pylint: disable=too-many-locals
 @pytest.mark.usefixtures("app")
 @pytest.mark.parametrize(
     "block_id, locale, language, title, value, total_blocks, return_to_answer_id, skip_fourth",

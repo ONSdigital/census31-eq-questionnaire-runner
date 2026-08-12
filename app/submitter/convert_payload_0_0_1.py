@@ -15,7 +15,6 @@ from app.questionnaire.variants import choose_question_to_display
 MetadataType = MutableMapping[str, str | int | list]
 
 
-# pylint: disable=too-many-locals,too-many-nested-blocks
 def convert_answers_to_payload_0_0_1(
     *,
     data_stores: DataStores,
@@ -105,7 +104,8 @@ def _get_checkbox_answer_data(answer_store: AnswerStore, answer_schema: Mapping,
                 if detail_answer:
                     # Ignore mypy type because the answer type can be any non
                     # strings, but user_answer is expected to be a string.
-                    user_answer = detail_answer.value  # type: ignore
+                    qcodes_and_values.append((option.get("q_code"), detail_answer.value))  # type: ignore
+                    continue
 
             qcodes_and_values.append((option.get("q_code"), user_answer))
 

@@ -1,4 +1,3 @@
-# pylint: disable=too-many-lines
 
 from functools import cached_property
 

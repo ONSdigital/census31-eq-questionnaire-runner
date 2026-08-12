@@ -1,4 +1,3 @@
-# pylint: disable=unused-argument
 from datetime import datetime, timezone
 
 import pytest

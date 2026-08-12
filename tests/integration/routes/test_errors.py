@@ -11,7 +11,7 @@ BUSINESS_URL = ACCOUNT_SERVICE_BASE_URL
 SOCIAL_URL = ACCOUNT_SERVICE_BASE_URL_SOCIAL
 
 
-class TestErrors(IntegrationTestCase):  # pylint: disable=too-many-public-methods
+class TestErrors(IntegrationTestCase):
     example_payload = {
         "survey_metadata": {
             "data": {

@@ -267,13 +267,11 @@ NON_ITEM_ANSWERS_LIST_SECTION_SUMMARY_ADD_LINK_GETTER = Template(
 
 """
 )
-# pylint: disable=line-too-long
 NON_ITEM_ANSWERS_LIST_SECTION_SUMMARY_EDIT_LINK_GETTER = Template(
     r"""  ${list_name}ListEditLink(listItemInstance: number): ReturnType<Page["locator"]> { return this.locator(`a[data-qa="list-item-change-` + listItemInstance + `-link"]`); }
 
 """
 )
-# pylint: disable=line-too-long
 NON_ITEM_ANSWERS_LIST_SECTION_SUMMARY_REMOVE_LINK_GETTER = Template(
     r"""  ${list_name}ListRemoveLink(listItemInstance: number): ReturnType<Page["locator"]> { return this.locator(`a[data-qa="list-item-remove-` + listItemInstance + `-link"]`); }
 
@@ -365,7 +363,6 @@ def process_options(answer_id, options, page_spec, base_prefix):
             page_spec.write(ANSWER_GETTER.substitute(option_context))
 
 
-# pylint: disable=too-complex, too-many-branches
 def process_answer(answer, page_spec, long_names, page_name):
     answer_name = generate_pascal_case_from_id(answer["id"])
     answer_name = answer_name.replace(page_name, "")
@@ -550,7 +547,6 @@ def process_content(context, page_spec):
     page_spec.write(CONTENT_ITEM_GETTER.safe_substitute(context))
 
 
-# pylint: disable=too-many-locals
 def write_summary_spec(
     page_spec,
     section,
@@ -734,7 +730,6 @@ def build_and_get_base_page_context(
     return context
 
 
-# pylint: disable=too-many-branches,too-many-statements,too-many-locals,too-complex
 def process_block(block, dir_out, schema_data, spec_file, relative_require="..", page_filename=None):
     logger.debug("Processing Block: %s", block["id"])
 

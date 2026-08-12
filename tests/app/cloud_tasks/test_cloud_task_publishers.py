@@ -17,11 +17,11 @@ TRANSACTION_ID = str(uuid4())
 def test_create_task(mocker, cloud_task_publisher):
     # Mock the actual call within the gRPC stub, and fake the request.
     call = mocker.patch.object(
-        type(cloud_task_publisher._client.transport.create_task),  # pylint: disable=protected-access
+        type(cloud_task_publisher._client.transport.create_task),
         "__call__",
     )
     # Designate an appropriate return value for the call.
-    call.return_value = cloud_task_publisher._get_task(  # pylint: disable=protected-access
+    call.return_value = cloud_task_publisher._get_task(
         body=BODY, function_name=FUNCTION_NAME
     )
     cloud_task_publisher.create_task(
@@ -36,7 +36,7 @@ def test_create_task(mocker, cloud_task_publisher):
     assert args[0] == CreateTaskRequest(
         mapping={
             "parent": f"projects/{PROJECT_ID}/locations/europe-west2/queues/test",
-            "task": cloud_task_publisher._get_task(  # pylint: disable=protected-access
+            "task": cloud_task_publisher._get_task(
                 body=BODY, function_name=FUNCTION_NAME
             ),
         }
@@ -46,7 +46,7 @@ def test_create_task(mocker, cloud_task_publisher):
 def test_create_task_raises_exception_on_non_transient_error(mocker, cloud_task_publisher):
     mock_create_task = mocker.Mock()
     mock_create_task.side_effect = DeadlineExceeded("test")
-    cloud_task_publisher._client.create_task = mock_create_task  # pylint: disable=protected-access
+    cloud_task_publisher._client.create_task = mock_create_task
 
     with pytest.raises(CloudTaskCreationFailed):
         cloud_task_publisher.create_task(
@@ -60,7 +60,7 @@ def test_create_task_raises_exception_on_non_transient_error(mocker, cloud_task_
 def test_create_task_transient_error_retries(mocker, cloud_task_publisher):
     mock_create_task = mocker.Mock()
     mock_create_task.side_effect = [ServiceUnavailable("test"), Task()]
-    cloud_task_publisher._client.create_task = mock_create_task  # pylint: disable=protected-access
+    cloud_task_publisher._client.create_task = mock_create_task
     cloud_task_publisher.create_task(
         body=BODY,
         queue_name=QUEUE_NAME,

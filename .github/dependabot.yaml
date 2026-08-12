@@ -109,7 +109,6 @@ updates:
         dependency-type: "development"
         patterns:
           - "pytest*"
-          - "pylint*"
           - "types*"
           - "pep8"
           - "mock"

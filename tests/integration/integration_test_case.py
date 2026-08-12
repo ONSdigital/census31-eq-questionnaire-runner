@@ -60,7 +60,7 @@ KEYS_DICT = {
 }
 
 
-class IntegrationTestCase(unittest.TestCase):  # pylint: disable=too-many-public-methods
+class IntegrationTestCase(unittest.TestCase):
     def setUp(self):
         # Cache for requests
         self.last_url = None
