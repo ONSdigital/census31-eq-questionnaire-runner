@@ -104,7 +104,7 @@ def _get_checkbox_answer_data(answer_store: AnswerStore, answer_schema: Mapping,
                 if detail_answer:
                     # Ignore mypy type because the answer type can be any non
                     # strings, but user_answer is expected to be a string.
-                    qcodes_and_values.append((option.get("q_code"), detail_answer.value))  # type: ignore
+                    qcodes_and_values.append((option.get("q_code"), detail_answer.value))
                     continue
 
             qcodes_and_values.append((option.get("q_code"), user_answer))
@@ -112,7 +112,7 @@ def _get_checkbox_answer_data(answer_store: AnswerStore, answer_schema: Mapping,
     checkbox_answer_data: dict[str, str] = OrderedDict()
 
     if all(q_code is not None for (q_code, _) in qcodes_and_values):
-        checkbox_answer_data.update(qcodes_and_values)
+        checkbox_answer_data.update(qcodes_and_values)  # type: ignore[arg-type]
     else:
         checkbox_answer_data[answer_schema["q_code"]] = str([v for (_, v) in qcodes_and_values])
 
