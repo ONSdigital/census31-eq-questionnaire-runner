@@ -40,7 +40,6 @@ class PlaceholderParser:
         renderer: PlaceholderRenderer,
         list_item_id: str | None = None,
         location: LocationType | None = None,
-        placeholder_preview_mode: bool | None = False,
     ):
         self._transformer = PlaceholderTransforms(language, schema, renderer)
         self._placeholder_map: MutableMapping[str, ValueSourceEscapedTypes | ValueSourceTypes | None] = {}
@@ -48,7 +47,6 @@ class PlaceholderParser:
         self._list_item_id = list_item_id
         self._schema = schema
         self._location = location
-        self._placeholder_preview_mode = placeholder_preview_mode
 
         self._path_finder = pf.PathFinder(schema=self._schema, data_stores=self._data_stores)
 
