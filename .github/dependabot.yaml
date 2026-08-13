@@ -69,7 +69,6 @@ updates:
           - "structlog"
           - "ua-parser"
           - "blinker"
-          - "boto3"
           - "humanize"
           - "marshmallow"
           - "jsonpointer"
