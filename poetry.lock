@@ -1476,43 +1476,46 @@ protobuf = ">=6.33.5,<8.0.0"
 
 [[package]]
 name = "google-cloud-pubsub"
-version = "2.39.0"
+version = "2.39.1"
 description = "Google Cloud Pub/Sub API client library"
 optional = false
 python-versions = ">=3.10"
 groups = ["main"]
 files = [
-    {file = "google_cloud_pubsub-2.39.0-py3-none-any.whl", hash = "sha256:7210d691a46d7a66559696899ebe6eb731e63de29b624964b3be4dd2d12d3e19"},
-    {file = "google_cloud_pubsub-2.39.0.tar.gz", hash = "sha256:eed65e25f57f95bf3e02d96d7ee171688b23922471f9f21b5a91ed90e1282c0f"},
+    {file = "google_cloud_pubsub-2.39.1-py3-none-any.whl", hash = "sha256:b40347cff2df3c4b33747bfdf8a8d74942754c5a6752592acd51a20fec316b56"},
+    {file = "google_cloud_pubsub-2.39.1.tar.gz", hash = "sha256:dacead1fa0aca7b2015f1acc88d279cd4b12852087908f426fbecf71985940e8"},
 ]
 
 [package.dependencies]
-google-api-core = {version = ">=2.17.1,<3.0.0", extras = ["grpc"]}
+google-api-core = {version = ">=2.25.0,<3.0.0", extras = ["grpc"]}
 google-auth = ">=2.14.1,<2.24.0 || >2.24.0,<2.25.0 || >2.25.0,<3.0.0"
-grpc-google-iam-v1 = ">=0.14.0,<1.0.0"
+grpc-google-iam-v1 = ">=0.14.2,<1.0.0"
 grpcio = [
-    {version = ">=1.51.3,<2.0.0", markers = "python_version < \"3.14\""},
+    {version = ">=1.59.0,<2.0.0"},
     {version = ">=1.75.1,<2.0.0", markers = "python_version >= \"3.14\""},
 ]
-grpcio-status = ">=1.51.3"
+grpcio-status = [
+    {version = ">=1.59.0,<2.0.0"},
+    {version = ">=1.75.1,<2.0.0", markers = "python_version >= \"3.14\""},
+]
 opentelemetry-api = ">=1.27.0"
 opentelemetry-sdk = ">=1.27.0"
-proto-plus = {version = ">=1.25.0,<2.0.0", markers = "python_version >= \"3.13\""}
-protobuf = ">=4.25.8,<8.0.0"
+proto-plus = ">=1.26.1,<2.0.0"
+protobuf = ">=6.33.5,<8.0.0"
 
 [package.extras]
 libcst = ["libcst (>=0.3.10)"]
 
 [[package]]
 name = "google-cloud-storage"
-version = "3.13.0"
+version = "3.13.1"
 description = "Google Cloud Storage API client library"
 optional = false
 python-versions = ">=3.10"
 groups = ["main"]
 files = [
-    {file = "google_cloud_storage-3.13.0-py3-none-any.whl", hash = "sha256:648af3ef8a6acc674e1359d3c920c67eb89a7a5ab66b336bd3ac43fed6b5ab84"},
-    {file = "google_cloud_storage-3.13.0.tar.gz", hash = "sha256:d11d8706ea1520fba0f21043bcb7897caf7015d76ce1ad9a4f60237e4d7a9f6c"},
+    {file = "google_cloud_storage-3.13.1-py3-none-any.whl", hash = "sha256:98208de6c21e85cecd3eb44551894efff33d98365500e178867d4305854a770a"},
+    {file = "google_cloud_storage-3.13.1.tar.gz", hash = "sha256:a80bf8cac2794808aa61c50c5f769ecbbe2d10331bacd0d69d30e59b14b346b2"},
 ]
 
 [package.dependencies]
@@ -1524,33 +1527,33 @@ google-resumable-media = ">=2.7.2,<3.0.0"
 requests = ">=2.22.0,<3.0.0"
 
 [package.extras]
-grpc = ["google-api-core[grpc] (>=2.27.0,<3.0.0)", "grpc-google-iam-v1 (>=0.14.0,<1.0.0)", "grpcio (>=1.59.0,<2.0.0) ; python_version < \"3.14\"", "grpcio (>=1.75.1,<2.0.0) ; python_version >= \"3.14\"", "grpcio-status (>=1.59.0,<2.0.0) ; python_version < \"3.14\"", "grpcio-status (>=1.75.1,<2.0.0) ; python_version >= \"3.14\"", "proto-plus (>=1.22.3,<2.0.0) ; python_version < \"3.13\"", "proto-plus (>=1.25.0,<2.0.0) ; python_version >= \"3.13\"", "protobuf (>=4.25.8,<8.0.0)"]
-protobuf = ["protobuf (>=3.20.2,<7.0.0)"]
+grpc = ["google-api-core[grpc] (>=2.27.0,<3.0.0)", "grpc-google-iam-v1 (>=0.14.2,<1.0.0)", "grpcio (>=1.59.0,<2.0.0)", "grpcio (>=1.75.1,<2.0.0) ; python_version >= \"3.14\"", "grpcio-status (>=1.59.0,<2.0.0)", "grpcio-status (>=1.75.1,<2.0.0) ; python_version >= \"3.14\"", "proto-plus (>=1.26.1,<2.0.0)", "protobuf (>=6.33.5,<8.0.0)"]
+protobuf = ["protobuf (>=6.33.5,<8.0.0)"]
 testing = ["PyYAML", "black", "brotli", "coverage", "flake8", "google-cloud-iam", "google-cloud-kms", "google-cloud-pubsub", "google-cloud-testutils", "google-cloud-testutils", "mock", "numpy", "opentelemetry-sdk", "psutil", "py-cpuinfo", "pyopenssl", "pytest", "pytest-asyncio", "pytest-benchmark", "pytest-cov", "pytest-rerunfailures", "pytest-xdist"]
 tracing = ["opentelemetry-api (>=1.1.0,<2.0.0)"]
 
 [[package]]
 name = "google-cloud-tasks"
-version = "2.23.0"
+version = "2.24.0"
 description = "Google Cloud Tasks API client library"
 optional = false
 python-versions = ">=3.10"
 groups = ["main"]
 files = [
-    {file = "google_cloud_tasks-2.23.0-py3-none-any.whl", hash = "sha256:2a3e35c22b37947f829d62c50276a6f47c9ac1a789ec8ba0b646f31131b3c894"},
-    {file = "google_cloud_tasks-2.23.0.tar.gz", hash = "sha256:a6da2c114a4db5a59593eba64987a4bf6973a0f48b1a31a3d4acffb6f4c7beb9"},
+    {file = "google_cloud_tasks-2.24.0-py3-none-any.whl", hash = "sha256:1c82007a252d47efb4006eae5a5a0d9f6d375f917ab1c5cd80ce4a6f0ea4690d"},
+    {file = "google_cloud_tasks-2.24.0.tar.gz", hash = "sha256:aa4f8764e5b157cbab81af619cc4fd9f14ebece8b69e5394a657c328a8366228"},
 ]
 
 [package.dependencies]
-google-api-core = {version = ">=2.17.1,<3.0.0", extras = ["grpc"]}
+google-api-core = {version = ">=2.25.0,<3.0.0", extras = ["grpc"]}
 google-auth = ">=2.14.1,<2.24.0 || >2.24.0,<2.25.0 || >2.25.0,<3.0.0"
-grpc-google-iam-v1 = ">=0.14.0,<1.0.0"
+grpc-google-iam-v1 = ">=0.14.2,<1.0.0"
 grpcio = [
     {version = ">=1.59.0,<2.0.0", markers = "python_version < \"3.14\""},
     {version = ">=1.75.1,<2.0.0", markers = "python_version >= \"3.14\""},
 ]
-proto-plus = {version = ">=1.25.0,<2.0.0", markers = "python_version >= \"3.13\""}
-protobuf = ">=4.25.8,<8.0.0"
+proto-plus = ">=1.26.1,<2.0.0"
+protobuf = ">=6.33.5,<8.0.0"
 
 [[package]]
 name = "google-crc32c"
@@ -2280,14 +2283,14 @@ files = [
 
 [[package]]
 name = "marshmallow"
-version = "4.3.0"
+version = "4.3.1"
 description = "A lightweight library for converting complex datatypes to and from native Python datatypes."
 optional = false
 python-versions = ">=3.10"
 groups = ["main"]
 files = [
-    {file = "marshmallow-4.3.0-py3-none-any.whl", hash = "sha256:46c4fe6984707e3cbd485dfebbf0a59874f58d695aad05c1668d15e8c6e13b46"},
-    {file = "marshmallow-4.3.0.tar.gz", hash = "sha256:fb43c53b3fe240b8f6af37223d6ef1636f927ad9bea8ab323afad95dff090880"},
+    {file = "marshmallow-4.3.1-py3-none-any.whl", hash = "sha256:e65accfbe277546df92ed7996a678c90e063e9a7c2a2f5e03f7d0b90e3768c42"},
+    {file = "marshmallow-4.3.1.tar.gz", hash = "sha256:fb6b8048af08d4ab061610d5b7d3696a7e4c95337dbda880edb9f95812cabc20"},
 ]
 
 [[package]]
@@ -3397,14 +3400,14 @@ files = [
 
 [[package]]
 name = "sdc-cryptography"
-version = "1.3.0"
+version = "1.4.0"
 description = "A shared library for SDC services that use JWT with JWE"
 optional = false
 python-versions = "<4.0,>=3.10"
 groups = ["main"]
 files = [
-    {file = "sdc_cryptography-1.3.0-py3-none-any.whl", hash = "sha256:73c216da9ec62eb8e4dc37db0a03a0821c1ef4c16d88895177feab97110b4b35"},
-    {file = "sdc_cryptography-1.3.0.tar.gz", hash = "sha256:2b89b5414dffd4a498cb5c50351eb3f976e899f521eec990151269b4f6331dbd"},
+    {file = "sdc_cryptography-1.4.0-py3-none-any.whl", hash = "sha256:4bf97d06888fd4e3e5daf5b40ca15234eb085cccf201c5114ba1584e6b078076"},
+    {file = "sdc_cryptography-1.4.0.tar.gz", hash = "sha256:2d331477e3de3336d5cc5a3e4b7bc282eeae20a9c74fb77321b5da8371493e75"},
 ]
 
 [package.dependencies]
