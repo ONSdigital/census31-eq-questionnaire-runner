@@ -330,45 +330,31 @@ msgstr "Mae cod mynediad unigol wedi cael ei anfon drwy'r post"
 msgid "An individual access code has been sent by text"
 msgstr "Mae cod mynediad unigol wedi cael ei anfon drwy neges destun"
 
-#: app/survey_config/business_config.py:59
 #: app/survey_config/census_config.py:33 app/survey_config/census_config.py:89
 #: app/survey_config/census_config.py:154
 msgid "Help"
 msgstr "Help"
 
-#: app/survey_config/business_config.py:73
-msgid "My account"
-msgstr "Fy nghyfrif"
-
-#: app/survey_config/business_config.py:78
-msgid "Sign out"
-msgstr "Allgofnodi"
-
-#: app/survey_config/business_config.py:88
 #: app/survey_config/census_survey_config.py:39
 msgid "What we do"
 msgstr "Beth rydym yn ei wneud"
 
-#: app/survey_config/business_config.py:92
 #: app/survey_config/census_config.py:40 app/survey_config/census_config.py:97
 #: app/survey_config/census_config.py:162
 #: app/survey_config/census_survey_config.py:43
 msgid "Contact us"
 msgstr "Cysylltu â ni"
 
-#: app/survey_config/business_config.py:97
 #: app/survey_config/census_survey_config.py:48
 msgid "Accessibility"
 msgstr "Hygyrchedd"
 
-#: app/survey_config/business_config.py:107
 #: app/survey_config/census_config.py:61 app/survey_config/census_config.py:117
 #: app/survey_config/census_config.py:171
 #: app/survey_config/census_survey_config.py:58
 msgid "Cookies"
 msgstr "Cwcis"
 
-#: app/survey_config/business_config.py:109
 #: app/survey_config/census_config.py:67 app/survey_config/census_config.py:123
 #: app/survey_config/census_config.py:177
 #: app/survey_config/census_survey_config.py:60

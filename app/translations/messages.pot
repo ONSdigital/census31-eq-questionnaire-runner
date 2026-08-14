@@ -329,39 +329,22 @@ msgstr ""
 msgid "An individual access code has been sent by text"
 msgstr ""
 
-#: app/survey_config/business_config.py:58
-msgid "Help"
-msgstr ""
-
-#: app/survey_config/business_config.py:70
-msgid "My account"
-msgstr ""
-
-#: app/survey_config/business_config.py:75
-msgid "Sign out"
-msgstr ""
-
-#: app/survey_config/business_config.py:85
 #: app/survey_config/census_survey_config.py:37
 msgid "What we do"
 msgstr ""
 
-#: app/survey_config/business_config.py:88
 #: app/survey_config/census_survey_config.py:40
 msgid "Contact us"
 msgstr ""
 
-#: app/survey_config/business_config.py:92
 #: app/survey_config/census_survey_config.py:44
 msgid "Accessibility"
 msgstr ""
 
-#: app/survey_config/business_config.py:102
 #: app/survey_config/census_survey_config.py:54
 msgid "Cookies"
 msgstr ""
 
-#: app/survey_config/business_config.py:104
 #: app/survey_config/census_survey_config.py:56
 msgid "Privacy and data protection"
 msgstr ""
