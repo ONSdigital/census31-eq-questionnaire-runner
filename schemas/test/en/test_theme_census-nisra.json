@@ -4,23 +4,19 @@
     "schema_version": "0.0.1",
     "data_version": "0.0.3",
     "survey_id": "999",
-    "title": "Test Theme DBT-DSIT-NI",
-    "theme": "dbt-dsit-ni",
-    "description": "A questionnaire to demo the DBT-DSIT-NI survey theme",
+    "title": "Test Theme Census NISRA",
+    "theme": "census-nisra",
+    "description": "A questionnaire to demo the census NISRA survey theme",
     "metadata": [
         {
-            "name": "user_id",
-            "type": "string"
-        },
-        {
-            "name": "period_id",
-            "type": "string"
-        },
-        {
-            "name": "ru_name",
+            "name": "qid",
             "type": "string"
         }
     ],
+    "post_submission": {
+        "view_response": true,
+        "feedback": true
+    },
     "questionnaire_flow": {
         "type": "Linear",
         "options": {
@@ -67,7 +63,7 @@
                         }
                     ],
                     "id": "group",
-                    "title": "DBT-DSIT-NI Theme Test"
+                    "title": "Census NISRA Theme Test"
                 }
             ]
         }
