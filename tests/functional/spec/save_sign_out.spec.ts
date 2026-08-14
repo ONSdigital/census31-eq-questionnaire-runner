@@ -80,13 +80,13 @@ test.describe('Save sign out / Exit', () => {
     await expect(page).toHaveURL(/thank-you/)
   })
 
-  test('Given I have started a social questionnaire, When I select save and sign out, Then I am redirected to the signed out page and the correct access code link is shown', async ({
+  test('Given I have started a census questionnaire, When I select save and sign out, Then I am redirected to the signed out page and the correct access code link is shown', async ({
     page,
     openQuestionnaire
   }) => {
     const submitPage = new SubmitPage(page)
     const resumeSurveyLink = page.locator('main a[href*="/en/start"]')
-    await openQuestionnaire('test_theme_social.json', { theme: 'social' })
+    await openQuestionnaire('test_theme_census.json', { theme: 'census' })
     await submitPage.saveSignOut().click()
     await expect(page).toHaveURL(/\/signed-out/)
     await expect(page.locator('#main-content')).toContainText('Your progress has been saved')

@@ -4,9 +4,9 @@
     "schema_version": "0.0.1",
     "data_version": "0.0.3",
     "survey_id": "999",
-    "title": "Test Theme Social",
-    "theme": "social",
-    "description": "A questionnaire to demo the social survey theme",
+    "title": "Test Theme Census",
+    "theme": "census",
+    "description": "A questionnaire to demo the census survey theme",
     "metadata": [
         {
             "name": "qid",
@@ -63,7 +63,7 @@
                         }
                     ],
                     "id": "group",
-                    "title": "Social Theme Test"
+                    "title": "Census Theme Test"
                 }
             ]
         }

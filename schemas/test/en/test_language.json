@@ -5,7 +5,7 @@
     "data_version": "0.0.3",
     "survey_id": "999",
     "title": "Test Language",
-    "theme": "social",
+    "theme": "census",
     "description": "A questionnaire to demonstrate language switching",
     "metadata": [
         {

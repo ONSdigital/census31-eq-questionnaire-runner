@@ -2,7 +2,7 @@ from unittest import mock
 
 from app.authentication.authenticator import decrypt_token
 from tests.integration.app_context_test_case import AppContextTestCase
-from tests.integration.create_token import PAYLOAD_V2_BUSINESS, PAYLOAD_V2_SOCIAL
+from tests.integration.create_token import PAYLOAD_V2_CENSUS
 from tests.integration.integration_test_case import IntegrationTestCase
 
 EXPECTED_TOKEN_BUSINESS = {
@@ -36,7 +36,7 @@ EXPECTED_TOKEN_BUSINESS = {
     "tx_id": "1001",
     "version": "v2",
 }
-EXPECTED_TOKEN_SOCIAL = {
+EXPECTED_TOKEN_CENSUS = {
     "account_service_url": "http://upstream.url",
     "case_id": "1001",
     "collection_exercise_sid": "789",
@@ -47,13 +47,13 @@ EXPECTED_TOKEN_SOCIAL = {
     "response_expires_at": "2024-02-28T09:59:43.109276+00:00",
     "response_id": "1234567890123456",
     "roles": [],
-    "schema_name": "social_demo.json",
+    "schema_name": "census_demo.json",
     "survey_metadata": {
         "data": {
             "case_ref": "1000000000000001",
             "date": "2016-05-12",
             "flag_1": True,
-            "qid": PAYLOAD_V2_SOCIAL["survey_metadata"]["data"]["qid"],
+            "qid": PAYLOAD_V2_CENSUS["survey_metadata"]["data"]["qid"],
             "user_id": "64389274239",
         },
         "receipting_keys": ["qid"],
@@ -83,26 +83,15 @@ class TestCreateToken(IntegrationTestCase, AppContextTestCase):
         mock_response_expiry_time.return_value = "2024-02-28T09:59:43.109276+00:00"
         test_parameters = [
             {
-                "schema": "test_metadata_routing.json",
-                "theme": "default",
-                "additional_payload": {
-                    "flag_1": 123,
-                    "period_id": "202402",
-                    "link": "https://example.com",
-                },
-                "payload": PAYLOAD_V2_BUSINESS,
-                "expected_token": EXPECTED_TOKEN_BUSINESS,
-            },
-            {
-                "schema": "social_demo.json",
-                "theme": "social",
+                "schema": "census_demo.json",
+                "theme": "census",
                 "additional_payload": {
                     "flag_1": True,
                     "user_id": "64389274239",
                     "date": "2016-05-12",
                 },
-                "payload": PAYLOAD_V2_SOCIAL,
-                "expected_token": EXPECTED_TOKEN_SOCIAL,
+                "payload": PAYLOAD_V2_CENSUS,
+                "expected_token": EXPECTED_TOKEN_CENSUS,
             },
         ]
         for value in test_parameters:
@@ -119,13 +108,13 @@ class TestCreateToken(IntegrationTestCase, AppContextTestCase):
                     self.assertEqual(value["expected_token"], decrypted_token)
 
     def test_uuid_consistent_after_decryption(self):
-        token = self.token_generator.create_token_v2("test_checkbox.json", theme="social", value="Dummy Text")
+        token = self.token_generator.create_token_v2("test_checkbox.json", theme="census", value="Dummy Text")
         with self.test_app.app_context():
             decrypted_token = decrypt_token(token)
             assert decrypted_token["survey_metadata"] == {
                 "data": {
                     "case_ref": "1000000000000001",
-                    "qid": PAYLOAD_V2_SOCIAL["survey_metadata"]["data"]["qid"],
+                    "qid": PAYLOAD_V2_CENSUS["survey_metadata"]["data"]["qid"],
                     "value": "Dummy Text",
                 },
                 "receipting_keys": ["qid"],

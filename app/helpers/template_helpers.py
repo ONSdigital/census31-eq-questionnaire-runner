@@ -14,19 +14,10 @@ from app.helpers.language_helper import get_languages_context
 from app.questionnaire import QuestionnaireSchema
 from app.settings import ACCOUNT_SERVICE_BASE_URL
 from app.survey_config import (
-    BusinessSurveyConfig,
-    DBTBusinessSurveyConfig,
-    DBTDSITBusinessSurveyConfig,
-    DBTDSITNIBusinessSurveyConfig,
-    DBTNIBusinessSurveyConfig,
-    DESNZBusinessSurveyConfig,
-    DESNZNIBusinessSurveyConfig,
-    NIBusinessSurveyConfig,
-    ONSNHSSocialSurveyConfig,
-    ORRBusinessSurveyConfig,
-    SocialSurveyConfig,
+    CensusSurveyConfig,
+    NICensusSurveyConfig,
+    NRSCensusSurveyConfig,
     SurveyConfig,
-    UKHSAONSSocialSurveyConfig,
 )
 from app.survey_config.survey_type import SurveyType
 from app.utilities.schema import load_schema_from_metadata
@@ -78,6 +69,8 @@ class ContextHelper:
             "preview_enabled": self._preview_enabled,
             "masthead_logo": self._survey_config.masthead_logo,
             "masthead_logo_mobile": self._survey_config.masthead_logo_mobile,
+            "title_logo": self._survey_config.title_logo,
+            "footer_logo": self._survey_config.footer_logo,
         }
 
         if self._survey_type:
@@ -130,6 +123,15 @@ class ContextHelper:
 
         if self._footer_warning:
             context["footerWarning"] = self._footer_warning
+        if self._survey_config.footer_logo:
+            context["footerLogo"] = {
+                "logos": {
+                    "logo1": {
+                        "logoImage": self._survey_config.footer_logo,
+                    },
+                },
+            }
+
 
         if footer_links := self._survey_config.get_footer_links(
             cookie_has_theme=bool(self._survey_type),
@@ -159,20 +161,10 @@ def survey_config_mapping(
     *, theme: SurveyType, language: str, base_url: str, schema: QuestionnaireSchema
 ) -> SurveyConfig:
     survey_type_to_config: dict[SurveyType, type[SurveyConfig]] = {
-        SurveyType.DEFAULT: BusinessSurveyConfig,
-        SurveyType.BUSINESS: BusinessSurveyConfig,
-        SurveyType.HEALTH: SocialSurveyConfig,
-        SurveyType.SOCIAL: SocialSurveyConfig,
-        SurveyType.NORTHERN_IRELAND: NIBusinessSurveyConfig,
-        SurveyType.DBT: DBTBusinessSurveyConfig,
-        SurveyType.DBT_NI: DBTNIBusinessSurveyConfig,
-        SurveyType.DBT_DSIT: DBTDSITBusinessSurveyConfig,
-        SurveyType.DBT_DSIT_NI: DBTDSITNIBusinessSurveyConfig,
-        SurveyType.DESNZ: DESNZBusinessSurveyConfig,
-        SurveyType.DESNZ_NI: DESNZNIBusinessSurveyConfig,
-        SurveyType.ORR: ORRBusinessSurveyConfig,
-        SurveyType.UKHSA_ONS: UKHSAONSSocialSurveyConfig,
-        SurveyType.ONS_NHS: ONSNHSSocialSurveyConfig,
+        SurveyType.DEFAULT: CensusSurveyConfig,
+        SurveyType.CENSUS: CensusSurveyConfig,
+        SurveyType.NI_CENSUS: NICensusSurveyConfig,
+        SurveyType.NRS_CENSUS: NRSCensusSurveyConfig,
     }
 
     return survey_type_to_config[theme](base_url=base_url, schema=schema, language_code=language)

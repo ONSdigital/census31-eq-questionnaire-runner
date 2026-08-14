@@ -239,7 +239,7 @@ function getSurveyMetadata (
   sdsDatasetId: string | null,
   booleanFlag: boolean
 ): SurveyMetadata {
-  if (theme === 'social') {
+  if (theme === 'census') {
     return {
       data: {
         case_ref: '1000000000000001',

@@ -3,17 +3,18 @@ from typing import Iterable, Mapping, MutableMapping
 
 from flask_babel import lazy_gettext
 
-from app.settings import ACCOUNT_SERVICE_BASE_URL_SOCIAL, ONS_URL, ONS_URL_CY, read_file
+from app.settings import ACCOUNT_SERVICE_BASE_URL_CENSUS, ONS_URL, ONS_URL_CY, read_file
 from app.survey_config.link import Link
 from app.survey_config.survey_config import SurveyConfig
 
 
 @dataclass
-class SocialSurveyConfig(
+class CensusSurveyConfig(
     SurveyConfig,
 ):
-    base_url: str = ACCOUNT_SERVICE_BASE_URL_SOCIAL
-    survey_title: str = "ONS Social Surveys"
+    base_url: str = ACCOUNT_SERVICE_BASE_URL_CENSUS
+    survey_title: str = "ONS Census"
+    title_logo: str = read_file("./templates/assets/images/census-logo.svg")
     footer_links: Iterable[MutableMapping] = field(default_factory=list)
     footer_legal_links: Iterable[Mapping] = field(default_factory=list)
 
@@ -62,17 +63,12 @@ class SocialSurveyConfig(
 
 
 @dataclass
-class UKHSAONSSocialSurveyConfig(SocialSurveyConfig):
-    masthead_logo: str = read_file("./templates/assets/images/ukhsa-logo-stacked.svg") + read_file(
-        "./templates/assets/images/ons-logo-stacked.svg"
-    )
-    masthead_logo_mobile: str = read_file("./templates/assets/images/ukhsa-logo-stacked.svg") + read_file(
-        "./templates/assets/images/ons-logo-stacked.svg"
-    )
+class NICensusSurveyConfig(CensusSurveyConfig):
+    masthead_logo: str = read_file("./templates/assets/images/nisra-logo.svg")
+    footer_logo: str = read_file("./templates/assets/images/nisra-footer-logo.svg")
 
 
 @dataclass
-class ONSNHSSocialSurveyConfig(SocialSurveyConfig):
-    masthead_logo: str = read_file("./templates/assets/images/ons-logo-stacked.svg") + read_file(
-        "./templates/assets/images/nhs-logo.svg"
-    )
+class NRSCensusSurveyConfig(CensusSurveyConfig):
+    masthead_logo: str = read_file("./templates/assets/images/nrs-logo.svg")
+    footer_logo: str = read_file("./templates/assets/images/nrs-footer-logo.svg")

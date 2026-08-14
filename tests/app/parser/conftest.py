@@ -10,12 +10,8 @@ def get_metadata():
     return fake_metadata_runner_v2()
 
 
-def get_metadata_full():
-    return fake_metadata_full_v2_business()
-
-
-def get_metadata_social():
-    return fake_metadata_full_v2_social()
+def get_metadata_census():
+    return fake_metadata_full_v2_census()
 
 
 def fake_metadata_runner():
@@ -34,18 +30,6 @@ def fake_metadata_runner():
 
 
 @pytest.fixture()
-def fake_business_metadata_runner():
-    """Generate a set of claims required for runner using business parameters instead of schema_name"""
-    metadata = get_metadata()
-    del metadata["schema_name"]
-
-    metadata["eq_id"] = "mbs"
-    metadata["form_type"] = "0253"
-    metadata["response_expires_at"] = get_response_expires_at()
-
-    return metadata
-
-
 def fake_metadata_runner_v2():
     """Generate the set of claims required for runner to function"""
     return {
@@ -88,7 +72,7 @@ def fake_metadata_full_v2_business():
     return metadata
 
 
-def fake_metadata_full_v2_social():
+def fake_metadata_full_v2_census():
     """Generate a fake set of claims
     These claims should represent all claims known to runner, including common questionnaire
     level claims.

@@ -124,14 +124,14 @@ ADDRESS_LOOKUP_API_AUTH_TOKEN_LEEWAY_IN_SECONDS = int(
 
 VIEW_SUBMITTED_RESPONSE_EXPIRATION_IN_SECONDS = int(os.getenv("VIEW_SUBMITTED_RESPONSE_EXPIRATION_IN_SECONDS", "2700"))
 
-SURVEY_TYPE = os.getenv("SURVEY_TYPE", "business")
+SURVEY_TYPE = os.getenv("SURVEY_TYPE", "census")
 
 ACCOUNT_SERVICE_BASE_URL = os.getenv("ACCOUNT_SERVICE_BASE_URL", "https://surveys.ons.gov.uk")
 
-ACCOUNT_SERVICE_BASE_URL_SOCIAL = os.getenv("ACCOUNT_SERVICE_BASE_URL_SOCIAL", "https://start.surveys.ons.gov.uk")
+ACCOUNT_SERVICE_BASE_URL_CENSUS = os.getenv("ACCOUNT_SERVICE_BASE_URL_CENSUS", "https://start.census.gov.uk")
 
 PRINT_STYLE_SHEET_FILE_PATH = os.getenv("PRINT_STYLE_SHEET_FILEPATH", "templates/assets/styles")
 
-ONS_URL = os.getenv("ONS_URL", "https://www.ons.gov.uk")
+ONS_URL = os.getenv("ONS_URL", "https://www.census.gov.uk")
 
-ONS_URL_CY = os.getenv("ONS_URL_CY", "https://cy.ons.gov.uk")
+ONS_URL_CY = os.getenv("ONS_URL_CY", "https://cy.census.gov.uk")

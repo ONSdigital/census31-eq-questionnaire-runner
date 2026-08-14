@@ -51,8 +51,7 @@ def test_view_submitted_response_context_submitted_text_with_ru_name(app: Flask)
 @pytest.mark.parametrize(
     "survey_type",
     (
-        (SurveyType.SOCIAL),
-        (SurveyType.HEALTH),
+        (SurveyType.CENSUS),
     ),
 )
 def test_view_submitted_response_context_submitted_text_without_ru_name(app: Flask, survey_type):

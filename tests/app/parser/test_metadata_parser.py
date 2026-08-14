@@ -5,7 +5,7 @@ from freezegun import freeze_time
 from marshmallow import ValidationError
 
 from app.utilities.metadata_parser_v2 import validate_questionnaire_claims, validate_runner_claims_v2
-from tests.app.parser.conftest import get_metadata, get_metadata_full, get_metadata_social
+from tests.app.parser.conftest import get_metadata, get_metadata_full, get_metadata_census
 
 
 def test_spaces_are_stripped_from_string_fields():
@@ -241,8 +241,8 @@ def test_schema_name_and_schema_url_not_valid_v2(options):
     )
 
 
-def test_valid_v2_social_claims():
-    metadata = get_metadata_social()
+def test_valid_v2_census_claims():
+    metadata = get_metadata_census()
 
     fake_metadata_copy = deepcopy(metadata)
 
@@ -251,8 +251,8 @@ def test_valid_v2_social_claims():
     assert claims == fake_metadata_copy
 
 
-def test_invalid_v2_social_claims_missing_receipting_key_raises_error():
-    metadata = get_metadata_social()
+def test_invalid_v2_census_claims_missing_receipting_key_raises_error():
+    metadata = get_metadata_census()
 
     del metadata["survey_metadata"]["data"]["qid"]
 

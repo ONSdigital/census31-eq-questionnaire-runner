@@ -4,14 +4,13 @@ from datetime import datetime, timedelta, timezone
 from freezegun import freeze_time
 
 from app.questionnaire.questionnaire_schema import DEFAULT_LANGUAGE_CODE
-from app.settings import ACCOUNT_SERVICE_BASE_URL, ACCOUNT_SERVICE_BASE_URL_SOCIAL
+from app.settings import ACCOUNT_SERVICE_BASE_URL_CENSUS
 from app.utilities.json import json_loads
 from tests.integration.integration_test_case import IntegrationTestCase
 
 TIME_TO_FREEZE = datetime(2020, 1, 1, 12, 0, 0, tzinfo=timezone.utc)
 EQ_SESSION_TIMEOUT_SECONDS = 45 * 60
-BUSINESS_URL = ACCOUNT_SERVICE_BASE_URL
-SOCIAL_URL = ACCOUNT_SERVICE_BASE_URL_SOCIAL
+CENSUS_URL = ACCOUNT_SERVICE_BASE_URL_CENSUS
 
 
 class TestSession(IntegrationTestCase):
@@ -35,14 +34,8 @@ class TestSession(IntegrationTestCase):
         self.assertInBody("Sorry, you need to sign in again")
         self.assertInBody(
             (
-                f"<p>If you are completing a business survey, you need to sign back in to "
-                f'<a href="{BUSINESS_URL}/sign-in/logout">your account</a>.</p>'
-            )
-        )
-        self.assertInBody(
-            (
                 f"<p>If you started your survey using an access code, you need to "
-                f'<a href="{SOCIAL_URL}/{DEFAULT_LANGUAGE_CODE}/start/">re-enter your code</a>.</p>'
+                f'<a href="{CENSUS_URL}/{DEFAULT_LANGUAGE_CODE}/start/">re-enter your code</a>.</p>'
             )
         )
 

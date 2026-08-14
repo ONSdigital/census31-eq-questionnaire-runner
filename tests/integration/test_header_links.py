@@ -94,9 +94,9 @@ class TestHeaderLinksPreSubmission(TestHeaderLinks):
         self.assert_sign_out_link_does_not_exist()
         self.assert_help_link_exist_not_authenticated_after_sign_out()
 
-    def test_links_in_header_when_no_session_but_cookie_exists_theme_social(self):
+    def test_links_in_header_when_no_session_but_cookie_exists_theme_census(self):
         # Given
-        self.launchSurveyV2(schema_name="test_theme_social", theme="social")
+        self.launchSurveyV2(schema_name="test_theme_census", theme="census")
         self.assertInUrl("/questionnaire/radio/")
         self.saveAndSignOut()
 
@@ -107,7 +107,7 @@ class TestHeaderLinksPreSubmission(TestHeaderLinks):
         # Then
         self.assertInUrl("questionnaire/")
         cookie = self.getCookie()
-        self.assertEqual(cookie.get("theme"), "social")
+        self.assertEqual(cookie.get("theme"), "census")
         self.assert_my_account_link_does_not_exist()
         self.assert_sign_out_link_does_not_exist()
         self.assert_help_link_does_not_exist()
@@ -124,9 +124,9 @@ class TestHeaderLinksPreSubmission(TestHeaderLinks):
         self.assert_sign_out_link_does_not_exist()
         self.assert_help_link_does_not_exist()
 
-    def test_links_not_in_header_when_valid_session_theme_social(self):
+    def test_links_not_in_header_when_valid_session_theme_census(self):
         # Given
-        self.launchSurveyV2(schema_name="test_theme_social", theme="social")
+        self.launchSurveyV2(schema_name="test_theme_census", theme="census")
 
         # When
         self.assertStatusOK()
@@ -165,9 +165,9 @@ class TestHeaderLinksPostSubmission(TestHeaderLinks):
         self.assert_sign_out_link_does_not_exist()
         self.assert_help_link_does_not_exist()
 
-    def test_links_not_in_header_when_valid_session_theme_social_thank_you_page(self):
+    def test_links_not_in_header_when_valid_session_theme_census_thank_you_page(self):
         # Given
-        self.launchSurveyV2(schema_name="test_theme_social", theme="social")
+        self.launchSurveyV2(schema_name="test_theme_census", theme="census")
         self.post()
         self.post()
 
@@ -200,9 +200,9 @@ class TestHeaderLinksPostSignOut(TestHeaderLinks):
         self.assert_sign_out_link_does_not_exist()
         self.assert_help_link_exist_not_authenticated_after_sign_out()
 
-    def test_links_not_in_header_after_sign_out_theme_social(self):
+    def test_links_not_in_header_after_sign_out_theme_census(self):
         # Given
-        self.launchSurveyV2(schema_name="test_theme_social")
+        self.launchSurveyV2(schema_name="test_theme_census")
         self.assert_my_account_link_does_not_exist()
         self.assert_sign_out_link_does_not_exist()
         self.assert_help_link_does_not_exist()

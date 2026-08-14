@@ -1,7 +1,7 @@
 from pytest import fixture
 
 from app.helpers.template_helpers import ContextHelper
-from app.settings import ACCOUNT_SERVICE_BASE_URL, ACCOUNT_SERVICE_BASE_URL_SOCIAL, ONS_URL, ONS_URL_CY
+from app.settings import ACCOUNT_SERVICE_BASE_URL, ACCOUNT_SERVICE_BASE_URL_CENSUS, ONS_URL, ONS_URL_CY
 
 
 @fixture
@@ -30,75 +30,10 @@ def footer_context():
     }
 
 
-def expected_footer_business_theme():
-    business = {
-        "rows": [
-            {
-                "itemsList": [
-                    {
-                        "text": "What we do",
-                        "url": "https://www.ons.gov.uk/aboutus/whatwedo/",
-                        "target": "_blank",
-                    },
-                    {
-                        "text": "Contact us",
-                        "url": f"{ACCOUNT_SERVICE_BASE_URL}/contact-us/",
-                        "target": "_blank",
-                    },
-                    {
-                        "text": "Accessibility",
-                        "url": "https://www.ons.gov.uk/help/accessibility/",
-                        "target": "_blank",
-                    },
-                ]
-            }
-        ],
-        "legal": [
-            {
-                "itemsList": [
-                    {
-                        "text": "Cookies",
-                        "url": f"{ACCOUNT_SERVICE_BASE_URL}/cookies/",
-                        "target": "_blank",
-                    },
-                    {
-                        "text": "Privacy and data protection",
-                        "url": f"{ACCOUNT_SERVICE_BASE_URL}/privacy-and-data-protection/",
-                        "target": "_blank",
-                    },
-                ]
-            }
-        ],
-    }
-    return {**footer_context(), **business}
-
-
-def expected_footer_business_theme_no_cookie():
-    business = {
-        "rows": [
-            {
-                "itemsList": [
-                    {
-                        "text": "What we do",
-                        "url": "https://www.ons.gov.uk/aboutus/whatwedo/",
-                        "target": "_blank",
-                    },
-                    {
-                        "text": "Accessibility",
-                        "url": "https://www.ons.gov.uk/help/accessibility/",
-                        "target": "_blank",
-                    },
-                ]
-            }
-        ],
-    }
-    return {**footer_context(), **business}
-
-
-def expected_footer_social_theme(language_code: str):
+def expected_footer_census_theme(language_code: str):
     ons_url = ONS_URL_CY if language_code == "cy" else ONS_URL
-    upstream_url = f"{ACCOUNT_SERVICE_BASE_URL_SOCIAL}/{language_code}"
-    social_footer_context = {
+    upstream_url = f"{ACCOUNT_SERVICE_BASE_URL_CENSUS}/{language_code}"
+    census_footer_context = {
         "lang": language_code,
         "crest": True,
         "newTabWarning": "The following links open in a new tab",
@@ -107,7 +42,7 @@ def expected_footer_social_theme(language_code: str):
             "text": "Use of address data is subject to the terms and conditions.",
         },
     }
-    social = {
+    census = {
         "rows": [
             {
                 "itemsList": [
@@ -146,11 +81,11 @@ def expected_footer_social_theme(language_code: str):
             }
         ],
     }
-    return social_footer_context | social
+    return census_footer_context | census
 
 
-def expected_footer_social_theme_no_cookie():
-    social = {
+def expected_footer_census_theme_no_cookie():
+    census = {
         "rows": [
             {
                 "itemsList": [
@@ -168,4 +103,4 @@ def expected_footer_social_theme_no_cookie():
             }
         ],
     }
-    return {**footer_context(), **social}
+    return {**footer_context(), **census}

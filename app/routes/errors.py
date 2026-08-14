@@ -14,7 +14,7 @@ from app.authentication.no_token_exception import NoTokenException
 from app.globals import get_metadata
 from app.helpers.language_helper import handle_language
 from app.helpers.template_helpers import get_survey_config, render_template
-from app.settings import ACCOUNT_SERVICE_BASE_URL_SOCIAL
+from app.settings import ACCOUNT_SERVICE_BASE_URL_CENSUS
 from app.submitter.previously_submitted_exception import PreviouslySubmittedException
 from app.submitter.submission_failed import SubmissionFailedException
 from app.survey_config.survey_type import SurveyType
@@ -46,22 +46,17 @@ def log_exception(exception: Exception, status_code: int) -> None:
 
 def _render_error_page(status_code: int, template: str | int | None = None, **kwargs: Any) -> tuple[str, int]:
     handle_language()
-    business_survey_config = get_survey_config(theme=SurveyType.BUSINESS)
-    other_survey_config = get_survey_config(theme=SurveyType.SOCIAL, base_url=ACCOUNT_SERVICE_BASE_URL_SOCIAL)
+    census_survey_config = get_survey_config(theme=SurveyType.CENSUS, base_url=ACCOUNT_SERVICE_BASE_URL_CENSUS)
 
-    business_logout_url = business_survey_config.account_service_log_out_url
-    other_logout_url = other_survey_config.account_service_log_out_url
-    business_contact_us_url = business_survey_config.contact_us_url
-    other_contact_us_url = other_survey_config.contact_us_url
+    census_logout_url = census_survey_config.account_service_log_out_url
+    census_contact_us_url = census_survey_config.contact_us_url
     template = template or status_code
 
     return (
         render_template(
             template=f"errors/{template}",
-            business_logout_url=business_logout_url,
-            other_logout_url=other_logout_url,
-            business_contact_us_url=business_contact_us_url,
-            other_contact_us_url=other_contact_us_url,
+            census_logout_url=census_logout_url,
+            census_contact_us_url=census_contact_us_url,
             **kwargs,
         ),
         status_code,
