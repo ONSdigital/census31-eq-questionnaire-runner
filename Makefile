@@ -15,7 +15,7 @@ load-design-system-templates:
 	./scripts/load_release.sh onsdigital/design-system $(DESIGN_SYSTEM_VERSION)
 	./scripts/load_print_styles_from_cdn.sh $(DESIGN_SYSTEM_VERSION)
 
-build: load-design-system-templates translate
+build: load-design-system-templates load-schemas translate
 
 generate-pages:
 	rm -rf ./tests/functional/generated_pages
