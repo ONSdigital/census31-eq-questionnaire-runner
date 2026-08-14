@@ -246,11 +246,6 @@ class QuestionnaireSchema:  # pylint: disable=too-many-public-methods
         return region_code
 
     @cached_property
-    def preview_enabled(self) -> bool:
-        preview_enabled: bool = self.json.get("preview_questions", False)
-        return preview_enabled
-
-    @cached_property
     def parent_id_map(self) -> Any:
         return self.serialize(self._parent_id_map)
 

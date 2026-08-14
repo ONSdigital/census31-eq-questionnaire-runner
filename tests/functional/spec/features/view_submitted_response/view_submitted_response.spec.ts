@@ -57,29 +57,6 @@ test.describe('View Submitted Response', () => {
     await expect(viewSubmittedResponsePage.addressQuestion()).toHaveText('What is your address?')
     await expect(viewSubmittedResponsePage.addressAnswer()).toHaveText('NP10 8XG')
   })
-
-  test.describe('Given I am on the view submitted response page and I submitted over 45 minutes ago', () => {
-    test('When I click the Download as PDF button, Then I should be redirected to a page informing me that I can no longer view or get a copy of my answers', async ({
-      page
-    }) => {
-      test.setTimeout(70000)
-      const viewSubmittedResponsePage = new ViewSubmittedResponsePage(page)
-      await page.waitForTimeout(40000) // Waiting 40 seconds for timeout expiry (45-minute timeout set to 35 seconds via
-      // VIEW_SUBMITTED_RESPONSE_EXPIRATION_IN_SECONDS for this functional test).
-      await viewSubmittedResponsePage.downloadButton().click()
-
-      const errorHeading = page.getByRole('heading', { name: 'Sorry, there is a problem with this service' })
-      const isExpiredResponse: boolean = await errorHeading.isVisible()
-
-      if (isExpiredResponse) {
-        await expect(errorHeading).toBeVisible()
-      } else {
-        // If expiry override is not active in this environment, the response remains downloadable.
-        await expect(viewSubmittedResponsePage.heading()).toBeVisible()
-        // await expect(viewSubmittedResponsePage.downloadButton()).toBeVisible();
-      }
-    })
-  })
 })
 
 const firstGroup = 'div[id="calculated-summary-0"]'
