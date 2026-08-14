@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-08-14 10:14+0100\n"
+"POT-Creation-Date: 2026-08-14 10:59+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -819,6 +819,19 @@ msgstr ""
 
 #: templates/multiple_survey.html:22
 msgid "Close this window to continue with your current survey"
+msgstr ""
+
+#: templates/signed-out.html:5
+msgid "Signed out"
+msgstr ""
+
+#: templates/signed-out.html:16
+msgid "<h1>Your progress has been saved</h1>"
+msgstr ""
+
+#: templates/signed-out.html:22
+#, python-brace-format
+msgid "To resume the survey, <a href='{url}'>re-enter your access code</a>."
 msgstr ""
 
 #: templates/thank-you.html:7
