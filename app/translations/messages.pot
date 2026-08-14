@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-08-14 10:11+0100\n"
+"POT-Creation-Date: 2026-08-14 10:14+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -227,15 +227,15 @@ msgstr ""
 msgid "ONS Surveys"
 msgstr ""
 
-#: app/helpers/template_helpers.py:96
+#: app/helpers/template_helpers.py:94
 msgid "Menu"
 msgstr ""
 
-#: app/helpers/template_helpers.py:117
+#: app/helpers/template_helpers.py:115
 msgid "The following links open in a new tab"
 msgstr ""
 
-#: app/helpers/template_helpers.py:151
+#: app/helpers/template_helpers.py:149
 #, python-brace-format
 msgid ""
 "Make sure you <a href='{sign_out_url}'>leave this page</a> or close your "
@@ -819,41 +819,6 @@ msgstr ""
 
 #: templates/multiple_survey.html:22
 msgid "Close this window to continue with your current survey"
-msgstr ""
-
-#: templates/preview.html:35
-msgid "Preview of the questions in this survey"
-msgstr ""
-
-#: templates/preview.html:43
-#, python-brace-format
-msgid "To answer these questions you need to <a href='{url}'>start survey</a>"
-msgstr ""
-
-#: templates/preview.html:47
-msgid ""
-"You may not have to answer all of these questions. The questions you see "
-"will depend on the answers you provide."
-msgstr ""
-
-#: templates/preview.html:52
-msgid "Print questions"
-msgstr ""
-
-#: templates/preview.html:66
-msgid "Save questions as PDF"
-msgstr ""
-
-#: templates/partials/introduction/preview.html:34
-#: templates/partials/summary/collapsible-summary.html:51
-#: templates/preview.html:96
-msgid "Show all"
-msgstr ""
-
-#: templates/partials/introduction/preview.html:35
-#: templates/partials/summary/collapsible-summary.html:52
-#: templates/preview.html:97
-msgid "Hide all"
 msgstr ""
 
 #: templates/thank-you.html:7
