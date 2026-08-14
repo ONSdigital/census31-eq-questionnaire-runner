@@ -14,7 +14,7 @@ from app.authentication.no_token_exception import NoTokenException
 from app.globals import get_metadata
 from app.helpers.language_helper import handle_language
 from app.helpers.template_helpers import get_survey_config, render_template
-from app.settings import ACCOUNT_SERVICE_BASE_URL_CENSUS
+from app.settings import ACCOUNT_SERVICE_BASE_URL, ACCOUNT_SERVICE_BASE_URL_CENSUS
 from app.submitter.previously_submitted_exception import PreviouslySubmittedException
 from app.submitter.submission_failed import SubmissionFailedException
 from app.survey_config.survey_type import SurveyType
@@ -51,7 +51,10 @@ def _render_error_page(status_code: int, template: str | int | None = None, **kw
 
     census_logout_url = census_survey_config.account_service_log_out_url
     census_contact_us_url = census_survey_config.contact_us_url
-    other_logout_url = default_survey_config.account_service_log_out_url or f"{default_survey_config.base_url}/sign-in/logout"
+    other_logout_url = (
+        default_survey_config.account_service_log_out_url
+        or f"{default_survey_config.base_url}/sign-in/logout"
+    )
     other_contact_us_url = default_survey_config.contact_us_url
     template = template or status_code
 
