@@ -132,7 +132,6 @@ class ContextHelper:
                 },
             }
 
-
         if footer_links := self._survey_config.get_footer_links(
             cookie_has_theme=bool(self._survey_type),
         ):

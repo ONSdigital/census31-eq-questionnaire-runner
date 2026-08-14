@@ -31,9 +31,7 @@ def test_default_survey_context(app: Flask):
 
 @pytest.mark.parametrize(
     "survey_type",
-    (
-        (SURVEY_TYPE_CENSUS),
-    ),
+    ((SURVEY_TYPE_CENSUS),),
 )
 def test_survey_context_without_ru_name(app: Flask, survey_type):
     with app.app_context():
