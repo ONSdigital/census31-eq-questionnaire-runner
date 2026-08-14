@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-07-29 12:19+0100\n"
+"POT-Creation-Date: 2026-08-14 08:43+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,14 +17,14 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.18.0\n"
 
-#: app/forms/validators.py:351 app/jinja_filters.py:97
+#: app/forms/validators.py:350 app/jinja_filters.py:97
 #, python-format
 msgid "%(num)s year"
 msgid_plural "%(num)s years"
 msgstr[0] ""
 msgstr[1] ""
 
-#: app/forms/validators.py:353 app/jinja_filters.py:99
+#: app/forms/validators.py:352 app/jinja_filters.py:99
 #, python-format
 msgid "%(num)s month"
 msgid_plural "%(num)s months"
@@ -41,17 +41,17 @@ msgstr ""
 msgid "%(from_date)s to %(to_date)s"
 msgstr ""
 
-#: app/jinja_filters.py:401
+#: app/jinja_filters.py:400
 #, python-brace-format
 msgid "Change answer for {item_name}: {question_title_or_answer_label}"
 msgstr ""
 
-#: app/jinja_filters.py:405
+#: app/jinja_filters.py:404
 #, python-brace-format
 msgid "Change your answer for: {question_title_or_answer_label}"
 msgstr ""
 
-#: app/jinja_filters.py:699
+#: app/jinja_filters.py:698
 #: templates/partials/summary/collapsible-summary.html:27
 #: templates/partials/summary/summary.html:24
 msgid "No answer provided"
@@ -212,7 +212,7 @@ msgstr ""
 msgid "Enter the year in a valid format. For example, 2023."
 msgstr ""
 
-#: app/forms/validators.py:356
+#: app/forms/validators.py:355
 #, python-format
 msgid "%(num)s day"
 msgid_plural "%(num)s days"
@@ -223,19 +223,19 @@ msgstr[1] ""
 msgid "Not a valid choice."
 msgstr ""
 
-#: app/helpers/template_helpers.py:49
+#: app/helpers/template_helpers.py:40
 msgid "ONS Surveys"
 msgstr ""
 
-#: app/helpers/template_helpers.py:103
+#: app/helpers/template_helpers.py:96
 msgid "Menu"
 msgstr ""
 
-#: app/helpers/template_helpers.py:124
+#: app/helpers/template_helpers.py:117
 msgid "The following links open in a new tab"
 msgstr ""
 
-#: app/helpers/template_helpers.py:150
+#: app/helpers/template_helpers.py:152
 #, python-brace-format
 msgid ""
 "Make sure you <a href='{sign_out_url}'>leave this page</a> or close your "
@@ -263,60 +263,60 @@ msgid_plural "{number_of_days} days"
 msgstr[0] ""
 msgstr[1] ""
 
-#: app/routes/errors.py:138
+#: app/routes/errors.py:133
 msgid "You have reached the maximum number of individual access codes"
 msgstr ""
 
-#: app/routes/errors.py:140
+#: app/routes/errors.py:135
 #, python-brace-format
 msgid ""
 "If you need more individual access codes, please <a "
 "href='{contact_us_url}'>contact us</a>."
 msgstr ""
 
-#: app/routes/errors.py:157
+#: app/routes/errors.py:152
 msgid "You have reached the maximum number of times for submitting feedback"
 msgstr ""
 
-#: app/routes/errors.py:159
+#: app/routes/errors.py:154
 #, python-brace-format
 msgid ""
 "If you need to give more feedback, please <a "
 "href='{contact_us_url}'>contact us</a>."
 msgstr ""
 
-#: app/routes/errors.py:190
+#: app/routes/errors.py:185
 msgid "Sorry, there was a problem sending the access code"
 msgstr ""
 
-#: app/routes/errors.py:198
+#: app/routes/errors.py:193
 #, python-brace-format
 msgid "You can try to <a href='{retry_url}'>request a new access code again</a>."
 msgstr ""
 
-#: app/routes/errors.py:200 app/routes/errors.py:223 app/routes/errors.py:243
+#: app/routes/errors.py:195 app/routes/errors.py:218 app/routes/errors.py:238
 #, python-brace-format
 msgid ""
 "If this problem keeps happening, please <a "
 "href='{contact_us_url}'>contact us</a> for help."
 msgstr ""
 
-#: app/routes/errors.py:220
+#: app/routes/errors.py:215
 msgid "Sorry, there was a problem sending the confirmation email"
 msgstr ""
 
-#: app/routes/errors.py:221
+#: app/routes/errors.py:216
 #, python-brace-format
 msgid "You can try to <a href='{retry_url}'>send the email again</a>."
 msgstr ""
 
-#: app/routes/errors.py:240 templates/errors/403.html:3
-#: templates/errors/403.html:21 templates/errors/submission-failed.html:4
-#: templates/errors/submission-failed.html:11
+#: app/routes/errors.py:235 templates/errors/403.html:3
+#: templates/errors/403.html:15 templates/errors/submission-failed.html:4
+#: templates/errors/submission-failed.html:10
 msgid "Sorry, there is a problem"
 msgstr ""
 
-#: app/routes/errors.py:241
+#: app/routes/errors.py:236
 #, python-brace-format
 msgid "You can try to <a href='{retry_url}'>submit your feedback again</a>."
 msgstr ""
@@ -329,23 +329,23 @@ msgstr ""
 msgid "An individual access code has been sent by text"
 msgstr ""
 
-#: app/survey_config/census_survey_config.py:37
+#: app/survey_config/census_survey_config.py:38
 msgid "What we do"
 msgstr ""
 
-#: app/survey_config/census_survey_config.py:40
+#: app/survey_config/census_survey_config.py:41
 msgid "Contact us"
 msgstr ""
 
-#: app/survey_config/census_survey_config.py:44
+#: app/survey_config/census_survey_config.py:45
 msgid "Accessibility"
 msgstr ""
 
-#: app/survey_config/census_survey_config.py:54
+#: app/survey_config/census_survey_config.py:55
 msgid "Cookies"
 msgstr ""
 
-#: app/survey_config/census_survey_config.py:56
+#: app/survey_config/census_survey_config.py:57
 msgid "Privacy and data protection"
 msgstr ""
 
@@ -357,7 +357,7 @@ msgstr ""
 msgid "Use of address data is subject to the terms and conditions."
 msgstr ""
 
-#: app/survey_config/survey_config.py:32
+#: app/survey_config/survey_config.py:34
 msgid "Save and exit survey"
 msgstr ""
 
@@ -874,26 +874,6 @@ msgstr ""
 msgid "Hide all"
 msgstr ""
 
-#: templates/signed-out.html:5
-msgid "Signed out"
-msgstr ""
-
-#: templates/signed-out.html:16
-msgid "<h1>Your progress has been saved</h1>"
-msgstr ""
-
-#: templates/signed-out.html:22
-#, python-brace-format
-msgid ""
-"To find further information or resume the survey, <a href='{url}'>return "
-"to My Account</a>."
-msgstr ""
-
-#: templates/signed-out.html:26
-#, python-brace-format
-msgid "To resume the survey, <a href='{url}'>re-enter your access code</a>."
-msgstr ""
-
 #: templates/thank-you.html:7
 msgid "We’ve received your answers"
 msgstr ""
@@ -984,61 +964,42 @@ msgstr ""
 
 #: templates/errors/401.html:4
 #, python-brace-format
-msgid "You will need to <a href='{url}'>sign back in</a> to access your account"
-msgstr ""
-
-#: templates/errors/401.html:5
-#, python-brace-format
 msgid ""
 "To access this page you need to <a href='{url}'>re-enter your access "
 "code</a>."
 msgstr ""
 
-#: templates/errors/401.html:8
-#, python-brace-format
-msgid ""
-"If you are completing a business survey, you need to sign back in to <a "
-"href='{url}'>your account</a>."
-msgstr ""
-
-#: templates/errors/401.html:14
+#: templates/errors/401.html:7
 #, python-brace-format
 msgid ""
 "If you started your survey using an access code, you need to <a "
 "href='{url}'>re-enter your code</a>."
 msgstr ""
 
-#: templates/errors/401.html:22
+#: templates/errors/401.html:14
 msgid "Sorry, you need to sign in again"
 msgstr ""
 
-#: templates/errors/401.html:23
+#: templates/errors/401.html:15
 msgid "This is because you have either:"
 msgstr ""
 
-#: templates/errors/401.html:25
+#: templates/errors/401.html:17
 msgid ""
 "been inactive for 45 minutes and your session has timed out to protect "
 "your information"
 msgstr ""
 
-#: templates/errors/401.html:26
+#: templates/errors/401.html:18
 msgid "followed a link to a page you are not signed in to"
 msgstr ""
 
-#: templates/errors/401.html:27
+#: templates/errors/401.html:19
 msgid "followed a link to a survey that has already been submitted"
 msgstr ""
 
-#: templates/errors/401.html:34 templates/errors/403.html:27
-#: templates/errors/404.html:21 templates/errors/500.html:40
-#: templates/errors/submission-failed.html:17
-msgid "Business surveys"
-msgstr ""
-
-#: templates/errors/401.html:36 templates/errors/403.html:29
-#: templates/errors/404.html:23 templates/errors/500.html:43
-#: templates/errors/submission-failed.html:19
+#: templates/errors/401.html:24 templates/errors/403.html:21
+#: templates/errors/404.html:20 templates/errors/submission-failed.html:16
 msgid "All other surveys"
 msgstr ""
 
@@ -1050,26 +1011,19 @@ msgstr ""
 #: templates/errors/403.html:7
 #, python-brace-format
 msgid ""
-"If you are completing a business survey and you need further help, please"
-" <a href='{url}'>contact us</a>."
-msgstr ""
-
-#: templates/errors/403.html:13
-#, python-brace-format
-msgid ""
 "If you started your survey using an access code and you need further "
 "help, please <a href='{url}'>contact us</a>."
 msgstr ""
 
-#: templates/errors/403.html:22
+#: templates/errors/403.html:16
 msgid "You may need to update your browser to a newer version."
 msgstr ""
 
-#: templates/errors/403.html:23
+#: templates/errors/403.html:17
 msgid "If the problem still occurs, try using a different browser or device."
 msgstr ""
 
-#: templates/errors/404.html:3 templates/errors/404.html:14
+#: templates/errors/404.html:3 templates/errors/404.html:13
 msgid "Page not found"
 msgstr ""
 
@@ -1083,26 +1037,19 @@ msgstr ""
 #: templates/errors/404.html:10 templates/errors/submission-failed.html:7
 #, python-brace-format
 msgid ""
-"If you are completing a business survey, please <a href='{url}'>contact "
-"us</a>."
-msgstr ""
-
-#: templates/errors/404.html:11 templates/errors/submission-failed.html:8
-#, python-brace-format
-msgid ""
 "If you started your survey using an access code, please <a "
 "href='{url}'>contact us</a>."
 msgstr ""
 
-#: templates/errors/404.html:15
+#: templates/errors/404.html:14
 msgid "If you entered a web address, check it is correct."
 msgstr ""
 
-#: templates/errors/404.html:16
+#: templates/errors/404.html:15
 msgid "If you pasted the web address, check you copied the whole address."
 msgstr ""
 
-#: templates/errors/404.html:20
+#: templates/errors/404.html:19
 msgid ""
 "If the web address is correct or you selected a link or button, please "
 "see the following help links."
@@ -1112,49 +1059,34 @@ msgstr ""
 msgid "An error has occurred"
 msgstr ""
 
-#: templates/errors/500.html:6
-#, python-brace-format
-msgid ""
-"If you have attempted to submit your survey, you should check that this "
-"was successful. To do this, <a href='{url}'>sign in to your business "
-"survey account</a>."
-msgstr ""
-
-#: templates/errors/500.html:12
+#: templates/errors/500.html:5
 #, python-brace-format
 msgid "If you need more help, <a href='{url}'>contact us</a>."
 msgstr ""
 
-#: templates/errors/500.html:14
+#: templates/errors/500.html:7
 #, python-brace-format
 msgid ""
 "If you have attempted to submit your survey, you should check that this "
 "was successful. To do this, <a href='{url}'>re-enter your code</a>."
 msgstr ""
 
-#: templates/errors/500.html:21
-#, python-brace-format
-msgid ""
-"If you need more help, <a href='{url}'>contact us about business "
-"surveys</a>."
-msgstr ""
-
-#: templates/errors/500.html:27
+#: templates/errors/500.html:14
 #, python-brace-format
 msgid ""
 "If you need more help, <a href='{url}'>contact us about all other "
 "surveys</a>."
 msgstr ""
 
-#: templates/errors/500.html:30
+#: templates/errors/500.html:17
 msgid "Sorry, there is a problem with this service"
 msgstr ""
 
-#: templates/errors/500.html:31
+#: templates/errors/500.html:18
 msgid "Try again later."
 msgstr ""
 
-#: templates/errors/500.html:32
+#: templates/errors/500.html:19
 msgid "If you have started a survey, your answers have been saved."
 msgstr ""
 
@@ -1187,7 +1119,7 @@ msgid ""
 "for help."
 msgstr ""
 
-#: templates/errors/submission-failed.html:16
+#: templates/errors/submission-failed.html:15
 msgid "If this problem keeps happening, please see the following help links."
 msgstr ""
 
