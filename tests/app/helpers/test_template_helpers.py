@@ -100,7 +100,7 @@ def test_footer_context(app: Flask, theme, survey_config, language, expected_foo
             ],
         ),
         (
-            SurveyType.NI_CENSUS,
+            SurveyType.CENSUS_NISRA,
             "Test",
             NICensusSurveyConfig(),
             [
@@ -110,7 +110,7 @@ def test_footer_context(app: Flask, theme, survey_config, language, expected_foo
             ],
         ),
         (
-            SurveyType.NRS_CENSUS,
+            SurveyType.CENSUS_NRS,
             "Test",
             NRSCensusSurveyConfig(),
             [
@@ -471,8 +471,8 @@ def test_account_service_log_out_url_context(
         (SurveyType.DEFAULT, "cy", SurveyConfig),
         (SurveyType.CENSUS, "en", CensusSurveyConfig),
         (SurveyType.CENSUS, "cy", CensusSurveyConfig),
-        (SurveyType.NI_CENSUS, "en", NICensusSurveyConfig),
-        (SurveyType.NRS_CENSUS, "en", NRSCensusSurveyConfig),
+        (SurveyType.CENSUS_NISRA, "en", NICensusSurveyConfig),
+        (SurveyType.CENSUS_NRS, "en", NRSCensusSurveyConfig),
         (None, None, CensusSurveyConfig),
     ],
 )
@@ -562,8 +562,8 @@ def test_context_set_from_app_config(app):
         (SurveyType.DEFAULT, "en", None),
         (SurveyType.CENSUS, "en", None),
         (SurveyType.CENSUS, "cy", None),
-        (SurveyType.NI_CENSUS, "en", None),
-        (SurveyType.NRS_CENSUS, "en", None),
+        (SurveyType.CENSUS_NISRA, "en", None),
+        (SurveyType.CENSUS_NRS, "en", None),
     ],
 )
 def test_correct_theme_in_context(app: Flask, theme: SurveyType, language: str, expected: str):
@@ -584,8 +584,8 @@ def test_correct_theme_in_context(app: Flask, theme: SurveyType, language: str, 
         (SurveyType.DEFAULT, "en", "ONS Surveys"),
         (SurveyType.CENSUS, "en", "ONS Surveys"),
         (SurveyType.CENSUS, "cy", "ONS Surveys"),
-        (SurveyType.NI_CENSUS, "en", "ONS Surveys"),
-        (SurveyType.NRS_CENSUS, "en", "ONS Surveys"),
+        (SurveyType.CENSUS_NISRA, "en", "ONS Surveys"),
+        (SurveyType.CENSUS_NRS, "en", "ONS Surveys"),
     ],
 )
 def test_use_default_survey_title_in_context_when_no_cookie(
@@ -630,13 +630,13 @@ def test_use_default_survey_title_in_context_when_no_cookie(
             {"form_type": "test", "survey_id": "999", "title": "test_title"},
         ),
         (
-            SurveyType.NI_CENSUS,
+            SurveyType.CENSUS_NISRA,
             "en",
             QuestionnaireSchema({"survey_id": "999", "form_type": "test", "title": "test_title"}),
             {"form_type": "test", "survey_id": "999", "title": "test_title"},
         ),
         (
-            SurveyType.NRS_CENSUS,
+            SurveyType.CENSUS_NRS,
             "en",
             QuestionnaireSchema({"survey_id": "999"}),
             {"survey_id": "999"},

@@ -4,5 +4,5 @@ from enum import Enum
 class SurveyType(Enum):
     DEFAULT = "default"
     CENSUS = "census"
-    NI_CENSUS = "census-nisra"
-    NRS_CENSUS = "census-nrs"
+    CENSUS_NISRA = "census-nisra"
+    CENSUS_NRS = "census-nrs"

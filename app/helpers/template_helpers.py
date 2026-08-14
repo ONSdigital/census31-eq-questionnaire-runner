@@ -162,8 +162,8 @@ def survey_config_mapping(
     survey_type_to_config: dict[SurveyType, type[SurveyConfig]] = {
         SurveyType.DEFAULT: CensusSurveyConfig,
         SurveyType.CENSUS: CensusSurveyConfig,
-        SurveyType.NI_CENSUS: NICensusSurveyConfig,
-        SurveyType.NRS_CENSUS: NRSCensusSurveyConfig,
+        SurveyType.CENSUS_NISRA: NICensusSurveyConfig,
+        SurveyType.CENSUS_NRS: NRSCensusSurveyConfig,
     }
 
     return survey_type_to_config[theme](base_url=base_url, schema=schema, language_code=language)
