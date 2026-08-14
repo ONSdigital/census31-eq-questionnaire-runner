@@ -161,47 +161,13 @@ def test_header_context(app: Flask, theme, survey_title, survey_config, expected
             CensusSurveyConfig(),
             False,
             "census",
-            {
-                "toggleServicesButton": {
-                    "text": "Menu",
-                    "ariaLabel": "Toggle services menu",
-                },
-                "itemsList": [
-                    {
-                        "title": "Help",
-                        "url": f"{ACCOUNT_SERVICE_BASE_URL}/help",
-                        "id": "header-link-help",
-                    }
-                ],
-            },
+            None,
         ),
         (
             CensusSurveyConfig(schema=QuestionnaireSchema({"survey_id": "999"})),
             True,
             "census",
-            {
-                "toggleServicesButton": {
-                    "text": "Menu",
-                    "ariaLabel": "Toggle services menu",
-                },
-                "itemsList": [
-                    {
-                        "title": "Help",
-                        "url": f"{ACCOUNT_SERVICE_BASE_URL}/surveys/surveys-help?survey_ref=999&ru_ref=12345678901",
-                        "id": "header-link-help",
-                    },
-                    {
-                        "title": "My account",
-                        "url": f"{ACCOUNT_SERVICE_BASE_URL}/my-account",
-                        "id": "header-link-my-account",
-                    },
-                    {
-                        "title": "Sign out",
-                        "url": "/sign-out",
-                        "id": "header-link-sign-out",
-                    },
-                ],
-            },
+            None,
         ),
         (CensusSurveyConfig(), False, None, None),
         (

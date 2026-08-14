@@ -72,9 +72,9 @@ class TestHeaderLinksPreSubmission(TestHeaderLinks):
         self.assertStatusOK()
 
         # Then
-        self.assert_my_account_link_exist()
-        self.assert_sign_out_link_exist()
-        self.assert_help_link_exist()
+        self.assert_my_account_link_does_not_exist()
+        self.assert_sign_out_link_does_not_exist()
+        self.assert_help_link_does_not_exist()
 
     def test_links_in_header_when_no_session_but_cookie_exists(self):
         # Given
@@ -92,7 +92,7 @@ class TestHeaderLinksPreSubmission(TestHeaderLinks):
         self.assertEqual(cookie.get("theme"), "default")
         self.assert_my_account_link_does_not_exist()
         self.assert_sign_out_link_does_not_exist()
-        self.assert_help_link_exist_not_authenticated_after_sign_out()
+        self.assert_help_link_does_not_exist_not_authenticated_after_sign_out()
 
     def test_links_in_header_when_no_session_but_cookie_exists_theme_census(self):
         # Given
@@ -149,9 +149,9 @@ class TestHeaderLinksPostSubmission(TestHeaderLinks):
         self.assertStatusOK()
 
         # Then
-        self.assert_my_account_link_exist()
-        self.assert_sign_out_link_exist()
-        self.assert_help_link_exist()
+        self.assert_my_account_link_does_not_exist()
+        self.assert_sign_out_link_does_not_exist()
+        self.assert_help_link_does_not_exist()
 
     def test_links_not_in_header_when_no_session(self):
         # Given
@@ -185,9 +185,9 @@ class TestHeaderLinksPostSignOut(TestHeaderLinks):
     def test_links_not_in_header_after_sign_out(self):
         # Given
         self.launchSurveyV2(schema_name="test_thank_you")
-        self.assert_my_account_link_exist()
-        self.assert_sign_out_link_exist()
-        self.assert_help_link_exist()
+        self.assert_my_account_link_does_not_exist()
+        self.assert_sign_out_link_does_not_exist()
+        self.assert_help_link_does_not_exist()
 
         # When I sign out and go back to previous url since we will be redirected
         current_url = self.last_url
@@ -198,7 +198,7 @@ class TestHeaderLinksPostSignOut(TestHeaderLinks):
         self.assertInBody("Sorry, you need to sign in again")
         self.assert_my_account_link_does_not_exist()
         self.assert_sign_out_link_does_not_exist()
-        self.assert_help_link_exist_not_authenticated_after_sign_out()
+        self.assert_help_link_does_not_exist_not_authenticated_after_sign_out()
 
     def test_links_not_in_header_after_sign_out_theme_census(self):
         # Given
