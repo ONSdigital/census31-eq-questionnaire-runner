@@ -5,7 +5,7 @@ from flask import session as cookie_session
 from app.helpers.template_helpers import ContextHelper, get_survey_config
 from app.questionnaire import QuestionnaireSchema
 from app.routes.session import set_schema_context_in_cookie
-from app.settings import ACCOUNT_SERVICE_BASE_URL, ACCOUNT_SERVICE_BASE_URL_CENSUS, ONS_URL, ONS_URL_CY, read_file
+from app.settings import ACCOUNT_SERVICE_BASE_URL, ACCOUNT_SERVICE_BASE_URL_CENSUS, ONS_URL_CY, read_file
 from app.survey_config import (
     CensusSurveyConfig,
     NICensusSurveyConfig,

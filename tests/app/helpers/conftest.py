@@ -1,7 +1,7 @@
 from pytest import fixture
 
 from app.helpers.template_helpers import ContextHelper
-from app.settings import ACCOUNT_SERVICE_BASE_URL, ACCOUNT_SERVICE_BASE_URL_CENSUS, ONS_URL, ONS_URL_CY
+from app.settings import ACCOUNT_SERVICE_BASE_URL_CENSUS, ONS_URL, ONS_URL_CY
 
 
 @fixture

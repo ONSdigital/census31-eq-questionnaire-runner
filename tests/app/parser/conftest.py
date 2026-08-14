@@ -14,6 +14,10 @@ def get_metadata_census():
     return fake_metadata_full_v2_census()
 
 
+def get_metadata_full():
+    return fake_metadata_full_v2_business()
+
+
 def fake_metadata_runner():
     """Generate the set of claims required for runner to function"""
     return {
