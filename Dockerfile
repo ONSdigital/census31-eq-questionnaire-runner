@@ -25,7 +25,7 @@ COPY pyproject.toml pyproject.toml
 COPY poetry.lock poetry.lock
 
 RUN groupadd -r appuser && useradd -r -g appuser -u 9000 appuser && chown -R appuser:appuser .
-RUN pip install --no-cache-dir "poetry==2.1.2" && \
+RUN pip install --no-cache-dir "poetry==2.4.1" && \
     poetry config virtualenvs.create false && \
     poetry install --only main && \
     make build
