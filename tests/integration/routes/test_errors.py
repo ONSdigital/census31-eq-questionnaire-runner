@@ -422,12 +422,6 @@ class TestErrors(IntegrationTestCase):  # pylint: disable=too-many-public-method
             )
         )
 
-    def test_preview_not_enabled_results_in_404(self):
-        self.launchSurveyV2(schema_name="test_checkbox")
-        self.post(action="start_questionnaire")
-        self.get("/questionnaire/preview/")
-        self.assertStatusCode(404)
-
     def launchAndFailSubmission(self, schema):
         self.launchSurveyV2(schema_name=schema)
         self.post()

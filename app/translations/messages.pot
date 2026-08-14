@@ -433,10 +433,6 @@ msgstr ""
 msgid " (You)"
 msgstr ""
 
-#: app/views/contexts/preview_context.py:49
-msgid "Preview survey questions"
-msgstr ""
-
 #: app/views/contexts/submission_metadata_context.py:12
 msgid "Submitted on:"
 msgstr ""
@@ -478,26 +474,18 @@ msgstr ""
 msgid "Your answers have been submitted."
 msgstr ""
 
-#: app/views/contexts/view_submitted_response_context.py:30
+#: app/views/contexts/view_submitted_response_context.py:29
 #, python-brace-format
 msgid "Answers submitted for <span>{ru_name}</span> ({trad_as})"
 msgstr ""
 
-#: app/views/contexts/view_submitted_response_context.py:34
+#: app/views/contexts/view_submitted_response_context.py:33
 #, python-brace-format
 msgid "Answers submitted for <span>{ru_name}</span>"
 msgstr ""
 
-#: app/views/contexts/view_submitted_response_context.py:36
+#: app/views/contexts/view_submitted_response_context.py:35
 msgid "Answers submitted."
-msgstr ""
-
-#: app/views/contexts/preview/preview_question.py:31
-msgid "You can answer with the following options:"
-msgstr ""
-
-#: app/views/contexts/preview/preview_question.py:33
-msgid "You can answer with one of the following options:"
 msgstr ""
 
 #: app/views/handlers/confirm_email.py:33
@@ -782,8 +770,7 @@ msgstr ""
 msgid "Done"
 msgstr ""
 
-#: templates/feedback.html:16 templates/preview.html:14
-#: templates/view-submitted-response.html:15
+#: templates/feedback.html:16 templates/view-submitted-response.html:15
 msgid "Back"
 msgstr ""
 
@@ -814,12 +801,7 @@ msgstr ""
 msgid "Introduction"
 msgstr ""
 
-#: templates/introduction.html:20
-#, python-brace-format
-msgid "<a href='{url}'>View the questions you will be asked in this survey</a>"
-msgstr ""
-
-#: templates/introduction.html:24
+#: templates/introduction.html:19
 msgid "Your response is legally required"
 msgstr ""
 
@@ -897,7 +879,7 @@ msgstr ""
 msgid "Learn more about how we use this data"
 msgstr ""
 
-#: templates/thank-you.html:58 templates/view-submitted-response.html:76
+#: templates/thank-you.html:58 templates/view-submitted-response.html:60
 msgid "For security, you can no longer view or get a copy of your answers"
 msgstr ""
 
@@ -952,10 +934,6 @@ msgstr ""
 
 #: templates/view-submitted-response.html:35
 msgid "Print answers"
-msgstr ""
-
-#: templates/view-submitted-response.html:49
-msgid "Save answers as PDF"
 msgstr ""
 
 #: templates/errors/401.html:3
@@ -1302,16 +1280,6 @@ msgid ""
 " of the section</a>"
 msgstr ""
 
-#: templates/partials/preview-question.html:29
-#: templates/partials/question.html:86
-msgid "Or"
-msgstr ""
-
-#: templates/partials/preview-question.html:53
-#, python-brace-format
-msgid "{max_characters} characters can be added."
-msgstr ""
-
 #: templates/partials/question.html:78
 msgid "Selecting this will clear your answer"
 msgstr ""
@@ -1326,6 +1294,10 @@ msgstr ""
 
 #: templates/partials/question.html:82 templates/partials/question.html:90
 msgid "deselected"
+msgstr ""
+
+#: templates/partials/question.html:86
+msgid "Or"
 msgstr ""
 
 #: templates/partials/answers/address.html:8
@@ -1492,6 +1464,16 @@ msgstr ""
 #: templates/partials/answers/textfield.html:48
 #, python-brace-format
 msgid "{x} characters too many"
+msgstr ""
+
+#: templates/partials/introduction/preview.html:34
+#: templates/partials/summary/collapsible-summary.html:51
+msgid "Show all"
+msgstr ""
+
+#: templates/partials/introduction/preview.html:35
+#: templates/partials/summary/collapsible-summary.html:52
+msgid "Hide all"
 msgstr ""
 
 #: templates/partials/introduction/start-survey.html:6
