@@ -20,5 +20,8 @@
     {% if survey_type and survey_type in SURVEY_TYPES_CENSUS %}
         <p>{{ access_code }}</p>
         <p>{{ contact_us }}</p>
+    {% else %}
+        <p>{{ _("If you have attempted to submit your survey, you should check that this was successful. To do this, <a href='{logout_url}'>sign in to your business survey account</a>.").format(logout_url=other_logout_url) }}</p>
+        <p>{{ _("If you need more help, <a href='{url}'>contact us</a>.").format(url=other_contact_us_url) }}</p>
     {% endif %}
 {% endblock main %}
