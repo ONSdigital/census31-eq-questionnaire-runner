@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-08-14 08:43+0100\n"
+"POT-Creation-Date: 2026-08-14 10:11+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -235,7 +235,7 @@ msgstr ""
 msgid "The following links open in a new tab"
 msgstr ""
 
-#: app/helpers/template_helpers.py:152
+#: app/helpers/template_helpers.py:151
 #, python-brace-format
 msgid ""
 "Make sure you <a href='{sign_out_url}'>leave this page</a> or close your "
