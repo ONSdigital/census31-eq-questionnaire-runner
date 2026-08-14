@@ -52,8 +52,7 @@ def _render_error_page(status_code: int, template: str | int | None = None, **kw
     census_logout_url = census_survey_config.account_service_log_out_url
     census_contact_us_url = census_survey_config.contact_us_url
     other_logout_url = (
-        default_survey_config.account_service_log_out_url
-        or f"{default_survey_config.base_url}/sign-in/logout"
+        default_survey_config.account_service_log_out_url or f"{default_survey_config.base_url}/sign-in/logout"
     )
     other_contact_us_url = default_survey_config.contact_us_url
     template = template or status_code
