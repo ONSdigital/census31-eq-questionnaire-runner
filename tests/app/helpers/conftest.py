@@ -91,12 +91,12 @@ def expected_footer_census_theme_no_cookie():
                 "itemsList": [
                     {
                         "text": "What we do",
-                        "url": "https://www.ons.gov.uk/aboutus/whatwedo/",
+                        "url": f"{ONS_URL}/aboutus/whatwedo/",
                         "target": "_blank",
                     },
                     {
                         "text": "Accessibility",
-                        "url": "https://www.ons.gov.uk/help/accessibility/",
+                        "url": f"{ONS_URL}/help/accessibility/",
                         "target": "_blank",
                     },
                 ]

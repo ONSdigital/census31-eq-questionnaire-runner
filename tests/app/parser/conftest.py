@@ -7,7 +7,7 @@ from app.authentication.auth_payload_versions import AuthPayloadVersion
 
 
 def get_metadata():
-    return fake_metadata_runner_v2()
+    return _fake_metadata_runner_v2()
 
 
 def get_metadata_census():
@@ -15,7 +15,42 @@ def get_metadata_census():
 
 
 def get_metadata_full():
-    return fake_metadata_full_v2_business()
+    """Generate a fake set of runner and questionnaire claims for business-style metadata tests."""
+    fake_survey_metadata_claims = {
+        "user_id": "1",
+        "period_id": "3",
+        "period_str": "2016-01-01",
+        "ref_p_start_date": "2016-02-02",
+        "ref_p_end_date": "2016-03-03",
+        "ru_name": "Apple",
+        "return_by": "2016-07-07",
+        "case_ref": "1000000000000001",
+        "ru_ref": "12345678901A",
+        "form_type": "I",
+        "response_expires_at": get_response_expires_at(),
+    }
+
+    metadata = _fake_metadata_runner_v2()
+
+    metadata["survey_metadata"]["data"] = fake_survey_metadata_claims
+
+    return metadata
+
+
+def _fake_metadata_runner_v2():
+    """Generate the set of claims required for runner to function"""
+    return {
+        "tx_id": str(uuid.uuid4()),
+        "jti": str(uuid.uuid4()),
+        "schema_name": "2_a",
+        "collection_exercise_sid": "test-sid",
+        "response_id": str(uuid.uuid4()),
+        "account_service_url": "https://ras.ons.gov.uk",
+        "case_id": str(uuid.uuid4()),
+        "version": AuthPayloadVersion.V2.value,
+        "survey_metadata": {"data": {"key": "value"}},
+        "response_expires_at": get_response_expires_at(),
+    }
 
 
 def fake_metadata_runner():
@@ -35,45 +70,7 @@ def fake_metadata_runner():
 
 @pytest.fixture()
 def fake_metadata_runner_v2():
-    """Generate the set of claims required for runner to function"""
-    return {
-        "tx_id": str(uuid.uuid4()),
-        "jti": str(uuid.uuid4()),
-        "schema_name": "2_a",
-        "collection_exercise_sid": "test-sid",
-        "response_id": str(uuid.uuid4()),
-        "account_service_url": "https://ras.ons.gov.uk",
-        "case_id": str(uuid.uuid4()),
-        "version": AuthPayloadVersion.V2.value,
-        "survey_metadata": {"data": {"key": "value"}},
-        "response_expires_at": get_response_expires_at(),
-    }
-
-
-def fake_metadata_full_v2_business():
-    """Generate a fake set of claims
-    These claims should represent all claims known to runner, including common questionnaire
-    level claims.
-    """
-    fake_survey_metadata_claims = {
-        "user_id": "1",
-        "period_id": "3",
-        "period_str": "2016-01-01",
-        "ref_p_start_date": "2016-02-02",
-        "ref_p_end_date": "2016-03-03",
-        "ru_name": "Apple",
-        "return_by": "2016-07-07",
-        "case_ref": "1000000000000001",
-        "ru_ref": "12345678901A",
-        "form_type": "I",
-        "response_expires_at": get_response_expires_at(),
-    }
-
-    metadata = fake_metadata_runner_v2()
-
-    metadata["survey_metadata"]["data"] = fake_survey_metadata_claims
-
-    return metadata
+    return _fake_metadata_runner_v2()
 
 
 def fake_metadata_full_v2_census():
@@ -86,7 +83,7 @@ def fake_metadata_full_v2_census():
         "qid": "2000000000000002",
     }
 
-    metadata = fake_metadata_runner_v2()
+    metadata = _fake_metadata_runner_v2()
 
     metadata["survey_metadata"]["data"] = fake_survey_metadata_claims
     metadata["survey_metadata"]["receipting_keys"] = ["qid"]

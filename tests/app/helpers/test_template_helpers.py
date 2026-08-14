@@ -5,7 +5,7 @@ from flask import session as cookie_session
 from app.helpers.template_helpers import ContextHelper, get_survey_config
 from app.questionnaire import QuestionnaireSchema
 from app.routes.session import set_schema_context_in_cookie
-from app.settings import ACCOUNT_SERVICE_BASE_URL, ACCOUNT_SERVICE_BASE_URL_CENSUS, ONS_URL_CY, read_file
+from app.settings import ACCOUNT_SERVICE_BASE_URL, ACCOUNT_SERVICE_BASE_URL_CENSUS, ONS_URL, ONS_URL_CY, read_file
 from app.survey_config import (
     CensusSurveyConfig,
     NICensusSurveyConfig,
@@ -63,31 +63,31 @@ def test_footer_context(app: Flask, theme, survey_config, language, expected_foo
             SurveyType.CENSUS,
             None,
             CensusSurveyConfig(),
-            ["ONS Surveys", None, None],
+            ["ONS Surveys", None, None, read_file("./templates/assets/images/census-logo.svg"), None],
         ),
         (
             SurveyType.CENSUS,
             "Test",
             CensusSurveyConfig(),
-            ["Test", None, None],
+            ["Test", None, None, read_file("./templates/assets/images/census-logo.svg"), None],
         ),
         (
             SurveyType.CENSUS,
             "Test",
             CensusSurveyConfig(language_code="cy"),
-            ["Test", None, None],
+            ["Test", None, None, read_file("./templates/assets/images/census-logo.svg"), None],
         ),
         (
             None,
             None,
             CensusSurveyConfig(),
-            ["ONS Surveys", None, None],
+            ["ONS Surveys", None, None, read_file("./templates/assets/images/census-logo.svg"), None],
         ),
         (
             None,
             None,
             SurveyConfig(),
-            ["ONS Surveys", None, None],
+            ["ONS Surveys", None, None, None, None],
         ),
         (
             None,
@@ -95,8 +95,10 @@ def test_footer_context(app: Flask, theme, survey_config, language, expected_foo
             NICensusSurveyConfig(),
             [
                 "ONS Surveys",
-                read_file("./templates/assets/images/finance-ni-logo.svg"),
-                read_file("./templates/assets/images/finance-ni-mobile-logo.svg"),
+                read_file("./templates/assets/images/nisra-logo.svg"),
+                None,
+                read_file("./templates/assets/images/census-logo.svg"),
+                read_file("./templates/assets/images/nisra-footer-logo.svg"),
             ],
         ),
         (
@@ -105,8 +107,10 @@ def test_footer_context(app: Flask, theme, survey_config, language, expected_foo
             NICensusSurveyConfig(),
             [
                 "Test",
-                read_file("./templates/assets/images/finance-ni-logo.svg"),
-                read_file("./templates/assets/images/finance-ni-mobile-logo.svg"),
+                read_file("./templates/assets/images/nisra-logo.svg"),
+                None,
+                read_file("./templates/assets/images/census-logo.svg"),
+                read_file("./templates/assets/images/nisra-footer-logo.svg"),
             ],
         ),
         (
@@ -115,8 +119,10 @@ def test_footer_context(app: Flask, theme, survey_config, language, expected_foo
             NRSCensusSurveyConfig(),
             [
                 "Test",
-                read_file("./templates/assets/images/finance-ni-logo.svg"),
-                read_file("./templates/assets/images/finance-ni-mobile-logo.svg"),
+                read_file("./templates/assets/images/nrs-logo.svg"),
+                None,
+                read_file("./templates/assets/images/census-logo.svg"),
+                read_file("./templates/assets/images/nrs-footer-logo.svg"),
             ],
         ),
     ),
@@ -214,7 +220,7 @@ def test_service_links_context(app: Flask, mocker, survey_config, is_authenticat
         (
             CensusSurveyConfig(),
             "en",
-            f"{ACCOUNT_SERVICE_BASE_URL}/contact-us/",
+            f"{ONS_URL}/aboutus/contactus/surveyenquiries/",
         ),
         (
             CensusSurveyConfig(language_code="cy"),
@@ -224,12 +230,12 @@ def test_service_links_context(app: Flask, mocker, survey_config, is_authenticat
         (
             NICensusSurveyConfig(),
             "en",
-            f"{ACCOUNT_SERVICE_BASE_URL}/contact-us/",
+            f"{ONS_URL}/aboutus/contactus/surveyenquiries/",
         ),
         (
             NRSCensusSurveyConfig(),
             "en",
-            f"{ACCOUNT_SERVICE_BASE_URL}/contact-us/",
+            f"{ONS_URL}/aboutus/contactus/surveyenquiries/",
         ),
     ],
 )
@@ -275,7 +281,7 @@ def test_sign_out_button_text_context(app: Flask, survey_config: SurveyConfig, e
         (
             CensusSurveyConfig(),
             True,
-            f"{ACCOUNT_SERVICE_BASE_URL}/cookies/",
+            f"{ACCOUNT_SERVICE_BASE_URL_CENSUS}/en/cookies/",
         ),
         (
             CensusSurveyConfig(language_code="cy"),
@@ -285,12 +291,12 @@ def test_sign_out_button_text_context(app: Flask, survey_config: SurveyConfig, e
         (
             NICensusSurveyConfig(),
             True,
-            f"{ACCOUNT_SERVICE_BASE_URL}/cookies/",
+            f"{ACCOUNT_SERVICE_BASE_URL_CENSUS}/en/cookies/",
         ),
         (
             NRSCensusSurveyConfig(),
             True,
-            f"{ACCOUNT_SERVICE_BASE_URL_CENSUS}/cy/cookies/",
+            f"{ACCOUNT_SERVICE_BASE_URL_CENSUS}/en/cookies/",
         ),
         (SurveyConfig(), False, None),
     ],
@@ -317,22 +323,22 @@ def test_cookie_settings_url_context(app: Flask, survey_config: SurveyConfig, co
         (
             CensusSurveyConfig(),
             "en",
-            ACCOUNT_SERVICE_BASE_URL,
+            ACCOUNT_SERVICE_BASE_URL_CENSUS,
         ),
         (
             CensusSurveyConfig(),
             "cy",
-            ACCOUNT_SERVICE_BASE_URL,
+            ACCOUNT_SERVICE_BASE_URL_CENSUS,
         ),
         (
             NICensusSurveyConfig(),
             "en",
-            ACCOUNT_SERVICE_BASE_URL,
+            ACCOUNT_SERVICE_BASE_URL_CENSUS,
         ),
         (
             NRSCensusSurveyConfig(),
             "en",
-            ACCOUNT_SERVICE_BASE_URL,
+            ACCOUNT_SERVICE_BASE_URL_CENSUS,
         ),
     ],
 )
@@ -411,15 +417,15 @@ def test_account_service_my_todo_url_context(
         (SurveyConfig(), None),
         (
             CensusSurveyConfig(),
-            f"{ACCOUNT_SERVICE_BASE_URL}/sign-in/logout",
+            f"{ACCOUNT_SERVICE_BASE_URL_CENSUS}/en/start/",
         ),
         (
             NICensusSurveyConfig(),
-            f"{ACCOUNT_SERVICE_BASE_URL}/sign-in/logout",
+            f"{ACCOUNT_SERVICE_BASE_URL_CENSUS}/en/start/",
         ),
         (
             NRSCensusSurveyConfig(),
-            f"{ACCOUNT_SERVICE_BASE_URL}/sign-in/logout",
+            f"{ACCOUNT_SERVICE_BASE_URL_CENSUS}/en/start/",
         ),
     ],
 )
@@ -485,14 +491,14 @@ def test_survey_config_base_url_duplicate_todo(app: Flask):
     with app.app_context():
         result = CensusSurveyConfig(base_url=base_url)
 
-    assert result.base_url == DEFAULT_URL
+    assert result.base_url == base_url
 
-    assert result.account_service_log_out_url == f"{DEFAULT_URL}/sign-in/logout"
-    assert result.account_service_my_account_url == f"{DEFAULT_URL}/my-account"
-    assert result.account_service_todo_url == f"{DEFAULT_URL}/surveys/todo"
-    assert result.contact_us_url == f"{DEFAULT_URL}/contact-us/"
-    assert result.cookie_settings_url == f"{DEFAULT_URL}/cookies/"
-    assert result.privacy_and_data_protection_url == f"{DEFAULT_URL}/privacy-and-data-protection/"
+    assert result.account_service_log_out_url == f"{base_url}/en/start/"
+    assert result.account_service_my_account_url is None
+    assert result.account_service_todo_url is None
+    assert result.contact_us_url == f"{ONS_URL}/aboutus/contactus/surveyenquiries/"
+    assert result.cookie_settings_url == f"{base_url}/en/cookies/"
+    assert result.privacy_and_data_protection_url == f"{base_url}/en/privacy-and-data-protection/"
 
 
 def test_get_survey_config_base_url_not_provided(app: Flask):
