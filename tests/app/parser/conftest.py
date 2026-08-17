@@ -15,7 +15,7 @@ def get_metadata_census():
 
 
 def get_metadata_full():
-    """Generate a fake set of runner and questionnaire claims for business-style metadata tests."""
+    """Generate a fake set of runner and questionnaire claims for default survey metadata tests."""
     fake_survey_metadata_claims = {
         "user_id": "1",
         "period_id": "3",
