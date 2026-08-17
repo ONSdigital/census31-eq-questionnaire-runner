@@ -3,10 +3,8 @@ from mock import Mock, patch
 from app.questionnaire.questionnaire_schema import DEFAULT_LANGUAGE_CODE
 from app.settings import ACCOUNT_SERVICE_BASE_URL_CENSUS, ONS_URL
 from tests.app.parser.conftest import get_response_expires_at
-from tests.integration.create_token import ACCOUNT_SERVICE_URL
 from tests.integration.integration_test_case import IntegrationTestCase
 
-DEFAULT_URL = ACCOUNT_SERVICE_URL
 CENSUS_URL = ACCOUNT_SERVICE_BASE_URL_CENSUS
 
 
@@ -40,19 +38,6 @@ class TestErrors(IntegrationTestCase):  # pylint: disable=too-many-public-method
             "<h1>Sorry, there is a problem with this service</h1>\n"
             "<p>Try again later.</p>\n"
             "<p>If you have started a survey, your answers have been saved.</p>"
-        )
-
-    def _assert_default_theme_500_page_content(
-        self, *, url=DEFAULT_URL, has_header=False, contact_us_text="contact us"
-    ):
-        header_text = "<h2>Business surveys</h2>\n" if has_header else ""
-        self.assertInBody(
-            (
-                f"{header_text}<p>If you have attempted to submit your survey, "
-                f"you should check that this was successful. To do this, "
-                f'<a href="{url}/sign-in/logout">sign in to your business survey account</a>.</p>\n'
-                f'<p>If you need more help, <a href="{url}/contact-us/">{contact_us_text}</a>.</p>'
-            )
         )
 
     def _assert_census_theme_500_page_content(self, has_header=False, contact_us_text="contact us"):
@@ -142,7 +127,10 @@ class TestErrors(IntegrationTestCase):  # pylint: disable=too-many-public-method
         cookie = self.getCookie()
         self.assertEqual(cookie.get("theme"), "default")
         self.assertInBody(
-            f'<p>You will need to <a href="{DEFAULT_URL}/sign-in/logout">sign back in</a> to access your account</p>'
+            (
+                f"<p>To access this page you need to "
+                f'<a href="{CENSUS_URL}/{DEFAULT_LANGUAGE_CODE}/start/">re-enter your access code</a>.</p>'
+            )
         )
 
     def test_401_theme_census_cookie_exists(self):
@@ -198,11 +186,12 @@ class TestErrors(IntegrationTestCase):  # pylint: disable=too-many-public-method
 
         # When
         cookie = self.getUrlAndCookie("/dump/debug")
-
         # Then
         self.assertEqual(cookie.get("theme"), "default")
         self.assertStatusForbidden()
-        self.assertInBody(f'<p>For further help, please <a href="{DEFAULT_URL}/contact-us/">contact us</a>.</p>')
+        self.assertInBody(
+            f'<p>For further help, please <a href="{ONS_URL}/aboutus/contactus/surveyenquiries/">contact us</a>.</p>'
+        )
 
     def test_403_theme_census_cookie_exists(self):
         # Given
@@ -253,7 +242,8 @@ class TestErrors(IntegrationTestCase):  # pylint: disable=too-many-public-method
         self.assertInBody(
             (
                 f"<p>If the web address is correct or you selected a link or button, "
-                f'please <a href="{DEFAULT_URL}/contact-us/">contact us</a> for more help.</p>'
+                f'please <a href="{ONS_URL}/aboutus/contactus/surveyenquiries/">contact us</a> for more '
+                "help.</p>"
             )
         )
 
@@ -340,7 +330,7 @@ class TestErrors(IntegrationTestCase):  # pylint: disable=too-many-public-method
             self.assertEqual(cookie.get("theme"), "default")
             self.assertStatusCode(500)
             self._assert_generic_500_page_content()
-            self._assert_default_theme_500_page_content()
+            self._assert_census_theme_500_page_content()
 
     def test_500_theme_census_cookie_exists(self):
         # Given
@@ -394,7 +384,7 @@ class TestErrors(IntegrationTestCase):  # pylint: disable=too-many-public-method
         self.assertInBody(
             (
                 f"<p>If this problem keeps happening, please "
-                f'<a href="{DEFAULT_URL}/contact-us/">contact us</a> for help.</p>'
+                f'<a href="{ONS_URL}/aboutus/contactus/surveyenquiries/">contact us</a> for help.</p>'
             )
         )
 

@@ -439,8 +439,8 @@ def test_account_service_log_out_url_context(
 @pytest.mark.parametrize(
     "theme, language, expected",
     [
-        (SurveyType.DEFAULT, "en", SurveyConfig),
-        (SurveyType.DEFAULT, "cy", SurveyConfig),
+        (SurveyType.DEFAULT, "en", CensusSurveyConfig),
+        (SurveyType.DEFAULT, "cy", CensusSurveyConfig),
         (SurveyType.CENSUS, "en", CensusSurveyConfig),
         (SurveyType.CENSUS, "cy", CensusSurveyConfig),
         (SurveyType.CENSUS_NISRA, "en", NICensusSurveyConfig),

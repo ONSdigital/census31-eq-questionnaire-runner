@@ -1,7 +1,7 @@
 {% extends "errors/_base.html" %}
 
 {% set page_title = _("Page is not available") %}
-{% set access_code = _("To access this page you need to <a href='{url}'>re-enter your access code</a>.").format(url = other_logout_url) %}
+{% set access_code = _("To access this page you need to <a href='{url}'>re-enter your access code</a>.").format(url = census_logout_url) %}
 {# djlint:off #}
 {% set other_access_code =
     _(
@@ -18,7 +18,7 @@
         <li>{{ _("followed a link to a page you are not signed in to") }}</li>
         <li>{{ _("followed a link to a survey that has already been submitted") }}</li>
     </ul>
-    {% if survey_type and survey_type in SURVEY_TYPES_CENSUS %}
+    {% if survey_type and survey_type in SURVEY_TYPES_ALL %}
         <p>{{ access_code }}</p>
     {% else %}
         <h2>{{ _("All other surveys") }}</h2>
