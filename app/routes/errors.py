@@ -64,7 +64,6 @@ def _render_error_page(status_code: int, template: str | int | None = None, **kw
             census_contact_us_url=census_contact_us_url,
             other_logout_url=other_logout_url,
             other_contact_us_url=other_contact_us_url,
-            contact_us_url=other_contact_us_url,
             **kwargs,
         ),
         status_code,
