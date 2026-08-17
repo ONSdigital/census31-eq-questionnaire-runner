@@ -366,8 +366,18 @@ class TestErrors(IntegrationTestCase):  # pylint: disable=too-many-public-method
         self.assertEqual(cookie.get("theme"), None)
         self.assertStatusCode(500)
         self._assert_generic_500_page_content()
-        self._assert_census_theme_500_page_content(
-            has_header=True, contact_us_text="contact us about all other surveys"
+        self.assertInBody(
+            (
+                f"<p>If you have attempted to submit your survey, you should check that this was successful. "
+                f"To do this, <a href=\"{CENSUS_URL}/{DEFAULT_LANGUAGE_CODE}/start/\">"
+                "sign in to your business survey account</a>.</p>"
+            )
+        )
+        self.assertInBody(
+            (
+                f"<p>If you need more help, <a href=\"{ONS_URL}/aboutus/contactus/surveyenquiries/\">"
+                "contact us</a>.</p>"
+            )
         )
 
     def test_submission_failed_theme_default_cookie_exists(self):
