@@ -493,7 +493,7 @@ def test_survey_config_base_url_duplicate_todo(app: Flask):
 
     assert result.base_url == base_url
 
-    assert result.account_service_log_out_url == f"{base_url}/en/start/"
+    assert result.account_service_log_out_url == f"{DEFAULT_URL}/sign-in/logout"
     assert result.account_service_my_account_url is None
     assert result.account_service_todo_url is None
     assert result.contact_us_url == f"{ONS_URL}/aboutus/contactus/surveyenquiries/"
