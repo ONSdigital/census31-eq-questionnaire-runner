@@ -209,6 +209,33 @@ def test_service_links_context(app: Flask, mocker, survey_config, is_authenticat
     assert result == expected
 
 
+def test_service_links_context_when_links_exist(app: Flask, mocker):
+    with app.app_context():
+        mocked_current_user = mocker.Mock()
+        mocked_current_user.is_authenticated = True
+        mocker.patch("flask_login.utils._get_user", return_value=mocked_current_user)
+        cookie_session["theme"] = "default"
+
+        survey_config = SurveyConfig()
+        expected_items = [{"text": "Example", "url": "/example"}]
+        mocker.patch.object(survey_config, "get_service_links", return_value=expected_items)
+
+        result = ContextHelper(
+            language="en",
+            is_post_submission=False,
+            include_csrf_token=True,
+            survey_config=survey_config,
+        ).context["service_links"]
+
+    assert result == {
+        "toggleServicesButton": {
+            "text": "Menu",
+            "ariaLabel": "Toggle services menu",
+        },
+        "itemsList": expected_items,
+    }
+
+
 @pytest.mark.parametrize(
     "survey_config, language, expected",
     [
