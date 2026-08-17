@@ -16,7 +16,7 @@ test.describe('Save sign out / Exit', () => {
   test.describe.configure({ mode: 'serial' })
   const responseId = getRandomString(16)
 
-  test('Given I am on an introduction page, When I click the exit button, Then I am redirected to sign out page and my session is cleared', async ({
+  test('Given I am on an introduction page, When I click the exit button, Then I am redirected to access-code start and my session is cleared', async ({
     page,
     openQuestionnaire
   }) => {
@@ -24,7 +24,7 @@ test.describe('Save sign out / Exit', () => {
     await openQuestionnaire('test_introduction.json')
     await introductionPage.exitButton().click()
 
-    await expect(page).toHaveURL(/\/surveys\/todo/)
+    await expect(page).toHaveURL(/\/en\/start/)
 
     await page.goBack()
     await expect(page.locator('#main-content')).toContainText('Sorry, you need to sign in again')
@@ -95,21 +95,21 @@ test.describe('Save sign out / Exit', () => {
     await expect(resumeSurveyLink).toHaveAttribute('href', /\/en\/start/)
   })
 
-  test('Given I have started a business questionnaire, When I select save and sign out, Then I am redirected to the signed out page and the correct access code link is shown', async ({
+  test('Given I have started a default questionnaire, When I select save and sign out, Then I am redirected to the signed out page and the correct access code link is shown', async ({
     page,
     openQuestionnaire
   }) => {
     const introductionPage = new IntroductionPage(page)
     const introInterstitialPage = new IntroInterstitialPage(page)
-    const myAccountLink = page.locator('main a[href*="/surveys/todo"]')
+    const resumeSurveyLink = page.locator('main a[href*="/en/start"]')
     await openQuestionnaire('test_introduction.json')
     await introductionPage.getStarted().click()
     await introInterstitialPage.saveSignOut().click()
     await expect(page).toHaveURL(/\/signed-out/)
     await expect(page.locator('#main-content')).toContainText('Your progress has been saved')
-    await expect(page.locator('#main-content')).toContainText('To find further information or resume the survey,')
-    await expect(myAccountLink).toHaveCount(1)
-    await expect(myAccountLink).toHaveAttribute('href', /\/surveys\/todo/)
+    await expect(page.locator('#main-content')).toContainText('To resume the survey,')
+    await expect(resumeSurveyLink).toHaveCount(1)
+    await expect(resumeSurveyLink).toHaveAttribute('href', /\/en\/start/)
   })
 
   test('Given a business questionnaire, When I navigate the questionnaire, Then I see the correct sign out buttons', async ({ page, openQuestionnaire }) => {
