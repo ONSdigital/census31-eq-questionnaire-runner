@@ -1,5 +1,5 @@
-<svg class="ons-icon--logo" viewBox="0 0 414.74667 73.706665" height="42" width="236.33" xmlns="http://www.w3.org/2000/svg" focusable="false" role="img" labelledby="scott-census-logo-en-alt">
-    <title id="scott-census-logo-en-alt">Census Scotland logo</title>
+<svg class="ons-icon--logo" viewBox="0 0 414.74667 73.706665" height="42" width="236.33" xmlns="http://www.w3.org/2000/svg" focusable="false" role="img" aria-labelledby="nrs-census-logo-en-alt">
+    <title id="nrs-census-logo-en-alt">Census Scotland logo</title>
     <g transform="matrix(1.3333333,0,0,-1.3333333,0,73.706667)">
         <g class="ons-icon--logo__group ons-icon--logo__group--primary" transform="scale(0.1)" fill="#3572c2">
             <path d="M 108.789,552.77 460.52,346.539 812.262,552.77 Z" />
