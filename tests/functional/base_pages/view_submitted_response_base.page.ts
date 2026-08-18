@@ -21,8 +21,4 @@ export default class ViewSubmittedResponseBasePage extends BasePage {
   printButton (): Locator {
     return this.locator('[data-qa="btn-print"]')
   }
-
-  downloadButton (): Locator {
-    return this.locator('[data-qa="btn-pdf"]')
-  }
 }

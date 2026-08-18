@@ -38,10 +38,6 @@ export default class IntroductionPageBase extends BasePage {
     return this.locator('#use-of-information p')
   }
 
-  previewQuestions (): Locator {
-    return this.locator('a[href="/questionnaire/preview"]')
-  }
-
   introQuestion (number = 1): Locator {
     return this.locator(`#intro-questions-${number}`)
   }
