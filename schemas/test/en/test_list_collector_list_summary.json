@@ -5,7 +5,6 @@
     "data_version": "0.0.3",
     "survey_id": "999",
     "title": "Test List Collector List Summary",
-    "preview_questions": true,
     "theme": "default",
     "description": "A questionnaire to test ListCollector",
     "metadata": [

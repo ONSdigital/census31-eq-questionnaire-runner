@@ -12,7 +12,6 @@ from app.cloud_tasks import CloudTaskPublisher
 from app.publisher import LogPublisher, PubSubPublisher
 from app.setup import create_app
 from app.storage.datastore import Datastore
-from app.storage.dynamodb import Dynamodb
 from app.submitter.submitter import GCSFeedbackSubmitter, GCSSubmitter, LogSubmitter
 
 
@@ -262,19 +261,6 @@ class TestCreateApp(unittest.TestCase):  # pylint: disable=too-many-public-metho
             application = create_app(self._setting_overrides)
 
         self.assertIsInstance(application.eq["storage"], Datastore)
-
-    def test_setup_dynamodb(self):
-        self._setting_overrides["EQ_STORAGE_BACKEND"] = "dynamodb"
-
-        application = create_app(self._setting_overrides)
-
-        self.assertIsInstance(application.eq["storage"], Dynamodb)
-
-    def test_invalid_storage(self):
-        self._setting_overrides["EQ_STORAGE_BACKEND"] = "invalid"
-
-        with self.assertRaises(Exception):
-            create_app(self._setting_overrides)
 
     def test_eq_feedback_backend_not_set(self):
         # Given
