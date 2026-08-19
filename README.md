@@ -157,6 +157,7 @@ Runner requires three supporting services - a questionnaire launcher, a storage 
 #### Run supporting services with Docker
 
 First, authenticate to make sure Docker can pull from GAR
+
 ```shell
 gcloud auth login
 ```
@@ -167,38 +168,10 @@ To run the app locally, but the supporting services in Docker, make sure you hav
 make dev-compose-up
 ```
 
-Note that on Linux you will need to use:
-
-```shell
-make dev-compose-up-linux
-```
-
 If you also want to run the address index service (for address lookups), use:
 
 ``` shell
 make aims-compose-up
-```
-
-#### Run supporting services locally
-
-##### [Questionnaire launcher](https://github.com/ONSDigital/eq-questionnaire-launcher)
-
-```shell
-docker run -e SURVEY_RUNNER_SCHEMA_URL=http://host.docker.internal:5000 -it -p 8000:8000 europe-west2-docker.pkg.dev/ons-eq-ci/docker-images/eq-questionnaire-launcher:latest
-```
-
-##### Storage backends
-
-[Google Datastore](https://hub.docker.com/r/knarz/datastore-emulator/)
-
-``` shell
-docker run -it -p 8432:8432 knarz/datastore-emulator:latest
-```
-
-##### Cache
-
-``` shell
-docker run -it -p 6379:6379 redis:4
 ```
 
 #### Using Google Cloud Platform for supporting services
