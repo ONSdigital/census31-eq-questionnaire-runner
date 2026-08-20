@@ -18,20 +18,18 @@ EXPECTED_TOKEN_BUSINESS = {
     "roles": [],
     "schema_name": "test_metadata_routing.json",
     "survey_metadata": {
-        "data": {
-            "display_address": "68 Abingdon Road, Goathill",
-            "employment_date": "1983-06-02",
-            "flag_1": 123,
-            "link": "https://example.com",
-            "period_id": "202402",
-            "period_str": "April 2016",
-            "ref_p_end_date": "2016-04-30",
-            "ref_p_start_date": "2016-04-01",
-            "ru_name": "Integration Testing",
-            "ru_ref": "12345678901A",
-            "trad_as": "Integration Tests",
-            "user_id": "integration-test",
-        }
+        "display_address": "68 Abingdon Road, Goathill",
+        "employment_date": "1983-06-02",
+        "flag_1": 123,
+        "link": "https://example.com",
+        "period_id": "202402",
+        "period_str": "April 2016",
+        "ref_p_end_date": "2016-04-30",
+        "ref_p_start_date": "2016-04-01",
+        "ru_name": "Integration Testing",
+        "ru_ref": "12345678901A",
+        "trad_as": "Integration Tests",
+        "user_id": "integration-test",
     },
     "tx_id": "1001",
     "version": "v2",
@@ -49,14 +47,11 @@ EXPECTED_TOKEN_SOCIAL = {
     "roles": [],
     "schema_name": "social_demo.json",
     "survey_metadata": {
-        "data": {
-            "case_ref": "1000000000000001",
-            "date": "2016-05-12",
-            "flag_1": True,
-            "qid": PAYLOAD_V2_SOCIAL["survey_metadata"]["data"]["qid"],
-            "user_id": "64389274239",
-        },
-        "receipting_keys": ["qid"],
+        "case_ref": "1000000000000001",
+        "date": "2016-05-12",
+        "flag_1": True,
+        "qid": PAYLOAD_V2_SOCIAL["survey_metadata"]["qid"],
+        "user_id": "64389274239",
     },
     "tx_id": "1001",
     "version": "v2",
@@ -123,12 +118,9 @@ class TestCreateToken(IntegrationTestCase, AppContextTestCase):
         with self.test_app.app_context():
             decrypted_token = decrypt_token(token)
             assert decrypted_token["survey_metadata"] == {
-                "data": {
-                    "case_ref": "1000000000000001",
-                    "qid": PAYLOAD_V2_SOCIAL["survey_metadata"]["data"]["qid"],
-                    "value": "Dummy Text",
-                },
-                "receipting_keys": ["qid"],
+                "case_ref": "1000000000000001",
+                "qid": PAYLOAD_V2_SOCIAL["survey_metadata"]["qid"],
+                "value": "Dummy Text",
             }
 
     def test_metadata_is_removed_from_token(self):

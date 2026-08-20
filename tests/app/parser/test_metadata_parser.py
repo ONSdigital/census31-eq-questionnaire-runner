@@ -32,7 +32,7 @@ def test_validation_does_not_change_metadata(
 
     fake_metadata_copy = deepcopy(metadata)
 
-    questionnaire_claims = metadata["survey_metadata"]["data"]
+    questionnaire_claims = metadata["survey_metadata"]
 
     validate_questionnaire_claims(questionnaire_claims, fake_questionnaire_metadata_requirements_full)
 
@@ -61,7 +61,7 @@ def test_minimum_length():
 
     field_specification = [{"name": "some_field", "type": "string", "min_length": 5}]
 
-    questionnaire_claims = metadata["survey_metadata"]["data"]
+    questionnaire_claims = metadata["survey_metadata"]
 
     questionnaire_claims["some_field"] = "123456"
 
@@ -78,7 +78,7 @@ def test_maximum_length():
 
     field_specification = [{"name": "some_field", "type": "string", "max_length": 5}]
 
-    questionnaire_claims = metadata["survey_metadata"]["data"]
+    questionnaire_claims = metadata["survey_metadata"]
 
     questionnaire_claims["some_field"] = "1234"
 
@@ -95,7 +95,7 @@ def test_min_and_max_length():
 
     field_specification = [{"name": "some_field", "type": "string", "min_length": 4, "max_length": 5}]
 
-    questionnaire_claims = metadata["survey_metadata"]["data"]
+    questionnaire_claims = metadata["survey_metadata"]
 
     questionnaire_claims["some_field"] = "1234"
 
@@ -117,7 +117,7 @@ def test_length_equals():
 
     field_specification = [{"name": "some_field", "type": "string", "length": 4}]
 
-    questionnaire_claims = metadata["survey_metadata"]["data"]
+    questionnaire_claims = metadata["survey_metadata"]
 
     questionnaire_claims["some_field"] = "1234"
 
@@ -166,7 +166,7 @@ def test_deserialisation_iso_8601_dates():
 
     field_specification = [{"name": "birthday", "type": "date"}]
 
-    questionnaire_claims = metadata["survey_metadata"]["data"]
+    questionnaire_claims = metadata["survey_metadata"]
 
     questionnaire_claims["birthday"] = "2019-11-1"
     claims = validate_questionnaire_claims(questionnaire_claims, field_specification)
@@ -236,7 +236,7 @@ def test_schema_name_and_schema_url_not_valid_v2(options):
         validate_runner_claims_v2(metadata)
 
     assert (
-        f"Only one of schema_name or schema_url should be specified in metadata, but {provided} were provided"
+        f"Only one of schema_name, schema_url or schema should be specified in metadata, but {provided} were provided"
         in str(exc)
     )
 
@@ -250,11 +250,3 @@ def test_valid_v2_social_claims():
 
     assert claims == fake_metadata_copy
 
-
-def test_invalid_v2_social_claims_missing_receipting_key_raises_error():
-    metadata = get_metadata_social()
-
-    del metadata["survey_metadata"]["data"]["qid"]
-
-    with pytest.raises(ValidationError):
-        validate_runner_claims_v2(metadata)

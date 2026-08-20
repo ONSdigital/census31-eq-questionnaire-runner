@@ -16,18 +16,16 @@ TOP_LEVEL_KEYS = TOP_LEVEL_METADATA_KEYS + ["exp", "jti", "iat"]
 PAYLOAD_V2_BUSINESS = {
     "version": AuthPayloadVersion.V2.value,
     "survey_metadata": {
-        "data": {
-            "user_id": "integration-test",
-            "period_str": "April 2016",
-            "period_id": "201604",
-            "ru_ref": "12345678901A",
-            "ru_name": "Integration Testing",
-            "ref_p_start_date": "2016-04-01",
-            "ref_p_end_date": "2016-04-30",
-            "trad_as": "Integration Tests",
-            "employment_date": "1983-06-02",
-            "display_address": "68 Abingdon Road, Goathill",
-        }
+        "user_id": "integration-test",
+        "period_str": "April 2016",
+        "period_id": "201604",
+        "ru_ref": "12345678901A",
+        "ru_name": "Integration Testing",
+        "ref_p_start_date": "2016-04-01",
+        "ref_p_end_date": "2016-04-30",
+        "trad_as": "Integration Tests",
+        "employment_date": "1983-06-02",
+        "display_address": "68 Abingdon Road, Goathill",
     },
     "collection_exercise_sid": "789",
     "response_id": "1234567890123456",
@@ -39,11 +37,8 @@ PAYLOAD_V2_BUSINESS = {
 PAYLOAD_V2_SOCIAL = {
     "version": AuthPayloadVersion.V2.value,
     "survey_metadata": {
-        "data": {
-            "case_ref": "1000000000000001",
-            "qid": str(uuid4()),
-        },
-        "receipting_keys": ["qid"],
+        "case_ref": "1000000000000001",
+        "qid": str(uuid4()),
     },
     "collection_exercise_sid": "789",
     "response_id": "1234567890123456",
@@ -90,7 +85,7 @@ class TokenGenerator:
             if key in TOP_LEVEL_KEYS:
                 populate_with_extra_payload_items(key, value, payload_vars)
             else:
-                populate_with_extra_payload_items(key, value, payload_vars["survey_metadata"]["data"])
+                populate_with_extra_payload_items(key, value, payload_vars["survey_metadata"])
 
         return payload_vars
 
@@ -121,7 +116,7 @@ class TokenGenerator:
 
     def create_token_without_trad_as(self, schema_name, **extra_payload):
         payload_vars = self._get_payload_with_params(schema_name=schema_name, schema_url=None, **extra_payload)
-        del payload_vars["survey_metadata"]["data"]["trad_as"]
+        del payload_vars["survey_metadata"]["trad_as"]
 
         return self.generate_token(payload_vars)
 
@@ -129,7 +124,7 @@ class TokenGenerator:
         payload_vars = self._get_payload_with_params(
             schema_name=schema_name, payload=PAYLOAD_V2_SOCIAL, **extra_payload
         )
-        del payload_vars["survey_metadata"]["data"]["qid"]
+        del payload_vars["survey_metadata"]["qid"]
 
         return self.generate_token(payload_vars)
 

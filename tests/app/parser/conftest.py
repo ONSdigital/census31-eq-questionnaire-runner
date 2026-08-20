@@ -57,7 +57,7 @@ def fake_metadata_runner_v2():
         "account_service_url": "https://ras.ons.gov.uk",
         "case_id": str(uuid.uuid4()),
         "version": AuthPayloadVersion.V2.value,
-        "survey_metadata": {"data": {"key": "value"}},
+        "survey_metadata": {"key": "value"},
         "response_expires_at": get_response_expires_at(),
     }
 
@@ -83,7 +83,7 @@ def fake_metadata_full_v2_business():
 
     metadata = fake_metadata_runner_v2()
 
-    metadata["survey_metadata"]["data"] = fake_survey_metadata_claims
+    metadata["survey_metadata"] = fake_survey_metadata_claims
 
     return metadata
 
@@ -100,8 +100,7 @@ def fake_metadata_full_v2_social():
 
     metadata = fake_metadata_runner_v2()
 
-    metadata["survey_metadata"]["data"] = fake_survey_metadata_claims
-    metadata["survey_metadata"]["receipting_keys"] = ["qid"]
+    metadata["survey_metadata"] = fake_survey_metadata_claims
 
     return metadata
 

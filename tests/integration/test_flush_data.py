@@ -109,7 +109,7 @@ class TestFlushData(IntegrationTestCase):
             "response_id": "1234567890123456",
             "roles": ["flusher"],
             "version": "v2",
-            "survey_metadata": {"data": {}},
+            "survey_metadata": {},
         }
 
     @patch("app.routes.flush.convert_answers_v2")

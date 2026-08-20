@@ -22,7 +22,6 @@ DUMMY_MOBILE_NUMBER = "07700900258"
 @freeze_time(datetime.now(tz=timezone.utc).isoformat())
 def test_sms_fulfilment_request_payload():
     metadata = MetadataProxy(
-        region_code="GB-ENG",
         case_id=str(uuid4()),
         tx_id="tx_id",
         response_id="response_id",
@@ -31,7 +30,7 @@ def test_sms_fulfilment_request_payload():
         response_expires_at=get_response_expires_at(),
     )
 
-    fulfilment_request = IndividualResponseFulfilmentRequest(metadata, DUMMY_MOBILE_NUMBER)
+    fulfilment_request = IndividualResponseFulfilmentRequest(metadata, "GB-ENG", DUMMY_MOBILE_NUMBER)
 
     sms_json_message = json_loads(fulfilment_request.message)
     payload = sms_json_message["payload"]
@@ -49,7 +48,6 @@ def test_sms_fulfilment_request_payload():
 @freeze_time(datetime.now(tz=timezone.utc).isoformat())
 def test_postal_fulfilment_request_message():
     metadata = {
-        "region_code": "GB-ENG",
         "case_id": str(uuid4()),
         "tx_id": "tx_id",
         "response_id": "response_id",
@@ -59,7 +57,7 @@ def test_postal_fulfilment_request_message():
 
     metadata = MetadataProxy.from_dict(metadata)
 
-    fulfilment_request = IndividualResponseFulfilmentRequest(metadata)
+    fulfilment_request = IndividualResponseFulfilmentRequest(metadata, "GB-ENG")
 
     postal_json_message = json_loads(fulfilment_request.message)
     payload = postal_json_message["payload"]
@@ -85,16 +83,13 @@ def validate_uuids_in_payload(payload):
 @freeze_time(datetime.now(tz=timezone.utc).isoformat())
 def test_individual_case_id_not_present_when_case_type_spg():
     metadata = {
-        "region_code": "GB-ENG",
         "case_id": str(uuid4()),
         "tx_id": "tx_id",
         "response_id": "response_id",
         "account_service_url": "account_service_url",
         "collection_exercise_sid": "collection_exercise_sid",
         "survey_metadata": {
-            "data": {
-                "case_type": "SPG",
-            }
+            "case_type": "SPG",
         },
     }
 
@@ -109,16 +104,13 @@ def test_individual_case_id_not_present_when_case_type_spg():
 @freeze_time(datetime.now(tz=timezone.utc).isoformat())
 def test_individual_case_id_not_present_when_case_type_ce():
     metadata = {
-        "region_code": "GB-ENG",
         "case_id": str(uuid4()),
         "tx_id": "tx_id",
         "response_id": "response_id",
         "account_service_url": "account_service_url",
         "collection_exercise_sid": "collection_exercise_sid",
         "survey_metadata": {
-            "data": {
-                "case_type": "CE",
-            }
+            "case_type": "CE",
         },
     }
 
@@ -140,7 +132,6 @@ def test_individual_case_id_not_present_when_case_type_ce():
 )
 def test_fulfilment_code_for_sms(region_code, expected_fulfilment_code):
     metadata = {
-        "region_code": region_code,
         "case_id": str(uuid4()),
         "case_type": "SPG",
         "tx_id": "tx_id",
@@ -151,7 +142,7 @@ def test_fulfilment_code_for_sms(region_code, expected_fulfilment_code):
 
     metadata = MetadataProxy.from_dict(metadata)
 
-    fulfilment_request = IndividualResponseFulfilmentRequest(metadata, DUMMY_MOBILE_NUMBER)
+    fulfilment_request = IndividualResponseFulfilmentRequest(metadata, region_code, DUMMY_MOBILE_NUMBER)
     json_message = json_loads(fulfilment_request.message)
     assert json_message["payload"]["fulfilmentRequest"]["fulfilmentCode"] == expected_fulfilment_code
 
@@ -166,7 +157,6 @@ def test_fulfilment_code_for_sms(region_code, expected_fulfilment_code):
 )
 def test_fulfilment_code_for_postal(region_code, expected_fulfilment_code):
     metadata = {
-        "region_code": region_code,
         "case_id": str(uuid4()),
         "case_type": "SPG",
         "tx_id": "tx_id",
@@ -177,7 +167,7 @@ def test_fulfilment_code_for_postal(region_code, expected_fulfilment_code):
 
     metadata = MetadataProxy.from_dict(metadata)
 
-    fulfilment_request = IndividualResponseFulfilmentRequest(metadata)
+    fulfilment_request = IndividualResponseFulfilmentRequest(metadata, region_code)
 
     json_message = json_loads(fulfilment_request.message)
 

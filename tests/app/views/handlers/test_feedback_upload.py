@@ -59,7 +59,6 @@ def test_feedback_payload_v2(session_data_feedback, schema_feedback, metadata_v2
         "flushed": False,
         "launch_language_code": "en",
         "origin": "uk.gov.ons.edc.eq",
-        "region_code": region_code,
         "schema_name": schema_name,
         "started_at": started_at,
         "submission_language_code": language_code,

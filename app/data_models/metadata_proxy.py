@@ -26,6 +26,7 @@ TOP_LEVEL_METADATA_KEYS = [
     "language_code",
     "schema_name",
     "schema_url",
+    "survey_metadata",
     "channel",
     "roles",
 ]
@@ -56,6 +57,9 @@ class MetadataProxy:
     roles: list | None = None
 
     def __getitem__(self, key: str) -> Any | None:
+        if self.survey_metadata and key in self.survey_metadata:
+            return self.survey_metadata[key]
+
         return getattr(self, key, None)
 
     @classmethod

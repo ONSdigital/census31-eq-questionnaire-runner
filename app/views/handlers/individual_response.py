@@ -204,6 +204,7 @@ class IndividualResponseHandler:
         fulfilment_request = IndividualResponseFulfilmentRequest(
             # Type ignore: _metadata will exist at point of publish
             self._metadata,  # type: ignore
+            self._schema.region_code,
             mobile_number,
         )
         try:
@@ -906,8 +907,9 @@ class IndividualResponseTextConfirmHandler(IndividualResponseHandler):
 
 
 class IndividualResponseFulfilmentRequest(FulfilmentRequest):
-    def __init__(self, metadata: MetadataProxy, mobile_number: str | None = None):
+    def __init__(self, metadata: MetadataProxy, region_code: str | None = None, mobile_number: str | None = None):
         self._metadata = metadata
+        self._region_code = region_code
         self._mobile_number = mobile_number
         self._fulfilment_type = "sms" if self._mobile_number else "postal"
 
@@ -930,8 +932,8 @@ class IndividualResponseFulfilmentRequest(FulfilmentRequest):
                 GB_NIR_REGION_CODE: "P_UAC_UACIPA4",
             },
         }
-        if region_code := self._metadata.region_code:
-            return fulfilment_codes[self._fulfilment_type][region_code]
+        if self._region_code:
+            return fulfilment_codes[self._fulfilment_type][self._region_code]
 
     def _payload(self) -> Mapping:
         return {
