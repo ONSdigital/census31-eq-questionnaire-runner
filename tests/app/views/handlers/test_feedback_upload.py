@@ -113,11 +113,11 @@ def test_feedback_metadata():
     assert feedback_metadata() == expected_metadata
 
 
-def test_feedback_metadata_with_receipting_keys():
-    receipting_keys = {"qid": "1"}
+def test_feedback_metadata_with_questionnaire_id():
+    additional_keys = {"questionnaire_id": "1"}
 
-    feedback_metadata = FeedbackMetadata(case_id, tx_id, **receipting_keys)
+    feedback_metadata = FeedbackMetadata(case_id, tx_id, **additional_keys)
 
-    expected_metadata = {"case_id": case_id, "tx_id": tx_id, "qid": "1"}
+    expected_metadata = {"case_id": case_id, "tx_id": tx_id, "questionnaire_id": "1"}
 
     assert feedback_metadata() == expected_metadata
