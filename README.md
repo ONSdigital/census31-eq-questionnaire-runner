@@ -61,10 +61,10 @@ git clone git@github.com:ONSdigital/census31-eq-questionnaire-runner.git
 
 ### Pre-Requisites
 
-In order to run locally you'll need Node.js, snappy, pyenv, jq and wkhtmltopdf installed
+In order to run locally you'll need Node.js, snappy, pyenv and jq installed
 
 ```shell
-brew install snappy npm pyenv jq wkhtmltopdf
+brew install snappy npm pyenv jq
 ```
 
 ### Setup

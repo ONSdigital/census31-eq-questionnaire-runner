@@ -44,22 +44,6 @@
                 }
             })
         }}
-        {{
-            onsButton({
-                "text": _('Save answers as PDF') ,
-                "variants": ['small', 'secondary', 'timer', 'download'],
-                "url": content.pdf_url,
-                "removeDownloadAttribute": true,
-                "attributes": {
-                    "data-qa": "btn-pdf",
-                    "data-ga-category": "Button",
-                    "data-ga-action": "Download",
-                    "data-ga-label": "Download PDF",
-                    "data-ga-page": "View Submitted Response",
-                    "data-ga": "click",
-                }
-            })
-        }}
         {# djlint:on #}
 
         {% block summary %}
