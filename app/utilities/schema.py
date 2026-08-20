@@ -24,6 +24,12 @@ LANGUAGES_MAP = {
     "census_communal_establishment_gb_wls": [["en", "cy"]],
 }
 
+CENSUS_FORM_TYPES = {
+    "H": "household",
+    "I": "individual",
+    "C": "communal_establishment",
+}
+
 SCHEMA_REQUEST_BACKOFF_FACTOR = 0.2
 SCHEMA_REQUEST_MAX_RETRIES = 2  # Totals no. of request should be 3. The initial request + SCHEMA_REQUEST_MAX_RETRIES
 SCHEMA_REQUEST_TIMEOUT = 3
@@ -132,35 +138,12 @@ def get_schema_name_from_params(eq_id: str | None, form_type: str | None) -> str
     return f"{eq_id}_{form_type}"
 
 
-def transform_form_type(form_type):
-    census_form_types = {
-        "H": "household",
-        "I": "individual",
-        "C": "communal_establishment",
-    }
-
-    return census_form_types[form_type]
-
-
-def transform_region_code(region_code_input):
-    return region_code_input.lower().replace("-", "_")
-
-
-def transform_survey(survey_input):
-    return survey_input.lower()
-
-
 def get_schema_name_from_census_params(survey, form_type, region_code):
-    try:
-        form_type_transformed = transform_form_type(form_type)
-    except KeyError:
-        raise ValueError("Invalid form_type parameter was specified. Must be one of `H`, `I`, `C`")
+    form_type_transformed = CENSUS_FORM_TYPES.get(form_type, "")
+    region_code_transformed = region_code.lower().replace("-", "_")
+    survey_transformed = survey.lower()
 
-    region_code_transformed = transform_region_code(region_code)
-    survey_transformed = transform_survey(survey)
-
-    schema_name = f"{survey_transformed}_{form_type_transformed}_{region_code_transformed}"
-    return schema_name
+    return f"{survey_transformed}_{form_type_transformed}_{region_code_transformed}"
 
 
 def _load_schema_file(schema_name: str, language_code: str) -> Any:
@@ -183,7 +166,7 @@ def _load_schema_file(schema_name: str, language_code: str) -> Any:
             schema_name=schema_name,
             language_code=language_code,
         )
-        raise FileNotFoundError
+        raise FileNotFoundError("no schema file exists", schema_name)
 
     schema_path = get_schema_path(language_code, schema_name)
 

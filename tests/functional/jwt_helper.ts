@@ -241,11 +241,9 @@ function getSurveyMetadata (
 ): SurveyMetadata {
   if (theme === 'social') {
     return {
-      data: {
-        case_ref: '1000000000000001',
-        qid: '1000000000000001'
-      },
-      receipting_keys: ['qid']
+      user_id: userId,
+      display_address: displayAddress,
+      period_id: periodId
     }
   }
 

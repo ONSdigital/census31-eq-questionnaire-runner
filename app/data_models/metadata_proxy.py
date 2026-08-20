@@ -56,9 +56,6 @@ class MetadataProxy:
     roles: list | None = None
 
     def __getitem__(self, key: str) -> Any | None:
-        if self.survey_metadata and key in self.survey_metadata.data:
-            return self.survey_metadata[key]
-
         return getattr(self, key, None)
 
     @classmethod

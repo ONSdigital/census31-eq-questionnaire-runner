@@ -37,9 +37,9 @@ class Data(Schema, StripWhitespaceMixin):
 
 
 class SchemaSelector(Schema, StripWhitespaceMixin):
-    survey = VALIDATORS["string"](required=False)
-    form_type = VALIDATORS["string"](required=False)
-    region_code = VALIDATORS["string"](required=False, validate=RegionCode())
+    survey = VALIDATORS["string"](required=True)
+    form_type = VALIDATORS["string"](required=True), validate.OneOf(["H", "I", "C"])
+    region_code = VALIDATORS["string"](required=True, validate=RegionCode())
 
 
 def validate_response_expires_at(expires_at: str) -> None:

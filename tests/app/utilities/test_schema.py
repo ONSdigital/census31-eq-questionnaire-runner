@@ -21,7 +21,7 @@ from app.utilities.schema import (
     get_schema_path_map,
     load_schema_from_metadata,
     load_schema_from_name,
-    load_schema_from_url,
+    load_schema_from_url, get_schema_name_from_census_params,
 )
 from tests.app.questionnaire.conftest import get_metadata
 
@@ -240,6 +240,34 @@ def test_load_schema_from_metadata_with_schema_url_and_override_language_code():
 
     assert loaded_schema.json == mock_schema.json
     assert loaded_schema.language_code == language_code
+
+
+@pytest.mark.parametrize(
+    "survey, form_type, region_code, expected",
+    [
+        ("CENSUS", "H", "GB-ENG", "census_household_gb_eng"),
+        ("CENSUS", "I", "GB-ENG", "census_individual_gb_eng"),
+        ("CENSUS", "C", "GB-ENG", "census_communal_establishment_gb_eng"),
+        ("CENSUS", "H", "GB-WLS", "census_household_gb_wls"),
+        ("CENSUS", "H", "GB-NIR", "census_household_gb_nir"),
+        ("X", "H", "GB-NIR", "x_household_gb_nir"),
+        ("CENSUS", "X", "GB-ENG", "census__gb_eng"),
+        ("CENSUS", "H", "XX-YYY", "census_household_xx_yyy"),
+    ],
+)
+def test_get_schema_name_from_census_params(survey, form_type, region_code, expected):
+    assert get_schema_name_from_census_params(survey, form_type, region_code) == expected
+
+
+def test_load_schema_from_metadata_schema_selector_params():
+    schema = {
+        "survey": "test",
+        "form_type": "H",
+        "region_code": "GB-ENG",
+    }
+    metadata = get_metadata(extra_metadata={"schema": schema, "language_code":"en"})
+    with pytest.raises(FileNotFoundError, match="test_household_gb_eng") as exc:
+        _ = load_schema_from_metadata(metadata=metadata, language_code="en")
 
 
 def get_mocked_make_request(mocker, status_codes):
