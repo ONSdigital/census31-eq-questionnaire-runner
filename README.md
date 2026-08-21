@@ -61,10 +61,10 @@ git clone git@github.com:ONSdigital/census31-eq-questionnaire-runner.git
 
 ### Pre-Requisites
 
-In order to run locally you'll need Node.js, snappy, pyenv, jq and wkhtmltopdf installed
+In order to run locally you'll need Node.js, snappy, pyenv and jq installed
 
 ```shell
-brew install snappy npm pyenv jq wkhtmltopdf
+brew install snappy npm pyenv jq
 ```
 
 ### Setup
@@ -189,14 +189,6 @@ docker run -e SURVEY_RUNNER_SCHEMA_URL=http://host.docker.internal:5000 -it -p 8
 
 ##### Storage backends
 
-[DynamoDB](https://github.com/ONSDigital/eq-docker-dynamodb)
-
-```shell
-docker run -it -p 6060:8000 onsdigital/eq-docker-dynamodb:latest
-```
-
-or
-
 [Google Datastore](https://hub.docker.com/r/knarz/datastore-emulator/)
 
 ``` shell
@@ -211,7 +203,7 @@ docker run -it -p 6379:6379 redis:4
 
 #### Using Google Cloud Platform for supporting services
 
-To use `EQ_STORAGE_BACKEND` as `datastore` or `EQ_SUBMISSION_BACKEND` as `gcs` directly on GCP and not a docker image, you need to set the GCP project using the following command:
+To use Google Datastore and Google Cloud Storage (GCS) for submission and feedback backends directly on GCP and not a docker image, you need to set the GCP project using the following command:
 
 ```shell
 gcloud config set project <gcp_project_id>
@@ -386,22 +378,17 @@ The following env variables can be used
 | EQ_MINIMIZE_ASSETS                        | True                         | Should JS and CSS be minimized                                                                                 |
 | MAX_CONTENT_LENGTH                        | 65536                        | Max request payload size in bytes                                                                              |
 | EQ_APPLICATION_VERSION_PATH               | .application-version         | The location of a file containing the application version number                                               |
-| EQ_ENABLE_LIVE_RELOAD                     | False                        | Enable livereload of browser when scripts, styles or templates are updated                                     |
 | EQ_SECRETS_FILE                           | secrets.yml                  | The location of the secrets file                                                                               |
 | EQ_KEYS_FILE                              | keys.yml                     | The location of the keys file                                                                                  |
 | EQ_SUBMISSION_BACKEND                     |                              | Which submission backend to use (gcs, log)                                                                     |
 | EQ_GCS_SUBMISSION_BUCKET_ID               |                              | The bucket name in GCP to store the submissions in                                                             |
 | EQ_GCS_FEEDBACK_BUCKET_ID                 |                              | The bucket name in GCP to store the feedback in                                                                |
 | EQ_SERVER_SIDE_STORAGE_USER_ID_ITERATIONS | 10000                        |                                                                                                                |
-| EQ_STORAGE_BACKEND                        | datastore                    |                                                                                                                |
-| EQ_DYNAMODB_ENDPOINT                      |                              |                                                                                                                |
-| EQ_REDIS_HOST                             |                              | Hostname of Redis instance used for ephemeral storage                                                          |
-| EQ_REDIS_PORT                             |                              | Port number of Redis instance used for ephemeral storage                                                       |
-| EQ_DYNAMODB_MAX_RETRIES                   | 5                            |                                                                                                                |
-| EQ_DYNAMODB_MAX_POOL_CONNECTIONS          | 30                           |                                                                                                                |
 | EQ_QUESTIONNAIRE_STATE_TABLE_NAME         |                              |                                                                                                                |
 | EQ_SESSION_TABLE_NAME                     |                              |                                                                                                                |
 | EQ_USED_JTI_CLAIM_TABLE_NAME              |                              |                                                                                                                |
+| EQ_REDIS_HOST                             |                              | Hostname of Redis instance used for ephemeral storage                                                          |
+| EQ_REDIS_PORT                             |                              | Port number of Redis instance used for ephemeral storage                                                       |
 | WEB_SERVER_TYPE                           |                              | Web server type used to run the application. This also determines the worker class which can be async/threaded |
 | WEB_SERVER_WORKERS                        |                              | The number of worker processes                                                                                 |
 | WEB_SERVER_THREADS                        |                              | The number of worker threads per worker                                                                        |

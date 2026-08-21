@@ -26,9 +26,7 @@ class PlaceholderRenderer:
         data_stores: DataStores,
         schema: QuestionnaireSchema,
         location: LocationType | None = None,
-        placeholder_preview_mode: bool | None = False,
     ):
-        self._placeholder_preview_mode = placeholder_preview_mode
         self._language = language
         self._data_stores = data_stores
         self._schema = schema
@@ -72,7 +70,6 @@ class PlaceholderRenderer:
                 list_item_id=list_item_id,
                 location=self._location,
                 renderer=self,
-                placeholder_preview_mode=self._placeholder_preview_mode,
             )
 
         placeholder_data = QuestionnaireSchema.get_mutable_deepcopy(placeholder_data)
@@ -80,9 +77,7 @@ class PlaceholderRenderer:
         if "text_plural" in placeholder_data:
             plural_schema: Mapping[str, dict] = placeholder_data["text_plural"]
             # Type ignore: For a valid schema the plural count will return an integer
-            count: int = (
-                0 if self._placeholder_preview_mode else self.get_plural_count(plural_schema["count"])  # type: ignore
-            )
+            count: int = self.get_plural_count(plural_schema["count"])  # type: ignore
 
             plural_form_key = get_plural_form_key(count, self._language)
             plural_forms: Mapping[str, str] = plural_schema["forms"]
@@ -118,7 +113,6 @@ class PlaceholderRenderer:
             list_item_id=list_item_id,
             location=self._location,
             renderer=self,
-            placeholder_preview_mode=self._placeholder_preview_mode,
         )
 
         for pointer in pointers:
@@ -186,7 +180,6 @@ class PlaceholderRenderer:
                 list_item_id=answer["list_item_id"],
                 location=self._location,
                 renderer=self,
-                placeholder_preview_mode=self._placeholder_preview_mode,
             )
 
             pointers = find_pointers_containing(answer, "placeholders")

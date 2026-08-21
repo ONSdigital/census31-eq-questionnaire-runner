@@ -14,10 +14,6 @@ class ViewSubmittedResponseBase(IntegrationTestCase):
     def get_print_button(self):
         return self.getHtmlSoup().find("button", {"data-qa": "btn-print"})
 
-    def get_download_button(self):
-        # This is a temporary solution as additional attributes do not work at the moment for the download button.
-        return self.getHtmlSoup().find("a", {"href": "/submitted/download-pdf"})
-
     def assert_expired_content(self):
         self.assertEqualPageTitle("View Submitted Response - Test View Submitted Response")
         self.assertInBody("Answers submitted for <span>Integration Testing</span>")
@@ -30,7 +26,6 @@ class ViewSubmittedResponseBase(IntegrationTestCase):
         self.assertNotInBody("What is your address?")
         self.assertNotInBody("NP10 8XG")
         self.assertIsNone(self.get_print_button())
-        self.assertIsNone(self.get_download_button())
 
 
 class TestViewSubmissionResponse(ViewSubmittedResponseBase):
@@ -51,7 +46,6 @@ class TestViewSubmissionResponse(ViewSubmittedResponseBase):
         self.assertInBody("What is your address?")
         self.assertInBody("NP10 8XG")
         self.assertIsNotNone(self.get_print_button())
-        self.assertIsNotNone(self.get_download_button())
 
     def test_not_enabled(self):
         # Given I launch and complete a questionnaire that does not have view-submitted-response enabled

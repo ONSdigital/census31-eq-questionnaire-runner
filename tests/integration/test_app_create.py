@@ -12,7 +12,6 @@ from app.cloud_tasks import CloudTaskPublisher
 from app.publisher import LogPublisher, PubSubPublisher
 from app.setup import create_app
 from app.storage.datastore import Datastore
-from app.storage.dynamodb import Dynamodb
 from app.submitter.submitter import GCSFeedbackSubmitter, GCSSubmitter, LogSubmitter
 
 
@@ -82,9 +81,6 @@ class TestCreateApp(unittest.TestCase):
             self.assertTrue(kwargs["span"] == "0123456789012345678901")
             self.assertTrue(kwargs["trace"] == "0123456789")
 
-    def test_enforces_secure_headers(self):
-        self._setting_overrides["EQ_ENABLE_LIVE_RELOAD"] = False
-
         with create_app(self._setting_overrides).test_client() as client:
             headers = client.get(
                 "/",
@@ -105,7 +101,6 @@ class TestCreateApp(unittest.TestCase):
         cdn_url = "https://cdn.test.domain"
         address_lookup_api_url = "https://ai.test.domain"
         self._setting_overrides = {
-            "EQ_ENABLE_LIVE_RELOAD": False,
             "CDN_URL": cdn_url,
             "ADDRESS_LOOKUP_API_URL": address_lookup_api_url,
         }
@@ -266,19 +261,6 @@ class TestCreateApp(unittest.TestCase):
             application = create_app(self._setting_overrides)
 
         self.assertIsInstance(application.eq["storage"], Datastore)
-
-    def test_setup_dynamodb(self):
-        self._setting_overrides["EQ_STORAGE_BACKEND"] = "dynamodb"
-
-        application = create_app(self._setting_overrides)
-
-        self.assertIsInstance(application.eq["storage"], Dynamodb)
-
-    def test_invalid_storage(self):
-        self._setting_overrides["EQ_STORAGE_BACKEND"] = "invalid"
-
-        with self.assertRaises(Exception):
-            create_app(self._setting_overrides)
 
     def test_eq_feedback_backend_not_set(self):
         # Given

@@ -1,3 +1,5 @@
+from datetime import datetime, timedelta, timezone
+
 import pytest
 
 from app.data_models import QuestionnaireStore
@@ -20,4 +22,26 @@ def test_has_expired_no_submitted_at_return_false(storage, language, app):
         questionnaire_store = QuestionnaireStore(storage)
         schema = QuestionnaireSchema({"post_submission": {"view_response": True}})
         view_submitted_response = ViewSubmittedResponse(schema, questionnaire_store, language)
+        assert view_submitted_response.has_expired is False
+
+
+def test_has_expired_with_expired_submitted_at_return_true(storage, language, app):
+    with app.app_context():
+        submitted_at = datetime.now(timezone.utc) - timedelta(minutes=46)
+        set_storage_data(storage, submitted_at=submitted_at)
+        questionnaire_store = QuestionnaireStore(storage)
+        schema = QuestionnaireSchema({"post_submission": {"view_response": True}})
+        view_submitted_response = ViewSubmittedResponse(schema, questionnaire_store, language)
+
+        assert view_submitted_response.has_expired is True
+
+
+def test_has_expired_with_recent_submitted_at_return_false(storage, language, app):
+    with app.app_context():
+        submitted_at = datetime.now(timezone.utc) - timedelta(minutes=1)
+        set_storage_data(storage, submitted_at=submitted_at)
+        questionnaire_store = QuestionnaireStore(storage)
+        schema = QuestionnaireSchema({"post_submission": {"view_response": True}})
+        view_submitted_response = ViewSubmittedResponse(schema, questionnaire_store, language)
+
         assert view_submitted_response.has_expired is False

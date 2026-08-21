@@ -57,8 +57,6 @@ EQ_MINIMIZE_ASSETS = parse_mode(os.getenv("EQ_MINIMIZE_ASSETS", "True"))
 # max request payload size in bytes
 MAX_CONTENT_LENGTH = int(os.getenv("EQ_MAX_HTTP_POST_CONTENT_LENGTH", "65536"))
 
-EQ_ENABLE_LIVE_RELOAD = parse_mode(os.getenv("EQ_ENABLE_LIVE_RELOAD", "False"))
-
 EQ_SECRETS_FILE = os.getenv("EQ_SECRETS_FILE", "secrets.yml")
 EQ_KEYS_FILE = os.getenv("EQ_KEYS_FILE", "keys.yml")
 
@@ -94,10 +92,6 @@ EQ_SERVER_SIDE_STORAGE_USER_ID_ITERATIONS = ensure_min(
     int(os.getenv("EQ_SERVER_SIDE_STORAGE_USER_ID_ITERATIONS", "10000")), 1000
 )
 
-EQ_STORAGE_BACKEND = os.getenv("EQ_STORAGE_BACKEND", "datastore")
-EQ_DYNAMODB_ENDPOINT = os.getenv("EQ_DYNAMODB_ENDPOINT")
-EQ_DYNAMODB_MAX_RETRIES = int(os.getenv("EQ_DYNAMODB_MAX_RETRIES", "5"))
-EQ_DYNAMODB_MAX_POOL_CONNECTIONS = int(os.getenv("EQ_DYNAMODB_MAX_POOL_CONNECTIONS", "30"))
 EQ_QUESTIONNAIRE_STATE_TABLE_NAME = get_env_or_fail("EQ_QUESTIONNAIRE_STATE_TABLE_NAME")
 EQ_SESSION_TABLE_NAME = get_env_or_fail("EQ_SESSION_TABLE_NAME")
 EQ_USED_JTI_CLAIM_TABLE_NAME = get_env_or_fail("EQ_USED_JTI_CLAIM_TABLE_NAME")
@@ -133,8 +127,6 @@ SURVEY_TYPE = os.getenv("SURVEY_TYPE", "business")
 ACCOUNT_SERVICE_BASE_URL = os.getenv("ACCOUNT_SERVICE_BASE_URL", "https://surveys.ons.gov.uk")
 
 ACCOUNT_SERVICE_BASE_URL_SOCIAL = os.getenv("ACCOUNT_SERVICE_BASE_URL_SOCIAL", "https://start.surveys.ons.gov.uk")
-
-PRINT_STYLE_SHEET_FILE_PATH = os.getenv("PRINT_STYLE_SHEET_FILEPATH", "templates/assets/styles")
 
 ONS_URL = os.getenv("ONS_URL", "https://www.ons.gov.uk")
 
