@@ -46,7 +46,8 @@ SHOW_ELAPSED_TIME: true # Displays execution time for each linter
 FLAVOR_SUGGESTIONS: false # Disables suggestions to use different MegaLinter flavors
 
 # Exclude generated artifacts from all linters to avoid false positives on non-source files.
-FILTER_REGEX_EXCLUDE: (^(megalinter-reports|htmlcov|coverage|\.venv|node_modules)/)|(/__pycache__/)|(.+\.pyc$)
+# Match both workspace-relative and absolute paths (e.g. /tmp/lint/... in CI containers).
+FILTER_REGEX_EXCLUDE: ((^|.*/)(megalinter-reports|htmlcov|coverage|\.venv|node_modules)(/|$))|(/__pycache__/)|(\.pyc$)
 
 ACTION_ZIZMOR_UNSECURED_ENV_VARIABLES:
   - GITHUB_TOKEN
