@@ -100,7 +100,7 @@ class IndividualResponseHandler:
         individual_response_postal_deadline: datetime = current_app.config["EQ_INDIVIDUAL_RESPONSE_POSTAL_DEADLINE"]
         return individual_response_postal_deadline < datetime.now(timezone.utc)
 
-    def __init__(
+    def __init__(  # noqa: PLR0913, PLR0917
         self,
         schema: QuestionnaireSchema,
         questionnaire_store: QuestionnaireStore,
@@ -141,9 +141,7 @@ class IndividualResponseHandler:
     def page_title(self, page_title: str) -> str:
         if self._list_item_id:
             page_title += ": " + lazy_gettext(
-                "Person {list_item_position}".format(  # pylint: disable=consider-using-f-string
-                    list_item_position=self._list_item_position
-                )
+                "Person {list_item_position}".format(list_item_position=self._list_item_position)
             )
         return page_title
 
@@ -800,7 +798,7 @@ class IndividualResponseTextHandler(IndividualResponseHandler):
 
 
 class IndividualResponseTextConfirmHandler(IndividualResponseHandler):
-    def __init__(
+    def __init__(  # noqa: PLR0913, PLR0917
         self,
         schema: QuestionnaireSchema,
         questionnaire_store: QuestionnaireStore,

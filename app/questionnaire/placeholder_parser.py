@@ -32,7 +32,7 @@ class PlaceholderParser:
     final values
     """
 
-    def __init__(
+    def __init__(  # noqa: PLR0913, PLR0917
         self,
         language: str,
         data_stores: DataStores,

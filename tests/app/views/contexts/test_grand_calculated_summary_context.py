@@ -29,7 +29,6 @@ from tests.app.views.contexts import assert_summary_context
         ),
     ),
 )
-# pylint: disable=too-many-locals
 def test_build_view_context_for_grand_calculated_summary(
     block_id,
     title,

@@ -30,6 +30,8 @@ DAYS_OF_WEEK = {
     "SUNDAY": 6,
 }
 
+MIN_NEGATIVE_DAYS_OFFSET_FOR_DAY_OF_WEEK = -7
+
 SELF_REFERENCE_KEY = "self"
 
 
@@ -137,7 +139,7 @@ class Operations:
             days_offset = offset.get("days", 0)
 
             if day_of_week_offset := offset.get("day_of_week"):
-                if 0 > days_offset > -7:
+                if 0 > days_offset > MIN_NEGATIVE_DAYS_OFFSET_FOR_DAY_OF_WEEK:
                     raise ValueError(Operations.NEGATIVE_DAYS_OFFSET_ERROR_MESSAGE)
 
                 days_difference = value_as_date.weekday() - DAYS_OF_WEEK[day_of_week_offset]

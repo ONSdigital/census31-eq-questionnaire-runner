@@ -5,7 +5,7 @@ from marshmallow import Schema, fields, post_load, pre_dump
 
 
 class QuestionnaireState:
-    def __init__(
+    def __init__(  # noqa: PLR0913, PLR0917
         self,
         user_id: str,
         state_data: str,
@@ -46,7 +46,6 @@ class UsedJtiClaim:
         self.expires_at = expires_at.replace(tzinfo=timezone.utc)
 
 
-# pylint: disable=no-self-use
 class Timestamp(fields.Field):
     def _serialize(
         self,
@@ -79,7 +78,6 @@ class DateTimeSchemaMixin:
     created_at = fields.DateTime()
     updated_at = fields.DateTime()
 
-    # pylint: disable=unused-argument
     @staticmethod
     @pre_dump
     def set_date(
@@ -99,7 +97,7 @@ class QuestionnaireStateSchema(Schema, DateTimeSchemaMixin):
     expires_at = Timestamp(allow_none=True)
 
     @post_load
-    def make_model(self, data: dict, **kwargs: dict) -> QuestionnaireState:  # pylint: disable=unused-argument
+    def make_model(self, data: dict, **kwargs: dict) -> QuestionnaireState:
         created_at = data.pop("created_at", None)
         updated_at = data.pop("updated_at", None)
         model = QuestionnaireState(**data)
@@ -115,7 +113,7 @@ class EQSessionSchema(Schema, DateTimeSchemaMixin):
     expires_at = Timestamp()
 
     @post_load
-    def make_model(self, data: dict, **kwargs: dict) -> EQSession:  # pylint: disable=unused-argument
+    def make_model(self, data: dict, **kwargs: dict) -> EQSession:
         created_at = data.pop("created_at", None)
         updated_at = data.pop("updated_at", None)
         model = EQSession(**data)
@@ -129,5 +127,5 @@ class UsedJtiClaimSchema(Schema):
     expires_at = Timestamp()
 
     @post_load
-    def make_model(self, data: dict, **kwargs: dict) -> UsedJtiClaim:  # pylint: disable=unused-argument
+    def make_model(self, data: dict, **kwargs: dict) -> UsedJtiClaim:
         return UsedJtiClaim(**data)

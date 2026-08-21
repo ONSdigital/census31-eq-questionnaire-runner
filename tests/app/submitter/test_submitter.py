@@ -120,7 +120,7 @@ def test_gcs_submitter_retries_transient_errors(
 
     # Then the call count should be two since we have 2 side effects,
     # the 1st request returns a 503 and second request returns a 200.
-    assert gcs_blob_with_retry._get_transport().request.call_count == 2  # pylint: disable=protected-access
+    assert gcs_blob_with_retry._get_transport().request.call_count == 2
     assert successful is True
 
 
@@ -168,9 +168,7 @@ def test_gcs_feedback_submitter_uploads_feedback(patch_gcs_client):
     assert feedback_upload is True
 
 
-def test_double_submission_passes_when_delete_operation_error(
-    patch_gcs_client, gcs_blob_delete_forbidden
-):  # pylint: disable=redefined-outer-name
+def test_double_submission_passes_when_delete_operation_error(patch_gcs_client, gcs_blob_delete_forbidden):
     # Given
     gcs_submitter = GCSSubmitter(bucket_name="test_bucket")
 
@@ -182,9 +180,7 @@ def test_double_submission_passes_when_delete_operation_error(
     assert published
 
 
-def test_double_submission_is_forbidden_when_not_delete_operation_error(
-    patch_gcs_client, gcs_blob_create_forbidden
-):  # pylint: disable=redefined-outer-name
+def test_double_submission_is_forbidden_when_not_delete_operation_error(patch_gcs_client, gcs_blob_create_forbidden):
     # Given
     gcs_submitter = GCSSubmitter(bucket_name="test_bucket")
 

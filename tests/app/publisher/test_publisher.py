@@ -16,13 +16,11 @@ def test_publish(publisher, mocker):
     future.add_done_callback = mocker.Mock(spec=["__call__"])
 
     # Use a mock in lieu of the actual batch class.
-    # pylint: disable=protected-access
     batch = mocker.Mock(spec=publisher._client._batch_class)
 
     # Set the mock up to accepts the message.
     batch.publish.side_effect = (future,)
 
-    # pylint: disable=protected-access
     publisher._client._set_batch(topic_path, batch)
 
     # Publish message.

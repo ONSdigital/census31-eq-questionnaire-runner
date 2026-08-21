@@ -21,7 +21,7 @@ logger = get_logger()
 
 
 class BlockHandler:
-    def __init__(
+    def __init__(  # noqa: PLR0913, PLR0917
         self,
         schema: QuestionnaireSchema,
         questionnaire_store: QuestionnaireStore,

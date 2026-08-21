@@ -198,7 +198,7 @@ class FeedbackPayloadV2:
     :return payload: Feedback payload object
     """
 
-    def __init__(
+    def __init__(  # noqa: PLR0913, PLR0917
         self,
         metadata: MetadataProxy,
         response_metadata: MutableMapping[str, str | int | list],

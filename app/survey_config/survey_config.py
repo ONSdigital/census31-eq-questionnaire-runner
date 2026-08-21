@@ -45,7 +45,7 @@ class SurveyConfig:
         self.privacy_and_data_protection_url: str = f"{self.base_url}/privacy-and-data-protection/"
         self.language_code: str = self.language_code or DEFAULT_LANGUAGE_CODE
 
-    def get_service_links(  # pylint: disable=unused-argument, no-self-use
+    def get_service_links(
         self,
         sign_out_url: str,
         *,
@@ -55,12 +55,8 @@ class SurveyConfig:
     ) -> list[dict] | None:
         return None
 
-    def get_footer_links(  # pylint: disable=unused-argument, no-self-use
-        self, cookie_has_theme: bool
-    ) -> list[dict] | None:
+    def get_footer_links(self, cookie_has_theme: bool) -> list[dict] | None:
         return None
 
-    def get_footer_legal_links(  # pylint: disable=unused-argument, no-self-use
-        self, cookie_has_theme: bool
-    ) -> list[dict] | None:
+    def get_footer_legal_links(self, cookie_has_theme: bool) -> list[dict] | None:
         return None

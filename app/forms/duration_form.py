@@ -7,9 +7,9 @@ from wtforms import Form
 from app.forms.fields import IntegerFieldWithSeparator
 
 ErrorMessageType = dict[str, str]
+MAX_MONTHS_IN_YEAR = 11
 
 
-# pylint: disable=no-member
 class DurationForm(Form):
     def validate(self, extra_validators: dict[str, list[Callable]] | None = None) -> bool:
         super().validate(extra_validators)
@@ -29,7 +29,7 @@ class DurationForm(Form):
             self._set_error("INVALID_DURATION")
             return False
 
-        if "years" in self.units and "months" in self.units and self.months.data > 11:
+        if "years" in self.units and "months" in self.units and self.months.data > MAX_MONTHS_IN_YEAR:
             self._set_error("INVALID_DURATION")
             return False
 

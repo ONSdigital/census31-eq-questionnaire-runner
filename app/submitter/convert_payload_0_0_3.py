@@ -8,7 +8,6 @@ from app.questionnaire.relationship_router import RelationshipRouter
 from app.questionnaire.routing_path import RoutingPath
 
 
-# pylint: disable=too-many-locals
 def convert_answers_to_payload_0_0_3(
     *,
     answer_store: AnswerStore,
@@ -109,7 +108,7 @@ def add_list_collector_answers(
                     answers_payload.add_or_update(answer)
 
 
-def add_relationships_unrelated_answers(
+def add_relationships_unrelated_answers(  # noqa: PLR0913, PLR0917
     answer_store: AnswerStore,
     list_store: ListStore,
     schema: QuestionnaireSchema,

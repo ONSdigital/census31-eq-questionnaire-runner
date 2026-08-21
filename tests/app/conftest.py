@@ -1,4 +1,3 @@
-# pylint: disable=redefined-outer-name
 from datetime import datetime, timedelta, timezone
 from http.client import HTTPMessage
 
@@ -214,7 +213,7 @@ def mocked_response_content(mocker):
 
 
 @pytest.fixture
-def mocked_make_request_with_timeout(mocker, mocked_response_content):  # pylint: disable=unused-argument
+def mocked_make_request_with_timeout(mocker, mocked_response_content):
     connect_timeout_error = ConnectTimeoutError("connect timed out")
     read_timeout_error = ReadTimeoutError(pool=None, message="read timed out", url="test-url")
 

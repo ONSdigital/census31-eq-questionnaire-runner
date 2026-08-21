@@ -20,9 +20,6 @@ pep8 = "^1.7.1"
 mock = "^5.1.0"
 pytest-cov = "^7.0.0"
 jsonschema = "^4.21.1"
-pylint = "^3.2.7"
-pylint-mccabe = "^0.1.3"
-pylint-absolute-imports = "^1.1.0"
 beautifulsoup4 = "^4.12.3"
 httmock = "^1.4.0"
 
@@ -198,6 +195,10 @@ extend-select = [
     "TRY", # tryceratops (TRY)
     "FLY", # flynt (FLY)
     "PERF", # Perflint (PERF)
+    "PL", # pylint (PL)
 ]
 [tool.ruff.lint.isort]
 case-sensitive = true
+
+[tool.ruff.lint.flake8-tidy-imports]
+ban-relative-imports = "all"

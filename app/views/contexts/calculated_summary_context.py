@@ -20,7 +20,7 @@ from app.views.contexts.summary.group import Group
 
 
 class CalculatedSummaryContext(Context):
-    def __init__(
+    def __init__(  # noqa: PLR0913, PLR0917
         self,
         language: str,
         schema: QuestionnaireSchema,

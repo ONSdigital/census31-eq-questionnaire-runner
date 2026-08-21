@@ -188,7 +188,7 @@ def submission_payload_session_data():
 def submission_payload_session_store(
     submission_payload_session_data,
     submission_payload_expires_at,
-):  # pylint: disable=redefined-outer-name
+):
     return SessionStore("user_ik", "pepper", "eq_session_id").create(
         "eq_session_id",
         "user_id",

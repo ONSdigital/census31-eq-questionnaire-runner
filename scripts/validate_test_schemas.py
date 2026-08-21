@@ -79,7 +79,6 @@ def validate_schema(schema_path):
 
 
 def process_schema(future, future_to_schema):
-    # pylint: disable=broad-exception-caught
     schema = future_to_schema[future]
     try:
         schema_path, result = future.result()

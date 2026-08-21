@@ -33,7 +33,7 @@ FIELD_HANDLER_MAPPINGS = {
 }
 
 
-def get_field_handler(
+def get_field_handler(  # noqa: PLR0913
     *,
     answer_schema: dict,
     value_source_resolver: ValueSourceResolver,

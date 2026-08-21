@@ -1,4 +1,5 @@
 from typing import Any
+from http import HTTPStatus
 
 from flask import Blueprint, request
 from flask.helpers import url_for
@@ -34,7 +35,7 @@ def log_exception(exception: Exception, status_code: int) -> None:
     if metadata := get_metadata(current_user):
         contextvars.bind_contextvars(tx_id=metadata.tx_id)
 
-    log = logger.warning if status_code < 500 else logger.error
+    log = logger.warning if status_code < HTTPStatus.INTERNAL_SERVER_ERROR else logger.error
 
     log(
         "an error has occurred",
@@ -121,7 +122,7 @@ def internal_server_error(exception: Exception) -> tuple[str, int]:
     try:
         log_exception(exception, 500)
         return _render_error_page(500)
-    except Exception:  # pylint:disable=broad-except
+    except Exception:
         logger.exception(
             "an error has occurred when rendering 500 error",
             url=request.url,

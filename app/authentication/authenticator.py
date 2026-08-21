@@ -21,6 +21,8 @@ logger = get_logger()
 
 login_manager = LoginManager()
 
+SESSION_EXPIRY_UPDATE_THRESHOLD_SECONDS = 60
+
 
 @login_manager.user_loader
 def user_loader(user_id: str) -> str | None:
@@ -40,7 +42,7 @@ def request_load_user(
 
 
 @user_logged_out.connect_via(ANY)
-def when_user_logged_out(sender_app: Flask, user: str) -> None:  # pylint: disable=unused-argument
+def when_user_logged_out(sender_app: Flask, user: str) -> None:
     logger.debug("log out user")
     session_store = get_session_store()
     if session_store:
@@ -60,7 +62,8 @@ def _extend_session_expiry(session_store: SessionStore) -> None:
         # Only update expiry time if its greater than 60s different to what is currently set
         if (
             not session_store.expiration_time
-            or (new_expiration_time - session_store.expiration_time).total_seconds() > 60
+            or (new_expiration_time - session_store.expiration_time).total_seconds()
+            > SESSION_EXPIRY_UPDATE_THRESHOLD_SECONDS
         ):
             session_store.expiration_time = new_expiration_time
             session_store.save()
