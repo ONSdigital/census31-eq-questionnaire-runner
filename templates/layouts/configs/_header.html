@@ -32,6 +32,7 @@
 {# djlint:off #}
 {% do pageConfig | setAttribute("header", {
     "title": survey_title,
+    "titleUrl": '#0',
     "signoutButton": signout_button,
     "language": languages,
     "serviceLinks": service_links,
@@ -40,7 +41,6 @@
         "small": masthead_logo_mobile
     },
     "titleLogo": {
-        "classes": 'ons-u-mt-m ons-u-mb-xs',
         "large": title_logo,
     },
 }) %}

@@ -10,6 +10,6 @@
 }
 
 /* Header logo */
-.ons-header__title-logo-link:focus .ons-svg-logo {
+.ons-header__title-logo-link:focus .ons-svg-logo > .ons-svg-logo__details {
     fill: var(--ons-color-black);
 }
