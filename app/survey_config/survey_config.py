@@ -24,6 +24,10 @@ class SurveyConfig:
     what_we_do_url: str = f"{ONS_URL}/aboutus/whatwedo/"
     masthead_logo: str | None = None
     masthead_logo_mobile: str | None = None
+    title_logo: str | None = None
+    footer_logo: str | None = None
+    census_css: str | None = None
+    census_scott_css: str | None = None
     crest: bool = True
     footer_links: Iterable[MutableMapping] | None = None
     footer_legal_links: Iterable[Mapping] | None = None

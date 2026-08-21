@@ -17,11 +17,7 @@
         })
     }}
     {# djlint:on #}
-    {% if survey_type in SURVEY_TYPES_BUSINESS + SURVEY_TYPES_DEFAULT %}
-        <p>
-            {{ _("To find further information or resume the survey, <a href='{url}'>return to My Account</a>.").format(url = redirect_url) }}
-        </p>
-    {% elif survey_type in SURVEY_TYPES_SOCIAL + SURVEY_TYPES_HEALTH %}
+    {% if survey_type and survey_type in SURVEY_TYPES_ALL %}
         <p>
             {{ _("To resume the survey, <a href='{url}'>re-enter your access code</a>.").format(url = redirect_url) }}
         </p>

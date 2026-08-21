@@ -249,9 +249,9 @@ class TestFeedback(IntegrationTestCase):
         self.post({"feedback-type": "Page design and structure", "feedback-text": "Feedback"})
         self.assertInUrl("/submitted/feedback/sent")
 
-    def test_feedback_submission_v2_social(self):
+    def test_feedback_submission_v2_census(self):
         # Given I submit the email confirmation form
-        self.launchSurveyV2(schema_name="test_theme_social", theme="social")
+        self.launchSurveyV2(schema_name="test_theme_census", theme="census")
         self.post({"radio-answer": "Bacon"})
         self.post()
 
