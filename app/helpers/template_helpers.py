@@ -70,6 +70,7 @@ class ContextHelper:
             "title_logo": self._survey_config.title_logo,
             "footer_logo": self._survey_config.footer_logo,
             "census_css": self._survey_config.census_css,
+            "census_scott_css": self._survey_config.census_scott_css,
         }
 
         if self._survey_type:

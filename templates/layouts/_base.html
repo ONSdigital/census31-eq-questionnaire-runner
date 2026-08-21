@@ -81,6 +81,11 @@
 {% endblock preHeader %}
 
 {% block head %}
+    {% if census_scott_css %}
+        <style nonce="{{ csp_nonce }}">
+            {{ census_scott_css }}
+        </style>
+    {% endif %}
     {% if census_css %}
         <style nonce="{{ csp_nonce }}">
             {{ census_css }}

@@ -27,6 +27,7 @@ class SurveyConfig:
     title_logo: str | None = None
     footer_logo: str | None = None
     census_css: str | None = None
+    census_scott_css: str | None = None
     crest: bool = True
     footer_links: Iterable[MutableMapping] | None = None
     footer_legal_links: Iterable[Mapping] | None = None
