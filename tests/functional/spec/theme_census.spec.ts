@@ -11,7 +11,7 @@ test.describe('Theme Census', () => {
       const radioPage = new RadioPage(page)
       await expect(page).toHaveURL(new RegExp(radioPage.pageName))
       await expect(page.locator('#ons-logo-stacked-en-alt').first()).toContainText('Office for National Statistics')
-      await expect(page.locator('#census-logo-en-alt').first()).toContainText('Census 2021 logo')
+      await expect(page.locator('#census-logo-en-alt').first()).toContainText('Census Test 2027')
       await expect(page.locator('#ons-logo-en-footer-alt').first()).toContainText('Office for National Statistics')
     })
   })
