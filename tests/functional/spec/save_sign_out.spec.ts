@@ -24,9 +24,11 @@ test.describe('Save sign out / Exit', () => {
     await openQuestionnaire('test_introduction.json')
     await introductionPage.exitButton().click()
 
-    await expect(page).toHaveURL(/\/surveys\/todo/)
+    // We can't test the redirect URL as the URL doesn't exist unless launcher is running
+    await expect(page).not.toHaveURL(/\/introduction/)
 
     await page.goBack()
+    await expect(page).toHaveURL(/\/introduction/)
     await expect(page.locator('#main-content')).toContainText('Sorry, you need to sign in again')
   })
 
