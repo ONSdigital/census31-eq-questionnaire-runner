@@ -239,7 +239,7 @@ function getSurveyMetadata (
   sdsDatasetId: string | null,
   booleanFlag: boolean
 ): SurveyMetadata {
-  if (theme === 'census') {
+  if (theme != null && ['census', 'census-nrs', 'census-nisra'].includes(theme)) {
     return {
       data: {
         case_ref: '1000000000000001',

@@ -4,7 +4,7 @@ import RadioPage from '../generated_pages/theme_census_nisra/radio.page'
 test.describe('Theme Census-NISRA', () => {
   test.describe('Given I launch a Census-NISRA themed questionnaire', () => {
     test.beforeEach(async ({ openQuestionnaire }) => {
-      await openQuestionnaire('test_theme_census_nisra.json')
+      await openQuestionnaire('test_theme_census_nisra.json', { theme: 'census-nisra' })
     })
 
     test('When I navigate to the radio page, Then I should see Census-NISRA theme content', async ({ page }) => {

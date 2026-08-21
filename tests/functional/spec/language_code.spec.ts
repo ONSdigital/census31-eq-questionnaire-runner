@@ -189,10 +189,10 @@ test.describe('Language Code', () => {
 
     await hubPage.submit().click()
     await expect(namePage.questionText()).toHaveText('Please enter a name')
-    await expect(page.locator('header')).toContainText('Test Language')
+    await expect(page.locator('#census-logo-en-alt').first()).toHaveText('Census Test 2027')
     await switchLanguage(page, namePage.switchLanguage('cy'))
     await expect(namePage.questionText()).toHaveText('Rhowch enw')
-    await expect(page.locator('header')).toContainText('Arolwg Iaith Prawf')
+    await expect(page.locator('#census-logo-en-alt').first()).toHaveText('Prawf Cyfrifiad 2027')
     await switchLanguage(page, namePage.switchLanguage('en'))
 
     await namePage.firstName().fill('Catherine')

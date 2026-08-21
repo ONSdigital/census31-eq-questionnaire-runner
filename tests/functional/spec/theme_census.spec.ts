@@ -4,7 +4,7 @@ import RadioPage from '../generated_pages/theme_census/radio.page'
 test.describe('Theme Census', () => {
   test.describe('Given I launch a Census themed questionnaire', () => {
     test.beforeEach(async ({ openQuestionnaire }) => {
-      await openQuestionnaire('test_theme_census.json')
+      await openQuestionnaire('test_theme_census.json', { theme: 'census' })
     })
 
     test('When I navigate to the radio page, Then I should see Census theme content', async ({ page }) => {
