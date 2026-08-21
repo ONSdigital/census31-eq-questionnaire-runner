@@ -33,6 +33,9 @@
 {% do pageConfig | setAttribute("header", {
     "title": survey_title,
     "titleUrl": '#0',
+    "titleLogo": {
+        "large": title_logo,
+    },
     "signoutButton": signout_button,
     "language": languages,
     "serviceLinks": service_links,
@@ -40,8 +43,6 @@
         "large": masthead_logo,
         "small": masthead_logo_mobile
     },
-    "titleLogo": {
-        "large": title_logo,
-    },
+    "mastheadLogoUrl": '#0',
 }) %}
 {# djlint:on #}
