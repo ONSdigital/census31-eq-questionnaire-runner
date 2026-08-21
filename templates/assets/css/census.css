@@ -5,11 +5,11 @@
 /* Overrides */
 
 /* Masthead logo */
-.ons-header__org-logo-link:focus .ons-icon--logo__group {
+.ons-header__org-logo-link:focus .ons-svg-logo > .ons-icon--logo__group {
     fill: var(--ons-color-black);
 }
 
 /* Header logo */
-.ons-header__title-logo-link:focus .ons-svg-logo > .ons-svg-logo__details {
+.ons-header__title-logo-link:focus .ons-svg-logo > .ons-icon--logo__group {
     fill: var(--ons-color-black);
 }

@@ -1,6 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" class="ons-icon--logo" viewBox="0 0 329.06668 73.333336" height="73.333336" width="329.06668" focusable="false" role="img" aria-labelledby="nrs-census-footer-logo-en-alt">
-    <title id="nrs-census-footer-logo-en-alt">Census Scotland logo</title>
-    <g transform="matrix(1.3333333,0,0,-1.3333333,0,73.333333)">
+<svg class="ons-svg-logo" xmlns="http://www.w3.org/2000/svg" focusable="false" viewBox="0 0 329 73" role="img" aria-labelledby="nrs-footer-logo-en-alt">
+    <title id="nrs-footer-logo-en-alt">Scotland&#39;s Census</title>
+    <g class="ons-icon--logo__group" transform="matrix(1.3333333,0,0,-1.3333333,0,73.333333)">
         <g transform="scale(0.1)">
             <path d="M 109,550 461,344 812.004,550 Z" />
             <path d="M 109,0 461,205.996 812.004,0 Z" />
