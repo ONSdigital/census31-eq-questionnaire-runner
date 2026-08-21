@@ -36,7 +36,7 @@ services:
     image: europe-west2-docker.pkg.dev/ons-eq-ci/docker-images/eq-questionnaire-launcher:latest
     environment:
       SURVEY_RUNNER_URL: http://localhost:5000
-      SURVEY_RUNNER_SCHEMA_URL: http://eq-questionnaire-runner:5000
+      SURVEY_RUNNER_SCHEMA_URL: http://host.docker.internal:5000
     restart: always
     networks:
       - eq-env
