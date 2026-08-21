@@ -1,6 +1,5 @@
 from datetime import datetime
 
-from flask import url_for
 from flask_babel import lazy_gettext
 
 from app.data_models import QuestionnaireStore
@@ -57,6 +56,5 @@ def build_view_submitted_response_context(
             view_submitted_response=True,
         )
         context["summary"] = summary_context()
-        context["pdf_url"] = url_for("post_submission.get_view_submitted_response_pdf")
 
     return context

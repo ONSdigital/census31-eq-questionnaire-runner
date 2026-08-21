@@ -9,7 +9,6 @@ RUN apt-get update \
         libsnappy-dev=1.1.9-3 \
         build-essential=12.9 \
         jq=1.6-2.1+deb12u* \
-        wkhtmltopdf=0.12.6-2+b1 \
     && rm -rf /var/lib/apt/lists/*
 
 COPY . /runner
@@ -26,7 +25,7 @@ COPY pyproject.toml pyproject.toml
 COPY poetry.lock poetry.lock
 
 RUN groupadd -r appuser && useradd -r -g appuser -u 9000 appuser && chown -R appuser:appuser .
-RUN pip install --no-cache-dir "poetry==2.1.2" && \
+RUN pip install --no-cache-dir "poetry==2.4.1" && \
     poetry config virtualenvs.create false && \
     poetry install --only main && \
     make build

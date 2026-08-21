@@ -1,46 +1,57 @@
+
 msgid ""
 msgstr ""
-"Project-Id-Version: eq-census-nisra\n"
+"Project-Id-Version:  eq-census-nisra\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2021-03-16 12:13+0000\n"
-"PO-Revision-Date: 2021-03-16 15:49\n"
+"POT-Creation-Date: 2026-08-07 10:07+0100\n"
+"PO-Revision-Date: 2021-03-16 15:49+0000\n"
 "Last-Translator: \n"
+"Language: sco_ulster\n"
 "Language-Team: Ulster Scots\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.9.0\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Crowdin-Project: eq-census-nisra\n"
-"X-Crowdin-Project-ID: 360567\n"
-"X-Crowdin-Language: sco-ulster\n"
-"X-Crowdin-File: messages.pot\n"
-"X-Crowdin-File-ID: 24\n"
-"Language: sco_ulster\n"
+"Generated-By: Babel 2.18.0\n"
 
-#: app/forms/validators.py:341 app/jinja_filters.py:94
+#: app/forms/validators.py:350 app/jinja_filters.py:97
 #, python-format
 msgid "%(num)s year"
 msgid_plural "%(num)s years"
 msgstr[0] "%(num)s yeir"
 msgstr[1] "%(num)s yeirs"
 
-#: app/forms/validators.py:345 app/jinja_filters.py:102
+#: app/forms/validators.py:352 app/jinja_filters.py:99
 #, python-format
 msgid "%(num)s month"
 msgid_plural "%(num)s months"
 msgstr[0] "%(num)s mond"
 msgstr[1] "%(num)s monds"
 
-#: app/jinja_filters.py:145
+#: app/jinja_filters.py:138
 #, python-format
 msgid "%(date)s at %(time)s"
 msgstr "%(date)s at %(time)s"
 
-#: app/jinja_filters.py:156
+#: app/jinja_filters.py:148
 #, python-format
 msgid "%(from_date)s to %(to_date)s"
 msgstr "%(from_date)s tae %(to_date)s"
+
+#: app/jinja_filters.py:400
+#, python-brace-format
+msgid "Change answer for {item_name}: {question_title_or_answer_label}"
+msgstr ""
+
+#: app/jinja_filters.py:404
+#, python-brace-format
+msgid "Change your answer for: {question_title_or_answer_label}"
+msgstr ""
+
+#: app/jinja_filters.py:698
+#: templates/partials/summary/collapsible-summary.html:27
+#: templates/partials/summary/summary.html:24
+msgid "No answer provided"
+msgstr "Nae repone gien"
 
 #: app/forms/error_messages.py:11 app/forms/error_messages.py:12
 #: app/forms/error_messages.py:13 app/forms/error_messages.py:14
@@ -52,340 +63,385 @@ msgstr "Pit in a repone"
 msgid "Select an answer <span class=\"ons-u-vh\">to ‘%(question_title)s’</span>"
 msgstr "Ootwale a repone <span class=\"ons-u-vh\">tae ‘%(question_title)s’</span>"
 
-#: app/forms/error_messages.py:18
-#: app/forms/field_handlers/dropdown_handler.py:11
+#: app/forms/error_messages.py:16
+#: app/forms/field_handlers/dropdown_handler.py:14
 msgid "Select an answer"
 msgstr "Ootwale a repone"
 
-#: app/forms/error_messages.py:19
+#: app/forms/error_messages.py:18
 #, python-format
-msgid "Select at least one answer <span class=\"ons-u-vh\">to ‘%(question_title)s’</span>"
+msgid ""
+"Select at least one answer <span class=\"ons-u-vh\">to "
+"‘%(question_title)s’</span>"
 msgstr "Ootwale a repone <span class=\"ons-u-vh\">tae ‘%(question_title)s’</span>"
 
-#: app/forms/error_messages.py:22
+#: app/forms/error_messages.py:20
 msgid "Enter a date"
 msgstr "Pit in a date"
 
-#: app/forms/error_messages.py:23 templates/partials/answers/address.html:57
+#: app/forms/error_messages.py:21 templates/partials/answers/address.html:60
 msgid "Enter an address"
 msgstr "Pit in a bakkin"
 
-#: app/forms/error_messages.py:24
+#: app/forms/error_messages.py:22
 msgid "Enter a duration"
 msgstr "Inpit a lestin"
 
-#: app/forms/error_messages.py:25
+#: app/forms/error_messages.py:23
 msgid "Enter an email address"
 msgstr "Pit in an email address"
 
-#: app/forms/error_messages.py:26
+#: app/forms/error_messages.py:24
 msgid "Enter a UK mobile number"
 msgstr "Pit in a UK mobil phone nummer"
 
-#: app/forms/error_messages.py:27
+#: app/forms/error_messages.py:25
 #, python-format
 msgid "Enter an answer more than or equal to %(min)s"
 msgstr "Pit in a repone mair nor, ur even'd wi, %(min)s"
 
-#: app/forms/error_messages.py:28
+#: app/forms/error_messages.py:26
 #, python-format
 msgid "Enter an answer less than or equal to %(max)s"
 msgstr "Pit in a repone ablow ur evened wi %(max)s"
 
-#: app/forms/error_messages.py:29
+#: app/forms/error_messages.py:27
 #, python-format
 msgid "Enter an answer more than %(min)s"
 msgstr "Pit in a repone mair nor %(min)s"
 
-#: app/forms/error_messages.py:30
+#: app/forms/error_messages.py:28
 #, python-format
 msgid "Enter an answer less than %(max)s"
 msgstr "Pit in a repone ablow %(max)s"
 
-#: app/forms/error_messages.py:31
+#: app/forms/error_messages.py:29
 #, python-format
 msgid "Enter answers that add up to %(total)s"
 msgstr "Pit in repones 'at eiks til %(total)s"
 
-#: app/forms/error_messages.py:32
+#: app/forms/error_messages.py:30
 #, python-format
 msgid "Enter answers that add up to or are less than %(total)s"
 msgstr "Pit in repones 'at eiks til ur bes ablow %(total)s"
 
-#: app/forms/error_messages.py:35
+#: app/forms/error_messages.py:31
 #, python-format
 msgid "Enter answers that add up to less than %(total)s"
 msgstr "Pit in repones 'at eiks til ablow %(total)s"
 
-#: app/forms/error_messages.py:38
+#: app/forms/error_messages.py:32
 #, python-format
 msgid "Enter answers that add up to greater than %(total)s"
 msgstr "Pit in repones 'at eiks til mair nor %(total)s"
 
-#: app/forms/error_messages.py:41
+#: app/forms/error_messages.py:33
 #, python-format
 msgid "Enter answers that add up to or are greater than %(total)s"
 msgstr "Pit in repones 'at eiks til ur is mair nor %(total)s"
 
-#: app/forms/error_messages.py:44
+#: app/forms/error_messages.py:34
 msgid "Enter an email address in a valid format, for example name@example.com"
 msgstr "Pit in an email address in a richt wye, tha like o name@example.com"
 
-#: app/forms/error_messages.py:47
+#: app/forms/error_messages.py:35
 msgid "Enter a number"
 msgstr "Pit in a nummer"
 
-#: app/forms/error_messages.py:48
+#: app/forms/error_messages.py:36
 msgid "Enter a whole number"
 msgstr "Pit in a hail nummer"
 
-#: app/forms/error_messages.py:49
+#: app/forms/error_messages.py:37
 #, python-format
 msgid "Enter a number rounded to %(max)d decimal places"
 msgstr "Pit in a nummer adjistit tae %(max)d decymal places"
 
-#: app/forms/error_messages.py:50
+#: app/forms/error_messages.py:38
 #, python-format
 msgid "You have entered too many characters. Enter up to %(max)d characters"
 msgstr "Ye hae pit in tae monie chairacters. Pit in up tae %(max)d chairacters"
 
-#: app/forms/error_messages.py:53
+#: app/forms/error_messages.py:39
 msgid "Enter a valid date"
 msgstr "Pit in a richt date"
 
-#: app/forms/error_messages.py:54
+#: app/forms/error_messages.py:40
 msgid "Enter a 'period to' date later than the 'period from' date"
 msgstr "Pit in a 'tack til' date eftèr tha 'tack frae' date"
 
-#: app/forms/error_messages.py:57
+#: app/forms/error_messages.py:41
 msgid "Enter a valid duration"
 msgstr "Pit in a richt lenth"
 
-#: app/forms/error_messages.py:58
-msgid "Enter a UK mobile number in a valid format, for example, 07700 900345 or +44 7700 900345"
-msgstr "Pit in a UK mobil phone nummer in a richt wye, tha like o 07700 900345 or +44 7700 900345"
+#: app/forms/error_messages.py:43
+msgid ""
+"Enter a UK mobile number in a valid format, for example, 07700 900345 or "
+"+44 7700 900345"
+msgstr ""
+"Pit in a UK mobil phone nummer in a richt wye, tha like o 07700 900345 or"
+" +44 7700 900345"
 
-#: app/forms/error_messages.py:61
+#: app/forms/error_messages.py:45
 #, python-format
 msgid "Enter a reporting period greater than or equal to %(min)s"
 msgstr "Pit in an accoontin tack mair nor or siclike tae %(min)s"
 
-#: app/forms/error_messages.py:64
+#: app/forms/error_messages.py:46
 #, python-format
 msgid "Enter a reporting period less than or equal to %(max)s"
 msgstr "Pit in an accoontin tack ablow or siclike tae %(max)s"
 
-#: app/forms/error_messages.py:67
+#: app/forms/error_messages.py:47
 #, python-format
 msgid "Enter a date after %(min)s"
 msgstr "Pit in a date eftèr %(min)s"
 
-#: app/forms/error_messages.py:68
+#: app/forms/error_messages.py:48
 #, python-format
 msgid "Enter a date before %(max)s"
 msgstr "Pit in a date afore %(max)s"
 
-#: app/forms/error_messages.py:69
+#: app/forms/error_messages.py:49
 msgid "Remove an answer"
 msgstr "Tak oot a repone"
 
-#: app/forms/validators.py:352
+#: app/forms/error_messages.py:50
+#, fuzzy
+msgid "Enter the year in a valid format. For example, 2023."
+msgstr "Pit in an email address in a richt wye, tha like o name@example.com"
+
+#: app/forms/validators.py:355
 #, python-format
 msgid "%(num)s day"
 msgid_plural "%(num)s days"
 msgstr[0] "%(num)s day"
 msgstr[1] "%(num)s days"
 
-#: app/forms/fields/select_field_with_detail_answer.py:35
-msgid "Not a valid choice"
+#: app/forms/fields/select_field_with_detail_answer.py:49
+#, fuzzy
+msgid "Not a valid choice."
 msgstr "No a richt walin"
 
-#: app/helpers/template_helpers.py:24
-msgid "Office for National Statistics logo"
-msgstr "Offys fur Kintrie Nummerin"
+#: app/helpers/template_helpers.py:49
+#, fuzzy
+msgid "ONS Surveys"
+msgstr "Stairt tha scance"
 
-#: app/helpers/template_helpers.py:33 app/helpers/template_helpers.py:42
-#: app/helpers/template_helpers.py:170 templates/signed-out.html:3
-msgid "Census 2021"
-msgstr "Heid-coont 20an21"
-
-#: app/helpers/template_helpers.py:38
-msgid "Northern Ireland Statistics and Research Agency logo"
-msgstr "Norlin Airlann Nummerin an Screengin Agentrie logo"
-
-#: app/helpers/template_helpers.py:55
-msgid "Help"
-msgstr "Help"
-
-#: app/helpers/template_helpers.py:60
-msgid "Contact us"
-msgstr "Get tha houl o us"
-
-#: app/helpers/template_helpers.py:69
-msgid "Languages"
-msgstr "Leids"
-
-#: app/helpers/template_helpers.py:74
-msgid "BSL and audio videos"
+#: app/helpers/template_helpers.py:101
+msgid "Menu"
 msgstr ""
 
-#: app/helpers/template_helpers.py:84
+#: app/helpers/template_helpers.py:122
 msgid "The following links open in a new tab"
 msgstr "Tha follaein cleeks apen in a new tab"
 
-#: app/helpers/template_helpers.py:86
-msgid "Crown copyright and database rights 2021 NIMA MOU577.501."
-msgstr "Croon copyricht an database richts 20an21 NIMA MOU577.501."
+#: app/helpers/template_helpers.py:148
+#, python-brace-format
+msgid ""
+"Make sure you <a href='{sign_out_url}'>leave this page</a> or close your "
+"browser if using a shared device"
+msgstr ""
+"Mak shair ye <a href='{sign_out_url}'>lea this page</a> or shut yer "
+"browser gin ye'r oan a yoke wi anither bodie"
 
-#: app/helpers/template_helpers.py:90
-msgid "Crown copyright and database rights 2020 OS 100019153."
-msgstr "Croon copyricht an database richts 20an20 OS 1000191153."
-
-#: app/helpers/template_helpers.py:91
-msgid "Use of address data is subject to the terms and conditions."
-msgstr "Uise o address data bes subjeck tae tha terms an condeetions."
-
-#: app/helpers/template_helpers.py:102
-msgid "Cookies"
-msgstr "Cookies"
-
-#: app/helpers/template_helpers.py:107
-msgid "Accessibility statement"
-msgstr "Ingangin statement"
-
-#: app/helpers/template_helpers.py:112
-msgid "Privacy and data protection"
-msgstr "Hiddlins an gien taxt hainin"
-
-#: app/helpers/template_helpers.py:117
-msgid "Terms and conditions"
-msgstr "Terms an condeetions"
-
-#: app/helpers/template_helpers.py:127
-msgid "Make sure you <a href='{sign_out_url}'>leave this page</a> or close your browser if using a shared device"
-msgstr "Mak shair ye <a href='{sign_out_url}'>lea this page</a> or shut yer browser gin ye'r oan a yoke wi anither bodie"
-
-#: app/questionnaire/placeholder_transforms.py:92
+#: app/questionnaire/placeholder_transforms.py:181
+#, python-brace-format
 msgid "{number_of_years} year"
 msgid_plural "{number_of_years} years"
 msgstr[0] "{number_of_years} twalmond"
 msgstr[1] "{number_of_years} yeirs"
 
-#: app/questionnaire/placeholder_transforms.py:98
+#: app/questionnaire/placeholder_transforms.py:185
+#, python-brace-format
 msgid "{number_of_months} month"
 msgid_plural "{number_of_months} months"
 msgstr[0] "{number_of_months} mond"
 msgstr[1] "{number_of_months} monds"
 
-#: app/questionnaire/placeholder_transforms.py:103
+#: app/questionnaire/placeholder_transforms.py:188
+#, python-brace-format
 msgid "{number_of_days} day"
 msgid_plural "{number_of_days} days"
 msgstr[0] "{number_of_days} day"
 msgstr[1] "{number_of_days} days"
 
-#: app/routes/errors.py:115
+#: app/routes/errors.py:138
 msgid "You have reached the maximum number of individual access codes"
 msgstr "Ye hae wun til tha maist nummer o sing'l ingang codes ye can get"
 
-#: app/routes/errors.py:118
-msgid "If you need more individual access codes, please <a href='{contact_us_url}'>contact us</a>."
-msgstr "Gin ye need mair sing'l ingang codes, plaise <a href='{contact_us_url}'>get tha houl o us</a>."
+#: app/routes/errors.py:140
+#, python-brace-format
+msgid ""
+"If you need more individual access codes, please <a "
+"href='{contact_us_url}'>contact us</a>."
+msgstr ""
+"Gin ye need mair sing'l ingang codes, plaise <a "
+"href='{contact_us_url}'>get tha houl o us</a>."
 
-#: app/routes/errors.py:134
+#: app/routes/errors.py:157
 msgid "You have reached the maximum number of times for submitting feedback"
 msgstr "Ye hae wun til tha maist nummer o times fur pittin in feedbak"
 
-#: app/routes/errors.py:137
-msgid "If you need to give more feedback, please <a href='{contact_us_url}'>contact us</a>."
-msgstr "Gin ye need tae gie mair feedbak, plaise <a href='{contact_us_url}'>get tha houl o us</a>."
+#: app/routes/errors.py:159
+#, python-brace-format
+msgid ""
+"If you need to give more feedback, please <a "
+"href='{contact_us_url}'>contact us</a>."
+msgstr ""
+"Gin ye need tae gie mair feedbak, plaise <a href='{contact_us_url}'>get "
+"tha houl o us</a>."
 
-#: app/routes/errors.py:169
+#: app/routes/errors.py:190
 msgid "Sorry, there was a problem sending the access code"
 msgstr "Thair wus a problem sennin tha ingang code"
 
-#: app/routes/errors.py:175
+#: app/routes/errors.py:198
+#, python-brace-format
 msgid "You can try to <a href='{retry_url}'>request a new access code again</a>."
 msgstr "Ye can try tae <a href='{retry_url}'>ax fur a new ingang code agane</a>."
 
-#: app/routes/errors.py:178 app/routes/errors.py:201 app/routes/errors.py:223
-msgid "If this problem keeps happening, please <a href='{contact_us_url}'>contact us</a> for help."
-msgstr "Gin this gies ye mair bother, plaise <a href='{contact_us_url}'> get tha houl o us</a> fur a pull oot."
+#: app/routes/errors.py:200 app/routes/errors.py:223 app/routes/errors.py:243
+#, python-brace-format
+msgid ""
+"If this problem keeps happening, please <a "
+"href='{contact_us_url}'>contact us</a> for help."
+msgstr ""
+"Gin this gies ye mair bother, plaise <a href='{contact_us_url}'> get tha "
+"houl o us</a> fur a pull oot."
 
-#: app/routes/errors.py:197
+#: app/routes/errors.py:220
 msgid "Sorry, there was a problem sending the confirmation email"
 msgstr "Thair wus a problem sennin tha homologatin email"
 
-#: app/routes/errors.py:198
+#: app/routes/errors.py:221
+#, python-brace-format
 msgid "You can try to <a href='{retry_url}'>send the email again</a>."
 msgstr "Ye can try tae <a href='{retry_url}'>sen tha email agane</a>."
 
-#: app/routes/errors.py:219 templates/errors/403.html:3
-#: templates/errors/403.html:6 templates/errors/submission-failed.html:5
-#: templates/errors/submission-failed.html:8
+#: app/routes/errors.py:240 templates/errors/403.html:3
+#: templates/errors/403.html:21 templates/errors/submission-failed.html:4
+#: templates/errors/submission-failed.html:11
 msgid "Sorry, there is a problem"
 msgstr "We'r hairt-sair, thar's a pall"
 
-#: app/routes/errors.py:220
+#: app/routes/errors.py:241
+#, python-brace-format
 msgid "You can try to <a href='{retry_url}'>submit your feedback again</a>."
 msgstr "Ye can try tae <a href='{retry_url}'>pit in yer feedbak agane</a>."
 
-#: app/routes/individual_response.py:167
+#: app/routes/individual_response.py:192
 msgid "An individual access code has been sent by post"
 msgstr "A sing'l ingang code haes bin sent in tha poast"
 
-#: app/routes/individual_response.py:262
+#: app/routes/individual_response.py:292
 msgid "An individual access code has been sent by text"
 msgstr "A sing'l ingang code haes bin sent by text"
 
-#: app/views/contexts/hub_context.py:15
+#: app/survey_config/business_config.py:58
+msgid "Help"
+msgstr "Help"
+
+#: app/survey_config/business_config.py:70
+msgid "My account"
+msgstr ""
+
+#: app/survey_config/business_config.py:75
+#, fuzzy
+msgid "Sign out"
+msgstr "Wised oot"
+
+#: app/survey_config/business_config.py:85
+#: app/survey_config/social_survey_config.py:37
+msgid "What we do"
+msgstr ""
+
+#: app/survey_config/business_config.py:88
+#: app/survey_config/social_survey_config.py:40
+msgid "Contact us"
+msgstr "Get tha houl o us"
+
+#: app/survey_config/business_config.py:92
+#: app/survey_config/social_survey_config.py:44
+#, fuzzy
+msgid "Accessibility"
+msgstr "Ingangin statement"
+
+#: app/survey_config/business_config.py:102
+#: app/survey_config/social_survey_config.py:54
+msgid "Cookies"
+msgstr "Cookies"
+
+#: app/survey_config/business_config.py:104
+#: app/survey_config/social_survey_config.py:56
+msgid "Privacy and data protection"
+msgstr "Hiddlins an gien taxt hainin"
+
+#: app/survey_config/survey_config.py:17
+msgid "Crown copyright and database rights 2020 OS 100019153."
+msgstr "Croon copyricht an database richts 20an20 OS 1000191153."
+
+#: app/survey_config/survey_config.py:18
+msgid "Use of address data is subject to the terms and conditions."
+msgstr "Uise o address data bes subjeck tae tha terms an condeetions."
+
+#: app/survey_config/survey_config.py:32
+#, fuzzy
+msgid "Save and exit survey"
+msgstr "Hain an conteenye"
+
+#: app/views/contexts/hub_context.py:19
 msgid "Completed"
 msgstr "Throcht"
 
-#: app/views/contexts/hub_context.py:17
+#: app/views/contexts/hub_context.py:21
 msgid "View answers"
 msgstr "Hae a leuk at repones"
 
-#: app/views/contexts/hub_context.py:18
-msgid "View answers for {section_name}"
+#: app/views/contexts/hub_context.py:22
+#, fuzzy, python-brace-format
+msgid "View answers: {section_name}"
 msgstr "Hae a leuk at repones fur {section_name}"
 
-#: app/views/contexts/hub_context.py:22
+#: app/views/contexts/hub_context.py:26
 msgid "Partially completed"
 msgstr "Onlie pairtly fillt oot"
 
-#: app/views/contexts/hub_context.py:24
+#: app/views/contexts/hub_context.py:28
 msgid "Continue with section"
 msgstr "Conteenye wi lay-oot"
 
-#: app/views/contexts/hub_context.py:25
-msgid "Continue with {section_name} section"
+#: app/views/contexts/hub_context.py:29
+#, fuzzy, python-brace-format
+msgid "Continue with section: {section_name}"
 msgstr "Conteenye wi {section_name} lay-oot"
 
-#: app/views/contexts/hub_context.py:29
+#: app/views/contexts/hub_context.py:33
 msgid "Not started"
 msgstr "No stairtit"
 
-#: app/views/contexts/hub_context.py:31
+#: app/views/contexts/hub_context.py:35
 msgid "Start section"
 msgstr "Stairt lay-oot"
 
-#: app/views/contexts/hub_context.py:32
-msgid "Start {section_name} section"
+#: app/views/contexts/hub_context.py:36
+#, fuzzy, python-brace-format
+msgid "Start section: {section_name}"
 msgstr "Stairt {section_name} lay-oot"
 
-#: app/views/contexts/hub_context.py:36
+#: app/views/contexts/hub_context.py:40
 msgid "Separate census requested"
 msgstr "Anither heid-coont socht"
 
-#: app/views/contexts/hub_context.py:38 app/views/contexts/hub_context.py:39
+#: app/views/contexts/hub_context.py:42 app/views/contexts/hub_context.py:43
 msgid "Change or resend"
 msgstr "Cheynge or sen agane"
 
-#: app/views/contexts/hub_context.py:49 app/views/contexts/hub_context.py:50
+#: app/views/contexts/hub_context.py:53 app/views/contexts/hub_context.py:54
 msgid "Submit survey"
 msgstr "Pit in scance"
 
-#: app/views/contexts/hub_context.py:54
+#: app/views/contexts/hub_context.py:56
 msgid "You must submit this survey to complete it"
 msgstr "Ye maun pit in this scance tae get redd up"
 
@@ -393,318 +449,317 @@ msgstr "Ye maun pit in this scance tae get redd up"
 msgid "Choose another section to complete"
 msgstr "Ootwale anither lay-oot furtae get redd up"
 
-#: app/views/contexts/hub_context.py:62 templates/confirm-email.html:26
-#: templates/individual_response/confirmation-post.html:21
-#: templates/individual_response/confirmation-text-message.html:31
-#: templates/individual_response/question.html:5 templates/interstitial.html:8
-#: templates/sectionsummary.html:11 templates/sectionsummary.html:48
+#: app/views/contexts/hub_context.py:62 templates/confirm-email.html:28
+#: templates/individual_response/confirmation-post.html:26
+#: templates/individual_response/confirmation-text-message.html:39
+#: templates/individual_response/question.html:5 templates/interstitial.html:7
+#: templates/listcollectorcontent.html:8 templates/sectionsummary.html:11
+#: templates/sectionsummary.html:50
 msgid "Continue"
 msgstr "Conteenye"
 
-#: app/views/contexts/list_context.py:104
+#: app/views/contexts/list_context.py:119
 msgid " (You)"
 msgstr " (Yersel)"
 
-#: app/views/contexts/questionnaire_summary_context.py:15
+#: app/views/contexts/submission_metadata_context.py:12
+#, fuzzy
+msgid "Submitted on:"
+msgstr "Pittin in"
+
+#: app/views/contexts/submission_metadata_context.py:15
+#, fuzzy, python-brace-format, python-format
+msgid "{date} at {time}"
+msgstr "%(date)s at %(time)s"
+
+#: app/views/contexts/submission_metadata_context.py:24
+#, fuzzy
+msgid "Submission reference:"
+msgstr "Inpit hale frae en tae yin"
+
+#: app/views/contexts/submit_questionnaire_context.py:13
 msgid "Check your answers and submit"
 msgstr "Leuk owre yer repones an inpit thaim"
 
-#: app/views/contexts/questionnaire_summary_context.py:18
-#: templates/confirmation.html:6 templates/confirmation.html:28
+#: app/views/contexts/submit_questionnaire_context.py:14
 msgid "Submit answers"
 msgstr "Pit in repones"
 
-#: app/views/contexts/questionnaire_summary_context.py:21
+#: app/views/contexts/submit_questionnaire_context.py:15
 msgid "Please submit this survey to complete it"
 msgstr "Ableeged gin ye'd pit in this scance furtae throch it"
 
-#: app/views/handlers/confirm_email.py:31
+#: app/views/contexts/thank_you_context.py:26
+#, fuzzy, python-brace-format
+msgid ""
+"Your answers have been submitted for <span>{company_name}</span> "
+"({trading_name})"
+msgstr ""
+"Yer repones wus pit in fur <span>{ru_name}</span> ({trading_as_name}) oan"
+" {submitted_date_time}"
+
+#: app/views/contexts/thank_you_context.py:32
+#, fuzzy, python-brace-format
+msgid "Your answers have been submitted for <span>{company_name}</span>"
+msgstr ""
+"Yer repones wus pit in fur <span>{ru_name}</span> oan "
+"{submitted_date_time}"
+
+#: app/views/contexts/thank_you_context.py:36
+#, fuzzy
+msgid "Your answers have been submitted."
+msgstr "Yer heid-coont haes bin pit in"
+
+#: app/views/contexts/view_submitted_response_context.py:29
+#, fuzzy, python-brace-format
+msgid "Answers submitted for <span>{ru_name}</span> ({trad_as})"
+msgstr ""
+"Yer repones wus pit in fur <span>{ru_name}</span> oan "
+"{submitted_date_time}"
+
+#: app/views/contexts/view_submitted_response_context.py:33
+#, fuzzy, python-brace-format
+msgid "Answers submitted for <span>{ru_name}</span>"
+msgstr ""
+"Yer repones wus pit in fur <span>{ru_name}</span> oan "
+"{submitted_date_time}"
+
+#: app/views/contexts/view_submitted_response_context.py:35
+msgid "Answers submitted."
+msgstr ""
+
+#: app/views/handlers/confirm_email.py:33
 msgid "Yes, send the confirmation email"
 msgstr "Aye, sen oan tha homologatin email"
 
-#: app/views/handlers/confirm_email.py:60
+#: app/views/handlers/confirm_email.py:63
 msgid "Confirm your email address"
 msgstr "Mak siccar email address"
 
-#: app/views/handlers/confirm_email.py:78
+#: app/views/handlers/confirm_email.py:79
 msgid "Is this email address correct?"
 msgstr "Is thon tha richt email address?"
 
-#: app/views/handlers/confirm_email.py:91
 #: app/views/handlers/confirm_email.py:92
-#: app/views/handlers/individual_response.py:867
+#: app/views/handlers/confirm_email.py:93
+#: app/views/handlers/individual_response.py:846
 msgid "No, I need to change it"
 msgstr "Naw, A maun cheynge it"
 
-#: app/views/handlers/confirm_email.py:116
-#: app/views/handlers/confirmation_email.py:66
-#: app/views/handlers/feedback.py:62 app/views/handlers/question.py:150
+#: app/views/handlers/confirm_email.py:117
+#: app/views/handlers/confirmation_email.py:65
+#: app/views/handlers/feedback.py:70 app/views/handlers/question.py:158
+#, python-brace-format
 msgid "Error: {page_title}"
 msgstr "Mistak: {page_title}"
 
-#: app/views/handlers/confirmation_email.py:46
+#: app/views/handlers/confirmation_email.py:45
 msgid "Confirmation email"
 msgstr "Homologatin email"
 
-#: app/views/handlers/feedback.py:28
+#: app/views/handlers/feedback.py:36
 msgid "Feedback"
 msgstr "Feedbak"
 
-#: app/views/handlers/feedback.py:94 app/views/handlers/feedback.py:100
-#: app/views/handlers/feedback.py:108
-msgid "General"
-msgstr "Genèral"
-
-#: app/views/handlers/feedback.py:95
-msgid "This establishment"
-msgstr "This estaiblishment"
-
-#: app/views/handlers/feedback.py:96 app/views/handlers/feedback.py:109
-msgid "People who live here"
-msgstr "Fowk 'at bides here"
-
-#: app/views/handlers/feedback.py:97 app/views/handlers/feedback.py:110
-msgid "Visitors"
-msgstr "Landèrs"
-
-#: app/views/handlers/feedback.py:101
-msgid "Accommodation"
-msgstr "Aisements"
-
-#: app/views/handlers/feedback.py:102 app/views/handlers/feedback.py:112
-msgid "Personal details"
-msgstr "Rinnins Anent a Bodie's Sel"
-
-#: app/views/handlers/feedback.py:103 app/views/handlers/feedback.py:113
-msgid "Health"
-msgstr "Poust"
-
-#: app/views/handlers/feedback.py:104 app/views/handlers/feedback.py:114
-msgid "Qualifications"
-msgstr "Collegianer's lines"
-
-#: app/views/handlers/feedback.py:105 app/views/handlers/feedback.py:115
-msgid "Employment"
-msgstr "Tacks o wark"
-
-#: app/views/handlers/feedback.py:111
-msgid "Household and accommodation"
-msgstr "Aisements o tha hoosehaud"
-
-#: app/views/handlers/feedback.py:127
+#: app/views/handlers/feedback.py:115
 msgid "Give feedback about this service"
 msgstr "Gie feedbak aboot this sarvice"
 
-#: app/views/handlers/feedback.py:128 app/views/handlers/feedback.py:172
+#: app/views/handlers/feedback.py:121 app/views/handlers/feedback.py:139
 msgid "Select what your feedback is about"
 msgstr "Ootwale tha yin yer feedbak bes aboot"
 
-#: app/views/handlers/feedback.py:136 app/views/handlers/feedback.py:137
-msgid "The census questions"
+#: app/views/handlers/feedback.py:124 app/views/handlers/feedback.py:125
+#, fuzzy
+msgid "The survey questions"
 msgstr "Tha heid-coont speirins"
 
-#: app/views/handlers/feedback.py:138
+#: app/views/handlers/feedback.py:127
 msgid "For example, questions not clear, answer options not relevant"
 msgstr "Tha like o, cannae mak oot speirins, repone wales nae uise"
 
-#: app/views/handlers/feedback.py:145
-msgid "Question topic"
-msgstr "Speirin subject"
-
-#: app/views/handlers/feedback.py:146 app/views/handlers/feedback.py:149
-msgid "Select an option"
-msgstr "Ootwale a walins"
-
-#: app/views/handlers/feedback.py:158 app/views/handlers/feedback.py:159
+#: app/views/handlers/feedback.py:131 app/views/handlers/feedback.py:132
 msgid "Page design and structure"
 msgstr "Page ettle an structur"
 
-#: app/views/handlers/feedback.py:162 app/views/handlers/feedback.py:165
+#: app/views/handlers/feedback.py:135 app/views/handlers/feedback.py:136
 msgid "General feedback about this service"
 msgstr "Genèral feedbak aboot this sarvice"
 
-#: app/views/handlers/feedback.py:180 app/views/handlers/feedback.py:190
+#: app/views/handlers/feedback.py:143 app/views/handlers/feedback.py:151
 msgid "Enter your feedback"
 msgstr "Pit in yer feedbak"
 
-#: app/views/handlers/feedback.py:181
+#: app/views/handlers/feedback.py:145
 msgid "Do not include confidential information, such as your contact details"
 msgstr "Dinnae tak in parteeklars, tha like o yer contact details"
 
-#: app/views/handlers/individual_response.py:137
+#: app/views/handlers/individual_response.py:144
+#, python-brace-format
 msgid "Person {list_item_position}"
 msgstr "Bodie{list_item_position}"
 
-#: app/views/handlers/individual_response.py:245
+#: app/views/handlers/individual_response.py:246
 msgid "Cannot answer questions for others in your household"
 msgstr "Cannae mak repone fur speirins anent ithers in yer hoosehaud"
 
-#: app/views/handlers/individual_response.py:311
-msgid "How would you like <strong>{person_name}</strong> to receive a separate census?"
+#: app/views/handlers/individual_response.py:313
+#, python-brace-format
+msgid ""
+"How would you like <strong>{person_name}</strong> to receive a separate "
+"census?"
 msgstr "Hoo wud ye lake <strong>{person_name}</strong> tae get anither heid-coont?"
 
-#: app/views/handlers/individual_response.py:334
+#: app/views/handlers/individual_response.py:333
 msgid "Text message"
 msgstr "Text message"
 
-#: app/views/handlers/individual_response.py:336
+#: app/views/handlers/individual_response.py:335
 msgid "We will need their mobile number for this"
 msgstr "We'll need thair mobil phone nummer fur this"
 
-#: app/views/handlers/individual_response.py:344
+#: app/views/handlers/individual_response.py:341
 msgid "Post"
 msgstr "Poast"
 
-#: app/views/handlers/individual_response.py:346
-msgid "We can only send this to an unnamed resident at the registered household address"
-msgstr "We can onlie sen this tae an unnamed resydent at tha registered hoosehaud address"
+#: app/views/handlers/individual_response.py:344
+msgid ""
+"We can only send this to an unnamed resident at the registered household "
+"address"
+msgstr ""
+"We can onlie sen this tae an unnamed resydent at tha registered hoosehaud"
+" address"
 
-#: app/views/handlers/individual_response.py:355
+#: app/views/handlers/individual_response.py:352
 msgid "It is no longer possible to receive an access code by post."
 msgstr "Yer nae langer able tae get an ingang code in tha poast."
 
-#: app/views/handlers/individual_response.py:357
+#: app/views/handlers/individual_response.py:354
 msgid "Select how to send access code."
 msgstr "Ootwale hoo tae sen ingang code."
 
-#: app/views/handlers/individual_response.py:360
-msgid "For someone to complete a separate census, we need to send them an individual access code."
-msgstr "Fur a bodie tae fill oot anither heid-coont, we hae tae sen thaim a sing'l ingang code."
+#: app/views/handlers/individual_response.py:357
+msgid ""
+"For someone to complete a separate census, we need to send them an "
+"individual access code."
+msgstr ""
+"Fur a bodie tae fill oot anither heid-coont, we hae tae sen thaim a "
+"sing'l ingang code."
 
-#: app/views/handlers/individual_response.py:406
+#: app/views/handlers/individual_response.py:401
 msgid "Send individual access code"
 msgstr "Sen sing'l ingang code"
 
-#: app/views/handlers/individual_response.py:437
-msgid "How would you like to answer <strong>{person_name_possessive}</strong> questions?"
-msgstr "Hoo wud ye lake tae mak repone fur <strong>{person_name_possessive}</strong> speirins?"
+#: app/views/handlers/individual_response.py:433
+#, python-brace-format
+msgid ""
+"How would you like to answer <strong>{person_name_possessive}</strong> "
+"questions?"
+msgstr ""
+"Hoo wud ye lake tae mak repone fur "
+"<strong>{person_name_possessive}</strong> speirins?"
 
-#: app/views/handlers/individual_response.py:452
+#: app/views/handlers/individual_response.py:445
 msgid "I would like to request a separate census for them to complete"
 msgstr "A wud lake tae ax fur anither heid-coont fur thaim tae fill oot"
 
-#: app/views/handlers/individual_response.py:458
+#: app/views/handlers/individual_response.py:449
 msgid "I will ask them to answer their own questions"
 msgstr "A wull ax thaim tae mak repone fur thair ain speirins"
 
-#: app/views/handlers/individual_response.py:462
+#: app/views/handlers/individual_response.py:452
 msgid "They will need the household access code from the letter we sent you"
 msgstr "The'll need tha hoosehaud ingang code frae tha letter we sent til ye"
 
-#: app/views/handlers/individual_response.py:468
+#: app/views/handlers/individual_response.py:457
+#, python-brace-format
 msgid "I will answer for {person_name}"
 msgstr "A wull mak repone fur {person_name}"
 
-#: app/views/handlers/individual_response.py:510
+#: app/views/handlers/individual_response.py:496
 msgid "How to answer questions"
 msgstr "Hoo tae answer speirins"
 
-#: app/views/handlers/individual_response.py:575
+#: app/views/handlers/individual_response.py:557
+#, python-brace-format
 msgid "Do you want to send an individual access code for {person_name} by post?"
 msgstr "Dae ye want us tae sen a sing'l ingang code fur{person_name} in tha poast?"
 
-#: app/views/handlers/individual_response.py:583
-msgid "A letter with an individual access code will be sent to your registered household address"
-msgstr "A letter wi a sing'l ingang code wull be sent tae yer offeecial hoosehaud address"
+#: app/views/handlers/individual_response.py:562
+msgid ""
+"A letter with an individual access code will be sent to your registered "
+"household address"
+msgstr ""
+"A letter wi a sing'l ingang code wull be sent tae yer offeecial hoosehaud"
+" address"
 
-#: app/views/handlers/individual_response.py:590
-msgid "The letter will be addressed to <strong>Individual Resident</strong> instead of the name provided"
-msgstr "Tha letter wull be made oot tae <strong>Sing'l Resydent</strong> insteid o tha name gien tae us"
+#: app/views/handlers/individual_response.py:569
+msgid ""
+"The letter will be addressed to <strong>Individual Resident</strong> "
+"instead of the name provided"
+msgstr ""
+"Tha letter wull be made oot tae <strong>Sing'l Resydent</strong> insteid "
+"o tha name gien tae us"
 
-#: app/views/handlers/individual_response.py:603
+#: app/views/handlers/individual_response.py:582
 msgid "Yes, send the access code by post"
 msgstr "Aye, sen tha ingang code in tha poast"
 
-#: app/views/handlers/individual_response.py:609
+#: app/views/handlers/individual_response.py:586
 msgid "No, send it another way"
 msgstr "Naw, sen it oan anither wye"
 
-#: app/views/handlers/individual_response.py:642
+#: app/views/handlers/individual_response.py:621
 msgid "Confirm address"
 msgstr "Mak siccar address"
 
-#: app/views/handlers/individual_response.py:697
-#: app/views/handlers/individual_response.py:735
+#: app/views/handlers/individual_response.py:684
+#: app/views/handlers/individual_response.py:720
 msgid "Separate Census"
 msgstr "Anither Heid-coont"
 
-#: app/views/handlers/individual_response.py:701
+#: app/views/handlers/individual_response.py:688
 msgid "Who do you need to request a separate census for?"
 msgstr "Wha's tha bodie ye need tae ax fur anither heid-coont fur?"
 
-#: app/views/handlers/individual_response.py:759
+#: app/views/handlers/individual_response.py:744
+#, python-brace-format
 msgid "What is <strong>{person_name_possessive}</strong> mobile number?"
 msgstr "Whut bes <strong>{person_name_possessive}</strong> mobil phone nummer?"
 
-#: app/views/handlers/individual_response.py:771
+#: app/views/handlers/individual_response.py:752
 msgid "UK mobile number"
 msgstr "UK mobil phone nummer"
 
-#: app/views/handlers/individual_response.py:772
+#: app/views/handlers/individual_response.py:754
 msgid "This will not be stored and only used once to send the access code"
 msgstr "This'll no be hained an onlie uised tha yinst tae sen oan tha ingang code"
 
-#: app/views/handlers/individual_response.py:805
+#: app/views/handlers/individual_response.py:786
 msgid "Mobile number"
 msgstr "Mobil phone nummer"
 
-#: app/views/handlers/individual_response.py:854
+#: app/views/handlers/individual_response.py:833
 msgid "Is this mobile number correct?"
 msgstr "Is this mobil phone nummer richt eneuch?"
 
-#: app/views/handlers/individual_response.py:863
+#: app/views/handlers/individual_response.py:842
 msgid "Yes, send the text"
 msgstr "Aye, sen tha text"
 
-#: app/views/handlers/individual_response.py:901
+#: app/views/handlers/individual_response.py:882
 msgid "Confirm mobile number"
 msgstr "Mak siccar mobil phone nummer"
 
-#: app/views/handlers/thank_you.py:22 templates/census-thank-you.html:24
-msgid "Thank you for completing the census"
-msgstr "We'r ableeged tae ye fur fillin oot tha heid-coont"
-
-#: templates/census-thank-you.html:9 templates/confirmation-email.html:8
-msgid "There is a problem with this page"
-msgstr "Thair's a pall wi this page"
-
-#: templates/census-thank-you.html:22
-msgid "Thank you for completing your census"
-msgstr "We'r ableeged tae ye fur fillin oot yer heid-coont"
-
-#: templates/census-thank-you.html:26
+#: app/views/handlers/thank_you.py:22
 msgid "Thank you for completing the survey"
 msgstr "We'r ableeged tae ye fur fillin oot tha scance"
 
-#: templates/census-thank-you.html:32
-msgid "Your individual census has been submitted for <strong>{display_address}</strong>"
-msgstr "Yer sing'l heid-coont haes bin pit in fur <strong>{display_address}</strong>"
+#: app/views/handlers/view_submitted_response.py:47
+msgid "View Submitted Response"
+msgstr ""
 
-#: templates/census-thank-you.html:34
-msgid "Your census has been submitted for the household at <strong>{display_address}</strong>"
-msgstr "Yer heid-coont haes bin pit in fur tha hoosehaud at <strong>{display_address}</strong>"
-
-#: templates/census-thank-you.html:36
-msgid "Your census has been submitted for the accommodation at <strong>{display_address}</strong>"
-msgstr "Yer heid-coont haes bin pit in fur tha dwellin-place at <strong>{display_address}</strong>"
-
-#: templates/census-thank-you.html:37
-msgid "Anyone staying at this accommodation for at least 6 months needs to fill in their own individual census, including staff. Your Census Officer will provide you with census forms for your residents."
-msgstr "Oniebodie bidiin at this dwellin-place fur tha feck o 6 monds needs tae fill oot thair ain sing'l heid-coont, takkin in warkers. Yer Heid-coont Offycer wull gie ye heid-coont foarms fur yer resydents."
-
-#: templates/census-thank-you.html:49
-msgid "Your personal information is protected by law and will be kept confidential"
-msgstr "Yer ain parteeklars bes pertectit bae tha laa an wull be hained hiddlie"
-
-#: templates/census-thank-you.html:55
-msgid "Get confirmation email"
-msgstr "Get homologatin email"
-
-#: templates/census-thank-you.html:56
-msgid "If you would like to be sent confirmation that you have completed your census, enter your email address"
-msgstr "Gin ye wud lake tae be sent homologation 'at ye haed fillt oot yer heid-coont, pit in yer email address"
-
-#: templates/confirm-email.html:13 templates/partials/answers/address.html:56
+#: templates/confirm-email.html:14 templates/partials/answers/address.html:59
 #: templates/question.html:10
 #, python-format
 msgid "There is a problem with your answer"
@@ -712,59 +767,74 @@ msgid_plural "There are %(num)s problems with your answer"
 msgstr[0] "Thair bes a pall wi yer repone"
 msgstr[1] "Thair bes%(num)s problems wi yer repone"
 
-#: templates/confirmation-email-sent.html:3
+#: templates/confirmation-email-sent.html:5
 msgid "Confirmation email sent"
 msgstr "Homologation email sent"
 
-#: templates/confirmation-email-sent.html:16
+#: templates/confirmation-email-sent.html:21
+#, python-brace-format
 msgid "A confirmation email has been sent to {email}"
 msgstr "An homologation email haes bin sent til {email}"
 
-#: templates/confirmation-email-sent.html:25
-msgid "The email will be sent from <strong>census.2021@notifications.service.gov.uk</strong>"
-msgstr "Tha email wull be sent frae <strong>census.2021@notifications.service.gov.uk</strong>"
+#: templates/confirmation-email-sent.html:32
+msgid ""
+"The email will be sent from "
+"<strong>census.2021@notifications.service.gov.uk</strong>"
+msgstr ""
+"Tha email wull be sent frae "
+"<strong>census.2021@notifications.service.gov.uk</strong>"
 
-#: templates/confirmation-email-sent.html:29
-msgid "Didn't receive an email?"
+#: templates/confirmation-email-sent.html:38
+#, fuzzy
+msgid "Didn’t receive an email?"
 msgstr "Ye didnae get an email?"
 
-#: templates/confirmation-email-sent.html:30
-msgid "It can take a few minutes for the email to arrive. If it doesn't arrive, check your junk mail, or you can <a href='{send_confirmation_email_url}' id='send-another-email'>send another confirmation email</a>."
-msgstr "It can tak a wheen o minits fur tha email tae lann. Gif it disnae cum yer lenth, rin yer ee owre yer prugh mail, or ye can <a href='{send_confirmation_email_url}' id='send-another-email'>sen anither homologation email</a>."
+#: templates/confirmation-email-sent.html:43
+#, fuzzy, python-brace-format
+msgid ""
+"It can take a few minutes for the email to arrive. If it doesn't arrive, "
+"check your junk mail, or you can <a "
+"href=\"{send_confirmation_email_url}\" id=\"send-another-email\">send "
+"another confirmation email</a>."
+msgstr ""
+"It can tak a wheen o minits fur tha email tae lann. Gif it disnae cum yer"
+" lenth, rin yer ee owre yer prugh mail, or ye can <a "
+"href='{send_confirmation_email_url}' id='send-another-email'>sen anither "
+"homologation email</a>."
+
+#: templates/confirmation-email.html:9
+msgid "There is a problem with this page"
+msgstr "Thair's a pall wi this page"
 
 #: templates/confirmation-email.html:12
 msgid "Send a confirmation email"
 msgstr "Sen oan a homologatin email"
 
-#: templates/confirmation.html:12
-msgid "Yes, I confirm these are correct"
-msgstr "Aye, A warrant the'r richt"
-
-#: templates/confirmation.html:33
-msgid "Submitting"
-msgstr "Pittin in"
-
-#: templates/feedback-sent.html:6
+#: templates/feedback-sent.html:7
 msgid "Feedback sent"
 msgstr "Feedbak sent"
 
-#: templates/feedback-sent.html:19
+#: templates/feedback-sent.html:21
 msgid "Thank you for your feedback"
 msgstr "We'r ableeged tae ye fur yer feedbak"
 
-#: templates/feedback-sent.html:20
-msgid "Your comments will help us make improvements to our surveys. We are not able to reply to comments, but we appreciate your feedback"
-msgstr "Yer repones wull gie us a haun tae mak better oor scances. We'r no able tae speak bak til yer repones, but we'r hairt-gled o yer feedbak"
+#: templates/feedback-sent.html:23
+msgid ""
+"Your comments will help us make improvements to our surveys. We are not "
+"able to reply to comments, but we appreciate your feedback"
+msgstr ""
+"Yer repones wull gie us a haun tae mak better oor scances. We'r no able "
+"tae speak bak til yer repones, but we'r hairt-gled o yer feedbak"
 
-#: templates/feedback-sent.html:28
+#: templates/feedback-sent.html:29
 msgid "Done"
 msgstr "Daen"
 
-#: templates/feedback.html:15
+#: templates/feedback.html:16 templates/view-submitted-response.html:15
 msgid "Back"
 msgstr "Bak"
 
-#: templates/feedback.html:28
+#: templates/feedback.html:31
 #, python-format
 msgid "There is a problem with your feedback"
 msgid_plural "There are %(num)s problems with your feedback"
@@ -775,466 +845,740 @@ msgstr[1] "Thair's %(num)s palls wi yer feedbak"
 msgid "Send feedback"
 msgstr "Sen feedbak"
 
-#: templates/hub.html:40
+#: templates/hub.html:7
 msgid "If you can’t answer someone else’s questions"
 msgstr "Gin ye cannae mak repone fur anither bodie's speirins"
 
-#: templates/interstitial.html:23 templates/partials/question.html:27
+#: templates/interstitial.html:20 templates/partials/question.html:47
 msgid "If you can’t answer questions for this person"
 msgstr "Gin ye cannae mak repones tae speirins fur this bodie"
 
-#: templates/interstitial.html:32 templates/layouts/_questionnaire.html:27
+#: templates/interstitial.html:29 templates/layouts/_questionnaire.html:29
 msgid "Save and continue"
 msgstr "Hain an conteenye"
 
-#: templates/introduction.html:10
+#: templates/introduction.html:8
 msgid "Introduction"
 msgstr "Stairt-aff"
 
-#: templates/introduction.html:17
-#, python-format
-msgid "You are completing this for <span>%(ru_name)s</span> (%(trading_as_name)s)"
-msgstr "Ye'r fillin this oot fur <span>%(ru_name)s</span> (%(trading_as_name)s)"
-
-#: templates/introduction.html:21
-#, python-format
-msgid "You are completing this for <span>%(ru_name)s</span>"
-msgstr "Ye'r fillin this oot fur <span>%(ru_name)s</span>"
-
-#: templates/introduction.html:25
-#, python-format
-msgid "If the company details or structure have changed contact us on %(telephone_number)s or email %(email_address)s"
-msgstr "Gin tha rinnins anent tha consarn or structur haes cheynged get tha houl o us oan %(telephone_number)s or email %(email_address)s"
-
-#: templates/introduction.html:40
+#: templates/introduction.html:19
 msgid "Your response is legally required"
 msgstr "Ye'r gart mak repone bae tha laa"
 
-#: templates/list-action.html:9
+#: templates/list-action.html:10
 msgid "Cancel and return to the previous page"
 msgstr "Cancel an ga' bak til tha page afore"
 
-#: templates/multiple_survey.html:4 templates/multiple_survey.html:7
+#: templates/multiple_survey.html:5 templates/multiple_survey.html:8
 msgid "Information"
 msgstr "Wittins"
 
-#: templates/multiple_survey.html:16
+#: templates/multiple_survey.html:20
 msgid "Unfortunately you can only complete one survey at a time"
 msgstr "Misfortunatly ye can fill oot nae mair nor tha yin scance at tha yin time"
 
-#: templates/multiple_survey.html:17
+#: templates/multiple_survey.html:22
 msgid "Close this window to continue with your current survey"
 msgstr "Shut this wundae furtae conteenye tha scance ye'r daein thenoo"
 
-#: templates/signed-out.html:3
+#: templates/signed-out.html:5
 msgid "Signed out"
 msgstr "Wised oot"
 
-#: templates/signed-out.html:6
-msgid "Your survey answers have been saved. You are now signed out"
-msgstr "Yer repones tae tha scance is hained. Noo ye'r wised oot"
+#: templates/signed-out.html:16
+#, fuzzy
+msgid "<h1>Your progress has been saved</h1>"
+msgstr "Yer heid-coont haes bin pit in"
 
-#: templates/signed-out.html:9
-msgid "Return to your account"
-msgstr "Ga'bak tae yer accoont"
+#: templates/signed-out.html:22
+#, python-brace-format
+msgid ""
+"To find further information or resume the survey, <a href='{url}'>return "
+"to My Account</a>."
+msgstr ""
 
-#: templates/summary.html:28
-msgid "Please review your answers and confirm these are correct"
-msgstr "Ableeged gin ye'd scance yer repones an uphaud the'r richt"
+#: templates/signed-out.html:26
+#, fuzzy, python-brace-format
+msgid "To resume the survey, <a href='{url}'>re-enter your access code</a>."
+msgstr ""
+"Furtae ingang this page ye maun <a href='{url}'>pit in yer 16-chairacter "
+"ingang code</a>."
 
-#: templates/thank-you.html:4
+#: templates/thank-you.html:7
 msgid "We’ve received your answers"
 msgstr "We hae got yer repones"
 
-#: templates/thank-you.html:9
-msgid "Submission successful"
-msgstr "Ye hae cum speed wi pittin in"
+#: templates/thank-you.html:17
+#, fuzzy
+msgid "Back to surveys"
+msgstr "Pit in scance"
 
-#: templates/thank-you.html:21
-msgid "Your answers were submitted for <span>{ru_name}</span> ({trading_as_name}) on {submitted_date_time}"
-msgstr "Yer repones wus pit in fur <span>{ru_name}</span> ({trading_as_name}) oan {submitted_date_time}"
+#: templates/thank-you.html:42
+#, fuzzy, python-brace-format
+msgid "Thank you for completing the {survey_title}"
+msgstr "We'r ableeged tae ye fur fillin oot tha scance"
 
-#: templates/thank-you.html:26
-msgid "Your answers were submitted for <span>{ru_name}</span> on {submitted_date_time}"
-msgstr "Yer repones wus pit in fur <span>{ru_name}</span> oan {submitted_date_time}"
+#: templates/thank-you.html:53
+msgid ""
+"Your response will help inform decision-makers how best to support the UK"
+" population and economy."
+msgstr ""
 
-#: templates/thank-you.html:32
-msgid "Transaction ID: <b>{transaction_id}</b>"
-msgstr "Transact ID: <b>{transaction_id}</b>"
-
-#: templates/thank-you.html:35
-msgid "Your answers will be processed in the next few weeks."
-msgstr "We'r fur throch-pittin yer repones in tha cummin twa-thrie sennicht."
-
-#: templates/thank-you.html:36
-msgid "We may contact you to query your answers via phone or secure message."
-msgstr "We micht awn wi ye furtae spier anent yer repones bae wye o tha langbl'r ur siccar wurd."
-
-#: templates/thank-you.html:37
-msgid "For more information on how we use this data."
+#: templates/thank-you.html:55
+#, fuzzy
+msgid "Learn more about how we use this data"
 msgstr "Fur mair rinnins anent whut wye we uise this wittins."
 
-#: templates/errors/403.html:7
-msgid "You may need to update your browser to a newer version."
-msgstr "Ye micht hae tae update yer browser tae a newer soart o yin."
+#: templates/thank-you.html:58 templates/view-submitted-response.html:60
+msgid "For security, you can no longer view or get a copy of your answers"
+msgstr ""
 
-#: templates/errors/403.html:8
-msgid "If the problem still occurs, try using a different browser or device."
-msgstr "Gin tha problem cums aboot agane, try uisin anither browser or yoke."
+#: templates/thank-you.html:71
+msgid "For security, your answers will only be available to view for another "
+msgstr ""
 
-#: templates/errors/403.html:9
+#: templates/thank-you.html:72
+#, fuzzy
+msgid "Get a copy of your answers"
+msgstr "We hae got yer repones"
+
+#: templates/thank-you.html:73
+#, fuzzy
+msgid "We may contact you to query your answers."
+msgstr ""
+"We micht awn wi ye furtae spier anent yer repones bae wye o tha langbl'r "
+"ur siccar wurd."
+
+#: templates/thank-you.html:75
+#, python-brace-format
+msgid ""
+"If you need a copy for your records, <a href=\"{url}\" id=\"view-"
+"submitted-response-link\">save or print your answers</a>."
+msgstr ""
+
+#: templates/layouts/_base.html:157 templates/thank-you.html:84
+msgid "minute"
+msgstr ""
+
+#: templates/layouts/_base.html:158 templates/thank-you.html:85
+msgid "minutes"
+msgstr ""
+
+#: templates/layouts/_base.html:159 templates/thank-you.html:86
+msgid "second"
+msgstr ""
+
+#: templates/layouts/_base.html:160 templates/thank-you.html:87
+msgid "seconds"
+msgstr ""
+
+#: templates/thank-you.html:89
+msgid "For security, your answers will only be available to view for 45 minutes"
+msgstr ""
+
+#: templates/thank-you.html:99
+msgid "Get confirmation email"
+msgstr "Get homologatin email"
+
+#: templates/thank-you.html:100
+#, fuzzy
+msgid ""
+"If you would like to be sent confirmation that you have completed your "
+"survey, enter your email address"
+msgstr ""
+"Gin ye wud lake tae be sent homologation 'at ye haed fillt oot yer heid-"
+"coont, pit in yer email address"
+
+#: templates/view-submitted-response.html:35
+#, fuzzy
+msgid "Print answers"
+msgstr "Pit in repones"
+
+#: templates/errors/401.html:3
+msgid "Page is not available"
+msgstr "Tha page isnae appen tae"
+
+#: templates/errors/401.html:4
+#, fuzzy, python-brace-format
+msgid "You will need to <a href='{url}'>sign back in</a> to access your account"
+msgstr ""
+"Ye maun <a href='{url}'>pit in yer 16-chairacter ingang code</a> agane "
+"tae conteenye wi yer heid-coont."
+
+#: templates/errors/401.html:5
+#, fuzzy, python-brace-format
+msgid ""
+"To access this page you need to <a href='{url}'>re-enter your access "
+"code</a>."
+msgstr ""
+"Furtae ingang this page ye maun <a href='{url}'>pit in yer 16-chairacter "
+"ingang code</a>."
+
+#: templates/errors/401.html:8
+#, python-brace-format
+msgid ""
+"If you are completing a business survey, you need to sign back in to <a "
+"href='{url}'>your account</a>."
+msgstr ""
+
+#: templates/errors/401.html:14
+#, fuzzy, python-brace-format
+msgid ""
+"If you started your survey using an access code, you need to <a "
+"href='{url}'>re-enter your code</a>."
+msgstr ""
+"Furtae ingang this page ye maun <a href='{url}'>pit in yer 16-chairacter "
+"ingang code</a>."
+
+#: templates/errors/401.html:22
+msgid "Sorry, you need to sign in again"
+msgstr ""
+
+#: templates/errors/401.html:23
+msgid "This is because you have either:"
+msgstr ""
+
+#: templates/errors/401.html:25
+msgid ""
+"been inactive for 45 minutes and your session has timed out to protect "
+"your information"
+msgstr ""
+
+#: templates/errors/401.html:26
+msgid "followed a link to a page you are not signed in to"
+msgstr ""
+
+#: templates/errors/401.html:27
+msgid "followed a link to a survey that has already been submitted"
+msgstr ""
+
+#: templates/errors/401.html:34 templates/errors/403.html:27
+#: templates/errors/404.html:21 templates/errors/500.html:40
+#: templates/errors/submission-failed.html:17
+#, fuzzy
+msgid "Business surveys"
+msgstr "Pit in scance"
+
+#: templates/errors/401.html:36 templates/errors/403.html:29
+#: templates/errors/404.html:23 templates/errors/500.html:43
+#: templates/errors/submission-failed.html:19
+#, fuzzy
+msgid "All other surveys"
+msgstr "Stairt tha scance"
+
+#: templates/errors/403.html:4
+#, python-brace-format
 msgid "For further help, please <a href='{url}'>contact us</a>."
 msgstr "Fur mair help, plaise <a href='{url}'>get tha houl o us</a>."
 
-#: templates/errors/404.html:3 templates/errors/404.html:6
+#: templates/errors/403.html:7
+#, fuzzy, python-brace-format
+msgid ""
+"If you are completing a business survey and you need further help, please"
+" <a href='{url}'>contact us</a>."
+msgstr "Fur mair help, plaise <a href='{url}'>get tha houl o us</a>."
+
+#: templates/errors/403.html:13
+#, fuzzy, python-brace-format
+msgid ""
+"If you started your survey using an access code and you need further "
+"help, please <a href='{url}'>contact us</a>."
+msgstr ""
+"Gin ye need mair sing'l ingang codes, plaise <a "
+"href='{contact_us_url}'>get tha houl o us</a>."
+
+#: templates/errors/403.html:22
+msgid "You may need to update your browser to a newer version."
+msgstr "Ye micht hae tae update yer browser tae a newer soart o yin."
+
+#: templates/errors/403.html:23
+msgid "If the problem still occurs, try using a different browser or device."
+msgstr "Gin tha problem cums aboot agane, try uisin anither browser or yoke."
+
+#: templates/errors/404.html:3 templates/errors/404.html:14
 msgid "Page not found"
 msgstr "Page no fun"
 
-#: templates/errors/404.html:7
+#: templates/errors/404.html:5
+#, fuzzy, python-brace-format
+msgid ""
+"If the web address is correct or you selected a link or button, please <a"
+" href='{url}'>contact us</a> for more help."
+msgstr ""
+"Gin tha wabsteid address is richt or ye ootwaled a cleek or button, <a "
+"href='{url}'>get tha houl o us</a> fur mair help."
+
+#: templates/errors/404.html:10 templates/errors/submission-failed.html:7
+#, fuzzy, python-brace-format
+msgid ""
+"If you are completing a business survey, please <a href='{url}'>contact "
+"us</a>."
+msgstr "Fur mair help, plaise <a href='{url}'>get tha houl o us</a>."
+
+#: templates/errors/404.html:11 templates/errors/submission-failed.html:8
+#, fuzzy, python-brace-format
+msgid ""
+"If you started your survey using an access code, please <a "
+"href='{url}'>contact us</a>."
+msgstr ""
+"Gin ye need mair sing'l ingang codes, plaise <a "
+"href='{contact_us_url}'>get tha houl o us</a>."
+
+#: templates/errors/404.html:15
 msgid "If you entered a web address, check it is correct."
 msgstr "Gin ye inpit a wabsteid address, mine an mak siccar it's richt."
 
-#: templates/errors/404.html:8
+#: templates/errors/404.html:16
 msgid "If you pasted the web address, check you copied the whole address."
-msgstr "Gin ye battert tha wabsteid address, mine an mak siccar ye taen a copy o tha hale address."
+msgstr ""
+"Gin ye battert tha wabsteid address, mine an mak siccar ye taen a copy o "
+"tha hale address."
 
-#: templates/errors/404.html:9
-msgid "If the web address is correct or you selected a link or button, <a href='{url}'>contact us</a> for more help."
-msgstr "Gin tha wabsteid address is richt or ye ootwaled a cleek or button, <a href='{url}'>get tha houl o us</a> fur mair help."
+#: templates/errors/404.html:20
+#, fuzzy, python-brace-format
+msgid ""
+"If the web address is correct or you selected a link or button, please "
+"see the following help links."
+msgstr ""
+"Gin tha wabsteid address is richt or ye ootwaled a cleek or button, <a "
+"href='{url}'>get tha houl o us</a> fur mair help."
 
 #: templates/errors/500.html:3
 msgid "An error has occurred"
 msgstr "Thar wus a mistak"
 
 #: templates/errors/500.html:6
+#, python-brace-format
+msgid ""
+"If you have attempted to submit your survey, you should check that this "
+"was successful. To do this, <a href='{url}'>sign in to your business "
+"survey account</a>."
+msgstr ""
+
+#: templates/errors/500.html:12
+#, fuzzy, python-brace-format
+msgid "If you need more help, <a href='{url}'>contact us</a>."
+msgstr "Fur mair help, plaise <a href='{url}'>get tha houl o us</a>."
+
+#: templates/errors/500.html:14
+#, python-brace-format
+msgid ""
+"If you have attempted to submit your survey, you should check that this "
+"was successful. To do this, <a href='{url}'>re-enter your code</a>."
+msgstr ""
+
+#: templates/errors/500.html:21
+#, fuzzy, python-brace-format
+msgid ""
+"If you need more help, <a href='{url}'>contact us about business "
+"surveys</a>."
+msgstr ""
+"Gin ye need tae gie mair feedbak, plaise <a href='{contact_us_url}'>get "
+"tha houl o us</a>."
+
+#: templates/errors/500.html:27
+#, fuzzy, python-brace-format
+msgid ""
+"If you need more help, <a href='{url}'>contact us about all other "
+"surveys</a>."
+msgstr ""
+"Gin ye need tae gie mair feedbak, plaise <a href='{contact_us_url}'>get "
+"tha houl o us</a>."
+
+#: templates/errors/500.html:30
 msgid "Sorry, there is a problem with this service"
 msgstr "We'r hairt-sair - thar's a pall wi this sarvice, but"
 
-#: templates/errors/500.html:7
+#: templates/errors/500.html:31
 msgid "Try again later."
 msgstr "Ettle at it agane, efter."
 
-#: templates/errors/500.html:8
+#: templates/errors/500.html:32
 msgid "If you have started a survey, your answers have been saved."
 msgstr "Gin ye hae stairtit a scance, yer repones is hained."
 
-#: templates/errors/500.html:9
-msgid "<a href='{url}'>Contact us</a> if you need to speak to someone about your survey."
-msgstr "<a href='{url}'>Get tha houl o us</a> gin ye maun taak tae a bodie anent yer scance."
-
-#: templates/errors/no-cookie.html:3
-msgid "Page is not available"
-msgstr "Tha page isnae appen tae"
-
-#: templates/errors/no-cookie.html:6
-msgid "Sorry there is a problem"
-msgstr "We'r hairt-sair thar's a pall"
-
-#: templates/errors/no-cookie.html:7
-msgid "To access this page you need to <a href='{url}'>enter your 16-character access code</a>."
-msgstr "Furtae ingang this page ye maun <a href='{url}'>pit in yer 16-chairacter ingang code</a>."
-
-#: templates/errors/session-expired.html:3
-msgid "Session timed out"
-msgstr "Session timed oot"
-
-#: templates/errors/session-expired.html:6
-msgid "Your session has timed out due to inactivity"
-msgstr "Yer session haes timed oot as thair wus naethin daein"
-
-#: templates/errors/session-expired.html:7
-msgid "To help protect your information we have timed you out"
-msgstr "Tae help bield yer wittins we hae timed ye oot"
-
-#: templates/errors/session-expired.html:8
-msgid "You will need to <a href='{url}'>enter your 16-character access code</a> again to continue your census."
-msgstr "Ye maun <a href='{url}'>pit in yer 16-chairacter ingang code</a> agane tae conteenye wi yer heid-coont."
-
-#: templates/errors/submission-complete.html:3
+#: templates/errors/previously-submitted.html:3
 msgid "Submission Complete"
 msgstr "Inpit hale frae en tae yin"
 
-#: templates/errors/submission-complete.html:6
+#: templates/errors/previously-submitted.html:4
+#, fuzzy, python-brace-format
+msgid "<a href='{url}'>Return to previous page</a>"
+msgstr "Cancel an ga' bak til tha page afore"
+
+#: templates/errors/previously-submitted.html:7
 msgid "This page is no longer available"
 msgstr "This page bes nae langer appen tae"
 
-#: templates/errors/submission-complete.html:7
-msgid "Your census has been submitted"
+#: templates/errors/previously-submitted.html:8
+#, fuzzy
+msgid "Your survey has been submitted"
 msgstr "Yer heid-coont haes bin pit in"
 
-#: templates/errors/submission-failed.html:9
-msgid "You can try to <a href='{url}'>submit your census again</a>"
+#: templates/errors/submission-failed.html:5
+#, fuzzy, python-brace-format
+msgid "You can try to <a href='{url}'>submit your survey again</a>"
 msgstr "Ye can try tae <a href='{url}'>pit in yer feedbak agane</a>"
 
-#: templates/errors/submission-failed.html:10
-msgid "If this problem keeps happening, please <a href='{url}'>contact us</a> for help."
-msgstr "Gin this gies ye mair bother, plaise <a href='{url}'> get tha houl o us</a> fur a pull oot."
+#: templates/errors/submission-failed.html:6
+#, python-brace-format
+msgid ""
+"If this problem keeps happening, please <a href='{url}'>contact us</a> "
+"for help."
+msgstr ""
+"Gin this gies ye mair bother, plaise <a href='{url}'> get tha houl o "
+"us</a> fur a pull oot."
 
-#: templates/individual_response/confirmation-post.html:15
+#: templates/errors/submission-failed.html:16
+#, fuzzy, python-brace-format
+msgid "If this problem keeps happening, please see the following help links."
+msgstr ""
+"Gin this gies ye mair bother, plaise <a href='{url}'> get tha houl o "
+"us</a> fur a pull oot."
+
+#: templates/individual_response/confirmation-post.html:20
+#, python-brace-format
 msgid "A letter has been sent to Individual Resident at {display_address}"
 msgstr "A letter haes bin sent tae Sing'l Resydent at{display_address}"
 
-#: templates/individual_response/confirmation-post.html:17
-msgid "The letter with an individual access code should arrive soon for them to complete their own census"
-msgstr "Tha letter wi a sing'l ingang code shud land shane eneuch fur thaim til fill oot thair ain heid-coont"
+#: templates/individual_response/confirmation-post.html:22
+msgid ""
+"The letter with an individual access code should arrive soon for them to "
+"complete their own census"
+msgstr ""
+"Tha letter wi a sing'l ingang code shud land shane eneuch fur thaim til "
+"fill oot thair ain heid-coont"
 
-#: templates/individual_response/confirmation-text-message.html:15
+#: templates/individual_response/confirmation-text-message.html:20
+#, python-brace-format
 msgid "We have sent a text to {mobile_number}"
 msgstr "We hae sent a text tae{mobile_number}"
 
-#: templates/individual_response/confirmation-text-message.html:17
-msgid "The text message with an individual access code should arrive soon for them to complete their own census"
-msgstr "Tha text message wi a sing'l ingang code shud land shane eneuch fur thaim tae fill oot thair ain heid-coont"
+#: templates/individual_response/confirmation-text-message.html:23
+msgid ""
+"The text message with an individual access code should arrive soon for "
+"them to complete their own census"
+msgstr ""
+"Tha text message wi a sing'l ingang code shud land shane eneuch fur thaim"
+" tae fill oot thair ain heid-coont"
 
-#: templates/individual_response/confirmation-text-message.html:26
+#: templates/individual_response/confirmation-text-message.html:34
 msgid "The text will be sent from <strong>Census2021</strong>"
 msgstr "Tha text wull be sent frae <strong>Heid-coont 20an21</strong>"
 
-#: templates/individual_response/interstitial.html:8
+#: templates/individual_response/interstitial.html:9
 msgid "If you can't answer questions for others in your household"
 msgstr "Gin ye cannae mak repone fur speirins anent ithers in yer hoosehaud"
 
-#: templates/individual_response/interstitial.html:9
-msgid "You can ask the people you live with to answer their own questions by sharing the household access code with them."
-msgstr "Ye can ax tha fowk wha leeve wi ye tae mak repone fur thair ain speirins by giein thaim tha hoosehaud ingang code."
-
 #: templates/individual_response/interstitial.html:10
-msgid "If this is not possible, you can request a separate census for them to complete."
-msgstr "Gin this cannae cum aboot, ye can ax fur anither heid-coont fur thaim tae fill oot."
+msgid ""
+"You can ask the people you live with to answer their own questions by "
+"sharing the household access code with them."
+msgstr ""
+"Ye can ax tha fowk wha leeve wi ye tae mak repone fur thair ain speirins "
+"by giein thaim tha hoosehaud ingang code."
 
-#: templates/individual_response/interstitial.html:13
+#: templates/individual_response/interstitial.html:11
+msgid ""
+"If this is not possible, you can request a separate census for them to "
+"complete."
+msgstr ""
+"Gin this cannae cum aboot, ye can ax fur anither heid-coont fur thaim tae"
+" fill oot."
+
+#: templates/individual_response/interstitial.html:15
 msgid "Request separate census"
 msgstr "Ax fur anither heid-coont"
 
-#: templates/individual_response/question.html:9
-msgid "To request a census in a different format or for further help, please <a href='{contact_us_url}'>contact us</a>"
-msgstr "Tae ax fur a heid-coont in anither lay-oot, or fur mair help, plaise <a href='{contact_us_url}'>get tha houl o us</a>"
+#: templates/individual_response/question.html:11
+#, python-brace-format
+msgid ""
+"To request a census in a different format or for further help, please <a "
+"href='{contact_us_url}'>contact us</a>"
+msgstr ""
+"Tae ax fur a heid-coont in anither lay-oot, or fur mair help, plaise <a "
+"href='{contact_us_url}'>get tha houl o us</a>"
 
-#: templates/layouts/_base.html:19
+#: templates/layouts/_base.html:15
 msgid "Previous"
 msgstr "Yin afore"
 
-#: templates/layouts/_base.html:62
+#: templates/layouts/_base.html:61
 msgid "Tell us whether you accept cookies"
 msgstr "Tell us gin ye accept cookies"
 
-#: templates/layouts/_base.html:63
-msgid "We use <a href='{cookie_settings_url}'>cookies to collect information</a> about how you use census.gov.uk. We use this information to make the website work as well as possible and improve our services."
-msgstr "We uise <a href='{cookie_settings_url}'>cookies tae gether wittins</a> aboot hoo ye uise census.gov.uk We uise these wittins tae mak tha wabsteid wark as weel as able an better oor sarvice."
+#: templates/layouts/_base.html:62
+#, fuzzy, python-brace-format
+msgid ""
+"We use <a href='{cookie_settings_url}'>cookies to collect information</a>"
+" about how you use {cookie_domain}. We use this information to make the "
+"website work as well as possible and improve our services."
+msgstr ""
+"We uise <a href='{cookie_settings_url}'>cookies tae gether wittins</a> "
+"aboot hoo ye uise census.gov.uk We uise these wittins tae mak tha "
+"wabsteid wark as weel as able an better oor sarvice."
 
-#: templates/layouts/_base.html:64
-msgid "You’ve accepted all cookies. You can <a href='{cookie_settings_url}'>change your cookie preferences</a> at any time."
-msgstr "Ye hae acceptit aa tha cookies. Ye can <a href='{cookie_settings_url}'> cheynge yer cookie preferences</a> onietim ye lake."
+#: templates/layouts/_base.html:68
+#, python-brace-format
+msgid ""
+"You’ve accepted all cookies. You can <a "
+"href='{cookie_settings_url}'>change your cookie preferences</a> at any "
+"time."
+msgstr ""
+"Ye hae acceptit aa tha cookies. Ye can <a href='{cookie_settings_url}'> "
+"cheynge yer cookie preferences</a> onietim ye lake."
 
-#: templates/layouts/_base.html:65
+#: templates/layouts/_base.html:73
 msgid "Accept all cookies"
 msgstr "Accept aa cookies"
 
-#: templates/layouts/_base.html:66
+#: templates/layouts/_base.html:74
 msgid "Set cookie preferences"
 msgstr "Set cookie preferences"
 
-#: templates/layouts/_base.html:67
-#: templates/partials/introduction/preview.html:30
-#: templates/partials/summary/collapsible-summary.html:14
+#: templates/layouts/_base.html:75
 msgid "Hide"
 msgstr "Hiddle"
 
-#: templates/layouts/_base.html:115
+#: templates/layouts/_base.html:124
 msgid "Skip to main content"
 msgstr "Bygae tae tha main feck"
 
-#: templates/layouts/_questionnaire.html:38
+#: templates/layouts/_base.html:152
+msgid "You will be signed out soon"
+msgstr ""
+
+#: templates/layouts/_base.html:153
+msgid "It appears you have been inactive for a while."
+msgstr ""
+
+#: templates/layouts/_base.html:154
+#, fuzzy
+msgid ""
+"To protect your information, your progress will be saved and you will be "
+"signed out in"
+msgstr "Tae help bield yer wittins we hae timed ye oot"
+
+#: templates/layouts/_base.html:155
+#, fuzzy
+msgid "You are being signed out"
+msgstr "Hain an wise oot"
+
+#: templates/layouts/_base.html:156
+#, fuzzy
+msgid "Continue survey"
+msgstr "Conteenye"
+
+#: templates/layouts/_calculatedsummary.html:17
+#, fuzzy
+msgid "Yes, I confirm this is correct"
+msgstr "Aye, A warrant the'r richt"
+
+#: templates/layouts/_questionnaire.html:46
 msgid "Choose another section and return to this later"
 msgstr "Ootwale anither shaidin an bak-cum tae this eftèr"
 
-#: templates/layouts/configs/_save-sign-out-button.html:5
-msgid "Save and sign out"
-msgstr "Hain an wise oot"
-
-#: templates/layouts/configs/_save-sign-out-button.html:7
-msgid "Save and complete later"
-msgstr "Hain an throch eftèr"
-
-#: templates/layouts/configs/_save-sign-out-button.html:25
+#: templates/layouts/configs/_header.html:10
 msgid "Exit"
 msgstr "Gang oot"
 
-#: templates/macros/helpers.html:29
+#: templates/macros/helpers.html:15
 msgid "Interviewer note:"
 msgstr "Interviewer note:"
 
-#: templates/partials/answer-guidance.html:19
-#: templates/partials/definition.html:19
-#: templates/partials/individual-response-guidance.html:14
-msgid "Hide this"
-msgstr "Hiddle this"
-
-#: templates/partials/email-form.html:25
+#: templates/partials/confirmation-email-form.html:27
 msgid "Email address"
 msgstr "Email address"
 
-#: templates/partials/email-form.html:26
+#: templates/partials/confirmation-email-form.html:28
 msgid "This will not be stored and only used once to send your confirmation"
 msgstr "This'll no be kept an onlie uised tha yinst tae sen yer confirmation"
 
-#: templates/partials/email-form.html:39
+#: templates/partials/confirmation-email-form.html:39
 msgid "Send confirmation"
 msgstr "Sen confirmation"
 
-#: templates/partials/feedback-call-to-action.html:6
+#: templates/partials/feedback-call-to-action.html:7
 msgid "What do you think about this service?"
 msgstr "What dae ye think aboot this sarvice?"
 
-#: templates/partials/feedback-call-to-action.html:7
+#: templates/partials/feedback-call-to-action.html:8
 msgid "Your comments will help us make improvements"
 msgstr "Yer repones wull help us tae mak improvements"
 
-#: templates/partials/feedback-call-to-action.html:9
+#: templates/partials/feedback-call-to-action.html:10
 msgid "Give feedback"
 msgstr "Gie feedbak"
 
-#: templates/partials/individual-response-guidance.html:25
-msgid "You can <strong>share your household access code</strong> with the people you live with so they can complete their own sections."
-msgstr "Ye can <strong>gie oot yer hoosehaud ingang code</strong> wi tha fowk wha leeve wi ye sae they can fill oot thair ain lay- oots."
+#: templates/partials/individual-response-guidance.html:19
+msgid ""
+"You can <strong>share your household access code</strong> with the people"
+" you live with so they can complete their own sections."
+msgstr ""
+"Ye can <strong>gie oot yer hoosehaud ingang code</strong> wi tha fowk wha"
+" leeve wi ye sae they can fill oot thair ain lay- oots."
 
-#: templates/partials/individual-response-guidance.html:26
-msgid "If this is not possible, there are <a href={url}>other ways each person can complete their own census.</a>"
-msgstr "Gin this cannae cum aboot, thair bes <a href={url}>ither wyes ilka bodie can fill oot thair ain heid-coont.</a>"
+#: templates/partials/individual-response-guidance.html:23
+#, python-brace-format
+msgid ""
+"If this is not possible, there are <a href={url}>other ways each person "
+"can complete their own census.</a>"
+msgstr ""
+"Gin this cannae cum aboot, thair bes <a href={url}>ither wyes ilka bodie "
+"can fill oot thair ain heid-coont.</a>"
 
-#: templates/partials/last_viewed_question_guidance.html:7
+#: templates/partials/last_viewed_question_guidance.html:10
 msgid "This is the last viewed question in this section"
 msgstr "This bes tha last leukit speirin in this lay-oot"
 
-#: templates/partials/last_viewed_question_guidance.html:10
-msgid "You can also <a id='section-start-link' href='{url}'>go back to the start of the section</a>"
-msgstr "Forbye, ye can <a id='section-start-link' href='{url}'>ga'bak til tha stairt o tha lay-oot</a>"
+#: templates/partials/last_viewed_question_guidance.html:13
+#, python-brace-format
+msgid ""
+"You can also <a id='section-start-link' href='{url}'>go back to the start"
+" of the section</a>"
+msgstr ""
+"Forbye, ye can <a id='section-start-link' href='{url}'>ga'bak til tha "
+"stairt o tha lay-oot</a>"
 
-#: templates/partials/question.html:62
+#: templates/partials/question.html:78
 msgid "Selecting this will clear your answer"
 msgstr "Ootwalin this wull redd yer repone"
 
-#: templates/partials/question.html:63
+#: templates/partials/question.html:79
 msgid "cleared"
 msgstr "redd"
 
-#: templates/partials/question.html:66
+#: templates/partials/question.html:81
 msgid "Selecting this will deselect any selected options"
 msgstr "Ootwalin this wull tak oot onie ootwaled walins"
 
-#: templates/partials/question.html:67 templates/partials/question.html:75
+#: templates/partials/question.html:82 templates/partials/question.html:90
 msgid "deselected"
 msgstr "taen oot"
 
-#: templates/partials/question.html:71
+#: templates/partials/question.html:86
 msgid "Or"
 msgstr "Or"
 
-#: templates/partials/answers/address.html:10
+#: templates/partials/answers/address.html:8
 msgid "Address line 1"
 msgstr "Address line yin"
 
-#: templates/partials/answers/address.html:15
+#: templates/partials/answers/address.html:13
 msgid "Address line 2"
 msgstr "Address line twa"
 
-#: templates/partials/answers/address.html:19
+#: templates/partials/answers/address.html:17
 msgid "Town or city"
 msgstr "Toon or citie"
 
-#: templates/partials/answers/address.html:23
+#: templates/partials/answers/address.html:21
 msgid "Postcode"
 msgstr "Poastcode"
 
-#: templates/partials/answers/address.html:29
-msgid "Search for an address"
-msgstr "Hunt fur an address"
-
-#: templates/partials/answers/address.html:30
-msgid "Manually enter address"
-msgstr "Pit in address by haun"
-
-#: templates/partials/answers/address.html:36
+#: templates/partials/answers/address.html:32
 msgid "Enter address or postcode and select from results"
 msgstr "Pit in address or poastcode an ootwale frae tha affcums"
 
-#: templates/partials/answers/address.html:42
-msgid "Use up and down keys to navigate suggestions once you’ve typed more than two characters. Use the enter key to select a suggestion. Touch device users, explore by touch or with swipe gestures."
-msgstr "Uise up an doon keys tae airt suggestions yinst ye hae typed mair nor twa chairacters. Uise tha enter key tae ootwale a suggestion. Touch yoke uisers, range by touch or wi a swipe ection."
+#: templates/partials/answers/address.html:34
+msgid "Search for an address"
+msgstr "Hunt fur an address"
 
-#: templates/partials/answers/address.html:43
+#: templates/partials/answers/address.html:35
+msgid "Manually enter address"
+msgstr "Pit in address by haun"
+
+#: templates/partials/answers/address.html:40
+msgid ""
+"Use up and down keys to navigate suggestions once you’ve typed more than "
+"two characters. Use the enter key to select a suggestion. Touch device "
+"users, explore by touch or with swipe gestures."
+msgstr ""
+"Uise up an doon keys tae airt suggestions yinst ye hae typed mair nor twa"
+" chairacters. Uise tha enter key tae ootwale a suggestion. Touch yoke "
+"uisers, range by touch or wi a swipe ection."
+
+#: templates/partials/answers/address.html:46
 msgid "You have selected"
 msgstr "Ye hae ootwaled"
 
-#: templates/partials/answers/address.html:44
+#: templates/partials/answers/address.html:47
 msgid "Enter 3 or more characters for suggestions."
 msgstr "Pit in thrie or mair chairacters fur suggestions."
 
-#: templates/partials/answers/address.html:45
+#: templates/partials/answers/address.html:48
 msgid "There is one suggestion available."
 msgstr "There bes yin suggestion appen tae."
 
-#: templates/partials/answers/address.html:46
+#: templates/partials/answers/address.html:49
+#, python-brace-format
 msgid "There are {n} suggestions available."
 msgstr "There bes {n} suggestions appen tae."
 
-#: templates/partials/answers/address.html:47
-msgid "Results have been limited to 10 suggestions. Type more characters to improve your search"
-msgstr "Aff-cums hae bin restricktit tae 10 suggestions. Teep mair chairacters tae forrit yer hunt"
+#: templates/partials/answers/address.html:50
+msgid ""
+"Results have been limited to 10 suggestions. Type more characters to "
+"improve your search"
+msgstr ""
+"Aff-cums hae bin restricktit tae 10 suggestions. Teep mair chairacters "
+"tae forrit yer hunt"
 
-#: templates/partials/answers/address.html:48
+#: templates/partials/answers/address.html:51
+#, python-brace-format
 msgid "There are {n} for {x}"
 msgstr "Thair bes {n} fur{x}"
 
-#: templates/partials/answers/address.html:49
+#: templates/partials/answers/address.html:52
+#, python-brace-format
 msgid "{n} addresses"
 msgstr "{n} addresses"
 
-#: templates/partials/answers/address.html:50
+#: templates/partials/answers/address.html:53
 msgid "Enter more of the address to improve results"
 msgstr "Pit in mair o tha address tae forrit aff-cums"
 
-#: templates/partials/answers/address.html:51
+#: templates/partials/answers/address.html:54
 msgid "Select an address"
 msgstr "Ootwale an address"
 
-#: templates/partials/answers/address.html:52
+#: templates/partials/answers/address.html:55
 msgid "No results found. Try entering a different part of the address"
 msgstr "Nae aff-cums fun. Try pittin in anither pairt o tha address"
 
-#: templates/partials/answers/address.html:53
+#: templates/partials/answers/address.html:56
+#, python-brace-format
 msgid "{n} results found. Enter more of the address to improve results"
 msgstr "{n} aff-cums fun. Pit in mair o tha address tae forrit aff-cums"
 
-#: templates/partials/answers/address.html:54
+#: templates/partials/answers/address.html:57
 msgid "Enter more of the address to get results"
 msgstr "Pit in mair o tha address tae get aff-cums"
 
-#: templates/partials/answers/address.html:58
+#: templates/partials/answers/address.html:61
 msgid "Select or manually enter an address"
 msgstr "Ootwale or pit in bae haun an address"
 
-#: templates/partials/answers/address.html:59
+#: templates/partials/answers/address.html:62
 msgid "Sorry, there was a problem loading addresses"
 msgstr "Thair wus a pall laidin addresses"
 
-#: templates/partials/answers/address.html:60
+#: templates/partials/answers/address.html:63
 msgid "Enter address manually"
 msgstr "Pit in address bae haun"
 
-#: templates/partials/answers/checkbox.html:13
+#: templates/partials/answers/checkbox.html:12
 msgid "Select all that apply"
 msgstr "Ootwale aa tha yins 'at effeirs"
 
-#: templates/partials/answers/date.html:23
+#: templates/partials/answers/date.html:21
 msgid "Day"
 msgstr "Day"
 
-#: templates/partials/answers/date.html:38
+#: templates/partials/answers/date.html:35
 msgid "Month"
 msgstr "Mond"
 
-#: templates/partials/answers/date.html:53
+#: templates/partials/answers/date.html:49
 msgid "Year"
 msgstr "Yeir"
 
@@ -1242,88 +1586,267 @@ msgstr "Yeir"
 msgid "Clear selection"
 msgstr "Redd oot onie walins"
 
-#: templates/partials/answers/textarea.html:16
-#: templates/partials/answers/textfield.html:28
+#: templates/partials/answers/textarea.html:20
+#: templates/partials/answers/textfield.html:49
+#, python-brace-format
 msgid "You have {x} character remaining"
 msgstr "Ye hae {x} mair chairacter"
 
-#: templates/partials/answers/textarea.html:17
-#: templates/partials/answers/textfield.html:29
+#: templates/partials/answers/textarea.html:21
+#: templates/partials/answers/textfield.html:50
+#, python-brace-format
 msgid "You have {x} characters remaining"
 msgstr "Ye hae {x} mair chairacters"
 
-#: templates/partials/answers/textfield.html:26
-msgid "{x} character too many"
-msgstr "{x} chairacter ower monie"
+#: templates/partials/answers/textfield.html:24
+msgid ""
+"Use up and down keys to navigate suggestions once you've typed more than "
+"two characters. Use the enter key to select a suggestion. Touch device "
+"users, explore by touch or with swipe gestures."
+msgstr ""
+"Uise up an doon keys tae airt suggestions yinst ye hae teept mair nor twa"
+" chairacters. Uise tha enter key tae ootwale a suggestion. Touch yoke "
+"uisers, range by touch or wi a swipe ection."
 
-#: templates/partials/answers/textfield.html:27
-msgid "{x} characters too many"
-msgstr "{x} chairacters ower monie"
-
-#: templates/partials/answers/textfield.html:35
-msgid "Use up and down keys to navigate suggestions once you've typed more than two characters. Use the enter key to select a suggestion. Touch device users, explore by touch or with swipe gestures."
-msgstr "Uise up an doon keys tae airt suggestions yinst ye hae teept mair nor twa chairacters. Uise tha enter key tae ootwale a suggestion. Touch yoke uisers, range by touch or wi a swipe ection."
-
-#: templates/partials/answers/textfield.html:36
+#: templates/partials/answers/textfield.html:30
 msgid "Continue entering to improve suggestions"
 msgstr "Conteenye pittin in tae forrit suggestions"
 
-#: templates/partials/answers/textfield.html:37
+#: templates/partials/answers/textfield.html:31
 msgid "Suggestions"
 msgstr "Suggestions"
 
-#: templates/partials/answers/textfield.html:38
+#: templates/partials/answers/textfield.html:32
 msgid "No results found"
 msgstr "Fun nae aff-cums"
 
-#: templates/partials/answers/textfield.html:39
+#: templates/partials/answers/textfield.html:33
 msgid "Continue entering to get suggestions"
 msgstr "Conteenye pittin in tae get suggestions"
 
-#: templates/partials/introduction/preview.html:29
-#: templates/partials/summary/collapsible-summary.html:13
-msgid "Show"
-msgstr "Show"
+#: templates/partials/answers/textfield.html:47
+#, python-brace-format
+msgid "{x} character too many"
+msgstr "{x} chairacter ower monie"
 
-#: templates/partials/introduction/preview.html:48
-#: templates/partials/summary/collapsible-summary.html:57
+#: templates/partials/answers/textfield.html:48
+#, python-brace-format
+msgid "{x} characters too many"
+msgstr "{x} chairacters ower monie"
+
+#: templates/partials/introduction/preview.html:34
+#: templates/partials/summary/collapsible-summary.html:51
 msgid "Show all"
 msgstr "Show aa"
 
-#: templates/partials/introduction/preview.html:49
-#: templates/partials/summary/collapsible-summary.html:58
+#: templates/partials/introduction/preview.html:35
+#: templates/partials/summary/collapsible-summary.html:52
 msgid "Hide all"
 msgstr "Hiddle aa"
 
-#: templates/partials/introduction/start-survey.html:5
+#: templates/partials/introduction/start-survey.html:6
 msgid "Start survey"
 msgstr "Stairt tha scance"
 
-#: templates/partials/summary/collapsible-summary.html:35
-#: templates/partials/summary/summary.html:18
-msgid "No answer provided"
-msgstr "Nae repone gien"
-
-#: templates/partials/summary/collapsible-summary.html:36
+#: templates/partials/summary/collapsible-summary.html:28
 #: templates/partials/summary/list-summary.html:8
-#: templates/partials/summary/summary.html:19
+#: templates/partials/summary/summary.html:27
 msgid "Change"
 msgstr "Cheynge"
 
-#: templates/partials/summary/collapsible-summary.html:37
-#: templates/partials/summary/summary.html:20
-msgid "Change your answer for:"
-msgstr "Cheynge yer repone fur:"
-
+#: templates/partials/summary/collapsible-summary.html:29
 #: templates/partials/summary/list-summary.html:9
+#: templates/partials/summary/summary.html:28
+#, python-brace-format
 msgid "Change details for {item_name}"
 msgstr "Cheynge rinnins fur {item_name}"
 
 #: templates/partials/summary/list-summary.html:10
+#: templates/partials/summary/summary.html:25
 msgid "Remove"
 msgstr "Redd"
 
 #: templates/partials/summary/list-summary.html:11
+#, python-brace-format
 msgid "Remove {item_name}"
 msgstr "Redd {item_name}"
+
+#: templates/partials/summary/summary.html:26
+#, fuzzy, python-brace-format
+msgid "Remove details for {item_name}"
+msgstr "Cheynge rinnins fur {item_name}"
+
+#~ msgid "Office for National Statistics logo"
+#~ msgstr "Offys fur Kintrie Nummerin"
+
+#~ msgid "Census 2021"
+#~ msgstr "Heid-coont 20an21"
+
+#~ msgid "Northern Ireland Statistics and Research Agency logo"
+#~ msgstr "Norlin Airlann Nummerin an Screengin Agentrie logo"
+
+#~ msgid "Languages"
+#~ msgstr "Leids"
+
+#~ msgid "BSL and audio videos"
+#~ msgstr ""
+
+#~ msgid "Crown copyright and database rights 2021 NIMA MOU577.501."
+#~ msgstr "Croon copyricht an database richts 20an21 NIMA MOU577.501."
+
+#~ msgid "Terms and conditions"
+#~ msgstr "Terms an condeetions"
+
+#~ msgid "General"
+#~ msgstr "Genèral"
+
+#~ msgid "This establishment"
+#~ msgstr "This estaiblishment"
+
+#~ msgid "People who live here"
+#~ msgstr "Fowk 'at bides here"
+
+#~ msgid "Visitors"
+#~ msgstr "Landèrs"
+
+#~ msgid "Accommodation"
+#~ msgstr "Aisements"
+
+#~ msgid "Personal details"
+#~ msgstr "Rinnins Anent a Bodie's Sel"
+
+#~ msgid "Health"
+#~ msgstr "Poust"
+
+#~ msgid "Qualifications"
+#~ msgstr "Collegianer's lines"
+
+#~ msgid "Employment"
+#~ msgstr "Tacks o wark"
+
+#~ msgid "Household and accommodation"
+#~ msgstr "Aisements o tha hoosehaud"
+
+#~ msgid "Question topic"
+#~ msgstr "Speirin subject"
+
+#~ msgid "Select an option"
+#~ msgstr "Ootwale a walins"
+
+#~ msgid "Thank you for completing the census"
+#~ msgstr "We'r ableeged tae ye fur fillin oot tha heid-coont"
+
+#~ msgid "Thank you for completing your census"
+#~ msgstr "We'r ableeged tae ye fur fillin oot yer heid-coont"
+
+#~ msgid ""
+#~ "Your individual census has been "
+#~ "submitted for <strong>{display_address}</strong>"
+#~ msgstr ""
+#~ "Yer sing'l heid-coont haes bin pit"
+#~ " in fur <strong>{display_address}</strong>"
+
+#~ msgid ""
+#~ "Your census has been submitted for "
+#~ "the household at <strong>{display_address}</strong>"
+#~ msgstr ""
+#~ "Yer heid-coont haes bin pit in "
+#~ "fur tha hoosehaud at "
+#~ "<strong>{display_address}</strong>"
+
+#~ msgid ""
+#~ "Your census has been submitted for "
+#~ "the accommodation at "
+#~ "<strong>{display_address}</strong>"
+#~ msgstr ""
+#~ "Yer heid-coont haes bin pit in "
+#~ "fur tha dwellin-place at "
+#~ "<strong>{display_address}</strong>"
+
+#~ msgid ""
+#~ "Anyone staying at this accommodation for"
+#~ " at least 6 months needs to "
+#~ "fill in their own individual census, "
+#~ "including staff. Your Census Officer "
+#~ "will provide you with census forms "
+#~ "for your residents."
+#~ msgstr ""
+#~ "Oniebodie bidiin at this dwellin-place"
+#~ " fur tha feck o 6 monds needs"
+#~ " tae fill oot thair ain sing'l "
+#~ "heid-coont, takkin in warkers. Yer "
+#~ "Heid-coont Offycer wull gie ye "
+#~ "heid-coont foarms fur yer resydents."
+
+#~ msgid ""
+#~ "Your personal information is protected "
+#~ "by law and will be kept "
+#~ "confidential"
+#~ msgstr "Yer ain parteeklars bes pertectit bae tha laa an wull be hained hiddlie"
+
+#~ msgid ""
+#~ "You are completing this for "
+#~ "<span>%(ru_name)s</span> (%(trading_as_name)s)"
+#~ msgstr "Ye'r fillin this oot fur <span>%(ru_name)s</span> (%(trading_as_name)s)"
+
+#~ msgid "You are completing this for <span>%(ru_name)s</span>"
+#~ msgstr "Ye'r fillin this oot fur <span>%(ru_name)s</span>"
+
+#~ msgid ""
+#~ "If the company details or structure "
+#~ "have changed contact us on "
+#~ "%(telephone_number)s or email %(email_address)s"
+#~ msgstr ""
+#~ "Gin tha rinnins anent tha consarn "
+#~ "or structur haes cheynged get tha "
+#~ "houl o us oan %(telephone_number)s or"
+#~ " email %(email_address)s"
+
+#~ msgid "Your survey answers have been saved. You are now signed out"
+#~ msgstr "Yer repones tae tha scance is hained. Noo ye'r wised oot"
+
+#~ msgid "Return to your account"
+#~ msgstr "Ga'bak tae yer accoont"
+
+#~ msgid "Please review your answers and confirm these are correct"
+#~ msgstr "Ableeged gin ye'd scance yer repones an uphaud the'r richt"
+
+#~ msgid "Submission successful"
+#~ msgstr "Ye hae cum speed wi pittin in"
+
+#~ msgid "Transaction ID: <b>{transaction_id}</b>"
+#~ msgstr "Transact ID: <b>{transaction_id}</b>"
+
+#~ msgid "Your answers will be processed in the next few weeks."
+#~ msgstr "We'r fur throch-pittin yer repones in tha cummin twa-thrie sennicht."
+
+#~ msgid ""
+#~ "<a href='{url}'>Contact us</a> if you "
+#~ "need to speak to someone about "
+#~ "your survey."
+#~ msgstr ""
+#~ "<a href='{url}'>Get tha houl o us</a>"
+#~ " gin ye maun taak tae a bodie"
+#~ " anent yer scance."
+
+#~ msgid "Sorry there is a problem"
+#~ msgstr "We'r hairt-sair thar's a pall"
+
+#~ msgid "Session timed out"
+#~ msgstr "Session timed oot"
+
+#~ msgid "Your session has timed out due to inactivity"
+#~ msgstr "Yer session haes timed oot as thair wus naethin daein"
+
+#~ msgid "Save and complete later"
+#~ msgstr "Hain an throch eftèr"
+
+#~ msgid "Hide this"
+#~ msgstr "Hiddle this"
+
+#~ msgid "Show"
+#~ msgstr "Show"
+
+#~ msgid "Change your answer for:"
+#~ msgstr "Cheynge yer repone fur:"
 

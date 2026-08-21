@@ -13,7 +13,6 @@ load-schemas:
 
 load-design-system-templates:
 	./scripts/load_release.sh onsdigital/design-system $(DESIGN_SYSTEM_VERSION)
-	./scripts/load_print_styles_from_cdn.sh $(DESIGN_SYSTEM_VERSION)
 
 build: load-design-system-templates load-schemas translate
 
@@ -91,11 +90,11 @@ run-uwsgi-async: link-development-env
 	WEB_SERVER_TYPE=uwsgi-async poetry run ./run_app.sh
 
 dev-compose-up:
-	docker compose -f docker-compose-dev.yml pull eq-questionnaire-launcher
-	docker compose -f docker-compose-dev.yml up -d
+	docker compose pull launcher
+	docker compose up -d datastore redis launcher
 
 dev-compose-down:
-	docker compose -f docker-compose-dev.yml down
+	docker compose down
 
 aims-compose-up:
 	docker compose -f docker-compose-aims.yml up -d
