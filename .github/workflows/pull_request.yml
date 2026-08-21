@@ -140,8 +140,8 @@ jobs:
         run: npx playwright install --with-deps chromium
       - name: Generate Playwright pages
         run: make generate-pages
-      - name: Docker compose
-        run: docker compose --version && RUNNER_ENV_FILE=.functional-tests.env docker compose up --build -d
+      - name: Docker compose up (redis, datastore and runner)
+        run: docker compose --version && RUNNER_ENV_FILE=.functional-tests.env docker compose up --build -d redis datastore runner
       - name: Playwright functional tests
         run: npx playwright test --reporter list,html --workers ${{ matrix.max_instances }} --project=${{ matrix.project }}
       - name: Docker compose shutdown
