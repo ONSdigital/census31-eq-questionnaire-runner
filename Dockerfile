@@ -30,6 +30,6 @@ RUN pip install --no-cache-dir "poetry==2.4.1" && \
     poetry install --only main && \
     make build
 
-USER appuser
+USER 9000
 
 CMD ["sh", "run_app.sh"]
