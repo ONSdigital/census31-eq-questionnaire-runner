@@ -13,7 +13,7 @@ NumericType: TypeAlias = int | float | Decimal
 
 
 class CalculatedSummaryBlock:
-    def __init__(
+    def __init__(  # noqa: PLR0913
         self,
         block_schema: Mapping,
         *,

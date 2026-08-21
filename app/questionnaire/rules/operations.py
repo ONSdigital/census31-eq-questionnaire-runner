@@ -137,7 +137,7 @@ class Operations:
             days_offset = offset.get("days", 0)
 
             if day_of_week_offset := offset.get("day_of_week"):
-                if 0 > days_offset > -7:
+                if 0 > days_offset > -7:  # noqa: PLR2004
                     raise ValueError(Operations.NEGATIVE_DAYS_OFFSET_ERROR_MESSAGE)
 
                 days_difference = value_as_date.weekday() - DAYS_OF_WEEK[day_of_week_offset]

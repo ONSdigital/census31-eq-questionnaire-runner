@@ -15,7 +15,7 @@ from app.views.contexts.summary.block import Block
 
 
 class ListCollectorBaseBlock:
-    def __init__(
+    def __init__(  # noqa: PLR0913
         self,
         *,
         routing_path_block_ids: Iterable[str],

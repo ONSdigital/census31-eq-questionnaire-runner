@@ -262,7 +262,7 @@ def block(
 @questionnaire_blueprint.route("relationships/<list_name>/<list_item_id>/<block_id>/", methods=["GET", "POST"])
 @with_questionnaire_store
 @with_schema
-def relationships(
+def relationships(  # noqa: PLR0913, PLR0917
     schema: QuestionnaireSchema,
     questionnaire_store: QuestionnaireStore,
     list_name: str | None = None,

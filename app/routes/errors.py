@@ -34,7 +34,7 @@ def log_exception(exception: Exception, status_code: int) -> None:
     if metadata := get_metadata(current_user):
         contextvars.bind_contextvars(tx_id=metadata.tx_id)
 
-    log = logger.warning if status_code < 500 else logger.error
+    log = logger.warning if status_code < 500 else logger.error  # noqa: PLR2004
 
     log(
         "an error has occurred",

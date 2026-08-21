@@ -28,7 +28,7 @@ class DurationForm(Form):
             self._set_error("INVALID_DURATION")
             return False
 
-        if "years" in self.units and "months" in self.units and self.months.data > 11:
+        if "years" in self.units and "months" in self.units and self.months.data > 11:  # noqa: PLR2004
             self._set_error("INVALID_DURATION")
             return False
 

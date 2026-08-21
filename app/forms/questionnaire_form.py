@@ -522,7 +522,7 @@ def _clear_detail_answer_field(
     return mutable_form_data
 
 
-def generate_form(
+def generate_form(  # noqa: PLR0913
     *,
     schema: QuestionnaireSchema,
     question_schema: QuestionSchemaType,

@@ -264,7 +264,7 @@ class PlaceholderTransforms:
 
     def get_ordinal_indicator(self, number_to_format: int) -> str:
         if self.language in ["en", "eo"]:
-            if 11 <= number_to_format % 100 <= 13:
+            if 11 <= number_to_format % 100 <= 13:  # noqa: PLR2004
                 return "th"
             return {1: "st", 2: "nd", 3: "rd"}.get(number_to_format % 10, "th")
 
@@ -272,7 +272,7 @@ class PlaceholderTransforms:
             return "ú"
 
         if self.language == "cy":
-            if number_to_format > 20:
+            if number_to_format > 20:  # noqa: PLR2004
                 return "ain"
             return {
                 1: "af",

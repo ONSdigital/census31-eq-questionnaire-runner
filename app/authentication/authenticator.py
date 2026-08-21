@@ -60,7 +60,7 @@ def _extend_session_expiry(session_store: SessionStore) -> None:
         # Only update expiry time if its greater than 60s different to what is currently set
         if (
             not session_store.expiration_time
-            or (new_expiration_time - session_store.expiration_time).total_seconds() > 60
+            or (new_expiration_time - session_store.expiration_time).total_seconds() > 60  # noqa: PLR2004
         ):
             session_store.expiration_time = new_expiration_time
             session_store.save()

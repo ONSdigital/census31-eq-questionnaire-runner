@@ -19,7 +19,7 @@ from app.views.contexts.summary.list_collector_content_block import ListCollecto
 
 
 class Group:
-    def __init__(
+    def __init__(  # noqa: PLR0913
         self,
         *,
         group_schema: Mapping,
@@ -59,7 +59,7 @@ class Group:
             schema=schema,
         )
 
-    def _build_blocks_and_links(
+    def _build_blocks_and_links(  # noqa: PLR0913
         self,
         *,
         group_schema: Mapping,

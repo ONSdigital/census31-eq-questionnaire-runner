@@ -15,7 +15,7 @@ if TYPE_CHECKING:
     from app.questionnaire.path_finder import PathFinder  # pragma: no cover
 
 
-def get_routing_path_block_ids_by_section_for_dependent_sections(
+def get_routing_path_block_ids_by_section_for_dependent_sections(  # noqa: PLR0913
     *,
     location: LocationType,
     progress_store: ProgressStore,
@@ -55,7 +55,7 @@ def get_routing_path_block_ids_by_section_for_dependent_sections(
     return block_ids_by_section
 
 
-def get_routing_path_block_ids_by_section_for_calculation_summary_dependencies(
+def get_routing_path_block_ids_by_section_for_calculation_summary_dependencies(  # noqa: PLR0913
     *,
     location: LocationType,
     progress_store: ProgressStore,

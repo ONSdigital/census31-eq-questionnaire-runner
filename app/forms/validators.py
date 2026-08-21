@@ -96,7 +96,7 @@ class NumberRange:
         will not be checked.
     """
 
-    def __init__(
+    def __init__(  # noqa: PLR0913, PLR0917
         self,
         minimum: NumType | None = None,
         minimum_exclusive: bool = False,
@@ -246,7 +246,7 @@ class DateCheck:
         if not form.data:
             raise validators.StopValidation(self.message)
 
-        if hasattr(form, "year") and len(form["year"].data) < 4:
+        if hasattr(form, "year") and len(form["year"].data) < 4:  # noqa: PLR2004
             raise validators.StopValidation(error_messages["INVALID_YEAR_FORMAT"])
 
         try:
@@ -457,7 +457,7 @@ class MobileNumberCheck:
     def __call__(self, form: "QuestionnaireForm", field: StringField) -> None:
         data = sanitise_mobile_number(field.data)
 
-        if len(data) != 10 or not re.match("^7[0-9]+$", data):
+        if len(data) != 10 or not re.match("^7[0-9]+$", data):  # noqa: PLR2004
             raise validators.ValidationError(self.message)
 
 

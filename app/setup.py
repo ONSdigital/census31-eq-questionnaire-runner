@@ -89,7 +89,7 @@ class MissingEnvironmentVariable(Exception):
     pass
 
 
-def create_app(  # noqa: C901
+def create_app(  # noqa: C901, PLR0915
     setting_overrides=None,
 ):
     application = Flask(__name__, template_folder="../templates")

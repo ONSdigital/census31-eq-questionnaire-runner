@@ -9,7 +9,7 @@ from app.views.contexts.context import Context
 
 
 class ListContext(Context):
-    def __call__(
+    def __call__(  # noqa: PLR0913, PLR0917
         self,
         summary_definition: Mapping,
         for_list: str,
@@ -46,7 +46,7 @@ class ListContext(Context):
             },
         }
 
-    def _build_list_items_context(
+    def _build_list_items_context(  # noqa: PLR0913
         self,
         *,
         for_list: str,

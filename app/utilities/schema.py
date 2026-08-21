@@ -193,7 +193,7 @@ def load_schema_from_url(url: str, *, language_code: str | None) -> Questionnair
         )
         raise SchemaRequestFailed from exc
 
-    if req.status_code == 200:
+    if req.status_code == 200:  # noqa: PLR2004
         schema_response = req.content.decode()
         response_duration_in_milliseconds = req.elapsed.total_seconds() * 1000
 

@@ -6,7 +6,7 @@ from app.questionnaire.relationship_location import RelationshipLocation
 class RelationshipRouter:
     UNRELATED_RELATIONSHIP_VALUE = "Unrelated"
 
-    def __init__(
+    def __init__(  # noqa: PLR0913, PLR0917
         self,
         answer_store: AnswerStore,
         relationship_store: RelationshipStore,
@@ -71,8 +71,8 @@ class RelationshipRouter:
         for to_item_id in to_list_item_ids:
             if (
                 self.unrelated_block_id
-                and number_of_relationships_left >= 2
-                and number_of_unrelated_relationships == 2
+                and number_of_relationships_left >= 2  # noqa: PLR2004
+                and number_of_unrelated_relationships == 2  # noqa: PLR2004
                 and not unrelated_block_in_path
             ):
                 path.append(

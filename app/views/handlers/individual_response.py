@@ -100,7 +100,7 @@ class IndividualResponseHandler:
         individual_response_postal_deadline: datetime = current_app.config["EQ_INDIVIDUAL_RESPONSE_POSTAL_DEADLINE"]
         return individual_response_postal_deadline < datetime.now(timezone.utc)
 
-    def __init__(
+    def __init__(  # noqa: PLR0913, PLR0917
         self,
         schema: QuestionnaireSchema,
         questionnaire_store: QuestionnaireStore,
@@ -798,7 +798,7 @@ class IndividualResponseTextHandler(IndividualResponseHandler):
 
 
 class IndividualResponseTextConfirmHandler(IndividualResponseHandler):
-    def __init__(
+    def __init__(  # noqa: PLR0913, PLR0917
         self,
         schema: QuestionnaireSchema,
         questionnaire_store: QuestionnaireStore,
