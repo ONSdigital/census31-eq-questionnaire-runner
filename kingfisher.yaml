@@ -3,6 +3,11 @@ filters:
     # Python virtualenv and npm packages contain test fixtures with intentional keys
     - "**/.venv/**"
     - "**/node_modules/**"
+    # Generated lint artifacts can contain mirrored dependencies and redacted sample tokens
+    - "**/megalinter-reports/**"
+    # Compiled Python bytecode can embed string constants from intentionally-keyed test fixtures
+    - "**/__pycache__/**"
+    - "**/*.pyc"
     # Development keys for local environment setup
     - "**/dev-keys.yml"
     # Test JWT signing/encryption key fixtures
