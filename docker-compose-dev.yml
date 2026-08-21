@@ -6,14 +6,14 @@ services:
     networks:
       - eq-env
     ports:
-      - '8432:8432'
+      - "8432:8432"
 
   redis:
     image: redis:8.2.2
     networks:
       - eq-env
     ports:
-      - '6379:6379'
+      - "6379:6379"
 
   eq-questionnaire-launcher:
     image: europe-west2-docker.pkg.dev/ons-eq-ci/docker-images/eq-questionnaire-launcher:latest
@@ -24,7 +24,7 @@ services:
       - eq-env
     restart: always
     ports:
-      - '8000:8000'
+      - "8000:8000"
 
 networks:
   eq-env:

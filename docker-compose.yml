@@ -6,14 +6,14 @@ services:
     networks:
       - eq-env
     ports:
-      - '8432:8432'
+      - "8432:8432"
 
   redis:
     image: redis:7.2
     networks:
       - eq-env
     ports:
-      - '6379:6379'
+      - "6379:6379"
 
   runner:
     image: europe-west2-docker.pkg.dev/census-eq-ci/docker-images/census31-eq-questionnaire-runner:latest
@@ -22,7 +22,7 @@ services:
       - ${RUNNER_ENV_FILE}
     environment:
       DATASTORE_EMULATOR_HOST: datastore:8432
-      EQ_REDIS_HOST: 'redis'
+      EQ_REDIS_HOST: "redis"
     restart: always
     depends_on:
       - datastore
@@ -30,7 +30,7 @@ services:
     networks:
       - eq-env
     ports:
-      - '5000:5000'
+      - "5000:5000"
 
   launcher:
     image: europe-west2-docker.pkg.dev/ons-eq-ci/docker-images/eq-questionnaire-launcher:latest
@@ -41,7 +41,7 @@ services:
     networks:
       - eq-env
     ports:
-      - '8000:8000'
+      - "8000:8000"
 
 networks:
   eq-env:

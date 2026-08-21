@@ -45,10 +45,7 @@
         "uuid": "14.0.1"
     },
     "prettier": {
-        "printWidth": 160,
-        "singleQuote": true,
-        "semi": false,
-        "trailingComma": "none"
+        "printWidth": 160
     },
     "ts-standard": {
         "project": "tsconfig.eslint.json"
