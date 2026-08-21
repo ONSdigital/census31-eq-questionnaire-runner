@@ -11,6 +11,7 @@ export default defineConfig({
   /* Fail the build on CI if you accidentally left test.only in the source code. */
   forbidOnly: !!ci,
   use: {
+    // DevSkim: ignore DS162092
     baseURL: process.env.EQ_FUNCTIONAL_TEST_ENV ?? 'http://localhost:5000',
     viewport: { width: 1920, height: 1080 },
     trace: ci ? 'on-first-retry' : 'retain-on-failure'
