@@ -75,7 +75,7 @@ def test_footer_context(app: Flask, theme, survey_config, language, expected_foo
             SurveyType.CENSUS,
             "Test",
             CensusSurveyConfig(language_code="cy"),
-            ["Test", None, None, read_file("./templates/assets/images/census-logo.svg"), None],
+            ["Test", None, None, read_file("./templates/assets/images/census-logo-cy.svg"), None],
         ),
         (
             None,

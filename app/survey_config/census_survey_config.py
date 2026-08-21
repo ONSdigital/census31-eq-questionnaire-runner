@@ -22,6 +22,9 @@ class CensusSurveyConfig(
     def __post_init__(self) -> None:
         super().__post_init__()
 
+        if self.language_code == "cy":
+            self.title_logo = read_file("./templates/assets/images/census-logo-cy.svg")
+
         upstream_base_url = f"{self.base_url}/{self.language_code}"
         ons_url = ONS_URL_CY if self.language_code == "cy" else ONS_URL
 
