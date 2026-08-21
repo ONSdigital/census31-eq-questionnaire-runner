@@ -22,6 +22,10 @@ from app.utilities.decimal_places import custom_format_decimal, custom_format_un
 if TYPE_CHECKING:
     from app.questionnaire.placeholder_renderer import PlaceholderRenderer  # pragma: no cover
 
+ORDINAL_ENGLISH_TEEN_LOWER_BOUND = 11
+ORDINAL_ENGLISH_TEEN_UPPER_BOUND = 13
+WELSH_ORDINAL_MAX_VALUE = 20
+
 
 class PlaceholderTransforms:
     """
@@ -264,7 +268,7 @@ class PlaceholderTransforms:
 
     def get_ordinal_indicator(self, number_to_format: int) -> str:
         if self.language in ["en", "eo"]:
-            if 11 <= number_to_format % 100 <= 13:  # noqa: PLR2004
+            if ORDINAL_ENGLISH_TEEN_LOWER_BOUND <= number_to_format % 100 <= ORDINAL_ENGLISH_TEEN_UPPER_BOUND:
                 return "th"
             return {1: "st", 2: "nd", 3: "rd"}.get(number_to_format % 10, "th")
 
@@ -272,7 +276,7 @@ class PlaceholderTransforms:
             return "ú"
 
         if self.language == "cy":
-            if number_to_format > 20:  # noqa: PLR2004
+            if number_to_format > WELSH_ORDINAL_MAX_VALUE:
                 return "ain"
             return {
                 1: "af",

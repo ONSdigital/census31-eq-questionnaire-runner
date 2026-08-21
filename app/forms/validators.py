@@ -37,6 +37,9 @@ OptionalMessage = Mapping[str, str] | None
 NumType = int | Decimal
 PeriodType = Mapping[str, int]
 
+YEAR_INPUT_MIN_LENGTH = 4
+UK_MOBILE_NUMBER_LENGTH = 10
+
 
 class NumberCheck:
     def __init__(self, message: str | None = None):
@@ -246,7 +249,7 @@ class DateCheck:
         if not form.data:
             raise validators.StopValidation(self.message)
 
-        if hasattr(form, "year") and len(form["year"].data) < 4:  # noqa: PLR2004
+        if hasattr(form, "year") and len(form["year"].data) < YEAR_INPUT_MIN_LENGTH:
             raise validators.StopValidation(error_messages["INVALID_YEAR_FORMAT"])
 
         try:
@@ -457,7 +460,7 @@ class MobileNumberCheck:
     def __call__(self, form: "QuestionnaireForm", field: StringField) -> None:
         data = sanitise_mobile_number(field.data)
 
-        if len(data) != 10 or not re.match("^7[0-9]+$", data):  # noqa: PLR2004
+        if len(data) != UK_MOBILE_NUMBER_LENGTH or not re.match("^7[0-9]+$", data):
             raise validators.ValidationError(self.message)
 
 
