@@ -81,6 +81,11 @@
 {% endblock preHeader %}
 
 {% block head %}
+    {% if census_css %}
+        <style nonce="{{ csp_nonce }}">
+            {{ census_css }}
+        </style>
+    {% endif %}
     {# djlint:off #}
     {% if google_tag_id %}
         <!-- Google tag (gtag.js) -->

@@ -125,7 +125,7 @@ class TestCreateApp(unittest.TestCase):  # pylint: disable=too-many-public-metho
                 csp_policy_parts,
             )
             self.assertIn(
-                f"style-src 'self' https://fonts.googleapis.com {cdn_url}",
+                "style-src 'self' https://fonts.googleapis.com " f"{cdn_url} 'nonce-{request.csp_nonce}'",
                 csp_policy_parts,
             )
             self.assertIn(

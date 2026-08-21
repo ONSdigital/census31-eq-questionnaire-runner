@@ -15,6 +15,7 @@ class CensusSurveyConfig(
     base_url: str = ACCOUNT_SERVICE_BASE_URL_CENSUS
     survey_title: str = "ONS Census"
     title_logo: str = read_file("./templates/assets/images/census-logo.svg")
+    census_css: str = read_file("./templates/assets/css/census.css")
     footer_links: Iterable[MutableMapping] = field(default_factory=list)
     footer_legal_links: Iterable[Mapping] = field(default_factory=list)
 
