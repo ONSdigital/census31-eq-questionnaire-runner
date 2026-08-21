@@ -71,6 +71,7 @@ class PlaceholderParser:
             )
 
         for placeholder in placeholder_list:
+            # DevSkim: ignore DS176209
             # :TODO: Caching of placeholder values will need to be revisited once
             # validation is added to ensure that placeholders are globally unique
             # if placeholder["placeholder"] not in self._placeholder_map:
