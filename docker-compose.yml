@@ -6,14 +6,14 @@ services:
     networks:
       - eq-env
     ports:
-      - "8432:8432"
+      - '8432:8432'
 
   redis:
     image: redis:7.2
     networks:
       - eq-env
     ports:
-      - "6379:6379"
+      - '6379:6379'
 
   runner:
     image: europe-west2-docker.pkg.dev/census-eq-ci/docker-images/census31-eq-questionnaire-runner:latest
