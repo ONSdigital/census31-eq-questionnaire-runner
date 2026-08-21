@@ -220,7 +220,9 @@ test.describe('Feature: Calculated Summary Repeating Section', () => {
       const unitTotalPlaybackPage = new UnitTotalPlaybackPage(page)
       // Totals and titles should be shown
       await unitTotalPlaybackPage.submit().click()
-      await expect(unitTotalPlaybackPage.calculatedSummaryTitle()).toHaveText('We calculate the total of percentage values entered to be 79%. Is this correct?')
+      await expect(unitTotalPlaybackPage.calculatedSummaryTitle()).toHaveText(
+        'We calculate the total of percentage values entered to be 79%. Is this correct?'
+      )
       await expect(unitTotalPlaybackPage.calculatedSummaryQuestion()).toHaveText('Grand total of previous values')
       await expect(unitTotalPlaybackPage.calculatedSummaryAnswer()).toHaveText('79%')
 
