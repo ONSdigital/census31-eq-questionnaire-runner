@@ -27,7 +27,7 @@ DISABLE_LINTERS:
   - TYPESCRIPT_STANDARD # overlaps entirely with eslint; broken in MegaLinter (resolver "node" not found)
   - JSON_V8R # makes network calls to SchemaStore; no matches for questionnaire schemas; package.json covered by npm-package-json-lint
   - YAML_V8R # makes network calls to SchemaStore; GitHub Actions workflows covered more thoroughly by actionlint
-  - REPOSITORY_BETTERLEAKS # false positives on test key fixtures; secretlint + trufflehog cover the same ground
+  - REPOSITORY_BETTERLEAKS # false positives on test key fixtures; secretlint cover the same ground
   - REPOSITORY_GITLEAKS # deprecated
   - REPOSITORY_GRYPE # CVE coverage overlaps trivy + osv-scanner; slowest of the three at ~90s
   - REPOSITORY_TRUFFLEHOG # git history scanning not required; current code covered by secretlint
