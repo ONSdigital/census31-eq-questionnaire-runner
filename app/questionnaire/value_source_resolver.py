@@ -14,7 +14,7 @@ from app.questionnaire.location import InvalidLocationException, SectionKey
 from app.questionnaire.rules import rule_evaluator  # pylint: disable=cyclic-import
 from app.utilities.types import LocationType
 
-ValueSourceTypes: TypeAlias = None | str | int | Decimal | list | dict
+ValueSourceTypes: TypeAlias = str | int | Decimal | list | dict | None
 ValueSourceEscapedTypes: TypeAlias = Markup | list[Markup]
 IntOrDecimal: TypeAlias = int | Decimal
 ResolvedAnswerList: TypeAlias = list[AnswerValueTypes | AnswerValueEscapedTypes | None]
@@ -94,13 +94,6 @@ class ValueSourceResolver:
                     self.data_stores.list_store[list_item_selector["identifier"]],
                     list_item_selector["selector"],
                 )
-
-        if value_source["source"] == "supplementary_data":
-            return (
-                self.list_item_id
-                if self.data_stores.supplementary_data_store.is_data_repeating(value_source["identifier"])
-                else None
-            )
 
         if value_source["source"] == "answers":
             return self._resolve_list_item_id_for_answer_id(value_source["identifier"])
@@ -260,15 +253,6 @@ class ValueSourceResolver:
                 values.append(value)
         return values
 
-    def _resolve_supplementary_data_source(self, value_source: Mapping) -> ValueSourceTypes:
-        list_item_id = self._resolve_list_item_id_for_value_source(value_source)
-
-        return self.data_stores.supplementary_data_store.get_data(
-            identifier=value_source["identifier"],
-            selectors=value_source.get("selectors"),
-            list_item_id=list_item_id,
-        )
-
     @staticmethod
     def get_calculation_operator(
         calculation_type: str,
@@ -290,7 +274,6 @@ class ValueSourceResolver:
             "location": self._resolve_location_source,
             "response_metadata": self._resolve_response_metadata_source,
             "progress": self._resolve_progress_value_source,
-            "supplementary_data": self._resolve_supplementary_data_source,
         }
 
         return resolve_method_mapping[source](value_source)

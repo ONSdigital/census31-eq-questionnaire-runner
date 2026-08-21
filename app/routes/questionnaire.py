@@ -3,7 +3,7 @@ from __future__ import annotations
 from typing import Mapping
 
 import flask_babel
-from flask import Blueprint, g, redirect, request, send_file
+from flask import Blueprint, g, redirect, request
 from flask import session as cookie_session
 from flask import url_for
 from flask_babel import get_locale
@@ -28,7 +28,6 @@ from app.submitter.previously_submitted_exception import PreviouslySubmittedExce
 from app.utilities.bind_context import bind_contextvars_schema_from_metadata
 from app.utilities.schema import load_schema_from_metadata
 from app.views.contexts import HubContext
-from app.views.contexts.preview_context import PreviewContext, PreviewNotEnabledException
 from app.views.handlers.block_factory import get_block_handler
 from app.views.handlers.confirm_email import ConfirmEmail
 from app.views.handlers.confirmation_email import (
@@ -37,17 +36,11 @@ from app.views.handlers.confirmation_email import (
     ConfirmationEmailNotEnabled,
 )
 from app.views.handlers.feedback import Feedback, FeedbackNotEnabled
-from app.views.handlers.preview_questions_pdf import PreviewQuestionsPDF
 from app.views.handlers.section import SectionHandler
 from app.views.handlers.submission import SubmissionHandler
 from app.views.handlers.submit_questionnaire import SubmitQuestionnaireHandler
 from app.views.handlers.thank_you import ThankYou
-from app.views.handlers.view_submitted_response import (
-    ViewSubmittedResponse,
-    ViewSubmittedResponseExpired,
-    ViewSubmittedResponseNotEnabled,
-)
-from app.views.handlers.view_submitted_response_pdf import ViewSubmittedResponsePDF
+from app.views.handlers.view_submitted_response import ViewSubmittedResponse, ViewSubmittedResponseNotEnabled
 
 logger = get_logger()
 
@@ -175,30 +168,6 @@ def submit_questionnaire(schema: QuestionnaireSchema, questionnaire_store: Quest
         page_title=context["title"],
         previous_location_url=submit_questionnaire_handler.get_previous_location_url(),
     )
-
-
-@questionnaire_blueprint.route("/preview", methods=["GET"])
-@with_questionnaire_store
-@with_schema
-def get_preview(schema: QuestionnaireSchema, questionnaire_store: QuestionnaireStore) -> str:
-    try:
-        preview_context = PreviewContext(
-            language=flask_babel.get_locale().language,
-            schema=schema,
-            data_stores=questionnaire_store.data_stores,
-        )
-    except PreviewNotEnabledException as exc:
-        raise NotFound from exc
-
-    schema_type = schema.json["questionnaire_flow"].get("type")
-
-    context = {
-        "schema_type": schema_type,
-        "preview": preview_context(),
-        "pdf_url": url_for(".get_preview_questions_pdf"),
-    }
-
-    return render_template(template="preview", content=context, page_title=preview_context.get_page_title())
 
 
 @questionnaire_blueprint.route("sections/<section_id>/", methods=["GET", "POST"])
@@ -396,61 +365,6 @@ def get_view_submitted_response(schema: QuestionnaireSchema, questionnaire_store
         raise NotFound from exc
 
     return view_submitted_response.get_rendered_html()
-
-
-@questionnaire_blueprint.route("/preview/download-pdf", methods=["GET"])
-@with_questionnaire_store
-@with_schema
-def get_preview_questions_pdf(schema: QuestionnaireSchema, questionnaire_store: QuestionnaireStore) -> Response:
-    view_preview_questions_pdf = PreviewQuestionsPDF(
-        schema,
-        questionnaire_store,
-        flask_babel.get_locale().language,
-    )
-
-    try:
-        path_or_file = view_preview_questions_pdf.get_pdf()
-    except PreviewNotEnabledException as exc:
-        raise NotFound from exc
-
-    return send_file(
-        path_or_file=path_or_file,
-        mimetype=view_preview_questions_pdf.mimetype,
-        as_attachment=True,
-        download_name=view_preview_questions_pdf.filename,
-    )
-
-
-@post_submission_blueprint.route("download-pdf", methods=["GET"])
-@with_questionnaire_store
-@with_schema
-def get_view_submitted_response_pdf(schema: QuestionnaireSchema, questionnaire_store: QuestionnaireStore) -> Response:
-    """
-    :param schema: The questionnaire schema object.
-    :type schema: QuestionnaireSchema
-    :param questionnaire_store: The questionnaire store object.
-    :type questionnaire_store: QuestionnaireStore
-    :return: A response object with the contents of a file to the client.
-    :rtype: Response
-    """
-
-    try:
-        view_submitted_response_pdf = ViewSubmittedResponsePDF(
-            schema,
-            questionnaire_store,
-            flask_babel.get_locale().language,
-        )
-    except ViewSubmittedResponseNotEnabled as exc:
-        raise NotFound from exc
-    except ViewSubmittedResponseExpired:
-        return redirect(url_for(".get_view_submitted_response"))
-
-    return send_file(
-        path_or_file=view_submitted_response_pdf.get_pdf(),
-        mimetype=view_submitted_response_pdf.mimetype,
-        as_attachment=True,
-        download_name=view_submitted_response_pdf.filename,
-    )
 
 
 @post_submission_blueprint.route("confirmation-email/send", methods=["GET", "POST"])

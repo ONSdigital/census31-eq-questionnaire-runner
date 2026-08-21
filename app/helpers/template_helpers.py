@@ -52,7 +52,6 @@ class ContextHelper:
         self._address_lookup_api = current_app.config["ADDRESS_LOOKUP_API_URL"]
         self._google_tag_id = current_app.config.get("EQ_GOOGLE_TAG_ID")
         self._survey_type = cookie_session.get("theme")
-        self._preview_enabled = self._survey_config.schema.preview_enabled if self._survey_config.schema else False
 
     @property
     def context(self) -> dict[str, Any]:
@@ -75,7 +74,6 @@ class ContextHelper:
             "include_csrf_token": self._include_csrf_token,
             "google_tag_id": self._google_tag_id,
             "survey_type": self._survey_type,
-            "preview_enabled": self._preview_enabled,
             "masthead_logo": self._survey_config.masthead_logo,
             "masthead_logo_mobile": self._survey_config.masthead_logo_mobile,
         }
@@ -207,9 +205,8 @@ def get_survey_config(
 def render_template(template: str, **kwargs: Any) -> str:
     session_expires_at = None
     language = get_locale().language
-    if session_store := get_session_store():
-        if session_expiry := session_store.expiration_time:
-            session_expires_at = session_expiry.isoformat()
+    if (session_store := get_session_store()) and (session_expiry := session_store.expiration_time):
+        session_expires_at = session_expiry.isoformat()
 
     survey_config = get_survey_config()
 

@@ -12,12 +12,10 @@ class Context(ABC):
         language: str,
         schema: QuestionnaireSchema,
         data_stores: DataStores,
-        placeholder_preview_mode: bool = False,
     ) -> None:
         self._language = language
         self._schema = schema
         self._data_stores = data_stores
-        self._placeholder_preview_mode = placeholder_preview_mode
 
         self._router = Router(schema=self._schema, data_stores=self._data_stores)
 
@@ -25,5 +23,4 @@ class Context(ABC):
             data_stores=data_stores,
             language=self._language,
             schema=self._schema,
-            placeholder_preview_mode=self._placeholder_preview_mode,
         )

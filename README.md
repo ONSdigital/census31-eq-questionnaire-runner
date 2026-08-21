@@ -61,10 +61,10 @@ git clone git@github.com:ONSdigital/census31-eq-questionnaire-runner.git
 
 ### Pre-Requisites
 
-In order to run locally you'll need Node.js, snappy, pyenv, jq and wkhtmltopdf installed
+In order to run locally you'll need Node.js, snappy, pyenv and jq installed
 
 ```shell
-brew install snappy npm pyenv jq wkhtmltopdf
+brew install snappy npm pyenv jq
 ```
 
 ### Setup
@@ -152,11 +152,12 @@ make run
 
 ### Supporting services
 
-Runner requires four supporting services - a questionnaire launcher, a storage backend, a cache and the supplementary data service.
+Runner requires three supporting services - a questionnaire launcher, a storage backend, and a cache.
 
 #### Run supporting services with Docker
 
 First, authenticate to make sure Docker can pull from GAR
+
 ```shell
 gcloud auth login
 ```
@@ -167,57 +168,15 @@ To run the app locally, but the supporting services in Docker, make sure you hav
 make dev-compose-up
 ```
 
-Note that on Linux you will need to use:
-
-```shell
-make dev-compose-up-linux
-```
-
 If you also want to run the address index service (for address lookups), use:
 
 ``` shell
 make aims-compose-up
 ```
 
-#### Run supporting services locally
-
-##### [Questionnaire launcher](https://github.com/ONSDigital/eq-questionnaire-launcher)
-
-```shell
-docker run -e SURVEY_RUNNER_SCHEMA_URL=http://host.docker.internal:5000 -e SDS_API_BASE_URL=http://host.docker.internal:5003 -it -p 8000:8000 europe-west2-docker.pkg.dev/ons-eq-ci/docker-images/eq-questionnaire-launcher:latest
-```
-
-##### [Mock Supplementary data service](https://github.com/ONSDigital/eq-runner-mock-sds)
-
-```shell
-docker run -it -p 5003:5003 europe-west2-docker.pkg.dev/ons-eq-ci/docker-images/sds:latest
-```
-
-##### Storage backends
-
-[DynamoDB](https://github.com/ONSDigital/eq-docker-dynamodb)
-
-```shell
-docker run -it -p 6060:8000 onsdigital/eq-docker-dynamodb:latest
-```
-
-or
-
-[Google Datastore](https://hub.docker.com/r/knarz/datastore-emulator/)
-
-``` shell
-docker run -it -p 8432:8432 knarz/datastore-emulator:latest
-```
-
-##### Cache
-
-``` shell
-docker run -it -p 6379:6379 redis:4
-```
-
 #### Using Google Cloud Platform for supporting services
 
-To use `EQ_STORAGE_BACKEND` as `datastore` or `EQ_SUBMISSION_BACKEND` as `gcs` directly on GCP and not a docker image, you need to set the GCP project using the following command:
+To use Google Datastore and Google Cloud Storage (GCS) for submission and feedback backends directly on GCP and not a docker image, you need to set the GCP project using the following command:
 
 ```shell
 gcloud config set project <gcp_project_id>
@@ -235,110 +194,64 @@ the script.
 ## Frontend Tests
 
 The frontend tests use NodeJS to run. To handle different versions of NodeJS it is recommended to install `Node Version Manager` (`nvm`). It is similar to pyenv but for Node versions.
-To install `nvm` use the command below (make sure to replace "v0.39.5" with the current latest version in [releases](https://github.com/nvm-sh/nvm/releases/)):
+To install `nvm` use the command below (make sure to replace "v0.40.6" with the current latest version in [releases](https://github.com/nvm-sh/nvm/releases/)):
+
 ```shell
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.6/install.sh | bash
 ```
-You will need to have the correct node version installed to run the tests. To do this, use the following commands:
+
+You will need to have the correct node version installed to run the tests:
 
 ```shell
 nvm install
 nvm use
 ```
 
-Fetch npm dependencies:
+Install npm dependencies and playwright browsers:
 
 ```shell
 npm install
+npx playwright install --with-deps
 ```
 
-Available commands:
-
-| Command                | Task                                                                                                      |
-|------------------------|-----------------------------------------------------------------------------------------------------------|
-| `make test-functional` | Runs the functional tests through Webdriver (requires app running on localhost:5000 and generated pages). |
-| `make generate-pages`  | Generates the functional test pages.                                                                      |
-| `make lint-js`         | Lints the JS, reporting errors/warnings.                                                                  |
-| `make format-js`       | Format the json schemas.                                                                                  |
-
----
-
-### Development with functional tests
-
-The tests are written using [WebdriverIO](https://webdriver.io/docs/gettingstarted), [Chai](https://www.chaijs.com/), and [Mocha](https://mochajs.org/)
-
-### Functional test options
-
-The functional tests use a set of selectors that are generated from each of the test schemas. These make it quick to add new functional tests.
-
-To run the functional tests first runner needs to be spin up with:
+Runner needs to be run with the functional test environment variables:
 
 ```shell
 RUNNER_ENV_FILE=.functional-tests.env make run
 ```
 
-This will set the correct environment variables for running the functional tests.
+The functional tests use page models generated for each of the test schemas, generate them with:
 
-Then you can run either:
+```shell
+make generate-pages
+```
+
+Then you can run either run the tests with:
 
 ```shell
 make test-functional
 ```
-or
+or headless with:
 
 ```shell
 make test-functional-headless
 ```
 
-This will delete the `tests/functional/generated_pages` directory and regenerate all the files in it from the schemas.
+Both commands delete the `tests/functional/generated_pages` directory and regenerates all page models from the schemas.
 
-To generate the pages manually you can run the `generate_pages` scripts with the schema directory. Run it from the `tests/functional` directory as follows:
-
-```shell
-./generate_pages.py ../../schemas/test/en/ ./generated_pages -r "../../base_pages"
-```
-
-To generate a spec file with the imports included, you can pass the schema name as an argument without the file extension, e.g. `SCHEMA=test_address`:
-```shell
-make generate-spec SCHEMA=<schema-name>
-```
-
-If you have already built the generated pages, then the functional tests can be executed with:
+Run a specific spec with (you only need the spec filename, not the path):
 
 ```shell
-make test-functional
+make test-functional-spec SPEC=<spec filename>
 ```
 
-This can be limited to a single spec where argument needed is the remainder of the path after `./tests/functional/spec/` (which is included in the command):
+Run against a remote environment with:
 
 ```shell
-make test-functional-spec SPEC=<spec>
+EQ_FUNCTIONAL_TEST_ENV=https://staging-new-surveys.dev.eq.ons.digital/ make test-functional
 ```
 
-To run a single test, add `.only` into the name of any `describe` or `it` function:
-
-`describe.only('Skip Conditions', function() {...}` or
-
-`it.only('Given this is a test', function() {...}`
-
-Test suites are configured in the `wdio.conf.cjs` file.
-An individual test suite can be run using the suite names as the argument to this command. The suites that can be used with command below are:
-* timeout_modal_expired
-* timeout_modal_extended
-* timeout_modal_extended_new_window
-* features
-* general
-* components
-
-```shell
-make test-functional-suite SUITE=<suite>
-```
-
-To run the tests against a remote deployment you will need to specify the environment variable of EQ_FUNCTIONAL_TEST_ENV eg:
-
-```shell
-EQ_FUNCTIONAL_TEST_ENV=https://staging-new-surveys.dev.eq.ons.digital/ npm run test_functional
-```
+More detailed information on running and debugging can be found in [functional-tests.md](doc/functional-tests.md)
 
 ---
 
@@ -438,22 +351,17 @@ The following env variables can be used
 | EQ_MINIMIZE_ASSETS                        | True                         | Should JS and CSS be minimized                                                                                 |
 | MAX_CONTENT_LENGTH                        | 65536                        | Max request payload size in bytes                                                                              |
 | EQ_APPLICATION_VERSION_PATH               | .application-version         | The location of a file containing the application version number                                               |
-| EQ_ENABLE_LIVE_RELOAD                     | False                        | Enable livereload of browser when scripts, styles or templates are updated                                     |
 | EQ_SECRETS_FILE                           | secrets.yml                  | The location of the secrets file                                                                               |
 | EQ_KEYS_FILE                              | keys.yml                     | The location of the keys file                                                                                  |
 | EQ_SUBMISSION_BACKEND                     |                              | Which submission backend to use (gcs, log)                                                                     |
 | EQ_GCS_SUBMISSION_BUCKET_ID               |                              | The bucket name in GCP to store the submissions in                                                             |
 | EQ_GCS_FEEDBACK_BUCKET_ID                 |                              | The bucket name in GCP to store the feedback in                                                                |
 | EQ_SERVER_SIDE_STORAGE_USER_ID_ITERATIONS | 10000                        |                                                                                                                |
-| EQ_STORAGE_BACKEND                        | datastore                    |                                                                                                                |
-| EQ_DYNAMODB_ENDPOINT                      |                              |                                                                                                                |
-| EQ_REDIS_HOST                             |                              | Hostname of Redis instance used for ephemeral storage                                                          |
-| EQ_REDIS_PORT                             |                              | Port number of Redis instance used for ephemeral storage                                                       |
-| EQ_DYNAMODB_MAX_RETRIES                   | 5                            |                                                                                                                |
-| EQ_DYNAMODB_MAX_POOL_CONNECTIONS          | 30                           |                                                                                                                |
 | EQ_QUESTIONNAIRE_STATE_TABLE_NAME         |                              |                                                                                                                |
 | EQ_SESSION_TABLE_NAME                     |                              |                                                                                                                |
 | EQ_USED_JTI_CLAIM_TABLE_NAME              |                              |                                                                                                                |
+| EQ_REDIS_HOST                             |                              | Hostname of Redis instance used for ephemeral storage                                                          |
+| EQ_REDIS_PORT                             |                              | Port number of Redis instance used for ephemeral storage                                                       |
 | WEB_SERVER_TYPE                           |                              | Web server type used to run the application. This also determines the worker class which can be async/threaded |
 | WEB_SERVER_WORKERS                        |                              | The number of worker processes                                                                                 |
 | WEB_SERVER_THREADS                        |                              | The number of worker threads per worker                                                                        |
@@ -461,10 +369,6 @@ The following env variables can be used
 | DATASTORE_USE_GRPC                        | False                        | Determines whether to use gRPC for Datastore. gRPC is currently only supported for threaded web servers        |
 | ACCOUNT_SERVICE_BASE_URL                  | `https://surveys.ons.gov.uk` | The base URL of the account service used to launch the survey                                                  |
 | ONS_URL                                   | `https://www.ons.gov.uk`     | The URL of the ONS website where static content is sourced, e.g. accessibility info                            |
-| SDS_API_BASE_URL                          |                              | The base URL of the SDS API used for fetching supplementary data                                               |
-| OIDC_TOKEN_BACKEND                        | gcp                          | The backend to use when fetching the Open ID Connect token                                                     |
-| OIDC_TOKEN_LEEWAY_IN_SECONDS              | 300                          | The leeway to use when validating OIDC tokens                                                                  |
-| SDS_OAUTH2_CLIENT_ID                      |                              | The OAuth2 Client ID used when setting up IAP on the SDS                                                       |
 
 The following env variables can be used when running tests
 
@@ -599,7 +503,7 @@ Now when navigating to localhost:8000 and launching a schema, this will now be u
 
 ## Code Linting/Formatting
 
-We use [Megalinter](https://megalinter.io/latest/mega-linter-runner/) to maintain our code by running various linters over the different file types we have. This is run against PRs using the `mega-linter` GitHub action but can also be run locally. To run the linter locally you can run:
+We use [Megalinter](https://megalinter.io/) to maintain our code by running various linters over the different file types we have apart from Python files (these are handled separately). This is run against PRs using the `mega-linter` GitHub action but can also be run locally. To run the linter locally you can run:
 
 ```shell
 make megalint
@@ -611,3 +515,5 @@ We also have another command which will also run Megalinter locally but this one
 ```shell
 make megalint-apply
 ```
+
+More detailed documentation on the lint process is available in [doc/linting-process.md](doc/linting-process.md).

@@ -9,25 +9,21 @@ clean:
 	rm -rf templates/layout
 
 load-schemas:
-	./scripts/load_release.sh onsdigital/eq-questionnaire-schemas $(SCHEMAS_VERSION)
+	./scripts/load_release.sh onsdigital/census31-eq-questionnaire-schemas $(SCHEMAS_VERSION)
 
 load-design-system-templates:
 	./scripts/load_release.sh onsdigital/design-system $(DESIGN_SYSTEM_VERSION)
-	./scripts/load_print_styles_from_cdn.sh $(DESIGN_SYSTEM_VERSION)
 
 build: load-design-system-templates load-schemas translate
 
 generate-pages:
-	npm run generate_pages
-
-lint: lint-python
+	rm -rf ./tests/functional/generated_pages
+	poetry run python -m tests.functional.generate_pages schemas/test/en/ ./tests/functional/generated_pages -r "../../base_pages"
 
 lint-python:
 	poetry run ./scripts/run_lint_python.sh
 
 lint-test-python: lint-python test-unit
-
-format: format-python
 
 format-python:
 	poetry run isort .
@@ -39,24 +35,20 @@ test:
 test-unit:
 	poetry run ./scripts/run_tests_unit.sh
 
+format-functional:
+	npm run format:tests
+
+lint-functional:
+	npm run lint:tests
+
 test-functional: generate-pages
-	npm run test_functional
+	npx playwright test --headed
 
 test-functional-headless: generate-pages
-	EQ_RUN_FUNCTIONAL_TESTS_HEADLESS='True' make test-functional
+	npx playwright test
 
-test-functional-spec: generate-pages
-	npm run test_functional -- --spec=./tests/functional/spec/$(SPEC)
-
-test-functional-suite: generate-pages
-	npm run test_functional -- --suite=$(SUITE)
-
-generate-spec:
-	poetry run python -m tests.functional.generate_pages \
-		schemas/test/en/$(SCHEMA).json \
-		./tests/functional/generated_pages/$(patsubst test_%,%,$(SCHEMA)) \
-		-r '../../base_pages' \
-		-s tests/functional/spec/$(SCHEMA).spec.js
+test-functional-spec:
+	npx playwright test --headed --workers 1 $(SPEC)
 
 validate-test-schemas:
 	poetry run python -m scripts.validate_test_schemas
@@ -98,12 +90,11 @@ run-uwsgi-async: link-development-env
 	WEB_SERVER_TYPE=uwsgi-async poetry run ./run_app.sh
 
 dev-compose-up:
-	docker compose -f docker-compose-dev.yml pull eq-questionnaire-launcher
-	docker compose -f docker-compose-dev.yml pull sds
-	docker compose -f docker-compose-dev.yml up -d
+	docker compose pull launcher
+	docker compose up -d datastore redis launcher
 
 dev-compose-down:
-	docker compose -f docker-compose-dev.yml down
+	docker compose down
 
 aims-compose-up:
 	docker compose -f docker-compose-aims.yml up -d

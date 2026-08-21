@@ -1,10 +1,8 @@
 from copy import deepcopy
 from uuid import uuid4
 
-import boto3
 import redis
 import yaml
-from botocore.config import Config
 from flask import Flask
 from flask import request as flask_request
 from flask import session as cookie_session
@@ -17,6 +15,7 @@ from htmlmin import minify
 from jinja2 import ChainableUndefined
 from sdc.crypto.key_store import KeyStore, validate_required_keys
 from structlog import contextvars, get_logger
+from werkzeug.middleware.proxy_fix import ProxyFix
 
 from app import settings
 from app.authentication.authenticator import login_manager
@@ -26,8 +25,6 @@ from app.cloud_tasks import CloudTaskPublisher, LogCloudTaskPublisher
 from app.helpers import get_span_and_trace
 from app.jinja_filters import blueprint as filter_blueprint
 from app.keys import KEY_PURPOSE_AUTHENTICATION, KEY_PURPOSE_SUBMISSION
-from app.oidc.gcp_oidc import OIDCCredentialsServiceGCP
-from app.oidc.local_oidc import OIDCCredentialsServiceLocal
 from app.publisher import LogPublisher, PubSubPublisher
 from app.routes.dump import dump_blueprint
 from app.routes.errors import errors_blueprint
@@ -38,7 +35,7 @@ from app.routes.schema import schema_blueprint
 from app.routes.session import session_blueprint
 from app.secrets import SecretStore, validate_required_secrets
 from app.settings import DEFAULT_LOCALE
-from app.storage import Datastore, Dynamodb, Redis
+from app.storage import Datastore, Redis
 from app.submitter import GCSFeedbackSubmitter, GCSSubmitter, LogFeedbackSubmitter, LogSubmitter
 from app.utilities.json import json_dumps
 from app.utilities.schema import cache_questionnaire_schemas
@@ -79,32 +76,17 @@ compress = Compress()
 logger = get_logger()
 
 BUCKET_ID_ERROR_MESSAGE = "Setting EQ_GCS_SUBMISSION_BUCKET_ID Missing"
-SDS_CLIENT_ID_ERROR_MESSAGE = "Setting SDS_OAUTH2_CLIENT_ID Missing"
-TOKEN_BACKEND_ERROR_MESSAGE = "Setting OIDC_TOKEN_BACKEND Missing"
 FEEDBACK_BUCKET_ID_ERROR_MESSAGE = "Setting EQ_GCS_FEEDBACK_BUCKET_ID Missing"
 SECRET_KEY_ERROR_MESSAGE = "Application secret key does not exist"
 
-STORAGE_BACKEND_ERROR_MESSAGE = "Unknown EQ_STORAGE_BACKEND"
 SUBMISSION_ERROR_MESSAGE = "Unknown EQ_SUBMISSION_BACKEND"
 SUBMIT_CONFIRMATION_ERROR_MESSAGE = "Unknown EQ_SUBMISSION_CONFIRMATION_BACKEND"
-TOKEN_BACKEND_UNKNOWN_ERROR_MESSAGE = "Unknown OIDC_TOKEN_BACKEND"
 PUBLISHER_BACKEND_ERROR_MESSAGE = "Unknown EQ_PUBLISHER_BACKEND"
 FEEDBACK_BACKEND_ERROR_MESSAGE = "Unknown EQ_FEEDBACK_BACKEND"
 
 
 class MissingEnvironmentVariable(Exception):
     pass
-
-
-class AWSReverseProxied:
-    def __init__(self, app):
-        self.app = app
-
-    def __call__(self, environ, start_response):
-        scheme = environ.get("HTTP_X_FORWARDED_PROTO", "http")
-        if scheme:
-            environ["wsgi.url_scheme"] = scheme
-        return self.app(environ, start_response)
 
 
 def create_app(  # noqa: C901  pylint: disable=too-complex, too-many-statements
@@ -170,8 +152,6 @@ def create_app(  # noqa: C901  pylint: disable=too-complex, too-many-statements
 
     setup_task_client(application)
 
-    setup_oidc(application)
-
     application.eq["id_generator"] = UserIDGenerator(
         application.config["EQ_SERVER_SIDE_STORAGE_USER_ID_ITERATIONS"],
         application.eq["secret_store"].get_secret_by_name("EQ_SERVER_SIDE_STORAGE_USER_ID_SALT"),
@@ -186,7 +166,7 @@ def create_app(  # noqa: C901  pylint: disable=too-complex, too-many-statements
 
     setup_babel(application)
 
-    application.wsgi_app = AWSReverseProxied(application.wsgi_app)
+    application.wsgi_app = ProxyFix(application.wsgi_app, x_for=1, x_proto=1, x_host=1, x_port=1, x_prefix=1)
 
     application.url_map.strict_slashes = False
 
@@ -269,10 +249,6 @@ def setup_secure_headers(application):
     if api_url := application.config["ADDRESS_LOOKUP_API_URL"]:
         csp_policy["connect-src"] += [api_url]
 
-    if application.config["EQ_ENABLE_LIVE_RELOAD"]:
-        # browsersync is configured to bind on port 5075
-        csp_policy["connect-src"] += ["ws://localhost:35729"]
-
     application.config["SESSION_COOKIE_SAMESITE"] = "Lax"
 
     Talisman(
@@ -288,29 +264,8 @@ def setup_secure_headers(application):
 
 
 def setup_storage(application):
-    if application.config["EQ_STORAGE_BACKEND"] == "datastore":
-        setup_datastore(application)
-    elif application.config["EQ_STORAGE_BACKEND"] == "dynamodb":
-        setup_dynamodb(application)
-    else:
-        raise NotImplementedError(STORAGE_BACKEND_ERROR_MESSAGE)
-
+    setup_datastore(application)
     setup_redis(application)
-
-
-def setup_dynamodb(application):
-    # Number of additional connection attempts
-    config = Config(
-        retries={"max_attempts": application.config["EQ_DYNAMODB_MAX_RETRIES"]},
-        max_pool_connections=application.config["EQ_DYNAMODB_MAX_POOL_CONNECTIONS"],
-    )
-
-    dynamodb = boto3.resource(
-        "dynamodb",
-        endpoint_url=application.config["EQ_DYNAMODB_ENDPOINT"],
-        config=config,
-    )
-    application.eq["storage"] = Dynamodb(dynamodb)
 
 
 def setup_datastore(application):
@@ -348,25 +303,6 @@ def setup_task_client(application):
         application.eq["cloud_tasks"] = LogCloudTaskPublisher()
     else:
         raise NotImplementedError(SUBMIT_CONFIRMATION_ERROR_MESSAGE)
-
-
-def setup_oidc(application):
-    def client_ids_exist():
-        if not application.config.get("SDS_OAUTH2_CLIENT_ID"):
-            raise MissingEnvironmentVariable(SDS_CLIENT_ID_ERROR_MESSAGE)
-
-    if not (oidc_token_backend := application.config.get("OIDC_TOKEN_BACKEND")):
-        raise MissingEnvironmentVariable(TOKEN_BACKEND_ERROR_MESSAGE)
-
-    if oidc_token_backend == "gcp":
-        client_ids_exist()
-        application.eq["oidc_credentials_service"] = OIDCCredentialsServiceGCP()
-
-    elif oidc_token_backend == "local":
-        application.eq["oidc_credentials_service"] = OIDCCredentialsServiceLocal()
-
-    else:
-        raise NotImplementedError(TOKEN_BACKEND_UNKNOWN_ERROR_MESSAGE)
 
 
 def setup_publisher(application):

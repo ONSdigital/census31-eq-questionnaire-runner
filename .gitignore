@@ -61,6 +61,7 @@ venv
 node_modules/
 /static/
 tests/results
+test-results/
 tests/coverage
 tests/a11y
 
@@ -100,7 +101,6 @@ tests/functional/generated_pages
 # Ignore Design-System templates
 templates/components
 templates/layout
-templates/assets/styles/print.css
 
 .mypy_cache
 
@@ -112,10 +112,9 @@ templates/assets/styles/print.css
 # Ignore CTAGS
 tags
 
-# Ignore wdio/chromedriver logs
-tests/functional/logs/
-
 # Ignore Pylance custom type stub folder
 typing/
 
 megalinter-reports/
+
+playwright-report/

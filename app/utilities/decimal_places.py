@@ -8,7 +8,7 @@ from babel.numbers import NumberPattern, get_currency_precision
 UnitLengthType: TypeAlias = Literal["short", "long", "narrow"]
 
 
-def custom_format_decimal(value: int | Decimal | float, locale: Locale | str) -> str:
+def custom_format_decimal(value: Decimal | float, locale: Locale | str) -> str:
     """
     This function provides a wrapper for the numbers `format_decimal` method, generating the
     number format (including the desired number of decimals), based on the value entered by the user and
@@ -75,7 +75,7 @@ def get_formatted_currency(
 
 
 def custom_format_unit(
-    value: int | float | Decimal,
+    value: float | Decimal,
     measurement_unit: str,
     locale: Locale | str,
     length: UnitLengthType = "short",
@@ -96,10 +96,22 @@ def custom_format_unit(
         locale=locale,
     )
 
+    # When a locale has no data for the requested length, Babel falls back to the raw
+    # unit identifier (e.g. "100 duration-hour"). Detect this and retry with "short".
+    if length != "short" and measurement_unit in formatted_unit:
+        formatted_unit = units.format_unit(
+            value=value,
+            measurement_unit=measurement_unit,
+            length="short",
+            # Type ignore: babel function has incorrect type hinting, NumberPattern is valid here
+            format=number_format,  # type: ignore
+            locale=locale,
+        )
+
     return formatted_unit
 
 
-def get_number_format(value: int | float | Decimal, locale: Locale | str) -> NumberPattern:
+def get_number_format(value: float | Decimal, locale: Locale | str) -> NumberPattern:
     """
     Generates the number format based on the value entered by the user and the locale
 
@@ -116,7 +128,7 @@ def get_number_format(value: int | float | Decimal, locale: Locale | str) -> Num
     return locale_decimal_format
 
 
-def _get_decimal_places(value: int | float | Decimal | None) -> int:
+def _get_decimal_places(value: float | Decimal | None) -> int:
     """
     We use '.' rather than the decimal separator based on the locale as the separator will always be
     formatted so that it is '.' by the time it reaches this method.

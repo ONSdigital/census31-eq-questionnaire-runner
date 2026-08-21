@@ -9,12 +9,9 @@ from flask_babel import Babel
 from mock import patch
 
 from app.cloud_tasks import CloudTaskPublisher
-from app.oidc.gcp_oidc import OIDCCredentialsServiceGCP
-from app.oidc.local_oidc import OIDCCredentialsServiceLocal
 from app.publisher import LogPublisher, PubSubPublisher
-from app.setup import MissingEnvironmentVariable, create_app
+from app.setup import create_app
 from app.storage.datastore import Datastore
-from app.storage.dynamodb import Dynamodb
 from app.submitter.submitter import GCSFeedbackSubmitter, GCSSubmitter, LogSubmitter
 
 
@@ -84,9 +81,6 @@ class TestCreateApp(unittest.TestCase):  # pylint: disable=too-many-public-metho
             self.assertTrue(kwargs["span"] == "0123456789012345678901")
             self.assertTrue(kwargs["trace"] == "0123456789")
 
-    def test_enforces_secure_headers(self):
-        self._setting_overrides["EQ_ENABLE_LIVE_RELOAD"] = False
-
         with create_app(self._setting_overrides).test_client() as client:
             headers = client.get(
                 "/",
@@ -107,7 +101,6 @@ class TestCreateApp(unittest.TestCase):  # pylint: disable=too-many-public-metho
         cdn_url = "https://cdn.test.domain"
         address_lookup_api_url = "https://ai.test.domain"
         self._setting_overrides = {
-            "EQ_ENABLE_LIVE_RELOAD": False,
             "CDN_URL": cdn_url,
             "ADDRESS_LOOKUP_API_URL": address_lookup_api_url,
         }
@@ -269,19 +262,6 @@ class TestCreateApp(unittest.TestCase):  # pylint: disable=too-many-public-metho
 
         self.assertIsInstance(application.eq["storage"], Datastore)
 
-    def test_setup_dynamodb(self):
-        self._setting_overrides["EQ_STORAGE_BACKEND"] = "dynamodb"
-
-        application = create_app(self._setting_overrides)
-
-        self.assertIsInstance(application.eq["storage"], Dynamodb)
-
-    def test_invalid_storage(self):
-        self._setting_overrides["EQ_STORAGE_BACKEND"] = "invalid"
-
-        with self.assertRaises(Exception):
-            create_app(self._setting_overrides)
-
     def test_eq_feedback_backend_not_set(self):
         # Given
         self._setting_overrides["EQ_FEEDBACK_BACKEND"] = ""
@@ -328,58 +308,3 @@ class TestCreateApp(unittest.TestCase):  # pylint: disable=too-many-public-metho
         with self.assertRaises(Exception) as ex:
             create_app(self._setting_overrides)
         assert "Missing Secret [ADDRESS_LOOKUP_API_AUTH_TOKEN_SECRET]" in str(ex.exception)
-
-    def test_setup_oidc_service_gcp(self):
-        # Given
-        self._setting_overrides["OIDC_TOKEN_BACKEND"] = "gcp"
-        self._setting_overrides["SDS_OAUTH2_CLIENT_ID"] = "1234567890"
-
-        # When
-        application = create_app(self._setting_overrides)
-
-        # Then
-        assert isinstance(application.eq["oidc_credentials_service"], OIDCCredentialsServiceGCP)
-
-    def test_setup_oidc_service_local(self):
-        # Given
-        self._setting_overrides["OIDC_TOKEN_BACKEND"] = "local"
-
-        # When
-        application = create_app(self._setting_overrides)
-
-        # Then
-        assert isinstance(application.eq["oidc_credentials_service"], OIDCCredentialsServiceLocal)
-
-    def test_oidc_backend_invalid_raises_exception(self):
-        # Given
-        self._setting_overrides["OIDC_TOKEN_BACKEND"] = "invalid"
-
-        # When
-        with self.assertRaises(NotImplementedError) as ex:
-            create_app(self._setting_overrides)
-
-        # Then
-        assert "Unknown OIDC_TOKEN_BACKEND" in str(ex.exception)
-
-    def test_oidc_backend_missing_raises_exception(self):
-        # Given
-        self._setting_overrides["OIDC_TOKEN_BACKEND"] = ""
-
-        # When
-        with self.assertRaises(MissingEnvironmentVariable) as ex:
-            create_app(self._setting_overrides)
-
-        # Then
-        assert "Setting OIDC_TOKEN_BACKEND Missing" in str(ex.exception)
-
-    def test_sds_oauth_2_client_id_missing_raises_exception(self):
-        # Given
-        self._setting_overrides["OIDC_TOKEN_BACKEND"] = "gcp"
-        self._setting_overrides["SDS_OAUTH2_CLIENT_ID"] = ""
-
-        # When
-        with self.assertRaises(MissingEnvironmentVariable) as ex:
-            create_app(self._setting_overrides)
-
-        # Then
-        assert "Setting SDS_OAUTH2_CLIENT_ID Missing" in str(ex.exception)

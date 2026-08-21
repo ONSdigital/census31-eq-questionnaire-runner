@@ -16,14 +16,14 @@ from app.questionnaire.questionnaire_schema import (
     TRANSFORMS_REQUIRING_UNRESOLVED_ARGUMENTS,
 )
 from app.questionnaire.value_source_resolver import ValueSourceEscapedTypes, ValueSourceResolver, ValueSourceTypes
-from app.utilities.mappings import get_flattened_mapping_values, get_values_for_key
+from app.utilities.mappings import get_flattened_mapping_values
 from app.utilities.types import LocationType, SectionKey
 
 if TYPE_CHECKING:
     from app.questionnaire.placeholder_renderer import PlaceholderRenderer  # pragma: no cover
 
 
-TransformedValueTypes: TypeAlias = None | str | int | Decimal | bool
+TransformedValueTypes: TypeAlias = str | int | Decimal | bool | None
 
 
 class PlaceholderParser:
@@ -40,7 +40,6 @@ class PlaceholderParser:
         renderer: PlaceholderRenderer,
         list_item_id: str | None = None,
         location: LocationType | None = None,
-        placeholder_preview_mode: bool | None = False,
     ):
         self._transformer = PlaceholderTransforms(language, schema, renderer)
         self._placeholder_map: MutableMapping[str, ValueSourceEscapedTypes | ValueSourceTypes | None] = {}
@@ -48,7 +47,6 @@ class PlaceholderParser:
         self._list_item_id = list_item_id
         self._schema = schema
         self._location = location
-        self._placeholder_preview_mode = placeholder_preview_mode
 
         self._path_finder = pf.PathFinder(schema=self._schema, data_stores=self._data_stores)
 
@@ -97,9 +95,6 @@ class PlaceholderParser:
         )
 
     def _parse_placeholder(self, placeholder: Mapping) -> Any:
-        if self._placeholder_preview_mode and not self._all_value_sources_metadata(placeholder):
-            return f'{{{placeholder["placeholder"]}}}'
-
         try:
             return self._parse_transforms(placeholder["transforms"])
         except KeyError:
@@ -154,11 +149,6 @@ class PlaceholderParser:
             ignore_keys=["when"],
             schema=self._schema,
         )
-
-    @staticmethod
-    def _all_value_sources_metadata(placeholder: Mapping) -> bool:
-        sources = get_values_for_key("source", data=placeholder)
-        return all(source == "metadata" for source in sources)
 
     def _get_value_source_resolver_for_transform(self, transform: Mapping) -> ValueSourceResolver:
         if self._location and transform["transform"] in TRANSFORMS_REQUIRING_ROUTING_PATH:
