@@ -45,7 +45,7 @@ FORMATTERS_DISABLE_ERRORS: false # Ensures code is actually fixable when using `
 SHOW_ELAPSED_TIME: true # Displays execution time for each linter
 FLAVOR_SUGGESTIONS: false # Disables suggestions to use different MegaLinter flavors
 
-# Exclude generated artifacts from all linters to avoid false positives on non-source files.
+# Exclude generated artifacts from all linters if not run in project mode to avoid false positives on non-source files.
 # Match both workspace-relative and absolute paths (e.g. /tmp/lint/... in CI containers).
 FILTER_REGEX_EXCLUDE: ((^|.*/)(megalinter-reports|htmlcov|coverage|\.venv|node_modules)(/|$))|(/__pycache__/)|(\.pyc$)
 
