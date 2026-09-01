@@ -68,7 +68,7 @@ class PathFinder:
         section: ImmutableDict,
         when_rules_block_dependencies: list[str],
     ) -> list[dict] | None:
-        # TODO: Fix group skipping in its own section. Routing path will be empty and therefore not checked.  # DevSkim: ignore DS176209
+        # TODO: Fix skipping groups in own section; routing path is empty, so not checked.  # DevSkim: ignore DS176209
         if section:
             not_skipped_blocks: list[dict] = []
             for group in section["groups"]:

@@ -6,8 +6,8 @@ from structlog import get_logger
 
 logger = get_logger()
 
-LAUNCHER_ROOT_URL = "http://127.0.0.1:8000"
-RUNNER_ROOT_URL = "http://127.0.0.1:5000"
+LAUNCHER_ROOT_URL = "http://127.0.0.1:8000"  # DevSkim: ignore DS162092
+RUNNER_ROOT_URL = "http://127.0.0.1:5000"  # DevSkim: ignore DS162092
 
 TEST_TEMPLATE = """from tests.integration.integration_test_case import IntegrationTestCase
 
