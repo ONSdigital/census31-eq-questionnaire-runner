@@ -46,22 +46,21 @@ def log_exception(exception: Exception, status_code: int) -> None:
 
 def _render_error_page(status_code: int, template: str | int | None = None, **kwargs: Any) -> tuple[str, int]:
     handle_language()
-    census_survey_config = get_survey_config(theme=SurveyType.CENSUS, base_url=ACCOUNT_SERVICE_BASE_URL)
-    default_survey_config = get_survey_config(theme=SurveyType.DEFAULT, base_url=ACCOUNT_SERVICE_BASE_URL)
+    survey_config = get_survey_config(theme=SurveyType.CENSUS, base_url=ACCOUNT_SERVICE_BASE_URL)
 
-    census_logout_url = census_survey_config.account_service_log_out_url
-    census_contact_us_url = census_survey_config.contact_us_url
+    logout_url = survey_config.account_service_log_out_url
+    contact_us_url = survey_config.contact_us_url
     other_logout_url = (
-        default_survey_config.account_service_log_out_url or f"{default_survey_config.base_url}/sign-in/logout"
+        survey_config.account_service_log_out_url or f"{survey_config.base_url}/sign-in/logout"
     )
-    other_contact_us_url = default_survey_config.contact_us_url
+    other_contact_us_url = survey_config.contact_us_url
     template = template or status_code
 
     return (
         render_template(
             template=f"errors/{template}",
-            census_logout_url=census_logout_url,
-            census_contact_us_url=census_contact_us_url,
+            logout_url=logout_url,
+            contact_us_url=contact_us_url,
             other_logout_url=other_logout_url,
             other_contact_us_url=other_contact_us_url,
             **kwargs,

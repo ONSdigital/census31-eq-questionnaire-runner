@@ -1,7 +1,7 @@
 {% extends "errors/_base.html" %}
 
 {% set page_title = _("Page is not available") %}
-{% set access_code = _("To access this page you need to <a href='{url}'>re-enter your access code</a>.").format(url = census_logout_url) %}
+{% set access_code = _("To access this page you need to <a href='{url}'>re-enter your access code</a>.").format(url = logout_url) %}
 {# djlint:off #}
 {% set other_access_code =
     _(
