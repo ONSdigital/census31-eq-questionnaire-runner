@@ -15,7 +15,7 @@ from app.questionnaire import QuestionnaireSchema
 from app.settings import ACCOUNT_SERVICE_BASE_URL
 from app.survey_config import (
     CensusSurveyConfig,
-    NICensusSurveyConfig,
+    NISRACensusSurveyConfig,
     NRSCensusSurveyConfig,
     SurveyConfig,
 )
@@ -162,7 +162,7 @@ def survey_config_mapping(
     survey_type_to_config: dict[SurveyType, type[SurveyConfig]] = {
         SurveyType.DEFAULT: CensusSurveyConfig,
         SurveyType.CENSUS: CensusSurveyConfig,
-        SurveyType.CENSUS_NISRA: NICensusSurveyConfig,
+        SurveyType.CENSUS_NISRA: NISRACensusSurveyConfig,
         SurveyType.CENSUS_NRS: NRSCensusSurveyConfig,
     }
 

@@ -8,7 +8,7 @@ from app.routes.session import set_schema_context_in_cookie
 from app.settings import ACCOUNT_SERVICE_BASE_URL, ACCOUNT_SERVICE_BASE_URL_CENSUS, ONS_URL, ONS_URL_CY, read_file
 from app.survey_config import (
     CensusSurveyConfig,
-    NICensusSurveyConfig,
+    NISRACensusSurveyConfig,
     NRSCensusSurveyConfig,
     SurveyConfig,
 )
@@ -92,7 +92,7 @@ def test_footer_context(app: Flask, theme, survey_config, language, expected_foo
         (
             None,
             None,
-            NICensusSurveyConfig(),
+            NISRACensusSurveyConfig(),
             [
                 "ONS Surveys",
                 read_file("./templates/assets/images/nisra-logo.svg"),
@@ -104,7 +104,7 @@ def test_footer_context(app: Flask, theme, survey_config, language, expected_foo
         (
             SurveyType.CENSUS_NISRA,
             "Test",
-            NICensusSurveyConfig(),
+            NISRACensusSurveyConfig(),
             [
                 "Test",
                 read_file("./templates/assets/images/nisra-logo.svg"),
@@ -255,7 +255,7 @@ def test_service_links_context_when_links_exist(app: Flask, mocker):
             f"{ONS_URL_CY}/aboutus/contactus/surveyenquiries/",
         ),
         (
-            NICensusSurveyConfig(),
+            NISRACensusSurveyConfig(),
             "en",
             f"{ONS_URL}/aboutus/contactus/surveyenquiries/",
         ),
@@ -316,7 +316,7 @@ def test_sign_out_button_text_context(app: Flask, survey_config: SurveyConfig, e
             f"{ACCOUNT_SERVICE_BASE_URL_CENSUS}/cy/cookies/",
         ),
         (
-            NICensusSurveyConfig(),
+            NISRACensusSurveyConfig(),
             True,
             f"{ACCOUNT_SERVICE_BASE_URL_CENSUS}/en/cookies/",
         ),
@@ -358,7 +358,7 @@ def test_cookie_settings_url_context(app: Flask, survey_config: SurveyConfig, co
             ACCOUNT_SERVICE_BASE_URL_CENSUS,
         ),
         (
-            NICensusSurveyConfig(),
+            NISRACensusSurveyConfig(),
             "en",
             ACCOUNT_SERVICE_BASE_URL_CENSUS,
         ),
@@ -390,7 +390,7 @@ def test_cookie_domain_context(app: Flask, survey_config: SurveyConfig, language
     [
         SurveyConfig(),
         CensusSurveyConfig(),
-        NICensusSurveyConfig(),
+        NISRACensusSurveyConfig(),
         NRSCensusSurveyConfig(),
     ],
 )
@@ -447,7 +447,7 @@ def test_account_service_my_todo_url_context(
             f"{ACCOUNT_SERVICE_BASE_URL_CENSUS}/en/start/",
         ),
         (
-            NICensusSurveyConfig(),
+            NISRACensusSurveyConfig(),
             f"{ACCOUNT_SERVICE_BASE_URL_CENSUS}/en/start/",
         ),
         (
@@ -470,7 +470,7 @@ def test_account_service_log_out_url_context(
         (SurveyType.DEFAULT, "cy", CensusSurveyConfig),
         (SurveyType.CENSUS, "en", CensusSurveyConfig),
         (SurveyType.CENSUS, "cy", CensusSurveyConfig),
-        (SurveyType.CENSUS_NISRA, "en", NICensusSurveyConfig),
+        (SurveyType.CENSUS_NISRA, "en", NISRACensusSurveyConfig),
         (SurveyType.CENSUS_NRS, "en", NRSCensusSurveyConfig),
         (None, None, CensusSurveyConfig),
     ],

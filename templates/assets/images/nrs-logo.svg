@@ -1,7 +1,7 @@
-<svg class="ons-svg-logo" xmlns="http://www.w3.org/2000/svg" focusable="false" height="42" viewBox="0 0 329 73" role="img" aria-labelledby="nrs-logo-en-alt">
-    <title id="nrs-logo-en-alt">Scotland&#39;s Census</title>
-    <g class="ons-icon--logo__group" transform="matrix(1.3333333,0,0,-1.3333333,0,73.333333)" fill="#3572c2">
-        <g transform="scale(0.1)">
+<svg class="ons-svg-logo" aria-labelledby="nrs-logo-large-alt" xmlns="http://www.w3.org/2000/svg" height="42" viewBox="0 0 329 73" xml:space="preserve" role="img" focusable="false">
+    <title id="nrs-logo-large-alt">Scotland&#39;s Census - Home</title>
+    <g transform="matrix(1.3333333,0,0,-1.3333333,0,73.333333)">
+        <g class="ons-icon--logo__group" transform="scale(0.1)" fill="#3572c2">
             <path d="M 109,550 461,344 812.004,550 Z" />
             <path d="M 109,0 461,205.996 812.004,0 Z" />
             <path d="M 0,487.996 V 62.9961 L 350,276 Z" />

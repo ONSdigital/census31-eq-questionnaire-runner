@@ -67,7 +67,7 @@ class CensusSurveyConfig(
 
 
 @dataclass
-class NICensusSurveyConfig(CensusSurveyConfig):
+class NISRACensusSurveyConfig(CensusSurveyConfig):
     masthead_logo: str = read_file("./templates/assets/images/nisra-logo.svg")
     footer_logo: str = read_file("./templates/assets/images/nisra-footer-logo.svg")
 
