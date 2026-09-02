@@ -1,11 +1,11 @@
 from mock import Mock, patch
 
 from app.questionnaire.questionnaire_schema import DEFAULT_LANGUAGE_CODE
-from app.settings import ACCOUNT_SERVICE_BASE_URL_CENSUS, ONS_URL
+from app.settings import ACCOUNT_SERVICE_BASE_URL, ONS_URL
 from tests.app.parser.conftest import get_response_expires_at
 from tests.integration.integration_test_case import IntegrationTestCase
 
-CENSUS_URL = ACCOUNT_SERVICE_BASE_URL_CENSUS
+CENSUS_URL = ACCOUNT_SERVICE_BASE_URL
 
 
 class TestErrors(IntegrationTestCase):  # pylint: disable=too-many-public-methods

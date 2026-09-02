@@ -4,13 +4,13 @@ from datetime import datetime, timedelta, timezone
 from freezegun import freeze_time
 
 from app.questionnaire.questionnaire_schema import DEFAULT_LANGUAGE_CODE
-from app.settings import ACCOUNT_SERVICE_BASE_URL_CENSUS
+from app.settings import ACCOUNT_SERVICE_BASE_URL
 from app.utilities.json import json_loads
 from tests.integration.integration_test_case import IntegrationTestCase
 
 TIME_TO_FREEZE = datetime(2020, 1, 1, 12, 0, 0, tzinfo=timezone.utc)
 EQ_SESSION_TIMEOUT_SECONDS = 45 * 60
-CENSUS_URL = ACCOUNT_SERVICE_BASE_URL_CENSUS
+CENSUS_URL = ACCOUNT_SERVICE_BASE_URL
 
 
 class TestSession(IntegrationTestCase):

@@ -124,9 +124,7 @@ VIEW_SUBMITTED_RESPONSE_EXPIRATION_IN_SECONDS = int(os.getenv("VIEW_SUBMITTED_RE
 
 SURVEY_TYPE = os.getenv("SURVEY_TYPE", "census")
 
-ACCOUNT_SERVICE_BASE_URL = os.getenv("ACCOUNT_SERVICE_BASE_URL", "https://surveys.ons.gov.uk")
-
-ACCOUNT_SERVICE_BASE_URL_CENSUS = os.getenv("ACCOUNT_SERVICE_BASE_URL_CENSUS", "https://start.census.gov.uk")
+ACCOUNT_SERVICE_BASE_URL = os.getenv("ACCOUNT_SERVICE_BASE_URL", "https://start.census.gov.uk")
 
 ONS_URL = os.getenv("ONS_URL", "https://www.census.gov.uk")
 

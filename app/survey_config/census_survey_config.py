@@ -3,7 +3,7 @@ from typing import Iterable, Mapping, MutableMapping
 
 from flask_babel import lazy_gettext
 
-from app.settings import ACCOUNT_SERVICE_BASE_URL_CENSUS, ONS_URL, ONS_URL_CY, read_file
+from app.settings import ACCOUNT_SERVICE_BASE_URL, ONS_URL, ONS_URL_CY, read_file
 from app.survey_config.link import Link
 from app.survey_config.survey_config import SurveyConfig
 
@@ -12,7 +12,7 @@ from app.survey_config.survey_config import SurveyConfig
 class CensusSurveyConfig(
     SurveyConfig,
 ):
-    base_url: str = ACCOUNT_SERVICE_BASE_URL_CENSUS
+    base_url: str = ACCOUNT_SERVICE_BASE_URL
     survey_title: str = "ONS Census"
     title_logo: str = read_file("./templates/assets/images/census-logo.svg")
     census_css: str = read_file("./templates/assets/css/census.css")
