@@ -5,7 +5,7 @@ from freezegun import freeze_time
 from marshmallow import ValidationError
 
 from app.utilities.metadata_parser_v2 import validate_questionnaire_claims, validate_runner_claims_v2
-from tests.app.parser.conftest import get_metadata, get_metadata_full, get_metadata_census
+from tests.app.parser.conftest import get_metadata, get_metadata_census, get_metadata_full
 
 
 def test_spaces_are_stripped_from_string_fields():

@@ -13,12 +13,7 @@ from app.globals import get_metadata, get_session_store
 from app.helpers.language_helper import get_languages_context
 from app.questionnaire import QuestionnaireSchema
 from app.settings import ACCOUNT_SERVICE_BASE_URL
-from app.survey_config import (
-    CensusSurveyConfig,
-    NISRACensusSurveyConfig,
-    NRSCensusSurveyConfig,
-    SurveyConfig,
-)
+from app.survey_config import CensusSurveyConfig, NISRACensusSurveyConfig, NRSCensusSurveyConfig, SurveyConfig
 from app.survey_config.survey_type import SurveyType
 from app.utilities.schema import load_schema_from_metadata
 

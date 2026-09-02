@@ -6,17 +6,9 @@ from app.helpers.template_helpers import ContextHelper, get_survey_config
 from app.questionnaire import QuestionnaireSchema
 from app.routes.session import set_schema_context_in_cookie
 from app.settings import ACCOUNT_SERVICE_BASE_URL, ONS_URL, ONS_URL_CY, read_file
-from app.survey_config import (
-    CensusSurveyConfig,
-    NISRACensusSurveyConfig,
-    NRSCensusSurveyConfig,
-    SurveyConfig,
-)
+from app.survey_config import CensusSurveyConfig, NISRACensusSurveyConfig, NRSCensusSurveyConfig, SurveyConfig
 from app.survey_config.survey_type import SurveyType
-from tests.app.helpers.conftest import (
-    expected_footer_census_theme,
-    expected_footer_census_theme_no_cookie,
-)
+from tests.app.helpers.conftest import expected_footer_census_theme, expected_footer_census_theme_no_cookie
 from tests.app.questionnaire.conftest import get_metadata
 
 DEFAULT_URL = "http://localhost"
