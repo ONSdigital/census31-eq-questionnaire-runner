@@ -17,11 +17,6 @@
     <h1>{{ _("Sorry, there is a problem with this service") }}</h1>
     <p>{{ _("Try again later.") }}</p>
     <p>{{ _("If you have started a survey, your answers have been saved.") }}</p>
-    {% if survey_type and survey_type in SURVEY_TYPES_ALL %}
-        <p>{{ access_code }}</p>
-        <p>{{ contact_us }}</p>
-    {% else %}
-        <p>{{ _("If you have attempted to submit your survey, you should check that this was successful. To do this, <a href='{logout_url}'>sign in to your business survey account</a>.").format(logout_url=other_logout_url) }}</p>
-        <p>{{ _("If you need more help, <a href='{url}'>contact us</a>.").format(url=other_contact_us_url) }}</p>
-    {% endif %}
+    <p>{{ access_code }}</p>
+    <p>{{ contact_us }}</p>
 {% endblock main %}

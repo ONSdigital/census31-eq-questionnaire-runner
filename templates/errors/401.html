@@ -18,10 +18,5 @@
         <li>{{ _("followed a link to a page you are not signed in to") }}</li>
         <li>{{ _("followed a link to a survey that has already been submitted") }}</li>
     </ul>
-    {% if survey_type and survey_type in SURVEY_TYPES_ALL %}
-        <p>{{ access_code }}</p>
-    {% else %}
-        <h2>{{ _("All other surveys") }}</h2>
-        <p>{{ other_access_code }}</p>
-    {% endif %}
+    <p>{{ access_code }}</p>
 {% endblock main %}
