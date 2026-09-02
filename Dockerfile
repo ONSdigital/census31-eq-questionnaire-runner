@@ -32,4 +32,6 @@ RUN pip install --no-cache-dir "poetry==2.4.1" && \
 
 USER 9000
 
-CMD ["sh", "run_app.sh"]
+HEALTHCHECK --interval=30s --timeout=10s --start-period=30s --retries=3 CMD ["sh", "-c", "curl -f http://localhost:5000/status || exit 1"]
+
+CMD ["./run_app.sh"]

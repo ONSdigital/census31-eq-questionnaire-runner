@@ -81,7 +81,7 @@ interface JoseJwkApi {
 interface JoseJweApi {
   createEncrypt: (
     cfg: { contentAlg: string },
-    recipient: JweRecipientInput,
+    recipient: JweRecipientInput
   ) => {
     update: (input: string) => {
       final: () => Promise<JweGeneralSerialization>

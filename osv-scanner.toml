@@ -1,0 +1,4 @@
+[[IgnoredVulns]]
+id = "GHSA-w5hq-g745-h8pq"
+ignoreUntil = 2027-01-01
+reason = "uuid (dev) - no fix without major version break; node-jose@2.2.0 pins uuid@9 and has no maintained release"

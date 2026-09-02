@@ -19,7 +19,7 @@ def check_connection():
                 "/dev/null",
                 "-w",
                 "%{http_code}",
-                "http://localhost:5002/status",
+                "http://127.0.0.1:5002/status",  # DevSkim: ignore DS162092
             ],
             capture_output=True,
             text=True,
@@ -66,7 +66,7 @@ def validate_schema(schema_path):
                 "Content-Type: application/json",
                 "-d",
                 f"@{schema_path}",
-                "http://localhost:5001/validate",
+                "http://127.0.0.1:5001/validate",  # DevSkim: ignore DS162092
             ],
             capture_output=True,
             text=True,

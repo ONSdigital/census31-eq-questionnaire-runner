@@ -1,0 +1,17 @@
+{
+    "Globs": [
+        "**/.git/**",
+        "**/megalinter-reports/**",
+        "**/htmlcov/**",
+        "**/coverage/**",
+        "**/node_modules/**",
+        "**/.venv/**",
+        "**/__pycache__/**",
+        "**/*.pyc",
+        "**/templates/components/**",
+        "**/tests/**",
+        "**/dev-keys.yml",
+        "**/docker-compose*.yml",
+        "**/eslint.config.js"
+    ]
+}
