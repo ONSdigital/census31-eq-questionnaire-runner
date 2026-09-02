@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-08-14 12:07+0100\n"
+"POT-Creation-Date: 2026-09-02 14:17+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -227,15 +227,15 @@ msgstr ""
 msgid "ONS Surveys"
 msgstr ""
 
-#: app/helpers/template_helpers.py:94
+#: app/helpers/template_helpers.py:96
 msgid "Menu"
 msgstr ""
 
-#: app/helpers/template_helpers.py:115
+#: app/helpers/template_helpers.py:117
 msgid "The following links open in a new tab"
 msgstr ""
 
-#: app/helpers/template_helpers.py:149
+#: app/helpers/template_helpers.py:151
 #, python-brace-format
 msgid ""
 "Make sure you <a href='{sign_out_url}'>leave this page</a> or close your "
@@ -329,23 +329,23 @@ msgstr ""
 msgid "An individual access code has been sent by text"
 msgstr ""
 
-#: app/survey_config/census_survey_config.py:38
+#: app/survey_config/census_survey_config.py:42
 msgid "What we do"
 msgstr ""
 
-#: app/survey_config/census_survey_config.py:41
+#: app/survey_config/census_survey_config.py:45
 msgid "Contact us"
 msgstr ""
 
-#: app/survey_config/census_survey_config.py:45
+#: app/survey_config/census_survey_config.py:49
 msgid "Accessibility"
 msgstr ""
 
-#: app/survey_config/census_survey_config.py:55
+#: app/survey_config/census_survey_config.py:59
 msgid "Cookies"
 msgstr ""
 
-#: app/survey_config/census_survey_config.py:57
+#: app/survey_config/census_survey_config.py:61
 msgid "Privacy and data protection"
 msgstr ""
 
@@ -357,7 +357,7 @@ msgstr ""
 msgid "Use of address data is subject to the terms and conditions."
 msgstr ""
 
-#: app/survey_config/survey_config.py:34
+#: app/survey_config/survey_config.py:36
 msgid "Save and exit survey"
 msgstr ""
 
@@ -425,7 +425,7 @@ msgstr ""
 #: templates/individual_response/confirmation-text-message.html:39
 #: templates/individual_response/question.html:5 templates/interstitial.html:7
 #: templates/listcollectorcontent.html:8 templates/sectionsummary.html:11
-#: templates/sectionsummary.html:50
+#: templates/sectionsummary.html:51
 msgid "Continue"
 msgstr ""
 
@@ -829,7 +829,7 @@ msgstr ""
 msgid "<h1>Your progress has been saved</h1>"
 msgstr ""
 
-#: templates/signed-out.html:22
+#: templates/signed-out.html:21
 #, python-brace-format
 msgid "To resume the survey, <a href='{url}'>re-enter your access code</a>."
 msgstr ""
@@ -954,11 +954,6 @@ msgstr ""
 msgid "followed a link to a survey that has already been submitted"
 msgstr ""
 
-#: templates/errors/401.html:24 templates/errors/403.html:21
-#: templates/errors/404.html:20 templates/errors/submission-failed.html:16
-msgid "All other surveys"
-msgstr ""
-
 #: templates/errors/403.html:4
 #, python-brace-format
 msgid "For further help, please <a href='{url}'>contact us</a>."
@@ -1005,17 +1000,11 @@ msgstr ""
 msgid "If you pasted the web address, check you copied the whole address."
 msgstr ""
 
-#: templates/errors/404.html:19
-msgid ""
-"If the web address is correct or you selected a link or button, please "
-"see the following help links."
-msgstr ""
-
 #: templates/errors/500.html:3
 msgid "An error has occurred"
 msgstr ""
 
-#: templates/errors/500.html:5 templates/errors/500.html:25
+#: templates/errors/500.html:5
 #, python-brace-format
 msgid "If you need more help, <a href='{url}'>contact us</a>."
 msgstr ""
@@ -1044,14 +1033,6 @@ msgstr ""
 
 #: templates/errors/500.html:19
 msgid "If you have started a survey, your answers have been saved."
-msgstr ""
-
-#: templates/errors/500.html:24
-#, python-brace-format
-msgid ""
-"If you have attempted to submit your survey, you should check that this "
-"was successful. To do this, <a href='{logout_url}'>sign in to your "
-"business survey account</a>."
 msgstr ""
 
 #: templates/errors/previously-submitted.html:3
@@ -1085,6 +1066,10 @@ msgstr ""
 
 #: templates/errors/submission-failed.html:15
 msgid "If this problem keeps happening, please see the following help links."
+msgstr ""
+
+#: templates/errors/submission-failed.html:16
+msgid "All other surveys"
 msgstr ""
 
 #: templates/individual_response/confirmation-post.html:20
@@ -1176,7 +1161,7 @@ msgstr ""
 msgid "Hide"
 msgstr ""
 
-#: templates/layouts/_base.html:124
+#: templates/layouts/_base.html:134
 msgid "Skip to main content"
 msgstr ""
 
@@ -1206,7 +1191,7 @@ msgstr ""
 msgid "Yes, I confirm this is correct"
 msgstr ""
 
-#: templates/layouts/_questionnaire.html:46
+#: templates/layouts/_questionnaire.html:47
 msgid "Choose another section and return to this later"
 msgstr ""
 
@@ -1214,7 +1199,7 @@ msgstr ""
 msgid "Exit"
 msgstr ""
 
-#: templates/macros/helpers.html:15
+#: templates/macros/helpers.html:14
 msgid "Interviewer note:"
 msgstr ""
 
