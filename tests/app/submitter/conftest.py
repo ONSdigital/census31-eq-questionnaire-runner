@@ -11,7 +11,7 @@ from app.data_models.answer import Answer
 from app.data_models.answer_store import AnswerStore
 from app.data_models.metadata_proxy import MetadataProxy
 from app.questionnaire.questionnaire_schema import QuestionnaireSchema
-from app.settings import ACCOUNT_SERVICE_BASE_URL_SOCIAL
+from app.settings import ACCOUNT_SERVICE_BASE_URL
 from tests.app.parser.conftest import get_response_expires_at
 
 RAW_METADATA_V2 = {
@@ -19,7 +19,7 @@ RAW_METADATA_V2 = {
     "tx_id": str(uuid.uuid4()),
     "schema_name": "1_0000",
     "collection_exercise_sid": "test-sid",
-    "account_service_url": ACCOUNT_SERVICE_BASE_URL_SOCIAL,
+    "account_service_url": ACCOUNT_SERVICE_BASE_URL,
     "survey_metadata": {
         "data": {
             "period_id": "2016-02-01",

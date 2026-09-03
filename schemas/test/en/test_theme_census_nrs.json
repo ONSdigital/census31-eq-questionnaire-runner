@@ -4,15 +4,19 @@
     "schema_version": "0.0.1",
     "data_version": "0.0.3",
     "survey_id": "999",
-    "title": "Test Theme Health",
-    "theme": "health",
-    "description": "A questionnaire to demo the health survey theme",
+    "title": "Test Theme Census NRS",
+    "theme": "census-nrs",
+    "description": "A questionnaire to demo the census NRS survey theme",
     "metadata": [
         {
             "name": "qid",
             "type": "string"
         }
     ],
+    "post_submission": {
+        "view_response": true,
+        "feedback": true
+    },
     "questionnaire_flow": {
         "type": "Linear",
         "options": {
@@ -20,9 +24,6 @@
                 "collapsible": false
             }
         }
-    },
-    "post_submission": {
-        "view_response": true
     },
     "sections": [
         {
@@ -62,7 +63,7 @@
                         }
                     ],
                     "id": "group",
-                    "title": "Health Theme Test"
+                    "title": "Census NRS Theme Test"
                 }
             ]
         }

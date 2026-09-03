@@ -58,6 +58,13 @@ class TestCreateApp(unittest.TestCase):  # pylint: disable=too-many-public-metho
         babel = create_app(self._setting_overrides).babel  # pylint: disable=no-member
         self.assertIsInstance(babel, Babel)
 
+    def test_logs_application_version_when_present(self):
+        with patch("app.setup.logger.info") as mocked_logger_info:
+            self._setting_overrides.update({"EQ_APPLICATION_VERSION": "test-version"})
+            create_app(self._setting_overrides)
+
+        mocked_logger_info.assert_any_call("starting eq survey runner", version="test-version")
+
     def test_adds_logging_of_request_ids(self):
         with patch("structlog.contextvars.bind_contextvars") as bind_contextvars:
             self._setting_overrides.update({"EQ_APPLICATION_VERSION": False})
@@ -118,7 +125,7 @@ class TestCreateApp(unittest.TestCase):  # pylint: disable=too-many-public-metho
                 csp_policy_parts,
             )
             self.assertIn(
-                f"style-src 'self' https://fonts.googleapis.com {cdn_url}",
+                "style-src 'self' https://fonts.googleapis.com " f"{cdn_url} 'nonce-{request.csp_nonce}'",
                 csp_policy_parts,
             )
             self.assertIn(

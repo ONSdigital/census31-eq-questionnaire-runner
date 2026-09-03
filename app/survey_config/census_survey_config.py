@@ -3,22 +3,27 @@ from typing import Iterable, Mapping, MutableMapping
 
 from flask_babel import lazy_gettext
 
-from app.settings import ACCOUNT_SERVICE_BASE_URL_SOCIAL, ONS_URL, ONS_URL_CY, read_file
+from app.settings import ACCOUNT_SERVICE_BASE_URL, ONS_URL, ONS_URL_CY, read_file
 from app.survey_config.link import Link
 from app.survey_config.survey_config import SurveyConfig
 
 
 @dataclass
-class SocialSurveyConfig(
+class CensusSurveyConfig(
     SurveyConfig,
 ):
-    base_url: str = ACCOUNT_SERVICE_BASE_URL_SOCIAL
-    survey_title: str = "ONS Social Surveys"
+    base_url: str = ACCOUNT_SERVICE_BASE_URL
+    survey_title: str = "ONS Census"
+    title_logo: str = read_file("./templates/assets/images/census-logo.svg")
+    census_css: str = read_file("./templates/assets/css/census.css")
     footer_links: Iterable[MutableMapping] = field(default_factory=list)
     footer_legal_links: Iterable[Mapping] = field(default_factory=list)
 
     def __post_init__(self) -> None:
         super().__post_init__()
+
+        if self.language_code == "cy":
+            self.title_logo = read_file("./templates/assets/images/census-logo-cy-small.svg")
 
         upstream_base_url = f"{self.base_url}/{self.language_code}"
         ons_url = ONS_URL_CY if self.language_code == "cy" else ONS_URL
@@ -62,17 +67,13 @@ class SocialSurveyConfig(
 
 
 @dataclass
-class UKHSAONSSocialSurveyConfig(SocialSurveyConfig):
-    masthead_logo: str = read_file("./templates/assets/images/ukhsa-logo-stacked.svg") + read_file(
-        "./templates/assets/images/ons-logo-stacked.svg"
-    )
-    masthead_logo_mobile: str = read_file("./templates/assets/images/ukhsa-logo-stacked.svg") + read_file(
-        "./templates/assets/images/ons-logo-stacked.svg"
-    )
+class NISRACensusSurveyConfig(CensusSurveyConfig):
+    masthead_logo: str = read_file("./templates/assets/images/nisra-logo.svg")
+    footer_logo: str = read_file("./templates/assets/images/nisra-footer-logo.svg")
 
 
 @dataclass
-class ONSNHSSocialSurveyConfig(SocialSurveyConfig):
-    masthead_logo: str = read_file("./templates/assets/images/ons-logo-stacked.svg") + read_file(
-        "./templates/assets/images/nhs-logo.svg"
-    )
+class NRSCensusSurveyConfig(CensusSurveyConfig):
+    masthead_logo: str = read_file("./templates/assets/images/nrs-logo.svg")
+    footer_logo: str = read_file("./templates/assets/images/nrs-footer-logo.svg")
+    census_scott_css: str = read_file("./templates/assets/css/census-scott.css")
