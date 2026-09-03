@@ -269,7 +269,7 @@ class TestErrors(IntegrationTestCase):  # pylint: disable=too-many-public-method
         # Then
         self.assertStatusNotFound()
         self.assertInBody(
-            f'<p>If the web address is correct or you selected a link or button, please '
+            f"<p>If the web address is correct or you selected a link or button, please "
             f'<a href="{ONS_URL}/aboutus/contactus/surveyenquiries/">contact us</a> for more help.</p>'
         )
 
@@ -284,7 +284,7 @@ class TestErrors(IntegrationTestCase):  # pylint: disable=too-many-public-method
         # Then
         self.assertStatusNotFound()
         self.assertInBody(
-            f'<p>If the web address is correct or you selected a link or button, please '
+            f"<p>If the web address is correct or you selected a link or button, please "
             f'<a href="{ONS_URL}/aboutus/contactus/surveyenquiries/">contact us</a> for more help.</p>'
         )
 
