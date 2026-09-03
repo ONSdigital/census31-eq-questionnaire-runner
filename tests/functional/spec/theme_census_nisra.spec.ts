@@ -11,7 +11,7 @@ test.describe('Theme Census-NISRA', () => {
       const radioPage = new RadioPage(page)
       await expect(page).toHaveURL(new RegExp(radioPage.pageName))
       await expect(page.locator('#census-large-logo-en-alt').first()).toContainText('Census Test 2027')
-      await expect(page.locator('#nisra-logo-large-alt').first()).toContainText('Northern Ireland Statistics and Research Agency')
+      await expect(page.locator('#nisra-logo-large-alt').first()).toContainText('NISRA - Home')
       await expect(page.locator('#nisra-footer-logo-alt').first()).toContainText('Northern Ireland Statistics and Research Agency')
     })
   })
