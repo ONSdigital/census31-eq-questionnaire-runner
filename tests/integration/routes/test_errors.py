@@ -171,13 +171,8 @@ class TestErrors(IntegrationTestCase):  # pylint: disable=too-many-public-method
         # Then
         self.assertStatusUnauthorised()
         self.assertInBody(
-            [
-                (
-                    f"<p>If you started your survey using an access code, you need to "
-                    f'<a href="{CENSUS_URL}/{DEFAULT_LANGUAGE_CODE}/start/">re-enter your code</a>.'
-                    "</p>"
-                ),
-            ]
+            f"<p>To access this page you need to "
+            f'<a href="{CENSUS_URL}/{DEFAULT_LANGUAGE_CODE}/start/">re-enter your access code</a>.</p>'
         )
 
     def test_403_theme_default_cookie_exists(self):
@@ -221,12 +216,7 @@ class TestErrors(IntegrationTestCase):  # pylint: disable=too-many-public-method
         # Then
         self.assertStatusForbidden()
         self.assertInBody(
-            [
-                (
-                    f"<p>If you started your survey using an access code and you need further help, please "
-                    f'<a href="{ONS_URL}/aboutus/contactus/surveyenquiries/">contact us</a>.</p>'
-                ),
-            ]
+            f'<p>For further help, please <a href="{ONS_URL}/aboutus/contactus/surveyenquiries/">contact us</a>.</p>'
         )
 
     def test_404_theme_default_cookie_exists(self):
@@ -279,16 +269,8 @@ class TestErrors(IntegrationTestCase):  # pylint: disable=too-many-public-method
         # Then
         self.assertStatusNotFound()
         self.assertInBody(
-            [
-                (
-                    "<p>If the web address is correct or you selected a link or button, "
-                    "please see the following help links.</p>"
-                ),
-                (
-                    f"<p>If you started your survey using an access code, please "
-                    f'<a href="{ONS_URL}/aboutus/contactus/surveyenquiries/">contact us</a>.</p>'
-                ),
-            ]
+            f'<p>If the web address is correct or you selected a link or button, please '
+            f'<a href="{ONS_URL}/aboutus/contactus/surveyenquiries/">contact us</a> for more help.</p>'
         )
 
     def test_404_no_cookie_unauthenticated(self):
@@ -302,16 +284,8 @@ class TestErrors(IntegrationTestCase):  # pylint: disable=too-many-public-method
         # Then
         self.assertStatusNotFound()
         self.assertInBody(
-            [
-                (
-                    "<p>If the web address is correct or you selected a link or button, "
-                    "please see the following help links.</p>"
-                ),
-                (
-                    f"<p>If you started your survey using an access code, please "
-                    f'<a href="{ONS_URL}/aboutus/contactus/surveyenquiries/">contact us</a>.</p>'
-                ),
-            ]
+            f'<p>If the web address is correct or you selected a link or button, please '
+            f'<a href="{ONS_URL}/aboutus/contactus/surveyenquiries/">contact us</a> for more help.</p>'
         )
 
     def test_500_theme_default_cookie_exists(self):
@@ -369,8 +343,7 @@ class TestErrors(IntegrationTestCase):  # pylint: disable=too-many-public-method
         self.assertInBody(
             (
                 f"<p>If you have attempted to submit your survey, you should check that this was successful. "
-                f'To do this, <a href="{CENSUS_URL}/{DEFAULT_LANGUAGE_CODE}/start/">'
-                "sign in to your business survey account</a>.</p>"
+                f'To do this, <a href="{CENSUS_URL}/{DEFAULT_LANGUAGE_CODE}/start/">re-enter your code</a>.</p>'
             )
         )
         self.assertInBody(
