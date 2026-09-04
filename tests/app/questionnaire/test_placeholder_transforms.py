@@ -237,7 +237,7 @@ def test_remove_empty_from_list(transformer):
         {},
         set(),
         tuple(),
-        Decimal("0"),
+        Decimal(0),
         "String",
     ]
 
@@ -245,7 +245,7 @@ def test_remove_empty_from_list(transformer):
         0,
         False,
         " ",
-        Decimal("0"),
+        Decimal(0),
         "String",
     ]
 
@@ -259,7 +259,7 @@ def test_first_non_empty_item(transformer):
         "",
         None,
         0,
-        Decimal("0"),
+        Decimal(0),
         False,
         " ",
         "String",

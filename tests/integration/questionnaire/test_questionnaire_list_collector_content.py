@@ -30,10 +30,10 @@ class TestQuestionnaireListCollectorContent(QuestionnaireTestCase):
         self.post({"responsible-party-answer": "Yes"})
         self.assertInUrl("/questionnaire/list-collector-content/")
         self.assertInBody(
-            (
+
                 "You have previously reported the following companies. Press continue to "
                 "updated registration and trading information."
-            )
+
         )
 
         self.post()
@@ -83,10 +83,10 @@ class TestQuestionnaireListCollectorContent(QuestionnaireTestCase):
         )
 
         self.assertInBody(
-            (
+
                 "You have previously reported the following companies. Press continue to "
                 "updated registration and trading information."
-            )
+
         )
 
         self.post()
@@ -112,10 +112,10 @@ class TestQuestionnaireListCollectorContent(QuestionnaireTestCase):
         self.post({"responsible-party-answer": "Yes"})
         self.assertInUrl("/questionnaire/list-collector-content/")
         self.assertInBody(
-            (
+
                 "You have previously reported the following companies. Press continue to "
                 "updated registration and trading information."
-            )
+
         )
 
         self.post()
@@ -152,10 +152,10 @@ class TestQuestionnaireListCollectorContent(QuestionnaireTestCase):
         self.post({"responsible-party-answer": "Yes"})
         self.assertInUrl("/questionnaire/list-collector-content/")
         self.assertInBody(
-            (
+
                 "You have previously reported the following companies. Press continue to "
                 "updated registration and trading information."
-            )
+
         )
 
         self.post()

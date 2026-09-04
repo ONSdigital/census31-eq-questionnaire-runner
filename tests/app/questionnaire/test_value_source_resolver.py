@@ -1,5 +1,5 @@
 import pytest
-from mock import MagicMock, Mock
+from unittest.mock import MagicMock, Mock
 
 from app.data_models import AnswerStore, ListStore, ProgressStore
 from app.data_models.answer import Answer, AnswerDict
@@ -54,13 +54,15 @@ def get_calculation_block(block_id: str, summary_type: str, source_type: str, id
 def get_value_source_resolver(
     schema: QuestionnaireSchema = None,
     data_stores: DataStores = None,
-    location: Location | RelationshipLocation = Location(section_id="test-section", block_id="test-block"),
+    location: Location | RelationshipLocation = None,
     list_item_id: str | None = None,
     routing_path_block_ids: list | None = None,
     use_default_answer=False,
     escape_answer_values=False,
 ):
     data_stores = data_stores or DataStores()
+    if not location:
+        location = Location(section_id="test-section", block_id="test-block")
     if not schema:
         schema = get_mock_schema()
         schema.is_repeating_answer = Mock(return_value=bool(list_item_id))

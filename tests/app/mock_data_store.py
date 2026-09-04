@@ -9,7 +9,9 @@ class MockDatastore:
         self.delete_call_count = 0
 
     def transaction(self):
-        return contextlib.suppress()
+        from contextlib import nullcontext
+
+        return nullcontext()
 
     def put(self, entity):
         self.storage[entity.key] = entity

@@ -14,7 +14,7 @@ logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
 
 parser = argparse.ArgumentParser(
-    description="Generate a bag of DOM selectors, organised by page, " "to make writing webdriver tests easier"
+    description="Generate a bag of DOM selectors, organised by page, to make writing webdriver tests easier"
 )
 
 parser.add_argument(

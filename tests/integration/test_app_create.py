@@ -6,7 +6,7 @@ from uuid import UUID
 
 from flask import Flask, request
 from flask_babel import Babel
-from mock import patch
+from unittest.mock import patch
 
 from app.cloud_tasks import CloudTaskPublisher
 from app.publisher import LogPublisher, PubSubPublisher
@@ -247,9 +247,8 @@ class TestCreateApp(unittest.TestCase):
         with patch(
             "google.auth._default._get_explicit_environ_credentials",
             return_value=(Mock(), "test-project-id"),
-        ):
-            with self.assertRaises(Exception) as ex:
-                create_app(self._setting_overrides)
+        ), self.assertRaises(Exception) as ex:
+            create_app(self._setting_overrides)
 
         # Then
         assert "Unknown EQ_SUBMISSION_CONFIRMATION_BACKEND" in str(ex.exception)

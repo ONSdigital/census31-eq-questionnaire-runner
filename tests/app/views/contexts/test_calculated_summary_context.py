@@ -339,10 +339,10 @@ def test_build_view_context_for_calculated_summary_with_dynamic_answers(
     # list item id, so the anchor needs to also include it
     assert all(
         answer["link"].endswith(
-            (
+
                 f"return_to=calculated-summary&return_to_answer_id="
                 f"{answer['id']}&return_to_block_id={block_id}#{answer['id']}"
-            )
+
         )
         for answer in answers_to_keep
     )

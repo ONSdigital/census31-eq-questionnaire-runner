@@ -12,7 +12,9 @@ from app.storage.redis import Redis
 @pytest.fixture
 def mock_client(mocker):
     client = mocker.Mock()
-    client.transaction.return_value = contextlib.suppress()
+    from contextlib import nullcontext
+
+    client.transaction.return_value = nullcontext()
     return client
 
 

@@ -52,7 +52,7 @@ def test_gcs_submitter_adds_additional_keys_to_metadata_when_set(patch_gcs_clien
     gcs_submitter = GCSSubmitter(bucket_name="test_bucket")
 
     # When
-    gcs_submitter.send_message(message={"test_data"}, tx_id="123", case_id="456", **{"qid": "1"})
+    gcs_submitter.send_message(message={"test_data"}, tx_id="123", case_id="456", qid="1")
 
     # Then
     bucket = patch_gcs_client.return_value.get_bucket.return_value

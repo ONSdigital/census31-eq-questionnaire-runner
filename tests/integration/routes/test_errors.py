@@ -1,4 +1,4 @@
-from mock import Mock, patch
+from unittest.mock import Mock, patch
 
 from app.questionnaire.questionnaire_schema import DEFAULT_LANGUAGE_CODE
 from app.settings import ACCOUNT_SERVICE_BASE_URL, ACCOUNT_SERVICE_BASE_URL_SOCIAL, ONS_URL
@@ -48,25 +48,25 @@ class TestErrors(IntegrationTestCase):
     ):
         header_text = "<h2>Business surveys</h2>\n" if has_header else ""
         self.assertInBody(
-            (
+
                 f"{header_text}<p>If you have attempted to submit your survey, "
                 f"you should check that this was successful. To do this, "
                 f'<a href="{url}/sign-in/logout">sign in to your business survey account</a>.</p>\n'
                 f'<p>If you need more help, <a href="{url}/contact-us/">{contact_us_text}</a>.</p>'
-            )
+
         )
 
     def _assert_social_theme_500_page_content(self, has_header=False, contact_us_text="contact us"):
         header_text = "<h2>All other surveys</h2>\n" if has_header else ""
 
         self.assertInBody(
-            (
+
                 f"{header_text}<p>If you have attempted to submit your survey, "
                 f"you should check that this was successful. To do this, "
                 f'<a href="{SOCIAL_URL}/{DEFAULT_LANGUAGE_CODE}/start/">re-enter your code</a>.</p>\n'
                 f'<p>If you need more help, <a href="{ONS_URL}/aboutus/contactus/'
                 f'surveyenquiries/">{contact_us_text}</a>.</p>'
-            )
+
         )
 
     def test_errors_404(self):
@@ -165,10 +165,10 @@ class TestErrors(IntegrationTestCase):
         cookie = self.getCookie()
         self.assertEqual(cookie.get("theme"), "social")
         self.assertInBody(
-            (
+
                 f"<p>To access this page you need to "
                 f'<a href="{SOCIAL_URL}/{DEFAULT_LANGUAGE_CODE}/start/">re-enter your access code</a>.</p>'
-            )
+
         )
 
     def test_401_no_cookie(self):
@@ -260,10 +260,10 @@ class TestErrors(IntegrationTestCase):
         self.assertEqual(cookie.get("theme"), "default")
         self.assertStatusNotFound()
         self.assertInBody(
-            (
+
                 f"<p>If the web address is correct or you selected a link or button, "
                 f'please <a href="{DEFAULT_URL}/contact-us/">contact us</a> for more help.</p>'
-            )
+
         )
 
     def test_404_theme_social_cookie_exists(self):
@@ -281,11 +281,11 @@ class TestErrors(IntegrationTestCase):
         self.assertEqual(cookie.get("theme"), "social")
         self.assertStatusNotFound()
         self.assertInBody(
-            (
+
                 f"<p>If the web address is correct or you selected a link or button, "
                 f'please <a href="{ONS_URL}/aboutus/contactus/surveyenquiries/">contact us</a> for more '
                 "help.</p>"
-            )
+
         )
 
     def test_404_no_cookie(self):
@@ -414,10 +414,10 @@ class TestErrors(IntegrationTestCase):
         # Then
         self.assertStatusCode(500)
         self.assertInBody(
-            (
+
                 f"<p>If this problem keeps happening, please "
                 f'<a href="{DEFAULT_URL}/contact-us/">contact us</a> for help.</p>'
-            )
+
         )
 
     def test_submission_failed_theme_social_cookie_exists(self):
@@ -438,10 +438,10 @@ class TestErrors(IntegrationTestCase):
         # Then
         self.assertStatusCode(500)
         self.assertInBody(
-            (
+
                 f'<p>If this problem keeps happening, please <a href="{ONS_URL}/'
                 f'aboutus/contactus/surveyenquiries/">contact us</a> for help.</p>'
-            )
+
         )
 
     def launchAndFailSubmission(self, schema):
