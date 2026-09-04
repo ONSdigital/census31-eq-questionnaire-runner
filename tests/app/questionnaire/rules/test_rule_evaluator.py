@@ -41,7 +41,7 @@ def get_rule_evaluator(
     language="en",
     schema: QuestionnaireSchema = None,
     data_stores: DataStores = None,
-    location: Location | RelationshipLocation = None,
+    location: Location | RelationshipLocation = Location(section_id="test-section", block_id="test-block"),  # noqa: B008
     routing_path_block_ids: list | None = None,
 ):
     if not schema:
@@ -50,9 +50,6 @@ def get_rule_evaluator(
         schema.get_default_answer = Mock(return_value=None)
         schema.is_answer_dynamic = Mock(return_value=False)
         schema.is_answer_in_list_collector_repeating_block = Mock(return_value=False)
-
-    if not location:
-        location = Location(section_id="test-section", block_id="test-block")
 
     return RuleEvaluator(
         language=language,
