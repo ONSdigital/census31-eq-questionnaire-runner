@@ -21,8 +21,6 @@ logger = get_logger()
 
 login_manager = LoginManager()
 
-SESSION_EXPIRY_UPDATE_THRESHOLD_SECONDS = 60
-
 
 @login_manager.user_loader
 def user_loader(user_id: str) -> str | None:
@@ -63,7 +61,7 @@ def _extend_session_expiry(session_store: SessionStore) -> None:
         if (
             not session_store.expiration_time
             or (new_expiration_time - session_store.expiration_time).total_seconds()
-            > SESSION_EXPIRY_UPDATE_THRESHOLD_SECONDS
+            > 60
         ):
             session_store.expiration_time = new_expiration_time
             session_store.save()
