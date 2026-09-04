@@ -164,6 +164,7 @@ extend-select = [
     "Q",  # flake8-quotes (Q)
     "B", # flake8-bugbear (B)
     "A", # flake8-builtins (A)
+    "BLE", # flake8-blind-except (BLE)
     "C4", # flake8-comprehensions (C4)
     "PIE", # flake8-pie (PIE)
     "SLF", # flake8-self (SLF)
