@@ -1,4 +1,3 @@
-# pylint: disable=too-many-lines
 from datetime import datetime, timezone
 
 from app.data_models.answer import Answer

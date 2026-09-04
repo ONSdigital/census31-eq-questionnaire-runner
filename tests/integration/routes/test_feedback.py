@@ -5,7 +5,6 @@ from app.settings import EQ_FEEDBACK_LIMIT
 from tests.integration.integration_test_case import IntegrationTestCase
 
 
-# pylint: disable=too-many-public-methods
 class TestFeedback(IntegrationTestCase):
     SEND_FEEDBACK_URL = "/submitted/feedback/send"
     SENT_FEEDBACK_URL = "/submitted/feedback/sent"
@@ -87,7 +86,7 @@ class TestFeedback(IntegrationTestCase):
         # feedback the maximum number of times
         self._launch_and_complete_questionnaire()
 
-        for _ in range(0, EQ_FEEDBACK_LIMIT):
+        for _ in range(EQ_FEEDBACK_LIMIT):
             self.get(self.SEND_FEEDBACK_URL)
             self.post(
                 {
@@ -107,7 +106,7 @@ class TestFeedback(IntegrationTestCase):
         # feedback the maximum number of times
         self._launch_and_complete_questionnaire()
 
-        for _ in range(0, EQ_FEEDBACK_LIMIT):
+        for _ in range(EQ_FEEDBACK_LIMIT):
             self.get(self.SEND_FEEDBACK_URL)
             self.post(
                 {

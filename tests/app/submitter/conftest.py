@@ -1,8 +1,8 @@
 import uuid
+from unittest.mock import MagicMock
 
 import pytest
 from google.cloud.storage import Blob
-from mock import MagicMock
 from requests import Response
 
 from app.authentication.auth_payload_versions import AuthPayloadVersion
@@ -107,13 +107,13 @@ def gcs_blob_with_retry(mocker):
     response_503.status_code = 503
 
     response_200 = Response()
-    response_200._content = b'{"some-key":"some-value"}'  # pylint: disable=protected-access
+    response_200._content = b'{"some-key":"some-value"}'
     response_200.status_code = 200
 
     mock_transport_request = mocker.Mock(side_effect=[response_503, response_200])
     mock_transport = mocker.Mock()
     mock_transport.request = mock_transport_request
-    blob._get_transport = mocker.Mock(return_value=mock_transport)  # pylint: disable=protected-access
+    blob._get_transport = mocker.Mock(return_value=mock_transport)
 
     return blob
 

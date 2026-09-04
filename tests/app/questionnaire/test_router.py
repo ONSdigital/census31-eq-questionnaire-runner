@@ -1,10 +1,8 @@
-# pylint: disable=too-many-lines
-
 from functools import cached_property
+from unittest.mock import Mock
 
 import pytest
 from flask import url_for
-from mock import Mock
 
 from app.data_models import CompletionStatus
 from app.data_models.answer_store import AnswerStore

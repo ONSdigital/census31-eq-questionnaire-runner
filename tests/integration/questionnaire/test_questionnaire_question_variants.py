@@ -29,12 +29,12 @@ class TestQuestionnaireQuestionVariants(IntegrationTestCase):
 
         # Now change an answer which has variants depending on it
         self.get(url=self.proxy_url)
-        print(self.getHtmlSoup())
-        print("\n\n\n\n\n\n")
+        print(self.getHtmlSoup())  # noqa: T201
+        print("\n\n\n\n\n\n")  # noqa: T201
         self.assertInBody("No, I am answering on their behalf")
 
         self.post({"proxy-answer": "Yes, I am"}, url=self.proxy_url)
-        print(self.getHtmlSoup())
+        print(self.getHtmlSoup())  # noqa: T201
 
         self.assertInBody("What is your age")
 

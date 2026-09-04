@@ -147,7 +147,6 @@ class TestCreateToken(IntegrationTestCase, AppContextTestCase):
             },
         ]
         for values in metadata_tokens:
-            with self.subTest():
-                with self.test_app.app_context():
-                    decrypted_token = decrypt_token(values["token"])
-                    self.assertNotIn(values["removed_metadata"], decrypted_token)
+            with self.subTest(), self.test_app.app_context():
+                decrypted_token = decrypt_token(values["token"])
+                self.assertNotIn(values["removed_metadata"], decrypted_token)

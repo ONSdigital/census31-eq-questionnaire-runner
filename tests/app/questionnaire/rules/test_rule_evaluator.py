@@ -1,8 +1,8 @@
 from datetime import datetime, timezone
+from unittest.mock import MagicMock, Mock
 
 import pytest
 from freezegun import freeze_time
-from mock import MagicMock, Mock
 
 from app.data_models import AnswerStore, ListStore, ProgressStore
 from app.data_models.answer import Answer
@@ -41,7 +41,9 @@ def get_rule_evaluator(
     language="en",
     schema: QuestionnaireSchema = None,
     data_stores: DataStores = None,
-    location: Location | RelationshipLocation = Location(section_id="test-section", block_id="test-block"),
+    location: Location | RelationshipLocation = Location(
+        section_id="test-section", block_id="test-block"
+    ),  # noqa: B008
     routing_path_block_ids: list | None = None,
 ):
     if not schema:

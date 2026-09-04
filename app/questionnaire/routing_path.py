@@ -3,7 +3,7 @@ from typing import Iterator, SupportsIndex
 from app.utilities.types import SectionKey
 
 
-class RoutingPath:
+class RoutingPath:  # noqa: PLW1641
     """Holds a list of block_ids and has section_id, list_item_id and list_name attributes"""
 
     def __init__(

@@ -1,9 +1,8 @@
-# pylint: disable=unused-argument
 from datetime import datetime, timezone
+from unittest.mock import patch
 
 import pytest
 from dateutil.relativedelta import relativedelta
-from mock import patch
 from wtforms import Form
 
 from app.data_models.answer import Answer

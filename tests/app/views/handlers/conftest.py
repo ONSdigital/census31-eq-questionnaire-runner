@@ -1,9 +1,9 @@
 import uuid
 from datetime import datetime, timedelta, timezone
+from unittest.mock import Mock
 
 import pytest
 from freezegun import freeze_time
-from mock import Mock
 
 from app.authentication.auth_payload_versions import AuthPayloadVersion
 from app.data_models import QuestionnaireStore
@@ -188,7 +188,7 @@ def submission_payload_session_data():
 def submission_payload_session_store(
     submission_payload_session_data,
     submission_payload_expires_at,
-):  # pylint: disable=redefined-outer-name
+):
     return SessionStore("user_ik", "pepper", "eq_session_id").create(
         "eq_session_id",
         "user_id",

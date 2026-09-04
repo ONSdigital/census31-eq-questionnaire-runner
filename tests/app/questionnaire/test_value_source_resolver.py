@@ -1,5 +1,6 @@
+from unittest.mock import MagicMock, Mock
+
 import pytest
-from mock import MagicMock, Mock
 
 from app.data_models import AnswerStore, ListStore, ProgressStore
 from app.data_models.answer import Answer, AnswerDict
@@ -54,7 +55,9 @@ def get_calculation_block(block_id: str, summary_type: str, source_type: str, id
 def get_value_source_resolver(
     schema: QuestionnaireSchema = None,
     data_stores: DataStores = None,
-    location: Location | RelationshipLocation = Location(section_id="test-section", block_id="test-block"),
+    location: Location | RelationshipLocation = Location(
+        section_id="test-section", block_id="test-block"
+    ),  # noqa: B008
     list_item_id: str | None = None,
     routing_path_block_ids: list | None = None,
     use_default_answer=False,

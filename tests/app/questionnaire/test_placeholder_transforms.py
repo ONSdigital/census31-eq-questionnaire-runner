@@ -237,7 +237,7 @@ def test_remove_empty_from_list(transformer):
         {},
         set(),
         tuple(),
-        Decimal("0"),
+        Decimal(0),
         "String",
     ]
 
@@ -245,7 +245,7 @@ def test_remove_empty_from_list(transformer):
         0,
         False,
         " ",
-        Decimal("0"),
+        Decimal(0),
         "String",
     ]
 
@@ -259,7 +259,7 @@ def test_first_non_empty_item(transformer):
         "",
         None,
         0,
-        Decimal("0"),
+        Decimal(0),
         False,
         " ",
         "String",
@@ -298,7 +298,6 @@ def test_list_has_items(transformer):
 @pytest.mark.parametrize(
     "first, middle, last, include_middle_names, expected",
     (
-        ("Joe", None, "Bloggs", True, "Joe Bloggs"),
         ("Joe", None, "Bloggs", True, "Joe Bloggs"),
         ("Joe", "Michael", "Bloggs", True, "Joe Michael Bloggs"),
         ("Joe", "Michael", "Bloggs", False, "Joe Bloggs"),
@@ -382,24 +381,19 @@ def test_list_item_count(item_list, expected, transformer):
         ("2021-09-29", -1, 7, "THURSDAY", ("2021-09-16", "2021-09-22")),
         ("2021-09-30", -1, 7, "THURSDAY", ("2021-09-23", "2021-09-29")),
         # All weekdays equal to first day of the week
-        ("2021-09-27", -1, 7, "MONDAY", ("2021-09-20", "2021-09-26")),
         ("2021-09-28", -1, 7, "TUESDAY", ("2021-09-21", "2021-09-27")),
         ("2021-09-29", -1, 7, "WEDNESDAY", ("2021-09-22", "2021-09-28")),
-        ("2021-09-30", -1, 7, "THURSDAY", ("2021-09-23", "2021-09-29")),
         ("2021-10-01", -1, 7, "FRIDAY", ("2021-09-24", "2021-09-30")),
         ("2021-10-02", -1, 7, "SATURDAY", ("2021-09-25", "2021-10-01")),
         ("2021-10-03", -1, 7, "SUNDAY", ("2021-09-26", "2021-10-02")),
         # All weekdays equal to last day of the week
-        ("2021-09-26", -1, 7, "MONDAY", ("2021-09-13", "2021-09-19")),
         ("2021-09-27", -1, 7, "TUESDAY", ("2021-09-14", "2021-09-20")),
         ("2021-09-28", -1, 7, "WEDNESDAY", ("2021-09-15", "2021-09-21")),
-        ("2021-09-29", -1, 7, "THURSDAY", ("2021-09-16", "2021-09-22")),
         ("2021-09-30", -1, 7, "FRIDAY", ("2021-09-17", "2021-09-23")),
         ("2021-10-01", -1, 7, "SATURDAY", ("2021-09-18", "2021-09-24")),
         ("2021-10-02", -1, 7, "SUNDAY", ("2021-09-19", "2021-09-25")),
         # Varying weeks offset
         ("2021-09-27", 0, 7, "MONDAY", ("2021-09-27", "2021-10-03")),
-        ("2021-09-27", -1, 7, "MONDAY", ("2021-09-20", "2021-09-26")),
         ("2021-09-27", -2, 7, "MONDAY", ("2021-09-13", "2021-09-19")),
         ("2021-09-27", -4, 7, "MONDAY", ("2021-08-30", "2021-09-05")),
         ("2021-09-27", -52, 7, "MONDAY", ("2020-09-28", "2020-10-04")),

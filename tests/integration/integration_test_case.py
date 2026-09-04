@@ -2,12 +2,11 @@ import os
 import re
 import unittest
 import zlib
-from unittest.mock import Mock
+from unittest.mock import Mock, patch
 
 import fakeredis
 from bs4 import BeautifulSoup
 from itsdangerous import base64_decode
-from mock import patch
 from sdc.crypto.key_store import KeyStore
 
 from app.keys import KEY_PURPOSE_AUTHENTICATION, KEY_PURPOSE_SUBMISSION
@@ -60,7 +59,7 @@ KEYS_DICT = {
 }
 
 
-class IntegrationTestCase(unittest.TestCase):  # pylint: disable=too-many-public-methods
+class IntegrationTestCase(unittest.TestCase):
     def setUp(self):
         # Cache for requests
         self.last_url = None

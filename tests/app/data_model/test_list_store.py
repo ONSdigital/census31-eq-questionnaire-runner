@@ -20,7 +20,6 @@ def test_list_serialisation():
 
 def test_deserialisation():
     store = ListStore()
-    # pylint: disable=protected-access
     first_id = store._generate_identifier()
     second_id = store._generate_identifier()
     additional_id = store._generate_identifier()
@@ -47,7 +46,6 @@ def test_unique_id_generation(mocker):
         side_effect=["first", "first", "second"],
     ):
         store = ListStore()
-        # pylint: disable=protected-access
         store._lists["test"] = ListModel(name="test", items=["first"])
         result = store._generate_identifier()
 
@@ -88,7 +86,7 @@ def test_delete_list_item_id():
     store = ListStore()
     person = store.add_list_item("people")
     store.delete_list_item("people", person)
-    assert not store._lists  # pylint: disable=protected-access
+    assert not store._lists
 
 
 def test_delete_list():
@@ -96,7 +94,7 @@ def test_delete_list():
     store.add_list_item("people")
     store.add_list_item("people")
     store.delete_list("people")
-    assert not store._lists  # pylint: disable=protected-access
+    assert not store._lists
 
 
 def test_delete_list_item_id_does_not_raise():
@@ -150,7 +148,7 @@ def test_first_raises_index_error_when_list_is_empty():
     new_list = ListModel("people", [])
 
     with pytest.raises(IndexError) as error:
-        new_list.first  # pylint: disable=pointless-statement
+        new_list.first  # noqa: B018
 
     assert "unable to access first item in list, list 'people' is empty" in str(error.value)
 

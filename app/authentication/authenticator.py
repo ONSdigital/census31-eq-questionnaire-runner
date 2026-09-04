@@ -40,7 +40,7 @@ def request_load_user(
 
 
 @user_logged_out.connect_via(ANY)
-def when_user_logged_out(sender_app: Flask, user: str) -> None:  # pylint: disable=unused-argument
+def when_user_logged_out(sender_app: Flask, user: str) -> None:
     logger.debug("log out user")
     session_store = get_session_store()
     if session_store:

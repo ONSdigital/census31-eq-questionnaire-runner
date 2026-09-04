@@ -1,15 +1,15 @@
 from datetime import datetime, timedelta, timezone
+from unittest.mock import Mock
 
 import pytest
 from flask import Flask
 from flask_babel import format_datetime
-from mock import Mock
 
 from app.data_models import QuestionnaireStore
 from app.data_models.answer import Answer
 from app.data_models.answer_store import AnswerStore
+from app.data_models.metadata_proxy import NoMetadataException
 from app.settings import VIEW_SUBMITTED_RESPONSE_EXPIRATION_IN_SECONDS
-from app.submitter.converter_v2 import NoMetadataException
 from app.survey_config.survey_type import SurveyType
 from app.utilities.schema import load_schema_from_name
 from app.views.contexts.view_submitted_response_context import build_view_submitted_response_context
@@ -90,7 +90,7 @@ def test_view_submitted_response_expired(
 def test_build_view_submitted_response_no_submitted_at(app: Flask):
     with app.app_context():
         questionnaire_store = fake_questionnaire_store({}, None)
-        with pytest.raises(Exception):
+        with pytest.raises(NoMetadataException):
             build_view_submitted_response_context("en", SCHEMA, questionnaire_store, SurveyType.DEFAULT)
 
 

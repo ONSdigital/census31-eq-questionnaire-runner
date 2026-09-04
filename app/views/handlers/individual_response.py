@@ -141,9 +141,7 @@ class IndividualResponseHandler:
     def page_title(self, page_title: str) -> str:
         if self._list_item_id:
             page_title += ": " + lazy_gettext(
-                "Person {list_item_position}".format(  # pylint: disable=consider-using-f-string
-                    list_item_position=self._list_item_position
-                )
+                "Person {list_item_position}".format(list_item_position=self._list_item_position)
             )
         return page_title
 
