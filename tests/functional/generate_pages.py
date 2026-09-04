@@ -320,7 +320,7 @@ def get_all_questions(block):
         all_questions.append(block.get("question"))
     for question_variant in block.get("question_variants", []):
         if "question" in question_variant:
-            all_questions.append(question_variant["question"])
+            all_questions.extend([question_variant["question"]])
 
     return all_questions
 
@@ -364,7 +364,7 @@ def process_options(answer_id, options, page_spec, base_prefix):
             page_spec.write(ANSWER_GETTER.substitute(option_context))
 
 
-def process_answer(answer, page_spec, long_names, page_name):
+def process_answer(answer, page_spec, long_names, page_name):  # noqa: C901, PLR0912
     answer_name = generate_pascal_case_from_id(answer["id"])
     answer_name = answer_name.replace(page_name, "")
 
@@ -427,7 +427,9 @@ def process_answer(answer, page_spec, long_names, page_name):
             page_spec.write(ANSWER_UNIT_TYPE_GETTER.substitute(answer_context))
 
     else:
-        raise NotImplementedError(f"Answer type {answer['type']} not configured")
+        answer_type = answer["type"]
+        message = f"Answer type {answer_type} not configured"
+        raise NotImplementedError(message)
 
 
 def process_question(question, page_spec, num_questions, page_name):
@@ -548,7 +550,7 @@ def process_content(context, page_spec):
     page_spec.write(CONTENT_ITEM_GETTER.safe_substitute(context))
 
 
-def write_summary_spec(
+def write_summary_spec(  # noqa: C901
     page_spec,
     section,
     collapsible,
@@ -614,10 +616,7 @@ def long_names_required(question, num_questions):
         return True
 
     num_answers = len(question.get("answers", []))
-    if num_answers > 1:
-        return True
-
-    return False
+    return num_answers > 1
 
 
 def _write_date_answer(answer_id, prefix):
@@ -731,7 +730,7 @@ def build_and_get_base_page_context(
     return context
 
 
-def process_block(block, dir_out, schema_data, spec_file, relative_require="..", page_filename=None):
+def process_block(block, dir_out, schema_data, spec_file, relative_require="..", page_filename=None):  # noqa: C901, PLR0912, PLR0915
     logger.debug("Processing Block: %s", block["id"])
 
     if not page_filename:
@@ -989,9 +988,8 @@ def process_section_summary(section_id, dir_out, section, spec_file, relative_re
         page_spec.write(SECTION_SUMMARY_PAGE_URL)
 
         show_non_item_answers = False
-        if summary := section.get("summary"):
-            if summary.get("show_non_item_answers"):
-                show_non_item_answers = True
+        if (summary := section.get("summary")) and summary.get("show_non_item_answers"):
+            show_non_item_answers = True
 
         write_summary_spec(
             page_spec,
@@ -1017,7 +1015,7 @@ if __name__ == "__main__":
     os.makedirs(args.OUT_DIRECTORY, exist_ok=True)
 
     if os.path.isdir(args.SCHEMA):
-        for root, dirs, files in os.walk(args.SCHEMA):
+        for root, _dirs, files in os.walk(args.SCHEMA):
             for file in [os.path.join(root, file) for file in files]:
                 filename = os.path.basename(file)
                 logger.info("File %s", filename)

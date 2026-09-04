@@ -1,4 +1,4 @@
-import contextlib
+from contextlib import nullcontext
 
 from google.cloud.datastore import Key
 
@@ -9,8 +9,6 @@ class MockDatastore:
         self.delete_call_count = 0
 
     def transaction(self):
-        from contextlib import nullcontext
-
         return nullcontext()
 
     def put(self, entity):

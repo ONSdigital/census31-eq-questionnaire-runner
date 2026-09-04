@@ -114,7 +114,7 @@ class TestCreateApp(unittest.TestCase):
             csp_policy_parts = headers["Content-Security-Policy"].split("; ")
             self.assertIn(f"default-src 'self' {cdn_url}", csp_policy_parts)
             self.assertIn(
-                "script-src 'self' https://*.googletagmanager.com " f"{cdn_url} 'nonce-{request.csp_nonce}'",
+                f"script-src 'self' https://*.googletagmanager.com {cdn_url} 'nonce-{request.csp_nonce}'",
                 csp_policy_parts,
             )
             self.assertIn(

@@ -117,16 +117,15 @@ class TestErrors(IntegrationTestCase):
             with patch(
                 "app.routes.questionnaire.get_block_handler",
                 side_effect=Exception("You broke it"),
+            ), patch(
+                "app.routes.errors.log_exception",
+                side_effect=Exception("You broke it again"),
             ):
                 # Another exception occurs during exception handling
-                with patch(
-                    "app.routes.errors.log_exception",
-                    side_effect=Exception("You broke it again"),
-                ):
-                    self.post({"answer": "5000000"})
+                self.post({"answer": "5000000"})
 
-                    self.assertStatusCode(500)
-                    self._assert_generic_500_page_content()
+                self.assertStatusCode(500)
+                self._assert_generic_500_page_content()
 
     def test_401_theme_default_cookie_exists(self):
         # Given

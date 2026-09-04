@@ -66,7 +66,7 @@ from tests.app.views.contexts import assert_summary_context
         ),
     ),
 )
-def test_build_view_context_for_currency_calculated_summary(
+def test_build_view_context_for_currency_calculated_summary(  # noqa: PLR0913, PLR0917
     block_id,
     locale,
     language,
