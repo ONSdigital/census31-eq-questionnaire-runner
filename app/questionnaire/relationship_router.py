@@ -2,7 +2,7 @@ from app.data_models.answer_store import AnswerStore
 from app.data_models.relationship_store import RelationshipStore
 from app.questionnaire.relationship_location import RelationshipLocation
 
-MIN_RELATIONSHIPS_FOR_UNRELATED_BLOCK = 2
+MIN_RELATIONSHIPS_FOR_UNRELATED_QUESTION = 2
 UNRELATED_RELATIONSHIPS_THRESHOLD = 2
 
 
@@ -74,7 +74,7 @@ class RelationshipRouter:
         for to_item_id in to_list_item_ids:
             if (
                 self.unrelated_block_id
-                and number_of_relationships_left >= MIN_RELATIONSHIPS_FOR_UNRELATED_BLOCK
+                and number_of_relationships_left >= MIN_RELATIONSHIPS_FOR_UNRELATED_QUESTION
                 and number_of_unrelated_relationships == UNRELATED_RELATIONSHIPS_THRESHOLD
                 and not unrelated_block_in_path
             ):
