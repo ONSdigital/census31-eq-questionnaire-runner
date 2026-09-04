@@ -117,7 +117,7 @@ def process_schema(future, future_to_schema):
         logging.error("\033[31mHTTP Status: %s\033[0m", formatted_json)
         return False
 
-    except Exception as e:
+    except (json.JSONDecodeError, OSError, KeyError, TypeError) as e:
         logging.error("\033[31mError processing %s: %s\033[0m", schema, e)
         return False
 
