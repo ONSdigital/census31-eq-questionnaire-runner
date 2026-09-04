@@ -9,7 +9,7 @@ from app.utilities.types import LocationType
 
 
 # Type ignore: validation should ensure the variant exists when this is called
-def choose_variant(  # type: ignore  # noqa: PLR0913, PLR0917
+def choose_variant(  # type: ignore
     block: Mapping,
     schema: QuestionnaireSchema,
     data_stores: DataStores,

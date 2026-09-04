@@ -425,7 +425,7 @@ class SummaryRowItemValue:
 
 
 class SummaryRowItem:
-    def __init__(  # noqa: C901, PLR0912, PLR0913, PLR0917
+    def __init__(  # noqa: C901, PLR0912
         self,
         question: SelectFieldBase._Option,
         answer: SelectFieldBase._Option,
@@ -496,7 +496,7 @@ class SummaryRowItem:
 
 
 class SummaryRow:
-    def __init__(  # noqa: PLR0913, PLR0917
+    def __init__(
         self,
         question: SelectFieldBase._Option,
         summary_type: SelectFieldBase._Option,
@@ -530,7 +530,7 @@ class SummaryRow:
 
 
 @blueprint.app_template_filter()
-def map_summary_item_config(  # noqa: PLR0913, PLR0917
+def map_summary_item_config(
     group: dict[str, list | dict],
     summary_type: str,
     answers_are_editable: bool,
@@ -615,7 +615,7 @@ def map_list_config(list_values: list[dict]) -> list[dict]:
 
 
 @blueprint.app_template_filter()
-def map_list_collector_config(  # noqa: PLR0913, PLR0917
+def map_list_collector_config(
     list_items: list[dict[str, str | int]],
     editable: bool = True,
     render_icon: bool = False,

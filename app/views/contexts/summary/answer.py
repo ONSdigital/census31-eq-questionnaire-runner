@@ -12,7 +12,7 @@ InferredAnswerValueTypes = None | DateRangeTypes | str | AnswerValueEscapedTypes
 
 
 class Answer:
-    def __init__(  # noqa: PLR0913
+    def __init__(
         self,
         *,
         answer_schema: Mapping[str, str],

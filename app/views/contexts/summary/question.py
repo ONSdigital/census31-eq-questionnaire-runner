@@ -18,7 +18,7 @@ from app.views.contexts.summary.answer import Answer, InferredAnswerValueTypes, 
 
 
 class Question:
-    def __init__(  # noqa: PLR0913
+    def __init__(
         self,
         question_schema: QuestionSchemaType,
         *,
@@ -75,7 +75,7 @@ class Question:
 
         return escape_answer_value(answer.value) if answer else None
 
-    def _build_answers(  # noqa: PLR0913
+    def _build_answers(
         self,
         *,
         answer_store: AnswerStore,

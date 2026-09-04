@@ -13,7 +13,7 @@ from app.questionnaire.value_source_resolver import ValueSourceEscapedTypes, Val
 class FieldHandler(ABC):
     MANDATORY_MESSAGE_KEY = ""
 
-    def __init__(  # noqa: PLR0913, PLR0917
+    def __init__(
         self,
         answer_schema: Mapping[str, Any],
         value_source_resolver: ValueSourceResolver,

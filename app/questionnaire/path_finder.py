@@ -156,7 +156,7 @@ class PathFinder:
 
         return routing_path_block_ids  # pragma: no cover
 
-    def _evaluate_routing_rules(  # noqa: PLR0913, PLR0917
+    def _evaluate_routing_rules(
         self,
         this_location: Location,
         blocks: Iterable[Mapping],

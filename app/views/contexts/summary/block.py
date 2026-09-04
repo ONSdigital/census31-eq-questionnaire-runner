@@ -12,7 +12,7 @@ from app.views.contexts.summary.question import Question
 
 
 class Block:
-    def __init__(  # noqa: PLR0913
+    def __init__(
         self,
         block_schema: Mapping,
         *,

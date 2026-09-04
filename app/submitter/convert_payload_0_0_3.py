@@ -108,7 +108,7 @@ def add_list_collector_answers(
                     answers_payload.add_or_update(answer)
 
 
-def add_relationships_unrelated_answers(  # noqa: PLR0913, PLR0917
+def add_relationships_unrelated_answers(
     answer_store: AnswerStore,
     list_store: ListStore,
     schema: QuestionnaireSchema,

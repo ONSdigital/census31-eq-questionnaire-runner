@@ -9,7 +9,7 @@ UNRELATED_RELATIONSHIPS_THRESHOLD = 2
 class RelationshipRouter:
     UNRELATED_RELATIONSHIP_VALUE = "Unrelated"
 
-    def __init__(  # noqa: PLR0913, PLR0917
+    def __init__(
         self,
         answer_store: AnswerStore,
         relationship_store: RelationshipStore,

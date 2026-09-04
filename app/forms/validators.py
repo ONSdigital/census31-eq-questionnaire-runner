@@ -99,7 +99,7 @@ class NumberRange:
         will not be checked.
     """
 
-    def __init__(  # noqa: PLR0913, PLR0917
+    def __init__(
         self,
         minimum: NumType | None = None,
         minimum_exclusive: bool = False,

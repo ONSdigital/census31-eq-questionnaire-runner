@@ -5,7 +5,7 @@ from marshmallow import Schema, fields, post_load, pre_dump
 
 
 class QuestionnaireState:
-    def __init__(  # noqa: PLR0913, PLR0917
+    def __init__(
         self,
         user_id: str,
         state_data: str,

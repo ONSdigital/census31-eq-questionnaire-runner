@@ -13,7 +13,7 @@ from app.views.contexts.email_form_context import build_email_form_context
 from app.views.contexts.submission_metadata_context import build_submission_metadata_context
 
 
-def build_thank_you_context(  # noqa: PLR0913, PLR0917
+def build_thank_you_context(
     schema: QuestionnaireSchema,
     metadata: MetadataProxy,
     submitted_at: datetime,

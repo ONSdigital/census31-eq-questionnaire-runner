@@ -40,7 +40,7 @@ BLOCK_MAPPINGS = {
 }
 
 
-def get_block_handler(  # noqa: PLR0913, PLR0917
+def get_block_handler(
     schema: QuestionnaireSchema,
     block_id: str,
     list_item_id: str | None,
