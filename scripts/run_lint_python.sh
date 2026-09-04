@@ -24,5 +24,5 @@ display_result $? 1 "Ruff code style check (including isort)"
 ./scripts/run_mypy.sh
 display_result $? 1 "Mypy type check"
 
-black --check . --exclude "node_modules|megalinter-reports"
+black --check . --exclude "node_modules|megalinter-reports|\.venv"
 display_result $? 1 "Python code formatting check"
