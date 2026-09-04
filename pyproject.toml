@@ -106,7 +106,7 @@ include = ["*.py"]
 line-length = 120
 indent-width = 4
 cache-dir = "~/.cache/ruff"
-exclude = ["tests/*", "scripts/*"]
+exclude = ["scripts/*"]
 
 
 [tool.ruff.lint]
@@ -136,6 +136,7 @@ extend-ignore = [
     "UP037", # Remove quotes from type annotation
     "UP035", # Import from {target} instead: {names}
     "UP040", # Type alias {name} uses {type_alias_method} instead of the type keyword
+    "S101", # Use of assert detected
     "S105", # Possible hardcoded password assigned to: "{}"
     "S311", # Standard pseudo-random generators are not suitable for cryptographic purposes
     "C408", # Unnecessary `tuple` call (rewrite as a literal)
