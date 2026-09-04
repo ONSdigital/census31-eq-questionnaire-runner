@@ -1,7 +1,7 @@
 import unittest
+from unittest.mock import patch
 
 import fakeredis
-from unittest.mock import patch
 
 from app.setup import create_app
 from tests.app.mock_data_store import MockDatastore

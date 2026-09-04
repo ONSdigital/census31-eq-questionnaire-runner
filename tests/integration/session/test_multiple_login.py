@@ -2,7 +2,6 @@ from datetime import datetime, timezone
 
 from app.utilities.json import json_loads
 from tests.integration.integration_test_case import IntegrationTestCase
-
 from tests.integration.questionnaire import SUBMIT_URL_PATH, THANK_YOU_URL_PATH
 
 

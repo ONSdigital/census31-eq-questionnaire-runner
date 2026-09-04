@@ -1,9 +1,9 @@
 from datetime import datetime, timedelta, timezone
 from http.client import HTTPMessage
+from unittest.mock import MagicMock
 
 import fakeredis
 import pytest
-from unittest.mock import MagicMock
 from mock.mock import Mock
 from requests.adapters import ConnectTimeoutError, ReadTimeoutError
 from urllib3.connectionpool import HTTPConnectionPool

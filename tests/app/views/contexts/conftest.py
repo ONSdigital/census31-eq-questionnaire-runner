@@ -1,5 +1,6 @@
-import pytest
 from unittest.mock import MagicMock
+
+import pytest
 
 from app.data_models import QuestionnaireStore
 from app.data_models.answer_store import AnswerStore

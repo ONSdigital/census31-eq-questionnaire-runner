@@ -2,11 +2,11 @@
 import unicodedata
 from datetime import datetime, timezone
 from decimal import Decimal
+from unittest.mock import Mock
 
 import pytest
 import simplejson as json
 from flask import g
-from unittest.mock import Mock
 
 from app.jinja_filters import (
     OtherConfig,

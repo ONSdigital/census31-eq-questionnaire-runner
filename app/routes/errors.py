@@ -1,5 +1,5 @@
-from typing import Any
 from http import HTTPStatus
+from typing import Any
 
 from flask import Blueprint, request
 from flask.helpers import url_for

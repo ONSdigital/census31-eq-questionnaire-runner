@@ -730,7 +730,9 @@ def build_and_get_base_page_context(
     return context
 
 
-def process_block(block, dir_out, schema_data, spec_file, relative_require="..", page_filename=None):  # noqa: C901, PLR0912, PLR0915
+def process_block(
+    block, dir_out, schema_data, spec_file, relative_require="..", page_filename=None
+):  # noqa: C901, PLR0912, PLR0915
     logger.debug("Processing Block: %s", block["id"])
 
     if not page_filename:

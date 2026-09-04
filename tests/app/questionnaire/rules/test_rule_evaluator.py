@@ -1,8 +1,8 @@
 from datetime import datetime, timezone
+from unittest.mock import MagicMock, Mock
 
 import pytest
 from freezegun import freeze_time
-from unittest.mock import MagicMock, Mock
 
 from app.data_models import AnswerStore, ListStore, ProgressStore
 from app.data_models.answer import Answer

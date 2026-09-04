@@ -1,12 +1,11 @@
 import unittest
 from contextlib import contextmanager
 from unittest import mock
-from unittest.mock import Mock
+from unittest.mock import Mock, patch
 from uuid import UUID
 
 from flask import Flask, request
 from flask_babel import Babel
-from unittest.mock import patch
 
 from app.cloud_tasks import CloudTaskPublisher
 from app.publisher import LogPublisher, PubSubPublisher

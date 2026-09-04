@@ -40,10 +40,8 @@ class TestQuestionnaireGrandCalculatedSummary(QuestionnaireTestCase):
         self.assertInBody("Calculated summary for food and clothing is calculated to be £210.00. Is this correct?")
         self.post()
         self.assertInBody(
-
-                "Grand Calculated Summary which should match the previous calculated "
-                "summary is calculated to be £210.00. Is this correct?"
-
+            "Grand Calculated Summary which should match the previous calculated "
+            "summary is calculated to be £210.00. Is this correct?"
         )
         self.post()
         self.post()

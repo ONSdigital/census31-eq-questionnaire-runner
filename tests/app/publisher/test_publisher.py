@@ -35,9 +35,9 @@ def test_resolving_message_raises_exception_on_error(publisher):
     mock_future = Mock()
     mock_future.result.side_effect = Exception()
 
-    with patch(
-        "app.publisher.publisher.PubSubPublisher._publish", return_value=mock_future
-    ), pytest.raises(PublicationFailed):
+    with patch("app.publisher.publisher.PubSubPublisher._publish", return_value=mock_future), pytest.raises(
+        PublicationFailed
+    ):
         publisher.publish(
             "test-topic-id",
             b"test-message",
