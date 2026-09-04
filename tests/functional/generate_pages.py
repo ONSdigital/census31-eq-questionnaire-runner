@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# noqa: E501 (This file contains auto-generated TypeScript template strings that cannot be easily reformatted)
 
 import argparse
 import json

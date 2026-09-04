@@ -200,6 +200,10 @@ extend-select = [
     "PERF", # Perflint (PERF)
     "PL", # pylint (PL)
 ]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/functional/generate_pages.py" = ["E501"]  # Auto-generated TypeScript templates with long lines
+
 [tool.ruff.lint.isort]
 case-sensitive = true
 
