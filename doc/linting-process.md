@@ -31,9 +31,9 @@ Python linting is handled separately from MegaLinter, this is intentionally disa
 [ONS Python template repo](https://github.com/ONSdigital/ons-python-template#3-megalinter).
 To run Python linting: `make lint-python`
 
-| Filetype | Linter            | Config File                  | Ignore Files             |
-|----------|-------------------|------------------------------|--------------------------|
-| Python   | ruff, mypy, black | `pyproject.toml`, `mypy.ini` | `setup.cfg`              |
+| Filetype | Linter            | Config File                  | Ignore Files |
+|----------|-------------------|------------------------------|--------------|
+| Python   | ruff, mypy, black | `pyproject.toml`, `mypy.ini` | `setup.cfg`  |
 
 ## How to Run MegaLinter
 
