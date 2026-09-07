@@ -18,11 +18,20 @@ ENABLE:
   - TYPESCRIPT
   - JSON
   - MARKDOWN
+  - REPOSITORY
   - YAML
 
 DISABLE_LINTERS:
   - HTML_HTMLHINT # HTMLHint doesn't understand Jinja2 syntax
   - JAVASCRIPT_STANDARD # we just use eslint to lint the eslint config file
+  - JSON_V8R # makes network calls to SchemaStore; no matches for questionnaire schemas; package.json covered by npm-package-json-lint
+  - YAML_V8R # makes network calls to SchemaStore; GitHub Actions workflows covered more thoroughly by actionlint
+  - REPOSITORY_BETTERLEAKS # false positives on test key fixtures; secretlint cover the same ground
+  - REPOSITORY_GITLEAKS # deprecated
+  - REPOSITORY_GRYPE # CVE coverage overlaps trivy + osv-scanner; slowest of the three at ~90s
+  - REPOSITORY_TRUFFLEHOG # git history scanning not required; current code covered by secretlint
+  - REPOSITORY_SYFT # SBOM generation covered by trivy
+  - REPOSITORY_TRIVY_SBOM # redundant alongside trivy filesystem scan
 
 # ESLint v10 flat-config workaround and ESLint plugin installs: install project deps before running MegaLinter via CI
 PRE_COMMANDS:
@@ -31,13 +40,26 @@ PRE_COMMANDS:
     continue_if_failed: false
 JAVASCRIPT_ES_CLI_EXECUTABLE: [node_modules/.bin/eslint]
 TYPESCRIPT_ES_CLI_EXECUTABLE: [node_modules/.bin/eslint]
-TYPESCRIPT_STANDARD_CLI_EXECUTABLE: [node_modules/.bin/ts-standard]
 
 FORMATTERS_DISABLE_ERRORS: false # Ensures code is actually fixable when using `make megalint-apply`
 SHOW_ELAPSED_TIME: true # Displays execution time for each linter
 FLAVOR_SUGGESTIONS: false # Disables suggestions to use different MegaLinter flavors
 
+# Exclude generated artifacts from all linters if not run in project mode to avoid false positives on non-source files.
+# Match both workspace-relative and absolute paths (e.g. /tmp/lint/... in CI containers).
+FILTER_REGEX_EXCLUDE: ((^|.*/)(megalinter-reports|htmlcov|coverage|\.venv|node_modules)(/|$))|(/__pycache__/)|(\.pyc$)
+
 ACTION_ZIZMOR_UNSECURED_ENV_VARIABLES:
   - GITHUB_TOKEN
+
+# kingfisher.yaml is not auto-discovered; must be passed explicitly
+REPOSITORY_KINGFISHER_ARGUMENTS: ["--config", "./kingfisher.yaml"]
+
+# Trivy should scan source manifests, not generated lint artifacts.
+REPOSITORY_TRIVY_ARGUMENTS: ["--skip-dirs", "megalinter-reports"]
+
+# Use .secretlintignore instead of .gitignore so project test key fixtures can be excluded
+# secretlint takes the last --secretlintignore value, so .secretlintignore overrides the default .gitignore
+REPOSITORY_SECRETLINT_ARGUMENTS: ["--secretlintignore", ".secretlintignore"]
 
 HTML_DJLINT_ARGUMENTS: ["--profile", "jinja"] # Configured to recognise and accept Jinja2 template syntax

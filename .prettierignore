@@ -1,2 +1,3 @@
 # Exclude generated_pages directory
 tests/functional/generated_pages/
+.github/PULL_REQUEST_TEMPLATE.md
