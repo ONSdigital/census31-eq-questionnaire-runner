@@ -22,7 +22,7 @@ def build_view_submitted_response_context(
         raise NoMetadataException
 
     if not questionnaire_store.submitted_at:
-        raise NoMetadataException
+        raise Exception
 
     view_submitted_response_expired = has_view_submitted_response_expired(questionnaire_store.submitted_at)
 

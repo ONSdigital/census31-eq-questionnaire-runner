@@ -134,7 +134,6 @@ extend-ignore = [
     "UP037", # Remove quotes from type annotation
     "UP035", # Import from {target} instead: {names}
     "UP040", # Type alias {name} uses {type_alias_method} instead of the type keyword
-    "S101", # Use of assert detected
     "S105", # Possible hardcoded password assigned to: "{}"
     "S311", # Standard pseudo-random generators are not suitable for cryptographic purposes
     "C408", # Unnecessary `tuple` call (rewrite as a literal)
@@ -201,7 +200,7 @@ extend-select = [
 [tool.ruff.lint.per-file-ignores]
 "tests/functional/generate_pages.py" = ["E501"]  # Auto-generated TypeScript templates with long lines
 "scripts/*.py" = ["S603", "S607", "LOG015"]  # Utility scripts using subprocess and logging
-"tests/**/*.py" = ["SLF001"]  # Tests accessing private members of mocks and internal implementations
+"tests/**/*.py" = ["SLF001", "S101"] # Tests accessing private members of mocks and internal implementations and asserts
 
 [tool.ruff.lint.isort]
 case-sensitive = true
