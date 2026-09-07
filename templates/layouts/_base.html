@@ -81,14 +81,14 @@
 {% endblock preHeader %}
 
 {% block head %}
-    {% if nrs_census_css %}
-        <style nonce="{{ csp_nonce }}">
-            {{ nrs_census_css }}
-        </style>
-    {% endif %}
     {% if census_css %}
         <style nonce="{{ csp_nonce }}">
             {{ census_css }}
+        </style>
+    {% endif %}
+    {% if nrs_census_css %}
+        <style nonce="{{ csp_nonce }}">
+            {{ nrs_census_css }}
         </style>
     {% endif %}
     {# djlint:off #}
