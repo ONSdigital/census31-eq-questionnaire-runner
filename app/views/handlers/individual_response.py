@@ -310,7 +310,7 @@ class IndividualResponseHowHandler(IndividualResponseHandler):
                     "text": lazy_gettext(
                         "How would you like <strong>{person_name}</strong> to receive a separate census?"
                     ),
-                    "placeholders": IndividualResponseHandler._person_name_placeholder(self._list_name),
+                    "placeholders": IndividualResponseHandler._person_name_placeholder(self._list_name),  # noqa: SLF001
                 },
                 "description": self._build_question_description(),
                 "answers": [
@@ -430,7 +430,9 @@ class IndividualResponseChangeHandler(IndividualResponseHandler):
                     "text": lazy_gettext(
                         "How would you like to answer <strong>{person_name_possessive}</strong> questions?"
                     ),
-                    "placeholders": IndividualResponseHandler._person_name_placeholder_possessive(self._list_name),
+                    "placeholders": IndividualResponseHandler._person_name_placeholder_possessive(  # noqa: SLF001
+                        self._list_name
+                    ),
                 },
                 "answers": [
                     {
@@ -453,7 +455,9 @@ class IndividualResponseChangeHandler(IndividualResponseHandler):
                             {
                                 "label": {
                                     "text": lazy_gettext("I will answer for {person_name}"),
-                                    "placeholders": IndividualResponseHandler._person_name_placeholder(self._list_name),
+                                    "placeholders": IndividualResponseHandler._person_name_placeholder(  # noqa: SLF001
+                                        self._list_name
+                                    ),
                                 },
                                 "value": "I will answer for {person_name}",
                             },
@@ -553,7 +557,7 @@ class IndividualResponsePostAddressConfirmHandler(IndividualResponseHandler):
                 "id": "individual-response-post-confirm",
                 "title": {
                     "text": lazy_gettext("Do you want to send an individual access code for {person_name} by post?"),
-                    "placeholders": IndividualResponseHandler._person_name_placeholder(self._list_name),
+                    "placeholders": IndividualResponseHandler._person_name_placeholder(self._list_name),  # noqa: SLF001
                 },
                 "description": [
                     lazy_gettext(
@@ -740,7 +744,9 @@ class IndividualResponseTextHandler(IndividualResponseHandler):
                 "id": "individual-response-enter-number",
                 "title": {
                     "text": lazy_gettext("What is <strong>{person_name_possessive}</strong> mobile number?"),
-                    "placeholders": IndividualResponseHandler._person_name_placeholder_possessive(self._list_name),
+                    "placeholders": IndividualResponseHandler._person_name_placeholder_possessive(  # noqa: SLF001
+                        self._list_name
+                    ),
                 },
                 "answers": [
                     {

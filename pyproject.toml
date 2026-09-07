@@ -148,7 +148,6 @@ extend-ignore = [
     "G004", # Logging statement uses f-string
     "PIE810", # Call {attr} once with a tuple
     "PIE800", # Unnecessary spread **
-    "SLF001", # Private member accessed: {access}
     "TRY003", # Avoid specifying long messages outside the exception class
     "TRY400", # Use logging.exception instead of logging.error
     "TRY201", # Avoid using `raise Exception` without specifying an exception class
@@ -201,7 +200,8 @@ extend-select = [
 
 [tool.ruff.lint.per-file-ignores]
 "tests/functional/generate_pages.py" = ["E501"]  # Auto-generated TypeScript templates with long lines
-"scripts/*.py" = ["S603", "S607", "LOG015"]  # Utility scripts often use subprocess and logging
+"scripts/*.py" = ["S603", "S607", "LOG015"]  # Utility scripts using subprocess and logging
+"tests/**/*.py" = ["SLF001"]  # Tests accessing private members of mocks and internal implementations
 
 [tool.ruff.lint.isort]
 case-sensitive = true

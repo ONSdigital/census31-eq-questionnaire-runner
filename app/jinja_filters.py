@@ -337,7 +337,7 @@ class OtherConfig:
             self.options = [DropdownConfig(choice, detail_answer_field) for choice in detail_answer_field.choices]
         else:
             self.otherType = "input"
-            self.value = escape(detail_answer_field._value())
+            self.value = escape(detail_answer_field._value())  # noqa: SLF001
 
             if answer_type == "Number":
                 self.width = get_width_for_number(detail_answer_schema)

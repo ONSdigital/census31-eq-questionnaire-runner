@@ -23,7 +23,7 @@ def get_questionnaire_store(user_id: str, user_ik: str) -> QuestionnaireStore:
         secret_store = current_app.eq["secret_store"]  # type: ignore
         pepper = secret_store.get_secret_by_name("EQ_SERVER_SIDE_STORAGE_ENCRYPTION_USER_PEPPER")
         storage = EncryptedQuestionnaireStorage(user_id, user_ik, pepper)
-        store = g._questionnaire_store = QuestionnaireStore(storage)
+        store = g._questionnaire_store = QuestionnaireStore(storage)  # noqa: SLF001
 
     return store
 
@@ -38,7 +38,9 @@ def get_session_store() -> SessionStore | None:
     if store is None:
         secret_store = current_app.eq["secret_store"]  # type: ignore
         pepper = secret_store.get_secret_by_name("EQ_SERVER_SIDE_STORAGE_ENCRYPTION_USER_PEPPER")
-        store = g._session_store = SessionStore(cookie_session[USER_IK], pepper, cookie_session[EQ_SESSION_ID])
+        store = g._session_store = SessionStore(  # noqa: SLF001
+            cookie_session[USER_IK], pepper, cookie_session[EQ_SESSION_ID]
+        )
 
     return store if store.session_data else None
 
@@ -70,7 +72,9 @@ def create_session_store(
     session_timeout_in_seconds = get_session_timeout_in_seconds(g.schema)
     expires_at = datetime.now(tz=timezone.utc) + timedelta(seconds=session_timeout_in_seconds)
 
-    g._session_store = SessionStore(user_ik, pepper).create(eq_session_id, user_id, session_data, expires_at).save()
+    g._session_store = (  # noqa: SLF001
+        SessionStore(user_ik, pepper).create(eq_session_id, user_id, session_data, expires_at).save()
+    )
 
 
 def get_metadata(user: User) -> MetadataProxy | None:
