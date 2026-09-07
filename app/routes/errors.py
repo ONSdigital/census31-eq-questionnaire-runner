@@ -9,6 +9,7 @@ from sdc.crypto.exceptions import InvalidTokenException
 from structlog import contextvars, get_logger
 from werkzeug.exceptions import BadRequest, Forbidden, MethodNotAllowed, NotFound, Unauthorized
 
+from app import survey_config
 from app.authentication.no_questionnaire_state_exception import NoQuestionnaireStateException
 from app.authentication.no_token_exception import NoTokenException
 from app.globals import get_metadata
@@ -48,15 +49,13 @@ def _render_error_page(status_code: int, template: str | int | None = None, **kw
     handle_language()
     survey_config = get_survey_config(theme=SurveyType.CENSUS, base_url=ACCOUNT_SERVICE_BASE_URL)
 
-    logout_url = survey_config.account_service_log_out_url
-    other_logout_url = survey_config.account_service_log_out_url or f"{survey_config.base_url}/sign-in/logout"
+    logout_url = survey_config.account_service_log_out_url or f"{survey_config.base_url}/sign-in/logout"
     template = template or status_code
 
     return (
         render_template(
             template=f"errors/{template}",
             logout_url=logout_url,
-            other_logout_url=other_logout_url,
             **kwargs,
         ),
         status_code,
