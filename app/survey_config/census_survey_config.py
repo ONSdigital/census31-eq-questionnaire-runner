@@ -13,7 +13,7 @@ class CensusSurveyConfig(
     SurveyConfig,
 ):
     base_url: str = ACCOUNT_SERVICE_BASE_URL
-    survey_title: str = "ONS Census"
+    survey_title: str = lazy_gettext("ONS Census")
     title_logo: str = read_file("./templates/assets/images/census-logo.svg")
     census_css: str = read_file("./templates/assets/css/census.css")
     footer_links: Iterable[MutableMapping] = field(default_factory=list)
