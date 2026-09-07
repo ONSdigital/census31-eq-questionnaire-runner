@@ -24,9 +24,7 @@ def build_view_submitted_response_context(
     if not questionnaire_store.submitted_at:
         raise NoMetadataException
 
-    view_submitted_response_expired = has_view_submitted_response_expired(
-        questionnaire_store.submitted_at  # type: ignore
-    )
+    view_submitted_response_expired = has_view_submitted_response_expired(questionnaire_store.submitted_at)
 
     if (ru_name := metadata["ru_name"]) and (trad_as := metadata["trad_as"]):
         submitted_text = lazy_gettext("Answers submitted for <span>{ru_name}</span> ({trad_as})").format(
