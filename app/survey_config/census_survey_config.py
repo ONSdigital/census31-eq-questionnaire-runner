@@ -76,4 +76,4 @@ class NISRACensusSurveyConfig(CensusSurveyConfig):
 class NRSCensusSurveyConfig(CensusSurveyConfig):
     masthead_logo: str = read_file("./templates/assets/images/nrs-logo.svg")
     footer_logo: str = read_file("./templates/assets/images/nrs-footer-logo.svg")
-    census_scott_css: str = read_file("./templates/assets/css/census-scott.css")
+    nrs_census_css: str = read_file("./templates/assets/css/nrs-census.css")
