@@ -13,3 +13,8 @@
 .ons-header__title-logo-link:focus .ons-svg-logo > .ons-icon--logo__group {
     fill: var(--ons-color-black);
 }
+
+/* NRS Census Header Theme */
+.ons-header--nrs-census > .ons-header__main {
+    background-color: #1d4f91;
+}
