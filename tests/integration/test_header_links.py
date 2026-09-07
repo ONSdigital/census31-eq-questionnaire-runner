@@ -64,7 +64,7 @@ class TestHeaderLinks(IntegrationTestCase):
 
 
 class TestHeaderLinksPreSubmission(TestHeaderLinks):
-    def test_links_in_header_when_valid_session(self):
+    def test_links_not_in_header_when_valid_session(self):
         # Given
         self.launchSurveyV2(schema_name="test_thank_you")
 
@@ -138,7 +138,7 @@ class TestHeaderLinksPreSubmission(TestHeaderLinks):
 
 
 class TestHeaderLinksPostSubmission(TestHeaderLinks):
-    def test_links_in_header_when_valid_session(self):
+    def test_links_not_in_header_when_valid_session(self):
         # Given
         self.launchSurveyV2(schema_name="test_thank_you")
         self.post()
