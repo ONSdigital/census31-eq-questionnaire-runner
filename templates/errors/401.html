@@ -2,14 +2,7 @@
 
 {% set page_title = _("Page is not available") %}
 {% set access_code = _("To access this page you need to <a href='{url}'>re-enter your access code</a>.").format(url = logout_url) %}
-{# djlint:off #}
-{% set other_access_code =
-    _(
-        "If you started your survey using an access code, you need to "
-        "<a href='{url}'>re-enter your code</a>."
-    ).format(url = other_logout_url)
-%}
-{# djlint:on #}
+
 {% block main %}
     <h1>{{ _("Sorry, you need to sign in again") }}</h1>
     <p>{{ _("This is because you have either:") }}</p>
