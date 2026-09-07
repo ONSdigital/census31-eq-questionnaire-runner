@@ -1,7 +1,6 @@
 {% extends "errors/_base.html" %}
 
 {% set page_title = _("Page is not available") %}
-{% set access_code = _("To access this page you need to <a href='{url}'>re-enter your access code</a>.").format(url = logout_url) %}
 
 {% block main %}
     <h1>{{ _("Sorry, you need to sign in again") }}</h1>
@@ -11,5 +10,5 @@
         <li>{{ _("followed a link to a page you are not signed in to") }}</li>
         <li>{{ _("followed a link to a survey that has already been submitted") }}</li>
     </ul>
-    <p>{{ access_code }}</p>
+    <p>{{ _("To access this page you need to <a href='{url}'>re-enter your access code</a>.").format(url = logout_url) }}</p>
 {% endblock main %}
