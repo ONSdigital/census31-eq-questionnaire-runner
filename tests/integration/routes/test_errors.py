@@ -40,7 +40,7 @@ class TestErrors(IntegrationTestCase):  # pylint: disable=too-many-public-method
             "<p>If you have started a survey, your answers have been saved.</p>"
         )
 
-    def _assert_census_theme_500_page_content(self, has_header=False, contact_us_text="contact us"):
+    def _assert_500_page_content(self, has_header=False, contact_us_text="contact us"):
         header_text = "<h2>All other surveys</h2>\n" if has_header else ""
 
         self.assertInBody(
@@ -304,7 +304,7 @@ class TestErrors(IntegrationTestCase):  # pylint: disable=too-many-public-method
             self.assertEqual(cookie.get("theme"), "default")
             self.assertStatusCode(500)
             self._assert_generic_500_page_content()
-            self._assert_census_theme_500_page_content()
+            self._assert_500_page_content()
 
     def test_500_theme_census_cookie_exists(self):
         # Given
@@ -325,7 +325,7 @@ class TestErrors(IntegrationTestCase):  # pylint: disable=too-many-public-method
             self.assertEqual(cookie.get("theme"), "census")
             self.assertStatusCode(500)
             self._assert_generic_500_page_content()
-            self._assert_census_theme_500_page_content()
+            self._assert_500_page_content()
 
     def test_500_theme_not_set_in_cookie(self):
         # Given I launch a survey, When the 'theme' is not set in the cookie
