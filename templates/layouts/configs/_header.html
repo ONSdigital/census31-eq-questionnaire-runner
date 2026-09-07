@@ -12,9 +12,6 @@
         {% set header_button_data_ga_action = "Exit" %}
         {% set header_button_data_ga_label = "Exit Survey" %}
     {% endif %}
-    {% if nrs_census_css %}
-        {% set nrs_census_class = true %}
-    {% endif %}
     {# djlint:off #}
     {% set signout_button = {
         "text": header_button_text,
@@ -47,6 +44,5 @@
         "small": masthead_logo_mobile
     },
     "mastheadLogoUrl": '#0',
-    "classes": "ons-header--nrs-census" if nrs_census_class else ""
 }) %}
 {# djlint:on #}
