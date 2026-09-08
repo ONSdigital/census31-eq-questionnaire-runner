@@ -4,6 +4,8 @@ from tests.integration.integration_test_case import IntegrationTestCase
 
 
 class TestApplicationVariables(IntegrationTestCase):
+    setting_overrides = {}
+
     def setUp(self):
         settings.EQ_GOOGLE_TAG_ID = "TestId"
         super().setUp()

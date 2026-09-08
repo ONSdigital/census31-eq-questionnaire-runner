@@ -12,6 +12,7 @@ SCHEMA_PATH_MAP = get_schema_path_map(include_test_schemas=True)
 
 
 class TestFlushData(IntegrationTestCase):
+    setting_overrides = {}
     def setUp(self):
         self.submitter_patcher = patch("app.setup.LogSubmitter")
         mock_submitter_class = self.submitter_patcher.start()

@@ -3,7 +3,7 @@ from tests.integration.questionnaire import THANK_YOU_URL_PATH
 
 
 class TestPreviouslySubmitted(IntegrationTestCase):
-    def test_previously_submitted(self):
+    setting_overrides = {}
         # Given I complete the questionnaire and submit
         self.launchSurveyV2(schema_name="test_textfield")
         self.post()
