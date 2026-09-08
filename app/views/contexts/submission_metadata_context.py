@@ -6,6 +6,8 @@ from flask_babel import format_datetime, lazy_gettext
 from app.libs.utils import convert_tx_id
 from app.survey_config.survey_type import SurveyType
 
+SURVEY_TYPES_CENSUS = (SurveyType.CENSUS, SurveyType.CENSUS_NISRA, SurveyType.CENSUS_NRS)
+
 
 def build_submission_metadata_context(survey_type: SurveyType, submitted_at: datetime, tx_id: str) -> dict[str, Any]:
     submitted_on = {

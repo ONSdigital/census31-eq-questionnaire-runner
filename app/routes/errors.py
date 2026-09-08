@@ -9,7 +9,6 @@ from sdc.crypto.exceptions import InvalidTokenException
 from structlog import contextvars, get_logger
 from werkzeug.exceptions import BadRequest, Forbidden, MethodNotAllowed, NotFound, Unauthorized
 
-from app import survey_config
 from app.authentication.no_questionnaire_state_exception import NoQuestionnaireStateException
 from app.authentication.no_token_exception import NoTokenException
 from app.globals import get_metadata
