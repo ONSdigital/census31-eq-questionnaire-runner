@@ -4,7 +4,6 @@ from tests.integration.integration_test_case import IntegrationTestCase
 
 
 class TestNoQuestionnaireState(IntegrationTestCase):
-    setting_overrides = {}
 
     def test_questionnaire_route_before_questionnaire_submitted(self):
         # Given

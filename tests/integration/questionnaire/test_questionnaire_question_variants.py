@@ -32,6 +32,8 @@ class TestQuestionnaireQuestionVariants(IntegrationTestCase):
         self.assertInBody("No, I am answering on their behalf")
 
         self.post({"proxy-answer": "Yes, I am"}, url=self.proxy_url)
+   self.post({"proxy-answer": "Yes, I am"}, url=self.proxy_url)
+        print(self.getHtmlSoup())
 
         self.assertInBody("What is your age")
 

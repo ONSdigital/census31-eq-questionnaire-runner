@@ -7,7 +7,6 @@ with open("tests/fixtures/blns.json", encoding="utf-8") as blns:
 
 
 class TestTextArea(IntegrationTestCase):
-    setting_overrides = {}
 
     def test_empty_submission(self):
         self.launchSurveyV2(schema_name="test_textarea")

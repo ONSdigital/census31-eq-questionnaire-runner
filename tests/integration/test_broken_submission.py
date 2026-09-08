@@ -4,7 +4,6 @@ from tests.integration.integration_test_case import IntegrationTestCase
 
 
 class TestBrokenSubmission(IntegrationTestCase):
-    setting_overrides = {}
 
     def setUp(self):
         self.patcher = patch("app.setup.LogSubmitter")

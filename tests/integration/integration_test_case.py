@@ -60,6 +60,7 @@ KEYS_DICT = {
 
 
 class IntegrationTestCase(unittest.TestCase):
+    setting_overrides = {}
 
     def setUp(self):
         # Cache for requests

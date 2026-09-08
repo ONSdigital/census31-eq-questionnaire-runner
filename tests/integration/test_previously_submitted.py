@@ -3,7 +3,6 @@ from tests.integration.questionnaire import THANK_YOU_URL_PATH
 
 
 class TestPreviouslySubmitted(IntegrationTestCase):
-    setting_overrides = {}
 
     def test_return_to_submitted_questionnaire(self):
         # Given I complete the questionnaire and submit

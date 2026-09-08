@@ -427,18 +427,3 @@ class TestErrors(IntegrationTestCase):
         self.assertInBody(
             f'<p>If this problem keeps happening, please <a href="{ONS_URL}/'
             f'aboutus/contactus/surveyenquiries/">contact us</a> for help.</p>'
-        )
-
-    def launchAndFailSubmission(self, schema):
-        self.launchSurveyV2(schema_name=schema)
-        self.post()
-        self.post()
-        self.post()
-
-    def getUrlAndCookie(self, url):
-        self.get(url=url)
-        return self.getCookie()
-
-    def deleteCookieAndGetUrl(self, url):
-        self.deleteCookie()
-        self.get(url=url)
