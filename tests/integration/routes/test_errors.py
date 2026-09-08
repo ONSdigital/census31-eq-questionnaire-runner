@@ -427,3 +427,4 @@ class TestErrors(IntegrationTestCase):
         self.assertInBody(
             f'<p>If this problem keeps happening, please <a href="{ONS_URL}/'
             f'aboutus/contactus/surveyenquiries/">contact us</a> for help.</p>'
+        )

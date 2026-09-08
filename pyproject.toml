@@ -200,3 +200,4 @@ ban-relative-imports = "all"
 [tool.ruff.lint.pylint]
 max-args = 11
 max-positional-args = 11
+max-statements = 60
