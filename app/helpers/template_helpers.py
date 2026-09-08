@@ -64,8 +64,7 @@ class ContextHelper:
             "masthead_logo_mobile": self._survey_config.masthead_logo_mobile,
             "title_logo": self._survey_config.title_logo,
             "footer_logo": self._survey_config.footer_logo,
-            "census_css": self._survey_config.census_css,
-            "nrs_census_css": self._survey_config.nrs_census_css,
+            "css_override": self._survey_config.css_override,
         }
 
         if self._survey_type:

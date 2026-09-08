@@ -246,6 +246,11 @@ class QuestionnaireSchema:  # pylint: disable=too-many-public-methods
         return region_code
 
     @cached_property
+    def theme(self) -> str | None:
+        theme: str | None = self.json.get("theme")
+        return theme
+
+    @cached_property
     def parent_id_map(self) -> Any:
         return self.serialize(self._parent_id_map)
 

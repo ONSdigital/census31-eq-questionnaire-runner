@@ -26,8 +26,7 @@ class SurveyConfig:
     masthead_logo_mobile: str | None = None
     title_logo: str | None = None
     footer_logo: str | None = None
-    census_css: str | None = None
-    nrs_census_css: str | None = None
+    css_override: str | None = None
     crest: bool = True
     footer_links: Iterable[MutableMapping] | None = None
     footer_legal_links: Iterable[Mapping] | None = None
