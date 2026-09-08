@@ -2175,18 +2175,18 @@ referencing = ">=0.31.0"
 
 [[package]]
 name = "jwcrypto"
-version = "1.5.8"
+version = "1.6.0"
 description = "Implementation of JOSE Web standards"
 optional = false
-python-versions = ">=3.8"
+python-versions = ">=3.9"
 groups = ["main"]
 files = [
-    {file = "jwcrypto-1.5.8-py3-none-any.whl", hash = "sha256:85aeb475f808d56bbc2f2ed1f6f73e6a317c4011a4321505f02f0aed695a3742"},
-    {file = "jwcrypto-1.5.8.tar.gz", hash = "sha256:c3d7114b6f6e65b52f6b7da817eb8cb8423e1da31e1ef13508447c81ecbdcc34"},
+    {file = "jwcrypto-1.6.0-py3-none-any.whl", hash = "sha256:09ece277d48620079c90af7dfe84be085a229c1cbe06baa295de41e5019ac998"},
+    {file = "jwcrypto-1.6.0.tar.gz", hash = "sha256:02a82b0a3a36b2553309d78c65e1c0e3350b640fe4091f53f66f582b11f49378"},
 ]
 
 [package.dependencies]
-cryptography = ">=39.0.0"
+cryptography = ">=49.0.0"
 typing_extensions = ">=4.5.0"
 
 [[package]]
@@ -3966,4 +3966,4 @@ testing = ["coverage[toml]", "zope.event", "zope.testing"]
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.13.5"
-content-hash = "a73f0df0bab1afe1740f6580c0ee75a536b5eebf8ae8740ed2dae9db4c8122a7"
+content-hash = "ae3573a240ce3906fe97b280c0c85a88371c06767d6be0b63412ae5f5468b243"
