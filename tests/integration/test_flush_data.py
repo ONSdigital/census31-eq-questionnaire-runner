@@ -1,8 +1,8 @@
 import time
 import uuid
+from unittest.mock import patch
 
 from httmock import HTTMock, urlmatch
-from mock import patch
 
 from app.utilities.schema import get_schema_path_map
 from tests.app.parser.conftest import get_response_expires_at

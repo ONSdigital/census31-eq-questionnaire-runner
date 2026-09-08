@@ -15,18 +15,12 @@ class CensusSurveyConfig(
     base_url: str = ACCOUNT_SERVICE_BASE_URL
     survey_title: str = lazy_gettext("ONS Census")
     title_logo: str = read_file("./templates/assets/images/census-logo.svg")
-    css_override: str = ""
+    css_override: str = read_file("./templates/assets/css/census.css")
     footer_links: Iterable[MutableMapping] = field(default_factory=list)
     footer_legal_links: Iterable[Mapping] = field(default_factory=list)
 
     def __post_init__(self) -> None:
         super().__post_init__()
-
-        # Load CSS based on schema theme
-        if self.schema and self.schema.theme == "census-nrs":
-            self.css_override = read_file("./templates/assets/css/nrs-census.css")
-        else:
-            self.css_override = read_file("./templates/assets/css/census.css")
 
         if self.language_code == "cy":
             self.title_logo = read_file("./templates/assets/images/census-logo-cy-small.svg")
@@ -82,3 +76,4 @@ class NISRACensusSurveyConfig(CensusSurveyConfig):
 class NRSCensusSurveyConfig(CensusSurveyConfig):
     masthead_logo: str = read_file("./templates/assets/images/nrs-logo.svg")
     footer_logo: str = read_file("./templates/assets/images/nrs-footer-logo.svg")
+    css_override: str = read_file("./templates/assets/css/nrs-census.css")

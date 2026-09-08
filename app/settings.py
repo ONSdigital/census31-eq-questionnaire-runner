@@ -126,6 +126,8 @@ SURVEY_TYPE = os.getenv("SURVEY_TYPE", "census")
 
 ACCOUNT_SERVICE_BASE_URL = os.getenv("ACCOUNT_SERVICE_BASE_URL", "https://start.census.gov.uk")
 
+ACCOUNT_SERVICE_BASE_URL_SOCIAL = os.getenv("ACCOUNT_SERVICE_BASE_URL_SOCIAL", "https://start.census.gov.uk")
+
 ONS_URL = os.getenv("ONS_URL", "https://www.census.gov.uk")
 
 ONS_URL_CY = os.getenv("ONS_URL_CY", "https://cy.census.gov.uk")
