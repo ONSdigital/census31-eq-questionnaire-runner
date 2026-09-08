@@ -1,6 +1,6 @@
 import time
 import uuid
-from unittest.mock import patch
+from mock import patch
 
 from httmock import HTTMock, urlmatch
 
