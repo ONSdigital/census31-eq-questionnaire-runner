@@ -17,12 +17,18 @@ services:
 
   runner:
     image: europe-west2-docker.pkg.dev/census-eq-ci/docker-images/census31-eq-questionnaire-runner:latest
-    build: ./
+    build:
+      context: ./
+      args:
+        RUNTIME_BASE_IMAGE_TAG: ${RUNTIME_BASE_IMAGE_TAG:-nonroot}
     env_file:
       - ${RUNNER_ENV_FILE}
     environment:
       DATASTORE_EMULATOR_HOST: datastore:8432
       EQ_REDIS_HOST: "redis"
+    volumes:
+      - ./dev-secrets.yml:/runner/dev-secrets.yml:ro
+      - ./dev-keys.yml:/runner/dev-keys.yml:ro
     restart: always
     depends_on:
       - datastore

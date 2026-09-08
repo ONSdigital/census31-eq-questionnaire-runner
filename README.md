@@ -51,6 +51,20 @@ If you need to rebuild the container from scratch to re-load any dependencies th
 RUNNER_ENV_FILE=.development.env docker compose build --no-cache
 ```
 
+### Debugging
+
+As we use a distroless container for runner there is no shell or basic command line utilities for debugging the running container. If you need to enable this you can build a debug version of the image using the `RUNTIME_BASE_IMAGE_TAG` variable:
+
+```shell
+RUNNER_ENV_FILE=.development.env RUNTIME_BASE_IMAGE_TAG=debug docker compose up -d --build
+```
+
+Then you can shell into the running container with:
+
+```shell
+docker exec -it <container_id> sh
+```
+
 ## Run locally
 
 ### Clone the repository

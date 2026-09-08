@@ -2019,6 +2019,10 @@ files = [
     {file = "gunicorn-26.2.0.tar.gz", hash = "sha256:62b864895d9ebff0b2f9867ba04fe811c93121596540830c9c916d0769668447"},
 ]
 
+[package.dependencies]
+gevent = {version = ">=24.10.1", optional = true, markers = "extra == \"gevent\""}
+packaging = {version = "*", optional = true, markers = "extra == \"gevent\""}
+
 [package.extras]
 fast = ["gunicorn_h1c (>=0.6.9)"]
 gevent = ["gevent (>=24.10.1)", "packaging"]
@@ -2684,7 +2688,7 @@ version = "26.3"
 description = "Core utilities for Python packages"
 optional = false
 python-versions = ">=3.9"
-groups = ["dev"]
+groups = ["main", "dev"]
 files = [
     {file = "packaging-26.3-py3-none-any.whl", hash = "sha256:d7193f7c8e4e93f444fde0262bf90af30e16fa0ad0ad44cb553c87339b23cd1c"},
     {file = "packaging-26.3.tar.gz", hash = "sha256:94edc256424af38762eb31306eed28beb9f0efc50a8837492c9d6fd6004aed79"},
@@ -4090,4 +4094,4 @@ testing = ["coverage[toml]", "zope.event", "zope.testing"]
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.13.5"
-content-hash = "ae3573a240ce3906fe97b280c0c85a88371c06767d6be0b63412ae5f5468b243"
+content-hash = "6f8918cfbf18470d4b96b24e4ef2b6b74304c1e99ea99bc1d207eff2290d6f12"
