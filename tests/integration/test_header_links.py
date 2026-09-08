@@ -5,6 +5,7 @@ from tests.integration.integration_test_case import IntegrationTestCase
 
 class TestHeaderLinks(IntegrationTestCase):
     setting_overrides = {}
+
     def assert_my_account_link_exist(self):
         account_link = self.getLinkById("header-link-my-account")
         self.assertIsNotNone(account_link)
