@@ -138,8 +138,6 @@ class TestQuestionnaireProgressValueSource(IntegrationTestCase):
         self.assert_section_status(4, "Completed", ["James Bond"])
 
     def test_calculated_summary_first_incomplete_then_complete(self):  # noqa: PLR0915
-many-statements
-    def test_calculated_summary_first_incomplete_then_complete(self):
         self.launchSurveyV2(schema_name="test_progress_value_source_calculated_summary")
 
         # 1. Start completing the first section
