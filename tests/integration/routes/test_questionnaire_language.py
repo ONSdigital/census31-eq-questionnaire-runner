@@ -8,6 +8,7 @@ class TestQuestionnaireLanguage(IntegrationTestCase):
         # When: load a cy survey
         self.launchSurveyV2(schema_name="test_language", language_code="cy")
         # Then: the page is in welsh
+        self.post()
         self.assertInBody("Rhowch enw")
 
     def test_load_non_existent_lang_fallback(self):
