@@ -124,7 +124,7 @@ class TestCreateApp(unittest.TestCase):
                 csp_policy_parts,
             )
             self.assertIn(
-                "style-src 'self' https://fonts.googleapis.com " f"{cdn_url} 'nonce-{request.csp_nonce}'",
+                f"style-src 'self' https://fonts.googleapis.com {cdn_url} 'nonce-{request.csp_nonce}'",
                 csp_policy_parts,
             )
             self.assertIn(

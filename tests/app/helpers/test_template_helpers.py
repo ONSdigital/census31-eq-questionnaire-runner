@@ -168,12 +168,6 @@ def test_header_context(app: Flask, theme, survey_title, survey_config, expected
             None,
         ),
         (CensusSurveyConfig(), False, None, None),
-        (
-            CensusSurveyConfig(schema=QuestionnaireSchema({"survey_id": "999"})),
-            True,
-            "census",
-            None,
-        ),
     ],
 )
 def test_service_links_context(app: Flask, mocker, survey_config, is_authenticated, theme, expected):

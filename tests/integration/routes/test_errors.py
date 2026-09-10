@@ -124,10 +124,8 @@ class TestErrors(IntegrationTestCase):
         cookie = self.getCookie()
         self.assertEqual(cookie.get("theme"), "default")
         self.assertInBody(
-            (
-                f"<p>To access this page you need to "
-                f'<a href="{CENSUS_URL}/{DEFAULT_LANGUAGE_CODE}/start/">re-enter your access code</a>.</p>'
-            )
+            f"<p>To access this page you need to "
+            f'<a href="{CENSUS_URL}/{DEFAULT_LANGUAGE_CODE}/start/">re-enter your access code</a>.</p>'
         )
 
     def test_401_theme_census_cookie_exists(self):
@@ -336,7 +334,7 @@ class TestErrors(IntegrationTestCase):
             f'To do this, <a href="{CENSUS_URL}/{DEFAULT_LANGUAGE_CODE}/start/">re-enter your code</a>.</p>'
         )
         self.assertInBody(
-            (f'<p>If you need more help, <a href="{ONS_URL}/aboutus/contactus/surveyenquiries/">' "contact us</a>.</p>")
+            f'<p>If you need more help, <a href="{ONS_URL}/aboutus/contactus/surveyenquiries/">contact us</a>.</p>'
         )
 
     def test_submission_failed_theme_default_cookie_exists(self):
