@@ -23,7 +23,7 @@ def random_string(length: int) -> str:
     return "".join(random.choice(ascii_letters) for _ in range(length))
 
 
-class ListModel:
+class ListModel:  # noqa: PLW1641
     def __init__(
         self,
         name: str,

@@ -9,7 +9,6 @@ from app.forms.fields import IntegerFieldWithSeparator
 ErrorMessageType = dict[str, str]
 
 
-# pylint: disable=no-member
 class DurationForm(Form):
     def validate(self, extra_validators: dict[str, list[Callable]] | None = None) -> bool:
         super().validate(extra_validators)

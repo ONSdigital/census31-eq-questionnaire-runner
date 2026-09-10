@@ -1,9 +1,9 @@
 import os
 from http.client import HTTPMessage
+from unittest.mock import Mock, patch
 
 import pytest
 import responses
-from mock import Mock, patch
 from requests import RequestException
 from urllib3.connectionpool import HTTPConnectionPool
 from urllib3.response import HTTPResponse
@@ -68,7 +68,6 @@ def test_get_schema_list():
     assert get_schema_list() == expected_output
 
 
-# pylint: disable=no-value-for-parameter,missing-kwoa
 def test_schema_cache_on_function_call():
     _load_schema_from_name.cache_clear()
 

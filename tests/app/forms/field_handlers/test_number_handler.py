@@ -1,4 +1,3 @@
-# pylint: disable=unused-argument
 from werkzeug.datastructures import MultiDict
 from wtforms import Form
 

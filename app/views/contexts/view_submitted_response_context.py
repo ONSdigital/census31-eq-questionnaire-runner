@@ -17,13 +17,14 @@ def build_view_submitted_response_context(
     questionnaire_store: QuestionnaireStore,
     survey_type: SurveyType,
 ) -> dict[str, str | datetime | dict]:
-    view_submitted_response_expired = has_view_submitted_response_expired(
-        questionnaire_store.submitted_at  # type: ignore
-    )
-
     metadata = questionnaire_store.data_stores.metadata
     if not metadata:
         raise NoMetadataException
+
+    if not questionnaire_store.submitted_at:
+        raise Exception  # noqa: TRY002
+
+    view_submitted_response_expired = has_view_submitted_response_expired(questionnaire_store.submitted_at)
 
     if (ru_name := metadata["ru_name"]) and (trad_as := metadata["trad_as"]):
         submitted_text = lazy_gettext("Answers submitted for <span>{ru_name}</span> ({trad_as})").format(

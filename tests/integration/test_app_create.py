@@ -1,12 +1,11 @@
 import unittest
 from contextlib import contextmanager
 from unittest import mock
-from unittest.mock import Mock
+from unittest.mock import Mock, patch
 from uuid import UUID
 
 from flask import Flask, request
 from flask_babel import Babel
-from mock import patch
 
 from app.cloud_tasks import CloudTaskPublisher
 from app.publisher import LogPublisher, PubSubPublisher
@@ -15,7 +14,7 @@ from app.storage.datastore import Datastore
 from app.submitter.submitter import GCSFeedbackSubmitter, GCSSubmitter, LogSubmitter
 
 
-class TestCreateApp(unittest.TestCase):  # pylint: disable=too-many-public-methods
+class TestCreateApp(unittest.TestCase):
     def setUp(self):
         self._setting_overrides = {}
 
@@ -55,7 +54,7 @@ class TestCreateApp(unittest.TestCase):  # pylint: disable=too-many-public-metho
 
     # localisation may not be used but is currently attached...
     def test_adds_i18n_to_application(self):
-        babel = create_app(self._setting_overrides).babel  # pylint: disable=no-member
+        babel = create_app(self._setting_overrides).babel
         self.assertIsInstance(babel, Babel)
 
     def test_adds_logging_of_request_ids(self):
@@ -114,7 +113,7 @@ class TestCreateApp(unittest.TestCase):  # pylint: disable=too-many-public-metho
             csp_policy_parts = headers["Content-Security-Policy"].split("; ")
             self.assertIn(f"default-src 'self' {cdn_url}", csp_policy_parts)
             self.assertIn(
-                "script-src 'self' https://*.googletagmanager.com " f"{cdn_url} 'nonce-{request.csp_nonce}'",
+                f"script-src 'self' https://*.googletagmanager.com {cdn_url} 'nonce-{request.csp_nonce}'",
                 csp_policy_parts,
             )
             self.assertIn(
@@ -247,9 +246,8 @@ class TestCreateApp(unittest.TestCase):  # pylint: disable=too-many-public-metho
         with patch(
             "google.auth._default._get_explicit_environ_credentials",
             return_value=(Mock(), "test-project-id"),
-        ):
-            with self.assertRaises(Exception) as ex:
-                create_app(self._setting_overrides)
+        ), self.assertRaises(Exception) as ex:
+            create_app(self._setting_overrides)
 
         # Then
         assert "Unknown EQ_SUBMISSION_CONFIRMATION_BACKEND" in str(ex.exception)
