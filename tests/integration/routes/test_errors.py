@@ -1,4 +1,4 @@
-from mock import Mock, patch
+from unittest.mock import Mock, patch
 
 from app.questionnaire.questionnaire_schema import DEFAULT_LANGUAGE_CODE
 from app.settings import ACCOUNT_SERVICE_BASE_URL, ONS_URL
@@ -8,7 +8,7 @@ from tests.integration.integration_test_case import IntegrationTestCase
 CENSUS_URL = ACCOUNT_SERVICE_BASE_URL
 
 
-class TestErrors(IntegrationTestCase):  # pylint: disable=too-many-public-methods
+class TestErrors(IntegrationTestCase):
     example_payload = {
         "survey_metadata": {
             "data": {
@@ -44,13 +44,11 @@ class TestErrors(IntegrationTestCase):  # pylint: disable=too-many-public-method
         header_text = "<h2>All other surveys</h2>\n" if has_header else ""
 
         self.assertInBody(
-            (
-                f"{header_text}<p>If you have attempted to submit your survey, "
-                f"you should check that this was successful. To do this, "
-                f'<a href="{CENSUS_URL}/{DEFAULT_LANGUAGE_CODE}/start/">re-enter your code</a>.</p>\n'
-                f'<p>If you need more help, <a href="{ONS_URL}/aboutus/contactus/'
-                f'surveyenquiries/">{contact_us_text}</a>.</p>'
-            )
+            f"{header_text}<p>If you have attempted to submit your survey, "
+            f"you should check that this was successful. To do this, "
+            f'<a href="{CENSUS_URL}/{DEFAULT_LANGUAGE_CODE}/start/">re-enter your code</a>.</p>\n'
+            f'<p>If you need more help, <a href="{ONS_URL}/aboutus/contactus/'
+            f'surveyenquiries/">{contact_us_text}</a>.</p>'
         )
 
     def test_errors_404(self):
@@ -101,16 +99,15 @@ class TestErrors(IntegrationTestCase):  # pylint: disable=too-many-public-method
             with patch(
                 "app.routes.questionnaire.get_block_handler",
                 side_effect=Exception("You broke it"),
+            ), patch(
+                "app.routes.errors.log_exception",
+                side_effect=Exception("You broke it again"),
             ):
                 # Another exception occurs during exception handling
-                with patch(
-                    "app.routes.errors.log_exception",
-                    side_effect=Exception("You broke it again"),
-                ):
-                    self.post({"answer": "5000000"})
+                self.post({"answer": "5000000"})
 
-                    self.assertStatusCode(500)
-                    self._assert_generic_500_page_content()
+                self.assertStatusCode(500)
+                self._assert_generic_500_page_content()
 
     def test_401_theme_default_cookie_exists(self):
         # Given
@@ -152,10 +149,8 @@ class TestErrors(IntegrationTestCase):  # pylint: disable=too-many-public-method
         cookie = self.getCookie()
         self.assertEqual(cookie.get("theme"), "census")
         self.assertInBody(
-            (
-                f"<p>To access this page you need to "
-                f'<a href="{CENSUS_URL}/{DEFAULT_LANGUAGE_CODE}/start/">re-enter your access code</a>.</p>'
-            )
+            f"<p>To access this page you need to "
+            f'<a href="{CENSUS_URL}/{DEFAULT_LANGUAGE_CODE}/start/">re-enter your access code</a>.</p>'
         )
 
     def test_401_no_cookie(self):
@@ -230,11 +225,9 @@ class TestErrors(IntegrationTestCase):  # pylint: disable=too-many-public-method
         self.assertEqual(cookie.get("theme"), "default")
         self.assertStatusNotFound()
         self.assertInBody(
-            (
-                f"<p>If the web address is correct or you selected a link or button, "
-                f'please <a href="{ONS_URL}/aboutus/contactus/surveyenquiries/">contact us</a> for more '
-                "help.</p>"
-            )
+            f"<p>If the web address is correct or you selected a link or button, "
+            f'please <a href="{ONS_URL}/aboutus/contactus/surveyenquiries/">contact us</a> for more '
+            "help.</p>"
         )
 
     def test_404_theme_census_cookie_exists(self):
@@ -252,11 +245,9 @@ class TestErrors(IntegrationTestCase):  # pylint: disable=too-many-public-method
         self.assertEqual(cookie.get("theme"), "census")
         self.assertStatusNotFound()
         self.assertInBody(
-            (
-                f"<p>If the web address is correct or you selected a link or button, "
-                f'please <a href="{ONS_URL}/aboutus/contactus/surveyenquiries/">contact us</a> for more '
-                "help.</p>"
-            )
+            f"<p>If the web address is correct or you selected a link or button, "
+            f'please <a href="{ONS_URL}/aboutus/contactus/surveyenquiries/">contact us</a> for more '
+            "help.</p>"
         )
 
     def test_404_no_cookie(self):
@@ -341,10 +332,8 @@ class TestErrors(IntegrationTestCase):  # pylint: disable=too-many-public-method
         self.assertStatusCode(500)
         self._assert_generic_500_page_content()
         self.assertInBody(
-            (
-                f"<p>If you have attempted to submit your survey, you should check that this was successful. "
-                f'To do this, <a href="{CENSUS_URL}/{DEFAULT_LANGUAGE_CODE}/start/">re-enter your code</a>.</p>'
-            )
+            f"<p>If you have attempted to submit your survey, you should check that this was successful. "
+            f'To do this, <a href="{CENSUS_URL}/{DEFAULT_LANGUAGE_CODE}/start/">re-enter your code</a>.</p>'
         )
         self.assertInBody(
             (f'<p>If you need more help, <a href="{ONS_URL}/aboutus/contactus/surveyenquiries/">' "contact us</a>.</p>")
@@ -362,10 +351,8 @@ class TestErrors(IntegrationTestCase):  # pylint: disable=too-many-public-method
         # Then
         self.assertStatusCode(500)
         self.assertInBody(
-            (
-                f"<p>If this problem keeps happening, please "
-                f'<a href="{ONS_URL}/aboutus/contactus/surveyenquiries/">contact us</a> for help.</p>'
-            )
+            f"<p>If this problem keeps happening, please "
+            f'<a href="{ONS_URL}/aboutus/contactus/surveyenquiries/">contact us</a> for help.</p>'
         )
 
     def test_submission_failed_theme_census_cookie_exists(self):
@@ -386,10 +373,8 @@ class TestErrors(IntegrationTestCase):  # pylint: disable=too-many-public-method
         # Then
         self.assertStatusCode(500)
         self.assertInBody(
-            (
-                f'<p>If this problem keeps happening, please <a href="{ONS_URL}/'
-                f'aboutus/contactus/surveyenquiries/">contact us</a> for help.</p>'
-            )
+            f'<p>If this problem keeps happening, please <a href="{ONS_URL}/'
+            f'aboutus/contactus/surveyenquiries/">contact us</a> for help.</p>'
         )
 
     def launchAndFailSubmission(self, schema):

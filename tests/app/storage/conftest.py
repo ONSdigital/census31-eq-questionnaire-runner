@@ -1,4 +1,4 @@
-import contextlib
+from contextlib import nullcontext
 from datetime import datetime, timedelta, timezone
 
 import fakeredis
@@ -12,7 +12,7 @@ from app.storage.redis import Redis
 @pytest.fixture
 def mock_client(mocker):
     client = mocker.Mock()
-    client.transaction.return_value = contextlib.suppress()
+    client.transaction.return_value = nullcontext()
     return client
 
 

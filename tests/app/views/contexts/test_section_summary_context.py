@@ -1,5 +1,6 @@
+from unittest.mock import MagicMock
+
 import pytest
-from mock import MagicMock
 
 from app.data_models.answer_store import Answer, AnswerStore
 from app.data_models.data_stores import DataStores
@@ -205,7 +206,7 @@ def test_context_for_section_list_summary(people_answer_store):
                                 "list_item_id": "gTrlio",
                                 "primary_person": False,
                                 "remove_link": (
-                                    "/questionnaire/visitors/gTrlio/remove-visitor/" "?return_to=section-summary"
+                                    "/questionnaire/visitors/gTrlio/remove-visitor/?return_to=section-summary"
                                 ),
                                 "is_complete": False,
                                 "repeating_blocks": False,

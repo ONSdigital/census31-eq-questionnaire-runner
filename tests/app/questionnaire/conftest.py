@@ -1,5 +1,3 @@
-# pylint: disable=redefined-outer-name, too-many-lines
-
 import pytest
 
 from app.data_models import CompletionStatus, QuestionnaireStore

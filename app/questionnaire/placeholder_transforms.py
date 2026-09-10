@@ -23,7 +23,6 @@ if TYPE_CHECKING:
     from app.questionnaire.placeholder_renderer import PlaceholderRenderer  # pragma: no cover
 
 
-# pylint: disable=too-many-public-methods
 class PlaceholderTransforms:
     """
     A class to group the transforms that can be used within placeholders

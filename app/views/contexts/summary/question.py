@@ -17,7 +17,6 @@ from app.utilities.types import LocationType
 from app.views.contexts.summary.answer import Answer, InferredAnswerValueTypes, RadioCheckboxTypes
 
 
-# pylint: disable=too-many-locals
 class Question:
     def __init__(
         self,

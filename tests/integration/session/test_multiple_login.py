@@ -2,8 +2,6 @@ from datetime import datetime, timezone
 
 from app.utilities.json import json_loads
 from tests.integration.integration_test_case import IntegrationTestCase
-
-# pylint: disable=arguments-differ
 from tests.integration.questionnaire import SUBMIT_URL_PATH, THANK_YOU_URL_PATH
 
 
@@ -17,7 +15,6 @@ class MultipleClientTestCase(IntegrationTestCase):
         token = self.token_generator.create_token_v2(schema_name, **payload_kwargs)
         self.get(client, "/session?token=" + token)
 
-    # pylint: disable=arguments-renamed
     def get(self, client, url, **kwargs):
         response = client.get(url, follow_redirects=True, **kwargs)
 

@@ -57,7 +57,7 @@ def configure_logging():
     )
 
 
-def add_service(logger, method_name, event_dict):  # pylint: disable=unused-argument
+def add_service(logger, method_name, event_dict):
     """
     Add the service name to the event dict.
     """
@@ -67,7 +67,7 @@ def add_service(logger, method_name, event_dict):  # pylint: disable=unused-argu
 
 # Initialise logging before the rest of the application
 configure_logging()
-from app.setup import (  # NOQA isort:skip # pylint: disable=wrong-import-position
+from app.setup import (  # NOQA isort:skip
     create_app,
 )
 

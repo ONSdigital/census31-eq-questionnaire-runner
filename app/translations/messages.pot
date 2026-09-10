@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-09-07 15:31+0100\n"
+"POT-Creation-Date: 2026-09-07 15:30+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -51,7 +51,7 @@ msgstr ""
 msgid "Change your answer for: {question_title_or_answer_label}"
 msgstr ""
 
-#: app/jinja_filters.py:698
+#: app/jinja_filters.py:697
 #: templates/partials/summary/collapsible-summary.html:27
 #: templates/partials/summary/summary.html:24
 msgid "No answer provided"
@@ -242,74 +242,111 @@ msgid ""
 "browser if using a shared device"
 msgstr ""
 
-#: app/questionnaire/placeholder_transforms.py:181
+#: app/questionnaire/placeholder_transforms.py:180
 #, python-brace-format
 msgid "{number_of_years} year"
 msgid_plural "{number_of_years} years"
 msgstr[0] ""
 msgstr[1] ""
 
-#: app/questionnaire/placeholder_transforms.py:185
+#: app/questionnaire/placeholder_transforms.py:184
 #, python-brace-format
 msgid "{number_of_months} month"
 msgid_plural "{number_of_months} months"
 msgstr[0] ""
 msgstr[1] ""
 
-#: app/questionnaire/placeholder_transforms.py:188
+#: app/questionnaire/placeholder_transforms.py:187
 #, python-brace-format
 msgid "{number_of_days} day"
 msgid_plural "{number_of_days} days"
 msgstr[0] ""
 msgstr[1] ""
 
+<<<<<<< HEAD
 #: app/routes/errors.py:132
 msgid "You have reached the maximum number of individual access codes"
 msgstr ""
 
 #: app/routes/errors.py:134
+=======
+#: app/routes/errors.py:139
+msgid "You have reached the maximum number of individual access codes"
+msgstr ""
+
+#: app/routes/errors.py:141
+>>>>>>> origin/main
 #, python-brace-format
 msgid ""
 "If you need more individual access codes, please <a "
 "href='{contact_us_url}'>contact us</a>."
 msgstr ""
 
+<<<<<<< HEAD
 #: app/routes/errors.py:151
 msgid "You have reached the maximum number of times for submitting feedback"
 msgstr ""
 
 #: app/routes/errors.py:153
+=======
+#: app/routes/errors.py:158
+msgid "You have reached the maximum number of times for submitting feedback"
+msgstr ""
+
+#: app/routes/errors.py:160
+>>>>>>> origin/main
 #, python-brace-format
 msgid ""
 "If you need to give more feedback, please <a "
 "href='{contact_us_url}'>contact us</a>."
 msgstr ""
 
+<<<<<<< HEAD
 #: app/routes/errors.py:184
 msgid "Sorry, there was a problem sending the access code"
 msgstr ""
 
 #: app/routes/errors.py:192
+=======
+#: app/routes/errors.py:191
+msgid "Sorry, there was a problem sending the access code"
+msgstr ""
+
+#: app/routes/errors.py:199
+>>>>>>> origin/main
 #, python-brace-format
 msgid "You can try to <a href='{retry_url}'>request a new access code again</a>."
 msgstr ""
 
+<<<<<<< HEAD
 #: app/routes/errors.py:194 app/routes/errors.py:217 app/routes/errors.py:237
+=======
+#: app/routes/errors.py:201 app/routes/errors.py:224 app/routes/errors.py:244
+>>>>>>> origin/main
 #, python-brace-format
 msgid ""
 "If this problem keeps happening, please <a "
 "href='{contact_us_url}'>contact us</a> for help."
 msgstr ""
 
+<<<<<<< HEAD
 #: app/routes/errors.py:214
 msgid "Sorry, there was a problem sending the confirmation email"
 msgstr ""
 
 #: app/routes/errors.py:215
+=======
+#: app/routes/errors.py:221
+msgid "Sorry, there was a problem sending the confirmation email"
+msgstr ""
+
+#: app/routes/errors.py:222
+>>>>>>> origin/main
 #, python-brace-format
 msgid "You can try to <a href='{retry_url}'>send the email again</a>."
 msgstr ""
 
+<<<<<<< HEAD
 #: app/routes/errors.py:234 templates/errors/403.html:3
 #: templates/errors/403.html:6 templates/errors/submission-failed.html:4
 #: templates/errors/submission-failed.html:8
@@ -317,6 +354,15 @@ msgid "Sorry, there is a problem"
 msgstr ""
 
 #: app/routes/errors.py:235
+=======
+#: app/routes/errors.py:241 templates/errors/403.html:3
+#: templates/errors/403.html:21 templates/errors/submission-failed.html:4
+#: templates/errors/submission-failed.html:11
+msgid "Sorry, there is a problem"
+msgstr ""
+
+#: app/routes/errors.py:242
+>>>>>>> origin/main
 #, python-brace-format
 msgid "You can try to <a href='{retry_url}'>submit your feedback again</a>."
 msgstr ""
@@ -365,66 +411,66 @@ msgstr ""
 msgid "Save and exit survey"
 msgstr ""
 
-#: app/views/contexts/hub_context.py:19
+#: app/views/contexts/hub_context.py:16
 msgid "Completed"
 msgstr ""
 
-#: app/views/contexts/hub_context.py:21
+#: app/views/contexts/hub_context.py:18
 msgid "View answers"
 msgstr ""
 
-#: app/views/contexts/hub_context.py:22
+#: app/views/contexts/hub_context.py:19
 #, python-brace-format
 msgid "View answers: {section_name}"
 msgstr ""
 
-#: app/views/contexts/hub_context.py:26
+#: app/views/contexts/hub_context.py:23
 msgid "Partially completed"
 msgstr ""
 
-#: app/views/contexts/hub_context.py:28
+#: app/views/contexts/hub_context.py:25
 msgid "Continue with section"
 msgstr ""
 
-#: app/views/contexts/hub_context.py:29
+#: app/views/contexts/hub_context.py:26
 #, python-brace-format
 msgid "Continue with section: {section_name}"
 msgstr ""
 
-#: app/views/contexts/hub_context.py:33
+#: app/views/contexts/hub_context.py:30
 msgid "Not started"
 msgstr ""
 
-#: app/views/contexts/hub_context.py:35
+#: app/views/contexts/hub_context.py:32
 msgid "Start section"
 msgstr ""
 
-#: app/views/contexts/hub_context.py:36
+#: app/views/contexts/hub_context.py:33
 #, python-brace-format
 msgid "Start section: {section_name}"
 msgstr ""
 
-#: app/views/contexts/hub_context.py:40
+#: app/views/contexts/hub_context.py:37
 msgid "Separate census requested"
 msgstr ""
 
-#: app/views/contexts/hub_context.py:42 app/views/contexts/hub_context.py:43
+#: app/views/contexts/hub_context.py:39 app/views/contexts/hub_context.py:40
 msgid "Change or resend"
 msgstr ""
 
-#: app/views/contexts/hub_context.py:53 app/views/contexts/hub_context.py:54
+#: app/views/contexts/hub_context.py:50 app/views/contexts/hub_context.py:51
 msgid "Submit survey"
 msgstr ""
 
-#: app/views/contexts/hub_context.py:56
+#: app/views/contexts/hub_context.py:53
 msgid "You must submit this survey to complete it"
 msgstr ""
 
-#: app/views/contexts/hub_context.py:61
+#: app/views/contexts/hub_context.py:58
 msgid "Choose another section to complete"
 msgstr ""
 
-#: app/views/contexts/hub_context.py:62 templates/confirm-email.html:28
+#: app/views/contexts/hub_context.py:59 templates/confirm-email.html:28
 #: templates/individual_response/confirmation-post.html:26
 #: templates/individual_response/confirmation-text-message.html:39
 #: templates/individual_response/question.html:5 templates/interstitial.html:7
@@ -433,7 +479,7 @@ msgstr ""
 msgid "Continue"
 msgstr ""
 
-#: app/views/contexts/list_context.py:119
+#: app/views/contexts/list_context.py:118
 msgid " (You)"
 msgstr ""
 
@@ -478,17 +524,17 @@ msgstr ""
 msgid "Your answers have been submitted."
 msgstr ""
 
-#: app/views/contexts/view_submitted_response_context.py:29
+#: app/views/contexts/view_submitted_response_context.py:30
 #, python-brace-format
 msgid "Answers submitted for <span>{ru_name}</span> ({trad_as})"
 msgstr ""
 
-#: app/views/contexts/view_submitted_response_context.py:33
+#: app/views/contexts/view_submitted_response_context.py:34
 #, python-brace-format
 msgid "Answers submitted for <span>{ru_name}</span>"
 msgstr ""
 
-#: app/views/contexts/view_submitted_response_context.py:35
+#: app/views/contexts/view_submitted_response_context.py:36
 msgid "Answers submitted."
 msgstr ""
 
@@ -506,7 +552,7 @@ msgstr ""
 
 #: app/views/handlers/confirm_email.py:92
 #: app/views/handlers/confirm_email.py:93
-#: app/views/handlers/individual_response.py:846
+#: app/views/handlers/individual_response.py:850
 msgid "No, I need to change it"
 msgstr ""
 
@@ -562,54 +608,54 @@ msgstr ""
 msgid "Person {list_item_position}"
 msgstr ""
 
-#: app/views/handlers/individual_response.py:246
+#: app/views/handlers/individual_response.py:244
 msgid "Cannot answer questions for others in your household"
 msgstr ""
 
-#: app/views/handlers/individual_response.py:313
+#: app/views/handlers/individual_response.py:311
 #, python-brace-format
 msgid ""
 "How would you like <strong>{person_name}</strong> to receive a separate "
 "census?"
 msgstr ""
 
-#: app/views/handlers/individual_response.py:333
+#: app/views/handlers/individual_response.py:331
 msgid "Text message"
 msgstr ""
 
-#: app/views/handlers/individual_response.py:335
+#: app/views/handlers/individual_response.py:333
 msgid "We will need their mobile number for this"
 msgstr ""
 
-#: app/views/handlers/individual_response.py:341
+#: app/views/handlers/individual_response.py:339
 msgid "Post"
 msgstr ""
 
-#: app/views/handlers/individual_response.py:344
+#: app/views/handlers/individual_response.py:342
 msgid ""
 "We can only send this to an unnamed resident at the registered household "
 "address"
 msgstr ""
 
-#: app/views/handlers/individual_response.py:352
+#: app/views/handlers/individual_response.py:350
 msgid "It is no longer possible to receive an access code by post."
 msgstr ""
 
-#: app/views/handlers/individual_response.py:354
+#: app/views/handlers/individual_response.py:352
 msgid "Select how to send access code."
 msgstr ""
 
-#: app/views/handlers/individual_response.py:357
+#: app/views/handlers/individual_response.py:355
 msgid ""
 "For someone to complete a separate census, we need to send them an "
 "individual access code."
 msgstr ""
 
-#: app/views/handlers/individual_response.py:401
+#: app/views/handlers/individual_response.py:399
 msgid "Send individual access code"
 msgstr ""
 
-#: app/views/handlers/individual_response.py:433
+#: app/views/handlers/individual_response.py:431
 #, python-brace-format
 msgid ""
 "How would you like to answer <strong>{person_name_possessive}</strong> "
@@ -633,74 +679,74 @@ msgstr ""
 msgid "I will answer for {person_name}"
 msgstr ""
 
-#: app/views/handlers/individual_response.py:496
+#: app/views/handlers/individual_response.py:498
 msgid "How to answer questions"
 msgstr ""
 
-#: app/views/handlers/individual_response.py:557
+#: app/views/handlers/individual_response.py:559
 #, python-brace-format
 msgid "Do you want to send an individual access code for {person_name} by post?"
 msgstr ""
 
-#: app/views/handlers/individual_response.py:562
+#: app/views/handlers/individual_response.py:564
 msgid ""
 "A letter with an individual access code will be sent to your registered "
 "household address"
 msgstr ""
 
-#: app/views/handlers/individual_response.py:569
+#: app/views/handlers/individual_response.py:571
 msgid ""
 "The letter will be addressed to <strong>Individual Resident</strong> "
 "instead of the name provided"
 msgstr ""
 
-#: app/views/handlers/individual_response.py:582
+#: app/views/handlers/individual_response.py:584
 msgid "Yes, send the access code by post"
 msgstr ""
 
-#: app/views/handlers/individual_response.py:586
+#: app/views/handlers/individual_response.py:588
 msgid "No, send it another way"
 msgstr ""
 
-#: app/views/handlers/individual_response.py:621
+#: app/views/handlers/individual_response.py:623
 msgid "Confirm address"
 msgstr ""
 
-#: app/views/handlers/individual_response.py:684
-#: app/views/handlers/individual_response.py:720
+#: app/views/handlers/individual_response.py:686
+#: app/views/handlers/individual_response.py:722
 msgid "Separate Census"
 msgstr ""
 
-#: app/views/handlers/individual_response.py:688
+#: app/views/handlers/individual_response.py:690
 msgid "Who do you need to request a separate census for?"
 msgstr ""
 
-#: app/views/handlers/individual_response.py:744
+#: app/views/handlers/individual_response.py:746
 #, python-brace-format
 msgid "What is <strong>{person_name_possessive}</strong> mobile number?"
 msgstr ""
 
-#: app/views/handlers/individual_response.py:752
+#: app/views/handlers/individual_response.py:756
 msgid "UK mobile number"
 msgstr ""
 
-#: app/views/handlers/individual_response.py:754
+#: app/views/handlers/individual_response.py:758
 msgid "This will not be stored and only used once to send the access code"
 msgstr ""
 
-#: app/views/handlers/individual_response.py:786
+#: app/views/handlers/individual_response.py:790
 msgid "Mobile number"
 msgstr ""
 
-#: app/views/handlers/individual_response.py:833
+#: app/views/handlers/individual_response.py:837
 msgid "Is this mobile number correct?"
 msgstr ""
 
-#: app/views/handlers/individual_response.py:842
+#: app/views/handlers/individual_response.py:846
 msgid "Yes, send the text"
 msgstr ""
 
-#: app/views/handlers/individual_response.py:882
+#: app/views/handlers/individual_response.py:886
 msgid "Confirm mobile number"
 msgstr ""
 
@@ -884,6 +930,7 @@ msgid ""
 "submitted-response-link\">save or print your answers</a>."
 msgstr ""
 
+<<<<<<< HEAD
 #: templates/layouts/_base.html:152 templates/thank-you.html:84
 msgid "minute"
 msgstr ""
@@ -897,6 +944,21 @@ msgid "second"
 msgstr ""
 
 #: templates/layouts/_base.html:155 templates/thank-you.html:87
+=======
+#: templates/layouts/_base.html:147 templates/thank-you.html:84
+msgid "minute"
+msgstr ""
+
+#: templates/layouts/_base.html:148 templates/thank-you.html:85
+msgid "minutes"
+msgstr ""
+
+#: templates/layouts/_base.html:149 templates/thank-you.html:86
+msgid "second"
+msgstr ""
+
+#: templates/layouts/_base.html:150 templates/thank-you.html:87
+>>>>>>> origin/main
 msgid "seconds"
 msgstr ""
 
@@ -1133,6 +1195,7 @@ msgstr ""
 msgid "Skip to main content"
 msgstr ""
 
+<<<<<<< HEAD
 #: templates/layouts/_base.html:147
 msgid "You will be signed out soon"
 msgstr ""
@@ -1142,16 +1205,35 @@ msgid "It appears you have been inactive for a while."
 msgstr ""
 
 #: templates/layouts/_base.html:149
+=======
+#: templates/layouts/_base.html:142
+msgid "You will be signed out soon"
+msgstr ""
+
+#: templates/layouts/_base.html:143
+msgid "It appears you have been inactive for a while."
+msgstr ""
+
+#: templates/layouts/_base.html:144
+>>>>>>> origin/main
 msgid ""
 "To protect your information, your progress will be saved and you will be "
 "signed out in"
 msgstr ""
 
+<<<<<<< HEAD
 #: templates/layouts/_base.html:150
 msgid "You are being signed out"
 msgstr ""
 
 #: templates/layouts/_base.html:151
+=======
+#: templates/layouts/_base.html:145
+msgid "You are being signed out"
+msgstr ""
+
+#: templates/layouts/_base.html:146
+>>>>>>> origin/main
 msgid "Continue survey"
 msgstr ""
 
