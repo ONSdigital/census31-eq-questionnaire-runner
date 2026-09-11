@@ -6,20 +6,20 @@ import ThankYouPage from '../base_pages/thank-you.page'
 import DidYouKnowPage from '../generated_pages/thank_you/did-you-know.page'
 import ThankYouSubmitPage from '../generated_pages/thank_you/submit.page'
 
-test.describe('Thank You Social', () => {
-  test.describe('Given I launch a social themed questionnaire', () => {
+test.describe('Thank You Census', () => {
+  test.describe('Given I launch a census themed questionnaire', () => {
     test.beforeEach(async ({ openQuestionnaire }) => {
-      await openQuestionnaire('test_theme_social.json', { theme: 'social' })
+      await openQuestionnaire('test_theme_census.json', { theme: 'census' })
     })
 
-    test('When I navigate to the thank you page, Then I should see social theme content', async ({ page }) => {
+    test('When I navigate to the thank you page, Then I should see census theme content', async ({ page }) => {
       const hubPage = new HubPage(page)
       const submitPage = new SubmitPage(page)
       const thankYouPage = new ThankYouPage(page)
       await submitPage.submit().click()
       await hubPage.submit().click()
       await expect(page).toHaveURL(new RegExp(thankYouPage.pageName))
-      await expect(thankYouPage.title()).toContainText('Thank you for completing the Test Theme Social')
+      await expect(thankYouPage.title()).toContainText('Thank you for completing the Test Theme Census')
       await expect(thankYouPage.guidance()).toContainText('Your answers have been submitted')
       await expect(thankYouPage.metadata()).toContainText('Submitted on:')
       await expect(thankYouPage.metadata()).not.toContainText('Submission reference:')

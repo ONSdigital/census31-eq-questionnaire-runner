@@ -340,35 +340,35 @@ Once we have the translated .po files they can be added to the source code and u
 
 The following env variables can be used
 
-| Variable Name                             | Default                      | Description                                                                                                    |
-|-------------------------------------------|------------------------------|----------------------------------------------------------------------------------------------------------------|
-| EQ_SESSION_TIMEOUT_SECONDS                | 2700 (45 mins)               | The duration of the flask session                                                                              |
-| EQ_PROFILING                              | False                        | Enables or disables profiling (True/False) Default False/Disabled                                              |
-| EQ_GOOGLE_TAG_ID                          |                              | The Google Tag Manager ID - Specifies the GTM account                                                          |
-| EQ_ENABLE_HTML_MINIFY                     | True                         | Enable minification of html                                                                                    |
-| EQ_ENABLE_SECURE_SESSION_COOKIE           | True                         | Set secure session cookies                                                                                     |
-| EQ_MAX_HTTP_POST_CONTENT_LENGTH           | 65536                        | The maximum http post content length that the system will accept                                               |
-| EQ_MINIMIZE_ASSETS                        | True                         | Should JS and CSS be minimized                                                                                 |
-| MAX_CONTENT_LENGTH                        | 65536                        | Max request payload size in bytes                                                                              |
-| EQ_APPLICATION_VERSION_PATH               | .application-version         | The location of a file containing the application version number                                               |
-| EQ_SECRETS_FILE                           | secrets.yml                  | The location of the secrets file                                                                               |
-| EQ_KEYS_FILE                              | keys.yml                     | The location of the keys file                                                                                  |
-| EQ_SUBMISSION_BACKEND                     |                              | Which submission backend to use (gcs, log)                                                                     |
-| EQ_GCS_SUBMISSION_BUCKET_ID               |                              | The bucket name in GCP to store the submissions in                                                             |
-| EQ_GCS_FEEDBACK_BUCKET_ID                 |                              | The bucket name in GCP to store the feedback in                                                                |
-| EQ_SERVER_SIDE_STORAGE_USER_ID_ITERATIONS | 10000                        |                                                                                                                |
-| EQ_QUESTIONNAIRE_STATE_TABLE_NAME         |                              |                                                                                                                |
-| EQ_SESSION_TABLE_NAME                     |                              |                                                                                                                |
-| EQ_USED_JTI_CLAIM_TABLE_NAME              |                              |                                                                                                                |
-| EQ_REDIS_HOST                             |                              | Hostname of Redis instance used for ephemeral storage                                                          |
-| EQ_REDIS_PORT                             |                              | Port number of Redis instance used for ephemeral storage                                                       |
-| WEB_SERVER_TYPE                           |                              | Web server type used to run the application. This also determines the worker class which can be async/threaded |
-| WEB_SERVER_WORKERS                        |                              | The number of worker processes                                                                                 |
-| WEB_SERVER_THREADS                        |                              | The number of worker threads per worker                                                                        |
-| WEB_SERVER_UWSGI_ASYNC_CORES              |                              | The number of cores to initialise when using "uwsgi-async" web server worker type                              |
-| DATASTORE_USE_GRPC                        | False                        | Determines whether to use gRPC for Datastore. gRPC is currently only supported for threaded web servers        |
-| ACCOUNT_SERVICE_BASE_URL                  | `https://surveys.ons.gov.uk` | The base URL of the account service used to launch the survey                                                  |
-| ONS_URL                                   | `https://www.ons.gov.uk`     | The URL of the ONS website where static content is sourced, e.g. accessibility info                            |
+| Variable Name                             | Default                       | Description                                                                                                    |
+|-------------------------------------------|-------------------------------|----------------------------------------------------------------------------------------------------------------|
+| EQ_SESSION_TIMEOUT_SECONDS                | 2700 (45 mins)                | The duration of the flask session                                                                              |
+| EQ_PROFILING                              | False                         | Enables or disables profiling (True/False) Default False/Disabled                                              |
+| EQ_GOOGLE_TAG_ID                          |                               | The Google Tag Manager ID - Specifies the GTM account                                                          |
+| EQ_ENABLE_HTML_MINIFY                     | True                          | Enable minification of html                                                                                    |
+| EQ_ENABLE_SECURE_SESSION_COOKIE           | True                          | Set secure session cookies                                                                                     |
+| EQ_MAX_HTTP_POST_CONTENT_LENGTH           | 65536                         | The maximum http post content length that the system will accept                                               |
+| EQ_MINIMIZE_ASSETS                        | True                          | Should JS and CSS be minimized                                                                                 |
+| MAX_CONTENT_LENGTH                        | 65536                         | Max request payload size in bytes                                                                              |
+| EQ_APPLICATION_VERSION_PATH               | .application-version          | The location of a file containing the application version number                                               |
+| EQ_SECRETS_FILE                           | secrets.yml                   | The location of the secrets file                                                                               |
+| EQ_KEYS_FILE                              | keys.yml                      | The location of the keys file                                                                                  |
+| EQ_SUBMISSION_BACKEND                     |                               | Which submission backend to use (gcs, log)                                                                     |
+| EQ_GCS_SUBMISSION_BUCKET_ID               |                               | The bucket name in GCP to store the submissions in                                                             |
+| EQ_GCS_FEEDBACK_BUCKET_ID                 |                               | The bucket name in GCP to store the feedback in                                                                |
+| EQ_SERVER_SIDE_STORAGE_USER_ID_ITERATIONS | 10000                         |                                                                                                                |
+| EQ_QUESTIONNAIRE_STATE_TABLE_NAME         |                               |                                                                                                                |
+| EQ_SESSION_TABLE_NAME                     |                               |                                                                                                                |
+| EQ_USED_JTI_CLAIM_TABLE_NAME              |                               |                                                                                                                |
+| EQ_REDIS_HOST                             |                               | Hostname of Redis instance used for ephemeral storage                                                          |
+| EQ_REDIS_PORT                             |                               | Port number of Redis instance used for ephemeral storage                                                       |
+| WEB_SERVER_TYPE                           |                               | Web server type used to run the application. This also determines the worker class which can be async/threaded |
+| WEB_SERVER_WORKERS                        |                               | The number of worker processes                                                                                 |
+| WEB_SERVER_THREADS                        |                               | The number of worker threads per worker                                                                        |
+| WEB_SERVER_UWSGI_ASYNC_CORES              |                               | The number of cores to initialise when using "uwsgi-async" web server worker type                              |
+| DATASTORE_USE_GRPC                        | False                         | Determines whether to use gRPC for Datastore. gRPC is currently only supported for threaded web servers        |
+| ACCOUNT_SERVICE_BASE_URL                  | `https://start.census.gov.uk` | The base URL of the account service used to launch the survey                                                  |
+| ONS_URL                                   | `https://www.ons.gov.uk`      | The URL of the ONS website where static content is sourced, e.g. accessibility info                            |
 
 The following env variables can be used when running tests
 
