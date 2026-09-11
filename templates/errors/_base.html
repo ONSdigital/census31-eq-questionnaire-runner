@@ -1,7 +1,5 @@
 {% extends "layouts/_base.html" %}
 
-{% set SURVEY_TYPES_BUSINESS = ["northernireland", "business", "dbt", "dbt-ni", "dbt-dsit", "dbt-dsit-ni", "orr", "desnz", "desnz-ni"] %}
+{% set SURVEY_TYPES_CENSUS = ["census", "census-nisra", "census-nrs"] %}
 {% set SURVEY_TYPES_DEFAULT = ["default"] %}
-{% set SURVEY_TYPES_SOCIAL = ["social"] %}
-{% set SURVEY_TYPES_HEALTH = ["health", "ukhsa-ons", "ons-nhs"] %}
-{% set SURVEY_TYPES_ALL = SURVEY_TYPES_BUSINESS + SURVEY_TYPES_DEFAULT + SURVEY_TYPES_SOCIAL + SURVEY_TYPES_HEALTH %}
+{% set SURVEY_TYPES_ALL = SURVEY_TYPES_CENSUS + SURVEY_TYPES_DEFAULT %}
