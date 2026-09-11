@@ -7,18 +7,14 @@ from app.survey_config.survey_type import SurveyType
 from app.views.contexts.submission_metadata_context import build_submission_metadata_context
 
 SURVEY_TYPE_DEFAULT = SurveyType.DEFAULT
-SURVEY_TYPE_SOCIAL = SurveyType.SOCIAL
-SURVEY_TYPE_HEALTH = SurveyType.HEALTH
+SURVEY_TYPE_CENSUS = SurveyType.CENSUS
 SUBMITTED_AT = datetime(2021, 8, 17, 10, 10, 0, tzinfo=timezone.utc)
 TX_ID = "6b6f90e6-6c27-4c76-8295-7a14e2c4a399"
 
 
 @pytest.mark.parametrize(
     "survey_type",
-    (
-        (SURVEY_TYPE_SOCIAL),
-        (SURVEY_TYPE_HEALTH),
-    ),
+    ((SURVEY_TYPE_CENSUS),),
 )
 def test_metadata_survey_types_without_ru_name(app: Flask, survey_type):
     with app.app_context():
