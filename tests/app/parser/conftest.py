@@ -1,5 +1,4 @@
 import uuid
-from datetime import datetime, timedelta, timezone
 
 import pytest
 
@@ -27,7 +26,6 @@ def get_metadata_full():
         "case_ref": "1000000000000001",
         "ru_ref": "12345678901A",
         "form_type": "I",
-        "response_expires_at": get_response_expires_at(),
     }
 
     metadata = _fake_metadata_runner_v2()
@@ -49,7 +47,6 @@ def _fake_metadata_runner_v2():
         "case_id": str(uuid.uuid4()),
         "version": AuthPayloadVersion.V2.value,
         "survey_metadata": {"data": {"key": "value"}},
-        "response_expires_at": get_response_expires_at(),
     }
 
 
@@ -64,7 +61,6 @@ def fake_metadata_runner():
         "response_id": str(uuid.uuid4()),
         "account_service_url": "https://ras.ons.gov.uk",
         "case_id": str(uuid.uuid4()),
-        "response_expires_at": get_response_expires_at(),
     }
 
 
@@ -100,7 +96,3 @@ def fake_questionnaire_metadata_requirements_full():
         {"name": "ref_p_end_date", "type": "string"},
         {"name": "account_service_url", "type": "url", "optional": True},
     ]
-
-
-def get_response_expires_at() -> str:
-    return (datetime.now(tz=timezone.utc) + timedelta(days=1)).isoformat()

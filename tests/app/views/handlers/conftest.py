@@ -12,7 +12,6 @@ from app.data_models.metadata_proxy import MetadataProxy
 from app.data_models.session_data import SessionData
 from app.data_models.session_store import SessionStore
 from app.questionnaire import QuestionnaireSchema
-from tests.app.parser.conftest import get_response_expires_at
 
 time_to_freeze = datetime.now(timezone.utc).replace(second=0, microsecond=0)
 tx_id = str(uuid.uuid4())
@@ -41,7 +40,6 @@ case_type = "I"
 channel = "H"
 case_ref = "1000000000000001"
 region_code = "GB_WLS"
-response_expires_at = get_response_expires_at()
 
 
 @pytest.fixture
@@ -126,7 +124,6 @@ def metadata():
             "case_ref": case_ref,
             "case_id": case_id,
             "language_code": language_code,
-            "response_expires_at": response_expires_at,
         }
     )
 
@@ -143,7 +140,6 @@ def metadata_v2():
             "response_id": response_id,
             "channel": channel,
             "account_service_url": "account_service_url",
-            "response_expires_at": get_response_expires_at(),
             "survey_metadata": {
                 "period_id": period_id,
                 "period_str": period_str,
@@ -210,7 +206,6 @@ def mock_questionnaire_store(mocker):
                 "schema_name": schema_name,
                 "account_service_url": "account_service_url",
                 "response_id": "response_id",
-                "response_expires_at": get_response_expires_at(),
             }
         )
     )
@@ -233,7 +228,6 @@ def mock_questionnaire_store_v2(mocker):
                 "response_id": response_id,
                 "channel": channel,
                 "account_service_url": "account_service_url",
-                "response_expires_at": get_response_expires_at(),
                 "survey_metadata": {
                     "period_id": period_id,
                     "period_str": period_str,

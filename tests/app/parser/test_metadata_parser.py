@@ -174,41 +174,6 @@ def test_deserialisation_iso_8601_dates():
     assert isinstance(claims["birthday"], str)
 
 
-@freeze_time("2021-11-15T15:34:54+00:00")
-@pytest.mark.parametrize(
-    "date_string",
-    [
-        ("2021-11-22T15:34:54+00:00"),
-        ("2021-11-22T15:34:54Z"),
-    ],
-)
-def test_deserialisation_iso_8601_date(date_string):
-    metadata = get_metadata_full()
-
-    metadata["response_expires_at"] = date_string
-
-    claims = validate_runner_claims_v2(metadata)
-
-    assert claims["response_expires_at"] == "2021-11-22T15:34:54+00:00"
-
-
-def test_deserialisation_iso_8601_datetime_past_datetime_raises_ValidationError():
-    metadata = get_metadata_full()
-
-    metadata["response_expires_at"] = "1900-11-22T15:34:54+00:00"
-    with pytest.raises(ValidationError):
-        validate_runner_claims_v2(metadata)
-
-
-@freeze_time("2021-11-15T15:34:54+00:00")
-def test_deserialisation_iso_8601_datetime_bad_datetime_raises_ValidationError():
-    metadata = get_metadata_full()
-
-    metadata["response_expires_at"] = "2021-11-32"
-    with pytest.raises(ValidationError):
-        validate_runner_claims_v2(metadata)
-
-
 def test_empty_schema_name_and_schema_url_not_valid_v2():
     metadata = get_metadata_full()
     del metadata["schema_name"]

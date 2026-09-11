@@ -1,12 +1,10 @@
 import functools
-from datetime import datetime, timezone
 from typing import Any, Callable, Iterable, Mapping, MutableMapping
 
 from marshmallow import EXCLUDE, INCLUDE, Schema, ValidationError, fields, pre_load, validate, validates_schema
 from structlog import get_logger
 
 from app.authentication.auth_payload_versions import AuthPayloadVersion
-from app.questionnaire.rules.utils import parse_iso_8601_datetime
 from app.utilities.metadata_validators import DateString, RegionCode, UUIDString
 
 logger = get_logger()
@@ -40,12 +38,6 @@ class SchemaSelector(Schema, StripWhitespaceMixin):
     region_code = VALIDATORS["string"](required=True, validate=RegionCode())
 
 
-def validate_response_expires_at(expires_at: str) -> None:
-    if parse_iso_8601_datetime(expires_at) < datetime.now(tz=timezone.utc):
-        error_message = f"Response expires at: {expires_at} is not valid, must be in the future"
-        raise ValidationError(error_message)
-
-
 class RunnerMetadataSchema(Schema, StripWhitespaceMixin):
     """Metadata which is required for the operation of runner itself"""
 
@@ -63,10 +55,6 @@ class RunnerMetadataSchema(Schema, StripWhitespaceMixin):
 
     language_code = VALIDATORS["string"](required=False)
     channel = VALIDATORS["string"](required=False, validate=validate.Length(min=1))
-    response_expires_at = VALIDATORS["iso_8601_date_string"](
-        required=False,
-        validate=validate_response_expires_at,
-    )
 
     roles = fields.List(fields.String(), required=False)
     schema = fields.Nested(SchemaSelector, required=False)

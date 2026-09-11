@@ -2,7 +2,6 @@ from __future__ import annotations
 
 from copy import deepcopy
 from dataclasses import dataclass
-from datetime import datetime
 from typing import Any, Mapping
 
 from werkzeug.datastructures import ImmutableDict
@@ -22,7 +21,6 @@ TOP_LEVEL_METADATA_KEYS = [
     "case_id",
     "collection_exercise_sid",
     "response_id",
-    "response_expires_at",
     "language_code",
     "schema_name",
     "schema_url",
@@ -46,7 +44,6 @@ class MetadataProxy:
     case_id: str
     collection_exercise_sid: str
     response_id: str
-    response_expires_at: datetime
     survey_metadata: ImmutableDict | None = None
     schema_url: str | None = None
     schema_name: str | None = None

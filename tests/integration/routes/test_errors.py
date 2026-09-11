@@ -2,7 +2,6 @@ from unittest.mock import Mock, patch
 
 from app.questionnaire.questionnaire_schema import DEFAULT_LANGUAGE_CODE
 from app.settings import ACCOUNT_SERVICE_BASE_URL, ONS_URL
-from tests.app.parser.conftest import get_response_expires_at
 from tests.integration.integration_test_case import IntegrationTestCase
 
 CENSUS_URL = ACCOUNT_SERVICE_BASE_URL
@@ -27,7 +26,6 @@ class TestErrors(IntegrationTestCase):
         "language_code": "en",
         "account_service_url": "http://correct.place",
         "roles": [],
-        "response_expires_at": get_response_expires_at(),
         "version": "v2",
     }
 

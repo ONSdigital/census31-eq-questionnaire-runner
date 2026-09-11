@@ -12,7 +12,6 @@ METADATA_V2 = {
     "tx_id": "tx_id",
     "collection_exercise_sid": "collection_exercise_sid",
     "case_id": "case_id",
-    "response_expires_at": "2023-04-24T10:46:32+00:00",
     "schema": {
         "survey": "CENSUS",
         "form_type": "H",
@@ -27,10 +26,6 @@ METADATA_V2 = {
         (
             MetadataProxy.from_dict(METADATA_V2)["case_id"],
             METADATA_V2["case_id"],
-        ),
-        (
-            MetadataProxy.from_dict(METADATA_V2)["response_expires_at"],
-            METADATA_V2["response_expires_at"],
         ),
         (MetadataProxy.from_dict(METADATA_V2)["non_existing"], None),
     ),

@@ -174,9 +174,6 @@ export async function generateToken (
   const iat = kjur.jws.IntDate.get('now')
   const exp = kjur.jws.IntDate.get('now') + 1800
   const caseId = uuidv4()
-  const currentDate = new Date()
-  currentDate.setUTCDate(currentDate.getUTCDate() + 1)
-  const isoDate = currentDate.toISOString()
 
   const oPayload: Record<string, unknown> = {
     tx_id: txId,
@@ -191,8 +188,7 @@ export async function generateToken (
     language_code: languageCode,
     account_service_url: 'http://localhost:8000',
     survey_metadata: getSurveyMetadata(theme, userId, displayAddress, surveyId, periodId, periodStr, ruRef, sdsDatasetId, booleanFlag),
-    version: launchVersion,
-    response_expires_at: isoDate
+    version: launchVersion
   }
 
   if (includeLogoutUrl) {

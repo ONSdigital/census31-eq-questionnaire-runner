@@ -12,7 +12,6 @@ from app.data_models.answer_store import AnswerStore
 from app.data_models.metadata_proxy import MetadataProxy
 from app.questionnaire.questionnaire_schema import QuestionnaireSchema
 from app.settings import ACCOUNT_SERVICE_BASE_URL
-from tests.app.parser.conftest import get_response_expires_at
 
 RAW_METADATA_V2 = {
     "version": AuthPayloadVersion.V2.value,
@@ -37,7 +36,6 @@ RAW_METADATA_V2 = {
     "case_id": str(uuid.uuid4()),
     "channel": "RH",
     "jti": str(uuid.uuid4()),
-    "response_expires_at": get_response_expires_at(),
 }
 METADATA_V2 = MetadataProxy.from_dict(RAW_METADATA_V2)
 

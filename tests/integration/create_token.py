@@ -7,7 +7,6 @@ from sdc.crypto.encrypter import encrypt
 from app.authentication.auth_payload_versions import AuthPayloadVersion
 from app.data_models.metadata_proxy import TOP_LEVEL_METADATA_KEYS
 from app.keys import KEY_PURPOSE_AUTHENTICATION
-from tests.app.parser.conftest import get_response_expires_at
 
 ACCOUNT_SERVICE_URL = "http://upstream.url"
 
@@ -79,8 +78,6 @@ class TokenGenerator:
         payload_vars["exp"] = payload_vars["iat"] + float(3600)  # one hour from now
         payload_vars["jti"] = str(uuid4())
         payload_vars["case_id"] = str(uuid4())
-        payload_vars["response_expires_at"] = get_response_expires_at()
-
         for key, value in extra_payload.items():
             if key in TOP_LEVEL_KEYS:
                 populate_with_extra_payload_items(key, value, payload_vars)
