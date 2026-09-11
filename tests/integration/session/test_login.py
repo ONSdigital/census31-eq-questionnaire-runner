@@ -30,20 +30,9 @@ class TestLoginWithGetRequest(IntegrationTestCase):
         # Then
         self.assertStatusForbidden()
 
-    def test_login_with_valid_v2_business_token_should_redirect_to_survey(self):
+    def test_login_with_valid_v2_census_token_should_redirect_to_survey(self):
         # Given
-        token = self.token_generator.create_token_v2(schema_name="test_checkbox")
-
-        # When
-        self.get(url=f"/session?token={token}")
-
-        # Then
-        self.assertStatusOK()
-        self.assertInUrl("/questionnaire")
-
-    def test_login_with_valid_v2_social_token_should_redirect_to_survey(self):
-        # Given
-        token = self.token_generator.create_token_v2(schema_name="test_theme_social", theme="social")
+        token = self.token_generator.create_token_v2(schema_name="test_theme_census", theme="census")
 
         # When
         self.get(url=f"/session?token={token}")
@@ -71,19 +60,9 @@ class TestLoginWithGetRequest(IntegrationTestCase):
         # Then
         self.assertStatusForbidden()
 
-    def test_login_with_valid_v2_business_token_no_schema_name(self):
+    def test_login_with_valid_v2_census_token_no_schema_name(self):
         # Given
-        token = self.token_generator.create_token_v2(schema_name="")
-
-        # When
-        self.get(url=f"/session?token={token}")
-
-        # Then
-        self.assertStatusForbidden()
-
-    def test_login_with_valid_v2_social_token_no_schema_name(self):
-        # Given
-        token = self.token_generator.create_token_v2(schema_name="", theme="social")
+        token = self.token_generator.create_token_v2(schema_name="", theme="census")
 
         # When
         self.get(url=f"/session?token={token}")
@@ -257,27 +236,17 @@ class TestLoginWithPostRequest(IntegrationTestCase):
 
         self.assertStatusForbidden()
 
-    def test_v2_business_login_with_invalid_questionnaire_claims_should_be_forbidden(
+    def test_v2_census_login_with_invalid_questionnaire_claims_should_be_forbidden(
         self,
     ):
-        # flag_1 should be a boolean
-        token = self.token_generator.create_token_v2("test_metadata_routing", flag_1=123)
+        token = self.token_generator.create_token_v2(schema_name="test_address", theme="census")
 
         self.post(url=f"/session?token={token}")
 
         self.assertStatusForbidden()
 
-    def test_v2_social_login_with_invalid_questionnaire_claims_should_be_forbidden(
-        self,
-    ):
-        token = self.token_generator.create_token_v2(schema_name="test_address", theme="social")
-
-        self.post(url=f"/session?token={token}")
-
-        self.assertStatusForbidden()
-
-    def test_v2_social_login_with_invalid_receipting_key_should_be_forbidden(self):
-        token = self.token_generator.create_token_v2_social_token_invalid_receipting_key("test_theme_social")
+    def test_v2_census_login_with_invalid_receipting_key_should_be_forbidden(self):
+        token = self.token_generator.create_token_v2_census_token_invalid_receipting_key("test_theme_census")
 
         self.post(url=f"/session?token={token}")
 
