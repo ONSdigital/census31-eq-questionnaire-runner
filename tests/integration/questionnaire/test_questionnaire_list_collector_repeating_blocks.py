@@ -2,8 +2,6 @@ from datetime import date
 
 from tests.integration.integration_test_case import IntegrationTestCase
 
-# pylint: disable=too-many-public-methods
-
 
 class TestQuestionnaireListCollectorRepeatingBlocks(IntegrationTestCase):
     def launch_repeating_blocks_test_survey(self):

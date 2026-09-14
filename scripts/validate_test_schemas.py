@@ -19,7 +19,7 @@ def check_connection():
                 "/dev/null",
                 "-w",
                 "%{http_code}",
-                "http://localhost:5006/status",
+                "http://127.0.0.1:5006/status",  # DevSkim: ignore DS162092
             ],
             capture_output=True,
             text=True,
@@ -66,7 +66,7 @@ def validate_schema(schema_path):
                 "Content-Type: application/json",
                 "-d",
                 f"@{schema_path}",
-                "http://localhost:5001/validate",
+                "http://127.0.0.1:5001/validate",  # DevSkim: ignore DS162092
             ],
             capture_output=True,
             text=True,
@@ -79,7 +79,6 @@ def validate_schema(schema_path):
 
 
 def process_schema(future, future_to_schema):
-    # pylint: disable=broad-exception-caught
     schema = future_to_schema[future]
     try:
         schema_path, result = future.result()
@@ -118,7 +117,7 @@ def process_schema(future, future_to_schema):
         logging.error("\033[31mHTTP Status: %s\033[0m", formatted_json)
         return False
 
-    except Exception as e:
+    except (json.JSONDecodeError, OSError, KeyError, TypeError) as e:
         logging.error("\033[31mError processing %s: %s\033[0m", schema, e)
         return False
 

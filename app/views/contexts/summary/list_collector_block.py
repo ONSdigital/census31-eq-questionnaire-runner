@@ -6,7 +6,6 @@ from app.views.contexts.summary.list_collector_base_block import ListCollectorBa
 
 
 class ListCollectorBlock(ListCollectorBaseBlock):
-    # pylint: disable=too-many-locals
     def list_summary_element(self, summary: Mapping) -> dict:
         list_collector_block = None
         (

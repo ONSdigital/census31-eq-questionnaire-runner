@@ -24,7 +24,6 @@ class RuleEvaluator:
     routing_path_block_ids: Iterable[str] | None = None
     language: str = DEFAULT_LANGUAGE_CODE
 
-    # pylint: disable=attribute-defined-outside-init
     def __post_init__(self) -> None:
         list_item_id = self.location.list_item_id if self.location else None
         self.value_source_resolver = ValueSourceResolver(

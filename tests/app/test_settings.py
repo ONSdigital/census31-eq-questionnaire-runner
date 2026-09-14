@@ -1,4 +1,5 @@
 from datetime import datetime
+from pathlib import Path
 
 import pytest
 
@@ -19,14 +20,14 @@ def test_ensure_min_returns(value, minimum, expected):
 @pytest.mark.parametrize(
     "file, expected",
     (
-        (".application-version", True),
+        (Path(__file__), True),
         (".missing-application-version", False),
         (None, False),
         ("", False),
     ),
 )
 def test_read_files(file, expected):
-    assert bool(settings.read_file(file)) is expected
+    assert bool(settings.read_file(str(file) if file is not None else file)) is expected
 
 
 def test_invalid_key_raises_exception():

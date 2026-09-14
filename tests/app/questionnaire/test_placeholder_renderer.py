@@ -1,5 +1,6 @@
+from unittest.mock import MagicMock
+
 import pytest
-from mock import MagicMock
 
 from app.data_models.answer_store import AnswerStore
 from app.data_models.data_stores import DataStores

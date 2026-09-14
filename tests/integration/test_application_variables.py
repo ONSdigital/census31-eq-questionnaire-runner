@@ -4,6 +4,7 @@ from tests.integration.integration_test_case import IntegrationTestCase
 
 
 class TestApplicationVariables(IntegrationTestCase):
+
     def setUp(self):
         settings.EQ_GOOGLE_TAG_ID = "TestId"
         super().setUp()
@@ -16,7 +17,7 @@ class TestApplicationVariables(IntegrationTestCase):
         self.launchSurveyV2(schema_name="test_feedback", roles=["dumper"])
         self.get("/dump/debug")
         actual = json_loads(self.getResponseData())
-        self._client.set_cookie(domain="localhost", key="ons_cookie_policy", value="'usage':true")
+        self.setCookie(domain="localhost", key="ons_cookie_policy", value="'usage':true")
         self.get("/questionnaire/feedback/")
         self.assertStatusOK()
         self.assertInHead(
@@ -29,7 +30,7 @@ class TestApplicationVariables(IntegrationTestCase):
         self.launchSurveyV2(schema_name="test_textfield", roles=["dumper"])
         self.get("/dump/debug")
         actual = json_loads(self.getResponseData())
-        self._client.set_cookie(domain="localhost", key="ons_cookie_policy", value="'usage':true")
+        self.setCookie(domain="localhost", key="ons_cookie_policy", value="'usage':true")
         self.get("/questionnaire/name-block/")
         self.assertStatusOK()
         # form_type is empty so should not be present

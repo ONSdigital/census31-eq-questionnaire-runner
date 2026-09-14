@@ -10,7 +10,6 @@ from app.views.contexts.calculated_summary_context import CalculatedSummaryConte
 from tests.app.views.contexts import assert_summary_context
 
 
-# pylint: disable=too-many-locals
 @pytest.mark.usefixtures("app")
 @pytest.mark.parametrize(
     "block_id, locale, language, title, value, total_blocks, return_to_answer_id, skip_fourth",
@@ -67,7 +66,7 @@ from tests.app.views.contexts import assert_summary_context
         ),
     ),
 )
-def test_build_view_context_for_currency_calculated_summary(
+def test_build_view_context_for_currency_calculated_summary(  # noqa: PLR0913, PLR0917
     block_id,
     locale,
     language,
@@ -340,10 +339,8 @@ def test_build_view_context_for_calculated_summary_with_dynamic_answers(
     # list item id, so the anchor needs to also include it
     assert all(
         answer["link"].endswith(
-            (
-                f"return_to=calculated-summary&return_to_answer_id="
-                f"{answer['id']}&return_to_block_id={block_id}#{answer['id']}"
-            )
+            f"return_to=calculated-summary&return_to_answer_id="
+            f"{answer['id']}&return_to_block_id={block_id}#{answer['id']}"
         )
         for answer in answers_to_keep
     )

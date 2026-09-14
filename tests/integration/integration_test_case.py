@@ -2,19 +2,18 @@ import os
 import re
 import unittest
 import zlib
-from unittest.mock import Mock
+from unittest.mock import Mock, patch
 
 import fakeredis
 from bs4 import BeautifulSoup
 from itsdangerous import base64_decode
-from mock import patch
 from sdc.crypto.key_store import KeyStore
 
 from app.keys import KEY_PURPOSE_AUTHENTICATION, KEY_PURPOSE_SUBMISSION
 from app.setup import create_app
 from app.utilities.json import json_loads
 from application import configure_logging
-from tests.integration.app_context_test_case import MockDatastore
+from tests.app.mock_data_store import MockDatastore
 from tests.integration.create_token import TokenGenerator
 
 EQ_USER_AUTHENTICATION_RRM_PRIVATE_KEY_KID = "709eb42cfee5570058ce0711f730bfbb7d4c8ade"
@@ -60,7 +59,9 @@ KEYS_DICT = {
 }
 
 
-class IntegrationTestCase(unittest.TestCase):  # pylint: disable=too-many-public-methods
+class IntegrationTestCase(unittest.TestCase):
+    setting_overrides = {}
+
     def setUp(self):
         # Cache for requests
         self.last_url = None
@@ -69,9 +70,13 @@ class IntegrationTestCase(unittest.TestCase):  # pylint: disable=too-many-public
         self.redirect_url = None
         self.last_response_headers = None
         self.last_cookie = None
-        self.key_store = None
         # Perform setup steps
-        self._set_up_app()
+        self.token_generator = TokenGenerator(
+            KeyStore(KEYS_DICT),
+            EQ_USER_AUTHENTICATION_RRM_PRIVATE_KEY_KID,
+            SR_USER_AUTHENTICATION_PUBLIC_KEY_KID,
+        )
+        self._set_up_app(setting_overrides=self.setting_overrides)
 
     @property
     def test_app(self):
@@ -95,13 +100,6 @@ class IntegrationTestCase(unittest.TestCase):  # pylint: disable=too-many-public
             return_value=(Mock(), "test-project-id"),
         ):
             self._application = create_app(overrides)
-        self.key_store = KeyStore(KEYS_DICT)
-
-        self.token_generator = TokenGenerator(
-            self.key_store,
-            EQ_USER_AUTHENTICATION_RRM_PRIVATE_KEY_KID,
-            SR_USER_AUTHENTICATION_PUBLIC_KEY_KID,
-        )
 
         self._client = self._application.test_client()
         self.session = self._client.session_transaction()
@@ -286,6 +284,12 @@ class IntegrationTestCase(unittest.TestCase):  # pylint: disable=too-many-public
         """
         return self.last_response.get_data(True)
 
+    def setCookie(self, **kwargs):
+        """
+        Sets a test client cookie
+        """
+        self._client.set_cookie(**kwargs)
+
     def getCookie(self):
         """
         Returns the last received response cookie session
@@ -375,6 +379,9 @@ class IntegrationTestCase(unittest.TestCase):  # pylint: disable=too-many-public
 
     def assertStatusOK(self):
         self.assertStatusCode(200)
+
+    def assertStatusRedirect(self):
+        self.assertStatusCode(302)
 
     def assertBadRequest(self):
         self.assertStatusCode(400)

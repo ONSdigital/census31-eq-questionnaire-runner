@@ -134,6 +134,5 @@ def app_session_store_encoded(mocker, session_data):
     store.expires_at = datetime.now(tz=timezone.utc) + timedelta(seconds=3)
     store.session_data = session_data
 
-    # pylint: disable=protected-access
     store.key = storage_encryption.StorageEncryption._generate_key(store.user_id, store.user_ik, store.pepper)
     return store

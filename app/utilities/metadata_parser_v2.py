@@ -23,9 +23,7 @@ VALIDATORS: Mapping[str, Callable] = {
 
 class StripWhitespaceMixin:
     @pre_load()
-    def strip_whitespace(  # pylint: disable=no-self-use, unused-argument
-        self, items: MutableMapping, **kwargs: Any
-    ) -> MutableMapping:
+    def strip_whitespace(self, items: MutableMapping, **kwargs: Any) -> MutableMapping:
         for key, value in items.items():
             if isinstance(value, str):
                 items[key] = value.strip()
@@ -41,9 +39,7 @@ class SurveyMetadata(Schema, StripWhitespaceMixin):
     receipting_keys = fields.List(fields.String)
 
     @validates_schema
-    def validate_receipting_keys(  # pylint: disable=no-self-use, unused-argument
-        self, data: Mapping, **kwargs: Any
-    ) -> None:
+    def validate_receipting_keys(self, data: Mapping, **kwargs: Any) -> None:
         if data and (receipting_keys := data.get("receipting_keys", {})):
             missing_receipting_keys = [
                 receipting_key for receipting_key in receipting_keys if receipting_key not in data.get("data", {})
@@ -87,7 +83,7 @@ class RunnerMetadataSchema(Schema, StripWhitespaceMixin):
     survey_metadata = fields.Nested(SurveyMetadata, required=False)
 
     @validates_schema
-    def validate_schema_options(self, data: Mapping, **kwargs: Any) -> None:  # pylint: disable=unused-argument
+    def validate_schema_options(self, data: Mapping, **kwargs: Any) -> None:
         if data:
             options = [option for option in ["schema_name", "schema_url"] if data.get(option)]
             if len(options) == 0:

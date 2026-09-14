@@ -1,9 +1,10 @@
-from mock import patch
+from unittest.mock import patch
 
 from tests.integration.integration_test_case import IntegrationTestCase
 
 
 class TestBrokenSubmission(IntegrationTestCase):
+
     def setUp(self):
         self.patcher = patch("app.setup.LogSubmitter")
         mock_class = self.patcher.start()

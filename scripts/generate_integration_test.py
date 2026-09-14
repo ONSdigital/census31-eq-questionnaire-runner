@@ -1,4 +1,4 @@
-from typing import IO, Dict
+from typing import IO
 from urllib.parse import parse_qs, urlparse
 
 from playwright.sync_api import Playwright, Request, sync_playwright
@@ -6,8 +6,8 @@ from structlog import get_logger
 
 logger = get_logger()
 
-LAUNCHER_ROOT_URL = "http://localhost:8000"
-RUNNER_ROOT_URL = "http://localhost:5000"
+LAUNCHER_ROOT_URL = "http://127.0.0.1:8000"  # DevSkim: ignore DS162092
+RUNNER_ROOT_URL = "http://127.0.0.1:5000"  # DevSkim: ignore DS162092
 
 TEST_TEMPLATE = """from tests.integration.integration_test_case import IntegrationTestCase
 
@@ -17,13 +17,13 @@ class Test{class_name}(IntegrationTestCase):
         self.launchSurveyV2(schema_name="{schema_name}")
 """
 
-survey_journey: Dict[str, str | bool | None] = {
+survey_journey: dict[str, str | bool | None] = {
     "previous_request_method": None,
     "in_progress": False,
     "schema_name": None,
 }
 
-output: Dict[str, str] = {"file_name": ""}
+output: dict[str, str] = {"file_name": ""}
 
 
 def process_runner_request(request: Request) -> None:

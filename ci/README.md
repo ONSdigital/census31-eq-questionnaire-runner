@@ -20,6 +20,7 @@ When deploying with Concourse the environment variables specified in [Deploying 
 IMAGE_TAG can be passed as an environment variable or as a file input located at `./image-tag/tag`.
 
 To deploy the app via Concourse, use the following task command:
+
 ```sh
 fly -t <target-concourse> execute \
     --config ci/deploy_app.yaml
@@ -68,6 +69,7 @@ EXPIRATION_TIME_OFFSET_IN_SECONDS=<expiration_time_offset_in_seconds> \
 fly -t <target-concourse> execute \
     --config ci/purge_expired_sessions.yaml
 ```
+
 There are defaults for both DATAFLOW_TEMPLATE_VERSION and EXPIRATION_TIME_OFFSET_IN_SECONDS if not set
 
 - `DATAFLOW_TEMPLATE_VERSION` is the template version on GCP you want to use

@@ -7,7 +7,7 @@ from app.data_models.answer import Answer, AnswerDict
 AnswerKeyType = tuple[str, str | None]
 
 
-class AnswerStore:
+class AnswerStore:  # noqa: PLW1641
     """
     An object that stores and updates a collection of answers, ready for serialisation
     via the Questionnaire Store.

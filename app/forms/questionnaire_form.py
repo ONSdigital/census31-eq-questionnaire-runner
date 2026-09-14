@@ -36,7 +36,6 @@ Errors = Mapping[str, Error]
 ErrorList = Sequence[tuple[str, str]]
 
 
-# pylint: disable=too-many-locals
 class QuestionnaireForm(FlaskForm):
     PERIOD_RANGE_ERROR_MESSAGE = "Period range must have a start and end date"
 
@@ -96,10 +95,9 @@ class QuestionnaireForm(FlaskForm):
                 self.validate_date_range_with_period_limits_and_single_date_limits(
                     question["id"], question["period_limits"], period_range
                 )
-            else:
+            elif self.is_date_form_populated(getattr(self, date_from["id"]), getattr(self, date_to["id"])):
                 # Check every field on each form has populated data
-                if self.is_date_form_populated(getattr(self, date_from["id"]), getattr(self, date_to["id"])):
-                    self.validate_date_range_with_single_date_limits(question["id"], period_range)
+                self.validate_date_range_with_single_date_limits(question["id"], period_range)
 
         period_from_id = date_from["id"]
         period_to_id = date_to["id"]

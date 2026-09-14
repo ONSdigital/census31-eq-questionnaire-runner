@@ -1,10 +1,9 @@
-# pylint: disable=redefined-outer-name
 from datetime import datetime, timedelta, timezone
 from http.client import HTTPMessage
+from unittest.mock import MagicMock
 
 import fakeredis
 import pytest
-from mock import MagicMock
 from mock.mock import Mock
 from requests.adapters import ConnectTimeoutError, ReadTimeoutError
 from urllib3.connectionpool import HTTPConnectionPool
@@ -214,7 +213,7 @@ def mocked_response_content(mocker):
 
 
 @pytest.fixture
-def mocked_make_request_with_timeout(mocker, mocked_response_content):  # pylint: disable=unused-argument
+def mocked_make_request_with_timeout(mocker, mocked_response_content):
     connect_timeout_error = ConnectTimeoutError("connect timed out")
     read_timeout_error = ReadTimeoutError(pool=None, message="read timed out", url="test-url")
 

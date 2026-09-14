@@ -39,7 +39,7 @@ keys:
     service: eq
     type: private
     use: encryption
-    value: |
+    value: | # checkov:skip=CKV_SECRET_13:Dev key for local environment setup only
       -----BEGIN RSA PRIVATE KEY-----
       MIIEogIBAAKCAQEAt8LZnIhuOdL/BC029GOaJkVUAqgp2PcmbFr2Qwhf/514DUUQ
       9sKJ1rvwvbmmW2zE8JRtdY3ey0RXGtMn5UZHs8NReHzMxvsmHN4VuaGEnFmPwO82
@@ -74,7 +74,7 @@ keys:
     service: eq
     type: private
     use: signing
-    value: |
+    value: | # checkov:skip=CKV_SECRET_13:Dev key for local environment setup only
       -----BEGIN RSA PRIVATE KEY-----
       MIIEowIBAAKCAQEAq0rFub/fC2S4kcP4l9ivxgljh8l3hYOKG5z8mJ1cggoRqTaI
       peS3d8eM4zLpuY0Pp5GMulHdDTjfoguPOSB2OJiYUm8QFwiq2L4C92TsteRXaatJ

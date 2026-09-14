@@ -1,4 +1,3 @@
-# pylint: disable=too-many-lines
 from collections import defaultdict
 from copy import deepcopy
 from dataclasses import dataclass
@@ -80,7 +79,7 @@ class Dependent:
     answer_id: str | None = None
 
 
-class QuestionnaireSchema:  # pylint: disable=too-many-public-methods
+class QuestionnaireSchema:
     def __init__(self, questionnaire_json: Mapping, language_code: str = DEFAULT_LANGUAGE_CODE):
         self._parent_id_map: dict[str, str] = {}
         self._list_collector_section_ids_by_list_name: dict[str, list[str]] = defaultdict(list)
