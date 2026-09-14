@@ -1,6 +1,7 @@
 import os
 from functools import lru_cache
 from glob import glob
+from http import HTTPStatus
 from pathlib import Path
 from typing import Any
 
@@ -193,7 +194,7 @@ def load_schema_from_url(url: str, *, language_code: str | None) -> Questionnair
         )
         raise SchemaRequestFailed from exc
 
-    if req.status_code == 200:
+    if req.status_code == HTTPStatus.OK:
         schema_response = req.content.decode()
         response_duration_in_milliseconds = req.elapsed.total_seconds() * 1000
 

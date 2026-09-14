@@ -36,7 +36,7 @@ PAYLOAD_V2_BUSINESS = {
     "account_service_url": ACCOUNT_SERVICE_URL,
 }
 
-PAYLOAD_V2_SOCIAL = {
+PAYLOAD_V2_CENSUS = {
     "version": AuthPayloadVersion.V2.value,
     "survey_metadata": {
         "data": {
@@ -95,7 +95,7 @@ class TokenGenerator:
         return payload_vars
 
     def create_token_v2(self, schema_name, theme="default", **extra_payload):
-        payload_for_theme = PAYLOAD_V2_SOCIAL if theme == "social" else PAYLOAD_V2_BUSINESS
+        payload_for_theme = PAYLOAD_V2_CENSUS if theme == "census" else PAYLOAD_V2_BUSINESS
         payload = self._get_payload_with_params(schema_name=schema_name, payload=payload_for_theme, **extra_payload)
 
         return self.generate_token(payload)
@@ -125,9 +125,9 @@ class TokenGenerator:
 
         return self.generate_token(payload_vars)
 
-    def create_token_v2_social_token_invalid_receipting_key(self, schema_name, **extra_payload):
+    def create_token_v2_census_token_invalid_receipting_key(self, schema_name, **extra_payload):
         payload_vars = self._get_payload_with_params(
-            schema_name=schema_name, payload=PAYLOAD_V2_SOCIAL, **extra_payload
+            schema_name=schema_name, payload=PAYLOAD_V2_CENSUS, **extra_payload
         )
         del payload_vars["survey_metadata"]["data"]["qid"]
 

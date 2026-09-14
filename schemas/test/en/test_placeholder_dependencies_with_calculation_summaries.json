@@ -609,7 +609,7 @@
             }
         }
     ],
-    "theme": "business",
+    "theme": "default",
     "navigation": {
         "visible": false
     },

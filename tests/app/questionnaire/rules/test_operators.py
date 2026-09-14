@@ -303,27 +303,27 @@ def test_operation_date(date_string: str, offset, get_operator):
     "offset, expected_result",
     [
         # Last Thursday (Day before reference date)
-        ({"day_of_week": "THURSDAY"}, datetime(year=2020, month=12, day=31)),
+        ({"day_of_week": "THURSDAY"}, datetime(year=2020, month=12, day=31, tzinfo=timezone.utc)),
         # Last Saturday
-        ({"day_of_week": "SATURDAY"}, datetime(year=2020, month=12, day=26)),
+        ({"day_of_week": "SATURDAY"}, datetime(year=2020, month=12, day=26, tzinfo=timezone.utc)),
         # Last Week Thursday
         (
             {"day_of_week": "THURSDAY", "days": -7},
-            datetime(year=2020, month=12, day=24),
+            datetime(year=2020, month=12, day=24, tzinfo=timezone.utc),
         ),
         # Last Week Saturday (Same as Last Saturday since reference date is a Friday)
         (
             {"day_of_week": "SATURDAY", "days": -7},
-            datetime(year=2020, month=12, day=26),
+            datetime(year=2020, month=12, day=26, tzinfo=timezone.utc),
         ),
         # Next Thursday / Next Week Thursday
-        ({"day_of_week": "THURSDAY", "days": 7}, datetime(year=2021, month=1, day=7)),
+        ({"day_of_week": "THURSDAY", "days": 7}, datetime(year=2021, month=1, day=7, tzinfo=timezone.utc)),
         # Next Saturday (Tomorrow from reference date)
-        ({"day_of_week": "SATURDAY", "days": 7}, datetime(year=2021, month=1, day=2)),
+        ({"day_of_week": "SATURDAY", "days": 7}, datetime(year=2021, month=1, day=2, tzinfo=timezone.utc)),
         # Next Week Saturday
-        ({"day_of_week": "SATURDAY", "days": 14}, datetime(year=2021, month=1, day=9)),
+        ({"day_of_week": "SATURDAY", "days": 14}, datetime(year=2021, month=1, day=9, tzinfo=timezone.utc)),
         # 1 full week Thursday
-        ({"day_of_week": "THURSDAY", "days": 14}, datetime(year=2021, month=1, day=14)),
+        ({"day_of_week": "THURSDAY", "days": 14}, datetime(year=2021, month=1, day=14, tzinfo=timezone.utc)),
     ],
 )
 def test_operation_date_offsets_literal_date(offset, expected_result, get_operator):

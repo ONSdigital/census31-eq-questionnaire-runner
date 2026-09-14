@@ -27,7 +27,7 @@ jobs:
         run: printf "${{ github.event.pull_request.head.sha }}" > .application-version
       - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
-          python-version: ${{ steps.python-version.outputs.value }}
+          python-version-file: ".python-version"
       - name: Install Poetry
         uses: snok/install-poetry@a783c322200f0519c7926aa6faa857c4e23e9263 # v1.4.2
         with:
@@ -58,7 +58,7 @@ jobs:
         run: echo "value=$(cat .python-version)" >> "$GITHUB_OUTPUT"
       - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
-          python-version: ${{ steps.python-version.outputs.value }}
+          python-version-file: ".python-version"
       - name: Install Poetry
         uses: snok/install-poetry@a783c322200f0519c7926aa6faa857c4e23e9263 # v1.4.2
         with:
@@ -84,18 +84,25 @@ jobs:
   validate-schemas:
     permissions:
       contents: "read"
+      packages: "read"
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@dbcb813823bdd20940b903addbd779551569679f # v4.6.0
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
       - id: python-version
         run: echo "value=$(cat .python-version)" >> "$GITHUB_OUTPUT"
       - name: Run validator
         run: ./scripts/run_validator.sh
       - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
-          python-version: ${{ steps.python-version.outputs.value }}
+          python-version-file: ".python-version"
       - name: Install Poetry
         uses: snok/install-poetry@a783c322200f0519c7926aa6faa857c4e23e9263 # v1.4.2
         with:
@@ -136,7 +143,7 @@ jobs:
         run: echo "value=$(cat .python-version)" >> "$GITHUB_OUTPUT"
       - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
-          python-version: ${{ steps.python-version.outputs.value }}
+          python-version-file: ".python-version"
       - name: Install Poetry
         uses: snok/install-poetry@a783c322200f0519c7926aa6faa857c4e23e9263 # v1.4.2
         with:

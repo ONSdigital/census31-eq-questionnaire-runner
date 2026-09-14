@@ -1,3 +1,4 @@
+from http import HTTPStatus
 from typing import Any
 
 from flask import Blueprint, request
@@ -14,7 +15,7 @@ from app.authentication.no_token_exception import NoTokenException
 from app.globals import get_metadata
 from app.helpers.language_helper import handle_language
 from app.helpers.template_helpers import get_survey_config, render_template
-from app.settings import ACCOUNT_SERVICE_BASE_URL_SOCIAL
+from app.settings import ACCOUNT_SERVICE_BASE_URL
 from app.submitter.previously_submitted_exception import PreviouslySubmittedException
 from app.submitter.submission_failed import SubmissionFailedException
 from app.survey_config.survey_type import SurveyType
@@ -34,7 +35,7 @@ def log_exception(exception: Exception, status_code: int) -> None:
     if metadata := get_metadata(current_user):
         contextvars.bind_contextvars(tx_id=metadata.tx_id)
 
-    log = logger.warning if status_code < 500 else logger.error
+    log = logger.warning if status_code < HTTPStatus.INTERNAL_SERVER_ERROR else logger.error
 
     log(
         "an error has occurred",
@@ -46,22 +47,15 @@ def log_exception(exception: Exception, status_code: int) -> None:
 
 def _render_error_page(status_code: int, template: str | int | None = None, **kwargs: Any) -> tuple[str, int]:
     handle_language()
-    business_survey_config = get_survey_config(theme=SurveyType.BUSINESS)
-    other_survey_config = get_survey_config(theme=SurveyType.SOCIAL, base_url=ACCOUNT_SERVICE_BASE_URL_SOCIAL)
+    survey_config = get_survey_config(theme=SurveyType.CENSUS, base_url=ACCOUNT_SERVICE_BASE_URL)
 
-    business_logout_url = business_survey_config.account_service_log_out_url
-    other_logout_url = other_survey_config.account_service_log_out_url
-    business_contact_us_url = business_survey_config.contact_us_url
-    other_contact_us_url = other_survey_config.contact_us_url
+    logout_url = survey_config.account_service_log_out_url or f"{survey_config.base_url}/sign-in/logout"
     template = template or status_code
 
     return (
         render_template(
             template=f"errors/{template}",
-            business_logout_url=business_logout_url,
-            other_logout_url=other_logout_url,
-            business_contact_us_url=business_contact_us_url,
-            other_contact_us_url=other_contact_us_url,
+            logout_url=logout_url,
             **kwargs,
         ),
         status_code,
@@ -121,7 +115,7 @@ def internal_server_error(exception: Exception) -> tuple[str, int]:
     try:
         log_exception(exception, 500)
         return _render_error_page(500)
-    except Exception:  # pylint:disable=broad-except
+    except Exception:
         logger.exception(
             "an error has occurred when rendering 500 error",
             url=request.url,

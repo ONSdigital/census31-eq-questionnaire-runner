@@ -1,4 +1,3 @@
-# pylint: disable=too-many-lines
 from decimal import Decimal
 
 import pytest
@@ -1006,8 +1005,8 @@ def test_bespoke_message_for_sum_validation(app, answer_store, mocker):
             {
                 "csrf_token": None,
                 "breakdown-1": None,
-                "breakdown-2": Decimal("5"),
-                "breakdown-3": Decimal("4"),
+                "breakdown-2": Decimal(5),
+                "breakdown-3": Decimal(4),
                 "breakdown-4": None,
             },
             "breakdown-question",
@@ -1027,9 +1026,9 @@ def test_bespoke_message_for_sum_validation(app, answer_store, mocker):
             {
                 "csrf_token": None,
                 "breakdown-1": None,
-                "breakdown-2": Decimal("5"),
-                "breakdown-3": Decimal("4"),
-                "breakdown-4": Decimal("1"),
+                "breakdown-2": Decimal(5),
+                "breakdown-3": Decimal(4),
+                "breakdown-4": Decimal(1),
             },
             "breakdown-question",
             None,
@@ -1069,9 +1068,9 @@ def test_bespoke_message_for_sum_validation(app, answer_store, mocker):
             {
                 "csrf_token": None,
                 "breakdown-1": None,
-                "breakdown-2": Decimal("5"),
-                "breakdown-3": Decimal("4"),
-                "breakdown-4": Decimal("1"),
+                "breakdown-2": Decimal(5),
+                "breakdown-3": Decimal(4),
+                "breakdown-4": Decimal(1),
             },
             "breakdown-question",
             None,
@@ -1093,9 +1092,9 @@ def test_bespoke_message_for_sum_validation(app, answer_store, mocker):
             {
                 "csrf_token": None,
                 "second-breakdown-1": None,
-                "second-breakdown-2": Decimal("5"),
-                "second-breakdown-3": Decimal("4"),
-                "second-breakdown-4": Decimal("1"),
+                "second-breakdown-2": Decimal(5),
+                "second-breakdown-3": Decimal(4),
+                "second-breakdown-4": Decimal(1),
             },
             "second-breakdown-question",
             None,
@@ -1115,8 +1114,8 @@ def test_bespoke_message_for_sum_validation(app, answer_store, mocker):
                 "csrf_token": None,
                 "breakdown-1": None,
                 "breakdown-2": None,
-                "breakdown-3": Decimal("4"),
-                "breakdown-4": Decimal("1"),
+                "breakdown-3": Decimal(4),
+                "breakdown-4": Decimal(1),
             },
             "breakdown-question",
             ["TOTAL_SUM_NOT_EQUALS"],
@@ -1139,8 +1138,8 @@ def test_bespoke_message_for_sum_validation(app, answer_store, mocker):
                 "csrf_token": None,
                 "second-breakdown-1": None,
                 "second-breakdown-2": None,
-                "second-breakdown-3": Decimal("4"),
-                "second-breakdown-4": Decimal("1"),
+                "second-breakdown-3": Decimal(4),
+                "second-breakdown-4": Decimal(1),
             },
             "second-breakdown-question",
             ["TOTAL_SUM_NOT_EQUALS"],
@@ -1159,7 +1158,7 @@ def test_calculated_field(
     question,
     errors_text,
     value_dict,
-):  # pylint: disable=too-many-locals
+):
     for answer in answers:
         answer_store.add_or_update(answer)
 

@@ -1,4 +1,3 @@
-# pylint: disable=too-many-lines
 from datetime import datetime
 from unittest.mock import MagicMock
 

@@ -34,9 +34,6 @@ pytest-flask = "^1.3.0"
 pytest-mock = "^3.12.0"
 pytest-sugar = "^1.0.0"
 pytest-xdist = "^3.5.0"
-pylint = "^3.2.7"
-pylint-absolute-imports = "^1.1.0"
-pylint-mccabe = "^0.1.3"
 responses = "^0.26.0"
 ruff = "^0.16.0"
 types-cachetools = "^7.0.0.20260518"
@@ -98,8 +95,6 @@ include = ["*.py"]
 line-length = 120
 indent-width = 4
 cache-dir = "~/.cache/ruff"
-exclude = ["tests/*", "scripts/*"]
-
 
 [tool.ruff.lint]
 extend-ignore = [
@@ -141,7 +136,6 @@ extend-ignore = [
     "G004", # Logging statement uses f-string
     "PIE810", # Call {attr} once with a tuple
     "PIE800", # Unnecessary spread **
-    "SLF001", # Private member accessed: {access}
     "TRY003", # Avoid specifying long messages outside the exception class
     "TRY400", # Use logging.exception instead of logging.error
     "TRY201", # Avoid using `raise Exception` without specifying an exception class
@@ -149,12 +143,14 @@ extend-ignore = [
     "RET501", # Do not explicitly `return None` in function if it is the only possible return value
     "RET503", # Missing explicit `return` at the end of function able to return non-`None` value
     "RET504", # Unnecessary assignment to `context` before `return` statement
+    "PLR2004", # Magic value used in comparison
 ]
 extend-select = [
     "E4", "E7", "E9", "E5", # On top of the defaults (`E4`, E7`, `E9`, and `F`), enable E5 (Adds line length check - error "E501")
     "Q",  # flake8-quotes (Q)
     "B", # flake8-bugbear (B)
     "A", # flake8-builtins (A)
+    "BLE", # flake8-blind-except (BLE)
     "C4", # flake8-comprehensions (C4)
     "PIE", # flake8-pie (PIE)
     "SLF", # flake8-self (SLF)
@@ -187,6 +183,21 @@ extend-select = [
     "TRY", # tryceratops (TRY)
     "FLY", # flynt (FLY)
     "PERF", # Perflint (PERF)
+    "PL", # pylint (PL)
 ]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/functional/generate_pages.py" = ["E501"]  # Auto-generated TypeScript templates with long lines
+"scripts/*.py" = ["S603", "S607", "LOG015"]  # Utility scripts using subprocess and logging
+"tests/**/*.py" = ["SLF001", "S101"] # Tests accessing private members of mocks and internal implementations and asserts
+
 [tool.ruff.lint.isort]
 case-sensitive = true
+
+[tool.ruff.lint.flake8-tidy-imports]
+ban-relative-imports = "all"
+
+[tool.ruff.lint.pylint]
+max-args = 11
+max-positional-args = 11
+max-statements = 60

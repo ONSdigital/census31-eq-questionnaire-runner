@@ -59,7 +59,6 @@ class Group:
             schema=schema,
         )
 
-    # pylint: disable=too-many-locals
     def _build_blocks_and_links(
         self,
         *,

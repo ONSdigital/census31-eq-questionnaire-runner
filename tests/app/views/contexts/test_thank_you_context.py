@@ -9,8 +9,7 @@ from app.views.contexts.thank_you_context import build_thank_you_context
 from tests.app.questionnaire.conftest import get_metadata
 
 SURVEY_TYPE_DEFAULT = SurveyType.DEFAULT
-SURVEY_TYPE_SOCIAL = SurveyType.SOCIAL
-SURVEY_TYPE_HEALTH = SurveyType.HEALTH
+SURVEY_TYPE_CENSUS = SurveyType.CENSUS
 SUBMITTED_AT = datetime.now(timezone.utc)
 SCHEMA = load_schema_from_name("test_view_submitted_response", "en")
 
@@ -32,10 +31,7 @@ def test_default_survey_context(app: Flask):
 
 @pytest.mark.parametrize(
     "survey_type",
-    (
-        (SURVEY_TYPE_SOCIAL),
-        (SURVEY_TYPE_HEALTH),
-    ),
+    ((SURVEY_TYPE_CENSUS),),
 )
 def test_survey_context_without_ru_name(app: Flask, survey_type):
     with app.app_context():

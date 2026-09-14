@@ -1,9 +1,10 @@
-from mock import patch
+from unittest.mock import patch
 
 from tests.integration.integration_test_case import IntegrationTestCase
 
 
 class TestNoQuestionnaireState(IntegrationTestCase):
+
     def test_questionnaire_route_before_questionnaire_submitted(self):
         # Given
         self.launchSurveyV2(schema_name="test_view_submitted_response")
