@@ -46,14 +46,16 @@ class SubmissionHandler:
             KEY_PURPOSE_SUBMISSION,
         )
 
-#        additional_metadata = self._metadata.survey_metadata.get("questionnaire_id", {})
+        additional_metadata = {}
+        if self._metadata.survey_metadata and "questionnaire_id" in self._metadata.survey_metadata:
+            additional_metadata["questionnaire_id"] = self._metadata.survey_metadata["questionnaire_id"]
 
         # Type ignore: current_app can return empty Local Proxy. Similar to other files, this is ignored.
         submitted = current_app.eq["submitter"].send_message(  # type: ignore
             encrypted_message,
             case_id=self._metadata.case_id,
             tx_id=self._metadata.tx_id,
-#            **additional_metadata,
+            **additional_metadata,
         )
 
         if not submitted:

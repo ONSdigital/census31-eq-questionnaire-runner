@@ -57,7 +57,7 @@ class TestErrors(IntegrationTestCase):
         self.assertNotInBody("Sign out")
 
     def test_errors_404_with_payload(self):
-        with patch("tests.integration.create_token.PAYLOAD_V2_BUSINESS", self.example_payload):
+        with patch("tests.integration.create_token.PAYLOAD_V2_TEST", self.example_payload):
             self.launchSurveyV2(schema_name="test_percentage")
             self.get("/hfjdskahfjdkashfsa")
             self.assertStatusNotFound()
@@ -72,7 +72,7 @@ class TestErrors(IntegrationTestCase):
 
     def test_errors_500_with_payload(self):
         # Given
-        with patch("tests.integration.create_token.PAYLOAD_V2_BUSINESS", self.example_payload):
+        with patch("tests.integration.create_token.PAYLOAD_V2_TEST", self.example_payload):
             self.launchSurveyV2(schema_name="test_percentage")
             # When / Then
             # Patch out a class in post to raise an exception so that the application error handler
@@ -86,7 +86,7 @@ class TestErrors(IntegrationTestCase):
 
     def test_errors_500_exception_during_error_handling(self):
         # Given
-        with patch("tests.integration.create_token.PAYLOAD_V2_BUSINESS", self.example_payload):
+        with patch("tests.integration.create_token.PAYLOAD_V2_TEST", self.example_payload):
             self.launchSurveyV2(schema_name="test_percentage")
             # When
 

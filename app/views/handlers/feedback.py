@@ -96,7 +96,9 @@ class Feedback:
             feedback_message(), current_app.eq["key_store"], KEY_PURPOSE_SUBMISSION  # type: ignore
         )
 
-        additional_metadata = metadata.survey_metadata.get("questionnaire_id", {})
+        additional_metadata = {}
+        if "questionnaire_id" in metadata.survey_metadata:
+            additional_metadata["questionnaire_id"] = metadata.survey_metadata["questionnaire_id"]
 
         feedback_metadata = FeedbackMetadata(tx_id=tx_id, case_id=case_id, **additional_metadata)
 

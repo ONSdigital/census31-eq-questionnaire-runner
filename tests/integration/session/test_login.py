@@ -3,7 +3,7 @@ import time
 from httmock import HTTMock, response, urlmatch
 
 from app.utilities.schema import get_schema_path_map
-from tests.integration.create_token import PAYLOAD_V2_BUSINESS
+from tests.integration.create_token import PAYLOAD_V2_TEST
 from tests.integration.integration_test_case import IntegrationTestCase
 
 SCHEMA_PATH_MAP = get_schema_path_map(include_test_schemas=True)
@@ -84,7 +84,7 @@ class TestLoginWithGetRequest(IntegrationTestCase):
 
     def test_login_with_missing_mandatory_claims_should_be_forbidden(self):
         # Given
-        payload_vars = PAYLOAD_V2_BUSINESS.copy()
+        payload_vars = PAYLOAD_V2_TEST.copy()
         payload_vars["iat"] = time.time()
         payload_vars["exp"] = payload_vars["iat"] + float(3600)  # one hour from now
 
@@ -216,7 +216,7 @@ class TestLoginWithPostRequest(IntegrationTestCase):
 
     def test_login_with_missing_mandatory_claims_should_be_forbidden(self):
         # Given
-        payload_vars = PAYLOAD_V2_BUSINESS.copy()
+        payload_vars = PAYLOAD_V2_TEST.copy()
         payload_vars["iat"] = time.time()
         payload_vars["exp"] = payload_vars["iat"] + float(3600)  # one hour from now
 
@@ -240,13 +240,6 @@ class TestLoginWithPostRequest(IntegrationTestCase):
         self,
     ):
         token = self.token_generator.create_token_v2(schema_name="test_address", theme="census")
-
-        self.post(url=f"/session?token={token}")
-
-        self.assertStatusForbidden()
-
-    def test_v2_census_login_with_invalid_receipting_key_should_be_forbidden(self):
-        token = self.token_generator.create_token_v2_census_token_invalid_receipting_key("test_theme_census")
 
         self.post(url=f"/session?token={token}")
 

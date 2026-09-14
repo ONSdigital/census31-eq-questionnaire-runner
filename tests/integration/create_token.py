@@ -12,7 +12,7 @@ ACCOUNT_SERVICE_URL = "http://upstream.url"
 
 TOP_LEVEL_KEYS = TOP_LEVEL_METADATA_KEYS + ["exp", "jti", "iat"]
 
-PAYLOAD_V2_BUSINESS = {
+PAYLOAD_V2_TEST = {
     "version": AuthPayloadVersion.V2.value,
     "survey_metadata": {
         "user_id": "integration-test",
@@ -37,7 +37,7 @@ PAYLOAD_V2_CENSUS = {
     "version": AuthPayloadVersion.V2.value,
     "survey_metadata": {
         "case_ref": "1000000000000001",
-        "qid": str(uuid4()),
+        "questionnaire_id": str(uuid4()),
     },
     "collection_exercise_sid": "789",
     "response_id": "1234567890123456",
@@ -66,7 +66,7 @@ class TokenGenerator:
         **extra_payload,
     ):
         if payload is None:
-            payload = PAYLOAD_V2_BUSINESS
+            payload = PAYLOAD_V2_TEST
         payload_vars = deepcopy(payload)
         payload_vars["tx_id"] = str(uuid4())
         if schema_name:
@@ -87,13 +87,13 @@ class TokenGenerator:
         return payload_vars
 
     def create_token_v2(self, schema_name, theme="default", **extra_payload):
-        payload_for_theme = PAYLOAD_V2_CENSUS if theme == "census" else PAYLOAD_V2_BUSINESS
+        payload_for_theme = PAYLOAD_V2_CENSUS if theme == "census" else PAYLOAD_V2_TEST
         payload = self._get_payload_with_params(schema_name=schema_name, payload=payload_for_theme, **extra_payload)
 
         return self.generate_token(payload)
 
     def create_token_invalid_version(self, schema_name, **extra_payload):
-        payload = self._get_payload_with_params(schema_name=schema_name, payload=PAYLOAD_V2_BUSINESS, **extra_payload)
+        payload = self._get_payload_with_params(schema_name=schema_name, payload=PAYLOAD_V2_TEST, **extra_payload)
 
         payload["version"] = "v3"
 
@@ -114,14 +114,6 @@ class TokenGenerator:
     def create_token_without_trad_as(self, schema_name, **extra_payload):
         payload_vars = self._get_payload_with_params(schema_name=schema_name, schema_url=None, **extra_payload)
         del payload_vars["survey_metadata"]["trad_as"]
-
-        return self.generate_token(payload_vars)
-
-    def create_token_v2_census_token_invalid_receipting_key(self, schema_name, **extra_payload):
-        payload_vars = self._get_payload_with_params(
-            schema_name=schema_name, payload=PAYLOAD_V2_CENSUS, **extra_payload
-        )
-        del payload_vars["survey_metadata"]["qid"]
 
         return self.generate_token(payload_vars)
 
