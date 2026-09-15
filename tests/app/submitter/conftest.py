@@ -21,7 +21,6 @@ RAW_METADATA_V2 = {
     "account_service_url": ACCOUNT_SERVICE_BASE_URL,
     "survey_metadata": {
         "period_id": "2016-02-01",
-        "period_str": "2016-01-01",
         "ref_p_start_date": "2016-02-02",
         "ref_p_end_date": "2016-03-03",
         "ru_ref": "12345678901A",

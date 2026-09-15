@@ -16,7 +16,6 @@ from app.questionnaire import QuestionnaireSchema
 time_to_freeze = datetime.now(timezone.utc).replace(second=0, microsecond=0)
 tx_id = str(uuid.uuid4())
 response_id = "1234567890123456"
-period_str = "2016-01-01"
 period_id = "2016-02-01"
 ref_p_start_date = "2016-02-02"
 ref_p_end_date = "2016-03-03"
@@ -112,7 +111,6 @@ def metadata():
             "schema_name": schema_name,
             "collection_exercise_sid": collection_exercise_sid,
             "period_id": period_id,
-            "period_str": period_str,
             "ref_p_start_date": ref_p_start_date,
             "ref_p_end_date": ref_p_end_date,
             "ru_ref": ru_ref,
@@ -142,7 +140,6 @@ def metadata_v2():
             "account_service_url": "account_service_url",
             "survey_metadata": {
                 "period_id": period_id,
-                "period_str": period_str,
                 "ref_p_start_date": ref_p_start_date,
                 "ref_p_end_date": ref_p_end_date,
                 "ru_ref": ru_ref,
@@ -230,7 +227,6 @@ def mock_questionnaire_store_v2(mocker):
                 "account_service_url": "account_service_url",
                 "survey_metadata": {
                     "period_id": period_id,
-                    "period_str": period_str,
                     "ref_p_start_date": ref_p_start_date,
                     "ref_p_end_date": ref_p_end_date,
                     "ru_ref": ru_ref,

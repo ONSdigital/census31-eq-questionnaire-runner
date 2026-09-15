@@ -18,7 +18,6 @@ def get_metadata_full():
     fake_survey_metadata_claims = {
         "user_id": "1",
         "period_id": "3",
-        "period_str": "2016-01-01",
         "ref_p_start_date": "2016-02-02",
         "ref_p_end_date": "2016-03-03",
         "ru_name": "Apple",
@@ -91,7 +90,6 @@ def fake_questionnaire_metadata_requirements_full():
     return [
         {"name": "user_id", "type": "string"},
         {"name": "period_id", "type": "string"},
-        {"name": "period_str", "type": "string"},
         {"name": "ref_p_start_date", "type": "string"},
         {"name": "ref_p_end_date", "type": "string"},
         {"name": "account_service_url", "type": "url", "optional": True},

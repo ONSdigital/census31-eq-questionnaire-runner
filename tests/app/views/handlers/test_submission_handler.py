@@ -94,7 +94,6 @@ def test_submission_payload_structure_v2(app, submission_payload_session_store, 
         "channel": "H",
         "survey_metadata": {
             "period_id": "2016-02-01",
-            "period_str": "2016-01-01",
             "ref_p_start_date": "2016-02-02",
             "ref_p_end_date": "2016-03-03",
             "ru_ref": "12345678901A",
