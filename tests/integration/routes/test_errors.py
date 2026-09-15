@@ -11,14 +11,12 @@ class TestErrors(IntegrationTestCase):
     example_payload = {
         "survey_metadata": {
             "user_id": "integration-test",
-            "period_str": "April 2016",
             "period_id": "201604",
             "ru_ref": "12345678901A",
             "ru_name": "Integration Testing",
             "ref_p_start_date": "2016-04-01",
             "ref_p_end_date": "2016-04-30",
             "return_by": "2016-05-06",
-            "employment_date": "1983-06-02",
             "region_code": "GB-ENG",
         },
         "collection_exercise_sid": "789",

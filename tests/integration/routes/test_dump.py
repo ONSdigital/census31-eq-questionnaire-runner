@@ -89,9 +89,7 @@ class TestDumpSubmission(IntegrationTestCase):
                 "submitted_at": actual["submission"]["submitted_at"],
                 "survey_metadata": {
                     "display_address": "68 Abingdon Road, Goathill",
-                    "employment_date": "1983-06-02",
                     "period_id": "201604",
-                    "period_str": "April 2016",
                     "ref_p_end_date": "2016-04-30",
                     "ref_p_start_date": "2016-04-01",
                     "ru_name": "Integration Testing",
@@ -144,9 +142,7 @@ class TestDumpSubmission(IntegrationTestCase):
                 "submitted_at": actual["submission"]["submitted_at"],
                 "survey_metadata": {
                     "display_address": "68 Abingdon Road, Goathill",
-                    "employment_date": "1983-06-02",
                     "period_id": "201604",
-                    "period_str": "April 2016",
                     "ref_p_end_date": "2016-04-30",
                     "ref_p_start_date": "2016-04-01",
                     "ru_name": "Integration Testing",
@@ -217,9 +213,7 @@ class TestDumpSubmission(IntegrationTestCase):
                 "submitted_at": actual["submission"]["submitted_at"],
                 "survey_metadata": {
                     "display_address": "68 Abingdon Road, Goathill",
-                    "employment_date": "1983-06-02",
                     "period_id": "201604",
-                    "period_str": "April 2016",
                     "ref_p_end_date": "2016-04-30",
                     "ref_p_start_date": "2016-04-01",
                     "ru_name": "Integration Testing",
