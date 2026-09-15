@@ -27,7 +27,6 @@ PAYLOAD_V2_TEST = {
     "collection_exercise_sid": "789",
     "response_id": "1234567890123456",
     "language_code": "en",
-    "roles": [],
     "account_service_url": ACCOUNT_SERVICE_URL,
 }
 
@@ -40,7 +39,6 @@ PAYLOAD_V2_CENSUS = {
     "collection_exercise_sid": "789",
     "response_id": "1234567890123456",
     "language_code": "en",
-    "roles": [],
     "account_service_url": ACCOUNT_SERVICE_URL,
 }
 
