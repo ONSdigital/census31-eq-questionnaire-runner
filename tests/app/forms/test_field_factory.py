@@ -18,19 +18,7 @@ def test_invalid_field_type_raises_on_invalid():
         }
     )
 
-    metadata = {
-        "user_id": "789473423",
-        "schema_name": "0000",
-        "collection_exercise_sid": "test-sid",
-        "period_id": "2016-02-01",
-        "ref_p_start_date": "2016-02-02",
-        "ref_p_end_date": "2016-03-03",
-        "ru_ref": "12345678901A",
-        "ru_name": "Apple",
-        "return_by": "2016-07-07",
-        "case_id": "1234567890",
-        "case_ref": "1000000000000001",
-    }
+    metadata = {}
 
     value_source_resolver = ValueSourceResolver(
         data_stores=DataStores(metadata=metadata, response_metadata={}),
