@@ -27,7 +27,6 @@ MEMORY="${MEMORY:=4G}"
 WEB_SERVER_TYPE="${WEB_SERVER_TYPE:=gunicorn-threads}"
 WEB_SERVER_WORKERS="${WEB_SERVER_WORKERS:=7}"
 WEB_SERVER_THREADS="${WEB_SERVER_THREADS:=10}"
-WEB_SERVER_UWSGI_ASYNC_CORES="${WEB_SERVER_UWSGI_ASYNC_CORES:=10}"
 HTTP_KEEP_ALIVE="${HTTP_KEEP_ALIVE:=650}"
 
 EQ_KEYS_FILE="/keys/keys.yml"
@@ -72,7 +71,6 @@ gcloud beta run deploy eq-questionnaire-runner \
     --set-env-vars WEB_SERVER_TYPE="${WEB_SERVER_TYPE}" \
     --set-env-vars WEB_SERVER_WORKERS="${WEB_SERVER_WORKERS}" \
     --set-env-vars WEB_SERVER_THREADS="${WEB_SERVER_THREADS}" \
-    --set-env-vars WEB_SERVER_UWSGI_ASYNC_CORES="${WEB_SERVER_UWSGI_ASYNC_CORES}" \
     --set-env-vars HTTP_KEEP_ALIVE="${HTTP_KEEP_ALIVE}" \
     --set-env-vars EQ_KEYS_FILE="${EQ_KEYS_FILE}" \
     --set-env-vars EQ_SECRETS_FILE="${EQ_SECRETS_FILE}" \

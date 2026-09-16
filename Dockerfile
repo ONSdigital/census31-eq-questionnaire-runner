@@ -56,19 +56,16 @@ COPY --from=builder /runner/templates ./templates
 COPY --from=builder /runner/schemas ./schemas
 COPY --from=builder /runner/eq_questionnaire_runner ./eq_questionnaire_runner
 
-ENV WEB_SERVER_TYPE=gunicorn-async
+ENV WEB_SERVER_TYPE=gunicorn-threads
 ENV WEB_SERVER_WORKERS=3
 ENV WEB_SERVER_THREADS=10
-ENV WEB_SERVER_UWSGI_ASYNC_CORES=10
 ENV HTTP_KEEP_ALIVE=2
+ENV PYTHONPYCACHEPREFIX=/tmp/pycache
 
 EXPOSE 5000
 
 # Distroless nonroot user
 USER 65532:65532
 
-# run_app.sh cannot be used here (no shell in distroless); gunicorn-async is
-# the default WEB_SERVER_TYPE and is invoked directly via Python -m.
-ENTRYPOINT ["/usr/bin/python3", "-m", "gunicorn", "application:application", \
-    "--worker-class", "gevent", "--timeout", "0", \
-    "-c", "gunicorn_config.py"]
+# invoked directly via Python -m as there is no shell
+ENTRYPOINT ["/usr/bin/python3", "-m", "gunicorn", "application:application", "-c", "gunicorn_config.py"]

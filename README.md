@@ -323,7 +323,6 @@ The following environment variables are optional:
 | WEB_SERVER_TYPE              | gunicorn-threads | Web server type used to run the application. This also determines the worker class which can be async/threaded |
 | WEB_SERVER_WORKERS           | 7                | The number of worker processes                                                                                 |
 | WEB_SERVER_THREADS           | 10               | The number of worker threads per worker                                                                        |
-| WEB_SERVER_UWSGI_ASYNC_CORES | 10               | The number of cores to initialise when using "uwsgi-async" web server worker type                              |
 | DATASTORE_USE_GRPC           | False            | Determines whether to use gRPC for Datastore. gRPC is currently only supported for threaded web servers        |
 
 To deploy the app, run the following command:
@@ -379,7 +378,6 @@ The following env variables can be used
 | WEB_SERVER_TYPE                           |                               | Web server type used to run the application. This also determines the worker class which can be async/threaded |
 | WEB_SERVER_WORKERS                        |                               | The number of worker processes                                                                                 |
 | WEB_SERVER_THREADS                        |                               | The number of worker threads per worker                                                                        |
-| WEB_SERVER_UWSGI_ASYNC_CORES              |                               | The number of cores to initialise when using "uwsgi-async" web server worker type                              |
 | DATASTORE_USE_GRPC                        | False                         | Determines whether to use gRPC for Datastore. gRPC is currently only supported for threaded web servers        |
 | ACCOUNT_SERVICE_BASE_URL                  | `https://start.census.gov.uk` | The base URL of the account service used to launch the survey                                                  |
 | ONS_URL                                   | `https://www.ons.gov.uk`      | The URL of the ONS website where static content is sourced, e.g. accessibility info                            |

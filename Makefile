@@ -75,19 +75,10 @@ run: build link-development-env
 	poetry run flask run
 
 run-gunicorn-async: link-development-env
-	WEB_SERVER_TYPE=gunicorn-async poetry run ./run_app.sh
+	WEB_SERVER_TYPE=gunicorn-async poetry run gunicorn "application:application" -c gunicorn_config.py
 
 run-gunicorn-threads: link-development-env
-	WEB_SERVER_TYPE=gunicorn-threads poetry run ./run_app.sh
-
-run-uwsgi: link-development-env
-	WEB_SERVER_TYPE=uwsgi poetry run ./run_app.sh
-
-run-uwsgi-threads: link-development-env
-	WEB_SERVER_TYPE=uwsgi-threads poetry run ./run_app.sh
-
-run-uwsgi-async: link-development-env
-	WEB_SERVER_TYPE=uwsgi-async poetry run ./run_app.sh
+	WEB_SERVER_TYPE=gunicorn-threads poetry run gunicorn "application:application" -c gunicorn_config.py
 
 dev-compose-up:
 	docker compose pull launcher
