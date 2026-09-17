@@ -6,6 +6,7 @@ from marshmallow import ValidationError
 
 from app.utilities.metadata_parser_v2 import validate_questionnaire_claims, validate_runner_claims_v2
 from tests.app.parser.conftest import get_metadata, get_metadata_full
+from tests.app.views.handlers.conftest import metadata
 
 
 def test_spaces_are_stripped_from_string_fields():
@@ -50,7 +51,7 @@ def test_minimum_length_on_runner_metadata():
         validate_runner_claims_v2(metadata)
 
 
-def test_no_schema_selector_claim_invalid_v2():
+def test_no_schema_claim_invalid_v2():
     metadata = get_metadata_full()
     del metadata["schema_name"]
 
@@ -69,7 +70,7 @@ def test_no_schema_selector_claim_invalid_v2():
         {"schema_url": "http://test.json", "schema": {"survey": "test", "form_type": "H", "region_code": "GB-WLS"}},
     ],
 )
-def test_multiple_schema_selector_claims_invalid_v2(options):
+def test_multiple_schema_claims_invalid_v2(options):
     metadata = get_metadata_full()
     del metadata["schema_name"]
 
@@ -83,6 +84,47 @@ def test_multiple_schema_selector_claims_invalid_v2(options):
         f"Only one of schema_name, schema_url or schema should be specified in metadata, but {provided} were provided"
         in str(exc)
     )
+
+
+@pytest.mark.parametrize(
+    "schema",
+    [
+        {"survey": "test", "form_type": "H"},
+        {"survey": "test", "region_code": "GB-WLS"},
+        {"form_type": "H", "region_code": "GB-WLS"},
+    ],
+)
+def test_schema_selector_schema_missing_properties(schema):
+    metadata = get_metadata_full()
+    del metadata["schema_name"]
+    metadata["schema"] = schema
+
+    with pytest.raises(ValidationError) as exc:
+        validate_runner_claims_v2(metadata)
+
+    assert "Missing data for required field" in str(exc)
+
+
+def test_schema_selector_schema_invalid_form_type():
+    metadata = get_metadata_full()
+    del metadata["schema_name"]
+    metadata["schema"] = {"survey": "test", "form_type": "INVALID", "region_code": "GB-WLS"}
+
+    with pytest.raises(ValidationError) as exc:
+        validate_runner_claims_v2(metadata)
+
+    assert "Must be one of: H, I, C." in str(exc)
+
+
+def test_schema_selector_schema_invalid_region_code():
+    metadata = get_metadata_full()
+    del metadata["schema_name"]
+    metadata["schema"] = {"survey": "test", "form_type": "H", "region_code": "INVALID"}
+
+    with pytest.raises(ValidationError) as exc:
+        validate_runner_claims_v2(metadata)
+
+    assert "String does not match expected pattern" in str(exc)
 
 
 def test_validate_questionnaire_claims_does_not_change_metadata():
