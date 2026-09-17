@@ -52,8 +52,6 @@ def convert_answers_v2(
 
     data_stores = questionnaire_store.data_stores
 
-    survey_id = schema.json["survey_id"]
-
     payload: dict = {
         "case_id": metadata.case_id,
         "tx_id": metadata.tx_id,
@@ -65,7 +63,6 @@ def convert_answers_v2(
         "flushed": flushed,
         "submitted_at": submitted_at.isoformat(),
         "launch_language_code": metadata.language_code or DEFAULT_LANGUAGE_CODE,
-        "survey_metadata": {"survey_id": survey_id},
     }
 
     optional_properties = get_optional_payload_properties(metadata, data_stores.response_metadata)
@@ -76,7 +73,7 @@ def convert_answers_v2(
         payload["schema_url"] = metadata.schema_url
 
     if metadata.survey_metadata:
-        payload["survey_metadata"].update(metadata.survey_metadata)
+        payload["survey_metadata"] = metadata.survey_metadata
 
     payload["data"] = get_payload_data(
         data_stores=data_stores,

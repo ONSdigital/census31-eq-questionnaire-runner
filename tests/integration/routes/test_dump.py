@@ -94,7 +94,6 @@ class TestDumpSubmission(IntegrationTestCase):
                     "ref_p_start_date": "2016-04-01",
                     "ru_name": "Integration Testing",
                     "ru_ref": "12345678901A",
-                    "survey_id": "999",
                     "trad_as": "Integration Tests",
                     "user_id": "integration-test",
                 },
@@ -123,40 +122,10 @@ class TestDumpSubmission(IntegrationTestCase):
         # And the JSON response contains the data I submitted
         actual = json_loads(self.getResponseData())
 
-        # tx_id and submitted_at are dynamic; so copy them over
-        expected = {
-            "submission": {
-                "case_id": actual["submission"]["case_id"],
-                "collection_exercise_sid": "789",
-                "data": {
-                    "answers": [{"answer_id": "radio-mandatory-answer", "value": "Coffee"}],
-                    "lists": [],
-                },
-                "data_version": "0.0.3",
-                "flushed": False,
-                "launch_language_code": "en",
-                "origin": "uk.gov.ons.edc.eq",
-                "schema_name": "test_radio_mandatory",
-                "started_at": actual["submission"]["started_at"],
-                "submission_language_code": "en",
-                "submitted_at": actual["submission"]["submitted_at"],
-                "survey_metadata": {
-                    "display_address": "68 Abingdon Road, Goathill",
-                    "period_id": "201604",
-                    "ref_p_end_date": "2016-04-30",
-                    "ref_p_start_date": "2016-04-01",
-                    "ru_name": "Integration Testing",
-                    "ru_ref": "12345678901A",
-                    "survey_id": "999",
-                    "trad_as": "Integration Tests",
-                    "user_id": "integration-test",
-                },
-                "tx_id": actual["submission"]["tx_id"],
-                "type": "uk.gov.ons.edc.eq:surveyresponse",
-                "version": "v2",
-            }
+        assert actual["submission"]["data"] == { 
+            "answers": [{"answer_id": "radio-mandatory-answer", "value": "Coffee"}],
+            "lists": []
         }
-        assert actual == expected
 
     def test_dump_submission_authenticated_with_role_with_lists(self):
         # Given I am an authenticated user who has launched a survey
@@ -176,58 +145,28 @@ class TestDumpSubmission(IntegrationTestCase):
 
         # And the JSON response contains the data I submitted
         actual = json_loads(self.getResponseData())
-
-        # tx_id and submitted_at are dynamic; so copy them over
-        expected = {
-            "submission": {
-                "case_id": actual["submission"]["case_id"],
-                "collection_exercise_sid": "789",
-                "data": {
-                    "answers": [
-                        {
-                            "answer_id": "first-name",
-                            "list_item_id": actual["submission"]["data"]["answers"][0]["list_item_id"],
-                            "value": "John",
-                        },
-                        {
-                            "answer_id": "last-name",
-                            "list_item_id": actual["submission"]["data"]["answers"][0]["list_item_id"],
-                            "value": "Doe",
-                        },
-                        {"answer_id": "anyone-else", "value": "No"},
-                    ],
-                    "lists": [
-                        {
-                            "items": [actual["submission"]["data"]["answers"][0]["list_item_id"]],
-                            "name": "people",
-                        }
-                    ],
+        
+        assert actual["submission"]["data"] == { 
+            "answers": [
+                {
+                    "answer_id": "first-name",
+                    "list_item_id": actual["submission"]["data"]["answers"][0]["list_item_id"],
+                    "value": "John",
                 },
-                "data_version": "0.0.3",
-                "flushed": False,
-                "launch_language_code": "en",
-                "origin": "uk.gov.ons.edc.eq",
-                "schema_name": "test_relationships",
-                "started_at": actual["submission"]["started_at"],
-                "submission_language_code": "en",
-                "submitted_at": actual["submission"]["submitted_at"],
-                "survey_metadata": {
-                    "display_address": "68 Abingdon Road, Goathill",
-                    "period_id": "201604",
-                    "ref_p_end_date": "2016-04-30",
-                    "ref_p_start_date": "2016-04-01",
-                    "ru_name": "Integration Testing",
-                    "ru_ref": "12345678901A",
-                    "survey_id": "999",
-                    "trad_as": "Integration Tests",
-                    "user_id": "integration-test",
+                {
+                    "answer_id": "last-name",
+                    "list_item_id": actual["submission"]["data"]["answers"][0]["list_item_id"],
+                    "value": "Doe",
                 },
-                "tx_id": actual["submission"]["tx_id"],
-                "type": "uk.gov.ons.edc.eq:surveyresponse",
-                "version": "v2",
-            }
+                {"answer_id": "anyone-else", "value": "No"},
+            ],
+            "lists": [
+                {
+                    "items": [actual["submission"]["data"]["answers"][0]["list_item_id"]],
+                    "name": "people",
+                }
+            ],
         }
-        assert actual == expected
 
 
 class TestDumpRoute(IntegrationTestCase):

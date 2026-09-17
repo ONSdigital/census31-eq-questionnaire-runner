@@ -234,11 +234,10 @@ class FeedbackPayloadV2:
             # TODO: need to resolve schema name if schema selector params used
             "schema_name": self.metadata.schema_name,
             "case_id": self.case_id,
-            "survey_metadata": {"survey_id": self.schema.json["survey_id"]},
         }
 
         if self.metadata.survey_metadata:
-            payload["survey_metadata"] |= self.metadata.survey_metadata
+            payload["survey_metadata"] = self.metadata.survey_metadata
 
         optional_properties = converter_v2.get_optional_payload_properties(self.metadata, self.response_metadata)
 
