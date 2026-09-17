@@ -34,14 +34,14 @@ class Data(Schema, StripWhitespaceMixin):
 
 class SchemaSelector(Schema, StripWhitespaceMixin):
     survey = VALIDATORS["string"](required=True)
-    form_type = VALIDATORS["string"](required=True), validate.OneOf(["H", "I", "C"])
+    form_type = VALIDATORS["string"](required=True, validate=validate.OneOf(["H", "I", "C"]))
     region_code = VALIDATORS["string"](required=True, validate=RegionCode())
 
 
 class RunnerMetadataSchema(Schema, StripWhitespaceMixin):
     """Metadata which is required for the operation of runner itself"""
 
-    METADATA_OPTION_ERROR_MESSAGE = "Neither schema_name or schema_url has been set in metadata"
+    METADATA_OPTION_ERROR_MESSAGE = "None of schema_name, schema_url or schema have been set in metadata"
 
     jti = VALIDATORS["uuid"]()
     tx_id = VALIDATORS["uuid"]()

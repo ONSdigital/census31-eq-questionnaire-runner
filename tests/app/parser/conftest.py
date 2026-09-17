@@ -4,18 +4,23 @@ import pytest
 
 from app.authentication.auth_payload_versions import AuthPayloadVersion
 
-
 def get_metadata():
-    return _fake_metadata_runner_v2()
-
-
-def get_metadata_census():
-    return fake_metadata_full_v2_census()
-
+    """Generate the set of top-level claims required for runner to function"""
+    return {
+        "tx_id": str(uuid.uuid4()),
+        "jti": str(uuid.uuid4()),
+        "schema_name": "2_a",
+        "collection_exercise_sid": "test-sid",
+        "response_id": str(uuid.uuid4()),
+        "account_service_url": "https://ras.ons.gov.uk",
+        "case_id": str(uuid.uuid4()),
+        "version": AuthPayloadVersion.V2.value,
+    }
 
 def get_metadata_full():
-    """Generate a fake set of runner and questionnaire claims for default survey metadata tests."""
-    fake_survey_metadata_claims = {
+    """Generate a full set claims including survey_metadata"""
+    metadata = get_metadata()
+    metadata["survey_metadata"] = {
         "user_id": "1",
         "period_id": "3",
         "ref_p_start_date": "2016-02-02",
@@ -26,71 +31,4 @@ def get_metadata_full():
         "ru_ref": "12345678901A",
         "form_type": "I",
     }
-
-    metadata = _fake_metadata_runner_v2()
-
-    metadata["survey_metadata"] = fake_survey_metadata_claims
-
     return metadata
-
-
-def _fake_metadata_runner_v2():
-    """Generate the set of claims required for runner to function"""
-    return {
-        "tx_id": str(uuid.uuid4()),
-        "jti": str(uuid.uuid4()),
-        "schema_name": "2_a",
-        "collection_exercise_sid": "test-sid",
-        "response_id": str(uuid.uuid4()),
-        "account_service_url": "https://ras.ons.gov.uk",
-        "case_id": str(uuid.uuid4()),
-        "version": AuthPayloadVersion.V2.value,
-        "survey_metadata": {"data": {"key": "value"}},
-    }
-
-
-def fake_metadata_runner():
-    """Generate the set of claims required for runner to function"""
-    return {
-        "tx_id": str(uuid.uuid4()),
-        "jti": str(uuid.uuid4()),
-        "schema_name": "2_a",
-        "ru_ref": "2016-04-04",
-        "collection_exercise_sid": "test-sid",
-        "response_id": str(uuid.uuid4()),
-        "account_service_url": "https://ras.ons.gov.uk",
-        "case_id": str(uuid.uuid4()),
-    }
-
-
-@pytest.fixture()
-def fake_metadata_runner_v2():
-    return _fake_metadata_runner_v2()
-
-
-def fake_metadata_full_v2_census():
-    """Generate a fake set of claims
-    These claims should represent all claims known to runner, including common questionnaire
-    level claims.
-    """
-    fake_survey_metadata_claims = {
-        "case_ref": "1000000000000001",
-        "qid": "2000000000000002",
-    }
-
-    metadata = _fake_metadata_runner_v2()
-
-    metadata["survey_metadata"] = fake_survey_metadata_claims
-
-    return metadata
-
-
-@pytest.fixture
-def fake_questionnaire_metadata_requirements_full():
-    return [
-        {"name": "user_id", "type": "string"},
-        {"name": "period_id", "type": "string"},
-        {"name": "ref_p_start_date", "type": "string"},
-        {"name": "ref_p_end_date", "type": "string"},
-        {"name": "account_service_url", "type": "url", "optional": True},
-    ]

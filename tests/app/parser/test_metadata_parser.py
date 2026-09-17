@@ -5,7 +5,7 @@ from freezegun import freeze_time
 from marshmallow import ValidationError
 
 from app.utilities.metadata_parser_v2 import validate_questionnaire_claims, validate_runner_claims_v2
-from tests.app.parser.conftest import get_metadata, get_metadata_census, get_metadata_full
+from tests.app.parser.conftest import get_metadata, get_metadata_full
 
 
 def test_spaces_are_stripped_from_string_fields():
@@ -23,116 +23,6 @@ def test_empty_strings_are_not_valid():
 
     with pytest.raises(ValidationError):
         validate_runner_claims_v2(metadata)
-
-
-def test_validation_does_not_change_metadata(
-    fake_questionnaire_metadata_requirements_full,
-):
-    metadata = get_metadata_full()
-
-    fake_metadata_copy = deepcopy(metadata)
-
-    questionnaire_claims = metadata["survey_metadata"]
-
-    validate_questionnaire_claims(questionnaire_claims, fake_questionnaire_metadata_requirements_full)
-
-    assert metadata == fake_metadata_copy
-
-
-def test_validation_no_error_when_optional_field_not_passed():
-    metadata = get_metadata_full()
-
-    field_specification = [{"name": "optional_field", "type": "string", "optional": True}]
-
-    validate_questionnaire_claims(metadata, field_specification)
-
-
-def test_validation_field_required_by_default():
-    metadata = get_metadata_full()
-
-    field_specification = [{"name": "required_field", "type": "string"}]
-
-    with pytest.raises(ValidationError):
-        validate_questionnaire_claims(metadata, field_specification)
-
-
-def test_minimum_length():
-    metadata = get_metadata_full()
-
-    field_specification = [{"name": "some_field", "type": "string", "min_length": 5}]
-
-    questionnaire_claims = metadata["survey_metadata"]
-
-    questionnaire_claims["some_field"] = "123456"
-
-    validate_questionnaire_claims(questionnaire_claims, field_specification)
-
-    questionnaire_claims["some_field"] = "1"
-
-    with pytest.raises(ValidationError):
-        validate_questionnaire_claims(questionnaire_claims, field_specification)
-
-
-def test_maximum_length():
-    metadata = get_metadata_full()
-
-    field_specification = [{"name": "some_field", "type": "string", "max_length": 5}]
-
-    questionnaire_claims = metadata["survey_metadata"]
-
-    questionnaire_claims["some_field"] = "1234"
-
-    validate_questionnaire_claims(questionnaire_claims, field_specification)
-
-    questionnaire_claims["some_field"] = "123456"
-
-    with pytest.raises(ValidationError):
-        validate_questionnaire_claims(questionnaire_claims, field_specification)
-
-
-def test_min_and_max_length():
-    metadata = get_metadata_full()
-
-    field_specification = [{"name": "some_field", "type": "string", "min_length": 4, "max_length": 5}]
-
-    questionnaire_claims = metadata["survey_metadata"]
-
-    questionnaire_claims["some_field"] = "1234"
-
-    validate_questionnaire_claims(questionnaire_claims, field_specification)
-
-    questionnaire_claims["some_field"] = "123456"
-
-    with pytest.raises(ValidationError):
-        validate_questionnaire_claims(questionnaire_claims, field_specification)
-
-    questionnaire_claims["some_field"] = "123"
-
-    with pytest.raises(ValidationError):
-        validate_questionnaire_claims(questionnaire_claims, field_specification)
-
-
-def test_length_equals():
-    metadata = get_metadata_full()
-
-    field_specification = [{"name": "some_field", "type": "string", "length": 4}]
-
-    questionnaire_claims = metadata["survey_metadata"]
-
-    questionnaire_claims["some_field"] = "1234"
-
-    validate_questionnaire_claims(questionnaire_claims, field_specification)
-
-    questionnaire_claims["some_field"] = "123456"
-
-    with pytest.raises(ValidationError):
-        validate_questionnaire_claims(questionnaire_claims, field_specification)
-
-    questionnaire_claims["some_field"] = "123"
-
-    with pytest.raises(ValidationError):
-        validate_questionnaire_claims(questionnaire_claims, field_specification)
-
 
 def test_uuid_deserialisation():
     metadata = get_metadata_full()
@@ -160,37 +50,26 @@ def test_minimum_length_on_runner_metadata():
         validate_runner_claims_v2(metadata)
 
 
-def test_deserialisation_iso_8601_dates():
-    """Runner cannot currently handle date objects in metadata"""
-    metadata = get_metadata_full()
-
-    field_specification = [{"name": "birthday", "type": "date"}]
-
-    questionnaire_claims = metadata["survey_metadata"]
-
-    questionnaire_claims["birthday"] = "2019-11-1"
-    claims = validate_questionnaire_claims(questionnaire_claims, field_specification)
-
-    assert isinstance(claims["birthday"], str)
-
-
-def test_empty_schema_name_and_schema_url_not_valid_v2():
+def test_no_schema_selector_claim_invalid_v2():
     metadata = get_metadata_full()
     del metadata["schema_name"]
 
     with pytest.raises(ValidationError) as exc:
         validate_runner_claims_v2(metadata)
 
-    assert "Neither schema_name or schema_url has been set in metadata" in str(exc)
+    assert "None of schema_name, schema_url or schema have been set in metadata" in str(exc)
 
 
 @pytest.mark.parametrize(
     "options",
     [
         {"schema_name": "test_name", "schema_url": "http://test.json"},
+        {"schema_name": "test_name", "schema": {"survey": "test", "form_type": "H", "region_code": "GB-WLS"}},
+        {"schema_name": "test_name", "schema_url": "http://test.json", "schema": {"survey": "test", "form_type": "H", "region_code": "GB-WLS"}},
+        {"schema_url": "http://test.json", "schema": {"survey": "test", "form_type": "H", "region_code": "GB-WLS"}},
     ],
 )
-def test_schema_name_and_schema_url_not_valid_v2(options):
+def test_multiple_schema_selector_claims_invalid_v2(options):
     metadata = get_metadata_full()
     del metadata["schema_name"]
 
@@ -206,11 +85,130 @@ def test_schema_name_and_schema_url_not_valid_v2(options):
     )
 
 
-def test_valid_v2_census_claims():
-    metadata = get_metadata_census()
+def test_validate_questionnaire_claims_does_not_change_metadata():
+    metadata = get_metadata_full()
+    questionnaire_metadata_requirements_full = [
+        {"name": "user_id", "type": "string"},
+        {"name": "period_id", "type": "string"},
+        {"name": "ref_p_start_date", "type": "string"},
+        {"name": "ref_p_end_date", "type": "string"},
+        {"name": "account_service_url", "type": "url", "optional": True},
+    ]
 
-    fake_metadata_copy = deepcopy(metadata)
+    metadata_copy = deepcopy(metadata)
 
-    claims = validate_runner_claims_v2(metadata)
+    questionnaire_claims = metadata["survey_metadata"]
 
-    assert claims == fake_metadata_copy
+    validate_questionnaire_claims(questionnaire_claims, questionnaire_metadata_requirements_full)
+
+    assert metadata == metadata_copy
+
+
+def test_validate_questionnaire_claims_no_error_when_optional_field_not_passed():
+    metadata = get_metadata_full()
+
+    field_specification = [{"name": "optional_field", "type": "string", "optional": True}]
+
+    validate_questionnaire_claims(metadata, field_specification)
+
+
+def test_validate_questionnaire_claims_field_required_by_default():
+    metadata = get_metadata_full()
+
+    field_specification = [{"name": "required_field", "type": "string"}]
+
+    with pytest.raises(ValidationError):
+        validate_questionnaire_claims(metadata, field_specification)
+
+
+def test_validate_questionnaire_claims_minimum_length():
+    metadata = get_metadata_full()
+
+    field_specification = [{"name": "some_field", "type": "string", "min_length": 5}]
+
+    questionnaire_claims = metadata["survey_metadata"]
+
+    questionnaire_claims["some_field"] = "123456"
+
+    validate_questionnaire_claims(questionnaire_claims, field_specification)
+
+    questionnaire_claims["some_field"] = "1"
+
+    with pytest.raises(ValidationError):
+        validate_questionnaire_claims(questionnaire_claims, field_specification)
+
+
+def test_validate_questionnaire_claims_maximum_length():
+    metadata = get_metadata_full()
+
+    field_specification = [{"name": "some_field", "type": "string", "max_length": 5}]
+
+    questionnaire_claims = metadata["survey_metadata"]
+
+    questionnaire_claims["some_field"] = "1234"
+
+    validate_questionnaire_claims(questionnaire_claims, field_specification)
+
+    questionnaire_claims["some_field"] = "123456"
+
+    with pytest.raises(ValidationError):
+        validate_questionnaire_claims(questionnaire_claims, field_specification)
+
+
+def test_validate_questionnaire_claims_min_and_max_length():
+    metadata = get_metadata_full()
+
+    field_specification = [{"name": "some_field", "type": "string", "min_length": 4, "max_length": 5}]
+
+    questionnaire_claims = metadata["survey_metadata"]
+
+    questionnaire_claims["some_field"] = "1234"
+
+    validate_questionnaire_claims(questionnaire_claims, field_specification)
+
+    questionnaire_claims["some_field"] = "123456"
+
+    with pytest.raises(ValidationError):
+        validate_questionnaire_claims(questionnaire_claims, field_specification)
+
+    questionnaire_claims["some_field"] = "123"
+
+    with pytest.raises(ValidationError):
+        validate_questionnaire_claims(questionnaire_claims, field_specification)
+
+
+def test_validate_questionnaire_claims_length_equals():
+    metadata = get_metadata_full()
+
+    field_specification = [{"name": "some_field", "type": "string", "length": 4}]
+
+    questionnaire_claims = metadata["survey_metadata"]
+
+    questionnaire_claims["some_field"] = "1234"
+
+    validate_questionnaire_claims(questionnaire_claims, field_specification)
+
+    questionnaire_claims["some_field"] = "123456"
+
+    with pytest.raises(ValidationError):
+        validate_questionnaire_claims(questionnaire_claims, field_specification)
+
+    questionnaire_claims["some_field"] = "123"
+
+    with pytest.raises(ValidationError):
+        validate_questionnaire_claims(questionnaire_claims, field_specification)
+
+
+def test_validate_questionnaire_claims_deserialisation_iso_8601_dates():
+    """Runner cannot currently handle date objects in metadata"""
+    metadata = get_metadata_full()
+
+    field_specification = [{"name": "birthday", "type": "date"}]
+
+    questionnaire_claims = metadata["survey_metadata"]
+
+    questionnaire_claims["birthday"] = "2019-11-1"
+    claims = validate_questionnaire_claims(questionnaire_claims, field_specification)
+
+    assert isinstance(claims["birthday"], str)
+
