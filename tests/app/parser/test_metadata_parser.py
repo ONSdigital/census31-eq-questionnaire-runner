@@ -1,7 +1,6 @@
 from copy import deepcopy
 
 import pytest
-from freezegun import freeze_time
 from marshmallow import ValidationError
 
 from app.utilities.metadata_parser_v2 import validate_questionnaire_claims, validate_runner_claims_v2
