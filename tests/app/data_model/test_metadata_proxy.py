@@ -1,9 +1,7 @@
 import pytest
-from werkzeug.datastructures import ImmutableDict
 
 from app.authentication.auth_payload_versions import AuthPayloadVersion
 from app.data_models.metadata_proxy import MetadataProxy, SchemaSelector
-from tests.app.views.handlers.conftest import region_code
 
 METADATA_V2 = {
     "version": AuthPayloadVersion.V2.value,
@@ -12,11 +10,7 @@ METADATA_V2 = {
     "tx_id": "tx_id",
     "collection_exercise_sid": "collection_exercise_sid",
     "case_id": "case_id",
-    "schema": {
-        "survey": "CENSUS",
-        "form_type": "H",
-        "region_code": "GB-ENG"
-    },
+    "schema": {"survey": "CENSUS", "form_type": "H", "region_code": "GB-ENG"},
 }
 
 

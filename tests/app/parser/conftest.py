@@ -1,8 +1,7 @@
 import uuid
 
-import pytest
-
 from app.authentication.auth_payload_versions import AuthPayloadVersion
+
 
 def get_metadata():
     """Generate the set of top-level claims required for runner to function"""

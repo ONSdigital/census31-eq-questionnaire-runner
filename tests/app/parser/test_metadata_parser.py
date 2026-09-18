@@ -1,5 +1,3 @@
-from copy import deepcopy
-
 import pytest
 from marshmallow import ValidationError
 
@@ -22,6 +20,7 @@ def test_empty_strings_are_not_valid():
 
     with pytest.raises(ValidationError):
         validate_runner_claims(metadata)
+
 
 def test_uuid_deserialisation():
     metadata = get_metadata()
@@ -64,7 +63,11 @@ def test_no_schema_claim_invalid_v2():
     [
         {"schema_name": "test_name", "schema_url": "http://test.json"},
         {"schema_name": "test_name", "schema": {"survey": "test", "form_type": "H", "region_code": "GB-WLS"}},
-        {"schema_name": "test_name", "schema_url": "http://test.json", "schema": {"survey": "test", "form_type": "H", "region_code": "GB-WLS"}},
+        {
+            "schema_name": "test_name",
+            "schema_url": "http://test.json",
+            "schema": {"survey": "test", "form_type": "H", "region_code": "GB-WLS"},
+        },
         {"schema_url": "http://test.json", "schema": {"survey": "test", "form_type": "H", "region_code": "GB-WLS"}},
     ],
 )
@@ -214,4 +217,3 @@ def test_validate_questionnaire_claims_deserialisation_iso_8601_dates():
     claims = validate_questionnaire_claims(questionnaire_claims, field_specification)
 
     assert isinstance(claims["birthday"], str)
-

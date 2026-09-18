@@ -107,8 +107,7 @@ def get_allowed_languages(schema_name: str | None, launch_language: str) -> list
 def get_schema_name(metadata: MetadataProxy):
     if schema := metadata.schema:
         return get_schema_name_from_census_params(schema.survey, schema.form_type, schema.region_code)
-    else:
-        return metadata.schema_name
+    return metadata.schema_name
 
 
 def load_schema_from_metadata(metadata: MetadataProxy, *, language_code: str | None) -> QuestionnaireSchema:
@@ -161,12 +160,13 @@ def _load_schema_file(schema_name: str, language_code: str) -> Any:
         )
 
     if not _schema_exists(language_code, schema_name):
+        error = "no schema file exists"
         logger.error(
-            "no schema file exists",
+            error,
             schema_name=schema_name,
             language_code=language_code,
         )
-        raise FileNotFoundError("no schema file exists", schema_name)
+        raise FileNotFoundError(error, schema_name)
 
     schema_path = get_schema_path(language_code, schema_name)
 

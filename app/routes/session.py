@@ -20,7 +20,7 @@ from app.questionnaire import QuestionnaireSchema
 from app.questionnaire.questionnaire_schema import DEFAULT_LANGUAGE_CODE
 from app.routes.errors import _render_error_page
 from app.utilities.metadata_parser import validate_questionnaire_claims, validate_runner_claims
-from app.utilities.schema import get_schema_name_from_census_params, load_schema_from_metadata, get_schema_name
+from app.utilities.schema import get_schema_name, load_schema_from_metadata
 
 logger = get_logger()
 

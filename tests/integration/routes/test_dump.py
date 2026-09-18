@@ -122,9 +122,9 @@ class TestDumpSubmission(IntegrationTestCase):
         # And the JSON response contains the data I submitted
         actual = json_loads(self.getResponseData())
 
-        assert actual["submission"]["data"] == { 
+        assert actual["submission"]["data"] == {
             "answers": [{"answer_id": "radio-mandatory-answer", "value": "Coffee"}],
-            "lists": []
+            "lists": [],
         }
 
     def test_dump_submission_authenticated_with_role_with_lists(self):
@@ -145,8 +145,8 @@ class TestDumpSubmission(IntegrationTestCase):
 
         # And the JSON response contains the data I submitted
         actual = json_loads(self.getResponseData())
-        
-        assert actual["submission"]["data"] == { 
+
+        assert actual["submission"]["data"] == {
             "answers": [
                 {
                     "answer_id": "first-name",

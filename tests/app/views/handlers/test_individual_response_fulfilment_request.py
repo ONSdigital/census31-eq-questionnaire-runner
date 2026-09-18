@@ -17,6 +17,7 @@ from app.views.handlers.individual_response import (
 
 DUMMY_MOBILE_NUMBER = "07700900258"
 
+
 def get_metadata():
     return {
         "case_id": str(uuid4()),
@@ -25,6 +26,7 @@ def get_metadata():
         "account_service_url": "account_service_url",
         "collection_exercise_sid": "collection_exercise_sid",
     }
+
 
 @freeze_time(datetime.now(tz=timezone.utc).isoformat())
 def test_sms_fulfilment_request_payload():

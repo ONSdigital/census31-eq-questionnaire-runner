@@ -30,9 +30,7 @@ def get_metadata(extra_metadata: dict | None = None):
 
     if extra_metadata:
         for key, value in extra_metadata.items():
-            if key in TOP_LEVEL_METADATA_KEYS:
-                metadata[key] = value
-            elif key == "schema":
+            if key in TOP_LEVEL_METADATA_KEYS or key == "schema":
                 metadata[key] = value
             else:
                 metadata["survey_metadata"][key] = value

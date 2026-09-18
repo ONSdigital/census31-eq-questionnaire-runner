@@ -33,7 +33,9 @@ class TestSession(IntegrationTestCase):
         self.assertStatusRedirect()
 
     def test_valid_census_token(self):
-        encrypted_token = self.token_generator.create_token_with_census_claims(survey="test", form_type="H", region_code="GB-WLS")
+        encrypted_token = self.token_generator.create_token_with_census_claims(
+            survey="test", form_type="H", region_code="GB-WLS"
+        )
         self.get(f"/session?token={encrypted_token}", follow_redirects=False)
         self.assertStatusRedirect()
 

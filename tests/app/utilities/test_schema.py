@@ -17,10 +17,11 @@ from app.utilities.schema import (
     cache_questionnaire_schemas,
     get_allowed_languages,
     get_schema_list,
+    get_schema_name_from_census_params,
     get_schema_path_map,
     load_schema_from_metadata,
     load_schema_from_name,
-    load_schema_from_url, get_schema_name_from_census_params,
+    load_schema_from_url,
 )
 from tests.app.questionnaire.conftest import get_metadata
 
@@ -259,8 +260,8 @@ def test_load_schema_from_metadata_schema_selector_params():
         "form_type": "H",
         "region_code": "GB-ENG",
     }
-    metadata = get_metadata(extra_metadata={"schema": schema, "language_code":"en"})
-    with pytest.raises(FileNotFoundError, match="test_household_gb_eng") as exc:
+    metadata = get_metadata(extra_metadata={"schema": schema, "language_code": "en"})
+    with pytest.raises(FileNotFoundError, match="test_household_gb_eng"):
         _ = load_schema_from_metadata(metadata=metadata, language_code="en")
 
 
