@@ -104,21 +104,24 @@ def get_allowed_languages(schema_name: str | None, launch_language: str) -> list
     return [DEFAULT_LANGUAGE_CODE]
 
 
-def load_schema_from_metadata(metadata: MetadataProxy, *, language_code: str | None) -> QuestionnaireSchema:
+def get_schema_name(metadata: MetadataProxy):
     if schema := metadata.schema:
-        schema_name = get_schema_name_from_census_params(schema.survey, schema.form_type, schema.region_code)
-        return load_schema_from_name(schema_name, language_code=language_code)
+        return get_schema_name_from_census_params(schema.survey, schema.form_type, schema.region_code)
+    else:
+        return metadata.schema_name
 
-    elif schema_url := metadata.schema_url:
+
+def load_schema_from_metadata(metadata: MetadataProxy, *, language_code: str | None) -> QuestionnaireSchema:
+    if schema_url := metadata.schema_url:
         return load_schema_from_url(
             url=schema_url,
             language_code=language_code,
         )
 
+    schema_name = get_schema_name(metadata)
     return load_schema_from_name(
-        # Type ignore: Metadata is validated to have either schema_name or schema_url populated.
-        # This code runs only if schema_url was not present, thus schema_name is present (not None).
-        metadata.schema_name,  # type: ignore
+        # Type ignore: Metadata is validated to have either schema_name, schema_url or schema populated.
+        schema_name,  # type: ignore
         language_code=language_code,
     )
 
@@ -133,10 +136,6 @@ def _load_schema_from_name(schema_name: str, language_code: str) -> Questionnair
     schema_json = _load_schema_file(schema_name, language_code)
 
     return QuestionnaireSchema(schema_json, language_code)
-
-
-def get_schema_name_from_params(eq_id: str | None, form_type: str | None) -> str:
-    return f"{eq_id}_{form_type}"
 
 
 def get_schema_name_from_census_params(survey, form_type, region_code):

@@ -19,8 +19,8 @@ from app.helpers.template_helpers import DATA_LAYER_KEYS, get_survey_config, ren
 from app.questionnaire import QuestionnaireSchema
 from app.questionnaire.questionnaire_schema import DEFAULT_LANGUAGE_CODE
 from app.routes.errors import _render_error_page
-from app.utilities.metadata_parser_v2 import validate_questionnaire_claims, validate_runner_claims_v2
-from app.utilities.schema import load_schema_from_metadata
+from app.utilities.metadata_parser import validate_questionnaire_claims, validate_runner_claims
+from app.utilities.schema import get_schema_name_from_census_params, load_schema_from_metadata, get_schema_name
 
 logger = get_logger()
 
@@ -62,25 +62,22 @@ def login() -> Response:
 
     validate_jti(decrypted_token)
 
-    questionnaire_id = decrypted_token.get("survey_metadata", {}).get("questionnaire_id")
-    # TODO: log schema name derived from census schema selection claims
-
-    logger_args = {
-        key: value
-        for key, value in {
-            "tx_id": decrypted_token.get("tx_id"),
-            "case_id": decrypted_token.get("case_id"),
-            "schema_name": decrypted_token.get("schema_name"),
-            "schema_url": decrypted_token.get("schema_url"),
-            "questionnaire_id": questionnaire_id,
-        }.items()
-        if value
-    }
-    contextvars.bind_contextvars(**logger_args)
+    contextvars.bind_contextvars(tx_id=decrypted_token.get("tx_id"), case_id=decrypted_token.get("case_id"))
 
     runner_claims = get_runner_claims(decrypted_token)
 
     metadata = MetadataProxy.from_dict(runner_claims)
+
+    logger_args = {
+        key: value
+        for key, value in {
+            "schema_name": get_schema_name(metadata),
+            "schema_url": metadata.schema_url,
+            "questionnaire_id": decrypted_token.get("survey_metadata", {}).get("questionnaire_id"),
+        }.items()
+        if value
+    }
+    contextvars.bind_contextvars(**logger_args)
 
     g.schema = load_schema_from_metadata(metadata=metadata, language_code=metadata.language_code)
     schema_metadata = g.schema.json["metadata"]
@@ -181,7 +178,7 @@ def get_signed_out() -> Response | str:
 
 def get_runner_claims(decrypted_token: Mapping[str, Any]) -> dict:
     try:
-        return validate_runner_claims_v2(decrypted_token)
+        return validate_runner_claims(decrypted_token)
 
     except ValidationError as e:
         raise InvalidTokenException(RUNNER_CLAIMS_ERROR_MESSAGE) from e

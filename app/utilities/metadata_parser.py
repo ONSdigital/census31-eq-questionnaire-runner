@@ -15,7 +15,6 @@ VALIDATORS: Mapping[str, Callable] = {
     "boolean": functools.partial(fields.Boolean, required=True),
     "string": functools.partial(fields.String, required=True),
     "url": functools.partial(fields.Url, required=True),
-    "iso_8601_date_string": functools.partial(DateString, format="iso8601", required=True),
 }
 
 
@@ -33,9 +32,9 @@ class Data(Schema, StripWhitespaceMixin):
 
 
 class SchemaSelector(Schema, StripWhitespaceMixin):
-    survey = VALIDATORS["string"](required=True)
-    form_type = VALIDATORS["string"](required=True, validate=validate.OneOf(["H", "I", "C"]))
-    region_code = VALIDATORS["string"](required=True, validate=RegionCode())
+    survey = fields.String(required=True)
+    form_type = fields.String(required=True, validate=validate.OneOf(["H", "I", "C"]))
+    region_code = fields.String(required=True, validate=RegionCode())
 
 
 class RunnerMetadataSchema(Schema, StripWhitespaceMixin):
@@ -43,21 +42,21 @@ class RunnerMetadataSchema(Schema, StripWhitespaceMixin):
 
     METADATA_OPTION_ERROR_MESSAGE = "None of schema_name, schema_url or schema have been set in metadata"
 
-    jti = VALIDATORS["uuid"]()
-    tx_id = VALIDATORS["uuid"]()
-    case_id = VALIDATORS["uuid"]()
-    collection_exercise_sid = VALIDATORS["string"](validate=validate.Length(min=1))
-    version = VALIDATORS["string"](required=True, validate=validate.OneOf([AuthPayloadVersion.V2.value]))
-    schema_name = VALIDATORS["string"](required=False)
-    schema_url = VALIDATORS["url"](required=False)
-    response_id = VALIDATORS["string"](required=True)
-    account_service_url = VALIDATORS["url"](required=True)
-
-    language_code = VALIDATORS["string"](required=False)
-    channel = VALIDATORS["string"](required=False, validate=validate.Length(min=1))
-
+    jti = UUIDString(required=True)
+    tx_id = UUIDString(required=True)
+    case_id = UUIDString(required=True)
+    collection_exercise_sid = fields.String(required=True, validate=validate.Length(min=1))
+    version = fields.String(required=True, validate=validate.OneOf([AuthPayloadVersion.V2.value]))
+    response_id = fields.String(required=True)
+    account_service_url = fields.Url(required=True)
+    channel = fields.String(required=False, validate=validate.Length(min=1))
+    language_code = fields.String(required=False)
     roles = fields.List(fields.String(), required=False)
+
+    schema_name = fields.String(required=False)
+    schema_url = fields.Url(required=False)
     schema = fields.Nested(SchemaSelector, required=False)
+
     survey_metadata = fields.Nested(Data, unknown=INCLUDE, validate=validate.Length(min=1))
 
     @validates_schema
@@ -111,7 +110,7 @@ def validate_questionnaire_claims(
     return questionnaire_metadata_schema.load(claims)  # type: ignore
 
 
-def validate_runner_claims_v2(claims: Mapping) -> dict:
+def validate_runner_claims(claims: Mapping) -> dict:
     """Validate claims required for runner to function"""
     runner_metadata_schema = RunnerMetadataSchema(unknown=EXCLUDE)
     # Type ignore: the load method in the Marshmallow parent schema class doesn't have type hints for return
