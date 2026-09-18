@@ -33,7 +33,9 @@ PAYLOAD_V2_TEST = {
 PAYLOAD_V2_CENSUS = {
     "version": AuthPayloadVersion.V2.value,
     "survey_metadata": {
-        "case_ref": "1000000000000001",
+        "case_type": "1000000000000001",
+        "display_address": "68 Abingdon Road, Goathill",
+        "ru_ref": "12345678901A",
         "questionnaire_id": str(uuid4()),
     },
     "collection_exercise_sid": "789",
@@ -58,6 +60,7 @@ class TokenGenerator:
         *,
         schema_name=None,
         schema_url=None,
+        schema=None,
         payload=None,
         **extra_payload,
     ):
@@ -69,6 +72,8 @@ class TokenGenerator:
             payload_vars["schema_name"] = schema_name
         if schema_url:
             payload_vars["schema_url"] = schema_url
+        if schema:
+            payload_vars["schema"] = schema
 
         payload_vars["iat"] = time()
         payload_vars["exp"] = payload_vars["iat"] + float(3600)  # one hour from now
@@ -115,6 +120,16 @@ class TokenGenerator:
 
     def create_token_with_schema_url(self, schema_url, **extra_payload):
         payload_vars = self._get_payload_with_params(schema_url=schema_url, **extra_payload)
+
+        return self.generate_token(payload_vars)
+
+    def create_token_with_census_claims(self, survey, form_type, region_code, **extra_payload):
+        schema = {
+            "survey": survey,
+            "form_type": form_type,
+            "region_code": region_code,
+        }
+        payload_vars = self._get_payload_with_params(schema=schema, payload=PAYLOAD_V2_CENSUS, **extra_payload)
 
         return self.generate_token(payload_vars)
 
