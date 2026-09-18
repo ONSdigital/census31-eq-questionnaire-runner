@@ -74,7 +74,6 @@ updates:
           - "redis"
           - "htmlmin"
           - "coloredlogs"
-          - "uwsgi"
           - "email-validator"
           - "itsdangerous"
           - "simplejson"
