@@ -1,6 +1,6 @@
 services:
   ajv-validator:
-    image: ghcr.io/onsdigital/census31-eq-questionnaire-validator-ajv:${TAG}
+    image: ghcr.io/onsdigital/census31-eq-questionnaire-validator-ajv:pr-5-update-ajv-port-to-5006 # Revert after testing
     networks:
       - eq-schema
     ports:
