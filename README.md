@@ -51,6 +51,20 @@ If you need to rebuild the container from scratch to re-load any dependencies th
 RUNNER_ENV_FILE=.development.env docker compose build --no-cache
 ```
 
+### Debugging
+
+As we use a distroless container for runner there is no shell or basic command line utilities for debugging the running container. If you need to enable this you can build a debug version of the image using the `RUNTIME_BASE_IMAGE_TAG` variable:
+
+```shell
+RUNNER_ENV_FILE=.development.env RUNTIME_BASE_IMAGE_TAG=debug docker compose up -d --build
+```
+
+Then you can shell into the running container with:
+
+```shell
+docker exec -it <container_id> sh
+```
+
 ## Run locally
 
 ### Clone the repository
@@ -297,20 +311,19 @@ The following environment variables must be set when deploying the app.
 
 The following environment variables are optional:
 
-| Variable Name                | Default          | Description                                                                                                    |
-|------------------------------|------------------|----------------------------------------------------------------------------------------------------------------|
-| REGION                       | europe-west2     | The region that will be used for your Cloud Run service                                                        |
-| CONCURRENCY                  | 80               | The maximum number of requests that can be processed simultaneously by a given container instance              |
-| MIN_INSTANCES                | 1                | The minimum number of container instances that can be used for your Cloud Run service                          |
-| MAX_INSTANCES                | 1                | The maximum number of container instances that can be used for your Cloud Run service                          |
-| CPU                          | 4                | The number of CPUs to allocate for each Cloud Run container instance                                           |
-| MEMORY                       | 4G               | The amount of memory to allocate for each Cloud Run container instance                                         |
-| GOOGLE_TAG_ID                |                  | The Google Tag ID - Specifies the GTM account                                                                  |
-| WEB_SERVER_TYPE              | gunicorn-threads | Web server type used to run the application. This also determines the worker class which can be async/threaded |
-| WEB_SERVER_WORKERS           | 7                | The number of worker processes                                                                                 |
-| WEB_SERVER_THREADS           | 10               | The number of worker threads per worker                                                                        |
-| WEB_SERVER_UWSGI_ASYNC_CORES | 10               | The number of cores to initialise when using "uwsgi-async" web server worker type                              |
-| DATASTORE_USE_GRPC           | False            | Determines whether to use gRPC for Datastore. gRPC is currently only supported for threaded web servers        |
+| Variable Name      | Default          | Description                                                                                                    |
+|--------------------|------------------|----------------------------------------------------------------------------------------------------------------|
+| REGION             | europe-west2     | The region that will be used for your Cloud Run service                                                        |
+| CONCURRENCY        | 80               | The maximum number of requests that can be processed simultaneously by a given container instance              |
+| MIN_INSTANCES      | 1                | The minimum number of container instances that can be used for your Cloud Run service                          |
+| MAX_INSTANCES      | 1                | The maximum number of container instances that can be used for your Cloud Run service                          |
+| CPU                | 4                | The number of CPUs to allocate for each Cloud Run container instance                                           |
+| MEMORY             | 4G               | The amount of memory to allocate for each Cloud Run container instance                                         |
+| GOOGLE_TAG_ID      |                  | The Google Tag ID - Specifies the GTM account                                                                  |
+| WEB_SERVER_TYPE    | gunicorn-threads | Web server type used to run the application. This also determines the worker class which can be async/threaded |
+| WEB_SERVER_WORKERS | 7                | The number of worker processes                                                                                 |
+| WEB_SERVER_THREADS | 10               | The number of worker threads per worker                                                                        |
+| DATASTORE_USE_GRPC | False            | Determines whether to use gRPC for Datastore. gRPC is currently only supported for threaded web servers        |
 
 To deploy the app, run the following command:
 
@@ -365,7 +378,6 @@ The following env variables can be used
 | WEB_SERVER_TYPE                           |                               | Web server type used to run the application. This also determines the worker class which can be async/threaded |
 | WEB_SERVER_WORKERS                        |                               | The number of worker processes                                                                                 |
 | WEB_SERVER_THREADS                        |                               | The number of worker threads per worker                                                                        |
-| WEB_SERVER_UWSGI_ASYNC_CORES              |                               | The number of cores to initialise when using "uwsgi-async" web server worker type                              |
 | DATASTORE_USE_GRPC                        | False                         | Determines whether to use gRPC for Datastore. gRPC is currently only supported for threaded web servers        |
 | ACCOUNT_SERVICE_BASE_URL                  | `https://start.census.gov.uk` | The base URL of the account service used to launch the survey                                                  |
 | ONS_URL                                   | `https://www.ons.gov.uk`      | The URL of the ONS website where static content is sourced, e.g. accessibility info                            |
