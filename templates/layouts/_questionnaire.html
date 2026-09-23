@@ -6,7 +6,7 @@
 {% set form = content.form %}
 {% set last_viewed_question_guidance = content.last_viewed_question_guidance %}
 
-{% block mainContent %}
+{% block main %}
     <button type="submit" class="ons-u-d-no" hidden></button>
 
     {% block form_errors %}
@@ -48,4 +48,4 @@
             </p>
         {% endif %}
     {% endblock after_submit_button_content %}
-{% endblock mainContent %}
+{% endblock main %}
