@@ -25,7 +25,7 @@
     ]
 } %}
 
-{% block main %}
+{% block mainContent %}
     {% set form = content.form %}
     {% if form.mapped_errors %}
         {% set error_title = ngettext('There is a problem with your feedback', 'There are %(num)s problems with your feedback', form.mapped_errors | length) %}
@@ -54,4 +54,4 @@
     {# djlint:on #}
     <br>
     <br>
-{% endblock main %}
+{% endblock mainContent %}

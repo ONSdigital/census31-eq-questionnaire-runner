@@ -24,7 +24,7 @@
     ]
 } %}
 
-{% block main %}
+{% block mainContent %}
     <h1 class="ons-u-mt-m">{{ content.submitted_text }}</h1>
     {{ onsDescriptionList(content.metadata) }}
     {% if not content.view_submitted_response.expired %}
@@ -61,4 +61,4 @@
         {% endcall %}
         {# djlint:on #}
     {% endif %}
-{% endblock main %}
+{% endblock mainContent %}

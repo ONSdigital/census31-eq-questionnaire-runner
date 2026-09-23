@@ -28,7 +28,7 @@
     {# djlint:on #}
 {% endif %}
 
-{% block main %}
+{% block mainContent %}
     {# djlint:off #}
     {% call
         onsPanel({
@@ -105,4 +105,4 @@
     {% if content.show_feedback_call_to_action %}
         {% include "partials/feedback-call-to-action.html" %}
     {% endif %}
-{% endblock main %}
+{% endblock mainContent %}

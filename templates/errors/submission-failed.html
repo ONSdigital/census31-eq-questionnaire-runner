@@ -4,8 +4,8 @@
 {% set page_title = _("Sorry, there is a problem") %}
 {% set resubmit_survey = _("You can try to <a href='{url}'>submit your survey again</a>").format(url=url_for('questionnaire.get_questionnaire')) %}
 
-{% block main %}
+{% block mainContent %}
     <h1>{{ _("Sorry, there is a problem") }}</h1>
     <p data-qa="retry">{{ resubmit_survey }}</p>
     <p>{{ _("If this problem keeps happening, please <a href='{url}'>contact us</a> for help.").format(url=contact_us_url) }}</p>
-{% endblock main %}
+{% endblock mainContent %}

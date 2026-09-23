@@ -2,9 +2,9 @@
 
 {% set page_title = _("Page not found") %}
 
-{% block main %}
+{% block mainContent %}
     <h1>{{ _("Page not found") }}</h1>
     <p>{{ _("If you entered a web address, check it is correct.") }}</p>
     <p>{{ _("If you pasted the web address, check you copied the whole address.") }}</p>
     <p>{{ _("If the web address is correct or you selected a link or button, please <a href='{url}'>contact us</a> for more help.").format(url=contact_us_url) }}</p>
-{% endblock main %}
+{% endblock mainContent %}

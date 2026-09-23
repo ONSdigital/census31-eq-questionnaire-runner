@@ -4,7 +4,7 @@
 
 {% set save_on_signout = true %}
 
-{% block main %}
+{% block mainContent %}
     <button type="submit" class="ons-u-d-no" hidden></button>
     <h1 class="ons-u-mt-m">{{ _("If you can't answer questions for others in your household") }}</h1>
     <p>{{ _("You can ask the people you live with to answer their own questions by sharing the household access code with them.") }}</p>
@@ -26,4 +26,4 @@
         })
     }}
     {# djlint:on #}
-{% endblock main %}
+{% endblock mainContent %}

@@ -3,7 +3,7 @@
 {% set hide_sign_out_button = content.hide_sign_out_button %}
 {% set sign_out_url = content.sign_out_url %}
 
-{% block main %}
+{% block mainContent %}
     {% set form = content.form %}
     {% if form.mapped_errors %}
         {% set error_title = _("There is a problem with this page") %}
@@ -11,4 +11,4 @@
     {% endif %}
     <h1 data-qa="title">{{ _("Send a confirmation email") }}</h1>
     {% include "partials/confirmation-email-form.html" %}
-{% endblock main %}
+{% endblock mainContent %}
