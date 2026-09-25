@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-09-10 15:18+0100\n"
+"POT-Creation-Date: 2026-09-25 10:22+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -227,15 +227,15 @@ msgstr ""
 msgid "ONS Surveys"
 msgstr ""
 
-#: app/helpers/template_helpers.py:90
+#: app/helpers/template_helpers.py:91
 msgid "Menu"
 msgstr ""
 
-#: app/helpers/template_helpers.py:111
+#: app/helpers/template_helpers.py:112
 msgid "The following links open in a new tab"
 msgstr ""
 
-#: app/helpers/template_helpers.py:145
+#: app/helpers/template_helpers.py:146
 #, python-brace-format
 msgid ""
 "Make sure you <a href='{sign_out_url}'>leave this page</a> or close your "
@@ -333,23 +333,23 @@ msgstr ""
 msgid "ONS Census"
 msgstr ""
 
-#: app/survey_config/census_survey_config.py:42
-msgid "What we do"
+#: app/survey_config/census_survey_config.py:45
+msgid "Help"
 msgstr ""
 
-#: app/survey_config/census_survey_config.py:45
+#: app/survey_config/census_survey_config.py:46
 msgid "Contact us"
 msgstr ""
 
-#: app/survey_config/census_survey_config.py:49
-msgid "Accessibility"
-msgstr ""
-
-#: app/survey_config/census_survey_config.py:59
+#: app/survey_config/census_survey_config.py:53
 msgid "Cookies"
 msgstr ""
 
-#: app/survey_config/census_survey_config.py:61
+#: app/survey_config/census_survey_config.py:55
+msgid "Accessibility statement"
+msgstr ""
+
+#: app/survey_config/census_survey_config.py:59
 msgid "Privacy and data protection"
 msgstr ""
 
@@ -361,7 +361,7 @@ msgstr ""
 msgid "Use of address data is subject to the terms and conditions."
 msgstr ""
 
-#: app/survey_config/survey_config.py:35
+#: app/survey_config/survey_config.py:36
 msgid "Save and exit survey"
 msgstr ""
 
@@ -1033,7 +1033,7 @@ msgstr ""
 msgid "You can try to <a href='{url}'>submit your survey again</a>"
 msgstr ""
 
-#: templates/errors/submission-failed.html:11
+#: templates/errors/submission-failed.html:10
 #, python-brace-format
 msgid ""
 "If this problem keeps happening, please <a href='{url}'>contact us</a> "
