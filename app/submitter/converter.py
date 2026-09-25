@@ -10,7 +10,6 @@ from app.data_models.metadata_proxy import MetadataProxy, NoMetadataException
 from app.questionnaire.questionnaire_schema import DEFAULT_LANGUAGE_CODE, QuestionnaireSchema
 from app.questionnaire.routing_path import RoutingPath
 from app.settings import CENSUS_PERIOD_ID
-from app.submitter.convert_payload_0_0_1 import convert_answers_to_payload_0_0_1
 from app.submitter.convert_payload_0_0_3 import convert_answers_to_payload_0_0_3
 
 logger = get_logger()
@@ -108,12 +107,6 @@ def get_payload_data(
     schema: QuestionnaireSchema,
     full_routing_path: Iterable[RoutingPath],
 ) -> OrderedDict | dict[str, list | dict]:
-    if schema.json["data_version"] == "0.0.1":
-        return convert_answers_to_payload_0_0_1(
-            data_stores=data_stores,
-            schema=schema,
-            full_routing_path=full_routing_path,
-        )
 
     if schema.json["data_version"] == "0.0.3":
         answers = convert_answers_to_payload_0_0_3(

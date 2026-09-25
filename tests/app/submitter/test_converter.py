@@ -140,6 +140,15 @@ def test_schema_selector_in_metadata_should_be_in_payload(fake_questionnaire_sch
 
     assert "schema" in payload
     assert payload["schema"] == questionnaire_store.data_stores.metadata.schema.to_dict()
+
+
+def test_period_id_should_be_in_payload_if_schema_selector_present(fake_questionnaire_schema, questionnaire_store):
+    schema = {"survey": "CENSUS", "form_type": "I", "region_code": "GB-WLS"}
+    metadata = RAW_METADATA | {"schema": schema}
+    questionnaire_store.data_stores.metadata = METADATA.from_dict(metadata)
+
+    payload = convert_answers(fake_questionnaire_schema, questionnaire_store, {}, SUBMITTED_AT)
+
     assert "period_id" in payload
     assert payload["period_id"] == CENSUS_PERIOD_ID
 

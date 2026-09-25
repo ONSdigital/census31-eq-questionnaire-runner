@@ -22,6 +22,7 @@ TOP_LEVEL_METADATA_KEYS = [
     "collection_exercise_sid",
     "response_id",
     "language_code",
+    "schema",
     "schema_name",
     "schema_url",
     "survey_metadata",
@@ -75,7 +76,7 @@ class MetadataProxy:
         if serialized_schema := cls.serialize(_metadata.pop("schema", {})):
             schema = SchemaSelector(**serialized_schema)
 
-        top_level_data = {key: _metadata.pop(key, None) for key in TOP_LEVEL_METADATA_KEYS}
+        top_level_data = {key: _metadata.pop(key, None) for key in TOP_LEVEL_METADATA_KEYS if key != "schema"}
 
         return cls(
             **top_level_data,
