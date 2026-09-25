@@ -24,7 +24,7 @@ def footer_context():
         "crest": True,
         "newTabWarning": "The following links open in a new tab",
         "copyrightDeclaration": {
-            "copyright": "Crown copyright and database rights 2020 OS 100019153.",
+            "copyright": "Crown copyright and database rights 2027 OS 100019153.",
             "text": "Use of address data is subject to the terms and conditions.",
         },
     }
@@ -38,7 +38,7 @@ def expected_footer_census_theme(language_code: str):
         "crest": True,
         "newTabWarning": "The following links open in a new tab",
         "copyrightDeclaration": {
-            "copyright": "Crown copyright and database rights 2020 OS 100019153.",
+            "copyright": "Crown copyright and database rights 2027 OS 100019153.",
             "text": "Use of address data is subject to the terms and conditions.",
         },
     }

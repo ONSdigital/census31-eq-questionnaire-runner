@@ -408,8 +408,8 @@ msgid "Privacy and data protection"
 msgstr "Príobháideacht agus cosaint sonraí"
 
 #: app/survey_config/survey_config.py:17
-msgid "Crown copyright and database rights 2020 OS 100019153."
-msgstr "Cóiopcheart na Corónach agus cearta bhunachar sonraí 2020 OS 100019153."
+msgid "Crown copyright and database rights 2027 OS 100019153."
+msgstr "Cóiopcheart na Corónach agus cearta bhunachar sonraí 2027 OS 100019153."
 
 #: app/survey_config/survey_config.py:18
 msgid "Use of address data is subject to the terms and conditions."
@@ -1756,10 +1756,10 @@ msgstr "Athraigh na sonraí do {item_name}"
 #~ msgid "BSL and audio videos"
 #~ msgstr ""
 
-#~ msgid "Crown copyright and database rights 2021 NIMA MOU577.501."
+#~ msgid "Crown copyright and database rights 2027 NIMA MOU577.501."
 #~ msgstr ""
 #~ "Cóiopcheart na Corónach agus cearta "
-#~ "bhunachar sonraí 2021 NIMA MOU577.501."
+#~ "bhunachar sonraí 2027 NIMA MOU577.501."
 
 #~ msgid "Terms and conditions"
 #~ msgstr "Téarmaí agus coinníollacha"

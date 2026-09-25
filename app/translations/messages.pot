@@ -354,7 +354,7 @@ msgid "Privacy and data protection"
 msgstr ""
 
 #: app/survey_config/survey_config.py:17
-msgid "Crown copyright and database rights 2020 OS 100019153."
+msgid "Crown copyright and database rights 2027 OS 100019153."
 msgstr ""
 
 #: app/survey_config/survey_config.py:18

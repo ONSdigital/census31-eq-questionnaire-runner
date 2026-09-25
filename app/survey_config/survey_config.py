@@ -14,7 +14,7 @@ class SurveyConfig:
     """Valid options for defining survey-based configuration."""
 
     schema: QuestionnaireSchema | None = None
-    copyright_declaration: LazyString | None = lazy_gettext("Crown copyright and database rights 2020 OS 100019153.")
+    copyright_declaration: LazyString | None = lazy_gettext("Crown copyright and database rights 2027 OS 100019153.")
     copyright_text: LazyString | None = lazy_gettext("Use of address data is subject to the terms and conditions.")
     base_url: str = ACCOUNT_SERVICE_BASE_URL
     account_service_my_account_url: str | None = None
