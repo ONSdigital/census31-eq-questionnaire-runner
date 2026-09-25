@@ -21,7 +21,7 @@ class SurveyConfig:
     account_service_todo_url: str | None = None
     account_service_log_out_url: str | None = None
     accessibility_url: str = f"{ONS_URL}/help/accessibility/"
-    what_we_do_url: str = f"{ONS_URL}/aboutus/whatwedo/"
+    help_url: str = f"{ONS_URL}/help/"
     masthead_logo: str | None = None
     masthead_logo_mobile: str | None = None
     title_logo: str | None = None
