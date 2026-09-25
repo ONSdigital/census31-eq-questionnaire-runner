@@ -80,14 +80,11 @@ class Feedback:
         if not metadata:
             raise NoMetadataException  # pragma: no cover
 
-        case_id = metadata.case_id
-        tx_id = metadata.tx_id
-
         feedback_message = FeedbackPayload(
             metadata=metadata,
             response_metadata=self._questionnaire_store.data_stores.response_metadata,
             schema=self._schema,
-            case_id=case_id,
+            case_id=metadata.case_id,
             submission_language_code=session_data.language_code,
             feedback_count=session_data.feedback_count,
             feedback_text=self.form.data.get("feedback-text"),
@@ -98,11 +95,10 @@ class Feedback:
             feedback_message(), current_app.eq["key_store"], KEY_PURPOSE_SUBMISSION  # type: ignore
         )
 
-        additional_metadata = get_receipting_metadata(metadata)
-        feedback_metadata = {"tx_id": tx_id, "case_id": case_id, **additional_metadata}
+        receipting_metadata = get_receipting_metadata(metadata)
 
         submitter: GCSFeedbackSubmitter | LogFeedbackSubmitter = current_app.eq["feedback_submitter"]  # type: ignore
-        if not submitter.upload(feedback_metadata, encrypted_message):
+        if not submitter.upload(receipting_metadata, encrypted_message):
             raise FeedbackUploadFailed()
 
         self._session_store.save()

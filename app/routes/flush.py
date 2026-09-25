@@ -91,8 +91,7 @@ def _submit_data(user: User) -> bool:
         )
 
         encrypted_message = encrypt(message, _get_keystore(), KEY_PURPOSE_SUBMISSION)
-
-        additional_metadata = get_receipting_metadata(metadata)
+        receipting_metadata = get_receipting_metadata(metadata)
 
         # Type ignore: Instance attribute 'eq' is a dict with key "submitter"
         # with value of type GCSSubmitter or LogSubmitter
@@ -100,9 +99,7 @@ def _submit_data(user: User) -> bool:
 
         sent = submitter.send_message(
             encrypted_message,
-            tx_id=metadata.tx_id,
-            case_id=metadata.case_id,
-            **additional_metadata,
+            **receipting_metadata,
         )
 
         if not sent:

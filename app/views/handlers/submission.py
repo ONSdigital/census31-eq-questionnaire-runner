@@ -17,7 +17,7 @@ from app.utilities.json import json_dumps
 
 
 def get_receipting_metadata(metadata: MetadataProxy) -> dict:
-    receipting_metadata = {}
+    receipting_metadata = {"tx_id": metadata.tx_id, "case_id": metadata.case_id}
     if metadata.survey_metadata and "questionnaire_id" in metadata.survey_metadata:
         receipting_metadata["questionnaire_id"] = metadata.survey_metadata["questionnaire_id"]
     return receipting_metadata
@@ -53,14 +53,12 @@ class SubmissionHandler:
             KEY_PURPOSE_SUBMISSION,
         )
 
-        additional_metadata = get_receipting_metadata(self._metadata)
+        receipting_metadata = get_receipting_metadata(self._metadata)
 
         # Type ignore: current_app can return empty Local Proxy. Similar to other files, this is ignored.
         submitted = current_app.eq["submitter"].send_message(  # type: ignore
             encrypted_message,
-            case_id=self._metadata.case_id,
-            tx_id=self._metadata.tx_id,
-            **additional_metadata,
+            **receipting_metadata,
         )
 
         if not submitted:
