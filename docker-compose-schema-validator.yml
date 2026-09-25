@@ -4,7 +4,7 @@ services:
     networks:
       - eq-schema
     ports:
-      - 5002:5002
+      - 5006:5006
 
   py-validator:
     image: ghcr.io/onsdigital/census31-eq-questionnaire-validator:${TAG}

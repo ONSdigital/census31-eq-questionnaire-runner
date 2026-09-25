@@ -19,7 +19,7 @@ def check_connection():
                 "/dev/null",
                 "-w",
                 "%{http_code}",
-                "http://127.0.0.1:5002/status",  # DevSkim: ignore DS162092
+                "http://127.0.0.1:5006/status",  # DevSkim: ignore DS162092
             ],
             capture_output=True,
             text=True,
