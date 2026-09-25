@@ -55,31 +55,31 @@ def test_footer_context(app: Flask, theme, survey_config, language, expected_foo
             SurveyType.CENSUS,
             None,
             CensusSurveyConfig(),
-            ["ONS Surveys", None, None, read_file("./templates/assets/images/census-logo.svg"), None],
+            ["ONS Surveys", None, None, None, read_file("./templates/assets/images/census-logo.svg"), None],
         ),
         (
             SurveyType.CENSUS,
             "Test",
             CensusSurveyConfig(),
-            ["Test", None, None, read_file("./templates/assets/images/census-logo.svg"), None],
+            ["Test", None, None, None, read_file("./templates/assets/images/census-logo.svg"), None],
         ),
         (
             SurveyType.CENSUS,
             "Test",
             CensusSurveyConfig(language_code="cy"),
-            ["Test", None, None, read_file("./templates/assets/images/census-logo-cy-small.svg"), None],
+            ["Test", None, None, None, read_file("./templates/assets/images/census-logo-cy-small.svg"), None],
         ),
         (
             None,
             None,
             CensusSurveyConfig(),
-            ["ONS Surveys", None, None, read_file("./templates/assets/images/census-logo.svg"), None],
+            ["ONS Surveys", None, None, None, read_file("./templates/assets/images/census-logo.svg"), None],
         ),
         (
             None,
             None,
             SurveyConfig(),
-            ["ONS Surveys", None, None, None, None],
+            ["ONS Surveys", None, None, None, None, None],
         ),
         (
             None,
@@ -87,6 +87,7 @@ def test_footer_context(app: Flask, theme, survey_config, language, expected_foo
             NISRACensusSurveyConfig(),
             [
                 "ONS Surveys",
+                "ons-u-mt-2xs ons-u-mb-2xs",
                 read_file("./templates/assets/images/nisra-logo.svg"),
                 None,
                 read_file("./templates/assets/images/census-logo.svg"),
@@ -99,6 +100,7 @@ def test_footer_context(app: Flask, theme, survey_config, language, expected_foo
             NISRACensusSurveyConfig(),
             [
                 "Test",
+                "ons-u-mt-2xs ons-u-mb-2xs",
                 read_file("./templates/assets/images/nisra-logo.svg"),
                 None,
                 read_file("./templates/assets/images/census-logo.svg"),
@@ -111,6 +113,7 @@ def test_footer_context(app: Flask, theme, survey_config, language, expected_foo
             NRSCensusSurveyConfig(),
             [
                 "Test",
+                "ons-u-mt-2xs ons-u-mb-2xs",
                 read_file("./templates/assets/images/nrs-logo.svg"),
                 None,
                 read_file("./templates/assets/images/census-logo.svg"),
