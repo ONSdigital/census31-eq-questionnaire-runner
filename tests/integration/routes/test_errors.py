@@ -36,7 +36,7 @@ class TestErrors(IntegrationTestCase):
         self.assertNotInBody("Sign out")
 
     def test_errors_404_with_payload(self):
-        self.launchSurveyV2(schema_name="test_percentage")
+        self.launchSurvey(schema_name="test_percentage")
         self.get("/hfjdskahfjdkashfsa")
         self.assertStatusNotFound()
 
@@ -50,7 +50,7 @@ class TestErrors(IntegrationTestCase):
 
     def test_errors_500_with_payload(self):
         # Given
-        self.launchSurveyV2(schema_name="test_percentage")
+        self.launchSurvey(schema_name="test_percentage")
         # When / Then
         # Patch out a class in post to raise an exception so that the application error handler
         # gets called
@@ -63,7 +63,7 @@ class TestErrors(IntegrationTestCase):
 
     def test_errors_500_exception_during_error_handling(self):
         # Given
-        self.launchSurveyV2(schema_name="test_percentage")
+        self.launchSurvey(schema_name="test_percentage")
         # When
 
         # Patch out a class in post to raise an exception so that the application error handler
@@ -83,7 +83,7 @@ class TestErrors(IntegrationTestCase):
 
     def test_401_theme_default_cookie_exists(self):
         # Given
-        self.launchSurveyV2(schema_name="test_introduction")
+        self.launchSurvey(schema_name="test_introduction")
         self.assertInUrl("/questionnaire/introduction/")
 
         # When
@@ -102,7 +102,7 @@ class TestErrors(IntegrationTestCase):
 
     def test_401_theme_census_cookie_exists(self):
         # Given
-        self.launchSurveyV2(
+        self.launchSurvey(
             schema_name="test_theme_census",
             theme="census",
             account_service_url=CENSUS_URL,
@@ -125,7 +125,7 @@ class TestErrors(IntegrationTestCase):
 
     def test_401_no_cookie(self):
         # Given
-        self.launchSurveyV2(schema_name="test_introduction")
+        self.launchSurvey(schema_name="test_introduction")
         self.assertInUrl("/questionnaire/introduction/")
 
         # When
@@ -142,7 +142,7 @@ class TestErrors(IntegrationTestCase):
 
     def test_403_theme_default_cookie_exists(self):
         # Given
-        self.launchSurveyV2(schema_name="test_introduction")
+        self.launchSurvey(schema_name="test_introduction")
 
         # When
         cookie = self.getUrlAndCookie("/dump/debug")
@@ -155,7 +155,7 @@ class TestErrors(IntegrationTestCase):
 
     def test_403_theme_census_cookie_exists(self):
         # Given
-        self.launchSurveyV2(
+        self.launchSurvey(
             schema_name="test_theme_census",
             theme="census",
             account_service_url=CENSUS_URL,
@@ -172,7 +172,7 @@ class TestErrors(IntegrationTestCase):
 
     def test_403_no_cookie(self):
         # Given
-        self.launchSurveyV2(schema_name="test_introduction")
+        self.launchSurvey(schema_name="test_introduction")
 
         # When
         token = 123
@@ -186,7 +186,7 @@ class TestErrors(IntegrationTestCase):
 
     def test_404_theme_default_cookie_exists(self):
         # Given
-        self.launchSurveyV2(schema_name="test_introduction")
+        self.launchSurvey(schema_name="test_introduction")
 
         # When
         cookie = self.getUrlAndCookie("/abc123")
@@ -202,7 +202,7 @@ class TestErrors(IntegrationTestCase):
 
     def test_404_theme_census_cookie_exists(self):
         # Given
-        self.launchSurveyV2(
+        self.launchSurvey(
             schema_name="test_theme_census",
             theme="census",
             account_service_url=CENSUS_URL,
@@ -222,7 +222,7 @@ class TestErrors(IntegrationTestCase):
 
     def test_404_no_cookie(self):
         # Given
-        self.launchSurveyV2(schema_name="test_introduction")
+        self.launchSurvey(schema_name="test_introduction")
 
         # When
         self.deleteCookieAndGetUrl("/abc123")
@@ -236,7 +236,7 @@ class TestErrors(IntegrationTestCase):
 
     def test_404_no_cookie_unauthenticated(self):
         # Given
-        self.launchSurveyV2(schema_name="test_introduction")
+        self.launchSurvey(schema_name="test_introduction")
 
         # When
         self.exit()
@@ -251,7 +251,7 @@ class TestErrors(IntegrationTestCase):
 
     def test_500_theme_default_cookie_exists(self):
         # Given
-        self.launchSurveyV2(schema_name="test_introduction")
+        self.launchSurvey(schema_name="test_introduction")
 
         # When
         with patch(
@@ -269,7 +269,7 @@ class TestErrors(IntegrationTestCase):
 
     def test_500_theme_census_cookie_exists(self):
         # Given
-        self.launchSurveyV2(
+        self.launchSurvey(
             schema_name="test_theme_census",
             theme="census",
             account_service_url=CENSUS_URL,
@@ -294,7 +294,7 @@ class TestErrors(IntegrationTestCase):
             "app.routes.session.set_schema_context_in_cookie",
             side_effect=Exception("Theme set failed"),
         ):
-            self.launchSurveyV2(schema_name="test_introduction")
+            self.launchSurvey(schema_name="test_introduction")
 
         # Then I see the generic 500 error page
         cookie = self.getCookie()
@@ -331,7 +331,7 @@ class TestErrors(IntegrationTestCase):
         submitter.send_message = Mock(return_value=False)
 
         # When
-        self.launchSurveyV2(
+        self.launchSurvey(
             schema_name="test_theme_census",
             theme="census",
             account_service_url=CENSUS_URL,
@@ -348,7 +348,7 @@ class TestErrors(IntegrationTestCase):
         )
 
     def launchAndFailSubmission(self, schema):
-        self.launchSurveyV2(schema_name=schema)
+        self.launchSurvey(schema_name=schema)
         self.post()
         self.post()
         self.post()

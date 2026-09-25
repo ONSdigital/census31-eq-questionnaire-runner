@@ -5,7 +5,7 @@ from tests.integration.questionnaire import HUB_URL_PATH, THANK_YOU_URL_PATH
 class TestQuestionnaireHub(IntegrationTestCase):
     def test_navigation_to_hub_route_when_hub_not_enabled(self):
         # Given the hub is not enabled
-        self.launchSurveyV2(schema_name="test_checkbox")
+        self.launchSurvey(schema_name="test_checkbox")
 
         # When I navigate to the hub url
         self.get(HUB_URL_PATH)
@@ -16,7 +16,7 @@ class TestQuestionnaireHub(IntegrationTestCase):
 
     def test_redirect_to_hub_when_section_complete(self):
         # Given the hub is enabled
-        self.launchSurveyV2(schema_name="test_hub_and_spoke")
+        self.launchSurvey(schema_name="test_hub_and_spoke")
 
         # When I complete a section
         self.post()
@@ -27,7 +27,7 @@ class TestQuestionnaireHub(IntegrationTestCase):
 
     def test_hub_section_url_when_hub_not_enabled(self):
         # Given the hub is not enabled
-        self.launchSurveyV2(schema_name="test_checkbox")
+        self.launchSurvey(schema_name="test_checkbox")
 
         # When I navigate to the url for a hub's section
         self.get("/questionnaire/sections/default-section/")
@@ -37,7 +37,7 @@ class TestQuestionnaireHub(IntegrationTestCase):
 
     def test_section_url_when_hub_enabled_and_section_not_started(self):
         # Given the hub is enabled
-        self.launchSurveyV2(schema_name="test_hub_and_spoke")
+        self.launchSurvey(schema_name="test_hub_and_spoke")
 
         # When I navigate to a url for a hub's section
         self.get("questionnaire/sections/employment-section/")
@@ -47,7 +47,7 @@ class TestQuestionnaireHub(IntegrationTestCase):
 
     def test_hub_section_url_when_hub_enabled_and_section_in_progress(self):
         # Given the hub is enabled and a section is in-progress
-        self.launchSurveyV2(schema_name="test_hub_and_spoke")
+        self.launchSurvey(schema_name="test_hub_and_spoke")
         self.post()
         self.post({"employment-status-answer-exclusive": "None of these apply"})
         self.get(HUB_URL_PATH)
@@ -62,7 +62,7 @@ class TestQuestionnaireHub(IntegrationTestCase):
 
     def test_hub_section_url_when_hub_enabled_and_section_complete(self):
         # Given the hub is enabled and a section is complete
-        self.launchSurveyV2(schema_name="test_hub_and_spoke")
+        self.launchSurvey(schema_name="test_hub_and_spoke")
         self.get("/questionnaire/sections/accommodation-section/")
         self.post()
         self.post()
@@ -76,7 +76,7 @@ class TestQuestionnaireHub(IntegrationTestCase):
         self.assertEqualUrl("/questionnaire/sections/accommodation-section/")
 
     def test_hub_inaccessible_if_sections_required_and_incomplete(self):
-        self.launchSurveyV2(schema_name="test_hub_complete_sections")
+        self.launchSurvey(schema_name="test_hub_complete_sections")
 
         self.get(HUB_URL_PATH)
 
@@ -84,7 +84,7 @@ class TestQuestionnaireHub(IntegrationTestCase):
         self.assertEqualUrl("/questionnaire/employment-status/")
 
     def test_hub_accessible_if_sections_required_and_complete(self):
-        self.launchSurveyV2(schema_name="test_hub_complete_sections")
+        self.launchSurvey(schema_name="test_hub_complete_sections")
 
         self.post({"employment-status-answer": "Working as an employee"})
         self.post()
@@ -95,7 +95,7 @@ class TestQuestionnaireHub(IntegrationTestCase):
 
     def test_hub_displays_repeating_sections_with_valid_urls(self):
         # Given the hub is enabled and a section is complete
-        self.launchSurveyV2(schema_name="test_repeating_sections_with_hub_and_spoke")
+        self.launchSurvey(schema_name="test_repeating_sections_with_hub_and_spoke")
         # Go to first section
         self.post()
 
@@ -156,7 +156,7 @@ class TestQuestionnaireHub(IntegrationTestCase):
 
     def test_hub_section_required_but_enabled_false(self):
         # Given the hub is enabled and there are two required sections
-        self.launchSurveyV2(schema_name="test_hub_section_required_and_enabled")
+        self.launchSurvey(schema_name="test_hub_section_required_and_enabled")
 
         # When I answer 'No' to the first section, meaning the second section is not enabled
         self.post({"household-relationships-answer": "No"})
@@ -168,7 +168,7 @@ class TestQuestionnaireHub(IntegrationTestCase):
 
     def test_hub_section_required_but_enabled_true(self):
         # Given the hub is enabled and there are two required sections
-        self.launchSurveyV2(schema_name="test_hub_section_required_and_enabled")
+        self.launchSurvey(schema_name="test_hub_section_required_and_enabled")
 
         # When I answer 'Yes' to the first section, meaning the second section is enabled
         self.post({"household-relationships-answer": "Yes"})
@@ -178,7 +178,7 @@ class TestQuestionnaireHub(IntegrationTestCase):
 
     def test_hub_section_enabled_and_accessible_with_repeating_sections(self):
         # Given the hub is enabled and there are two required sections (and one is for a repeat)
-        self.launchSurveyV2(schema_name="test_hub_section_required_with_repeat")
+        self.launchSurvey(schema_name="test_hub_section_required_with_repeat")
 
         # When I answer I complete the first section and the repeating section
         self.post({"you-live-here": "Yes"})
@@ -200,7 +200,7 @@ class TestQuestionnaireHub(IntegrationTestCase):
 
     def test_hub_section_is_inaccessible_when_all_repeats_not_complete(self):
         # Given the hub is enabled and there are two required sections (and one is for a repeat)
-        self.launchSurveyV2(schema_name="test_hub_section_required_with_repeat")
+        self.launchSurvey(schema_name="test_hub_section_required_with_repeat")
 
         # When I  complete the first section and the first repeat, but not the second repeat
         self.post({"you-live-here": "Yes"})

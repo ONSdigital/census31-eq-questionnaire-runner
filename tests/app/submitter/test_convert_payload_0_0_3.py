@@ -5,7 +5,7 @@ from app.data_models.answer_store import AnswerStore
 from app.data_models.list_store import ListStore
 from app.questionnaire.questionnaire_schema import QuestionnaireSchema
 from app.questionnaire.routing_path import RoutingPath
-from app.submitter.converter_v2 import get_payload_data
+from app.submitter.converter import get_payload_data
 from app.utilities.json import json_dumps, json_loads
 from app.utilities.schema import load_schema_from_name
 from tests.app.submitter.schema import make_schema
@@ -13,7 +13,7 @@ from tests.app.submitter.schema import make_schema
 SUBMITTED_AT = datetime.now(timezone.utc)
 
 
-def test_convert_answers_v2_to_payload_0_0_3(questionnaire_store):
+def test_convert_answers_to_payload_0_0_3(questionnaire_store):
 
     full_routing_path = [RoutingPath(block_ids=["about you", "where you live"], section_id="household-section")]
 

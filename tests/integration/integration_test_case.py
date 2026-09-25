@@ -108,12 +108,12 @@ class IntegrationTestCase(unittest.TestCase):
         self._ds.stop()
         self._redis.stop()
 
-    def launchSurveyV2(self, theme="default", schema_name="test_dates", **payload_kwargs):
+    def launchSurvey(self, theme="default", schema_name="test_dates", **payload_kwargs):
         """
         Launch a survey as an authenticated user and follow re-directs
         :param schema_name: The name of the schema to load
         """
-        token = self.token_generator.create_token_v2(theme=theme, schema_name=schema_name, **payload_kwargs)
+        token = self.token_generator.create_token(theme=theme, schema_name=schema_name, **payload_kwargs)
 
         self.get(f"/session?token={token}")
 

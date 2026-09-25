@@ -3,7 +3,7 @@ from tests.integration.questionnaire import QuestionnaireTestCase
 
 class TestQuestionnaireRelationshipsUnrelated(QuestionnaireTestCase):
     def launch_survey_and_add_people(self):
-        self.launchSurveyV2(schema_name="test_relationships_unrelated", roles=["dumper"])
+        self.launchSurvey(schema_name="test_relationships_unrelated", roles=["dumper"])
         self.add_person("Andrew", "Austin")
         self.add_person("Betty", "Burns")
         self.add_person("Carla", "Clark")
@@ -34,7 +34,7 @@ class TestQuestionnaireRelationshipsUnrelated(QuestionnaireTestCase):
         self.assertInBody("Are any of these people related to you?")
 
     def test_is_not_accessible_when_invalid_list_item(self):
-        self.launchSurveyV2(schema_name="test_relationships_unrelated")
+        self.launchSurvey(schema_name="test_relationships_unrelated")
         self.get("/questionnaire/relationships/people/invalid-id/related-to-anyone-else")
         self.assertStatusNotFound()
 

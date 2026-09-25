@@ -14,7 +14,7 @@ class TestDumpDebug(IntegrationTestCase):
     def test_dump_debug_authenticated_missing_role(self):
         # Given I am an authenticated user who has launched a survey
         # but does not have the 'dumper' role in my metadata
-        self.launchSurveyV2(schema_name="test_radio_mandatory_with_detail_answer_mandatory")
+        self.launchSurvey(schema_name="test_radio_mandatory_with_detail_answer_mandatory")
 
         # When I attempt to dump the questionnaire store
         self.get("/dump/debug")
@@ -25,7 +25,7 @@ class TestDumpDebug(IntegrationTestCase):
     def test_dump_debug_authenticated_with_role(self):
         # Given I am an authenticated user who has launched a survey
         # and does have the 'dumper' role in my metadata
-        self.launchSurveyV2(
+        self.launchSurvey(
             schema_name="test_radio_mandatory_with_detail_answer_mandatory",
             roles=["dumper"],
         )
@@ -49,7 +49,7 @@ class TestDumpSubmission(IntegrationTestCase):
     def test_dump_submission_authenticated_missing_role(self):
         # Given I am an authenticated user who has launched a survey
         # but does not have the 'dumper' role in my metadata
-        self.launchSurveyV2(schema_name="test_radio_mandatory_with_detail_answer_mandatory")
+        self.launchSurvey(schema_name="test_radio_mandatory_with_detail_answer_mandatory")
 
         # When I attempt to dump the submission payload
         self.get("/dump/submission")
@@ -60,7 +60,7 @@ class TestDumpSubmission(IntegrationTestCase):
     def test_dump_submission_authenticated_with_role_no_answers(self):
         # Given I am an authenticated user who has launched a survey
         # and does have the 'dumper' role in my metadata
-        self.launchSurveyV2(
+        self.launchSurvey(
             schema_name="test_radio_mandatory_with_detail_answer_mandatory",
             roles=["dumper"],
         )
@@ -108,7 +108,7 @@ class TestDumpSubmission(IntegrationTestCase):
     def test_dump_submission_authenticated_with_role_with_answers(self):
         # Given I am an authenticated user who has launched a survey
         # and does have the 'dumper' role in my metadata
-        self.launchSurveyV2(schema_name="test_radio_mandatory", roles=["dumper"])
+        self.launchSurvey(schema_name="test_radio_mandatory", roles=["dumper"])
 
         # When I submit an answer
         self.post(post_data={"radio-mandatory-answer": "Coffee"})
@@ -130,7 +130,7 @@ class TestDumpSubmission(IntegrationTestCase):
     def test_dump_submission_authenticated_with_role_with_lists(self):
         # Given I am an authenticated user who has launched a survey
         # and does have the 'dumper' role in my metadata
-        self.launchSurveyV2(schema_name="test_relationships", roles=["dumper"])
+        self.launchSurvey(schema_name="test_relationships", roles=["dumper"])
 
         # When I submit my answers
         self.post({"anyone-else": "Yes"})
@@ -181,7 +181,7 @@ class TestDumpRoute(IntegrationTestCase):
     def test_dump_route_authenticated_missing_role(self):
         # Given I am an authenticated user who has launched a survey
         # but does not have the 'dumper' role in my metadata
-        self.launchSurveyV2(schema_name="test_radio_mandatory_with_detail_answer_mandatory")
+        self.launchSurvey(schema_name="test_radio_mandatory_with_detail_answer_mandatory")
 
         # When I attempt to dump the questionnaire store
         self.get("/dump/routing-path")
@@ -192,7 +192,7 @@ class TestDumpRoute(IntegrationTestCase):
     def test_dump_route_authenticated_with_role(self):
         # Given I am an authenticated user who has launched a survey
         # and does have the 'dumper' role in my metadata
-        self.launchSurveyV2(
+        self.launchSurvey(
             schema_name="test_radio_mandatory_with_detail_answer_mandatory",
             roles=["dumper"],
         )
@@ -206,7 +206,7 @@ class TestDumpRoute(IntegrationTestCase):
     def test_dump_route_authenticated_with_role_no_answers(self):
         # Given I am an authenticated user who has launched a survey
         # and does have the 'dumper' role in my metadata
-        self.launchSurveyV2(
+        self.launchSurvey(
             schema_name="test_radio_mandatory_with_detail_answer_mandatory",
             roles=["dumper"],
         )
@@ -234,7 +234,7 @@ class TestDumpRoute(IntegrationTestCase):
     def test_dump_submission_authenticated_with_role_with_answers(self):
         # Given I am an authenticated user who has launched a survey
         # and does have the 'dumper' role in my metadata
-        self.launchSurveyV2(schema_name="test_radio_mandatory", roles=["dumper"])
+        self.launchSurvey(schema_name="test_radio_mandatory", roles=["dumper"])
 
         # When I submit an answer
         self.post(post_data={"radio-mandatory-answer": "Coffee"})

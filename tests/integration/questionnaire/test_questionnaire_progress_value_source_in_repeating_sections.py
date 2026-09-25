@@ -57,7 +57,7 @@ class TestQuestionnaireProgressValueSourceInRepeatingSections(IntegrationTestCas
         from a block in another section is not completed
         """
 
-        self.launchSurveyV2(schema_name="test_progress_block_value_source_repeating_sections")
+        self.launchSurvey(schema_name="test_progress_block_value_source_repeating_sections")
 
         self.assertInBody("Choose another section to complete")
 
@@ -113,7 +113,7 @@ class TestQuestionnaireProgressValueSourceInRepeatingSections(IntegrationTestCas
         from a block in another section is not completed
         """
 
-        self.launchSurveyV2(schema_name="test_progress_section_value_source_repeating_sections")
+        self.launchSurvey(schema_name="test_progress_section_value_source_repeating_sections")
 
         self.assertInBody("Choose another section to complete")
 
@@ -169,7 +169,7 @@ class TestQuestionnaireProgressValueSourceInRepeatingSections(IntegrationTestCas
         from a block in another section is completeted
         """
 
-        self.launchSurveyV2(schema_name="test_progress_block_value_source_repeating_sections")
+        self.launchSurvey(schema_name="test_progress_block_value_source_repeating_sections")
 
         self.assertInBody("Choose another section to complete")
 
@@ -218,7 +218,7 @@ class TestQuestionnaireProgressValueSourceInRepeatingSections(IntegrationTestCas
         Test that a block inside a repeating section is enabled if the progress value source
         from a block in another section is completeted
         """
-        self.launchSurveyV2(schema_name="test_progress_section_value_source_repeating_sections")
+        self.launchSurvey(schema_name="test_progress_section_value_source_repeating_sections")
 
         self.assertInBody("Choose another section to complete")
 
@@ -267,7 +267,7 @@ class TestQuestionnaireProgressValueSourceInRepeatingSections(IntegrationTestCas
         Test that dependency blocks inside repeating sections are updated properly
         """
 
-        self.launchSurveyV2(schema_name="test_progress_block_value_source_repeating_sections")
+        self.launchSurvey(schema_name="test_progress_block_value_source_repeating_sections")
 
         self.assertInBody("Choose another section to complete")
 
@@ -356,7 +356,7 @@ class TestQuestionnaireProgressValueSourceInRepeatingSections(IntegrationTestCas
         Test that dependency blocks inside repeating sections are updated properly
         """
 
-        self.launchSurveyV2(schema_name="test_progress_section_value_source_repeating_sections")
+        self.launchSurvey(schema_name="test_progress_section_value_source_repeating_sections")
 
         self.assertInBody("Choose another section to complete")
 
@@ -446,7 +446,7 @@ class TestQuestionnaireProgressValueSourceInRepeatingSections(IntegrationTestCas
         """
         Test that dependency blocks inside repeating sections are updated properly when there are chained dependencies
         """
-        self.launchSurveyV2(schema_name="test_progress_value_source_repeating_sections_chained_dependencies")
+        self.launchSurvey(schema_name="test_progress_value_source_repeating_sections_chained_dependencies")
 
         self.assertInBody("Choose another section to complete")
 

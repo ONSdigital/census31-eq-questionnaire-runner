@@ -7,7 +7,7 @@ from app.data_models.answer_store import AnswerStore
 from app.questionnaire.questionnaire_schema import QuestionnaireSchema
 from app.questionnaire.routing_path import RoutingPath
 from app.submitter.convert_payload_0_0_1 import convert_answers_to_payload_0_0_1
-from app.submitter.converter_v2 import get_payload_data
+from app.submitter.converter import get_payload_data
 from tests.app.submitter.schema import make_schema
 
 SUBMITTED_AT = datetime.now(timezone.utc)
@@ -17,7 +17,7 @@ def create_answer(answer_id, value):
     return {"answer_id": answer_id, "value": value}
 
 
-def test_convert_answers_v2_to_payload_0_0_1_with_key_error(questionnaire_store):
+def test_convert_answers_to_payload_0_0_1_with_key_error(questionnaire_store):
 
     questionnaire_store.data_stores.answer_store = AnswerStore(
         [

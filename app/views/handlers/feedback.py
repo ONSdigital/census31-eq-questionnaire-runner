@@ -16,7 +16,7 @@ from app.forms.questionnaire_form import QuestionnaireForm, generate_form
 from app.keys import KEY_PURPOSE_SUBMISSION
 from app.questionnaire.questionnaire_schema import DEFAULT_LANGUAGE_CODE, QuestionnaireSchema
 from app.settings import CENSUS_PERIOD_ID
-from app.submitter import GCSFeedbackSubmitter, LogFeedbackSubmitter, converter_v2
+from app.submitter import GCSFeedbackSubmitter, LogFeedbackSubmitter, converter
 from app.views.contexts.feedback_form_context import build_feedback_context
 from app.views.handlers.submission import get_receipting_metadata
 
@@ -83,7 +83,7 @@ class Feedback:
         case_id = metadata.case_id
         tx_id = metadata.tx_id
 
-        feedback_message = FeedbackPayloadV2(
+        feedback_message = FeedbackPayload(
             metadata=metadata,
             response_metadata=self._questionnaire_store.data_stores.response_metadata,
             schema=self._schema,
@@ -165,13 +165,10 @@ class Feedback:
         return False
 
 
-class FeedbackPayloadV2:
+class FeedbackPayload:
     """
     Create the feedback payload object for down stream processing in the following format:
-    v0.0.1: https://github.com/ONSdigital/ons-schema-definitions/blob/main/examples/
-    eq_runner_to_downstream/payload_v2/business/feedback_0_0_1.json
-    v0.0.3: https://github.com/ONSdigital/ons-schema-definitions/blob/main/examples/
-    eq_runner_to_downstream/payload_v2/business/feedback_0_0_3.json
+    https://github.com/ONSdigital/census31-eq-questionnaire-runner-interface-definitions/blob/main/examples/submission/payload_v2/feedback_0_0_3.json
     ```
     :param metadata: Questionnaire metadata
     :param response_metadata: Response metadata
@@ -229,7 +226,7 @@ class FeedbackPayloadV2:
             payload["schema"] = self.metadata.schema.to_dict()
             payload["period_id"] = CENSUS_PERIOD_ID
 
-        optional_properties = converter_v2.get_optional_payload_properties(self.metadata, self.response_metadata)
+        optional_properties = converter.get_optional_payload_properties(self.metadata, self.response_metadata)
 
         payload["data"] = {
             "feedback_text": self.feedback_text,

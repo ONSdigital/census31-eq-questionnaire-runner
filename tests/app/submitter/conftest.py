@@ -54,7 +54,7 @@ def questionnaire_store():
 
 
 @pytest.fixture
-def fake_metadata_v2_schema_url():
+def fake_metadata_schema_url():
     copy = RAW_METADATA.copy()
     copy["schema_url"] = "https://schema_url.com"
     del copy["schema_name"]

@@ -23,7 +23,7 @@ class TestFlushData(IntegrationTestCase):
         self.encrypt_instance = mock_encrypter_class
 
         super().setUp()
-        self.launchSurveyV2(schema_name="test_textfield")
+        self.launchSurvey(schema_name="test_textfield")
 
         form_data = {"name-answer": "Joe Bloggs"}
         self.post(form_data)
@@ -54,9 +54,15 @@ class TestFlushData(IntegrationTestCase):
             "survey_metadata": {},
         }
 
-    def test_flush_data_successful(self):
+    @patch("app.routes.flush.convert_answers")
+    def test_flush_data_successful(self, mock_convert_answers):
+        self.launchSurvey("test_textfield")
+        form_data = {"name-answer": "Joe Bloggs"}
+        self.post(form_data)
+        mock_convert_answers.return_value = {}
         self.post(url="/flush?token=" + self.token_generator.generate_token(self.get_payload()))
         self.assertStatusOK()
+        mock_convert_answers.assert_called_once()
 
     def test_no_data_to_flush(self):
         payload = self.get_payload()
@@ -112,22 +118,12 @@ class TestFlushData(IntegrationTestCase):
 
         self.assertTrue('"flushed": true' in args[0])
 
-    @patch("app.routes.flush.convert_answers_v2")
-    def test_flush_data_successful_v2(self, mock_convert_answers_v2):
-        self.launchSurveyV2("test_textfield")
-        form_data = {"name-answer": "Joe Bloggs"}
-        self.post(form_data)
-        mock_convert_answers_v2.return_value = {}
-        self.post(url="/flush?token=" + self.token_generator.generate_token(self.get_payload()))
-        self.assertStatusOK()
-        mock_convert_answers_v2.assert_called_once()
-
     def test_flush_logs_output(self):
         with self.assertLogs() as logs:
             self.post(
                 url=(
                     f"/flush?token="
-                    f"{self.token_generator.create_token_v2(schema_name='test_textfield', **self.get_payload())}"
+                    f"{self.token_generator.create_token(schema_name='test_textfield', **self.get_payload())}"
                 )
             )
 

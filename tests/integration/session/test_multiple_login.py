@@ -12,7 +12,7 @@ class MultipleClientTestCase(IntegrationTestCase):
         self.cache = {}
 
     def launchSurvey(self, client, schema_name, **payload_kwargs):
-        token = self.token_generator.create_token_v2(schema_name, **payload_kwargs)
+        token = self.token_generator.create_token(schema_name, **payload_kwargs)
         self.get(client, "/session?token=" + token)
 
     def get(self, client, url, **kwargs):

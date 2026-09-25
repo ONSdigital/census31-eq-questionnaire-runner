@@ -5,7 +5,7 @@ from freezegun import freeze_time
 from app.authentication.auth_payload_versions import AuthPayloadVersion
 from app.questionnaire.questionnaire_schema import DEFAULT_LANGUAGE_CODE
 from app.settings import CENSUS_PERIOD_ID
-from app.views.handlers.feedback import FeedbackPayloadV2
+from app.views.handlers.feedback import FeedbackPayload
 from tests.app.views.handlers.conftest import (
     case_id,
     case_type,
@@ -28,7 +28,7 @@ from tests.app.views.handlers.conftest import (
 
 @freeze_time(datetime.now(tz=timezone.utc).isoformat())
 def test_feedback_payload(session_data_feedback, schema_feedback, metadata, response_metadata):
-    feedback_payload = FeedbackPayloadV2(
+    feedback_payload = FeedbackPayload(
         metadata=metadata,
         response_metadata=response_metadata,
         schema=schema_feedback,
@@ -76,7 +76,7 @@ def test_feedback_payload(session_data_feedback, schema_feedback, metadata, resp
 def test_submission_language_code_uses_default_language_when_session_language_none(
     session_data_feedback, schema_feedback, metadata, response_metadata
 ):
-    feedback_payload = FeedbackPayloadV2(
+    feedback_payload = FeedbackPayload(
         metadata=metadata,
         response_metadata=response_metadata,
         schema=schema_feedback,

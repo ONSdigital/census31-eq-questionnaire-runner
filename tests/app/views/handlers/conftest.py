@@ -163,14 +163,3 @@ def mock_questionnaire_store(mocker, metadata):
         metadata=metadata,
     )
     return questionnaire_store
-
-
-@pytest.fixture
-def mock_questionnaire_store_v2(mocker, metadata):
-    storage_ = mocker.Mock()
-    storage_.get_user_data = mocker.Mock(return_value=("{}", "ce_id", 1, None))
-    questionnaire_store = QuestionnaireStore(storage_)
-    questionnaire_store.data_stores = DataStores(
-        metadata=metadata,
-    )
-    return questionnaire_store

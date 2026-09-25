@@ -12,7 +12,7 @@ ACCOUNT_SERVICE_URL = "http://upstream.url"
 
 TOP_LEVEL_KEYS = TOP_LEVEL_METADATA_KEYS + ["exp", "jti", "iat"]
 
-PAYLOAD_V2_TEST = {
+PAYLOAD_TEST = {
     "version": AuthPayloadVersion.V2.value,
     "survey_metadata": {
         "user_id": "integration-test",
@@ -30,7 +30,7 @@ PAYLOAD_V2_TEST = {
     "account_service_url": ACCOUNT_SERVICE_URL,
 }
 
-PAYLOAD_V2_CENSUS = {
+PAYLOAD_CENSUS = {
     "version": AuthPayloadVersion.V2.value,
     "survey_metadata": {
         "case_type": "HH",
@@ -65,7 +65,7 @@ class TokenGenerator:
         **extra_payload,
     ):
         if payload is None:
-            payload = PAYLOAD_V2_TEST
+            payload = PAYLOAD_TEST
         payload_vars = deepcopy(payload)
         payload_vars["tx_id"] = str(uuid4())
         if schema_name:
@@ -87,14 +87,14 @@ class TokenGenerator:
 
         return payload_vars
 
-    def create_token_v2(self, schema_name, theme="default", **extra_payload):
-        payload_for_theme = PAYLOAD_V2_CENSUS if theme == "census" else PAYLOAD_V2_TEST
+    def create_token(self, schema_name, theme="default", **extra_payload):
+        payload_for_theme = PAYLOAD_CENSUS if theme == "census" else PAYLOAD_TEST
         payload = self._get_payload_with_params(schema_name=schema_name, payload=payload_for_theme, **extra_payload)
 
         return self.generate_token(payload)
 
     def create_token_invalid_version(self, schema_name, **extra_payload):
-        payload = self._get_payload_with_params(schema_name=schema_name, payload=PAYLOAD_V2_TEST, **extra_payload)
+        payload = self._get_payload_with_params(schema_name=schema_name, payload=PAYLOAD_TEST, **extra_payload)
 
         payload["version"] = "v3"
 
@@ -129,7 +129,7 @@ class TokenGenerator:
             "form_type": form_type,
             "region_code": region_code,
         }
-        payload_vars = self._get_payload_with_params(schema=schema, payload=PAYLOAD_V2_CENSUS, **extra_payload)
+        payload_vars = self._get_payload_with_params(schema=schema, payload=PAYLOAD_CENSUS, **extra_payload)
 
         return self.generate_token(payload_vars)
 

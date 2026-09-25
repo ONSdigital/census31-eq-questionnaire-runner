@@ -11,7 +11,7 @@ from app.globals import get_session_store
 from app.keys import KEY_PURPOSE_SUBMISSION
 from app.questionnaire.questionnaire_schema import DEFAULT_LANGUAGE_CODE, QuestionnaireSchema
 from app.questionnaire.routing_path import RoutingPath
-from app.submitter.converter_v2 import convert_answers_v2
+from app.submitter.converter import convert_answers
 from app.submitter.submission_failed import SubmissionFailedException
 from app.utilities.json import json_dumps
 
@@ -72,7 +72,7 @@ class SubmissionHandler:
         self._questionnaire_store.save()
 
     def get_payload(self) -> dict:
-        payload = convert_answers_v2(
+        payload = convert_answers(
             self._schema,
             self._questionnaire_store,
             self._full_routing_path,

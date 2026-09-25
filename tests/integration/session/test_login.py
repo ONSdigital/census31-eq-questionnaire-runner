@@ -3,7 +3,7 @@ import time
 from httmock import HTTMock, response, urlmatch
 
 from app.utilities.schema import get_schema_path_map
-from tests.integration.create_token import PAYLOAD_V2_TEST
+from tests.integration.create_token import PAYLOAD_TEST
 from tests.integration.integration_test_case import IntegrationTestCase
 
 SCHEMA_PATH_MAP = get_schema_path_map(include_test_schemas=True)
@@ -30,9 +30,9 @@ class TestLoginWithGetRequest(IntegrationTestCase):
         # Then
         self.assertStatusForbidden()
 
-    def test_login_with_valid_v2_census_token_should_redirect_to_survey(self):
+    def test_login_with_valid_census_token_should_redirect_to_survey(self):
         # Given
-        token = self.token_generator.create_token_v2(schema_name="test_theme_census", theme="census")
+        token = self.token_generator.create_token(schema_name="test_theme_census", theme="census")
 
         # When
         self.get(url=f"/session?token={token}")
@@ -43,7 +43,7 @@ class TestLoginWithGetRequest(IntegrationTestCase):
 
     def test_login_with_token_twice_is_unauthorised_when_same_jti_provided(self):
         # Given
-        token = self.token_generator.create_token_v2("test_checkbox")
+        token = self.token_generator.create_token("test_checkbox")
         self.get(url=f"/session?token={token}")
 
         # When
@@ -60,9 +60,9 @@ class TestLoginWithGetRequest(IntegrationTestCase):
         # Then
         self.assertStatusForbidden()
 
-    def test_login_with_valid_v2_census_token_no_schema_name(self):
+    def test_login_with_valid_census_token_no_schema_name(self):
         # Given
-        token = self.token_generator.create_token_v2(schema_name="", theme="census")
+        token = self.token_generator.create_token(schema_name="", theme="census")
 
         # When
         self.get(url=f"/session?token={token}")
@@ -72,7 +72,7 @@ class TestLoginWithGetRequest(IntegrationTestCase):
 
     def test_http_head_request_to_login_returns_successfully_and_get_still_works(self):
         # Given
-        token = self.token_generator.create_token_v2("test_checkbox")
+        token = self.token_generator.create_token("test_checkbox")
 
         # When
         self.head("/session?token=" + token)
@@ -84,7 +84,7 @@ class TestLoginWithGetRequest(IntegrationTestCase):
 
     def test_login_with_missing_mandatory_claims_should_be_forbidden(self):
         # Given
-        payload_vars = PAYLOAD_V2_TEST.copy()
+        payload_vars = PAYLOAD_TEST.copy()
         payload_vars["iat"] = time.time()
         payload_vars["exp"] = payload_vars["iat"] + float(3600)  # one hour from now
 
@@ -96,9 +96,9 @@ class TestLoginWithGetRequest(IntegrationTestCase):
         # Then
         self.assertStatusForbidden()
 
-    def test_login_with_invalid_questionnaire_claims_should_be_forbidden_v2_get(self):
+    def test_login_with_invalid_questionnaire_claims_should_be_forbidden_get(self):
         # flag_1 should be a boolean
-        token = self.token_generator.create_token_v2("test_metadata_routing", flag_1=123)
+        token = self.token_generator.create_token("test_metadata_routing", flag_1=123)
 
         self.get(url=f"/session?token={token}")
 
@@ -174,7 +174,7 @@ class TestLoginWithPostRequest(IntegrationTestCase):
 
     def test_login_with_valid_token_should_redirect_to_survey(self):
         # Given
-        token = self.token_generator.create_token_v2("test_checkbox")
+        token = self.token_generator.create_token("test_checkbox")
 
         # When
         self.post(url=f"/session?token={token}")
@@ -185,7 +185,7 @@ class TestLoginWithPostRequest(IntegrationTestCase):
 
     def test_login_with_token_twice_is_unauthorised_when_same_jti_provided(self):
         # Given
-        token = self.token_generator.create_token_v2("test_checkbox")
+        token = self.token_generator.create_token("test_checkbox")
         self.post(url=f"/session?token={token}")
 
         # When
@@ -204,7 +204,7 @@ class TestLoginWithPostRequest(IntegrationTestCase):
 
     def test_http_head_request_to_login_returns_successfully_and_post_still_works(self):
         # Given
-        token = self.token_generator.create_token_v2("test_checkbox")
+        token = self.token_generator.create_token("test_checkbox")
 
         # When
         self.head(f"/session?token={token}")
@@ -216,7 +216,7 @@ class TestLoginWithPostRequest(IntegrationTestCase):
 
     def test_login_with_missing_mandatory_claims_should_be_forbidden(self):
         # Given
-        payload_vars = PAYLOAD_V2_TEST.copy()
+        payload_vars = PAYLOAD_TEST.copy()
         payload_vars["iat"] = time.time()
         payload_vars["exp"] = payload_vars["iat"] + float(3600)  # one hour from now
 
@@ -228,18 +228,18 @@ class TestLoginWithPostRequest(IntegrationTestCase):
         # Then
         self.assertStatusForbidden()
 
-    def test_login_with_invalid_questionnaire_claims_should_be_forbidden_v2_post(self):
+    def test_login_with_invalid_questionnaire_claims_should_be_forbidden_post(self):
         # flag_1 should be a boolean
-        token = self.token_generator.create_token_v2("test_metadata_routing", flag_1=123)
+        token = self.token_generator.create_token("test_metadata_routing", flag_1=123)
 
         self.get(url=f"/session?token={token}")
 
         self.assertStatusForbidden()
 
-    def test_v2_census_login_with_invalid_questionnaire_claims_should_be_forbidden(
+    def test_census_login_with_invalid_questionnaire_claims_should_be_forbidden(
         self,
     ):
-        token = self.token_generator.create_token_v2(schema_name="test_address", theme="census")
+        token = self.token_generator.create_token(schema_name="test_address", theme="census")
 
         self.post(url=f"/session?token={token}")
 

@@ -4,7 +4,7 @@ from tests.integration.questionnaire import SUBMIT_URL_PATH
 
 class TestPlaceholders(IntegrationTestCase):
     def test_title_placeholders_rendered_in_summary(self):
-        self.launchSurveyV2(
+        self.launchSurvey(
             schema_name="test_placeholder_full",
             display_address="68 Abingdon Road, Goathill",
         )
@@ -30,7 +30,7 @@ class TestPlaceholders(IntegrationTestCase):
         self.assertInBody("68 Abingdon Road, Goathill")
 
     def test_placeholders_rendered_in_pages(self):
-        self.launchSurveyV2(schema_name="test_placeholder_transform")
+        self.launchSurvey(schema_name="test_placeholder_transform")
         self.assertInBody("For Integration Testing (Integration Tests), please enter the total retail turnover")
         self.post({"total-retail-turnover-answer": 2000})
 
@@ -85,7 +85,7 @@ class TestPlaceholders(IntegrationTestCase):
         self.assertInBody("For Integration Testing, please enter the total retail turnover")
 
     def test_placeholder_address_selector_rendered_in_page(self):
-        self.launchSurveyV2(schema_name="test_address")
+        self.launchSurvey(schema_name="test_address")
 
         self.post(
             {

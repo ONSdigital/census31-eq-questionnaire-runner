@@ -27,7 +27,7 @@ class DataVersionError(Exception):
         return f"Data version {self.version} not supported"
 
 
-def convert_answers_v2(
+def convert_answers(
     schema: QuestionnaireSchema,
     questionnaire_store: QuestionnaireStore,
     full_routing_path: Iterable[RoutingPath],
@@ -35,8 +35,8 @@ def convert_answers_v2(
     flushed: bool = False,
 ) -> dict[str, Any]:
     """
-    Create the JSON answer format for down stream processing, the format can be found here:
-    https://github.com/ONSdigital/ons-schema-definitions/blob/main/docs/eq_runner_to_downstream_payload_v2.md
+    Create the JSON answer format for downstream processing, the format can be found here:
+    https://github.com/ONSdigital/census31-eq-questionnaire-runner-interface-definitions/blob/main/docs/submission_payload_v2.md
 
     Args:
         schema: QuestionnaireSchema instance with populated schema json

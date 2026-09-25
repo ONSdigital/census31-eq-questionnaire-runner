@@ -17,7 +17,7 @@ from app.questionnaire import QuestionnaireSchema
 from app.questionnaire.router import Router
 from app.questionnaire.routing_path import RoutingPath
 from app.submitter import GCSSubmitter, LogSubmitter
-from app.submitter.converter_v2 import convert_answers_v2
+from app.submitter.converter import convert_answers
 from app.submitter.submission_failed import SubmissionFailedException
 from app.utilities.bind_context import bind_contextvars_schema_from_metadata
 from app.utilities.json import json_dumps
@@ -123,13 +123,12 @@ def _get_converted_answers_message(
     submitted_at: datetime,
 ) -> str:
     """
-    This gets converted answer message based on the selected version, currently
-    only v2 is supported so `app.submitter.converter_v2.convert_answers_v2` is used.
+    This gets converted answer message based on the selected version.
     Returns:
         object: str
     """
     return json_dumps(
-        convert_answers_v2(
+        convert_answers(
             schema=schema,
             questionnaire_store=questionnaire_store,
             full_routing_path=full_routing_path,
