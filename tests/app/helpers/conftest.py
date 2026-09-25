@@ -24,7 +24,7 @@ def footer_context():
         "crest": True,
         "newTabWarning": "The following links open in a new tab",
         "copyrightDeclaration": {
-            "copyright": "Crown copyright and database rights 2020 OS 100019153.",
+            "copyright": "Crown copyright and database rights 2027 OS 100019153.",
             "text": "Use of address data is subject to the terms and conditions.",
         },
     }
@@ -38,7 +38,7 @@ def expected_footer_census_theme(language_code: str):
         "crest": True,
         "newTabWarning": "The following links open in a new tab",
         "copyrightDeclaration": {
-            "copyright": "Crown copyright and database rights 2020 OS 100019153.",
+            "copyright": "Crown copyright and database rights 2027 OS 100019153.",
             "text": "Use of address data is subject to the terms and conditions.",
         },
     }
@@ -47,18 +47,13 @@ def expected_footer_census_theme(language_code: str):
             {
                 "itemsList": [
                     {
-                        "text": "What we do",
-                        "url": f"{ons_url}/aboutus/whatwedo/",
+                        "text": "Help",
+                        "url": f"{ons_url}/help/",
                         "target": "_blank",
                     },
                     {
                         "text": "Contact us",
                         "url": f"{ons_url}/aboutus/contactus/surveyenquiries/",
-                        "target": "_blank",
-                    },
-                    {
-                        "text": "Accessibility",
-                        "url": f"{ons_url}/help/accessibility/",
                         "target": "_blank",
                     },
                 ]
@@ -70,6 +65,11 @@ def expected_footer_census_theme(language_code: str):
                     {
                         "text": "Cookies",
                         "url": f"{upstream_url}/cookies/",
+                        "target": "_blank",
+                    },
+                    {
+                        "text": "Accessibility statement",
+                        "url": f"{ons_url}/help/accessibility/",
                         "target": "_blank",
                     },
                     {
@@ -85,22 +85,4 @@ def expected_footer_census_theme(language_code: str):
 
 
 def expected_footer_census_theme_no_cookie():
-    census = {
-        "rows": [
-            {
-                "itemsList": [
-                    {
-                        "text": "What we do",
-                        "url": f"{ONS_URL}/aboutus/whatwedo/",
-                        "target": "_blank",
-                    },
-                    {
-                        "text": "Accessibility",
-                        "url": f"{ONS_URL}/help/accessibility/",
-                        "target": "_blank",
-                    },
-                ]
-            }
-        ],
-    }
-    return {**footer_context(), **census}
+    return footer_context()

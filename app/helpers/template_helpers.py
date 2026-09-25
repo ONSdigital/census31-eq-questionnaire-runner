@@ -60,6 +60,7 @@ class ContextHelper:
             "include_csrf_token": self._include_csrf_token,
             "google_tag_id": self._google_tag_id,
             "survey_type": self._survey_type,
+            "masthead_logo_classes": self._survey_config.masthead_logo_classes,
             "masthead_logo": self._survey_config.masthead_logo,
             "masthead_logo_mobile": self._survey_config.masthead_logo_mobile,
             "title_logo": self._survey_config.title_logo,

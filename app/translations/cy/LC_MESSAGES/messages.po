@@ -397,8 +397,8 @@ msgid "Privacy and data protection"
 msgstr "Preifatrwydd a diogelu data"
 
 #: app/survey_config/survey_config.py:17
-msgid "Crown copyright and database rights 2020 OS 100019153."
-msgstr "Hawlfraint y goron a hawliau cronfa ddata 2020 OS 100019153."
+msgid "Crown copyright and database rights 2027 OS 100019153."
+msgstr "Hawlfraint y goron a hawliau cronfa ddata 2027 OS 100019153."
 
 #: app/survey_config/survey_config.py:18
 msgid "Use of address data is subject to the terms and conditions."
@@ -1726,8 +1726,8 @@ msgstr "Newid manylion ar gyfer {item_name}"
 #~ msgid "Terms and conditions"
 #~ msgstr "Telerau ac amodau"
 
-#~ msgid "Crown copyright and database rights 2021 NIMA MOU577.501."
-#~ msgstr "Hawlfraint y goron a hawliau cronfa ddata 2021 NIMA MOU577.501."
+#~ msgid "Crown copyright and database rights 2027 NIMA MOU577.501."
+#~ msgstr "Hawlfraint y goron a hawliau cronfa ddata 2027 NIMA MOU577.501."
 
 #~ msgid "Preview survey questions"
 #~ msgstr "Rhagolwg o gwestiynau'r arolwg"
