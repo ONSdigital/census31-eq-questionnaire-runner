@@ -66,12 +66,14 @@ class CensusSurveyConfig(
 
 @dataclass
 class NISRACensusSurveyConfig(CensusSurveyConfig):
+    masthead_logo_classes: str = "ons-u-mt-2xs ons-u-mb-2xs"
     masthead_logo: str = read_file("./templates/assets/images/nisra-logo.svg")
     footer_logo: str = read_file("./templates/assets/images/nisra-footer-logo.svg")
 
 
 @dataclass
 class NRSCensusSurveyConfig(CensusSurveyConfig):
+    masthead_logo_classes: str = "ons-u-mt-2xs ons-u-mb-2xs"
     masthead_logo: str = read_file("./templates/assets/images/nrs-logo.svg")
     footer_logo: str = read_file("./templates/assets/images/nrs-footer-logo.svg")
     css_override: str = read_file("./templates/assets/css/nrs-census.css")

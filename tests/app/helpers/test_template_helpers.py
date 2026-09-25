@@ -137,6 +137,7 @@ def test_header_context(app: Flask, theme, survey_title, survey_config, expected
 
         result = [
             context_helper.context["survey_title"],
+            context_helper.context["masthead_logo_classes"],
             context_helper.context["masthead_logo"],
             context_helper.context["masthead_logo_mobile"],
             context_helper.context["title_logo"],
