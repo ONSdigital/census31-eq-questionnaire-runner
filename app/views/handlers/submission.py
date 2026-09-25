@@ -58,7 +58,8 @@ class SubmissionHandler:
         # Type ignore: current_app can return empty Local Proxy. Similar to other files, this is ignored.
         submitted = current_app.eq["submitter"].send_message(  # type: ignore
             encrypted_message,
-            **receipting_metadata,
+            tx_id=self._metadata.tx_id,
+            receipting_metadata=receipting_metadata,
         )
 
         if not submitted:

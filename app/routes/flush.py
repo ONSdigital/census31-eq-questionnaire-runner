@@ -99,7 +99,8 @@ def _submit_data(user: User) -> bool:
 
         sent = submitter.send_message(
             encrypted_message,
-            **receipting_metadata,
+            tx_id=metadata.tx_id,
+            receipting_metadata=receipting_metadata,
         )
 
         if not sent:

@@ -98,7 +98,7 @@ class Feedback:
         receipting_metadata = get_receipting_metadata(metadata)
 
         submitter: GCSFeedbackSubmitter | LogFeedbackSubmitter = current_app.eq["feedback_submitter"]  # type: ignore
-        if not submitter.upload(receipting_metadata, encrypted_message):
+        if not submitter.upload(encrypted_message, receipting_metadata):
             raise FeedbackUploadFailed()
 
         self._session_store.save()
@@ -164,7 +164,8 @@ class Feedback:
 class FeedbackPayload:
     """
     Create the feedback payload object for down stream processing in the following format:
-    https://github.com/ONSdigital/census31-eq-questionnaire-runner-interface-definitions/blob/main/examples/submission/payload_v2/feedback_0_0_3.json
+    https://github.com/ONSdigital/census31-eq-questionnaire-runner-interface-definitions/
+    blob/main/examples/submission/payload_v2/feedback_0_0_3.json
     ```
     :param metadata: Questionnaire metadata
     :param response_metadata: Response metadata

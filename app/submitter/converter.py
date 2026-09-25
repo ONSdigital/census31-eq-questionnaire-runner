@@ -36,7 +36,8 @@ def convert_answers(
 ) -> dict[str, Any]:
     """
     Create the JSON answer format for downstream processing, the format can be found here:
-    https://github.com/ONSdigital/census31-eq-questionnaire-runner-interface-definitions/blob/main/docs/submission_payload_v2.md
+    https://github.com/ONSdigital/census31-eq-questionnaire-runner-interface-definitions/
+    blob/main/docs/submission_payload_v2.md
 
     Args:
         schema: QuestionnaireSchema instance with populated schema json
