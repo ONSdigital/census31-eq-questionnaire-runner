@@ -6,6 +6,7 @@ from freezegun import freeze_time
 from app.authentication.auth_payload_versions import AuthPayloadVersion
 from app.data_models.session_store import SessionStore
 from app.questionnaire.questionnaire_schema import QuestionnaireSchema
+from app.settings import CENSUS_PERIOD_ID
 from app.utilities.schema import load_schema_from_name
 from app.views.handlers.submission import SubmissionHandler
 
@@ -18,7 +19,7 @@ def test_submission_language_code_uses_session_data_language_if_present(
         "app.views.handlers.submission.get_session_store",
         return_value=submission_payload_session_store,
     )
-    mocker.patch("app.views.handlers.submission.convert_answers_v2", mocker.Mock(return_value={}))
+    mocker.patch("app.views.handlers.submission.convert_answers", mocker.Mock(return_value={}))
     submission_handler = SubmissionHandler(QuestionnaireSchema({}), mock_questionnaire_store, {})
     assert submission_handler.get_payload()["submission_language_code"] == "cy"
 
@@ -30,7 +31,7 @@ def test_submission_language_code_uses_default_language_if_session_data_language
     mock_questionnaire_store,
     mocker,
 ):
-    mocker.patch("app.views.handlers.submission.convert_answers_v2", mocker.Mock(return_value={}))
+    mocker.patch("app.views.handlers.submission.convert_answers", mocker.Mock(return_value={}))
     submission_payload_session_data.language_code = None
     submission_payload_session_data.launch_language_code = None
     session_store = SessionStore("user_ik", "pepper", "eq_session_id").create(
@@ -78,7 +79,7 @@ def test_submit_view_submitted_response_true_submitted_at_set(
 
 @freeze_time(datetime.now(timezone.utc).replace(second=0, microsecond=0))
 @pytest.mark.usefixtures("app")
-def test_submission_payload_structure_v2(app, submission_payload_session_store, mock_questionnaire_store_v2, mocker):
+def test_submission_payload_structure(app, submission_payload_session_store, mock_questionnaire_store, mocker):
     expected_payload = {
         "case_id": "case_id",
         "tx_id": "tx_id",
@@ -88,24 +89,22 @@ def test_submission_payload_structure_v2(app, submission_payload_session_store, 
         "origin": "uk.gov.ons.edc.eq",
         "collection_exercise_sid": "ce_sid",
         "schema_name": "1_0000",
+        "schema": {
+            "survey": "CENSUS",
+            "form_type": "H",
+            "region_code": "GB-WLS",
+        },
         "flushed": False,
         "submitted_at": datetime.now(timezone.utc).isoformat(),
         "launch_language_code": "en",
-        "channel": "H",
-        "region_code": "GB_WLS",
+        "channel": "RH",
+        "period_id": CENSUS_PERIOD_ID,
         "survey_metadata": {
-            "period_id": "2016-02-01",
-            "period_str": "2016-01-01",
-            "ref_p_start_date": "2016-02-02",
-            "ref_p_end_date": "2016-03-03",
-            "ru_ref": "12345678901A",
-            "ru_name": "ru_name",
-            "case_type": "I",
-            "form_type": "I",
-            "case_ref": "1000000000000001",
-            "display_address": "68 Abingdon Road, Goathill",
             "user_id": "789473423",
-            "survey_id": "999",
+            "display_address": "68 Abingdon Road, Goathill",
+            "questionnaire_id": "1234567890",
+            "case_type": "HH",
+            "ru_ref": "uprn:00001",
         },
         "submission_language_code": "cy",
         "data": {"answers": [], "lists": []},
@@ -120,7 +119,7 @@ def test_submission_payload_structure_v2(app, submission_payload_session_store, 
 
         submission_handler = SubmissionHandler(
             schema,
-            mock_questionnaire_store_v2,
+            mock_questionnaire_store,
             full_routing_path=[],
         )
         payload = submission_handler.get_payload()

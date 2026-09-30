@@ -67,7 +67,7 @@ class TestHeaderLinks(IntegrationTestCase):
 class TestHeaderLinksPreSubmission(TestHeaderLinks):
     def test_links_not_in_header_when_valid_session(self):
         # Given
-        self.launchSurveyV2(schema_name="test_thank_you")
+        self.launchSurvey(schema_name="test_thank_you")
 
         # When
         self.assertStatusOK()
@@ -79,7 +79,7 @@ class TestHeaderLinksPreSubmission(TestHeaderLinks):
 
     def test_links_in_header_when_no_session_but_cookie_exists(self):
         # Given
-        self.launchSurveyV2(schema_name="test_thank_you")
+        self.launchSurvey(schema_name="test_thank_you")
         self.assertInUrl("questionnaire/did-you-know/")
         self.saveAndSignOut()
 
@@ -97,7 +97,7 @@ class TestHeaderLinksPreSubmission(TestHeaderLinks):
 
     def test_links_in_header_when_no_session_but_cookie_exists_theme_census(self):
         # Given
-        self.launchSurveyV2(schema_name="test_theme_census", theme="census")
+        self.launchSurvey(schema_name="test_theme_census", theme="census")
         self.assertInUrl("/questionnaire/radio/")
         self.saveAndSignOut()
 
@@ -127,7 +127,7 @@ class TestHeaderLinksPreSubmission(TestHeaderLinks):
 
     def test_links_not_in_header_when_valid_session_theme_census(self):
         # Given
-        self.launchSurveyV2(schema_name="test_theme_census", theme="census")
+        self.launchSurvey(schema_name="test_theme_census", theme="census")
 
         # When
         self.assertStatusOK()
@@ -141,7 +141,7 @@ class TestHeaderLinksPreSubmission(TestHeaderLinks):
 class TestHeaderLinksPostSubmission(TestHeaderLinks):
     def test_links_not_in_header_when_valid_session(self):
         # Given
-        self.launchSurveyV2(schema_name="test_thank_you")
+        self.launchSurvey(schema_name="test_thank_you")
         self.post()
         self.post()
 
@@ -168,7 +168,7 @@ class TestHeaderLinksPostSubmission(TestHeaderLinks):
 
     def test_links_not_in_header_when_valid_session_theme_census_thank_you_page(self):
         # Given
-        self.launchSurveyV2(schema_name="test_theme_census", theme="census")
+        self.launchSurvey(schema_name="test_theme_census", theme="census")
         self.post()
         self.post()
 
@@ -185,7 +185,7 @@ class TestHeaderLinksPostSubmission(TestHeaderLinks):
 class TestHeaderLinksPostSignOut(TestHeaderLinks):
     def test_links_not_in_header_after_sign_out(self):
         # Given
-        self.launchSurveyV2(schema_name="test_thank_you")
+        self.launchSurvey(schema_name="test_thank_you")
         self.assert_my_account_link_does_not_exist()
         self.assert_sign_out_link_does_not_exist()
         self.assert_help_link_does_not_exist()
@@ -203,7 +203,7 @@ class TestHeaderLinksPostSignOut(TestHeaderLinks):
 
     def test_links_not_in_header_after_sign_out_theme_census(self):
         # Given
-        self.launchSurveyV2(schema_name="test_theme_census")
+        self.launchSurvey(schema_name="test_theme_census")
         self.assert_my_account_link_does_not_exist()
         self.assert_sign_out_link_does_not_exist()
         self.assert_help_link_does_not_exist()

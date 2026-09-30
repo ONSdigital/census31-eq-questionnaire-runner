@@ -24,7 +24,7 @@ class SubmissionTestCase(IntegrationTestCase):
 class TestQuestionnaireSubmission(SubmissionTestCase):
     def _launch_and_submit_questionnaire(self):
         # Launch questionnaire
-        self.launchSurveyV2(schema_name="test_submit_with_custom_submission_text")
+        self.launchSurvey(schema_name="test_submit_with_custom_submission_text")
 
         # Answer questions and submit survey
         self.post(action="start_questionnaire")
@@ -82,7 +82,7 @@ class TestQuestionnaireSubmissionSchemaURL(SubmissionTestCase):
 class TestQuestionnaireSubmissionHub(SubmissionTestCase):
     def _launch_and_submit_questionnaire(self):
         # Launch questionnaire
-        self.launchSurveyV2(schema_name="test_hub_and_spoke")
+        self.launchSurvey(schema_name="test_hub_and_spoke")
 
         # Answer questions and submit questionnaire
         self.post()
@@ -123,7 +123,7 @@ class TestQuestionnaireSubmissionHub(SubmissionTestCase):
 class TestQuestionnaireSubmissionWithSummary(SubmissionTestCase):
     def _launch_and_submit_questionnaire(self):
         # Launch questionnaire
-        self.launchSurveyV2(schema_name="test_submit_with_summary")
+        self.launchSurvey(schema_name="test_submit_with_summary")
 
         # Answer questions and submit survey
         self.post()
@@ -144,7 +144,7 @@ class TestQuestionnaireSubmissionWithSummary(SubmissionTestCase):
         self._mock_submission_failure()
 
         # Given I launch and answer a questionnaire, When I submit but the submissions fails
-        self.launchSurveyV2(schema_name="test_submit_with_summary")
+        self.launchSurvey(schema_name="test_submit_with_summary")
         self.post()
         self.post({"dessert-answer": "Cake"})
         self.post({"dessert-confirmation-answer": "Yes"})

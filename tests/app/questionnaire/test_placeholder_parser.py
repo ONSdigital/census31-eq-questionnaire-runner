@@ -94,7 +94,7 @@ def test_metadata_transform_placeholder(mock_renderer, mock_schema, mock_locatio
                     "arguments": {
                         "date_to_format": {
                             "source": "metadata",
-                            "identifier": "ref_p_start_date",
+                            "identifier": "metadata_start_date",
                         },
                         "date_format": "EEEE d MMMM yyyy",
                     },
@@ -103,7 +103,7 @@ def test_metadata_transform_placeholder(mock_renderer, mock_schema, mock_locatio
         }
     ]
 
-    metadata = get_metadata(extra_metadata={"ref_p_start_date": "2019-02-11"})
+    metadata = get_metadata(extra_metadata={"metadata_start_date": "2019-02-11"})
 
     parser = PlaceholderParser(
         language="en",
@@ -137,7 +137,7 @@ def test_response_metadata_transform_placeholder(mock_renderer, mock_schema, moc
         }
     ]
 
-    metadata = get_metadata(extra_metadata={"ref_p_start_date": "2019-02-11"})
+    metadata = get_metadata()
     response_metadata = {"started_at": "2019-02-11"}
 
     parser = PlaceholderParser(
@@ -310,7 +310,7 @@ def test_multiple_metadata_transform_placeholder(mock_renderer, mock_schema, moc
                     "arguments": {
                         "date_to_format": {
                             "source": "metadata",
-                            "identifier": "ref_p_start_date",
+                            "identifier": "metadata_start_date",
                         },
                         "date_format": "yyyy-MM-dd",
                     },
@@ -326,7 +326,7 @@ def test_multiple_metadata_transform_placeholder(mock_renderer, mock_schema, moc
         }
     ]
 
-    metadata = get_metadata(extra_metadata={"ref_p_start_date": "2019-02-11"})
+    metadata = get_metadata(extra_metadata={"metadata_start_date": "2019-02-11"})
 
     parser = PlaceholderParser(
         language="en",
@@ -350,8 +350,8 @@ def test_multiple_metadata_list_transform_placeholder(mock_renderer, mock_schema
                     "transform": "concatenate_list",
                     "arguments": {
                         "list_to_concatenate": [
-                            {"source": "metadata", "identifier": "ref_p_start_date"},
-                            {"source": "metadata", "identifier": "ref_p_end_date"},
+                            {"source": "metadata", "identifier": "metadata_start_date"},
+                            {"source": "metadata", "identifier": "metadata_end_date"},
                         ],
                         "delimiter": " ",
                     },
@@ -362,8 +362,8 @@ def test_multiple_metadata_list_transform_placeholder(mock_renderer, mock_schema
 
     metadata = get_metadata(
         extra_metadata={
-            "ref_p_start_date": "2019-02-11",
-            "ref_p_end_date": "2019-10-11",
+            "metadata_start_date": "2019-02-11",
+            "metadata_end_date": "2019-10-11",
         }
     )
 
@@ -1043,7 +1043,7 @@ def test_placeholder_dependencies_cache(mocker, mock_renderer):
                                 "source": "answers",
                                 "identifier": "date-entry-answer-from",
                             },
-                            {"source": "metadata", "identifier": "ref_p_start_date"},
+                            {"source": "metadata", "identifier": "metadata_start_date"},
                         ]
                     },
                 },
@@ -1067,7 +1067,7 @@ def test_placeholder_dependencies_cache(mocker, mock_renderer):
                     "arguments": {
                         "items": [
                             {"source": "answers", "identifier": "date-entry-answer-to"},
-                            {"source": "metadata", "identifier": "ref_p_end_date"},
+                            {"source": "metadata", "identifier": "metadata_end_date"},
                         ]
                     },
                 },

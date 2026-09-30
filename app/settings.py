@@ -129,3 +129,5 @@ ACCOUNT_SERVICE_BASE_URL = os.getenv("ACCOUNT_SERVICE_BASE_URL", "https://start.
 ONS_URL = os.getenv("ONS_URL", "https://www.census.gov.uk")
 
 ONS_URL_CY = os.getenv("ONS_URL_CY", "https://cy.census.gov.uk")
+
+CENSUS_PERIOD_ID = "2027"

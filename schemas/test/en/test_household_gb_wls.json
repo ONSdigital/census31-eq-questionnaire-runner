@@ -4,26 +4,35 @@
     "schema_version": "0.0.1",
     "data_version": "0.0.3",
     "survey_id": "999",
-    "title": "Test Theme Census",
+    "title": "Test Census Launch",
     "theme": "census",
-    "description": "A questionnaire to demo the census survey theme",
+    "description": "A questionnaire to test the census launch claims",
     "metadata": [
+        {
+            "name": "case_type",
+            "type": "string"
+        },
+        {
+            "name": "display_address",
+            "type": "string"
+        },
+        {
+            "name": "ru_ref",
+            "type": "string"
+        },
         {
             "name": "questionnaire_id",
             "type": "string"
+        },
+        {
+            "name": "user_id",
+            "type": "string",
+            "optional": true
         }
     ],
-    "post_submission": {
-        "view_response": true,
-        "feedback": true
-    },
     "questionnaire_flow": {
         "type": "Linear",
-        "options": {
-            "summary": {
-                "collapsible": false
-            }
-        }
+        "options": {}
     },
     "sections": [
         {
@@ -63,7 +72,7 @@
                         }
                     ],
                     "id": "group",
-                    "title": "Census Theme Test"
+                    "title": "Census Launch Test"
                 }
             ]
         }
