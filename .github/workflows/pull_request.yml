@@ -171,39 +171,39 @@ jobs:
           path: playwright-report/
           retention-days: 10
 
-  # docker-push:
-  #   permissions:
-  #     contents: 'read'
-  #     id-token: 'write'
-  #   runs-on: ubuntu-22.04
-  #   steps:
-  #     - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-  #     - id: auth
-  #       name: Authenticate to Google Cloud
-  #       uses: google-github-actions/auth@7c6bc770dae815cd3e89ee6cdf493a5fab2cc093 # v3.0.0
-  #       with:
-  #         token_format: 'access_token'
-  #         workload_identity_provider: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER }}
-  #         service_account: ${{ secrets.SERVICE_ACCOUNT }}
-  #     - name: Set Tag and SHA
-  #       env:
-  #         PR_HEAD_REF: ${{ github.event.pull_request.head.ref }}
-  #         PR_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
-  #       run: |
-  #         CLEAN_TAG=$(echo "$PR_HEAD_REF" | tr / -)
-  #         echo "TAG=$CLEAN_TAG" >> "$GITHUB_ENV"
-  #         echo "SHA=$PR_HEAD_SHA" >> "$GITHUB_ENV"
-  #     - name: Write app version
-  #       run: |
-  #         echo "Writing SHA $SHA to .application_version"
-  #         printf "%s" "$SHA" > .application-version
-  #     - name: Build
-  #       run: docker build -t ${{ secrets.GAR_LOCATION }}/${{ secrets.GAR_PROJECT_ID }}/docker-images/census31-eq-questionnaire-runner:$TAG .
-  #     - name: Push to GAR
-  #       run: |
-  #         gcloud auth configure-docker ${{ secrets.GAR_LOCATION }}
-  #         echo "Pushing to GAR with tag $TAG"
-  #         docker push ${{ secrets.GAR_LOCATION }}/${{ secrets.GAR_PROJECT_ID }}/docker-images/census31-eq-questionnaire-runner:$TAG
+  docker-push:
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - id: auth
+        name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@7c6bc770dae815cd3e89ee6cdf493a5fab2cc093 # v3.0.0
+        with:
+          token_format: 'access_token'
+          workload_identity_provider: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ secrets.SERVICE_ACCOUNT }}
+      - name: Set Tag and SHA
+        env:
+          PR_HEAD_REF: ${{ github.event.pull_request.head.ref }}
+          PR_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          CLEAN_TAG=$(echo "$PR_HEAD_REF" | tr / -)
+          echo "TAG=$CLEAN_TAG" >> "$GITHUB_ENV"
+          echo "SHA=$PR_HEAD_SHA" >> "$GITHUB_ENV"
+      - name: Write app version
+        run: |
+          echo "Writing SHA $SHA to .application_version"
+          printf "%s" "$SHA" > .application-version
+      - name: Build
+        run: docker build -t ${{ secrets.GAR_LOCATION }}/${{ secrets.GAR_PROJECT_ID }}/docker-images/census31-eq-questionnaire-runner:$TAG .
+      - name: Push to GAR
+        run: |
+          gcloud auth configure-docker ${{ secrets.GAR_LOCATION }}
+          echo "Pushing to GAR with tag $TAG"
+          docker push ${{ secrets.GAR_LOCATION }}/${{ secrets.GAR_PROJECT_ID }}/docker-images/census31-eq-questionnaire-runner:$TAG
 
   required-gate:
     permissions:
