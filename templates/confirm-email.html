@@ -8,7 +8,7 @@
 {% set question = content.question %}
 {% set sign_out_url = content.sign_out_url %}
 
-{% block main %}
+{% block mainContent %}
     {% set form = content.form %}
     {% if form.mapped_errors %}
         {% set error_title = _("There is a problem with your answer") %}
@@ -41,4 +41,4 @@
     {# djlint:on #}
     <br>
     <br>
-{% endblock main %}
+{% endblock mainContent %}

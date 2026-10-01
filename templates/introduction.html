@@ -7,7 +7,7 @@
 {# {% set page_title = <section title> + ' - ' + page_title %} #}
 {% set page_title = _("Introduction") %}
 
-{% block main %}
+{% block mainContent %}
     {% block intro_content %}
         {% if content.block.primary_content %}
             {% for content_block in content.block.primary_content %}
@@ -34,4 +34,4 @@
             {% endfor %}
         {% endif %}
     {% endblock intro_content %}
-{% endblock main %}
+{% endblock mainContent %}

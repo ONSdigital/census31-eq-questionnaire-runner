@@ -3,8 +3,8 @@
 {% set page_title = _("Submission Complete") %}
 {% set return_previous = _("<a href='{url}'>Return to previous page</a>").format(url = thank_you_url) %}
 
-{% block main %}
+{% block mainContent %}
     <h1>{{ _("This page is no longer available") }}</h1>
     <p>{{ _("Your survey has been submitted") }}</p>
     <p>{{ return_previous }}</p>
-{% endblock main %}
+{% endblock mainContent %}

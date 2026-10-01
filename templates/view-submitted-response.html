@@ -24,7 +24,7 @@
     ]
 } %}
 
-{% block main %}
+{% block mainContent %}
     <h1 class="ons-u-mt-m">{{ content.submitted_text }}</h1>
     {{ onsDescriptionList(content.metadata) }}
     {% if not content.view_submitted_response.expired %}
@@ -57,8 +57,8 @@
                 "classes": "ons-u-mb-m"
             })
         %}
-            {{ _("For security, you can no longer view or get a copy of your answers") }}
+            <p>{{ _("For security, you can no longer view or get a copy of your answers") }}</p>
         {% endcall %}
         {# djlint:on #}
     {% endif %}
-{% endblock main %}
+{% endblock mainContent %}

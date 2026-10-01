@@ -29,19 +29,19 @@
     {% endfor %}
     {{
         onsAccordion({
-        "id": "intro-questions",
-        "allButton": {
-            "open": _('Show all') ,
-            "close": _('Hide all'),
-            "attributes": {
-                "data-ga": "click",
-                "data-ga-category": "Button",
-                "data-ga-action": "View",
-                "data-ga-label": "Show all",
-                "data-ga-page": "Introduction",
-            }
-        },
-        "itemsList": accordionItems
+            "id": "intro-questions",
+            "allButton": {
+                "open": _('Show all') ,
+                "close": _('Hide all'),
+                "attributes": {
+                    "data-ga": "click",
+                    "data-ga-category": "Button",
+                    "data-ga-action": "View",
+                    "data-ga-label": "Show all",
+                    "data-ga-page": "Introduction",
+                }
+            },
+            "itemsList": accordionItems
         })
     }}
     {# djlint:on #}
