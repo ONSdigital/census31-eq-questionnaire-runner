@@ -11,9 +11,21 @@ class TestSchema(IntegrationTestCase):
         self.assertIn("title", parsed_json)
         self.assertEqual(parsed_json["title"], "Test Textfield")
 
+    def test_get_schema_json_with_language_code(self):
+        self.get("/schemas/test_language?language_code=cy")
+        response = self.getResponseData()
+        parsed_json = json_loads(response)
+
+        self.assertEqual(parsed_json["language"], "cy")
+        self.assertEqual(parsed_json["title"], "Test Arolwg Iaith Prawf")
+
     def test_get_schema_json_with_invalid_request(self):
         self.get("/schemas/doesnt-exist")
         self.assertStatusCode(404)
+
+    def test_get_schema_json_with_invalid_language_code(self):
+        self.get("/schemas/test_language?language_code=fr")
+        self.assertStatusCode(400)
 
     def test_list_schemas(self):
         self.get("/schemas")
@@ -23,3 +35,11 @@ class TestSchema(IntegrationTestCase):
         self.assertIsInstance(parsed_json, dict)
         self.assertIsInstance(parsed_json["test"][0], str)
         self.assertIn("test_textfield", parsed_json["test"])
+
+    def test_list_schemas_with_language_code(self):
+        self.get("/schemas?language_code=cy")
+        response = self.getResponseData()
+        parsed_json = json_loads(response)
+
+        self.assertEqual(parsed_json["test"], ["test_language"])
+
