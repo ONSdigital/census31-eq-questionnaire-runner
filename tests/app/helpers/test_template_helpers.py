@@ -2,16 +2,29 @@ import pytest
 from flask import Flask, current_app
 from flask import session as cookie_session
 
-from app.helpers.template_helpers import ContextHelper, get_survey_config
+from app.helpers.template_helpers import ContextHelper, _load_asset_from_url, get_survey_config
 from app.questionnaire import QuestionnaireSchema
 from app.routes.session import set_schema_context_in_cookie
-from app.settings import ACCOUNT_SERVICE_BASE_URL, ONS_URL, ONS_URL_CY, read_file
+from app.settings import ACCOUNT_SERVICE_BASE_URL, ONS_URL, ONS_URL_CY
 from app.survey_config import CensusSurveyConfig, NISRACensusSurveyConfig, NRSCensusSurveyConfig, SurveyConfig
 from app.survey_config.survey_type import SurveyType
 from tests.app.helpers.conftest import expected_footer_census_theme, expected_footer_census_theme_no_cookie
 from tests.app.questionnaire.conftest import get_metadata
 
 DEFAULT_URL = "http://localhost"
+
+
+def test_load_asset_from_url_returns_response_content(mocker):
+    url = "https://cdn.census.gov.uk/census-assets/1.0.0/assets/images/nisra-logo.svg"
+    asset_content = '<svg id="nisra-logo"></svg>'
+    response = mocker.Mock(content=asset_content.encode("utf-8"))
+    get = mocker.patch("app.helpers.template_helpers.requests.get", return_value=response)
+    _load_asset_from_url.cache_clear()
+
+    assert _load_asset_from_url(url) == asset_content
+
+    get.assert_called_once_with(url, timeout=3)
+    response.raise_for_status.assert_called_once_with()
 
 
 @pytest.mark.parametrize(
@@ -55,31 +68,59 @@ def test_footer_context(app: Flask, theme, survey_config, language, expected_foo
             SurveyType.CENSUS,
             None,
             CensusSurveyConfig(),
-            ["ONS Surveys", None, None, read_file("./templates/assets/images/census-logo.svg"), None],
+            [
+                "ONS Surveys",
+                None,
+                None,
+                "loaded:https://cdn.census.gov.uk/census-assets/1.0.0/assets/images/census-logo.svg",
+                None,
+                "loaded:https://cdn.census.gov.uk/census-assets/1.0.0/assets/css/census.css",
+            ],
         ),
         (
             SurveyType.CENSUS,
             "Test",
             CensusSurveyConfig(),
-            ["Test", None, None, read_file("./templates/assets/images/census-logo.svg"), None],
+            [
+                "Test",
+                None,
+                None,
+                "loaded:https://cdn.census.gov.uk/census-assets/1.0.0/assets/images/census-logo.svg",
+                None,
+                "loaded:https://cdn.census.gov.uk/census-assets/1.0.0/assets/css/census.css",
+            ],
         ),
         (
             SurveyType.CENSUS,
             "Test",
             CensusSurveyConfig(language_code="cy"),
-            ["Test", None, None, read_file("./templates/assets/images/census-logo-cy-small.svg"), None],
+            [
+                "Test",
+                None,
+                None,
+                "loaded:https://cdn.census.gov.uk/census-assets/1.0.0/assets/images/census-logo-cy-small.svg",
+                None,
+                "loaded:https://cdn.census.gov.uk/census-assets/1.0.0/assets/css/census.css",
+            ],
         ),
         (
             None,
             None,
             CensusSurveyConfig(),
-            ["ONS Surveys", None, None, read_file("./templates/assets/images/census-logo.svg"), None],
+            [
+                "ONS Surveys",
+                None,
+                None,
+                "loaded:https://cdn.census.gov.uk/census-assets/1.0.0/assets/images/census-logo.svg",
+                None,
+                "loaded:https://cdn.census.gov.uk/census-assets/1.0.0/assets/css/census.css",
+            ],
         ),
         (
             None,
             None,
             SurveyConfig(),
-            ["ONS Surveys", None, None, None, None],
+            ["ONS Surveys", None, None, None, None, None],
         ),
         (
             None,
@@ -87,10 +128,11 @@ def test_footer_context(app: Flask, theme, survey_config, language, expected_foo
             NISRACensusSurveyConfig(),
             [
                 "ONS Surveys",
-                read_file("./templates/assets/images/nisra-logo.svg"),
+                "loaded:https://cdn.census.gov.uk/census-assets/1.0.0/assets/images/nisra-logo.svg",
                 None,
-                read_file("./templates/assets/images/census-logo.svg"),
-                read_file("./templates/assets/images/nisra-footer-logo.svg"),
+                "loaded:https://cdn.census.gov.uk/census-assets/1.0.0/assets/images/census-logo.svg",
+                "loaded:https://cdn.census.gov.uk/census-assets/1.0.0/assets/images/nisra-footer-logo.svg",
+                "loaded:https://cdn.census.gov.uk/census-assets/1.0.0/assets/css/census.css",
             ],
         ),
         (
@@ -99,10 +141,11 @@ def test_footer_context(app: Flask, theme, survey_config, language, expected_foo
             NISRACensusSurveyConfig(),
             [
                 "Test",
-                read_file("./templates/assets/images/nisra-logo.svg"),
+                "loaded:https://cdn.census.gov.uk/census-assets/1.0.0/assets/images/nisra-logo.svg",
                 None,
-                read_file("./templates/assets/images/census-logo.svg"),
-                read_file("./templates/assets/images/nisra-footer-logo.svg"),
+                "loaded:https://cdn.census.gov.uk/census-assets/1.0.0/assets/images/census-logo.svg",
+                "loaded:https://cdn.census.gov.uk/census-assets/1.0.0/assets/images/nisra-footer-logo.svg",
+                "loaded:https://cdn.census.gov.uk/census-assets/1.0.0/assets/css/census.css",
             ],
         ),
         (
@@ -111,15 +154,21 @@ def test_footer_context(app: Flask, theme, survey_config, language, expected_foo
             NRSCensusSurveyConfig(),
             [
                 "Test",
-                read_file("./templates/assets/images/nrs-logo.svg"),
+                "loaded:https://cdn.census.gov.uk/census-assets/1.0.0/assets/images/nrs-logo.svg",
                 None,
-                read_file("./templates/assets/images/census-logo.svg"),
-                read_file("./templates/assets/images/nrs-footer-logo.svg"),
+                "loaded:https://cdn.census.gov.uk/census-assets/1.0.0/assets/images/census-logo.svg",
+                "loaded:https://cdn.census.gov.uk/census-assets/1.0.0/assets/images/nrs-footer-logo.svg",
+                "loaded:https://cdn.census.gov.uk/census-assets/1.0.0/assets/css/nrs-census.css",
             ],
         ),
     ),
 )
-def test_header_context(app: Flask, theme, survey_title, survey_config, expected):
+def test_header_context(app: Flask, theme, survey_title, survey_config, expected, mocker):
+    load_asset = mocker.patch(
+        "app.helpers.template_helpers._load_asset_from_url",
+        side_effect=lambda url: f"loaded:{url}",
+    )
+
     with app.app_context():
         for cookie_name, cookie_value in {
             "theme": theme,
@@ -141,8 +190,11 @@ def test_header_context(app: Flask, theme, survey_title, survey_config, expected
             context_helper.context["masthead_logo_mobile"],
             context_helper.context["title_logo"],
             context_helper.context["footer_logo"],
+            context_helper.context["css_override"],
         ]
 
+    expected_asset_count = sum(isinstance(value, str) and value.startswith("loaded:") for value in expected)
+    assert load_asset.call_count == expected_asset_count
     assert result == expected
 
 
