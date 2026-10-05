@@ -77,7 +77,7 @@ class ContextHelper:
             "masthead_logo": _asset_content(self._survey_config.masthead_logo),
             "masthead_logo_mobile": _asset_content(self._survey_config.masthead_logo_mobile),
             "title_logo": _asset_content(self._survey_config.title_logo),
-            "footer_logo": _asset_content(self._survey_config.footer_logo),
+            "footer_logo": self._footer_logo,
             "css_override": _asset_content(self._survey_config.css_override),
         }
 
@@ -131,11 +131,11 @@ class ContextHelper:
 
         if self._footer_warning:
             context["footerWarning"] = self._footer_warning
-        if self._survey_config.footer_logo:
+        if footer_logo := self._footer_logo:
             context["footerLogo"] = {
                 "logos": {
                     "logo1": {
-                        "logoImage": _asset_content(self._survey_config.footer_logo),
+                        "logoImage": footer_logo,
                     },
                 },
             }
@@ -151,6 +151,10 @@ class ContextHelper:
             context["legal"] = [{"itemsList": footer_legal_links}]
 
         return context
+
+    @cached_property
+    def _footer_logo(self) -> str | None:
+        return _asset_content(self._survey_config.footer_logo)
 
     @cached_property
     def _footer_warning(self) -> str | None:

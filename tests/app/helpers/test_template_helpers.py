@@ -183,17 +183,20 @@ def test_header_context(app: Flask, theme, survey_title, survey_config, expected
             include_csrf_token=True,
             survey_config=survey_config,
         )
+        context = context_helper.context
 
         result = [
-            context_helper.context["survey_title"],
-            context_helper.context["masthead_logo"],
-            context_helper.context["masthead_logo_mobile"],
-            context_helper.context["title_logo"],
-            context_helper.context["footer_logo"],
-            context_helper.context["css_override"],
+            context["survey_title"],
+            context["masthead_logo"],
+            context["masthead_logo_mobile"],
+            context["title_logo"],
+            context["footer_logo"],
+            context["css_override"],
         ]
 
-    expected_asset_count = sum(isinstance(value, str) and value.startswith("loaded:") for value in expected)
+    expected_asset_count = sum(
+        isinstance(value, str) and value.startswith("loaded:") for value in expected
+    )
     assert load_asset.call_count == expected_asset_count
     assert result == expected
 
