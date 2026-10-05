@@ -194,9 +194,7 @@ def test_header_context(app: Flask, theme, survey_title, survey_config, expected
             context["css_override"],
         ]
 
-    expected_asset_count = sum(
-        isinstance(value, str) and value.startswith("loaded:") for value in expected
-    )
+    expected_asset_count = sum(isinstance(value, str) and value.startswith("loaded:") for value in expected)
     assert load_asset.call_count == expected_asset_count
     assert result == expected
 
