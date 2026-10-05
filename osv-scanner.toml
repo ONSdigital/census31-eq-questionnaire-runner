@@ -7,3 +7,8 @@ reason = "uuid (dev) - no fix without major version break; node-jose@2.2.0 pins 
 id = "GHSA-86w9-cpqp-85rv"
 ignoreUntil = 2027-01-01
 reason = "node-forge is used only by dev/test dependencies; no attacker-supplied RSA signatures are verified here. Review when an upstream fix is released."
+
+[[IgnoredVulns]]
+id = "GHSA-vfj7-8cjw-p6xm"
+ignoreUntil = 2027-01-01
+reason = "braces is a dev-only transitive dependency of ts-standard; no fixed version is published. Review when an upstream fix is released."
