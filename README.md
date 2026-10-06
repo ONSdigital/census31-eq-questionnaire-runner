@@ -381,8 +381,8 @@ The following env variables can be used
 | DATASTORE_USE_GRPC                        | False                         | Determines whether to use gRPC for Datastore. gRPC is currently only supported for threaded web servers        |
 | ACCOUNT_SERVICE_BASE_URL                  | `https://start.census.gov.uk` | The base URL of the account service used to launch the survey                                                  |
 | ONS_URL                                   | `https://www.ons.gov.uk`      | The URL of the ONS website where static content is sourced, e.g. accessibility info                            |
-| CDN_CENSUS_ASSETS_VERSION                 | `1.0.0`                        | Version segment used to build the Census assets CDN path                                                       |
-| CDN_CENSUS_ASSETS_PATH                    | `/census-assets/{version}/assets` | Optional full path override for Census assets; defaults to the path built from `CDN_CENSUS_ASSETS_VERSION`     |
+
+Census CDN assets use the version recorded in `.census-assets-version`; the runtime Docker image includes this file.
 
 The following env variables can be used when running tests
 

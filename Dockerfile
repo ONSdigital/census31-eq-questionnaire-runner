@@ -55,6 +55,7 @@ COPY --from=builder /runner/app ./app
 COPY --from=builder /runner/templates ./templates
 COPY --from=builder /runner/schemas ./schemas
 COPY --from=builder /runner/eq_questionnaire_runner ./eq_questionnaire_runner
+COPY --from=builder /runner/.census-assets-version ./.census-assets-version
 
 ENV WEB_SERVER_TYPE=gunicorn-threads
 ENV WEB_SERVER_WORKERS=3

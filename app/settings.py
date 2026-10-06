@@ -53,11 +53,11 @@ def utcoffset_or_fail(date_value, key):
 DATASTORE_USE_GRPC = parse_mode(os.getenv("DATASTORE_USE_GRPC", "True"))
 CDN_URL = os.getenv("CDN_URL", "https://cdn.census.gov.uk")
 CDN_DS_PATH = os.getenv("CDN_DS_PATH", "/design-system")
-CDN_CENSUS_ASSETS_VERSION = os.getenv("CDN_CENSUS_ASSETS_VERSION", "1.0.0")
-CDN_CENSUS_ASSETS_PATH = os.getenv(
-    "CDN_CENSUS_ASSETS_PATH",
-    f"/census-assets/{CDN_CENSUS_ASSETS_VERSION}/assets",
-)
+CDN_CENSUS_ASSETS_VERSION = (read_file(".census-assets-version") or "").strip()
+if not CDN_CENSUS_ASSETS_VERSION:
+    error_message = "Census assets version is missing from .census-assets-version"
+    raise ValueError(error_message)
+CDN_CENSUS_ASSETS_PATH = f"/census-assets/{CDN_CENSUS_ASSETS_VERSION}/assets"
 EQ_MINIMIZE_ASSETS = parse_mode(os.getenv("EQ_MINIMIZE_ASSETS", "True"))
 # max request payload size in bytes
 MAX_CONTENT_LENGTH = int(os.getenv("EQ_MAX_HTTP_POST_CONTENT_LENGTH", "65536"))
