@@ -1,3 +1,4 @@
+import importlib
 from datetime import datetime
 from pathlib import Path
 
@@ -32,6 +33,16 @@ def test_read_files(file, expected):
 
 def test_cdn_census_assets_version_comes_from_version_file():
     assert settings.CDN_CENSUS_ASSETS_VERSION == Path(".census-assets-version").read_text(encoding="UTF-8").strip()
+
+
+def test_cdn_census_assets_version_missing_raises(monkeypatch):
+    try:
+        monkeypatch.setattr(settings.os.path, "isfile", lambda _: False)
+        with pytest.raises(ValueError, match=r"Census assets version is missing from \.census-assets-version"):
+            importlib.reload(settings)
+    finally:
+        monkeypatch.undo()
+        importlib.reload(settings)
 
 
 def test_cdn_census_assets_path_uses_version():
