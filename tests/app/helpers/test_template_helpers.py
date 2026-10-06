@@ -5,17 +5,18 @@ from flask import session as cookie_session
 from app.helpers.template_helpers import ContextHelper, _load_asset_from_url, get_survey_config
 from app.questionnaire import QuestionnaireSchema
 from app.routes.session import set_schema_context_in_cookie
-from app.settings import ACCOUNT_SERVICE_BASE_URL, ONS_URL, ONS_URL_CY
+from app.settings import ACCOUNT_SERVICE_BASE_URL, CDN_CENSUS_ASSETS_PATH, CDN_URL, ONS_URL, ONS_URL_CY
 from app.survey_config import CensusSurveyConfig, NISRACensusSurveyConfig, NRSCensusSurveyConfig, SurveyConfig
 from app.survey_config.survey_type import SurveyType
 from tests.app.helpers.conftest import expected_footer_census_theme, expected_footer_census_theme_no_cookie
 from tests.app.questionnaire.conftest import get_metadata
 
 DEFAULT_URL = "http://localhost"
+CENSUS_ASSETS_BASE_URL = f"{CDN_URL.rstrip('/')}/{CDN_CENSUS_ASSETS_PATH.strip('/')}"
 
 
 def test_load_asset_from_url_returns_response_content(mocker):
-    url = "https://cdn.census.gov.uk/census-assets/1.0.0/assets/images/nisra-logo.svg"
+    url = f"{CENSUS_ASSETS_BASE_URL}/images/nisra-logo.svg"
     asset_content = '<svg id="nisra-logo"></svg>'
     response = mocker.Mock(content=asset_content.encode("utf-8"))
     get = mocker.patch("app.helpers.template_helpers.requests.get", return_value=response)
@@ -72,9 +73,9 @@ def test_footer_context(app: Flask, theme, survey_config, language, expected_foo
                 "ONS Surveys",
                 None,
                 None,
-                "loaded:https://cdn.census.gov.uk/census-assets/1.0.0/assets/images/census-logo.svg",
+                f"loaded:{CENSUS_ASSETS_BASE_URL}/images/census-logo.svg",
                 None,
-                "loaded:https://cdn.census.gov.uk/census-assets/1.0.0/assets/css/census.css",
+                f"loaded:{CENSUS_ASSETS_BASE_URL}/css/census.css",
             ],
         ),
         (
@@ -85,9 +86,9 @@ def test_footer_context(app: Flask, theme, survey_config, language, expected_foo
                 "Test",
                 None,
                 None,
-                "loaded:https://cdn.census.gov.uk/census-assets/1.0.0/assets/images/census-logo.svg",
+                f"loaded:{CENSUS_ASSETS_BASE_URL}/images/census-logo.svg",
                 None,
-                "loaded:https://cdn.census.gov.uk/census-assets/1.0.0/assets/css/census.css",
+                f"loaded:{CENSUS_ASSETS_BASE_URL}/css/census.css",
             ],
         ),
         (
@@ -98,9 +99,9 @@ def test_footer_context(app: Flask, theme, survey_config, language, expected_foo
                 "Test",
                 None,
                 None,
-                "loaded:https://cdn.census.gov.uk/census-assets/1.0.0/assets/images/census-logo-cy-small.svg",
+                f"loaded:{CENSUS_ASSETS_BASE_URL}/images/census-logo-cy-small.svg",
                 None,
-                "loaded:https://cdn.census.gov.uk/census-assets/1.0.0/assets/css/census.css",
+                f"loaded:{CENSUS_ASSETS_BASE_URL}/css/census.css",
             ],
         ),
         (
@@ -111,9 +112,9 @@ def test_footer_context(app: Flask, theme, survey_config, language, expected_foo
                 "ONS Surveys",
                 None,
                 None,
-                "loaded:https://cdn.census.gov.uk/census-assets/1.0.0/assets/images/census-logo.svg",
+                f"loaded:{CENSUS_ASSETS_BASE_URL}/images/census-logo.svg",
                 None,
-                "loaded:https://cdn.census.gov.uk/census-assets/1.0.0/assets/css/census.css",
+                f"loaded:{CENSUS_ASSETS_BASE_URL}/css/census.css",
             ],
         ),
         (
@@ -128,11 +129,11 @@ def test_footer_context(app: Flask, theme, survey_config, language, expected_foo
             NISRACensusSurveyConfig(),
             [
                 "ONS Surveys",
-                "loaded:https://cdn.census.gov.uk/census-assets/1.0.0/assets/images/nisra-logo.svg",
+                f"loaded:{CENSUS_ASSETS_BASE_URL}/images/nisra-logo.svg",
                 None,
-                "loaded:https://cdn.census.gov.uk/census-assets/1.0.0/assets/images/census-logo.svg",
-                "loaded:https://cdn.census.gov.uk/census-assets/1.0.0/assets/images/nisra-footer-logo.svg",
-                "loaded:https://cdn.census.gov.uk/census-assets/1.0.0/assets/css/census.css",
+                f"loaded:{CENSUS_ASSETS_BASE_URL}/images/census-logo.svg",
+                f"loaded:{CENSUS_ASSETS_BASE_URL}/images/nisra-footer-logo.svg",
+                f"loaded:{CENSUS_ASSETS_BASE_URL}/css/census.css",
             ],
         ),
         (
@@ -141,11 +142,11 @@ def test_footer_context(app: Flask, theme, survey_config, language, expected_foo
             NISRACensusSurveyConfig(),
             [
                 "Test",
-                "loaded:https://cdn.census.gov.uk/census-assets/1.0.0/assets/images/nisra-logo.svg",
+                f"loaded:{CENSUS_ASSETS_BASE_URL}/images/nisra-logo.svg",
                 None,
-                "loaded:https://cdn.census.gov.uk/census-assets/1.0.0/assets/images/census-logo.svg",
-                "loaded:https://cdn.census.gov.uk/census-assets/1.0.0/assets/images/nisra-footer-logo.svg",
-                "loaded:https://cdn.census.gov.uk/census-assets/1.0.0/assets/css/census.css",
+                f"loaded:{CENSUS_ASSETS_BASE_URL}/images/census-logo.svg",
+                f"loaded:{CENSUS_ASSETS_BASE_URL}/images/nisra-footer-logo.svg",
+                f"loaded:{CENSUS_ASSETS_BASE_URL}/css/census.css",
             ],
         ),
         (
@@ -154,11 +155,11 @@ def test_footer_context(app: Flask, theme, survey_config, language, expected_foo
             NRSCensusSurveyConfig(),
             [
                 "Test",
-                "loaded:https://cdn.census.gov.uk/census-assets/1.0.0/assets/images/nrs-logo.svg",
+                f"loaded:{CENSUS_ASSETS_BASE_URL}/images/nrs-logo.svg",
                 None,
-                "loaded:https://cdn.census.gov.uk/census-assets/1.0.0/assets/images/census-logo.svg",
-                "loaded:https://cdn.census.gov.uk/census-assets/1.0.0/assets/images/nrs-footer-logo.svg",
-                "loaded:https://cdn.census.gov.uk/census-assets/1.0.0/assets/css/nrs-census.css",
+                f"loaded:{CENSUS_ASSETS_BASE_URL}/images/census-logo.svg",
+                f"loaded:{CENSUS_ASSETS_BASE_URL}/images/nrs-footer-logo.svg",
+                f"loaded:{CENSUS_ASSETS_BASE_URL}/css/nrs-census.css",
             ],
         ),
     ),
@@ -577,7 +578,7 @@ def test_get_survey_config_base_url_not_provided(app: Flask):
 def test_context_set_from_app_config(app):
     with app.app_context():
         current_app.config["CDN_URL"] = "test-cdn-url"
-        current_app.config["CDN_ASSETS_PATH"] = "/test-assets-path"
+        current_app.config["CDN_DS_PATH"] = "/test-assets-path"
         current_app.config["ADDRESS_LOOKUP_API_URL"] = "test-address-lookup-api-url"
         current_app.config["EQ_GOOGLE_TAG_ID"] = "test-google-tag-manager-id"
         survey_config = SurveyConfig()

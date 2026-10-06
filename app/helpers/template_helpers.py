@@ -48,7 +48,7 @@ class ContextHelper:
         self._survey_config = survey_config
         self._survey_title = cookie_session.get("title", lazy_gettext("ONS Surveys"))
         self._sign_out_url = url_for("session.get_sign_out")
-        self._cdn_url = f'{current_app.config["CDN_URL"]}{current_app.config["CDN_ASSETS_PATH"]}'
+        self._cdn_url = f'{current_app.config["CDN_URL"]}{current_app.config["CDN_DS_PATH"]}'
         self._address_lookup_api = current_app.config["ADDRESS_LOOKUP_API_URL"]
         self._google_tag_id = current_app.config.get("EQ_GOOGLE_TAG_ID")
         self._survey_type = cookie_session.get("theme")
