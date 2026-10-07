@@ -1,0 +1,24 @@
+---
+steps:
+  - id: docker-build-eq-runner
+    name: gcr.io/cloud-builders/docker
+    args:
+      - buildx
+      - build
+      - "--platform=${_PLATFORM}"
+      - "--load"
+      - "-t"
+      - "europe-west2-docker.pkg.dev/${_PROJECT_ID}/images/census31-eq-questionnaire-runner:${SHORT_SHA}"
+      - "-t"
+      - "europe-west2-docker.pkg.dev/${_PROJECT_ID}/images/census31-eq-questionnaire-runner:latest"
+      - "."
+
+images:
+  - "europe-west2-docker.pkg.dev/${_PROJECT_ID}/images/census31-eq-questionnaire-runner:${SHORT_SHA}"
+  - "europe-west2-docker.pkg.dev/${_PROJECT_ID}/images/census31-eq-questionnaire-runner:latest"
+
+substitutions:
+  _PLATFORM: "linux/amd64"
+
+options:
+  logging: CLOUD_LOGGING_ONLY

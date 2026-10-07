@@ -1,0 +1,18 @@
+---
+steps:
+  - id: docker-build-eq-runner
+    name: gcr.io/cloud-builders/docker
+    args:
+      - buildx
+      - build
+      - "--platform=${_PLATFORM}"
+      - "--load"
+      - "-t"
+      - "runner-pr:${SHORT_SHA}"
+      - "."
+
+options:
+  logging: CLOUD_LOGGING_ONLY
+
+substitutions:
+  _PLATFORM: "linux/amd64"
