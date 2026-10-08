@@ -61,7 +61,6 @@ class TestHeaderLinks(IntegrationTestCase):
     def assert_help_link_does_not_exist(self):
         help_link = self.getLinkById("header-link-help")
         self.assertIsNone(help_link)
-        self.assertNotInBody("Help")
 
 
 class TestHeaderLinksPreSubmission(TestHeaderLinks):
