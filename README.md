@@ -382,8 +382,6 @@ The following env variables can be used
 | ACCOUNT_SERVICE_BASE_URL                  | `https://start.census.gov.uk` | The base URL of the account service used to launch the survey                                                  |
 | ONS_URL                                   | `https://www.ons.gov.uk`      | The URL of the ONS website where static content is sourced, e.g. accessibility info                            |
 
-Census CDN assets use the version recorded in `.census-assets-version`; the runtime Docker image includes this file.
-
 The following env variables can be used when running tests
 
 ```text
