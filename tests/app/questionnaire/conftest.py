@@ -25,7 +25,7 @@ def get_metadata(extra_metadata: dict | None = None):
         "collection_exercise_sid": "collection_exercise_sid",
         "case_id": "case_id",
         "version": "v2",
-        "survey_metadata": {"data": {}},
+        "survey_metadata": {},
     }
 
     if extra_metadata:
@@ -33,7 +33,7 @@ def get_metadata(extra_metadata: dict | None = None):
             if key in TOP_LEVEL_METADATA_KEYS:
                 metadata[key] = value
             else:
-                metadata["survey_metadata"]["data"][key] = value
+                metadata["survey_metadata"][key] = value
 
     return MetadataProxy.from_dict(metadata)
 

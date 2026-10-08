@@ -15,7 +15,7 @@ class TestFeedback(IntegrationTestCase):
 
     def test_questionnaire_not_completed(self):
         # Given I launch the test_feedback questionnaire
-        self.launchSurveyV2(schema_name="test_feedback")
+        self.launchSurvey(schema_name="test_feedback")
 
         # When I try to view the feedback page without completing the questionnaire
         self.get(self.SEND_FEEDBACK_URL)
@@ -25,7 +25,7 @@ class TestFeedback(IntegrationTestCase):
 
     def test_questionnaire_not_completed_post(self):
         # Given I launch the test_feedback questionnaire
-        self.launchSurveyV2(schema_name="test_feedback")
+        self.launchSurvey(schema_name="test_feedback")
 
         # When I try to POST to the feedback page without completing the questionnaire
         self.post(url=self.SEND_FEEDBACK_URL)
@@ -45,7 +45,7 @@ class TestFeedback(IntegrationTestCase):
 
     def test_feedback_flag_not_set_in_schema(self):
         # Given I launch the test_textfield questionnaire
-        self.launchSurveyV2(schema_name="test_textfield")
+        self.launchSurvey(schema_name="test_textfield")
         self.post()
         self.post()
 
@@ -222,7 +222,7 @@ class TestFeedback(IntegrationTestCase):
 
     def test_feedback_submission(self):
         # Given I submit the email confirmation form
-        self.launchSurveyV2(schema_name="test_feedback_email_confirmation")
+        self.launchSurvey(schema_name="test_feedback_email_confirmation")
         self.post({"answer_id": "Yes"})
         self.post()
         self.post({"email": "email@example.com"})
@@ -234,9 +234,9 @@ class TestFeedback(IntegrationTestCase):
         self.post({"feedback-type": "Page design and structure", "feedback-text": "Feedback"})
         self.assertInUrl("/submitted/feedback/sent")
 
-    def test_feedback_submission_v2_business(self):
+    def test_feedback_submission_business(self):
         # Given I submit the email confirmation form
-        self.launchSurveyV2(schema_name="test_feedback_email_confirmation")
+        self.launchSurvey(schema_name="test_feedback_email_confirmation")
         self.post({"answer_id": "Yes"})
         self.post()
         self.post({"email": "email@example.com"})
@@ -248,9 +248,9 @@ class TestFeedback(IntegrationTestCase):
         self.post({"feedback-type": "Page design and structure", "feedback-text": "Feedback"})
         self.assertInUrl("/submitted/feedback/sent")
 
-    def test_feedback_submission_v2_census(self):
+    def test_feedback_submission_census(self):
         # Given I submit the email confirmation form
-        self.launchSurveyV2(schema_name="test_theme_census", theme="census")
+        self.launchSurvey(schema_name="test_theme_census", theme="census")
         self.post({"radio-answer": "Bacon"})
         self.post()
 
@@ -263,7 +263,7 @@ class TestFeedback(IntegrationTestCase):
 
     def test_feedback_call_to_action_visible_on_email_confirmation(self):
         # Given I complete the survey
-        self.launchSurveyV2(schema_name="test_feedback_email_confirmation")
+        self.launchSurvey(schema_name="test_feedback_email_confirmation")
         self.post({"answer_id": "Yes"})
         self.post()
 
@@ -276,7 +276,7 @@ class TestFeedback(IntegrationTestCase):
 
     def test_feedback_submission_from_email_confirmation(self):
         # Given I submit the email confirmation form
-        self.launchSurveyV2(schema_name="test_feedback_email_confirmation")
+        self.launchSurvey(schema_name="test_feedback_email_confirmation")
         self.post({"answer_id": "Yes"})
         self.post()
         self.post({"email": "email@example.com"})
@@ -290,7 +290,7 @@ class TestFeedback(IntegrationTestCase):
 
     def test_feedback_back_breadcrumb_after_email_confirmation(self):
         # Given I submit the email confirmation form
-        self.launchSurveyV2(schema_name="test_feedback_email_confirmation")
+        self.launchSurvey(schema_name="test_feedback_email_confirmation")
         self.post({"answer_id": "Yes"})
         self.post()
         self.post({"email": "email@example.com"})
@@ -304,7 +304,7 @@ class TestFeedback(IntegrationTestCase):
 
     def test_feedback_submitted_done_button_after_email_confirmation(self):
         # Given I submit the email confirmation form after submitting feedback
-        self.launchSurveyV2(schema_name="test_feedback_email_confirmation")
+        self.launchSurvey(schema_name="test_feedback_email_confirmation")
         self.post({"answer_id": "Yes"})
         self.post()
         self.get("/submitted/feedback/send")
@@ -356,6 +356,6 @@ class TestFeedback(IntegrationTestCase):
         self.assertStatusOK()
 
     def _launch_and_complete_questionnaire(self):
-        self.launchSurveyV2(schema_name="test_feedback")
+        self.launchSurvey(schema_name="test_feedback")
         self.post({"answer_id": "Yes"})
         self.post()

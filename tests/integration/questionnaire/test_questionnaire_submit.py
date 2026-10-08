@@ -4,12 +4,12 @@ from tests.integration.questionnaire import SUBMIT_URL_PATH, THANK_YOU_URL_PATH
 
 class TestQuestionnaireSubmit(IntegrationTestCase):
     def _launch_and_complete_questionnaire(self, schema):
-        self.launchSurveyV2(schema_name=schema)
+        self.launchSurvey(schema_name=schema)
         self.post({"test-answer": "No"})
 
     def test_submit_page_not_accessible_when_hub_enabled_get(self):
         # Given I launch a hub questionnaire
-        self.launchSurveyV2(schema_name="test_hub_and_spoke")
+        self.launchSurvey(schema_name="test_hub_and_spoke")
 
         # When I make a GET request to the submit page
         self.get(url=SUBMIT_URL_PATH)
@@ -19,7 +19,7 @@ class TestQuestionnaireSubmit(IntegrationTestCase):
 
     def test_submit_page_not_accessible_when_hub_enabled_post(self):
         # Given I launch a hub questionnaire
-        self.launchSurveyV2(schema_name="test_hub_and_spoke")
+        self.launchSurvey(schema_name="test_hub_and_spoke")
 
         # When I make a POST request to the submit page
         self.post(url=SUBMIT_URL_PATH)
@@ -29,7 +29,7 @@ class TestQuestionnaireSubmit(IntegrationTestCase):
 
     def test_invalid_block_once_questionnaire_complete_raises_404(self):
         # Given I launch questionnaire
-        self.launchSurveyV2(schema_name="test_submit_with_custom_submission_text")
+        self.launchSurvey(schema_name="test_submit_with_custom_submission_text")
 
         # When I proceed through the questionnaire
         self.post(action="start_questionnaire")
@@ -49,7 +49,7 @@ class TestQuestionnaireSubmit(IntegrationTestCase):
             "test_routing_to_questionnaire_end_multiple_sections",
         ]:
             with self.subTest(schema=schema):
-                self.launchSurveyV2(schema_name=schema)
+                self.launchSurvey(schema_name=schema)
                 self.post({"test-answer": "No"})
                 self.assertInUrl(SUBMIT_URL_PATH)
 
@@ -68,7 +68,7 @@ class TestQuestionnaireSubmitWithoutSummary(IntegrationTestCase):
         self,
     ):
         # Given a partially completed questionnaire
-        self.launchSurveyV2(schema_name="test_submit_with_custom_submission_text")
+        self.launchSurvey(schema_name="test_submit_with_custom_submission_text")
         self.post(action="start_questionnaire")
         self.assertInBody("What is your favourite breakfast food")
 
@@ -82,7 +82,7 @@ class TestQuestionnaireSubmitWithoutSummary(IntegrationTestCase):
         self,
     ):
         # Given a partially completed questionnaire
-        self.launchSurveyV2(schema_name="test_submit_with_custom_submission_text")
+        self.launchSurvey(schema_name="test_submit_with_custom_submission_text")
         self.post(action="start_questionnaire")
         self.assertInBody("What is your favourite breakfast food")
 
@@ -94,7 +94,7 @@ class TestQuestionnaireSubmitWithoutSummary(IntegrationTestCase):
 
     def test_is_displayed(self):
         # Given I launch a questionnaire
-        self.launchSurveyV2(schema_name="test_submit_with_custom_submission_text")
+        self.launchSurvey(schema_name="test_submit_with_custom_submission_text")
 
         # When I complete the questionnaire
         self.post(action="start_questionnaire")
@@ -116,7 +116,7 @@ class TestQuestionnaireSubmitWithSummary(IntegrationTestCase):
         self,
     ):
         # Given a partially completed questionnaire
-        self.launchSurveyV2(schema_name="test_routing_to_questionnaire_end_single_section")
+        self.launchSurvey(schema_name="test_routing_to_questionnaire_end_single_section")
         self.post({"test-answer": "Yes"})
 
         # When I make a GET request to the submit page
@@ -129,7 +129,7 @@ class TestQuestionnaireSubmitWithSummary(IntegrationTestCase):
         self,
     ):
         # Given a partially completed questionnaire
-        self.launchSurveyV2(schema_name="test_routing_to_questionnaire_end_single_section")
+        self.launchSurvey(schema_name="test_routing_to_questionnaire_end_single_section")
         self.post({"test-answer": "Yes"})
 
         # When I make a POST request to the submit page
@@ -140,7 +140,7 @@ class TestQuestionnaireSubmitWithSummary(IntegrationTestCase):
 
     def test_is_displayed(self):
         # Given I launch a questionnaire
-        self.launchSurveyV2(schema_name="test_routing_to_questionnaire_end_multiple_sections")
+        self.launchSurvey(schema_name="test_routing_to_questionnaire_end_multiple_sections")
 
         # When I complete the questionnaire
         self.post({"test-answer": "Yes"})

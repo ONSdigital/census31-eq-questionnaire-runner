@@ -9,7 +9,7 @@
     "description": "A questionnaire to demo the census NRS survey theme",
     "metadata": [
         {
-            "name": "qid",
+            "name": "questionnaire_id",
             "type": "string"
         }
     ],

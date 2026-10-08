@@ -8,7 +8,7 @@ class TestQuestionnaireRelationships(QuestionnaireTestCase):
         self.post({"remove-confirmation": "Yes"})
 
     def test_valid_relationship(self):
-        self.launchSurveyV2(schema_name="test_relationships")
+        self.launchSurvey(schema_name="test_relationships")
         self.add_person("Marie", "Doe")
         self.add_person("John", "Doe")
         self.post({"anyone-else": "No"})
@@ -19,7 +19,7 @@ class TestQuestionnaireRelationships(QuestionnaireTestCase):
         self.assertInUrl("/questionnaire/sections/")
 
     def test_resume_should_not_show_last_viewed_guidance(self):
-        self.launchSurveyV2(schema_name="test_relationships")
+        self.launchSurvey(schema_name="test_relationships")
         self.add_person("Marie", "Doe")
         self.add_person("John", "Doe")
         self.post({"anyone-else": "No"})
@@ -28,7 +28,7 @@ class TestQuestionnaireRelationships(QuestionnaireTestCase):
         self.assertNotInBody("This is the last viewed question in this section")
 
     def test_last_relationship(self):
-        self.launchSurveyV2(schema_name="test_relationships")
+        self.launchSurvey(schema_name="test_relationships")
         first_list_item_id = self.add_person("Marie", "Doe")
         second_list_item_id = self.add_person("John", "Doe")
         self.post({"anyone-else": "No"})
@@ -36,17 +36,17 @@ class TestQuestionnaireRelationships(QuestionnaireTestCase):
         self.assertInUrl(f"/questionnaire/relationships/people/{first_list_item_id}/to/{second_list_item_id}")
 
     def test_get_relationships_when_not_on_path_raises_404(self):
-        self.launchSurveyV2(schema_name="test_relationships")
+        self.launchSurvey(schema_name="test_relationships")
         self.get("/questionnaire/relationships")
         self.assertStatusNotFound()
 
     def test_invalid_relationship_raises_404(self):
-        self.launchSurveyV2(schema_name="test_relationships")
+        self.launchSurvey(schema_name="test_relationships")
         self.get("/questionnaire/relationships/people/fake-id/to/another-fake-id")
         self.assertStatusNotFound()
 
     def test_go_to_invalid_relationship(self):
-        self.launchSurveyV2(schema_name="test_relationships")
+        self.launchSurvey(schema_name="test_relationships")
         self.add_person("Marie", "Doe")
         self.add_person("John", "Doe")
         self.post({"anyone-else": "No"})
@@ -55,7 +55,7 @@ class TestQuestionnaireRelationships(QuestionnaireTestCase):
         self.assertInUrl("/questionnaire/relationships")
 
     def test_failed_validation(self):
-        self.launchSurveyV2(schema_name="test_relationships")
+        self.launchSurvey(schema_name="test_relationships")
         self.add_person("Marie", "Doe")
         self.add_person("John", "Doe")
         self.post({"anyone-else": "No"})
@@ -63,7 +63,7 @@ class TestQuestionnaireRelationships(QuestionnaireTestCase):
         self.assertInBody("There is a problem with your answer")
 
     def test_multiple_relationships(self):
-        self.launchSurveyV2(schema_name="test_relationships")
+        self.launchSurvey(schema_name="test_relationships")
         self.add_person("Marie", "Doe")
         self.add_person("John", "Doe")
         self.add_person("Susan", "Doe")
@@ -76,7 +76,7 @@ class TestQuestionnaireRelationships(QuestionnaireTestCase):
         self.assertInUrl("/questionnaire/sections/section/")
 
     def test_relationships_removed_when_list_item_removed(self):
-        self.launchSurveyV2(schema_name="test_relationships", roles=["dumper"])
+        self.launchSurvey(schema_name="test_relationships", roles=["dumper"])
         self.add_person("Marie", "Doe")
         self.add_person("John", "Doe")
         self.add_person("Susan", "Doe")
@@ -102,7 +102,7 @@ class TestQuestionnaireRelationships(QuestionnaireTestCase):
             self.assertNotIn(list_item_ids[-1], relationship.values())
 
     def test_relationship_not_altered_when_new_list_item_not_submitted(self):
-        self.launchSurveyV2(schema_name="test_relationships")
+        self.launchSurvey(schema_name="test_relationships")
         self.add_person("Marie", "Doe")
         self.add_person("John", "Doe")
         list_item_ids_original = self.get_list_item_ids()
@@ -118,7 +118,7 @@ class TestQuestionnaireRelationships(QuestionnaireTestCase):
         self.assertEqual(list_item_ids_original, list_item_ids_new)
 
     def test_post_to_relationships_root(self):
-        self.launchSurveyV2(schema_name="test_relationships")
+        self.launchSurvey(schema_name="test_relationships")
         self.add_person("Marie", "Doe")
         self.add_person("John", "Doe")
         self.post({"anyone-else": "No"})
@@ -126,7 +126,7 @@ class TestQuestionnaireRelationships(QuestionnaireTestCase):
         self.assertStatusOK()
 
     def test_head_request_on_relationships_url(self):
-        self.launchSurveyV2(schema_name="test_relationships")
+        self.launchSurvey(schema_name="test_relationships")
         first_list_item_id = self.add_person("Marie", "Doe")
         second_list_item_id = self.add_person("John", "Doe")
         self.post({"anyone-else": "No"})

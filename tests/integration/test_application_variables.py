@@ -14,7 +14,7 @@ class TestApplicationVariables(IntegrationTestCase):
         settings.EQ_GOOGLE_TAG_ID = None
 
     def test_google_analytics_code_and_credentials_are_present(self):
-        self.launchSurveyV2(schema_name="test_feedback", roles=["dumper"])
+        self.launchSurvey(schema_name="test_feedback", roles=["dumper"])
         self.get("/dump/debug")
         actual = json_loads(self.getResponseData())
         self.setCookie(domain="localhost", key="ons_cookie_policy", value="'usage':true")
@@ -27,7 +27,7 @@ class TestApplicationVariables(IntegrationTestCase):
         self.assertInHead(settings.EQ_GOOGLE_TAG_ID)
 
     def test_google_analytics_data_layer_has_no_null_fields(self):
-        self.launchSurveyV2(schema_name="test_textfield", roles=["dumper"])
+        self.launchSurvey(schema_name="test_textfield", roles=["dumper"])
         self.get("/dump/debug")
         actual = json_loads(self.getResponseData())
         self.setCookie(domain="localhost", key="ons_cookie_policy", value="'usage':true")
