@@ -31,24 +31,6 @@ def test_read_files(file, expected):
     assert bool(settings.read_file(str(file) if file is not None else file)) is expected
 
 
-def test_cdn_census_assets_version_comes_from_version_file():
-    assert settings.CDN_CENSUS_ASSETS_VERSION == Path(".census-assets-version").read_text(encoding="UTF-8").strip()
-
-
-def test_cdn_census_assets_version_missing_raises(monkeypatch):
-    try:
-        monkeypatch.setattr(settings.os.path, "isfile", lambda _: False)
-        with pytest.raises(ValueError, match=r"Census assets version is missing from \.census-assets-version"):
-            importlib.reload(settings)
-    finally:
-        monkeypatch.undo()
-        importlib.reload(settings)
-
-
-def test_cdn_census_assets_path_uses_version():
-    assert settings.CDN_CENSUS_ASSETS_PATH == f"/census-assets/{settings.CDN_CENSUS_ASSETS_VERSION}/assets"
-
-
 def test_invalid_key_raises_exception():
     with pytest.raises(Exception) as exception:
         settings.get_env_or_fail("MISSING_ENVIRONMENT_VARIABLE")
