@@ -71,6 +71,8 @@ def test_footer_context(app: Flask, theme, survey_config, language, expected_foo
             CensusSurveyConfig(),
             [
                 "ONS Surveys",
+                False,
+                False,
                 None,
                 None,
                 f"loaded:{CENSUS_ASSETS_BASE_URL}/images/census-logo.svg",
@@ -84,6 +86,7 @@ def test_footer_context(app: Flask, theme, survey_config, language, expected_foo
             CensusSurveyConfig(),
             [
                 "Test",
+                False,
                 None,
                 None,
                 f"loaded:{CENSUS_ASSETS_BASE_URL}/images/census-logo.svg",
@@ -97,6 +100,7 @@ def test_footer_context(app: Flask, theme, survey_config, language, expected_foo
             CensusSurveyConfig(language_code="cy"),
             [
                 "Test",
+                False,
                 None,
                 None,
                 f"loaded:{CENSUS_ASSETS_BASE_URL}/images/census-logo-cy-small.svg",
@@ -110,6 +114,7 @@ def test_footer_context(app: Flask, theme, survey_config, language, expected_foo
             CensusSurveyConfig(),
             [
                 "ONS Surveys",
+                False,
                 None,
                 None,
                 f"loaded:{CENSUS_ASSETS_BASE_URL}/images/census-logo.svg",
@@ -121,7 +126,7 @@ def test_footer_context(app: Flask, theme, survey_config, language, expected_foo
             None,
             None,
             SurveyConfig(),
-            ["ONS Surveys", None, None, None, None, None],
+            ["ONS Surveys", False, None, None, None, None, None],
         ),
         (
             None,
@@ -129,6 +134,7 @@ def test_footer_context(app: Flask, theme, survey_config, language, expected_foo
             NISRACensusSurveyConfig(),
             [
                 "ONS Surveys",
+                True,
                 f"loaded:{CENSUS_ASSETS_BASE_URL}/images/nisra-logo.svg",
                 None,
                 f"loaded:{CENSUS_ASSETS_BASE_URL}/images/census-logo.svg",
@@ -142,6 +148,7 @@ def test_footer_context(app: Flask, theme, survey_config, language, expected_foo
             NISRACensusSurveyConfig(),
             [
                 "Test",
+                True,
                 f"loaded:{CENSUS_ASSETS_BASE_URL}/images/nisra-logo.svg",
                 None,
                 f"loaded:{CENSUS_ASSETS_BASE_URL}/images/census-logo.svg",
@@ -155,6 +162,7 @@ def test_footer_context(app: Flask, theme, survey_config, language, expected_foo
             NRSCensusSurveyConfig(),
             [
                 "Test",
+                True,
                 f"loaded:{CENSUS_ASSETS_BASE_URL}/images/nrs-logo.svg",
                 None,
                 f"loaded:{CENSUS_ASSETS_BASE_URL}/images/census-logo.svg",
@@ -188,6 +196,7 @@ def test_header_context(app: Flask, theme, survey_title, survey_config, expected
 
         result = [
             context["survey_title"],
+            context["masthead_logo_extra_margin"],
             context["masthead_logo"],
             context["masthead_logo_mobile"],
             context["title_logo"],

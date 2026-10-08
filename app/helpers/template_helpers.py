@@ -74,6 +74,7 @@ class ContextHelper:
             "include_csrf_token": self._include_csrf_token,
             "google_tag_id": self._google_tag_id,
             "survey_type": self._survey_type,
+            "masthead_logo_extra_margin": self._survey_config.masthead_logo_extra_margin,
             "masthead_logo": _asset_content(self._survey_config.masthead_logo),
             "masthead_logo_mobile": _asset_content(self._survey_config.masthead_logo_mobile),
             "title_logo": _asset_content(self._survey_config.title_logo),

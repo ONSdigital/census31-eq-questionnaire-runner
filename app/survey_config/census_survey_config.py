@@ -36,22 +36,16 @@ class CensusSurveyConfig(
         self.cookie_settings_url: str = f"{upstream_base_url}/cookies/"
         self.privacy_and_data_protection_url: str = f"{upstream_base_url}/privacy-and-data-protection/"
 
+        self.help_url: str = f"{ons_url}/help/"
         self.contact_us_url: str = f"{ons_url}/aboutus/contactus/surveyenquiries/"
         self.accessibility_url: str = f"{ons_url}/help/accessibility/"
-        self.what_we_do_url: str = f"{ons_url}/aboutus/whatwedo/"
 
     def get_footer_links(self, cookie_has_theme: bool) -> list[dict]:
-        links = [Link(lazy_gettext("What we do"), self.what_we_do_url).as_dict()]
+        links: list[dict] = []
 
         if cookie_has_theme:
+            links.append(Link(lazy_gettext("Help"), self.help_url).as_dict())
             links.append(Link(lazy_gettext("Contact us"), self.contact_us_url).as_dict())
-
-        links.append(
-            Link(
-                lazy_gettext("Accessibility"),
-                self.accessibility_url,
-            ).as_dict()
-        )
 
         return links
 
@@ -59,6 +53,10 @@ class CensusSurveyConfig(
         if cookie_has_theme:
             return [
                 Link(lazy_gettext("Cookies"), self.cookie_settings_url).as_dict(),
+                Link(
+                    lazy_gettext("Accessibility statement"),
+                    self.accessibility_url,
+                ).as_dict(),
                 Link(
                     lazy_gettext("Privacy and data protection"),
                     self.privacy_and_data_protection_url,
@@ -70,12 +68,14 @@ class CensusSurveyConfig(
 
 @dataclass
 class NISRACensusSurveyConfig(CensusSurveyConfig):
+    masthead_logo_extra_margin: bool = True
     masthead_logo: str = f"{CENSUS_ASSETS_BASE_URL}/images/nisra-logo.svg"
     footer_logo: str = f"{CENSUS_ASSETS_BASE_URL}/images/nisra-footer-logo.svg"
 
 
 @dataclass
 class NRSCensusSurveyConfig(CensusSurveyConfig):
+    masthead_logo_extra_margin: bool = True
     masthead_logo: str = f"{CENSUS_ASSETS_BASE_URL}/images/nrs-logo.svg"
     footer_logo: str = f"{CENSUS_ASSETS_BASE_URL}/images/nrs-footer-logo.svg"
     css_override: str = f"{CENSUS_ASSETS_BASE_URL}/css/nrs-census.css"
