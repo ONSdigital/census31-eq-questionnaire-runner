@@ -42,4 +42,3 @@ class TestSchema(IntegrationTestCase):
         parsed_json = json_loads(response)
 
         self.assertEqual(parsed_json["test"], ["test_language"])
-
