@@ -51,8 +51,9 @@ def utcoffset_or_fail(date_value, key):
 
 
 DATASTORE_USE_GRPC = parse_mode(os.getenv("DATASTORE_USE_GRPC", "True"))
-CDN_URL = os.getenv("CDN_URL", "https://cdn.eq.gcp.onsdigital.uk")
-CDN_ASSETS_PATH = os.getenv("CDN_ASSETS_PATH", "/design-system")
+CDN_URL = os.getenv("CDN_URL", "https://cdn.census.gov.uk")
+CDN_DS_PATH = os.getenv("CDN_DS_PATH", "/design-system")
+CDN_CENSUS_ASSETS_PATH = "/census-assets/1.0.0/assets"
 EQ_MINIMIZE_ASSETS = parse_mode(os.getenv("EQ_MINIMIZE_ASSETS", "True"))
 # max request payload size in bytes
 MAX_CONTENT_LENGTH = int(os.getenv("EQ_MAX_HTTP_POST_CONTENT_LENGTH", "65536"))

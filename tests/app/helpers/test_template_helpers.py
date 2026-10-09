@@ -1,17 +1,20 @@
 import pytest
+from bs4 import BeautifulSoup
 from flask import Flask, current_app
+from flask import render_template as flask_render_template
 from flask import session as cookie_session
 
 from app.helpers.template_helpers import ContextHelper, get_survey_config
 from app.questionnaire import QuestionnaireSchema
 from app.routes.session import set_schema_context_in_cookie
-from app.settings import ACCOUNT_SERVICE_BASE_URL, ONS_URL, ONS_URL_CY, read_file
+from app.settings import ACCOUNT_SERVICE_BASE_URL, CDN_CENSUS_ASSETS_PATH, CDN_URL, ONS_URL, ONS_URL_CY
 from app.survey_config import CensusSurveyConfig, NISRACensusSurveyConfig, NRSCensusSurveyConfig, SurveyConfig
 from app.survey_config.survey_type import SurveyType
 from tests.app.helpers.conftest import expected_footer_census_theme, expected_footer_census_theme_no_cookie
 from tests.app.questionnaire.conftest import get_metadata
 
 DEFAULT_URL = "http://localhost"
+CENSUS_ASSETS_BASE_URL = f"{CDN_URL.rstrip('/')}/{CDN_CENSUS_ASSETS_PATH.strip('/')}"
 
 
 @pytest.mark.parametrize(
@@ -55,31 +58,63 @@ def test_footer_context(app: Flask, theme, survey_config, language, expected_foo
             SurveyType.CENSUS,
             None,
             CensusSurveyConfig(),
-            ["ONS Surveys", False, None, None, read_file("./templates/assets/images/census-logo.svg"), None],
+            [
+                "ONS Surveys",
+                False,
+                None,
+                None,
+                f"{CENSUS_ASSETS_BASE_URL}/images/census-logo.svg",
+                None,
+                f"{CENSUS_ASSETS_BASE_URL}/css/census.css",
+            ],
         ),
         (
             SurveyType.CENSUS,
             "Test",
             CensusSurveyConfig(),
-            ["Test", False, None, None, read_file("./templates/assets/images/census-logo.svg"), None],
+            [
+                "Test",
+                False,
+                None,
+                None,
+                f"{CENSUS_ASSETS_BASE_URL}/images/census-logo.svg",
+                None,
+                f"{CENSUS_ASSETS_BASE_URL}/css/census.css",
+            ],
         ),
         (
             SurveyType.CENSUS,
             "Test",
             CensusSurveyConfig(language_code="cy"),
-            ["Test", False, None, None, read_file("./templates/assets/images/census-logo-cy-small.svg"), None],
+            [
+                "Test",
+                False,
+                None,
+                None,
+                f"{CENSUS_ASSETS_BASE_URL}/images/census-logo-cy.svg",
+                None,
+                f"{CENSUS_ASSETS_BASE_URL}/css/census.css",
+            ],
         ),
         (
             None,
             None,
             CensusSurveyConfig(),
-            ["ONS Surveys", False, None, None, read_file("./templates/assets/images/census-logo.svg"), None],
+            [
+                "ONS Surveys",
+                False,
+                None,
+                None,
+                f"{CENSUS_ASSETS_BASE_URL}/images/census-logo.svg",
+                None,
+                f"{CENSUS_ASSETS_BASE_URL}/css/census.css",
+            ],
         ),
         (
             None,
             None,
             SurveyConfig(),
-            ["ONS Surveys", False, None, None, None, None],
+            ["ONS Surveys", False, None, None, None, None, None],
         ),
         (
             None,
@@ -88,10 +123,11 @@ def test_footer_context(app: Flask, theme, survey_config, language, expected_foo
             [
                 "ONS Surveys",
                 True,
-                read_file("./templates/assets/images/nisra-logo.svg"),
+                f"{CENSUS_ASSETS_BASE_URL}/images/nisra-logo.svg",
                 None,
-                read_file("./templates/assets/images/census-logo.svg"),
-                read_file("./templates/assets/images/nisra-footer-logo.svg"),
+                f"{CENSUS_ASSETS_BASE_URL}/images/census-logo.svg",
+                f"{CENSUS_ASSETS_BASE_URL}/images/nisra-footer-logo.svg",
+                f"{CENSUS_ASSETS_BASE_URL}/css/census.css",
             ],
         ),
         (
@@ -101,10 +137,11 @@ def test_footer_context(app: Flask, theme, survey_config, language, expected_foo
             [
                 "Test",
                 True,
-                read_file("./templates/assets/images/nisra-logo.svg"),
+                f"{CENSUS_ASSETS_BASE_URL}/images/nisra-logo.svg",
                 None,
-                read_file("./templates/assets/images/census-logo.svg"),
-                read_file("./templates/assets/images/nisra-footer-logo.svg"),
+                f"{CENSUS_ASSETS_BASE_URL}/images/census-logo.svg",
+                f"{CENSUS_ASSETS_BASE_URL}/images/nisra-footer-logo.svg",
+                f"{CENSUS_ASSETS_BASE_URL}/css/census.css",
             ],
         ),
         (
@@ -114,10 +151,11 @@ def test_footer_context(app: Flask, theme, survey_config, language, expected_foo
             [
                 "Test",
                 True,
-                read_file("./templates/assets/images/nrs-logo.svg"),
+                f"{CENSUS_ASSETS_BASE_URL}/images/nrs-logo.svg",
                 None,
-                read_file("./templates/assets/images/census-logo.svg"),
-                read_file("./templates/assets/images/nrs-footer-logo.svg"),
+                f"{CENSUS_ASSETS_BASE_URL}/images/census-logo.svg",
+                f"{CENSUS_ASSETS_BASE_URL}/images/nrs-footer-logo.svg",
+                f"{CENSUS_ASSETS_BASE_URL}/css/nrs-census.css",
             ],
         ),
     ),
@@ -137,17 +175,49 @@ def test_header_context(app: Flask, theme, survey_title, survey_config, expected
             include_csrf_token=True,
             survey_config=survey_config,
         )
+        context = context_helper.context
 
         result = [
-            context_helper.context["survey_title"],
-            context_helper.context["masthead_logo_extra_margin"],
-            context_helper.context["masthead_logo"],
-            context_helper.context["masthead_logo_mobile"],
-            context_helper.context["title_logo"],
-            context_helper.context["footer_logo"],
+            context["survey_title"],
+            context["masthead_logo_extra_margin"],
+            context["masthead_logo"],
+            context["masthead_logo_mobile"],
+            context["title_logo"],
+            context["footer_logo"],
+            context["css_override"],
         ]
 
     assert result == expected
+
+
+@pytest.mark.parametrize(
+    "survey_config, title_logo, footer_logo, css_file",
+    [
+        (CensusSurveyConfig(), "census-logo.svg", None, "census.css"),
+        (CensusSurveyConfig(language_code="cy"), "census-logo-cy.svg", None, "census.css"),
+        (NISRACensusSurveyConfig(), "census-logo.svg", "nisra-footer-logo.svg", "census.css"),
+        (NRSCensusSurveyConfig(), "census-logo.svg", "nrs-footer-logo.svg", "nrs-census.css"),
+    ],
+)
+def test_census_assets_render_as_links(app: Flask, survey_config, title_logo, footer_logo, css_file):
+    with app.test_request_context("/"):
+        context = ContextHelper("en", False, False, survey_config).context
+        html = flask_render_template("layouts/_base.html", **context, page_title="Test", csp_nonce="nonce")
+
+    page = BeautifulSoup(html, "html.parser")
+    title_image = page.select_one(f'img[src="{CENSUS_ASSETS_BASE_URL}/images/{title_logo}"]')
+    assert title_image and title_image.get("alt")
+    if survey_config.language_code == "cy":
+        assert title_image.parent and "ons-header__title-logo--large" in title_image.parent.get("class", [])
+        small_image = page.select_one(
+            f'.ons-header__title-logo--small img[src="{CENSUS_ASSETS_BASE_URL}/images/census-logo-cy-small.svg"]'
+        )
+        assert small_image and small_image.get("alt")
+        assert small_image.get("width") == "200"
+    assert page.select_one(f'link[rel="stylesheet"][href="{CENSUS_ASSETS_BASE_URL}/css/{css_file}"]')
+    if footer_logo:
+        footer_image = page.select_one(f'footer img[src="{CENSUS_ASSETS_BASE_URL}/images/{footer_logo}"]')
+        assert footer_image and footer_image.get("alt") == survey_config.footer_logo_alt_text
 
 
 @pytest.mark.parametrize(
@@ -528,7 +598,7 @@ def test_get_survey_config_base_url_not_provided(app: Flask):
 def test_context_set_from_app_config(app):
     with app.app_context():
         current_app.config["CDN_URL"] = "test-cdn-url"
-        current_app.config["CDN_ASSETS_PATH"] = "/test-assets-path"
+        current_app.config["CDN_DS_PATH"] = "/test-assets-path"
         current_app.config["ADDRESS_LOOKUP_API_URL"] = "test-address-lookup-api-url"
         current_app.config["EQ_GOOGLE_TAG_ID"] = "test-google-tag-manager-id"
         survey_config = SurveyConfig()

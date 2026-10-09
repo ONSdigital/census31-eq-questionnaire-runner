@@ -3,9 +3,11 @@ from typing import Iterable, Mapping, MutableMapping
 
 from flask_babel import lazy_gettext
 
-from app.settings import ACCOUNT_SERVICE_BASE_URL, ONS_URL, ONS_URL_CY, read_file
+from app.settings import ACCOUNT_SERVICE_BASE_URL, CDN_CENSUS_ASSETS_PATH, CDN_URL, ONS_URL, ONS_URL_CY
 from app.survey_config.link import Link
 from app.survey_config.survey_config import SurveyConfig
+
+CENSUS_ASSETS_BASE_URL = f"{CDN_URL.rstrip('/')}/{CDN_CENSUS_ASSETS_PATH.strip('/')}"
 
 
 @dataclass
@@ -13,9 +15,11 @@ class CensusSurveyConfig(
     SurveyConfig,
 ):
     base_url: str = ACCOUNT_SERVICE_BASE_URL
-    survey_title: str = lazy_gettext("ONS Census")
-    title_logo: str = read_file("./templates/assets/images/census-logo.svg")
-    css_override: str = read_file("./templates/assets/css/census.css")
+    survey_title: str = lazy_gettext("Census Test 2027")
+    title_logo: str = f"{CENSUS_ASSETS_BASE_URL}/images/census-logo.svg"
+    title_logo_alt_text: str = lazy_gettext("Census Test 2027 - Home")
+    title_logo_title: str = lazy_gettext("Census Test 2027 - Home")
+    css_override: str = f"{CENSUS_ASSETS_BASE_URL}/css/census.css"
     footer_links: Iterable[MutableMapping] = field(default_factory=list)
     footer_legal_links: Iterable[Mapping] = field(default_factory=list)
 
@@ -23,7 +27,8 @@ class CensusSurveyConfig(
         super().__post_init__()
 
         if self.language_code == "cy":
-            self.title_logo = read_file("./templates/assets/images/census-logo-cy-small.svg")
+            self.title_logo = f"{CENSUS_ASSETS_BASE_URL}/images/census-logo-cy.svg"
+            self.title_logo_mobile = f"{CENSUS_ASSETS_BASE_URL}/images/census-logo-cy-small.svg"
 
         upstream_base_url = f"{self.base_url}/{self.language_code}"
         ons_url = ONS_URL_CY if self.language_code == "cy" else ONS_URL
@@ -67,13 +72,17 @@ class CensusSurveyConfig(
 @dataclass
 class NISRACensusSurveyConfig(CensusSurveyConfig):
     masthead_logo_extra_margin: bool = True
-    masthead_logo: str = read_file("./templates/assets/images/nisra-logo.svg")
-    footer_logo: str = read_file("./templates/assets/images/nisra-footer-logo.svg")
+    masthead_logo: str = f"{CENSUS_ASSETS_BASE_URL}/images/nisra-logo.svg"
+    masthead_logo_alt_text: str = "NISRA - Home"
+    footer_logo: str = f"{CENSUS_ASSETS_BASE_URL}/images/nisra-footer-logo.svg"
+    footer_logo_alt_text: str = "NISRA - Northern Ireland Statistics and Research Agency"
 
 
 @dataclass
 class NRSCensusSurveyConfig(CensusSurveyConfig):
     masthead_logo_extra_margin: bool = True
-    masthead_logo: str = read_file("./templates/assets/images/nrs-logo.svg")
-    footer_logo: str = read_file("./templates/assets/images/nrs-footer-logo.svg")
-    css_override: str = read_file("./templates/assets/css/nrs-census.css")
+    masthead_logo: str = f"{CENSUS_ASSETS_BASE_URL}/images/nrs-logo.svg"
+    masthead_logo_alt_text: str = "NRS - Home"
+    footer_logo: str = f"{CENSUS_ASSETS_BASE_URL}/images/nrs-footer-logo.svg"
+    footer_logo_alt_text: str = "NRS - National Records of Scotland"
+    css_override: str = f"{CENSUS_ASSETS_BASE_URL}/css/nrs-census.css"

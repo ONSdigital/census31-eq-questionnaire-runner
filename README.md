@@ -492,7 +492,7 @@ Edit your .development.env with following:
 
 ```text
 CDN_URL=http://localhost:5678
-CDN_ASSETS_PATH=
+CDN_DS_PATH=
 ```
 
 Edit the Makefile to remove `load-design-system-templates` from the build command. Should now look like this:

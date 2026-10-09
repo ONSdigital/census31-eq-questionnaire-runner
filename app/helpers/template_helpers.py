@@ -34,7 +34,7 @@ class ContextHelper:
         self._survey_config = survey_config
         self._survey_title = cookie_session.get("title", lazy_gettext("ONS Surveys"))
         self._sign_out_url = url_for("session.get_sign_out")
-        self._cdn_url = f'{current_app.config["CDN_URL"]}{current_app.config["CDN_ASSETS_PATH"]}'
+        self._cdn_url = f'{current_app.config["CDN_URL"]}{current_app.config["CDN_DS_PATH"]}'
         self._address_lookup_api = current_app.config["ADDRESS_LOOKUP_API_URL"]
         self._google_tag_id = current_app.config.get("EQ_GOOGLE_TAG_ID")
         self._survey_type = cookie_session.get("theme")
@@ -62,8 +62,12 @@ class ContextHelper:
             "survey_type": self._survey_type,
             "masthead_logo_extra_margin": self._survey_config.masthead_logo_extra_margin,
             "masthead_logo": self._survey_config.masthead_logo,
+            "masthead_logo_alt_text": self._survey_config.masthead_logo_alt_text,
             "masthead_logo_mobile": self._survey_config.masthead_logo_mobile,
             "title_logo": self._survey_config.title_logo,
+            "title_logo_mobile": self._survey_config.title_logo_mobile,
+            "title_logo_alt_text": self._survey_config.title_logo_alt_text,
+            "title_logo_title": self._survey_config.title_logo_title,
             "footer_logo": self._survey_config.footer_logo,
             "css_override": self._survey_config.css_override,
         }
@@ -118,11 +122,15 @@ class ContextHelper:
 
         if self._footer_warning:
             context["footerWarning"] = self._footer_warning
-        if self._survey_config.footer_logo:
+        if footer_logo := self._survey_config.footer_logo:
             context["footerLogo"] = {
                 "logos": {
                     "logo1": {
-                        "logoImage": self._survey_config.footer_logo,
+                        "logoImage": (
+                            f'<img src="{footer_logo}" '
+                            f'alt="{self._survey_config.footer_logo_alt_text or ""}" '
+                            f'title="{self._survey_config.footer_logo_alt_text or ""}">'
+                        ),
                     },
                 },
             }
