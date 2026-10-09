@@ -127,7 +127,9 @@ class ContextHelper:
                 "logos": {
                     "logo1": {
                         "logoImage": (
-                            f'<img src="{footer_logo}" alt="{self._survey_config.footer_logo_alt_text or ""}" title="{self._survey_config.footer_logo_alt_text or ""}">'
+                            f'<img src="{footer_logo}" '
+                            f'alt="{self._survey_config.footer_logo_alt_text or ""}" '
+                            f'title="{self._survey_config.footer_logo_alt_text or ""}">'
                         ),
                     },
                 },

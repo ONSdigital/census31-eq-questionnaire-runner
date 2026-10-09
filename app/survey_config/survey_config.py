@@ -29,6 +29,7 @@ class SurveyConfig:
     title_logo: str | None = None
     title_logo_alt_text: str | None = None
     title_logo_mobile: str | None = None
+    title_logo_title: str | None = None
     footer_logo: str | None = None
     footer_logo_alt_text: str | None = None
     css_override: str | None = None
