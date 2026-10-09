@@ -378,8 +378,8 @@ msgid "Privacy and data protection"
 msgstr "Hiddlins an gien taxt hainin"
 
 #: app/survey_config/survey_config.py:17
-msgid "Crown copyright and database rights 2020 OS 100019153."
-msgstr "Croon copyricht an database richts 20an20 OS 1000191153."
+msgid "Crown copyright and database rights 2027 OS 100019153."
+msgstr "Croon copyricht an database richts 20an27 OS 1000191153."
 
 #: app/survey_config/survey_config.py:18
 msgid "Use of address data is subject to the terms and conditions."
@@ -1691,8 +1691,8 @@ msgstr "Cheynge rinnins fur {item_name}"
 #~ msgid "BSL and audio videos"
 #~ msgstr ""
 
-#~ msgid "Crown copyright and database rights 2021 NIMA MOU577.501."
-#~ msgstr "Croon copyricht an database richts 20an21 NIMA MOU577.501."
+#~ msgid "Crown copyright and database rights 2027 NIMA MOU577.501."
+#~ msgstr "Croon copyricht an database richts 20an27 NIMA MOU577.501."
 
 #~ msgid "Terms and conditions"
 #~ msgstr "Terms an condeetions"
