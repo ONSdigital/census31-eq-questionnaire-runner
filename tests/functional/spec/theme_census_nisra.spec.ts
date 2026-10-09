@@ -10,9 +10,9 @@ test.describe('Theme Census-NISRA', () => {
     test('When I navigate to the radio page, Then I should see Census-NISRA theme content', async ({ page }) => {
       const radioPage = new RadioPage(page)
       await expect(page).toHaveURL(new RegExp(radioPage.pageName))
-      await expect(page.locator('.ons-header__org-logo img')).toHaveAttribute('src', /\/images\/nisra-logo\.svg$/)
-      await expect(page.locator('.ons-header__org-logo img')).toHaveAttribute('alt', 'NISRA - Home')
-      await expect(page.locator('.ons-header__org-logo img')).toHaveAttribute('title', 'NISRA - Home')
+      await expect(page.locator('.ons-header__org-logo--large img')).toHaveAttribute('src', /\/images\/nisra-logo\.svg$/)
+      await expect(page.locator('.ons-header__org-logo--large img')).toHaveAttribute('alt', 'NISRA - Home')
+      await expect(page.locator('.ons-header__org-logo--large img')).toHaveAttribute('title', 'NISRA - Home')
       await expect(page.locator('.ons-header__title-logo img')).toHaveAttribute('src', /\/images\/census-logo\.svg$/)
       await expect(page.locator('.ons-header__title-logo img')).toHaveAttribute('alt', 'Census Test 2027 - Home')
       await expect(page.locator('.ons-footer__logo-container img')).toHaveAttribute('src', /\/images\/nisra-footer-logo\.svg$/)
