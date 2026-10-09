@@ -1,7 +1,6 @@
 from functools import cached_property, lru_cache
 from typing import Any
 
-import requests
 from flask import current_app
 from flask import render_template as flask_render_template
 from flask import request
@@ -19,19 +18,6 @@ from app.survey_config.survey_type import SurveyType
 from app.utilities.schema import load_schema_from_metadata
 
 DATA_LAYER_KEYS = {"title", "survey_id", "form_type"}
-
-
-@lru_cache
-def _load_asset_from_url(url: str) -> str:
-    response = requests.get(url, timeout=3)
-    response.raise_for_status()
-    return response.content.decode("utf-8")
-
-
-def _asset_content(asset: str | None) -> str | None:
-    if asset and asset.startswith(("http://", "https://")):
-        return _load_asset_from_url(asset)
-    return asset
 
 
 class ContextHelper:
@@ -75,11 +61,15 @@ class ContextHelper:
             "google_tag_id": self._google_tag_id,
             "survey_type": self._survey_type,
             "masthead_logo_extra_margin": self._survey_config.masthead_logo_extra_margin,
-            "masthead_logo": _asset_content(self._survey_config.masthead_logo),
-            "masthead_logo_mobile": _asset_content(self._survey_config.masthead_logo_mobile),
-            "title_logo": _asset_content(self._survey_config.title_logo),
-            "footer_logo": self._footer_logo,
-            "css_override": _asset_content(self._survey_config.css_override),
+            "masthead_logo": self._survey_config.masthead_logo,
+            "masthead_logo_alt_text": self._survey_config.masthead_logo_alt_text,
+            "masthead_logo_mobile": self._survey_config.masthead_logo_mobile,
+            "title_logo": self._survey_config.title_logo,
+            "title_logo_mobile": self._survey_config.title_logo_mobile,
+            "title_logo_alt_text": self._survey_config.title_logo_alt_text,
+            "title_logo_title": self._survey_config.title_logo_title,
+            "footer_logo": self._survey_config.footer_logo,
+            "css_override": self._survey_config.css_override,
         }
 
         if self._survey_type:
@@ -132,11 +122,13 @@ class ContextHelper:
 
         if self._footer_warning:
             context["footerWarning"] = self._footer_warning
-        if footer_logo := self._footer_logo:
+        if footer_logo := self._survey_config.footer_logo:
             context["footerLogo"] = {
                 "logos": {
                     "logo1": {
-                        "logoImage": footer_logo,
+                        "logoImage": (
+                            f'<img src="{footer_logo}" alt="{self._survey_config.footer_logo_alt_text or ""}" title="{self._survey_config.footer_logo_alt_text or ""}">'
+                        ),
                     },
                 },
             }
@@ -152,10 +144,6 @@ class ContextHelper:
             context["legal"] = [{"itemsList": footer_legal_links}]
 
         return context
-
-    @cached_property
-    def _footer_logo(self) -> str | None:
-        return _asset_content(self._survey_config.footer_logo)
 
     @cached_property
     def _footer_warning(self) -> str | None:

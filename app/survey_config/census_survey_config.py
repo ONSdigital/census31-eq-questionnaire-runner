@@ -15,8 +15,10 @@ class CensusSurveyConfig(
     SurveyConfig,
 ):
     base_url: str = ACCOUNT_SERVICE_BASE_URL
-    survey_title: str = lazy_gettext("ONS Census")
+    survey_title: str = lazy_gettext("Census Test 2027")
     title_logo: str = f"{CENSUS_ASSETS_BASE_URL}/images/census-logo.svg"
+    title_logo_alt_text: str = lazy_gettext("Census Test 2027 - Home")
+    title_logo_title: str = lazy_gettext("Census Test 2027 - Home")
     css_override: str = f"{CENSUS_ASSETS_BASE_URL}/css/census.css"
     footer_links: Iterable[MutableMapping] = field(default_factory=list)
     footer_legal_links: Iterable[Mapping] = field(default_factory=list)
@@ -25,7 +27,8 @@ class CensusSurveyConfig(
         super().__post_init__()
 
         if self.language_code == "cy":
-            self.title_logo = f"{CENSUS_ASSETS_BASE_URL}/images/census-logo-cy-small.svg"
+            self.title_logo = f"{CENSUS_ASSETS_BASE_URL}/images/census-logo-cy.svg"
+            self.title_logo_mobile = f"{CENSUS_ASSETS_BASE_URL}/images/census-logo-cy-small.svg"
 
         upstream_base_url = f"{self.base_url}/{self.language_code}"
         ons_url = ONS_URL_CY if self.language_code == "cy" else ONS_URL
@@ -70,12 +73,16 @@ class CensusSurveyConfig(
 class NISRACensusSurveyConfig(CensusSurveyConfig):
     masthead_logo_extra_margin: bool = True
     masthead_logo: str = f"{CENSUS_ASSETS_BASE_URL}/images/nisra-logo.svg"
+    masthead_logo_alt_text: str = "NISRA - Home"
     footer_logo: str = f"{CENSUS_ASSETS_BASE_URL}/images/nisra-footer-logo.svg"
+    footer_logo_alt_text: str = "NISRA - Northern Ireland Statistics and Research Agency"
 
 
 @dataclass
 class NRSCensusSurveyConfig(CensusSurveyConfig):
     masthead_logo_extra_margin: bool = True
     masthead_logo: str = f"{CENSUS_ASSETS_BASE_URL}/images/nrs-logo.svg"
+    masthead_logo_alt_text: str = "NRS - Home"
     footer_logo: str = f"{CENSUS_ASSETS_BASE_URL}/images/nrs-footer-logo.svg"
+    footer_logo_alt_text: str = "NRS - National Records of Scotland"
     css_override: str = f"{CENSUS_ASSETS_BASE_URL}/css/nrs-census.css"

@@ -10,9 +10,9 @@ test.describe('Theme Census-NRS', () => {
     test('When I navigate to the radio page, Then I should see Census-NRS theme content', async ({ page }) => {
       const radioPage = new RadioPage(page)
       await expect(page).toHaveURL(new RegExp(radioPage.pageName))
-      await expect(page.locator('#census-large-logo-en-alt').first()).toContainText('Census Test 2027')
+      await expect(page.locator('.ons-header__title-logo img')).toHaveAttribute('src', /\/images\/census-logo\.svg$/)
       await expect(page.locator('#nrs-logo-large-alt').first()).toContainText("Scotland's Census")
-      await expect(page.locator('#nrs-footer-logo-alt').first()).toContainText("Scotland's Census")
+      await expect(page.locator('footer img[src$="/nrs-footer-logo.svg"]')).toHaveAttribute('alt', "Scotland's Census")
     })
   })
 })

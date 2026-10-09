@@ -81,9 +81,7 @@
 {% endblock preHeader %}
 
 {% block head %}
-    <style nonce="{{ csp_nonce }}">
-        {{ css_override }}
-    </style>
+    {% if css_override %}<link rel="stylesheet" href="{{ css_override }}">{% endif %}
     {# djlint:off #}
     {% if google_tag_id %}
         <!-- Google tag (gtag.js) -->

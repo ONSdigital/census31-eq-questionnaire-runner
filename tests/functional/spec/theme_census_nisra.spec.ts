@@ -10,9 +10,9 @@ test.describe('Theme Census-NISRA', () => {
     test('When I navigate to the radio page, Then I should see Census-NISRA theme content', async ({ page }) => {
       const radioPage = new RadioPage(page)
       await expect(page).toHaveURL(new RegExp(radioPage.pageName))
-      await expect(page.locator('#census-large-logo-en-alt').first()).toContainText('Census Test 2027')
+      await expect(page.locator('.ons-header__title-logo img')).toHaveAttribute('src', /\/images\/census-logo\.svg$/)
       await expect(page.locator('#nisra-logo-large-alt').first()).toContainText('NISRA - Home')
-      await expect(page.locator('#nisra-footer-logo-alt').first()).toContainText('NISRA - Northern Ireland Statistics and Research Agency')
+      await expect(page.locator('footer img[src$="/nisra-footer-logo.svg"]')).toHaveAttribute('alt', 'NISRA - Northern Ireland Statistics and Research Agency')
     })
   })
 })

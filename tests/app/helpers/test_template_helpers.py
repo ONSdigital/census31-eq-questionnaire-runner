@@ -1,8 +1,10 @@
 import pytest
+from bs4 import BeautifulSoup
 from flask import Flask, current_app
+from flask import render_template as flask_render_template
 from flask import session as cookie_session
 
-from app.helpers.template_helpers import ContextHelper, _load_asset_from_url, get_survey_config
+from app.helpers.template_helpers import ContextHelper, get_survey_config
 from app.questionnaire import QuestionnaireSchema
 from app.routes.session import set_schema_context_in_cookie
 from app.settings import ACCOUNT_SERVICE_BASE_URL, CDN_CENSUS_ASSETS_PATH, CDN_URL, ONS_URL, ONS_URL_CY
@@ -13,19 +15,6 @@ from tests.app.questionnaire.conftest import get_metadata
 
 DEFAULT_URL = "http://localhost"
 CENSUS_ASSETS_BASE_URL = f"{CDN_URL.rstrip('/')}/{CDN_CENSUS_ASSETS_PATH.strip('/')}"
-
-
-def test_load_asset_from_url_returns_response_content(mocker):
-    url = f"{CENSUS_ASSETS_BASE_URL}/images/nisra-logo.svg"
-    asset_content = '<svg id="nisra-logo"></svg>'
-    response = mocker.Mock(content=asset_content.encode("utf-8"))
-    get = mocker.patch("app.helpers.template_helpers.requests.get", return_value=response)
-    _load_asset_from_url.cache_clear()
-
-    assert _load_asset_from_url(url) == asset_content
-
-    get.assert_called_once_with(url, timeout=3)
-    response.raise_for_status.assert_called_once_with()
 
 
 @pytest.mark.parametrize(
@@ -72,12 +61,11 @@ def test_footer_context(app: Flask, theme, survey_config, language, expected_foo
             [
                 "ONS Surveys",
                 False,
-                False,
                 None,
                 None,
-                f"loaded:{CENSUS_ASSETS_BASE_URL}/images/census-logo.svg",
+                f"{CENSUS_ASSETS_BASE_URL}/images/census-logo.svg",
                 None,
-                f"loaded:{CENSUS_ASSETS_BASE_URL}/css/census.css",
+                f"{CENSUS_ASSETS_BASE_URL}/css/census.css",
             ],
         ),
         (
@@ -89,9 +77,9 @@ def test_footer_context(app: Flask, theme, survey_config, language, expected_foo
                 False,
                 None,
                 None,
-                f"loaded:{CENSUS_ASSETS_BASE_URL}/images/census-logo.svg",
+                f"{CENSUS_ASSETS_BASE_URL}/images/census-logo.svg",
                 None,
-                f"loaded:{CENSUS_ASSETS_BASE_URL}/css/census.css",
+                f"{CENSUS_ASSETS_BASE_URL}/css/census.css",
             ],
         ),
         (
@@ -103,9 +91,9 @@ def test_footer_context(app: Flask, theme, survey_config, language, expected_foo
                 False,
                 None,
                 None,
-                f"loaded:{CENSUS_ASSETS_BASE_URL}/images/census-logo-cy-small.svg",
+                f"{CENSUS_ASSETS_BASE_URL}/images/census-logo-cy.svg",
                 None,
-                f"loaded:{CENSUS_ASSETS_BASE_URL}/css/census.css",
+                f"{CENSUS_ASSETS_BASE_URL}/css/census.css",
             ],
         ),
         (
@@ -117,9 +105,9 @@ def test_footer_context(app: Flask, theme, survey_config, language, expected_foo
                 False,
                 None,
                 None,
-                f"loaded:{CENSUS_ASSETS_BASE_URL}/images/census-logo.svg",
+                f"{CENSUS_ASSETS_BASE_URL}/images/census-logo.svg",
                 None,
-                f"loaded:{CENSUS_ASSETS_BASE_URL}/css/census.css",
+                f"{CENSUS_ASSETS_BASE_URL}/css/census.css",
             ],
         ),
         (
@@ -135,11 +123,11 @@ def test_footer_context(app: Flask, theme, survey_config, language, expected_foo
             [
                 "ONS Surveys",
                 True,
-                f"loaded:{CENSUS_ASSETS_BASE_URL}/images/nisra-logo.svg",
+                f"{CENSUS_ASSETS_BASE_URL}/images/nisra-logo.svg",
                 None,
-                f"loaded:{CENSUS_ASSETS_BASE_URL}/images/census-logo.svg",
-                f"loaded:{CENSUS_ASSETS_BASE_URL}/images/nisra-footer-logo.svg",
-                f"loaded:{CENSUS_ASSETS_BASE_URL}/css/census.css",
+                f"{CENSUS_ASSETS_BASE_URL}/images/census-logo.svg",
+                f"{CENSUS_ASSETS_BASE_URL}/images/nisra-footer-logo.svg",
+                f"{CENSUS_ASSETS_BASE_URL}/css/census.css",
             ],
         ),
         (
@@ -149,11 +137,11 @@ def test_footer_context(app: Flask, theme, survey_config, language, expected_foo
             [
                 "Test",
                 True,
-                f"loaded:{CENSUS_ASSETS_BASE_URL}/images/nisra-logo.svg",
+                f"{CENSUS_ASSETS_BASE_URL}/images/nisra-logo.svg",
                 None,
-                f"loaded:{CENSUS_ASSETS_BASE_URL}/images/census-logo.svg",
-                f"loaded:{CENSUS_ASSETS_BASE_URL}/images/nisra-footer-logo.svg",
-                f"loaded:{CENSUS_ASSETS_BASE_URL}/css/census.css",
+                f"{CENSUS_ASSETS_BASE_URL}/images/census-logo.svg",
+                f"{CENSUS_ASSETS_BASE_URL}/images/nisra-footer-logo.svg",
+                f"{CENSUS_ASSETS_BASE_URL}/css/census.css",
             ],
         ),
         (
@@ -163,21 +151,16 @@ def test_footer_context(app: Flask, theme, survey_config, language, expected_foo
             [
                 "Test",
                 True,
-                f"loaded:{CENSUS_ASSETS_BASE_URL}/images/nrs-logo.svg",
+                f"{CENSUS_ASSETS_BASE_URL}/images/nrs-logo.svg",
                 None,
-                f"loaded:{CENSUS_ASSETS_BASE_URL}/images/census-logo.svg",
-                f"loaded:{CENSUS_ASSETS_BASE_URL}/images/nrs-footer-logo.svg",
-                f"loaded:{CENSUS_ASSETS_BASE_URL}/css/nrs-census.css",
+                f"{CENSUS_ASSETS_BASE_URL}/images/census-logo.svg",
+                f"{CENSUS_ASSETS_BASE_URL}/images/nrs-footer-logo.svg",
+                f"{CENSUS_ASSETS_BASE_URL}/css/nrs-census.css",
             ],
         ),
     ),
 )
-def test_header_context(app: Flask, theme, survey_title, survey_config, expected, mocker):
-    load_asset = mocker.patch(
-        "app.helpers.template_helpers._load_asset_from_url",
-        side_effect=lambda url: f"loaded:{url}",
-    )
-
+def test_header_context(app: Flask, theme, survey_title, survey_config, expected):
     with app.app_context():
         for cookie_name, cookie_value in {
             "theme": theme,
@@ -204,9 +187,37 @@ def test_header_context(app: Flask, theme, survey_title, survey_config, expected
             context["css_override"],
         ]
 
-    expected_asset_count = sum(isinstance(value, str) and value.startswith("loaded:") for value in expected)
-    assert load_asset.call_count == expected_asset_count
     assert result == expected
+
+
+@pytest.mark.parametrize(
+    "survey_config, title_logo, footer_logo, css_file",
+    [
+        (CensusSurveyConfig(), "census-logo.svg", None, "census.css"),
+        (CensusSurveyConfig(language_code="cy"), "census-logo-cy.svg", None, "census.css"),
+        (NISRACensusSurveyConfig(), "census-logo.svg", "nisra-footer-logo.svg", "census.css"),
+        (NRSCensusSurveyConfig(), "census-logo.svg", "nrs-footer-logo.svg", "nrs-census.css"),
+    ],
+)
+def test_census_assets_render_as_links(app: Flask, survey_config, title_logo, footer_logo, css_file):
+    with app.test_request_context("/"):
+        context = ContextHelper("en", False, False, survey_config).context
+        html = flask_render_template("layouts/_base.html", **context, page_title="Test", csp_nonce="nonce")
+
+    page = BeautifulSoup(html, "html.parser")
+    title_image = page.select_one(f'img[src="{CENSUS_ASSETS_BASE_URL}/images/{title_logo}"]')
+    assert title_image and title_image.get("alt")
+    if survey_config.language_code == "cy":
+        assert title_image.parent and "ons-header__title-logo--large" in title_image.parent.get("class", [])
+        small_image = page.select_one(
+            f'.ons-header__title-logo--small img[src="{CENSUS_ASSETS_BASE_URL}/images/census-logo-cy-small.svg"]'
+        )
+        assert small_image and small_image.get("alt")
+        assert small_image.get("width") == "200"
+    assert page.select_one(f'link[rel="stylesheet"][href="{CENSUS_ASSETS_BASE_URL}/css/{css_file}"]')
+    if footer_logo:
+        footer_image = page.select_one(f'footer img[src="{CENSUS_ASSETS_BASE_URL}/images/{footer_logo}"]')
+        assert footer_image and footer_image.get("alt") == survey_config.footer_logo_alt_text
 
 
 @pytest.mark.parametrize(
