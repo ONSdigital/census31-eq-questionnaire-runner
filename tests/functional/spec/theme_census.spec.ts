@@ -12,7 +12,7 @@ test.describe('Theme Census', () => {
       await expect(page).toHaveURL(new RegExp(radioPage.pageName))
       await expect(page.locator('#ons-logo-stacked-en-alt').first()).toContainText('Office for National Statistics')
       await expect(page.locator('.ons-header__title-logo img')).toHaveAttribute('src', /\/images\/census-logo\.svg$/)
-      await expect(page.locator('.ons-header__title-logo img')).toHaveAttribute('alt', /\S/)
+      await expect(page.locator('.ons-header__title-logo img')).toHaveAttribute('alt', 'Census Test 2027 - Home')
       await expect(page.locator('#ons-logo-en-footer-alt').first()).toContainText('Office for National Statistics')
     })
   })
