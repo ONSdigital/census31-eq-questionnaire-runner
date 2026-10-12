@@ -536,8 +536,7 @@ More detailed documentation on the lint process is available in [doc/linting-pro
 
 ## CI Cloud Build Pipelines
 
-This directory contains the Cloud Build YAML files used by the CI/CD system in the
-census31-eq-ci-terraform project.
+This directory contains the Cloud Build YAML files used by the CI/CD system
 
 Two pipelines are defined: The cloud build files are invoked by triggers during
 pr-build.yaml — PR validation pipeline
