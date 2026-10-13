@@ -6,7 +6,7 @@ class TestQuestionnaireListCollector(QuestionnaireTestCase):
         self,
     ):
         # Given
-        self.launchSurveyV2(schema_name="test_answer_action_redirect_to_list_add_block_checkbox")
+        self.launchSurvey(schema_name="test_answer_action_redirect_to_list_add_block_checkbox")
 
         # When
         self.post({"anyone-usually-live-at-answer": ["I think so", "No"]})
@@ -16,7 +16,7 @@ class TestQuestionnaireListCollector(QuestionnaireTestCase):
 
     def test_previous_link_when_list_empty_with_return_to_query_string(self):
         # Given
-        self.launchSurveyV2(schema_name="test_answer_action_redirect_to_list_add_block_checkbox")
+        self.launchSurvey(schema_name="test_answer_action_redirect_to_list_add_block_checkbox")
         self.post({"anyone-usually-live-at-answer": ["I think so", "No"]})
 
         # When
@@ -27,7 +27,7 @@ class TestQuestionnaireListCollector(QuestionnaireTestCase):
 
     def test_previous_link_when_list_not_empty(self):
         # Given
-        self.launchSurveyV2(schema_name="test_answer_action_redirect_to_list_add_block_checkbox")
+        self.launchSurvey(schema_name="test_answer_action_redirect_to_list_add_block_checkbox")
         self.post({"anyone-usually-live-at-answer": ["I think so", "No"]})
         self.add_person("John", "Doe")
         self.post({"anyone-else-live-at-answer": "Yes"})
@@ -42,7 +42,7 @@ class TestQuestionnaireListCollector(QuestionnaireTestCase):
         self,
     ):
         # Given
-        self.launchSurveyV2(schema_name="test_answer_action_redirect_to_list_add_block_checkbox")
+        self.launchSurvey(schema_name="test_answer_action_redirect_to_list_add_block_checkbox")
         self.post({"anyone-usually-live-at-answer": ["I think so"]})
 
         url_with_invalid_return_to = self.last_url + "-invalid"

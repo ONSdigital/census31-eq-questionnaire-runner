@@ -7,7 +7,6 @@ from app.data_models.answer_store import Answer
 from app.data_models.progress import ProgressDict
 from app.data_models.session_store import SessionStore
 from app.storage import storage_encryption
-from tests.app.parser.conftest import get_response_expires_at
 
 
 @pytest.fixture
@@ -69,7 +68,6 @@ def basic_input():
     return {
         "METADATA": {
             "test": True,
-            "response_expires_at": get_response_expires_at(),
         },
         "ANSWERS": [{"answer_id": "test", "value": "test"}],
         "LISTS": [],
@@ -93,11 +91,10 @@ def questionnaire_store(mocker):
         """Fake get_user_data implementation for storage"""
         return (store.input_data, "ce_sid", 1, None)
 
-    def set_output_data(data, collection_exercise_sid, submitted_at, expires_at):
+    def set_output_data(data, collection_exercise_sid, submitted_at):
         store.output_data = data
         store.collection_exercise_sid = collection_exercise_sid
         store.submitted_at = submitted_at
-        store.expires_at = expires_at
 
     # Storage class mocking
     store.storage = mocker.MagicMock()
@@ -109,7 +106,6 @@ def questionnaire_store(mocker):
     store.collection_exercise_sid = None
     store.submitted_at = None
     store.output_version = None
-    store.expires_at = None
 
     return store
 
