@@ -1,6 +1,6 @@
 services:
   datastore:
-    image: pricemonsdigital/gcloud-datastore-emulator:2.3.1
+    image: europe-west2-docker.pkg.dev/c31-eq-ci-prod/images/eq-datastore-emulator-image:latest
     environment:
       - CLOUDSDK_CORE_PROJECT=local
     networks:
