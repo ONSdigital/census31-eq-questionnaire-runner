@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+import re
 
 import google.auth
 from google.cloud.pubsub import PublisherClient
@@ -8,6 +9,8 @@ from structlog import get_logger
 from app.publisher.exceptions import PublicationFailed
 
 logger = get_logger(__name__)
+
+FULLY_QUALIFIED_TOPIC_PATH_PATTERN = re.compile(r"^projects/(?P<project>.+?)/topics/(?P<topic>.+?)$")
 
 
 class Publisher(ABC):
@@ -19,11 +22,19 @@ class Publisher(ABC):
 class PubSubPublisher(Publisher):
     def __init__(self) -> None:
         self._client = PublisherClient()
-        _, self._project_id = google.auth.default()
+        _, project_id = google.auth.default()
+        if not project_id:
+            raise ValueError("Google Cloud project ID is required to publish to Pub/Sub topics")
+
+        self._project_id = project_id
 
     def _publish(self, topic_id: str, message: bytes) -> Future:
         logger.info("publishing message", topic_id=topic_id)
-        topic_path = self._client.topic_path(self._project_id, topic_id)
+        topic_path = (
+            topic_id
+            if FULLY_QUALIFIED_TOPIC_PATH_PATTERN.match(topic_id)
+            else self._client.topic_path(self._project_id, topic_id)
+        )
         response: Future = self._client.publish(topic_path, message)
         return response
 
