@@ -81,7 +81,7 @@ interface JoseJwkApi {
 interface JoseJweApi {
   createEncrypt: (
     cfg: { contentAlg: string },
-    recipient: JweRecipientInput
+    recipient: JweRecipientInput,
   ) => {
     update: (input: string) => {
       final: () => Promise<JweGeneralSerialization>
@@ -142,11 +142,8 @@ export async function generateToken (
     userId,
     collectionId,
     responseId,
-    surveyId = '123',
     periodId = '201605',
-    periodStr = 'May 2016',
     ruRef = '12345678901A',
-    sdsDatasetId = null,
     regionCode = 'GB-ENG',
     languageCode = 'en',
     includeLogoutUrl = true,
@@ -174,9 +171,6 @@ export async function generateToken (
   const iat = kjur.jws.IntDate.get('now')
   const exp = kjur.jws.IntDate.get('now') + 1800
   const caseId = uuidv4()
-  const currentDate = new Date()
-  currentDate.setUTCDate(currentDate.getUTCDate() + 1)
-  const isoDate = currentDate.toISOString()
 
   const oPayload: Record<string, unknown> = {
     tx_id: txId,
@@ -190,9 +184,8 @@ export async function generateToken (
     region_code: regionCode,
     language_code: languageCode,
     account_service_url: 'http://localhost:8000',
-    survey_metadata: getSurveyMetadata(theme, userId, displayAddress, surveyId, periodId, periodStr, ruRef, sdsDatasetId, booleanFlag),
-    version: launchVersion,
-    response_expires_at: isoDate
+    survey_metadata: getSurveyMetadata(theme, userId, displayAddress, periodId, ruRef, booleanFlag),
+    version: launchVersion
   }
 
   if (includeLogoutUrl) {
@@ -232,39 +225,30 @@ function getSurveyMetadata (
   theme: string | undefined,
   userId: string | undefined,
   displayAddress: string,
-  surveyId: string,
   periodId: string,
-  periodStr: string,
   ruRef: string,
-  sdsDatasetId: string | null,
   booleanFlag: boolean
 ): SurveyMetadata {
   if (theme != null && ['census', 'census-nrs', 'census-nisra'].includes(theme)) {
     return {
-      data: {
-        case_ref: '1000000000000001',
-        qid: '1000000000000001'
-      },
-      receipting_keys: ['qid']
+      ru_ref: ruRef,
+      case_type: 'HH',
+      display_address: displayAddress,
+      user_id: userId,
+      questionnaire_id: '1234567890'
     }
   }
 
   return {
-    data: {
-      user_id: userId,
-      display_address: displayAddress,
-      ru_ref: ruRef,
-      survey_id: surveyId,
-      period_id: periodId,
-      period_str: periodStr,
-      sds_dataset_id: sdsDatasetId,
-      ref_p_start_date: '2017-01-01',
-      ref_p_end_date: '2017-02-01',
-      employment_date: '2016-06-10',
-      return_by: '2017-03-01',
-      ru_name: 'Apple',
-      trad_as: 'Apple',
-      boolean_flag: booleanFlag
-    }
+    user_id: userId,
+    display_address: displayAddress,
+    ru_ref: ruRef,
+    period_id: periodId,
+    ref_p_start_date: '2017-01-01',
+    ref_p_end_date: '2017-02-01',
+    return_by: '2017-03-01',
+    ru_name: 'Apple',
+    trad_as: 'Apple',
+    boolean_flag: booleanFlag
   }
 }

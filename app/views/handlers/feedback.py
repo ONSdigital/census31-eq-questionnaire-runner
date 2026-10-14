@@ -15,7 +15,8 @@ from app.data_models.session_store import SessionStore
 from app.forms.questionnaire_form import QuestionnaireForm, generate_form
 from app.keys import KEY_PURPOSE_SUBMISSION
 from app.questionnaire.questionnaire_schema import DEFAULT_LANGUAGE_CODE, QuestionnaireSchema
-from app.submitter import GCSFeedbackSubmitter, LogFeedbackSubmitter, converter_v2
+from app.settings import CENSUS_PERIOD_ID
+from app.submitter import GCSFeedbackSubmitter, LogFeedbackSubmitter, converter
 from app.views.contexts.feedback_form_context import build_feedback_context
 from app.views.handlers.submission import get_receipting_metadata
 
@@ -79,14 +80,11 @@ class Feedback:
         if not metadata:
             raise NoMetadataException  # pragma: no cover
 
-        case_id = metadata.case_id
-        tx_id = metadata.tx_id
-
-        feedback_message = FeedbackPayloadV2(
+        feedback_message = FeedbackPayload(
             metadata=metadata,
             response_metadata=self._questionnaire_store.data_stores.response_metadata,
             schema=self._schema,
-            case_id=case_id,
+            case_id=metadata.case_id,
             submission_language_code=session_data.language_code,
             feedback_count=session_data.feedback_count,
             feedback_text=self.form.data.get("feedback-text"),
@@ -97,12 +95,10 @@ class Feedback:
             feedback_message(), current_app.eq["key_store"], KEY_PURPOSE_SUBMISSION  # type: ignore
         )
 
-        additional_metadata = get_receipting_metadata(metadata)
-
-        feedback_metadata = FeedbackMetadata(tx_id=tx_id, case_id=case_id, **additional_metadata)
+        receipting_metadata = get_receipting_metadata(metadata)
 
         submitter: GCSFeedbackSubmitter | LogFeedbackSubmitter = current_app.eq["feedback_submitter"]  # type: ignore
-        if not submitter.upload(feedback_metadata(), encrypted_message):
+        if not submitter.upload(encrypted_message, receipting_metadata):
             raise FeedbackUploadFailed()
 
         self._session_store.save()
@@ -165,25 +161,11 @@ class Feedback:
         return False
 
 
-class FeedbackMetadata:
-    def __init__(self, case_id: str, tx_id: str, **kwargs: dict):
-        self.case_id = case_id
-        self.tx_id = tx_id
-
-        for key, value in kwargs.items():
-            setattr(self, key, value)
-
-    def __call__(self) -> dict[str, str]:
-        return vars(self)
-
-
-class FeedbackPayloadV2:
+class FeedbackPayload:
     """
     Create the feedback payload object for down stream processing in the following format:
-    v0.0.1: https://github.com/ONSdigital/ons-schema-definitions/blob/main/examples/
-    eq_runner_to_downstream/payload_v2/business/feedback_0_0_1.json
-    v0.0.3: https://github.com/ONSdigital/ons-schema-definitions/blob/main/examples/
-    eq_runner_to_downstream/payload_v2/business/feedback_0_0_3.json
+    https://github.com/ONSdigital/census31-eq-questionnaire-runner-interface-definitions/
+    blob/main/examples/submission/payload_v2/feedback_0_0_3.json
     ```
     :param metadata: Questionnaire metadata
     :param response_metadata: Response metadata
@@ -232,13 +214,16 @@ class FeedbackPayloadV2:
             "collection_exercise_sid": self.metadata.collection_exercise_sid,
             "schema_name": self.metadata.schema_name,
             "case_id": self.case_id,
-            "survey_metadata": {"survey_id": self.schema.json["survey_id"]},
         }
 
         if self.metadata.survey_metadata:
-            payload["survey_metadata"] |= self.metadata.survey_metadata.data
+            payload["survey_metadata"] = self.metadata.survey_metadata
 
-        optional_properties = converter_v2.get_optional_payload_properties(self.metadata, self.response_metadata)
+        if self.metadata.schema:
+            payload["schema"] = self.metadata.schema.to_dict()
+            payload["period_id"] = CENSUS_PERIOD_ID
+
+        optional_properties = converter.get_optional_payload_properties(self.metadata, self.response_metadata)
 
         payload["data"] = {
             "feedback_text": self.feedback_text,

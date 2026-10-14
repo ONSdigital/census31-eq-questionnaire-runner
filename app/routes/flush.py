@@ -1,5 +1,5 @@
 from datetime import datetime, timezone
-from typing import Iterable, TypeAlias
+from typing import TypeAlias
 
 from flask import Blueprint, Response, current_app, request, session
 from sdc.crypto.decrypter import decrypt
@@ -9,15 +9,12 @@ from structlog import contextvars, get_logger
 
 from app.authentication.user import User
 from app.authentication.user_id_generator import UserIDGenerator
-from app.data_models import QuestionnaireStore
 from app.data_models.metadata_proxy import MetadataProxy
 from app.globals import get_metadata, get_questionnaire_store
 from app.keys import KEY_PURPOSE_AUTHENTICATION, KEY_PURPOSE_SUBMISSION
-from app.questionnaire import QuestionnaireSchema
 from app.questionnaire.router import Router
-from app.questionnaire.routing_path import RoutingPath
 from app.submitter import GCSSubmitter, LogSubmitter
-from app.submitter.converter_v2 import convert_answers_v2
+from app.submitter.converter import convert_answers
 from app.submitter.submission_failed import SubmissionFailedException
 from app.utilities.bind_context import bind_contextvars_schema_from_metadata
 from app.utilities.json import json_dumps
@@ -83,16 +80,18 @@ def _submit_data(user: User) -> bool:
         )
         full_routing_path = router.full_routing_path()
 
-        message: str = _get_converted_answers_message(
-            full_routing_path=full_routing_path,
-            questionnaire_store=questionnaire_store,
-            schema=schema,
-            submitted_at=submitted_at,
+        message: str = json_dumps(
+            convert_answers(
+                schema=schema,
+                questionnaire_store=questionnaire_store,
+                full_routing_path=full_routing_path,
+                submitted_at=submitted_at,
+                flushed=True,
+            )
         )
 
         encrypted_message = encrypt(message, _get_keystore(), KEY_PURPOSE_SUBMISSION)
-
-        additional_metadata = get_receipting_metadata(metadata)
+        receipting_metadata = get_receipting_metadata(metadata)
 
         # Type ignore: Instance attribute 'eq' is a dict with key "submitter"
         # with value of type GCSSubmitter or LogSubmitter
@@ -101,8 +100,7 @@ def _submit_data(user: User) -> bool:
         sent = submitter.send_message(
             encrypted_message,
             tx_id=metadata.tx_id,
-            case_id=metadata.case_id,
-            **additional_metadata,
+            receipting_metadata=receipting_metadata,
         )
 
         if not sent:
@@ -114,29 +112,6 @@ def _submit_data(user: User) -> bool:
 
     logger.info("no answers found to flush")
     return False
-
-
-def _get_converted_answers_message(
-    full_routing_path: Iterable[RoutingPath],
-    questionnaire_store: QuestionnaireStore,
-    schema: QuestionnaireSchema,
-    submitted_at: datetime,
-) -> str:
-    """
-    This gets converted answer message based on the selected version, currently
-    only v2 is supported so `app.submitter.converter_v2.convert_answers_v2` is used.
-    Returns:
-        object: str
-    """
-    return json_dumps(
-        convert_answers_v2(
-            schema=schema,
-            questionnaire_store=questionnaire_store,
-            full_routing_path=full_routing_path,
-            submitted_at=submitted_at,
-            flushed=True,
-        )
-    )
 
 
 def _get_user(response_id: str) -> User:

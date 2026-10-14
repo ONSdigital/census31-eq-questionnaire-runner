@@ -4,13 +4,13 @@ from tests.integration.integration_test_case import IntegrationTestCase
 class TestQuestionnairePageTitles(IntegrationTestCase):
     def test_introduction_has_introduction_in_page_title(self):
         # Given, When
-        self.launchSurveyV2(schema_name="test_submit_with_custom_submission_text")
+        self.launchSurvey(schema_name="test_submit_with_custom_submission_text")
         # Then
         self.assertEqualPageTitle("Introduction - Test Submit with Custom Submission Text")
 
     def test_should_have_question_in_page_title_when_loading_questionnaire(self):
         # Given
-        self.launchSurveyV2(schema_name="test_submit_with_custom_submission_text")
+        self.launchSurvey(schema_name="test_submit_with_custom_submission_text")
         # When
         self.post(action="start_questionnaire")
         # Then
@@ -18,7 +18,7 @@ class TestQuestionnairePageTitles(IntegrationTestCase):
 
     def test_should_have_question_in_page_title_on_submit_page(self):
         # Given
-        self.launchSurveyV2(schema_name="test_submit_with_custom_submission_text")
+        self.launchSurvey(schema_name="test_submit_with_custom_submission_text")
         # When
         self.post(action="start_questionnaire")
         self.post({"breakfast-answer": ""})
@@ -27,7 +27,7 @@ class TestQuestionnairePageTitles(IntegrationTestCase):
 
     def test_should_have_question_in_page_title_on_submit_page_with_summary(self):
         # Given
-        self.launchSurveyV2(schema_name="test_percentage")
+        self.launchSurvey(schema_name="test_percentage")
         # When
         self.post({"answer": ""})
         self.post({"answer-decimal": ""})
@@ -36,7 +36,7 @@ class TestQuestionnairePageTitles(IntegrationTestCase):
 
     def test_should_have_survey_in_page_title_on_thank_you(self):
         # Given
-        self.launchSurveyV2(schema_name="test_submit_with_custom_submission_text")
+        self.launchSurvey(schema_name="test_submit_with_custom_submission_text")
         self.post(action="start_questionnaire")
         self.post({"breakfast-answer": ""})
         # When submit
@@ -46,7 +46,7 @@ class TestQuestionnairePageTitles(IntegrationTestCase):
 
     def test_session_timed_out_page_title(self):
         # Given
-        self.launchSurveyV2(schema_name="test_submit_with_custom_submission_text")
+        self.launchSurvey(schema_name="test_submit_with_custom_submission_text")
         # When
         self.get("/session-expired")
         # Then
@@ -54,7 +54,7 @@ class TestQuestionnairePageTitles(IntegrationTestCase):
 
     def test_should_have_content_title_in_page_title_on_interstitial(self):
         # Given
-        self.launchSurveyV2(schema_name="test_interstitial_page")
+        self.launchSurvey(schema_name="test_interstitial_page")
         self.post(action="start_questionnaire")
         # When
         self.post({"favourite-breakfast": ""})
@@ -63,21 +63,21 @@ class TestQuestionnairePageTitles(IntegrationTestCase):
 
     def test_html_stripped_from_page_titles(self):
         # Given
-        self.launchSurveyV2(schema_name="test_markup")
+        self.launchSurvey(schema_name="test_markup")
         # When
         # Then
         self.assertEqualPageTitle("This is a title with emphasis - Test Markup")
 
     def test_should_have_question_title_in_page_title_on_question(self):
         # Given
-        self.launchSurveyV2(schema_name="test_checkbox")
+        self.launchSurvey(schema_name="test_checkbox")
         # When
         # Then
         self.assertEqualPageTitle("Which pizza toppings would you like? - Test Checkbox")
 
     def test_should_not_use_names_in_question_page_titles(self):
         # Given
-        self.launchSurveyV2(
+        self.launchSurvey(
             schema_name="test_placeholder_full",
             display_address="68 Abingdon Road, Goathill",
         )
@@ -90,14 +90,14 @@ class TestQuestionnairePageTitles(IntegrationTestCase):
         self,
     ):
         # Given
-        self.launchSurveyV2(schema_name="test_interstitial_page_title")
+        self.launchSurvey(schema_name="test_interstitial_page_title")
         # When
         # Then
         self.assertEqualPageTitle("Your RU name: … - Test Interstitial Page Title")
 
     def test_should_have_error_in_page_title_when_fail_validation(self):
         # Given
-        self.launchSurveyV2(schema_name="test_checkbox")
+        self.launchSurvey(schema_name="test_checkbox")
         # When
         self.post()
         # Then

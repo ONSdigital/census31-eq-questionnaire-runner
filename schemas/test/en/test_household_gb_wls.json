@@ -1,0 +1,80 @@
+{
+    "mime_type": "application/json/ons/eq",
+    "language": "en",
+    "schema_version": "0.0.1",
+    "data_version": "0.0.3",
+    "survey_id": "999",
+    "title": "Test Census Launch",
+    "theme": "census",
+    "description": "A questionnaire to test the census launch claims",
+    "metadata": [
+        {
+            "name": "case_type",
+            "type": "string"
+        },
+        {
+            "name": "display_address",
+            "type": "string"
+        },
+        {
+            "name": "ru_ref",
+            "type": "string"
+        },
+        {
+            "name": "questionnaire_id",
+            "type": "string"
+        },
+        {
+            "name": "user_id",
+            "type": "string",
+            "optional": true
+        }
+    ],
+    "questionnaire_flow": {
+        "type": "Linear",
+        "options": {}
+    },
+    "sections": [
+        {
+            "id": "section",
+            "groups": [
+                {
+                    "blocks": [
+                        {
+                            "type": "Question",
+                            "id": "radio",
+                            "question": {
+                                "answers": [
+                                    {
+                                        "id": "radio-answer",
+                                        "mandatory": false,
+                                        "options": [
+                                            {
+                                                "label": "Bacon",
+                                                "value": "Bacon"
+                                            },
+                                            {
+                                                "label": "Eggs",
+                                                "value": "Eggs"
+                                            },
+                                            {
+                                                "label": "Sausage",
+                                                "value": "Sausage"
+                                            }
+                                        ],
+                                        "type": "Radio"
+                                    }
+                                ],
+                                "id": "radio-question",
+                                "title": "What is your favourite breakfast food?",
+                                "type": "General"
+                            }
+                        }
+                    ],
+                    "id": "group",
+                    "title": "Census Launch Test"
+                }
+            ]
+        }
+    ]
+}

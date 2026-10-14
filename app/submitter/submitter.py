@@ -7,24 +7,18 @@ from structlog import get_logger
 
 logger = get_logger()
 
-MetadataType = Mapping[str, str]
+ReceiptingMetadataType = Mapping[str, str]
 
 
 class LogSubmitter:
     @staticmethod
-    def send_message(
-        message: str,
-        tx_id: str,
-        case_id: str,
-        **kwargs: Mapping[str, str | int],
-    ) -> bool:
+    def send_message(message: str, tx_id: str, receipting_metadata: ReceiptingMetadataType) -> bool:
         logger.info("sending message")
         logger.info(
             "message payload",
             message=message,
-            case_id=case_id,
             tx_id=tx_id,
-            **kwargs,
+            receipting_metadata=receipting_metadata,
         )
 
         return True
@@ -35,20 +29,11 @@ class GCSSubmitter:
         client = storage.Client()
         self.bucket = client.get_bucket(bucket_name)
 
-    def send_message(
-        self,
-        message: str,
-        tx_id: str,
-        case_id: str,
-        **kwargs: dict,
-    ) -> bool:
+    def send_message(self, message: str, tx_id: str, receipting_metadata: ReceiptingMetadataType) -> bool:
         logger.info("sending message")
 
         blob = self.bucket.blob(tx_id)
-
-        metadata: dict = {"tx_id": tx_id, "case_id": case_id, **kwargs}
-
-        blob.metadata = metadata
+        blob.metadata = receipting_metadata
 
         try:
             blob.upload_from_string(str(message).encode("utf8"))
@@ -70,9 +55,9 @@ class GCSFeedbackSubmitter:
         client = storage.Client()
         self.bucket = client.get_bucket(bucket_name)
 
-    def upload(self, metadata: MetadataType, payload: str) -> bool:
+    def upload(self, payload: str, receipting_metadata: ReceiptingMetadataType) -> bool:
         blob = self.bucket.blob(str(uuid4()))
-        blob.metadata = metadata
+        blob.metadata = receipting_metadata
 
         blob.upload_from_string(payload.encode("utf8"))
 
@@ -81,12 +66,12 @@ class GCSFeedbackSubmitter:
 
 class LogFeedbackSubmitter:
     @staticmethod
-    def upload(metadata: MetadataType, payload: str) -> bool:
+    def upload(payload: str, metadata: ReceiptingMetadataType) -> bool:
         logger.info("uploading feedback")
         logger.info(
             "feedback message",
-            metadata=metadata,
             payload=payload,
+            receipting_metadata=metadata,
         )
 
         return True

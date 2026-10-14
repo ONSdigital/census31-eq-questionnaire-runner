@@ -10,7 +10,7 @@ class TestYearDateSingleCheckboxOverride(IntegrationTestCase):
 
     def setUp(self):
         super().setUp()
-        self.launchSurveyV2(schema_name="test_mutually_exclusive")
+        self.launchSurvey(schema_name="test_mutually_exclusive")
         self.get(MUTUALLY_EXCLUSIVE_YEAR_DATE)
 
     def test_non_exclusive_answer(self):
