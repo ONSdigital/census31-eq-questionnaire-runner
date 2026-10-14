@@ -8,7 +8,6 @@ from app.data_models.data_stores import DataStores
 from app.data_models.list_store import ListStore
 from app.data_models.metadata_proxy import MetadataProxy
 from app.data_models.progress_store import ProgressStore
-from app.questionnaire.rules.utils import parse_iso_8601_datetime
 from app.utilities.json import json_dumps, json_loads
 
 if TYPE_CHECKING:
@@ -82,10 +81,8 @@ class QuestionnaireStore:
     def save(self) -> None:
         data = self.serialize()
         collection_exercise_sid = self.collection_exercise_sid or self._metadata["collection_exercise_sid"]
-        response_expires_at = self._metadata["response_expires_at"]
         self._storage.save(
             data=data,
             collection_exercise_sid=collection_exercise_sid,
             submitted_at=self.submitted_at,
-            expires_at=parse_iso_8601_datetime(response_expires_at),
         )

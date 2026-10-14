@@ -1,12 +1,20 @@
 import functools
-from datetime import datetime, timezone
 from typing import Any, Callable, Iterable, Mapping, MutableMapping
 
-from marshmallow import EXCLUDE, INCLUDE, Schema, ValidationError, fields, pre_load, validate, validates_schema
+from marshmallow import (
+    EXCLUDE,
+    INCLUDE,
+    Schema,
+    ValidationError,
+    fields,
+    post_load,
+    pre_load,
+    validate,
+    validates_schema,
+)
 from structlog import get_logger
 
 from app.authentication.auth_payload_versions import AuthPayloadVersion
-from app.questionnaire.rules.utils import parse_iso_8601_datetime
 from app.utilities.metadata_validators import DateString, RegionCode, UUIDString
 
 logger = get_logger()
@@ -17,7 +25,12 @@ VALIDATORS: Mapping[str, Callable] = {
     "boolean": functools.partial(fields.Boolean, required=True),
     "string": functools.partial(fields.String, required=True),
     "url": functools.partial(fields.Url, required=True),
-    "iso_8601_date_string": functools.partial(DateString, format="iso8601", required=True),
+}
+
+CENSUS_FORM_TYPES = {
+    "H": "household",
+    "I": "individual",
+    "C": "communal_establishment",
 }
 
 
@@ -34,66 +47,64 @@ class Data(Schema, StripWhitespaceMixin):
     pass
 
 
-class SurveyMetadata(Schema, StripWhitespaceMixin):
-    data = fields.Nested(Data, unknown=INCLUDE, validate=validate.Length(min=1))
-    receipting_keys = fields.List(fields.String)
-
-    @validates_schema
-    def validate_receipting_keys(self, data: Mapping, **kwargs: Any) -> None:
-        if data and (receipting_keys := data.get("receipting_keys", {})):
-            missing_receipting_keys = [
-                receipting_key for receipting_key in receipting_keys if receipting_key not in data.get("data", {})
-            ]
-
-            if missing_receipting_keys:
-                receipting_keys_error_message = f"Receipting keys: {missing_receipting_keys} not set in Survey Metadata"
-                raise ValidationError(receipting_keys_error_message)
-
-
-def validate_response_expires_at(expires_at: str) -> None:
-    if parse_iso_8601_datetime(expires_at) < datetime.now(tz=timezone.utc):
-        error_message = f"Response expires at: {expires_at} is not valid, must be in the future"
-        raise ValidationError(error_message)
+class SchemaSelector(Schema, StripWhitespaceMixin):
+    survey = fields.String(required=True)
+    form_type = fields.String(required=True, validate=validate.OneOf(["H", "I", "C"]))
+    region_code = fields.String(required=True, validate=RegionCode())
 
 
 class RunnerMetadataSchema(Schema, StripWhitespaceMixin):
     """Metadata which is required for the operation of runner itself"""
 
-    METADATA_OPTION_ERROR_MESSAGE = "Neither schema_name or schema_url has been set in metadata"
+    METADATA_OPTION_ERROR_MESSAGE = "None of schema_name, schema_url or schema have been set in metadata"
 
-    jti = VALIDATORS["uuid"]()
-    tx_id = VALIDATORS["uuid"]()
-    case_id = VALIDATORS["uuid"]()
-    collection_exercise_sid = VALIDATORS["string"](validate=validate.Length(min=1))
-    version = VALIDATORS["string"](required=True, validate=validate.OneOf([AuthPayloadVersion.V2.value]))
-    schema_name = VALIDATORS["string"](required=False)
-    schema_url = VALIDATORS["url"](required=False)
-    response_id = VALIDATORS["string"](required=True)
-    account_service_url = VALIDATORS["url"](required=True)
-
-    language_code = VALIDATORS["string"](required=False)
-    channel = VALIDATORS["string"](required=False, validate=validate.Length(min=1))
-    response_expires_at = VALIDATORS["iso_8601_date_string"](
-        required=True,
-        validate=validate_response_expires_at,
-    )
-    region_code = VALIDATORS["string"](required=False, validate=RegionCode())
-
+    jti = UUIDString(required=True)
+    tx_id = UUIDString(required=True)
+    case_id = UUIDString(required=True)
+    collection_exercise_sid = fields.String(required=True, validate=validate.Length(min=1))
+    version = fields.String(required=True, validate=validate.OneOf([AuthPayloadVersion.V2.value]))
+    response_id = fields.String(required=True)
+    account_service_url = fields.Url(required=True)
+    channel = fields.String(required=False, validate=validate.Length(min=1))
+    language_code = fields.String(required=False)
     roles = fields.List(fields.String(), required=False)
-    survey_metadata = fields.Nested(SurveyMetadata, required=False)
+
+    schema_name = fields.String(required=False)
+    schema_url = fields.Url(required=False)
+    schema = fields.Nested(SchemaSelector, required=False)
+
+    survey_metadata = fields.Nested(Data, unknown=INCLUDE, validate=validate.Length(min=1))
 
     @validates_schema
     def validate_schema_options(self, data: Mapping, **kwargs: Any) -> None:
         if data:
-            options = [option for option in ["schema_name", "schema_url"] if data.get(option)]
+            options = [option for option in ["schema_name", "schema_url", "schema"] if data.get(option)]
             if len(options) == 0:
                 raise ValidationError(self.METADATA_OPTION_ERROR_MESSAGE)
             if len(options) > 1:
                 metadata_combination_error_message = (
-                    "Only one of schema_name or schema_url should be specified "
+                    "Only one of schema_name, schema_url or schema should be specified "
                     f"in metadata, but {', '.join(options)} were provided"
                 )
                 raise ValidationError(metadata_combination_error_message)
+
+    @post_load
+    def resolve_schema_name(self, data: MutableMapping, **kwargs: Any) -> Mapping:
+        """Transform schema parameters into schema_name"""
+        schema_selector = data.get("schema")
+        if schema_selector:
+            data["schema_name"] = _get_schema_name_from_census_params(
+                schema_selector.get("survey"), schema_selector.get("form_type"), schema_selector.get("region_code")
+            )
+        return data
+
+
+def _get_schema_name_from_census_params(survey: str, form_type: str, region_code: str) -> str:
+    form_type_transformed = CENSUS_FORM_TYPES.get(form_type, "")
+    region_code_transformed = region_code.lower().replace("-", "_")
+    survey_transformed = survey.lower()
+
+    return f"{survey_transformed}_{form_type_transformed}_{region_code_transformed}"
 
 
 def validate_questionnaire_claims(
@@ -133,7 +144,7 @@ def validate_questionnaire_claims(
     return questionnaire_metadata_schema.load(claims)  # type: ignore
 
 
-def validate_runner_claims_v2(claims: Mapping) -> dict:
+def validate_runner_claims(claims: Mapping) -> dict:
     """Validate claims required for runner to function"""
     runner_metadata_schema = RunnerMetadataSchema(unknown=EXCLUDE)
     # Type ignore: the load method in the Marshmallow parent schema class doesn't have type hints for return
