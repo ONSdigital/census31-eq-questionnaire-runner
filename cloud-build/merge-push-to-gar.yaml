@@ -5,13 +5,13 @@ steps:
     args:
       - buildx
       - build
-      - "--platform=${_PLATFORM}"
-      - "--push"
-      - "-t"
-      - "europe-west2-docker.pkg.dev/${_PROJECT_ID}/images/census31-eq-questionnaire-runner:${SHORT_SHA}"
-      - "-t"
-      - "europe-west2-docker.pkg.dev/${_PROJECT_ID}/images/census31-eq-questionnaire-runner:latest"
-      - "."
+      - '--platform=${_PLATFORM}'
+      - '--push'
+      - '-t'
+      - 'europe-west2-docker.pkg.dev/${_PROJECT_ID}/images/census31-eq-questionnaire-runner:${SHORT_SHA}'
+      - '-t'
+      - 'europe-west2-docker.pkg.dev/${_PROJECT_ID}/images/census31-eq-questionnaire-runner:latest'
+      - '.'
 
   - id: create-and-deploy-runner-release
     name: gcr.io/google.com/cloudsdktool/google-cloud-cli:stable
@@ -20,17 +20,18 @@ steps:
       - deploy
       - releases
       - create
-      - "rel-${BUILD_ID}"
-      - "--delivery-pipeline=${_DELIVERY_PIPELINE}"
-      - "--region=${_REGION}"
-      - "--source=."
-      - "--images=runner-image=europe-west2-docker.pkg.dev/${_PROJECT_ID}/images/census31-eq-questionnaire-runner:${SHORT_SHA}"
-      - "--to-target=${_TARGET}"
+      - 'rel-${BUILD_ID}'
+      - '--delivery-pipeline=${_DELIVERY_PIPELINE}'
+      - '--region=${_REGION}'
+      - '--source=.'
+      - '--images=runner-image=europe-west2-docker.pkg.dev/${_PROJECT_ID}/images/census31-eq-questionnaire-runner:${SHORT_SHA}'
+      - '--to-target=${_TARGET}'
     wait_for:
       - docker-build-eq-runner
 
 substitutions:
-  _PLATFORM: "linux/amd64"
+  _PLATFORM: linux/amd64
 
 options:
   logging: CLOUD_LOGGING_ONLY
+
