@@ -1,0 +1,47 @@
+name: Release
+
+on:
+  release:
+    types: [published]
+
+concurrency:
+  group: "release-${{ github.event.release.tag_name }}"
+  cancel-in-progress: true
+
+permissions: {}
+
+jobs:
+  docker-push:
+    permissions:
+      contents: "read"
+      id-token: "write"
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.event.release.tag_name }}
+          persist-credentials: false
+      - id: auth
+        name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@7c6bc770dae815cd3e89ee6cdf493a5fab2cc093 # v3.0.0
+        with:
+          token_format: "access_token"
+          workload_identity_provider: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ secrets.SERVICE_ACCOUNT }}
+      - name: Login to GAR
+        uses: docker/login-action@dbcb813823bdd20940b903addbd779551569679f # v4.6.0
+        with:
+          registry: ${{ secrets.GAR_LOCATION }}
+          username: oauth2accesstoken
+          password: ${{ steps.auth.outputs.access_token }}
+      - name: Write app version
+        run: printf '%s' "$GITHUB_SHA" > .application-version
+      - name: Build and push runner image
+        env:
+          GAR_LOCATION: ${{ secrets.GAR_LOCATION }}
+          GAR_PROJECT_ID: ${{ secrets.GAR_PROJECT_ID }}
+          RELEASE_TAG: ${{ github.event.release.tag_name }}
+        run: |
+          IMAGE="$GAR_LOCATION/$GAR_PROJECT_ID/docker-images/census31-eq-questionnaire-runner:$RELEASE_TAG"
+          docker build -t "$IMAGE" .
+          docker push "$IMAGE"

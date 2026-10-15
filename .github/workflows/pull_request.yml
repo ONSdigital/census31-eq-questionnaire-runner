@@ -81,6 +81,7 @@ jobs:
         run: ln -sf .development.env .env
       - name: Running unit tests
         run: make test-unit
+
   validate-schemas:
     permissions:
       contents: "read"
