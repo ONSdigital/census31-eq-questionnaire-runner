@@ -10,8 +10,8 @@ spec:
   template:
     metadata:
       annotations:
-        autoscaling.knative.dev/minScale: "" # from-param: ${min_instances}
-        autoscaling.knative.dev/maxScale: "" # from-param: ${max_instances}
+        autoscaling.knative.dev/minScale: "1" # from-param: ${min_instances}
+        autoscaling.knative.dev/maxScale: "1" # from-param: ${max_instances}
         run.googleapis.com/cpu-throttling: "true"
         run.googleapis.com/network-interfaces: '[{"network":"eq","subnetwork":"eq"}]'
         run.googleapis.com/vpc-access-egress: all-traffic
@@ -22,14 +22,124 @@ spec:
         - image: runner-image
           ports:
             - name: http1
-              containerPort: 8000
+              containerPort: 5000
+          startupProbe:
+            httpGet:
+              path: /status
+              port: 5000
+            periodSeconds: 10
+            failureThreshold: 5
+            initialDelaySeconds: 10
+            timeoutSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /status
+              port: 5000
+            periodSeconds: 10
+            failureThreshold: 5
+            initialDelaySeconds: 10
+            timeoutSeconds: 10
           resources:
             limits:
-              cpu: "" # from-param: ${cpu}
-              memory: "" # from-param: ${memory}
+              cpu: "4" # from-param: ${cpu}
+              memory: "4G" # from-param: ${memory}
           env:
-            - name: SURVEY_RUNNER_URL
-              value: "" # from-param: ${runner_url}
+            - name: ADDRESS_LOOKUP_API_AUTH_ENABLED
+              value: "False" # from-param: ${address_lookup_api_auth_enabled}
+            - name: ADDRESS_LOOKUP_API_AUTH_TOKEN_LEEWAY_IN_SECONDS
+              value: "10" # from-param: ${address_lookup_api_auth_token_leeway_in_seconds}
+            - name: ADDRESS_LOOKUP_API_URL
+              value: "" # from-param: ${address_lookup_api_url}
+            - name: ACCOUNT_SERVICE_BASE_URL
+              value: "https://start.census.gov.uk" # from-param: ${account_service_base_url}
+            - name: CDN_ASSETS_PATH
+              value: "/design-system" # from-param: ${cdn_assets_path}
+            - name: CDN_URL
+              value: "https://cdn.eq.gcp.onsdigital.uk" # from-param: ${cdn_url}
+            - name: CONFIRMATION_EMAIL_LIMIT
+              value: "10" # from-param: ${confirmation_email_limit}
+            - name: DATASTORE_USE_GRPC
+              value: "True" # from-param: ${datastore_use_grpc}
+            - name: EQ_ENABLE_HTML_MINIFY
+              value: "False" # from-param: ${eq_enable_html_minify}
+            - name: EQ_ENABLE_SECURE_SESSION_COOKIE
+              value: "True" # from-param: ${eq_enable_secure_session_cookie}
+            - name: EQ_FEEDBACK_BACKEND
+              value: "gcs" # from-param: ${eq_feedback_backend}
+            - name: EQ_FEEDBACK_LIMIT
+              value: "10" # from-param: ${eq_feedback_limit}
+            - name: EQ_FULFILMENT_TOPIC_ID
+              value: "eq-fulfilment-topic" # from-param: ${eq_fulfilment_topic_id}
+            - name: EQ_GCS_FEEDBACK_BUCKET_ID
+              value: "" # from-param: ${eq_gcs_feedback_bucket_id}
+            - name: EQ_GCS_SUBMISSION_BUCKET_ID
+              value: "" # from-param: ${eq_gcs_submission_bucket_id}
+            - name: EQ_INDIVIDUAL_RESPONSE_LIMIT
+              value: "75" # from-param: ${eq_individual_response_limit}
+            - name: EQ_INDIVIDUAL_RESPONSE_POSTAL_DEADLINE
+              value: "2027-04-28T02:00:00+00:00" # from-param: ${eq_individual_response_postal_deadline}
+            - name: EQ_KEYS_FILE
+              value: "/keys/keys.yml" # from-param: ${eq_keys_file_path}/${eq_keys_file}
+            - name: EQ_PUBLISHER_BACKEND
+              value: "pubsub" # from-param: ${eq_publisher_backend}
+            - name: EQ_QUESTIONNAIRE_STATE_TABLE_NAME
+              value: "questionnaire-state" # from-param: ${eq_questionnaire_state_table_name}
+            - name: EQ_REDIS_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: redis-host
+                  key: latest
+            - name: EQ_REDIS_PORT
+              valueFrom:
+                secretKeyRef:
+                  name: redis-port
+                  key: latest
+            - name: EQ_SECRETS_FILE
+              value: "/secrets/secrets.yml" # from-param: ${eq_secrets_file_path}/${eq_secrets_file}
+            - name: EQ_SESSION_TABLE_NAME
+              value: "eq-session" # from-param: ${eq_session_table_name}
+            - name: EQ_STORAGE_BACKEND
+              value: "datastore" # from-param: ${eq_storage_backend}
+            - name: EQ_SUBMISSION_BACKEND
+              value: "gcs" # from-param: ${eq_submission_backend}
+            - name: EQ_SUBMISSION_CONFIRMATION_BACKEND
+              value: "cloud-tasks" # from-param: ${eq_submission_confirmation_backend}
+            - name: EQ_SUBMISSION_CONFIRMATION_QUEUE
+              value: "eq-submission-confirmation" # from-param: ${eq_submission_confirmation_queue}
+            - name: EQ_USED_JTI_CLAIM_TABLE_NAME
+              value: "used-jti-claim" # from-param: ${eq_used_jti_claim_table_name}
+            - name: EQ_GOOGLE_TAG_ID
+              value: "" # from-param: ${google_tag_id}
+            - name: HTTP_KEEP_ALIVE
+              value: "650" # from-param: ${http_keep_alive}
+            - name: VIEW_SUBMITTED_RESPONSE_EXPIRATION_IN_SECONDS
+              value: "2700" # from-param: ${view_submitted_response_expiration_in_seconds}
+            - name: WEB_SERVER_THREADS
+              value: "10" # from-param: ${web_server_threads}
+            - name: WEB_SERVER_TYPE
+              value: "gunicorn-threads" # from-param: ${web_server_type}
+            - name: WEB_SERVER_WORKERS
+              value: "7" # from-param: ${web_server_workers}
+          volumeMounts:
+            - name: keys
+              mountPath: "/keys" # from-param: ${eq_keys_file_path}
+            - name: secrets
+              mountPath: "/secrets" # from-param: ${eq_secrets_file_path}
+
+      volumes:
+        - name: keys
+          secret:
+            secretName: keys
+            items:
+              - key: latest
+                path: "keys" # from-param: ${eq_keys_file}
+        - name: secrets
+          secret:
+            secretName: secrets
+            items:
+              - key: latest
+                path: "secrets" # from-param: ${eq_secrets_file}
+
   traffic:
     - percent: 100
       latestRevision: true
