@@ -1,0 +1,12 @@
+apiVersion: skaffold/v4beta7
+kind: Config
+metadata:
+  name: census31-eq-questionnaire-runner
+build:
+  artifacts:
+    - image: runner-image
+manifests:
+  rawYaml:
+    - deploy/service.yaml
+deploy:
+  cloudrun: {}

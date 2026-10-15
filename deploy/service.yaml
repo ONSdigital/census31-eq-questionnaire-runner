@@ -1,0 +1,35 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: census31-eq-questionnaire-runner
+  annotations:
+    checkov.io/skip1: CKV_K8S_21=Cloud Run services do not use Kubernetes namespaces
+    run.googleapis.com/ingress: internal-and-cloud-load-balancing
+    run.googleapis.com/invoker-iam-disabled: "true"
+spec:
+  template:
+    metadata:
+      annotations:
+        autoscaling.knative.dev/minScale: "" # from-param: ${min_instances}
+        autoscaling.knative.dev/maxScale: "" # from-param: ${max_instances}
+        run.googleapis.com/cpu-throttling: "true"
+        run.googleapis.com/network-interfaces: '[{"network":"eq","subnetwork":"eq"}]'
+        run.googleapis.com/vpc-access-egress: all-traffic
+    spec:
+      serviceAccountName: "" # from-param: ${service_account}
+      containerConcurrency: 250 # from-param: ${concurrency}
+      containers:
+        - image: runner-image
+          ports:
+            - name: http1
+              containerPort: 8000
+          resources:
+            limits:
+              cpu: "" # from-param: ${cpu}
+              memory: "" # from-param: ${memory}
+          env:
+            - name: SURVEY_RUNNER_URL
+              value: "" # from-param: ${runner_url}
+  traffic:
+    - percent: 100
+      latestRevision: true
