@@ -42,6 +42,6 @@ jobs:
           GAR_PROJECT_ID: ${{ secrets.GAR_PROJECT_ID }}
           RELEASE_TAG: ${{ github.event.release.tag_name }}
         run: |
-          IMAGE="$GAR_LOCATION/$GAR_PROJECT_ID/docker-images/census31-eq-questionnaire-runner:$RELEASE_TAG"
+          IMAGE="$GAR_LOCATION/$GAR_PROJECT_ID/images/census31-eq-questionnaire-runner:$RELEASE_TAG"
           docker build -t "$IMAGE" .
           docker push "$IMAGE"
