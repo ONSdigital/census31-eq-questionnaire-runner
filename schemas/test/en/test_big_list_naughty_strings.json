@@ -3092,6 +3092,6 @@
     "data_version": "0.0.3",
     "theme": "default",
     "language": "en",
-    "schema_version": "0.0.1",
+    "is_test_schema": true,
     "survey_id": "999"
 }
