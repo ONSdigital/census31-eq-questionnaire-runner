@@ -132,13 +132,13 @@ spec:
             secretName: keys
             items:
               - key: latest
-                path: "keys" # from-param: ${eq_keys_file}
+                path: "keys.yml" # from-param: ${eq_keys_file}
         - name: secrets
           secret:
             secretName: secrets
             items:
               - key: latest
-                path: "secrets" # from-param: ${eq_secrets_file}
+                path: "secrets.yml" # from-param: ${eq_secrets_file}
 
   traffic:
     - percent: 100
