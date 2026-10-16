@@ -1,3 +1,4 @@
+---
 steps:
   - id: docker-build-eq-runner-release
     name: gcr.io/cloud-builders/docker
