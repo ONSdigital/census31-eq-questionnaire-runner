@@ -189,10 +189,11 @@ test.describe('Language Code', () => {
 
     await hubPage.submit().click()
     await expect(namePage.questionText()).toHaveText('Please enter a name')
-    await expect(page.locator('#census-large-logo-en-alt').first()).toHaveText('Census Test 2027 - Home')
+    await expect(page.locator('.ons-header__title-logo img')).toHaveAttribute('src', /\/images\/census-logo\.svg$/)
     await switchLanguage(page, namePage.switchLanguage('cy'))
     await expect(namePage.questionText()).toHaveText('Rhowch enw')
-    await expect(page.locator('#census-small-logo-cy-alt').first()).toHaveText('Prawf Cyfrifiad 2027 - Hafan')
+    await expect(page.locator('.ons-header__title-logo--large img')).toHaveAttribute('src', /\/images\/census-logo-cy\.svg$/)
+    await expect(page.locator('.ons-header__title-logo--small img')).toHaveAttribute('src', /\/images\/census-logo-cy-small\.svg$/)
     await switchLanguage(page, namePage.switchLanguage('en'))
 
     await namePage.firstName().fill('Catherine')
