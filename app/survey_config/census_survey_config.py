@@ -3,7 +3,7 @@ from typing import Iterable, Mapping, MutableMapping
 
 from flask_babel import lazy_gettext
 
-from app.settings import ACCOUNT_SERVICE_BASE_URL, CDN_CENSUS_ASSETS_PATH, CDN_URL, ONS_URL, ONS_URL_CY, CENSUS_ASSETS_BASE_URL
+from app.settings import ACCOUNT_SERVICE_BASE_URL, ONS_URL, ONS_URL_CY, CENSUS_ASSETS_BASE_URL
 from app.survey_config.link import Link
 from app.survey_config.survey_config import SurveyConfig
 
