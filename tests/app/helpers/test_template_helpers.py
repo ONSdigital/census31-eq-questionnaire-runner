@@ -598,7 +598,7 @@ def test_get_survey_config_base_url_not_provided(app: Flask):
 def test_context_set_from_app_config(app):
     with app.app_context():
         current_app.config["CDN_URL"] = "test-cdn-url"
-        current_app.config["CDN_DS_PATH"] = "/test-assets-path"
+        current_app.config["CDN_DESIGN_SYSTEM_PATH"] = "/test-assets-path"
         current_app.config["ADDRESS_LOOKUP_API_URL"] = "test-address-lookup-api-url"
         current_app.config["EQ_GOOGLE_TAG_ID"] = "test-google-tag-manager-id"
         survey_config = SurveyConfig()
