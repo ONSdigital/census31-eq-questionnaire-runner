@@ -31,6 +31,26 @@ def test_publish(publisher, mocker):
     batch.publish.assert_has_calls([mocker.call(PublishMessageWrapper(PubsubMessage({"data": b"test-message"})))])
 
 
+def test_publish_uses_fully_qualified_topic_path_without_concatenation(publisher, mocker):
+    topic_path = "projects/other-project/topics/test-topic-id"
+
+    future = mocker.sentinel.future
+    future.add_done_callback = mocker.Mock(spec=["__call__"])
+
+    batch = mocker.Mock(spec=publisher._client._batch_class)
+    batch.publish.side_effect = (future,)
+
+    publisher._client._set_batch(topic_path, batch)
+
+    topic_path_builder = mocker.patch.object(publisher._client, "topic_path")
+
+    response = publisher._publish(topic_path, b"test-message")
+
+    assert response is mocker.sentinel.future
+    topic_path_builder.assert_not_called()
+    batch.publish.assert_has_calls([mocker.call(PublishMessageWrapper(PubsubMessage({"data": b"test-message"})))])
+
+
 def test_resolving_message_raises_exception_on_error(publisher):
     mock_future = Mock()
     mock_future.result.side_effect = Exception()
