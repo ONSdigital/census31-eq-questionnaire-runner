@@ -51,6 +51,24 @@ If you need to rebuild the container from scratch to re-load any dependencies th
 RUNNER_ENV_FILE=.development.env docker compose build --no-cache
 ```
 
+## Cloud Run Deployment
+
+The deployment configuration is kept alongside the application so changes to the
+service can be reviewed with the code. [skaffold.yaml](skaffold.yaml) declares
+the `runner-image` artifact and uses [deploy/service.yaml](deploy/service.yaml)
+as the Cloud Run service manifest. The Cloud Build trigger builds and pushes the
+Docker image, then creates a Cloud Deploy release that supplies its image
+reference for `runner-image`.
+
+The service manifest defines ingress, VPC egress, the runtime service account,
+scaling, resource limits, concurrency, port 8000, and `SURVEY_RUNNER_URL`.
+Values marked `from-param` are placeholders filled by Cloud Deploy target
+parameters for the deployment environment; the empty strings in the manifest
+are not runtime defaults.
+
+The `checkov.io/skip1` annotation suppresses `CKV_K8S_21` only for this
+service because Cloud Run does not use Kubernetes namespaces.
+
 ### Debugging
 
 As we use a distroless container for runner there is no shell or basic command line utilities for debugging the running container. If you need to enable this you can build a debug version of the image using the `RUNTIME_BASE_IMAGE_TAG` variable:
@@ -492,7 +510,7 @@ Edit your .development.env with following:
 
 ```text
 CDN_URL=http://localhost:5678
-CDN_ASSETS_PATH=
+CDN_DESIGN_SYSTEM_PATH=
 ```
 
 Edit the Makefile to remove `load-design-system-templates` from the build command. Should now look like this:
