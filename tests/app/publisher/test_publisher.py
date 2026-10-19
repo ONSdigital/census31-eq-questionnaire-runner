@@ -6,6 +6,7 @@ from google.cloud.pubsub_v1.open_telemetry.publish_message_wrapper import Publis
 from google.pubsub_v1.types.pubsub import PubsubMessage
 
 from app.publisher.exceptions import InvalidTopicId, PublicationFailed
+from app.publisher.publisher import PubSubPublisher
 
 
 def test_publish(publisher, mocker):
@@ -29,6 +30,14 @@ def test_publish(publisher, mocker):
 
     # Check mock.
     batch.publish.assert_has_calls([mocker.call(PublishMessageWrapper(PubsubMessage({"data": b"test-message"})))])
+
+
+def test_init_raises_value_error_when_google_auth_default_returns_no_project_id(mocker):
+    mocker.patch("app.publisher.publisher.PublisherClient")
+    mocker.patch("app.publisher.publisher.google.auth.default", return_value=(mocker.Mock(universe_domain="test"), None))
+
+    with pytest.raises(ValueError, match="Google Cloud project ID is required to publish to Pub/Sub topics"):
+        PubSubPublisher()
 
 
 def test_publish_uses_fully_qualified_topic_path_without_concatenation(publisher, mocker):
