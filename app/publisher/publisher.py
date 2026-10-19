@@ -41,7 +41,7 @@ class PubSubPublisher(Publisher):
             return topic_id
 
         if TOPIC_NAME_PATTERN.match(topic_id):
-            f"projects/{self._project_id}/topics/{topic_id}"
+            return f"projects/{self._project_id}/topics/{topic_id}"
 
         error_message = (
             "topic_id must be either a fully qualified Pub/Sub topic path or a lowercase hyphenated topic name"
