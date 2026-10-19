@@ -34,7 +34,9 @@ def test_publish(publisher, mocker):
 
 def test_init_raises_value_error_when_google_auth_default_returns_no_project_id(mocker):
     mocker.patch("app.publisher.publisher.PublisherClient")
-    mocker.patch("app.publisher.publisher.google.auth.default", return_value=(mocker.Mock(universe_domain="test"), None))
+    mocker.patch(
+        "app.publisher.publisher.google.auth.default", return_value=(mocker.Mock(universe_domain="test"), None)
+    )
 
     with pytest.raises(ValueError, match="Google Cloud project ID is required to publish to Pub/Sub topics"):
         PubSubPublisher()
