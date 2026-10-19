@@ -52,10 +52,10 @@ spec:
               value: "" # from-param: ${address_lookup_api_url}
             - name: ACCOUNT_SERVICE_BASE_URL
               value: "https://start.census.gov.uk" # from-param: ${account_service_base_url}
-            - name: CDN_ASSETS_PATH
-              value: "/design-system" # from-param: ${cdn_assets_path}
+            - name: CDN_DESIGN_SYSTEM_PATH
+              value: "/design-system" # from-param: ${cdn_design_system_path}
             - name: CDN_URL
-              value: "https://cdn.eq.gcp.onsdigital.uk" # from-param: ${cdn_url}
+              value: "https://cdn.census.gov.uk" # from-param: ${cdn_url}
             - name: CONFIRMATION_EMAIL_LIMIT
               value: "10" # from-param: ${confirmation_email_limit}
             - name: DATASTORE_USE_GRPC
