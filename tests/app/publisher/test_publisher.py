@@ -5,7 +5,7 @@ import pytest
 from google.cloud.pubsub_v1.open_telemetry.publish_message_wrapper import PublishMessageWrapper
 from google.pubsub_v1.types.pubsub import PubsubMessage
 
-from app.publisher.exceptions import PublicationFailed
+from app.publisher.exceptions import InvalidTopicId, PublicationFailed
 
 
 def test_publish(publisher, mocker):
@@ -49,6 +49,16 @@ def test_publish_uses_fully_qualified_topic_path_without_concatenation(publisher
     assert response is mocker.sentinel.future
     topic_path_builder.assert_not_called()
     batch.publish.assert_has_calls([mocker.call(PublishMessageWrapper(PubsubMessage({"data": b"test-message"})))])
+
+
+def test_get_topic_path_raises_invalid_topic_id_for_invalid_topic_name(publisher):
+    with pytest.raises(InvalidTopicId, match="topic_id must be either"):
+        publisher._get_topic_path("A_BAD-topic-id")
+
+
+def test_publish_raises_invalid_topic_id_for_malformed_fully_qualified_topic_path(publisher):
+    with pytest.raises(InvalidTopicId, match="topic_id must be either"):
+        publisher._publish("projects/test-project/THE_WRONG_KEY/good-topic", b"test-message")
 
 
 def test_resolving_message_raises_exception_on_error(publisher):
