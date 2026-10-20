@@ -1,7 +1,6 @@
 {
     "mime_type": "application/json/ons/eq",
     "language": "en",
-    "is_test_schema": true,
     "data_version": "0.0.3",
     "survey_id": "999",
     "title": "Test Interstitial Definition",
