@@ -31,7 +31,7 @@ steps:
 substitutions:
   _PLATFORM: "linux/amd64"
   _REGION: "europe-west2"
-  _DELIVERY_PIPELINE: "runner-test"
+  _DELIVERY_PIPELINE: "runner-release"
   _TARGET: "runner-test"
 
 options:
