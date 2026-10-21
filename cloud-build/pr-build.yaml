@@ -6,7 +6,7 @@ steps:
     args:
       - -c
       - 'printf "%s" "${SHORT_SHA}" > .application-version'
-      
+
   - id: docker-build-eq-runner
     name: gcr.io/cloud-builders/docker
     args:
