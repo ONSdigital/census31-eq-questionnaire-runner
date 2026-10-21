@@ -159,3 +159,14 @@ def test_survey_metadata_should_be_set_in_payload(fake_questionnaire_schema, que
 
     assert "survey_metadata" in payload
     assert payload["survey_metadata"] == METADATA.survey_metadata
+
+
+def test_schemas_version_should_be_included_if_present_in_schema(fake_questionnaire_schema, fake_questionnaire_without_schemas_version, questionnaire_store):
+
+    payload = convert_answers(fake_questionnaire_schema, questionnaire_store, {}, SUBMITTED_AT)
+    assert "schemas_version" in payload
+    assert payload["schemas_version"] == "1.0.0"
+
+    payload = convert_answers(fake_questionnaire_without_schemas_version, questionnaire_store, {}, SUBMITTED_AT)
+    assert "schemas_version" not in payload
+    
