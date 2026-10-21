@@ -1,0 +1,38 @@
+---
+steps:
+  - id: docker-build-eq-runner-release
+    name: gcr.io/cloud-builders/docker
+    args:
+      - buildx
+      - build
+      - "--platform=${_PLATFORM}"
+      - "--push"
+      - "-t"
+      - "europe-west2-docker.pkg.dev/${_PROJECT_ID}/images/census31-eq-questionnaire-runner:${TAG_NAME}"
+      - "."
+
+  - id: create-and-deploy-runner-release
+    name: gcr.io/google.com/cloudsdktool/google-cloud-cli:stable
+    entrypoint: gcloud
+    args:
+      - deploy
+      - releases
+      - create
+      - "rel-${BUILD_ID}"
+      - "--delivery-pipeline=${_DELIVERY_PIPELINE}"
+      - "--region=${_REGION}"
+      - "--source=."
+      - "--gcs-source-staging-dir=gs://${_PROJECT_ID}-${_REGION}-clouddeploy-artifacts/source"
+      - "--images=runner-image=europe-west2-docker.pkg.dev/${_PROJECT_ID}/images/census31-eq-questionnaire-runner:${TAG_NAME}"
+      - "--to-target=${_TARGET}"
+    wait_for:
+      - docker-build-eq-runner-release
+
+substitutions:
+  _PLATFORM: "linux/amd64"
+  _REGION: "europe-west2"
+  _DELIVERY_PIPELINE: "runner-release"
+  _TARGET: "runner-test"
+
+options:
+  logging: CLOUD_LOGGING_ONLY
