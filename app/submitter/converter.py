@@ -73,7 +73,7 @@ def convert_answers(
     elif metadata.schema_url:
         payload["schema_url"] = metadata.schema_url
 
-    if schemas_version:= schema.json.get("schemas_version"):
+    if schemas_version := schema.json.get("schemas_version"):
         payload["schemas_version"] = schemas_version
 
     if metadata.schema:
