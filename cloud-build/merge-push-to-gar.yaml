@@ -5,7 +5,7 @@ steps:
     entrypoint: bash
     args:
       - -c
-      - 'printf "%s" "${COMMIT_SHA}" > .application-version'
+      - 'printf "%s" "${SHORT_SHA}" > .application-version'
 
   - id: docker-build-eq-runner
     name: gcr.io/cloud-builders/docker
