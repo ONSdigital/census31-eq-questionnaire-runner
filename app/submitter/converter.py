@@ -73,6 +73,9 @@ def convert_answers(
     elif metadata.schema_url:
         payload["schema_url"] = metadata.schema_url
 
+    if schemas_version := schema.json.get("schemas_version"):
+        payload["schemas_version"] = schemas_version
+
     if metadata.schema:
         payload["schema"] = metadata.schema.to_dict()
         payload["period_id"] = CENSUS_PERIOD_ID
