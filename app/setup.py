@@ -384,21 +384,11 @@ def setup_compression(application):
 def add_safe_health_check(application):
     @application.route("/status")
     def safe_health_check():
-        design_system_version = application.config["EQ_DESIGN_SYSTEM_VERSION"]
-        schemas_version = application.config["EQ_SCHEMAS_VERSION"]
         data = {
             "status": "OK",
             "version": application.config["EQ_APPLICATION_VERSION"],
-            "design_system_version": (
-                f"https://github.com/ONSdigital/design-system/releases/tag/{design_system_version}"
-                if design_system_version
-                else None
-            ),
-            "schemas_version": (
-                f"https://github.com/ONSdigital/census31-eq-questionnaire-schemas/releases/tag/{schemas_version}"
-                if schemas_version
-                else None
-            ),
+            "design_system_version": application.config["EQ_DESIGN_SYSTEM_VERSION"],
+            "schemas_version": application.config["EQ_SCHEMAS_VERSION"],
         }
         return json_dumps(data)
 
