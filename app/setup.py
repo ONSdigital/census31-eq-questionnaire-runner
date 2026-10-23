@@ -390,7 +390,7 @@ def add_safe_health_check(application):
             "design_system_version": application.config["EQ_DESIGN_SYSTEM_VERSION"],
             "schemas_version": application.config["EQ_SCHEMAS_VERSION"],
         }
-        return json_dumps(data)
+        return json_dumps(data), {"Content-Type": "application/json"}
 
 
 def get_minimized_asset(filename):
