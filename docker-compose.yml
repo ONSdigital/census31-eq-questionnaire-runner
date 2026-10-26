@@ -21,6 +21,7 @@ services:
       context: ./
       args:
         RUNTIME_BASE_IMAGE_TAG: ${RUNTIME_BASE_IMAGE_TAG:-nonroot}
+        LOAD_RELEASE_PAT: ${LOAD_RELEASE_PAT:-}
     env_file:
       - ${RUNNER_ENV_FILE}
     environment:
