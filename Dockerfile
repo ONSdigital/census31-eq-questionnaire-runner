@@ -1,11 +1,14 @@
 # syntax=docker/dockerfile:1
 
 ARG RUNTIME_BASE_IMAGE_TAG=nonroot
+ARG LOAD_RELEASE_PAT
 
 # ---- Builder stage ----
 # Installs all build tools, Python dependencies, and compiled assets.
 # None of these build-time tools are present in the final image.
 FROM python:3.13-slim-trixie AS builder
+
+ARG LOAD_RELEASE_PAT
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
@@ -26,7 +29,11 @@ RUN pip install --no-cache-dir "poetry==2.4.1" && \
 
 # Copy the rest of the source and build static assets / translations
 COPY . .
-RUN make build
+RUN if [ -n "${LOAD_RELEASE_PAT:-}" ]; then \
+        LOAD_RELEASE_PAT="${LOAD_RELEASE_PAT}" make build; \
+    else \
+        make build; \
+    fi
 
 # Strip cache and unused locales from virtualenv (pycache, .pyc files, unused babel locales)
 RUN find /runner/.venv/lib/python3.13/site-packages -type d -name "__pycache__" -exec rm -rf {} + 2>/dev/null; \
