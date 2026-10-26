@@ -63,6 +63,12 @@ COPY --from=builder /runner/templates ./templates
 COPY --from=builder /runner/schemas ./schemas
 COPY --from=builder /runner/eq_questionnaire_runner ./eq_questionnaire_runner
 
+# Copy files required for the application status
+COPY --from=builder /runner/.application-version ./.application-version
+COPY --from=builder /runner/.design-system-version ./.design-system-version
+COPY --from=builder /runner/.schemas-version ./.schemas-version
+
+
 ENV WEB_SERVER_TYPE=gunicorn-threads
 ENV WEB_SERVER_WORKERS=3
 ENV WEB_SERVER_THREADS=10

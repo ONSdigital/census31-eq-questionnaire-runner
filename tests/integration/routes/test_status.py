@@ -5,4 +5,5 @@ class TestStatus(IntegrationTestCase):
     def test_status_page(self):
         self.get("/status")
         self.assertStatusOK()
+        self.assertEqual(self.last_response.mimetype, "application/json")
         self.assertTrue("version" in self.getResponseData())
