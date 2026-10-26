@@ -1,7 +1,6 @@
 # syntax=docker/dockerfile:1
 
 ARG RUNTIME_BASE_IMAGE_TAG=nonroot
-ARG LOAD_RELEASE_PAT
 
 # ---- Builder stage ----
 # Installs all build tools, Python dependencies, and compiled assets.
