@@ -1,5 +1,12 @@
 ---
 steps:
+  - id: write-app-version
+    name: gcr.io/google.com/cloudsdktool/google-cloud-cli:stable
+    entrypoint: bash
+    args:
+      - -c
+      - 'printf "%s" "${TAG_NAME}" > .application-version'
+
   - id: docker-build-eq-runner-release
     name: gcr.io/cloud-builders/docker
     args:

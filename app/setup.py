@@ -384,8 +384,13 @@ def setup_compression(application):
 def add_safe_health_check(application):
     @application.route("/status")
     def safe_health_check():
-        data = {"status": "OK", "version": application.config["EQ_APPLICATION_VERSION"]}
-        return json_dumps(data)
+        data = {
+            "status": "OK",
+            "version": application.config["EQ_APPLICATION_VERSION"],
+            "design_system_version": application.config["EQ_DESIGN_SYSTEM_VERSION"],
+            "schemas_version": application.config["EQ_SCHEMAS_VERSION"],
+        }
+        return json_dumps(data), {"Content-Type": "application/json"}
 
 
 def get_minimized_asset(filename):
