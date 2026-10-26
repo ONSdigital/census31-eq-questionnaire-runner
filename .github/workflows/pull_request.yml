@@ -12,6 +12,9 @@ concurrency:
 
 permissions: {}
 
+env:
+  LOAD_RELEASE_PAT: ${{ secrets.LOAD_RELEASE_PAT }}
+
 jobs:
   lint:
     permissions:

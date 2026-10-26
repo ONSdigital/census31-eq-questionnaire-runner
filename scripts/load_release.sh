@@ -13,10 +13,10 @@ GITHUB_API_HEADERS=(
     -H "X-GitHub-Api-Version: ${GITHUB_API_VERSION}"
 )
 
-if [ -n "${GITHUB_PAT:-}" ]; then
-    echo "Using provided GITHUB_PAT for authenticated API requests"
+if [ -n "${LOAD_RELEASE_PAT:-}" ]; then
+    echo "Using provided LOAD_RELEASE_PAT for authenticated API requests"
     GITHUB_API_HEADERS+=(
-        -H "Authorization: Bearer ${GITHUB_PAT}"
+        -H "Authorization: Bearer ${LOAD_RELEASE_PAT}"
     )
 fi
 
