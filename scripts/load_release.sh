@@ -14,6 +14,7 @@ GITHUB_API_HEADERS=(
 )
 
 if [ -n "${GITHUB_PAT:-}" ]; then
+    echo "Using provided GITHUB_PAT for authenticated API requests"
     GITHUB_API_HEADERS+=(
         -H "Authorization: Bearer ${GITHUB_PAT}"
     )
