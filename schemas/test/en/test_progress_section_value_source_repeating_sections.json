@@ -1,7 +1,6 @@
 {
     "mime_type": "application/json/ons/eq",
     "language": "en",
-    "schema_version": "0.0.1",
     "survey_id": "999",
     "theme": "default",
     "title": "Test Progress Section Value Source Repeating Sections",
