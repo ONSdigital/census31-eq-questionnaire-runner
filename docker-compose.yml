@@ -21,7 +21,9 @@ services:
       context: ./
       args:
         RUNTIME_BASE_IMAGE_TAG: ${RUNTIME_BASE_IMAGE_TAG:-nonroot}
-        LOAD_RELEASE_PAT: ${LOAD_RELEASE_PAT:-}
+      secrets:
+        - source: LOAD_RELEASE_PAT
+          target: LOAD_RELEASE_PAT
     env_file:
       - ${RUNNER_ENV_FILE}
     environment:
@@ -53,3 +55,7 @@ services:
 networks:
   eq-env:
     driver: bridge
+
+secrets:
+  LOAD_RELEASE_PAT:
+    environment: LOAD_RELEASE_PAT

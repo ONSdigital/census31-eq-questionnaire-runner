@@ -7,8 +7,6 @@ ARG RUNTIME_BASE_IMAGE_TAG=nonroot
 # None of these build-time tools are present in the final image.
 FROM python:3.13-slim-trixie AS builder
 
-ARG LOAD_RELEASE_PAT
-
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
         build-essential=12.12 \
@@ -28,9 +26,12 @@ RUN pip install --no-cache-dir "poetry==2.4.1" && \
 
 # Copy the rest of the source and build static assets / translations
 COPY . .
-RUN if [ -n "${LOAD_RELEASE_PAT:-}" ]; then \
-        LOAD_RELEASE_PAT="${LOAD_RELEASE_PAT}" make build; \
+RUN --mount=type=secret,id=LOAD_RELEASE_PAT,required=false \
+    if [ -s /run/secrets/LOAD_RELEASE_PAT ]; then \
+        echo "Using LOAD_RELEASE_PAT from build secret..."; \
+        LOAD_RELEASE_PAT="$(cat /run/secrets/LOAD_RELEASE_PAT)" make build; \
     else \
+        echo "No LOAD_RELEASE_PAT build secret provided..."; \
         make build; \
     fi
 
