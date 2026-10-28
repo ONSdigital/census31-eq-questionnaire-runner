@@ -25,7 +25,7 @@ def test_publish(publisher, mocker):
     publisher._client._set_batch(topic_path, batch)
 
     # Publish message.
-    future = publisher._publish(topic_id, b"test-message")
+    future = publisher._publish(topic_id, b"test-message", project_id="test-project-id")
     assert future is mocker.sentinel.future
 
     # Check mock.
@@ -42,7 +42,8 @@ def test_init_raises_value_error_when_google_auth_default_returns_no_project_id(
         PubSubPublisher()
 
 
-def test_publish_uses_fully_qualified_topic_path_without_concatenation(publisher, mocker):
+def test_publish_uses_provided_project_id_when_constructing_topic_path(publisher, mocker):
+    topic_id = "test-topic-id"
     topic_path = "projects/other-project/topics/test-topic-id"
 
     future = mocker.sentinel.future
@@ -53,31 +54,31 @@ def test_publish_uses_fully_qualified_topic_path_without_concatenation(publisher
 
     publisher._client._set_batch(topic_path, batch)
 
-    topic_path_builder = mocker.patch.object(publisher._client, "topic_path")
-
-    response = publisher._publish(topic_path, b"test-message")
+    response = publisher._publish(topic_id, b"test-message", project_id="other-project")
 
     assert response is mocker.sentinel.future
-    topic_path_builder.assert_not_called()
     batch.publish.assert_has_calls([mocker.call(PublishMessageWrapper(PubsubMessage({"data": b"test-message"})))])
 
 
 def test_get_topic_path_raises_invalid_topic_id_for_invalid_topic_name(publisher):
-    with pytest.raises(InvalidTopicId, match="topic_id must be either"):
-        publisher._get_topic_path("A_BAD-topic-id")
+    with pytest.raises(InvalidTopicId, match="topic_id must be"):
+        publisher._get_topic_path("A_BAD-topic-id", project_id="test-project-id")
 
 
 def test_publish_raises_invalid_topic_id_for_malformed_fully_qualified_topic_path(publisher):
-    with pytest.raises(InvalidTopicId, match="topic_id must be either"):
-        publisher._publish("projects/test-project/THE_WRONG_KEY/good-topic", b"test-message")
+    with pytest.raises(InvalidTopicId, match="topic_id must be"):
+        publisher._publish(
+            "projects/test-project/THE_WRONG_KEY/good-topic", b"test-message", project_id="test-project-id"
+        )
 
 
 def test_resolving_message_raises_exception_on_error(publisher):
     mock_future = Mock()
     mock_future.result.side_effect = Exception()
 
-    with patch("app.publisher.publisher.PubSubPublisher._publish", return_value=mock_future), pytest.raises(
-        PublicationFailed
+    with (
+        patch("app.publisher.publisher.PubSubPublisher._publish", return_value=mock_future),
+        pytest.raises(PublicationFailed),
     ):
         publisher.publish(
             "test-topic-id",
