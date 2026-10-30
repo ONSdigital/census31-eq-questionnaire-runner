@@ -55,7 +55,8 @@ class PubSubPublisher(Publisher):
         fulfilment_request_transaction_id: str,
         project_id: str | None = None,
     ) -> None:
-        resolved_project_id = project_id or self._project_id
+        # Treat None/empty/whitespace-only project IDs as unset and use the default project.
+        resolved_project_id = (project_id or "").strip() or self._project_id
         response = self._publish(topic_id, message, project_id=resolved_project_id)
         try:
             # Resolve the future
