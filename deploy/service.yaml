@@ -70,6 +70,8 @@ spec:
               value: "10" # from-param: ${eq_feedback_limit}
             - name: EQ_FULFILMENT_TOPIC_ID
               value: "eq-fulfilment-topic" # from-param: ${eq_fulfilment_topic_id}
+            - name: EQ_FULFILMENT_TOPIC_PROJECT_ID
+              value: "" # from-param: ${eq_fulfilment_topic_project_id}
             - name: EQ_GCS_FEEDBACK_BUCKET_ID
               value: "" # from-param: ${eq_gcs_feedback_bucket_id}
             - name: EQ_GCS_SUBMISSION_BUCKET_ID

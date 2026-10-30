@@ -60,6 +60,18 @@ def test_publish_uses_provided_project_id_when_constructing_topic_path(publisher
     batch.publish.assert_has_calls([mocker.call(PublishMessageWrapper(PubsubMessage({"data": b"test-message"})))])
 
 
+def test_publish_uses_default_project_id_when_project_id_is_empty_string(publisher):
+    with patch("app.publisher.publisher.PubSubPublisher._publish") as mock_publish:
+        publisher.publish(
+            "test-topic-id",
+            b"test-message",
+            fulfilment_request_transaction_id=str(uuid4()),
+            project_id="",
+        )
+
+    mock_publish.assert_called_once_with("test-topic-id", b"test-message", project_id="test-project-id")
+
+
 def test_get_topic_path_raises_invalid_topic_id_for_invalid_topic_name(publisher):
     with pytest.raises(InvalidTopicId, match="topic_id must be"):
         publisher._get_topic_path("A_BAD-topic-id", project_id="test-project-id")
