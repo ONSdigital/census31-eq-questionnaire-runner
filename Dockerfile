@@ -26,7 +26,14 @@ RUN pip install --no-cache-dir "poetry==2.4.1" && \
 
 # Copy the rest of the source and build static assets / translations
 COPY . .
-RUN make build
+RUN --mount=type=secret,id=LOAD_RELEASE_PAT,required=false \
+    if [ -s /run/secrets/LOAD_RELEASE_PAT ]; then \
+        echo "Using LOAD_RELEASE_PAT from build secret..."; \
+        LOAD_RELEASE_PAT="$(cat /run/secrets/LOAD_RELEASE_PAT)" make build; \
+    else \
+        echo "No LOAD_RELEASE_PAT build secret provided..."; \
+        make build; \
+    fi
 
 # Strip cache and unused locales from virtualenv (pycache, .pyc files, unused babel locales)
 RUN find /runner/.venv/lib/python3.13/site-packages -type d -name "__pycache__" -exec rm -rf {} + 2>/dev/null; \
