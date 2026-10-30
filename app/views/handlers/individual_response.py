@@ -199,6 +199,7 @@ class IndividualResponseHandler:
     def _publish_fulfilment_request(self, mobile_number: str | None = None) -> None:
         self._check_individual_response_count()
         topic_id = current_app.config["EQ_FULFILMENT_TOPIC_ID"]
+        topic_project_id = current_app.config.get("EQ_FULFILMENT_TOPIC_PROJECT_ID")
         fulfilment_request = IndividualResponseFulfilmentRequest(
             # Type ignore: _metadata will exist at point of publish
             self._metadata,  # type: ignore
@@ -211,6 +212,7 @@ class IndividualResponseHandler:
                 topic_id,
                 message=fulfilment_request.message,
                 fulfilment_request_transaction_id=fulfilment_request.transaction_id,
+                project_id=topic_project_id,
             )
         except PublicationFailed as exc:
             raise IndividualResponseFulfilmentRequestPublicationFailed from exc
