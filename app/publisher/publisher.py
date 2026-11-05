@@ -84,8 +84,8 @@ class LogPublisher(Publisher):
     ) -> None:
         logger.info(
             "publishing message",
+            topic_project_id=project_id,
             topic_id=topic_id,
             message=message,
             fulfilment_request_transaction_id=fulfilment_request_transaction_id,
-            project_id=project_id,
         )
