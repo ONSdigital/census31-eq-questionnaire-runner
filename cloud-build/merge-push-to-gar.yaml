@@ -47,7 +47,6 @@ availableSecrets:
 
 substitutions:
   _PLATFORM: "linux/amd64"
-  _LOAD_RELEASE_PAT_SECRET: "projects/694269708059/secrets/eq-questionnaire-runner-github-pat"
   _REGION: "europe-west2"
   _DELIVERY_PIPELINE: "runner-dev"
   _TARGET: "runner-dev"
