@@ -9,17 +9,26 @@ steps:
 
   - id: docker-build-eq-runner
     name: gcr.io/cloud-builders/docker
+    secretEnv:
+      - LOAD_RELEASE_PAT
     args:
       - buildx
       - build
       - "--platform=${_PLATFORM}"
+      - "--secret=id=LOAD_RELEASE_PAT,env=LOAD_RELEASE_PAT"
       - "--load"
       - "-t"
       - "runner-pr:${SHORT_SHA}"
       - "."
+
+availableSecrets:
+  secretManager:
+    - versionName: "${_LOAD_RELEASE_PAT_SECRET}/versions/latest"
+      env: LOAD_RELEASE_PAT
 
 options:
   logging: CLOUD_LOGGING_ONLY
 
 substitutions:
   _PLATFORM: "linux/amd64"
+  _LOAD_RELEASE_PAT_SECRET: "projects/694269708059/secrets/eq-questionnaire-runner-github-pat"
