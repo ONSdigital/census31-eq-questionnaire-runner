@@ -36,8 +36,8 @@ class PubSubPublisher(Publisher):
         self._project_id = project_id
 
     def _publish(self, topic_id: str, message: bytes, project_id: str) -> Future:
-        logger.info("publishing message", topic_id=topic_id)
         topic_path = self._get_topic_path(topic_id=topic_id, project_id=project_id)
+        logger.info("publishing message", topic_path=topic_path)
         response: Future = self._client.publish(topic_path, message)
         return response
 

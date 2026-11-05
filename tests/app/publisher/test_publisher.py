@@ -9,6 +9,16 @@ from app.publisher.exceptions import InvalidTopicId, PublicationFailed
 from app.publisher.publisher import PubSubPublisher
 
 
+def test_init_raises_value_error_when_google_auth_default_returns_no_project_id(mocker):
+    mocker.patch("app.publisher.publisher.PublisherClient")
+    mocker.patch(
+        "app.publisher.publisher.google.auth.default", return_value=(mocker.Mock(universe_domain="test"), None)
+    )
+
+    with pytest.raises(ValueError, match="Google Cloud project ID is required to publish to Pub/Sub topics"):
+        PubSubPublisher()
+
+
 def test_publish(publisher, mocker):
     topic_id = "test-topic-id"
     topic_path = f"projects/test-project-id/topics/{topic_id}"
@@ -32,32 +42,16 @@ def test_publish(publisher, mocker):
     batch.publish.assert_has_calls([mocker.call(PublishMessageWrapper(PubsubMessage({"data": b"test-message"})))])
 
 
-def test_init_raises_value_error_when_google_auth_default_returns_no_project_id(mocker):
-    mocker.patch("app.publisher.publisher.PublisherClient")
-    mocker.patch(
-        "app.publisher.publisher.google.auth.default", return_value=(mocker.Mock(universe_domain="test"), None)
-    )
+def test_publish_uses_provided_project_id(publisher):
+    with patch("app.publisher.publisher.PubSubPublisher._publish") as mock_publish:
+        publisher.publish(
+            "test-topic-id",
+            b"test-message",
+            fulfilment_request_transaction_id=str(uuid4()),
+            project_id="an-external-project-id",
+        )
 
-    with pytest.raises(ValueError, match="Google Cloud project ID is required to publish to Pub/Sub topics"):
-        PubSubPublisher()
-
-
-def test_publish_uses_provided_project_id_when_constructing_topic_path(publisher, mocker):
-    topic_id = "test-topic-id"
-    topic_path = "projects/other-project/topics/test-topic-id"
-
-    future = mocker.sentinel.future
-    future.add_done_callback = mocker.Mock(spec=["__call__"])
-
-    batch = mocker.Mock(spec=publisher._client._batch_class)
-    batch.publish.side_effect = (future,)
-
-    publisher._client._set_batch(topic_path, batch)
-
-    response = publisher._publish(topic_id, b"test-message", project_id="other-project")
-
-    assert response is mocker.sentinel.future
-    batch.publish.assert_has_calls([mocker.call(PublishMessageWrapper(PubsubMessage({"data": b"test-message"})))])
+    mock_publish.assert_called_once_with("test-topic-id", b"test-message", project_id="an-external-project-id")
 
 
 def test_publish_uses_default_project_id_when_project_id_is_empty_string(publisher):
@@ -72,15 +66,30 @@ def test_publish_uses_default_project_id_when_project_id_is_empty_string(publish
     mock_publish.assert_called_once_with("test-topic-id", b"test-message", project_id="test-project-id")
 
 
-def test_get_topic_path_raises_invalid_topic_id_for_invalid_topic_name(publisher):
-    with pytest.raises(InvalidTopicId, match="topic_id must be"):
-        publisher._get_topic_path("A_BAD-topic-id", project_id="test-project-id")
+def test_publish_calls_publisher_client_with_expected_topic_path(publisher, mocker):
+
+    expected_topic_path = f"projects/an-external-project-id/topics/a-valid-topic-id"
+
+    mock_future = mocker.Mock()
+    mock_future.result.return_value = "a-dummy-message-id"
+    mocker.patch.object(publisher._client, "publish", return_value=mock_future)
+
+    publisher.publish(
+        "a-valid-topic-id",
+        b"test-message",
+        fulfilment_request_transaction_id=str(uuid4()),
+        project_id="an-external-project-id",
+    )
+
+    publisher._client.publish.assert_called_once_with(expected_topic_path, b"test-message")
 
 
-def test_publish_raises_invalid_topic_id_for_malformed_fully_qualified_topic_path(publisher):
+def test_publish_raises_invalid_topic_id_for_invalid_topic_name(publisher):
     with pytest.raises(InvalidTopicId, match="topic_id must be"):
-        publisher._publish(
-            "projects/test-project/THE_WRONG_KEY/good-topic", b"test-message", project_id="test-project-id"
+        publisher.publish(
+            "A_BAD-topic-id",
+            b"test-message",
+            fulfilment_request_transaction_id=str(uuid4()),
         )
 
 
