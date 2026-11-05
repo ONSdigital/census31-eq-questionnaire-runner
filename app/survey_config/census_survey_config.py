@@ -37,7 +37,6 @@ class CensusSurveyConfig(
         self.cookie_settings_url: str = f"{upstream_base_url}/cookies/"
         self.privacy_and_data_protection_url: str = f"{upstream_base_url}/privacy-and-data-protection/"
 
-        self.help_url: str = f"{ons_url}/help/"
         self.contact_us_url: str = f"{ons_url}/aboutus/contactus/surveyenquiries/"
         self.accessibility_url: str = f"{ons_url}/help/accessibility/"
 
@@ -45,7 +44,6 @@ class CensusSurveyConfig(
         links: list[dict] = []
 
         if cookie_has_theme:
-            links.append(Link(lazy_gettext("Help"), self.help_url).as_dict())
             links.append(Link(lazy_gettext("Contact us"), self.contact_us_url).as_dict())
 
         return links
@@ -75,6 +73,18 @@ class NISRACensusSurveyConfig(CensusSurveyConfig):
     footer_logo: str = f"{CENSUS_ASSETS_BASE_URL}/images/nisra-footer-logo.svg"
     footer_logo_alt_text: str = "NISRA - Northern Ireland Statistics and Research Agency"
 
+    def __post_init__(self) -> None:
+        super().__post_init__()
+        self.help_url = "https://www.nisra.gov.uk/census-test/help"
+
+    def get_footer_links(self, cookie_has_theme: bool) -> list[dict]:
+        links = super().get_footer_links(cookie_has_theme)
+
+        if cookie_has_theme:
+            links.insert(0, Link(lazy_gettext("Help"), self.help_url).as_dict())
+
+        return links
+
 
 @dataclass
 class NRSCensusSurveyConfig(CensusSurveyConfig):
@@ -84,3 +94,15 @@ class NRSCensusSurveyConfig(CensusSurveyConfig):
     footer_logo: str = f"{CENSUS_ASSETS_BASE_URL}/images/nrs-footer-logo.svg"
     footer_logo_alt_text: str = "NRS - National Records of Scotland"
     css_override: str = f"{CENSUS_ASSETS_BASE_URL}/css/nrs-census.css"
+
+    def __post_init__(self) -> None:
+            super().__post_init__()
+            self.help_url = "https://www.scotlandscensus.gov.uk/test-2027/help"
+
+    def get_footer_links(self, cookie_has_theme: bool) -> list[dict]:
+        links = super().get_footer_links(cookie_has_theme)
+
+        if cookie_has_theme:
+            links.insert(0, Link(lazy_gettext("Help"), self.help_url).as_dict())
+
+        return links
