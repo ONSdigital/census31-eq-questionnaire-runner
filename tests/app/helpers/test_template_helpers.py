@@ -7,7 +7,7 @@ from flask import session as cookie_session
 from app.helpers.template_helpers import ContextHelper, get_survey_config
 from app.questionnaire import QuestionnaireSchema
 from app.routes.session import set_schema_context_in_cookie
-from app.settings import ACCOUNT_SERVICE_BASE_URL, CDN_CENSUS_ASSETS_PATH, CDN_URL, ONS_URL, ONS_URL_CY
+from app.settings import ACCOUNT_SERVICE_BASE_URL, CDN_CENSUS_ASSETS_PATH, CDN_URL, ONS_URL, ONS_URL_CY, NISRA_URL, NRS_URL
 from app.survey_config import CensusSurveyConfig, NISRACensusSurveyConfig, NRSCensusSurveyConfig, SurveyConfig
 from app.survey_config.survey_type import SurveyType
 from tests.app.helpers.conftest import expected_footer_census_theme, expected_footer_census_theme_no_cookie
@@ -32,6 +32,33 @@ CENSUS_ASSETS_BASE_URL = f"{CDN_URL.rstrip('/')}/{CDN_CENSUS_ASSETS_PATH.strip('
             CensusSurveyConfig(language_code="cy"),
             "cy",
             expected_footer_census_theme("cy"),
+        ),
+        (
+            SurveyType.CENSUS_NISRA,
+            NISRACensusSurveyConfig(),
+            "en",
+            expected_footer_census_theme(
+                "en",
+                help_url=f"{NISRA_URL}/census-test/help",
+                contact_us_url=f"{NISRA_URL}/census-test/contact",
+                footer_logo="nisra-footer-logo.svg",
+                footer_logo_alt_text="NISRA - Northern Ireland Statistics and Research Agency",
+                privacy_and_data_protection_url=f"{NISRA_URL}/census-test/privacy",
+            ),
+        ),
+        (
+            SurveyType.CENSUS_NRS,
+            NRSCensusSurveyConfig(),
+            "en",
+            expected_footer_census_theme(
+                "en",
+                help_url=f"{NRS_URL}/test-2027/help",
+                contact_us_url=f"{NRS_URL}/test-2027/contact",
+                feedback_url=f"{NRS_URL}/test-2027/feedback",
+                footer_logo="nrs-footer-logo.svg",
+                footer_logo_alt_text="NRS - National Records of Scotland",
+                privacy_and_data_protection_url=f"{NRS_URL}/test-2027/privacy",
+            ),
         ),
     ],
 )
@@ -307,22 +334,22 @@ def test_service_links_context_when_links_exist(app: Flask, mocker):
         (
             CensusSurveyConfig(),
             "en",
-            f"{ONS_URL}/aboutus/contactus/surveyenquiries/",
+            f"{ONS_URL}/census/aboutcensus/census2031/2027test/contactus/",
         ),
         (
             CensusSurveyConfig(language_code="cy"),
             "cy",
-            f"{ONS_URL_CY}/aboutus/contactus/surveyenquiries/",
+            f"{ONS_URL_CY}/census/aboutcensus/census2031/2027test/contactus/",
         ),
         (
             NISRACensusSurveyConfig(),
             "en",
-            f"{ONS_URL}/aboutus/contactus/surveyenquiries/",
+            f"{NISRA_URL}/census-test/contact",
         ),
         (
             NRSCensusSurveyConfig(),
             "en",
-            f"{ONS_URL}/aboutus/contactus/surveyenquiries/",
+            f"{NRS_URL}/test-2027/contact",
         ),
     ],
 )
@@ -567,6 +594,7 @@ def test_survey_config_base_url_provided_used_in_links(
 
     if survey_config_type == CensusSurveyConfig:
         urls_to_check.remove(result.contact_us_url)
+    urls_to_check.remove(result.privacy_and_data_protection_url)
 
     for url in urls_to_check:
         if url:
@@ -583,9 +611,9 @@ def test_survey_config_base_url_duplicate_todo(app: Flask):
     assert result.account_service_log_out_url == f"{base_url}/en/start/"
     assert result.account_service_my_account_url is None
     assert result.account_service_todo_url is None
-    assert result.contact_us_url == f"{ONS_URL}/aboutus/contactus/surveyenquiries/"
+    assert result.contact_us_url == f"{ONS_URL}/census/aboutcensus/census2031/2027test/contactus/"
     assert result.cookie_settings_url == f"{base_url}/en/cookies/"
-    assert result.privacy_and_data_protection_url == f"{base_url}/en/privacy-and-data-protection/"
+    assert result.privacy_and_data_protection_url == f"{ONS_URL}/census-test/privacy/"
 
 
 def test_get_survey_config_base_url_not_provided(app: Flask):

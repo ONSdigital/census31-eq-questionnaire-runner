@@ -108,11 +108,13 @@ class NRSCensusSurveyConfig(CensusSurveyConfig):
         self.help_url = f"{nrs_url}/test-2027/help"
         self.contact_us_url: str = f"{nrs_url}/test-2027/contact"
         self.privacy_and_data_protection_url: str = f"{nrs_url}/test-2027/privacy"
+        self.feedback_url: str = f"{nrs_url}/test-2027/feedback"
 
     def get_footer_links(self, cookie_has_theme: bool) -> list[dict]:
         links = super().get_footer_links(cookie_has_theme)
 
         if cookie_has_theme:
             links.insert(0, Link(lazy_gettext("Help"), self.help_url).as_dict())
+            links.insert(0, Link(lazy_gettext("Feedback"), self.feedback_url).as_dict())
 
         return links
