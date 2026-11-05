@@ -68,7 +68,7 @@ def test_publish_uses_default_project_id_when_project_id_is_empty_string(publish
 
 def test_publish_calls_publisher_client_with_expected_topic_path(publisher, mocker):
 
-    expected_topic_path = f"projects/an-external-project-id/topics/a-valid-topic-id"
+    expected_topic_path = "projects/an-external-project-id/topics/a-valid-topic-id"
 
     mock_future = mocker.Mock()
     mock_future.result.return_value = "a-dummy-message-id"
