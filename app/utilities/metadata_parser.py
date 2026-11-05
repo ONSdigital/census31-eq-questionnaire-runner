@@ -29,7 +29,11 @@ VALIDATORS: Mapping[str, Callable] = {
 
 CENSUS_FORM_TYPES = {
     "H": "household",
+    "HA": "household",
+    "HB": "household",
     "I": "individual",
+    "IA": "individual",
+    "IB": "individual",
     "C": "communal_establishment",
 }
 
@@ -49,7 +53,7 @@ class Data(Schema, StripWhitespaceMixin):
 
 class SchemaSelector(Schema, StripWhitespaceMixin):
     survey = fields.String(required=True)
-    form_type = fields.String(required=True, validate=validate.OneOf(["H", "I", "C"]))
+    form_type = fields.String(required=True, validate=validate.OneOf(["H", "HA", "HB", "I", "IA", "IB", "C"]))
     region_code = fields.String(required=True, validate=RegionCode())
 
 
@@ -100,6 +104,7 @@ class RunnerMetadataSchema(Schema, StripWhitespaceMixin):
 
 
 def _get_schema_name_from_census_params(survey: str, form_type: str, region_code: str) -> str:
+    logger.debug("schema claims", survey=survey, form_type=form_type, region_code=region_code)
     form_type_transformed = CENSUS_FORM_TYPES.get(form_type, "")
     region_code_transformed = region_code.lower().replace("-", "_")
     survey_transformed = survey.lower()
