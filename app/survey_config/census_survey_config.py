@@ -37,7 +37,7 @@ class CensusSurveyConfig(
         self.cookie_settings_url: str = f"{upstream_base_url}/cookies/"
         self.privacy_and_data_protection_url: str = f"{upstream_base_url}/privacy-and-data-protection/"
 
-        self.contact_us_url: str = f"{ons_url}/aboutus/contactus/surveyenquiries/"
+        self.contact_us_url: str = f"{ons_url}/census/aboutcensus/census2031/2027test/contactus/"
         self.accessibility_url: str = f"{ons_url}/help/accessibility/"
 
     def get_footer_links(self, cookie_has_theme: bool) -> list[dict]:
@@ -64,7 +64,6 @@ class CensusSurveyConfig(
 
         return None
 
-
 @dataclass
 class NISRACensusSurveyConfig(CensusSurveyConfig):
     masthead_logo_extra_margin: bool = True
@@ -76,6 +75,7 @@ class NISRACensusSurveyConfig(CensusSurveyConfig):
     def __post_init__(self) -> None:
         super().__post_init__()
         self.help_url = "https://www.nisra.gov.uk/census-test/help"
+        self.contact_us_url: str =  "https://www.nisra.gov.uk/census-test/contact"
 
     def get_footer_links(self, cookie_has_theme: bool) -> list[dict]:
         links = super().get_footer_links(cookie_has_theme)
@@ -98,6 +98,7 @@ class NRSCensusSurveyConfig(CensusSurveyConfig):
     def __post_init__(self) -> None:
             super().__post_init__()
             self.help_url = "https://www.scotlandscensus.gov.uk/test-2027/help"
+            self.contact_us_url: str = "https://www.scotlandscensus.gov.uk/test-2027/contact"
 
     def get_footer_links(self, cookie_has_theme: bool) -> list[dict]:
         links = super().get_footer_links(cookie_has_theme)
