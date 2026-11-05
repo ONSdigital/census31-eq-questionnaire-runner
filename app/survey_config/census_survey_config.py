@@ -3,7 +3,7 @@ from typing import Iterable, Mapping, MutableMapping
 
 from flask_babel import lazy_gettext
 
-from app.settings import ACCOUNT_SERVICE_BASE_URL, CENSUS_ASSETS_BASE_URL, ONS_URL, ONS_URL_CY
+from app.settings import ACCOUNT_SERVICE_BASE_URL, CENSUS_ASSETS_BASE_URL, NISRA_URL, NRS_URL, ONS_URL, ONS_URL_CY
 from app.survey_config.link import Link
 from app.survey_config.survey_config import SurveyConfig
 
@@ -35,7 +35,11 @@ class CensusSurveyConfig(
             self.account_service_log_out_url: str = f"{upstream_base_url}/start/"
 
         self.cookie_settings_url: str = f"{upstream_base_url}/cookies/"
-        self.privacy_and_data_protection_url: str = f"{upstream_base_url}/privacy-and-data-protection/"
+        self.privacy_and_data_protection_url: str = (
+            f"{ons_url}/prawf-cyfrifiad/preifatrwydd/"
+            if self.language_code == "cy"
+            else f"{ons_url}/census-test/privacy/"
+        )
 
         self.contact_us_url: str = f"{ons_url}/census/aboutcensus/census2031/2027test/contactus/"
         self.accessibility_url: str = f"{ons_url}/help/accessibility/"
@@ -64,6 +68,7 @@ class CensusSurveyConfig(
 
         return None
 
+
 @dataclass
 class NISRACensusSurveyConfig(CensusSurveyConfig):
     masthead_logo_extra_margin: bool = True
@@ -74,8 +79,10 @@ class NISRACensusSurveyConfig(CensusSurveyConfig):
 
     def __post_init__(self) -> None:
         super().__post_init__()
-        self.help_url = "https://www.nisra.gov.uk/census-test/help"
-        self.contact_us_url: str =  "https://www.nisra.gov.uk/census-test/contact"
+        nisra_url: str = NISRA_URL
+        self.help_url = f"{nisra_url}/census-test/help"
+        self.contact_us_url: str = f"{nisra_url}/census-test/contact"
+        self.privacy_and_data_protection_url: str = f"{nisra_url}/census-test/privacy"
 
     def get_footer_links(self, cookie_has_theme: bool) -> list[dict]:
         links = super().get_footer_links(cookie_has_theme)
@@ -96,9 +103,11 @@ class NRSCensusSurveyConfig(CensusSurveyConfig):
     css_override: str = f"{CENSUS_ASSETS_BASE_URL}/css/nrs-census.css"
 
     def __post_init__(self) -> None:
-            super().__post_init__()
-            self.help_url = "https://www.scotlandscensus.gov.uk/test-2027/help"
-            self.contact_us_url: str = "https://www.scotlandscensus.gov.uk/test-2027/contact"
+        super().__post_init__()
+        nrs_url: str = NRS_URL
+        self.help_url = f"{nrs_url}/test-2027/help"
+        self.contact_us_url: str = f"{nrs_url}/test-2027/contact"
+        self.privacy_and_data_protection_url: str = f"{nrs_url}/test-2027/privacy"
 
     def get_footer_links(self, cookie_has_theme: bool) -> list[dict]:
         links = super().get_footer_links(cookie_has_theme)

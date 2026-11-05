@@ -136,4 +136,8 @@ ONS_URL = os.getenv("ONS_URL", "https://www.ons.gov.uk")
 
 ONS_URL_CY = os.getenv("ONS_URL_CY", "https://cy.ons.gov.uk")
 
+NISRA_URL = os.getenv("NISRA_URL", "https://www.nisra.gov.uk")
+
+NRS_URL = os.getenv("NRS_URL", "https://www.scotlandscensus.gov.uk")
+
 CENSUS_PERIOD_ID = "2027"
