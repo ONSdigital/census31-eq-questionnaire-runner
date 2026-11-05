@@ -71,7 +71,7 @@ run-validator:
 link-development-env:
 	ln -sf $(RUNNER_ENV_FILE) .env
 
-run: link-development-env
+run: build link-development-env
 	poetry run flask run
 
 run-gunicorn-async: link-development-env
