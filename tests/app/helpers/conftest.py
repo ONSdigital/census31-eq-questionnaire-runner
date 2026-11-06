@@ -1,7 +1,7 @@
 from pytest import fixture
 
 from app.helpers.template_helpers import ContextHelper
-from app.settings import ACCOUNT_SERVICE_BASE_URL, ONS_URL, ONS_URL_CY
+from app.settings import ACCOUNT_SERVICE_BASE_URL, CENSUS_ASSETS_BASE_URL, ONS_URL, ONS_URL_CY
 
 
 @fixture
@@ -30,9 +30,46 @@ def footer_context():
     }
 
 
-def expected_footer_census_theme(language_code: str):
+def expected_footer_census_theme(
+    language_code: str,
+    *,
+    help_url: str | None = None,
+    contact_us_url: str | None = None,
+    feedback_url: str | None = None,
+    footer_logo: str | None = None,
+    footer_logo_alt_text: str | None = None,
+    privacy_and_data_protection_url: str | None = None,
+):
     ons_url = ONS_URL_CY if language_code == "cy" else ONS_URL
     upstream_url = f"{ACCOUNT_SERVICE_BASE_URL}/{language_code}"
+    footer_links = [
+        {
+            "text": "Contact us",
+            "url": contact_us_url or f"{ons_url}/census/aboutcensus/census2031/2027test/contactus/",
+            "target": "_blank",
+        }
+    ]
+
+    if help_url:
+        footer_links.insert(
+            0,
+            {
+                "text": "Help",
+                "url": help_url,
+                "target": "_blank",
+            },
+        )
+
+    if feedback_url:
+        footer_links.insert(
+            0,
+            {
+                "text": "Feedback",
+                "url": feedback_url,
+                "target": "_blank",
+            },
+        )
+
     census_footer_context = {
         "lang": language_code,
         "crest": True,
@@ -42,23 +79,20 @@ def expected_footer_census_theme(language_code: str):
             "text": "Use of address data is subject to the terms and conditions.",
         },
     }
+
+    if footer_logo and footer_logo_alt_text:
+        census_footer_context["footerLogo"] = {
+            "logos": {
+                "logo1": {
+                    "logoImage": (
+                        f'<img src="{CENSUS_ASSETS_BASE_URL}/images/{footer_logo}" '
+                        f'alt="{footer_logo_alt_text}" title="{footer_logo_alt_text}">'
+                    ),
+                },
+            },
+        }
     census = {
-        "rows": [
-            {
-                "itemsList": [
-                    {
-                        "text": "Help",
-                        "url": f"{ons_url}/help/",
-                        "target": "_blank",
-                    },
-                    {
-                        "text": "Contact us",
-                        "url": f"{ons_url}/aboutus/contactus/surveyenquiries/",
-                        "target": "_blank",
-                    },
-                ]
-            }
-        ],
+        "rows": [{"itemsList": footer_links}],
         "legal": [
             {
                 "itemsList": [
@@ -74,7 +108,12 @@ def expected_footer_census_theme(language_code: str):
                     },
                     {
                         "text": "Privacy and data protection",
-                        "url": f"{upstream_url}/privacy-and-data-protection/",
+                        "url": privacy_and_data_protection_url
+                        or (
+                            f"{ons_url}/prawf-cyfrifiad/preifatrwydd/"
+                            if language_code == "cy"
+                            else f"{ons_url}/census-test/privacy/"
+                        ),
                         "target": "_blank",
                     },
                 ]

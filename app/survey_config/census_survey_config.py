@@ -3,7 +3,7 @@ from typing import Iterable, Mapping, MutableMapping
 
 from flask_babel import lazy_gettext
 
-from app.settings import ACCOUNT_SERVICE_BASE_URL, CENSUS_ASSETS_BASE_URL, ONS_URL, ONS_URL_CY
+from app.settings import ACCOUNT_SERVICE_BASE_URL, CENSUS_ASSETS_BASE_URL, NISRA_URL, NRS_URL, ONS_URL, ONS_URL_CY
 from app.survey_config.link import Link
 from app.survey_config.survey_config import SurveyConfig
 
@@ -35,17 +35,19 @@ class CensusSurveyConfig(
             self.account_service_log_out_url: str = f"{upstream_base_url}/start/"
 
         self.cookie_settings_url: str = f"{upstream_base_url}/cookies/"
-        self.privacy_and_data_protection_url: str = f"{upstream_base_url}/privacy-and-data-protection/"
+        self.privacy_and_data_protection_url: str = (
+            f"{ons_url}/prawf-cyfrifiad/preifatrwydd/"
+            if self.language_code == "cy"
+            else f"{ons_url}/census-test/privacy/"
+        )
 
-        self.help_url: str = f"{ons_url}/help/"
-        self.contact_us_url: str = f"{ons_url}/aboutus/contactus/surveyenquiries/"
+        self.contact_us_url: str = f"{ons_url}/census/aboutcensus/census2031/2027test/contactus/"
         self.accessibility_url: str = f"{ons_url}/help/accessibility/"
 
     def get_footer_links(self, cookie_has_theme: bool) -> list[dict]:
         links: list[dict] = []
 
         if cookie_has_theme:
-            links.append(Link(lazy_gettext("Help"), self.help_url).as_dict())
             links.append(Link(lazy_gettext("Contact us"), self.contact_us_url).as_dict())
 
         return links
@@ -75,6 +77,21 @@ class NISRACensusSurveyConfig(CensusSurveyConfig):
     footer_logo: str = f"{CENSUS_ASSETS_BASE_URL}/images/nisra-footer-logo.svg"
     footer_logo_alt_text: str = "NISRA - Northern Ireland Statistics and Research Agency"
 
+    def __post_init__(self) -> None:
+        super().__post_init__()
+        nisra_url: str = NISRA_URL
+        self.help_url = f"{nisra_url}/census-test/help"
+        self.contact_us_url: str = f"{nisra_url}/census-test/contact"
+        self.privacy_and_data_protection_url: str = f"{nisra_url}/census-test/privacy"
+
+    def get_footer_links(self, cookie_has_theme: bool) -> list[dict]:
+        links = super().get_footer_links(cookie_has_theme)
+
+        if cookie_has_theme:
+            links.insert(0, Link(lazy_gettext("Help"), self.help_url).as_dict())
+
+        return links
+
 
 @dataclass
 class NRSCensusSurveyConfig(CensusSurveyConfig):
@@ -84,3 +101,20 @@ class NRSCensusSurveyConfig(CensusSurveyConfig):
     footer_logo: str = f"{CENSUS_ASSETS_BASE_URL}/images/nrs-footer-logo.svg"
     footer_logo_alt_text: str = "NRS - National Records of Scotland"
     css_override: str = f"{CENSUS_ASSETS_BASE_URL}/css/nrs-census.css"
+
+    def __post_init__(self) -> None:
+        super().__post_init__()
+        nrs_url: str = NRS_URL
+        self.help_url = f"{nrs_url}/test-2027/help"
+        self.contact_us_url: str = f"{nrs_url}/test-2027/contact"
+        self.privacy_and_data_protection_url: str = f"{nrs_url}/test-2027/privacy"
+        self.feedback_url: str = f"{nrs_url}/test-2027/feedback"
+
+    def get_footer_links(self, cookie_has_theme: bool) -> list[dict]:
+        links = super().get_footer_links(cookie_has_theme)
+
+        if cookie_has_theme:
+            links.insert(0, Link(lazy_gettext("Help"), self.help_url).as_dict())
+            links.insert(0, Link(lazy_gettext("Feedback"), self.feedback_url).as_dict())
+
+        return links

@@ -133,8 +133,12 @@ SURVEY_TYPE = os.getenv("SURVEY_TYPE", "census")
 
 ACCOUNT_SERVICE_BASE_URL = os.getenv("ACCOUNT_SERVICE_BASE_URL", "https://start.census.gov.uk")
 
-ONS_URL = os.getenv("ONS_URL", "https://www.census.gov.uk")
+ONS_URL = os.getenv("ONS_URL", "https://www.ons.gov.uk")
 
-ONS_URL_CY = os.getenv("ONS_URL_CY", "https://cy.census.gov.uk")
+ONS_URL_CY = os.getenv("ONS_URL_CY", "https://cy.ons.gov.uk")
+
+NISRA_URL = os.getenv("NISRA_URL", "https://www.nisra.gov.uk")
+
+NRS_URL = os.getenv("NRS_URL", "https://www.scotlandscensus.gov.uk")
 
 CENSUS_PERIOD_ID = "2027"
