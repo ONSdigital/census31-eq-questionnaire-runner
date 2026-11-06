@@ -35,15 +35,10 @@ class PubSubPublisher(Publisher):
 
         self._project_id = project_id
 
-    def _publish(self, topic_id: str, message: bytes, project_id: str) -> Future:
-        topic_path = self._get_topic_path(topic_id=topic_id, project_id=project_id)
-        logger.info("publishing message", topic_path=topic_path)
-        response: Future = self._client.publish(topic_path, message)
-        return response
-
-    def _get_topic_path(self, topic_id: str, project_id: str) -> str:
+    def _get_topic_path(self, topic_id: str, project_id: str | None = None) -> str:
+        resolved_project_id = (project_id or "").strip() or self._project_id
         if TOPIC_NAME_PATTERN.match(topic_id):
-            return f"projects/{project_id}/topics/{topic_id}"
+            return f"projects/{resolved_project_id}/topics/{topic_id}"
 
         error_message = "topic_id must be a lowercase hyphenated topic name"
         raise InvalidTopicId(error_message)
@@ -55,21 +50,22 @@ class PubSubPublisher(Publisher):
         fulfilment_request_transaction_id: str,
         project_id: str | None = None,
     ) -> None:
-        resolved_project_id = (project_id or "").strip() or self._project_id
-        response = self._publish(topic_id, message, project_id=resolved_project_id)
+        topic_path = self._get_topic_path(topic_id=topic_id, project_id=project_id)
+        logger.info("publishing message", topic_path=topic_path)
+        response: Future = self._client.publish(topic_path, message)
         try:
             # Resolve the future
             message_id = response.result()
             logger.info(  # pragma: no cover
                 "message published successfully",
-                topic_id=topic_id,
+                topic_path=topic_path,
                 message_id=message_id,
                 fulfilment_request_transaction_id=fulfilment_request_transaction_id,
             )
         except Exception as exc:
             logger.exception(
                 "message publication failed",
-                topic_id=topic_id,
+                topic_path=topic_path,
             )
             raise PublicationFailed(exc) from exc
 

@@ -1,4 +1,3 @@
-from unittest.mock import Mock, patch
 from uuid import uuid4
 
 import pytest
@@ -53,14 +52,12 @@ def test_publish_raises_invalid_topic_id_for_invalid_topic_name(publisher):
         )
 
 
-def test_resolving_message_raises_exception_on_error(publisher):
-    mock_future = Mock()
+def test_resolving_message_raises_exception_on_error(publisher, mocker):
+    mock_future = mocker.Mock()
     mock_future.result.side_effect = Exception()
+    mocker.patch.object(publisher._client, "publish", return_value=mock_future)
 
-    with (
-        patch("app.publisher.publisher.PubSubPublisher._publish", return_value=mock_future),
-        pytest.raises(PublicationFailed),
-    ):
+    with pytest.raises(PublicationFailed):
         publisher.publish(
             "test-topic-id",
             b"test-message",
