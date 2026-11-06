@@ -581,8 +581,8 @@ b. Push to GAR
 
 ### Note
 
-$PROJECT_ID is passed from the trigger
+- Cloud Build uses a GitHub PAT stored in Secret Manager in the CI project to authenticate GitHub release downloads.
+- `$PROJECT_ID` is passed from the trigger.
+- No gcloud auth is required inside Cloud Build.
+- IAM must be applied to the service account.
 
-No gcloud auth is required inside Cloud Build
-
-IAM must be applied to the service account

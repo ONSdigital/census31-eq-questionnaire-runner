@@ -9,10 +9,13 @@ steps:
 
   - id: docker-build-eq-runner-release
     name: gcr.io/cloud-builders/docker
+    secretEnv:
+      - LOAD_RELEASE_PAT
     args:
       - buildx
       - build
       - "--platform=${_PLATFORM}"
+      - "--secret=id=LOAD_RELEASE_PAT,env=LOAD_RELEASE_PAT"
       - "--push"
       - "-t"
       - "europe-west2-docker.pkg.dev/${_PROJECT_ID}/images/census31-eq-questionnaire-runner:${TAG_NAME}"
@@ -34,6 +37,11 @@ steps:
       - "--to-target=${_TARGET}"
     wait_for:
       - docker-build-eq-runner-release
+
+availableSecrets:
+  secretManager:
+    - versionName: "${_LOAD_RELEASE_PAT_SECRET}/versions/latest"
+      env: LOAD_RELEASE_PAT
 
 substitutions:
   _PLATFORM: "linux/amd64"
