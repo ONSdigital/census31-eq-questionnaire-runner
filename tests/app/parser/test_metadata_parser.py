@@ -95,6 +95,11 @@ def test_multiple_schema_claims_invalid(options):
         ("CENSUS", "C", "GB-ENG", "census_communal_establishment_gb_eng"),
         ("CENSUS", "H", "GB-WLS", "census_household_gb_wls"),
         ("CENSUS", "H", "GB-NIR", "census_household_gb_nir"),
+        ("CENSUS", "HA", "GB-NIR", "census_household_gb_nir"),
+        ("CENSUS", "HB", "GB-NIR", "census_household_gb_nir"),
+        ("CENSUS", "I", "GB-NIR", "census_individual_gb_nir"),
+        ("CENSUS", "IA", "GB-NIR", "census_individual_gb_nir"),
+        ("CENSUS", "IB", "GB-NIR", "census_individual_gb_nir"),
         ("X", "H", "GB-NIR", "x_household_gb_nir"),
     ],
 )
@@ -135,7 +140,7 @@ def test_schema_selector_schema_invalid_form_type():
     with pytest.raises(ValidationError) as exc:
         validate_runner_claims(metadata)
 
-    assert "Must be one of: H, I, C." in str(exc)
+    assert "Must be one of: H, HA, HB, I, IA, IB, C." in str(exc)
 
 
 def test_schema_selector_schema_invalid_region_code():
