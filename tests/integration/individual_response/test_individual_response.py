@@ -376,6 +376,16 @@ class TestIndividualResponseErrorStatus(IndividualResponseTestCase):
         self.assertEqualPageTitle("Sorry, there was a problem sending the access code - Test Individual Response")
         self.assertInSelector(self.last_url, "p[data-qa=retry]")
 
+    def test_publish_uses_configured_topic_project_id(self):
+        publisher = self._application.eq["publisher"]
+        publisher.publish = MagicMock()
+        self._application.config["EQ_FULFILMENT_TOPIC_PROJECT_ID"] = "configured-project-id"
+
+        self._request_individual_response_by_text()
+
+        _, kwargs = publisher.publish.call_args
+        self.assertEqual(kwargs["project_id"], "configured-project-id")
+
 
 class TestIndividualResponseIndividualSection(IndividualResponseTestCase):
     def test_ir_page_titles_render_correctly(self):
