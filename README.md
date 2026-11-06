@@ -9,7 +9,7 @@
 [![poetry-managed](https://img.shields.io/badge/poetry-managed-blue)](https://python-poetry.org/)
 [![License - MIT](https://img.shields.io/badge/licence%20-MIT-1ac403.svg)](https://github.com/ONSdigital/census31-eq-questionnaire-runner/blob/main/LICENSE)
 
-## Run with Docker
+## Run with Docker replace
 
 Install [Docker](https://www.docker.com/) for your system. Make sure that you've installed both docker and docker-compose packages, preferably using Homebrew:
 
