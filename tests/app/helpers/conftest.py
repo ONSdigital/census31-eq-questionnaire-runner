@@ -45,8 +45,7 @@ def expected_footer_census_theme(
     footer_links = [
         {
             "text": "Contact us",
-            "url": contact_us_url
-            or f"{ons_url}/census/aboutcensus/census2031/2027test/contactus/",
+            "url": contact_us_url or f"{ons_url}/census/aboutcensus/census2031/2027test/contactus/",
             "target": "_blank",
         }
     ]
@@ -93,11 +92,7 @@ def expected_footer_census_theme(
             },
         }
     census = {
-        "rows": [
-            {
-                "itemsList": footer_links
-            }
-        ],
+        "rows": [{"itemsList": footer_links}],
         "legal": [
             {
                 "itemsList": [
